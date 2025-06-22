@@ -1,0 +1,18 @@
+{
+  "home_hello": "안녕하세요!",
+  "home_welcome": "{userName}님.",
+  "@home_welcome": {
+    "description": "userName",
+    "placeholder": {
+      "userName": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "home_howareyou": "오늘 기분은 어떠세요?",
+  "tab_home": "홈",
+  "tab_entries": "기록",
+  "tab_settings": "설정",
+  "tab_write": "글쓰기"
+}

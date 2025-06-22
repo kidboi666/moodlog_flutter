@@ -1,0 +1,70 @@
+import 'dart:io';
+
+abstract final class Layout {
+  static const double paddingHorizontal = 16.0;
+  static const double paddingVertical = 16.0;
+  static const double containerMarginTop = 28.0;
+  static const double containerPaddingTop = 80.0;
+  static const double containerPaddingBottom = 180.0;
+  static const double headerVerticalPadding = 12.0;
+  static const double calendarScrollSize = 44.0;
+  static const double recordUnitLineHeight = 26.0;
+  static const double recordCardHeight = 180.0;
+  static const double recordCardExpandedHeight = 450.0;
+  static const double writeProgressBarHeight = 120.0;
+
+  static double get tabBarHeight => Platform.isIOS ? 60.0 : 80.0;
+
+  static double get keyboardVerticalOffset => Platform.isIOS ? 140.0 : 0.0;
+}
+
+abstract final class SnapPoint {
+  static const double delete = 0.3;
+  static const double journalWrite = 0.7;
+  static const double logout = 0.3;
+  static const double auth = 0.6;
+}
+
+const Map<String, String> weekDays = {
+  'mon': 'Mon',
+  'tue': 'Tue',
+  'wed': 'Wed',
+  'thu': 'Thu',
+  'fri': 'Fri',
+  'sat': 'Sat',
+  'sun': 'Sun',
+};
+
+const Map<String, String> months = {
+  'jan': 'Jan',
+  'feb': 'Feb',
+  'mar': 'Mar',
+  'apr': 'Apr',
+  'may': 'May',
+  'jun': 'Jun',
+  'jul': 'Jul',
+  'aug': 'Aug',
+  'sep': 'Sep',
+  'oct': 'Oct',
+  'nov': 'Nov',
+  'dec': 'Dec',
+};
+
+abstract final class DelayMs {
+  static const lazy = 1000;
+  static const medium = 500;
+  static const quick = 300;
+  static const instant = 0;
+}
+
+abstract final class DurationMs {
+  static const lazy = 1000;
+  static const medium = 500;
+  static const quick = 300;
+  static const instant = 150;
+}
+
+abstract final class Emoji {
+  static const shakeHand = '👋';
+  static const pencil = '✏️';
+}
