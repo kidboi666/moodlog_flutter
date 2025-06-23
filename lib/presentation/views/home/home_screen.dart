@@ -1,51 +1,47 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/screen_view.dart';
-import 'home_calendar_box.dart';
+import '../../view_models/home/home_viewmodel.dart';
+import '../../widgets/journal_card.dart';
+import 'home_horizontal_calendar.dart';
 import 'home_welcome_zone.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  final HomeViewModel homeViewModel;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  DateTime _selectedDate = DateTime.now();
-
-  void onSelectedDateChange(DateTime date) {
-    setState(() {
-      _selectedDate = date;
-    });
-  }
+  const HomeScreen({super.key, required this.homeViewModel});
 
   @override
   Widget build(BuildContext context) {
-    return ScreenView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          WelcomeZone(),
-          CalendarBox(
-            selectedDate: _selectedDate,
-            onSelectedDateChange: onSelectedDateChange,
-          ),
-          // ListView(
-          //   children: [
-          // JournalCard(
-          //   content: 'adsasdfdfasdfsdff',
-          //   moodColor: Colors.orange,
-          //   createdAt: DateTime.now(),
-          // ),
-          // JournalCard(
-          //   content: 'adsasdfdfasdfsdfddf',
-          //   moodColor: Colors.orange,
-          //   createdAt: DateTime.now(),
-          // ),
-          // ],
-          // ),
-        ],
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            WelcomeZone(),
+            const SizedBox(height: 20),
+            HorizontalCalendar(
+              homeViewModel: homeViewModel,
+              selectedDate: homeViewModel.selectedDate,
+              onSelectedDateChange: homeViewModel.onSelectedDateChange,
+            ),
+            const SizedBox(height: 20),
+            // ListView(
+            //   shrinkWrap: true,
+            //   children: [
+            JournalCard(
+              content: 'adsasdfdfasdfsdff',
+              moodColor: Colors.orange,
+              createdAt: DateTime.now(),
+            ),
+            // JournalCard(
+            //   content: 'adsasdfdfasdfsdfddf',
+            //   moodColor: Colors.orange,
+            //   createdAt: DateTime.now(),
+            // ),
+            // ],
+            // ),
+          ],
+        ),
       ),
     );
   }

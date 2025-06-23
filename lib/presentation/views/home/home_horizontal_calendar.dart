@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/view_models/home/home_viewmodel.dart';
 
+import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
+import '../../widgets/fade_in.dart';
+import '../../widgets/gradient_box.dart';
 import 'home_date_and_day.dart';
 
-enum DateItem { date, day }
-
 class HorizontalCalendar extends StatefulWidget {
-  final List<Map<DateItem, String>> dateItems;
   final DateTime selectedDate;
   final Function(DateTime) onSelectedDateChange;
+  final HomeViewModel homeViewModel;
 
-  HorizontalCalendar({
+  const HorizontalCalendar({
     super.key,
     required this.selectedDate,
     required this.onSelectedDateChange,
-  }) : dateItems = List.generate(DateTime.now().lastDateOfMonth, (index) {
-         return {
-           DateItem.date: '${index + 1}',
-           DateItem.day: '월화수목금토일'[index % 7],
-         };
-       });
+    required this.homeViewModel,
+  });
 
   @override
   State<HorizontalCalendar> createState() => _HorizontalCalendarState();
 }
 
 class _HorizontalCalendarState extends State<HorizontalCalendar> {
+  final DateTime now = DateTime.now();
   late final ScrollController _controller;
 
   @override
@@ -36,21 +35,42 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70,
-      child: ListView(
-        controller: _controller,
-        scrollDirection: Axis.horizontal,
-        children: widget.dateItems
-            .map(
-              (item) => DateAndDay(
-                day: item[DateItem.day] ?? '',
-                date: item[DateItem.date] ?? '',
-                selectedDate: widget.selectedDate,
-                onTap: widget.onSelectedDateChange,
+    final theme = Theme.of(context);
+    final month = now.monthName;
+
+    return FadeIn(
+      delay: Duration(milliseconds: DelayMs.medium * 4),
+      child: GradientBox(
+        child: Column(
+          spacing: 16,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              month,
+              style: theme.textTheme.displayMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.surface,
               ),
-            )
-            .toList(),
+            ),
+            SizedBox(
+              height: 70,
+              child: ListView(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                children: widget.homeViewModel.dateItems
+                    .map(
+                      (item) => DateAndDay(
+                        day: item[DateItem.day] ?? '',
+                        date: item[DateItem.date] ?? '',
+                        selectedDate: widget.selectedDate,
+                        onTap: widget.onSelectedDateChange,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -29,7 +29,12 @@ class DateAndDay extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: BoxBorder.all(width: 1, color: theme.colorScheme.surface),
+          border: BoxBorder.all(
+            width: 1,
+            color: date == selectedDate
+                ? theme.colorScheme.surface
+                : Colors.transparent,
+          ),
         ),
         width: Layout.calendarScrollSize,
         child: Column(

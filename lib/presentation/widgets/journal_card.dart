@@ -18,11 +18,11 @@ class JournalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Container(
-          width: 8,
-          color: moodColor,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        contentPadding: EdgeInsets.all(16.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
         ),
+        leading: Container(width: 8, color: moodColor),
         title: Text(
           createdAt.toLocal().toString(),
           style: Theme.of(context).textTheme.bodyMedium,

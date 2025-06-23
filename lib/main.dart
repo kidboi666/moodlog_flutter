@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'core/l10n/app_localizations.dart';
+import 'data/data_source/database.dart';
 import 'router/router.dart';
 
 void main() {
@@ -14,20 +16,28 @@ class MoodLogApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiProvider(
+      providers: [
+        Provider<MoodLogDatabase>(
+          create: (context) => MoodLogDatabase(),
+          dispose: (context, db) => db.close(),
+        ),
       ],
-      supportedLocales: [Locale('ko')],
-      theme: ThemeData(
-        fontFamily: 'Pretendard',
-        textTheme: TextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      child: MaterialApp.router(
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [Locale('ko')],
+        theme: ThemeData(
+          fontFamily: 'Pretendard',
+          textTheme: TextTheme(),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ),
+        routerConfig: appRouter,
       ),
-      routerConfig: appRouter,
     );
   }
 }

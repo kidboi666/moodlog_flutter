@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../presentation/view_models/home/home_viewmodel.dart';
 import '../presentation/views/entries/entries_screen.dart';
 import '../presentation/views/home/home_screen.dart';
 import '../presentation/views/journal/journal_screen.dart';
@@ -25,7 +26,8 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: Routes.home,
               builder: (context, state) {
-                return HomeScreen();
+                final homeViewModel = HomeViewModel();
+                return HomeScreen(homeViewModel: homeViewModel);
               },
               routes: [
                 GoRoute(
