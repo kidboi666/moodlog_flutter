@@ -2,14 +2,14 @@ import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../domain/entities/journal.dart';
 import 'schema.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [Journals, Stats, AppState])
+@DriftDatabase(tables: [Journals, Stats, AppStates])
 class MoodLogDatabase extends _$MoodLogDatabase {
-  MoodLogDatabase([QueryExecutor? executor])
-    : super(executor ?? _openConnection());
+  MoodLogDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;

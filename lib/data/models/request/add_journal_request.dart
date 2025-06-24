@@ -1,17 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'add_journal_request.freezed.dart';
-part 'add_journal_request.g.dart';
+class AddJournalRequest extends Equatable {
+  final String? content;
+  final String moodName;
+  final String? imageUri;
 
-@freezed
-abstract class AddJournalRequest with _$AddJournalRequest {
-  const factory AddJournalRequest({
-    required String? content,
-    required String moodName,
-    required String? imageUri,
-    required bool aiResponseEnabled,
-  }) = _AddJournalRequest;
+  const AddJournalRequest({
+    required this.content,
+    required this.moodName,
+    required this.imageUri,
+  });
 
-  factory AddJournalRequest.fromJson(Map<String, Object?> json) =>
-      _$AddJournalRequestFromJson(json);
+  @override
+  List<Object?> get props => [content, moodName, imageUri];
 }
