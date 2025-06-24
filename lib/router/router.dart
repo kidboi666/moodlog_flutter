@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../presentation/view_models/home/home_viewmodel.dart';
+import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/entries_screen.dart';
 import '../presentation/views/home/home_screen.dart';
 import '../presentation/views/journal/journal_screen.dart';
@@ -26,8 +28,10 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: Routes.home,
               builder: (context, state) {
-                final homeViewModel = HomeViewModel();
-                return HomeScreen(homeViewModel: homeViewModel);
+                final homeViewModel = HomeViewModel(
+                  journalRepository: context.read(),
+                );
+                return HomeScreen(viewModel: homeViewModel);
               },
               routes: [
                 GoRoute(
@@ -65,7 +69,8 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: Routes.write,
               builder: (context, state) {
-                return WriteScreen();
+                final viewModel = WriteViewModel();
+                return WriteScreen(viewModel: viewModel);
               },
             ),
           ],

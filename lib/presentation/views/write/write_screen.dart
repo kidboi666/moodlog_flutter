@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/presentation/view_models/write/write_viewmodel.dart';
 
 class WriteScreen extends StatefulWidget {
-  const WriteScreen({super.key, required this.vm});
+  const WriteScreen({super.key, required this.viewModel});
 
-  final WriteViewModel vm;
+  final WriteViewModel viewModel;
 
   @override
   State<WriteScreen> createState() => _WriteScreenState();

@@ -6,9 +6,9 @@ import 'home_horizontal_calendar.dart';
 import 'home_welcome_zone.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeViewModel homeViewModel;
+  final HomeViewModel viewModel;
 
-  const HomeScreen({super.key, required this.homeViewModel});
+  const HomeScreen({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +20,29 @@ class HomeScreen extends StatelessWidget {
             WelcomeZone(),
             const SizedBox(height: 20),
             HorizontalCalendar(
-              homeViewModel: homeViewModel,
-              selectedDate: homeViewModel.selectedDate,
-              onSelectedDateChange: homeViewModel.onSelectedDateChange,
+              homeViewModel: viewModel,
+              selectedDate: viewModel.selectedDate,
+              onSelectedDateChange: viewModel.onSelectedDateChange,
             ),
             const SizedBox(height: 20),
-            // ListView(
-            //   shrinkWrap: true,
-            //   children: [
-            JournalCard(
-              content: 'adsasdfdfasdfsdff',
-              moodColor: Colors.orange,
-              createdAt: DateTime.now(),
+            ListenableBuilder(
+              listenable: viewModel,
+              builder: (context, _) {
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: viewModel.journal
+                      .map(
+                        (e) => JournalCard(
+                          content: e.content ?? '',
+                          moodName: e.moodName,
+                          createdAt: e.createdAt,
+                        ),
+                      )
+                      .toList(),
+                );
+              },
             ),
-            // JournalCard(
-            //   content: 'adsasdfdfasdfsdfddf',
-            //   moodColor: Colors.orange,
-            //   createdAt: DateTime.now(),
-            // ),
-            // ],
-            // ),
           ],
         ),
       ),

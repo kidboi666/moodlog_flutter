@@ -1,8 +1,10 @@
 import 'package:drift/drift.dart';
-import 'package:moodlog/data/models/request/add_journal_request.dart';
 
+import '../../core/utils/result.dart';
+import '../../domain/entities/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/database.dart';
+import '../models/request/add_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
@@ -10,28 +12,39 @@ class JournalRepositoryImpl implements JournalRepository {
   JournalRepositoryImpl({required MoodLogDatabase? db}) : _db = db!;
 
   @override
-  Future<List<Journal>> getJournals() async {
-    return (_db.select(_db.journals)).get();
+  Future<Result<List<Journal>>> getJournals() async {
+    final journals = await (_db.select(_db.journals)).get();
+    if (journals.isEmpty) {
+      return Result.error(Exception('journals not found'));
+    }
+    return Result.ok(journals);
   }
 
   @override
-  Stream<dynamic> getJournalById(int id) {
-    return (_db.select(
+  Future<Result<Journal>> getJournalById(int id) async {
+    final journal = await (_db.select(
       _db.journals,
-    )..where((t) => t.id.equals(id))).watchSingle();
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    if (journal == null) {
+      return Result.error(Exception('journal not found'));
+    }
+    return Result.ok(journal);
   }
 
   @override
-  Future<void> addJournal(AddJournalRequest dto) async {
-    await _db
+  Future<Result<Journal>> addJournal(AddJournalRequest dto) async {
+    final journal = await _db
         .into(_db.journals)
-        .insert(
+        .insertReturningOrNull(
           JournalsCompanion(
             content: Value(dto.content),
             moodName: Value(dto.moodName),
             imageUri: Value(dto.imageUri),
-            aiResponseEnabled: Value(dto.aiResponseEnabled),
           ),
         );
+    if (journal == null) {
+      return Result.error(Exception('journal not found'));
+    }
+    return Result.ok(journal);
   }
 }

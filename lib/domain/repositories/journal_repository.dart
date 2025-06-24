@@ -1,9 +1,11 @@
+import '../../core/utils/result.dart';
 import '../../data/models/request/add_journal_request.dart';
+import '../entities/journal.dart';
 
 abstract class JournalRepository {
-  Future<List<dynamic>> getJournals();
+  Future<Result<List<Journal>>> getJournals();
 
-  Stream<dynamic> getJournalById(int id);
+  Future<Result<Journal>> getJournalById(int id);
 
-  Future<void> addJournal(AddJournalRequest dto);
+  Future<Result<void>> addJournal(AddJournalRequest dto);
 }
