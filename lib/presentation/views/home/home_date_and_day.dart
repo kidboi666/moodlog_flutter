@@ -40,7 +40,7 @@ class DateAndDay extends StatelessWidget {
         child: Column(
           children: [
             Text(day, style: dateStyle),
-            Text(date, style: dateStyle),
+            Text(date.toString(), style: dateStyle),
           ],
         ),
       ),

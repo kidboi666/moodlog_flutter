@@ -7,5 +7,5 @@ abstract class JournalRepository {
 
   Future<Result<Journal>> getJournalById(int id);
 
-  Future<Result<void>> addJournal(AddJournalRequest dto);
+  Future<Result<int>> addJournal(AddJournalRequest dto);
 }

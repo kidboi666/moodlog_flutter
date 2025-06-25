@@ -7,5 +7,5 @@ abstract final class Routes {
   static const String write = '/$writeRelative';
   static const String writeRelative = 'write';
 
-  static String journal(id) => '/journal/$id';
+  static String journal(id) => '/$id';
 }

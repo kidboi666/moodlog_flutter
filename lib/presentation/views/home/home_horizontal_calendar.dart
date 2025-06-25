@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/view_models/home/home_viewmodel.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
+import '../../view_models/home/home_viewmodel.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/gradient_box.dart';
 import 'home_date_and_day.dart';

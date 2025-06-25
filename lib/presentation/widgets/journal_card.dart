@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/router/routes.dart';
 
 class JournalCard extends StatelessWidget {
+  final int id;
   final String content;
   final String moodName;
   final String? coverImg;
@@ -8,6 +11,7 @@ class JournalCard extends StatelessWidget {
 
   const JournalCard({
     super.key,
+    required this.id,
     required this.content,
     required this.moodName,
     required this.createdAt,
@@ -17,16 +21,19 @@ class JournalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = '${createdAt.toLocal().toString()} - $moodName';
-    return Card(
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+    return GestureDetector(
+      onTap: () => context.push(Routes.journal(id)),
+      child: Card(
+        child: ListTile(
+          contentPadding: EdgeInsets.all(16.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          leading: Container(width: 8),
+          title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+          subtitle: Text(content, style: Theme.of(context).textTheme.bodyLarge),
+          trailing: Icon(Icons.more_vert),
         ),
-        leading: Container(width: 8),
-        title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
-        subtitle: Text(content, style: Theme.of(context).textTheme.bodyLarge),
-        trailing: Icon(Icons.more_vert),
       ),
     );
   }

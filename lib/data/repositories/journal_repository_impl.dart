@@ -32,7 +32,7 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<Journal>> addJournal(AddJournalRequest dto) async {
+  Future<Result<int>> addJournal(AddJournalRequest dto) async {
     final journal = await _db
         .into(_db.journals)
         .insertReturningOrNull(
@@ -43,8 +43,8 @@ class JournalRepositoryImpl implements JournalRepository {
           ),
         );
     if (journal == null) {
-      return Result.error(Exception('journal not found'));
+      return Result.error(Exception('Failed to add journal'));
     }
-    return Result.ok(journal);
+    return Result.ok(journal.id);
   }
 }

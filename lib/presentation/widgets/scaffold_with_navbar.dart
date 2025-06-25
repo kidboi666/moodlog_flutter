@@ -30,29 +30,31 @@ class ScaffoldWithNavbar extends StatelessWidget {
         currentIndex: navigationShell.currentIndex,
         children: children,
       ),
-      bottomNavigationBar: NavigationBar(
-        elevation: 30.0,
-        animationDuration: const Duration(milliseconds: DurationMs.lazy),
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: _onTap,
-        destinations: const <Widget>[
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_filled),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.book_outlined),
-            selectedIcon: Icon(Icons.book),
-            label: 'Entries',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          SizedBox(width: 10),
-        ],
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.circular(40.0),
+        child: NavigationBar(
+          animationDuration: const Duration(milliseconds: DurationMs.lazy),
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: _onTap,
+          destinations: const <Widget>[
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home_filled),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.book_outlined),
+              selectedIcon: Icon(Icons.book),
+              label: 'Entries',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            SizedBox(width: 10),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => router.go(Routes.write),

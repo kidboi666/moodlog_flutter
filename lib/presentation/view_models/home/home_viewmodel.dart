@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 
 import '../../../core/extensions/date_time.dart';
 import '../../../core/utils/result.dart';
@@ -11,13 +12,13 @@ class HomeViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
 
   HomeViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository;
+    : _journalRepository = journalRepository {
+    _load();
+  }
+
+  final Logger _log = Logger('HomeViewModel');
   List<Journal> _journal = [];
-
   DateTime selectedDate = DateTime.now();
-
-  List<Journal> get journal => _journal;
-
   final List<Map<DateItem, String>> dateItems = List.generate(
     DateTime.now().lastDateOfMonth,
     (index) {
@@ -28,24 +29,24 @@ class HomeViewModel extends ChangeNotifier {
     },
   );
 
+  List<Journal> get journal => _journal;
+
   void onSelectedDateChange(DateTime date) {
     selectedDate = date;
     notifyListeners();
   }
 
-  Future<Result<void>> load() async {
-    try {
-      final result = await _journalRepository.getJournals();
-      switch (result) {
-        case Ok<List<Journal>>():
-          _journal = result.value;
-        case Error<List<Journal>>():
-          _journal = [];
-          print(result.error);
-      }
-    } finally {
-      notifyListeners();
+  Future<Result<void>> _load() async {
+    final result = await _journalRepository.getJournals();
+    switch (result) {
+      case Ok<List<Journal>>():
+        _journal = result.value;
+        _log.fine('Loaded User');
+      case Error<List<Journal>>():
+        _journal = [];
+        _log.warning('Failed to load journals', result.error);
     }
+    notifyListeners();
     return Result.ok(null);
   }
 }

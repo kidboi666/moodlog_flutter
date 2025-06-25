@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/view_models/journal/journal_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../presentation/view_models/home/home_viewmodel.dart';
@@ -11,9 +12,10 @@ import '../presentation/views/write/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
-final GoRouter appRouter = GoRouter(
+GoRouter router() => GoRouter(
   initialLocation: Routes.home,
-  routes: <RouteBase>[
+  debugLogDiagnostics: true,
+  routes: [
     StatefulShellRoute(
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
@@ -22,30 +24,22 @@ final GoRouter appRouter = GoRouter(
           children: children,
         );
       },
-      branches: <StatefulShellBranch>[
+      branches: [
         StatefulShellBranch(
-          routes: <RouteBase>[
+          routes: [
             GoRoute(
               path: Routes.home,
               builder: (context, state) {
-                final homeViewModel = HomeViewModel(
+                final viewModel = HomeViewModel(
                   journalRepository: context.read(),
                 );
-                return HomeScreen(viewModel: homeViewModel);
+                return HomeScreen(viewModel: viewModel);
               },
-              routes: [
-                GoRoute(
-                  path: Routes.journal(':id'),
-                  builder: (context, state) {
-                    return JournalScreen(id: state.pathParameters['id']);
-                  },
-                ),
-              ],
             ),
           ],
         ),
         StatefulShellBranch(
-          routes: <RouteBase>[
+          routes: [
             GoRoute(
               path: Routes.entries,
               builder: (context, state) {
@@ -55,7 +49,7 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          routes: <RouteBase>[
+          routes: [
             GoRoute(
               path: Routes.settings,
               builder: (context, state) {
@@ -65,17 +59,28 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          routes: <RouteBase>[
+          routes: [
             GoRoute(
               path: Routes.write,
               builder: (context, state) {
-                final viewModel = WriteViewModel();
+                final viewModel = WriteViewModel(
+                  journalRepository: context.read(),
+                );
                 return WriteScreen(viewModel: viewModel);
               },
             ),
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/:id',
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        final viewModel = JournalViewModel(journalRepository: context.read());
+        viewModel.load(id);
+        return JournalScreen(viewModel: viewModel);
+      },
     ),
   ],
 );

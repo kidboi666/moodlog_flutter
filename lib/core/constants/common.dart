@@ -68,3 +68,14 @@ abstract final class Emoji {
   static const shakeHand = '👋';
   static const pencil = '✏️';
 }
+
+abstract final class MoodColor {
+  static const happy = '#ffd700';
+  static const sad = '#4682B4';
+  static const angry = '#FF4500';
+  static const excited = '#FF69B4';
+  static const calm = '#20B2AA';
+  static const tired = '#708090';
+  static const anxious = '#9932CC';
+  static const grateful = '#32CD32';
+}

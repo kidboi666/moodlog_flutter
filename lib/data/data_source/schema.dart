@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
 
+import '../../domain/entities/app_state.dart';
 import '../../domain/entities/journal.dart';
+import '../../domain/entities/stat.dart';
 
 @UseRowClass(Journal)
 class Journals extends Table {
@@ -15,7 +17,7 @@ class Journals extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
-@DataClassName('Stat')
+@UseRowClass(Stat)
 class Stats extends Table {
   IntColumn get id => integer().autoIncrement()();
 
@@ -26,7 +28,7 @@ class Stats extends Table {
   TextColumn get lastActiveDate => text()();
 }
 
-@DataClassName('AppState')
+@UseRowClass(AppState)
 class AppStates extends Table {
   BoolColumn get isInitialApp => boolean().withDefault(const Constant(true))();
 

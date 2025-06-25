@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:moodlog/data/repositories/journal_repository_impl.dart';
 import 'package:provider/provider.dart';
 
 import 'core/l10n/app_localizations.dart';
 import 'data/data_source/database.dart';
+import 'data/repositories/journal_repository_impl.dart';
 import 'domain/repositories/journal_repository.dart';
 import 'router/router.dart';
 
@@ -44,7 +44,7 @@ class MoodLogApp extends StatelessWidget {
         textTheme: TextTheme(),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      routerConfig: appRouter,
+      routerConfig: router(),
     );
   }
 }

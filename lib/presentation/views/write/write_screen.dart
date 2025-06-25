@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/view_models/write/write_viewmodel.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../router/routes.dart';
+import '../../view_models/write/write_viewmodel.dart';
 
 class WriteScreen extends StatefulWidget {
-  const WriteScreen({super.key, required this.viewModel});
-
   final WriteViewModel viewModel;
+
+  const WriteScreen({super.key, required this.viewModel});
 
   @override
   State<WriteScreen> createState() => _WriteScreenState();
 }
 
 class _WriteScreenState extends State<WriteScreen> {
-  final TextEditingController _contentController = TextEditingController();
-  final String _moodName = 'happy';
+  @override
+  void initState() {
+    super.initState();
+    widget.viewModel.addListener(_listener);
+  }
+
+  void _listener() {
+    if (widget.viewModel.isSubmitted) {
+      context.go(
+        Routes.journal(widget.viewModel.submittedJournalId.toString()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +35,18 @@ class _WriteScreenState extends State<WriteScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            TextField(controller: _contentController),
-            Text(_moodName),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'content',
+              ),
+              onChanged: widget.viewModel.onContentChange,
+            ),
+            TextField(onChanged: widget.viewModel.onMoodNameChange),
+            ElevatedButton(
+              onPressed: widget.viewModel.onSubmit,
+              child: Text('submit'),
+            ),
           ],
         ),
       ),
@@ -31,7 +55,7 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   void dispose() {
-    _contentController.dispose();
+    widget.viewModel.removeListener(_listener);
     super.dispose();
   }
 }

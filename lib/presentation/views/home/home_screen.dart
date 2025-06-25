@@ -34,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                   children: viewModel.journal
                       .map(
                         (e) => JournalCard(
+                          id: e.id,
                           content: e.content ?? '',
                           moodName: e.moodName,
                           createdAt: e.createdAt,
