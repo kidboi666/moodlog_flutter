@@ -24,7 +24,7 @@ class DateAndDay extends StatelessWidget {
       color: theme.colorScheme.surface,
     );
 
-    return GestureDetector(
+    return InkWell(
       onTap: () {},
       child: Container(
         decoration: BoxDecoration(

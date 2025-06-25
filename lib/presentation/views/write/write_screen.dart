@@ -30,12 +30,19 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(),
+        title: Text('Write'),
+        centerTitle: true,
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             TextField(
+              minLines: 4,
+              maxLines: 4,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'content',

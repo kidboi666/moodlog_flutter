@@ -21,14 +21,12 @@ class JournalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = '${createdAt.toLocal().toString()} - $moodName';
-    return GestureDetector(
-      onTap: () => context.push(Routes.journal(id)),
-      child: Card(
+    return Card(
+      child: InkWell(
+        onTap: () => context.push(Routes.journal(id)),
+        borderRadius: BorderRadius.circular(12.0),
         child: ListTile(
           contentPadding: EdgeInsets.all(16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
           leading: Container(width: 8),
           title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
           subtitle: Text(content, style: Theme.of(context).textTheme.bodyLarge),

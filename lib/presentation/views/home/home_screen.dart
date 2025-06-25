@@ -12,40 +12,38 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            WelcomeZone(),
-            const SizedBox(height: 20),
-            HorizontalCalendar(
-              homeViewModel: viewModel,
-              selectedDate: viewModel.selectedDate,
-              onSelectedDateChange: viewModel.onSelectedDateChange,
-            ),
-            const SizedBox(height: 20),
-            ListenableBuilder(
-              listenable: viewModel,
-              builder: (context, _) {
-                return ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: viewModel.journal
-                      .map(
-                        (e) => JournalCard(
-                          id: e.id,
-                          content: e.content ?? '',
-                          moodName: e.moodName,
-                          createdAt: e.createdAt,
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ListView(
+        children: [
+          WelcomeZone(),
+          const SizedBox(height: 20),
+          HorizontalCalendar(
+            homeViewModel: viewModel,
+            selectedDate: viewModel.selectedDate,
+            onSelectedDateChange: viewModel.onSelectedDateChange,
+          ),
+          const SizedBox(height: 20),
+          ListenableBuilder(
+            listenable: viewModel,
+            builder: (context, _) {
+              return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: viewModel.journal
+                    .map(
+                      (e) => JournalCard(
+                        id: e.id,
+                        content: e.content ?? '',
+                        moodName: e.moodName,
+                        createdAt: e.createdAt,
+                      ),
+                    )
+                    .toList(),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

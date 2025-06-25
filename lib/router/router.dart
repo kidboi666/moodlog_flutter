@@ -58,20 +58,14 @@ GoRouter router() => GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: Routes.write,
-              builder: (context, state) {
-                final viewModel = WriteViewModel(
-                  journalRepository: context.read(),
-                );
-                return WriteScreen(viewModel: viewModel);
-              },
-            ),
-          ],
-        ),
       ],
+    ),
+    GoRoute(
+      path: Routes.write,
+      builder: (context, state) {
+        final viewModel = WriteViewModel(journalRepository: context.read());
+        return WriteScreen(viewModel: viewModel);
+      },
     ),
     GoRoute(
       path: '/:id',

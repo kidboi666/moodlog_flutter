@@ -1,8 +1,8 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/utils/animated_container.dart';
 import '../../router/routes.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
@@ -24,15 +24,16 @@ class ScaffoldWithNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
     return Scaffold(
-      body: AnimatedBranchContainer(
+      extendBody: true,
+      body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.circular(40.0),
         child: NavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           animationDuration: const Duration(milliseconds: DurationMs.lazy),
           selectedIndex: navigationShell.currentIndex,
           onDestinationSelected: _onTap,
@@ -57,48 +58,10 @@ class ScaffoldWithNavbar extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => router.go(Routes.write),
+        onPressed: () => context.push(Routes.write),
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
-}
-
-class AnimatedBranchContainer extends StatelessWidget {
-  /// Creates a AnimatedBranchContainer
-  const AnimatedBranchContainer({
-    super.key,
-    required this.currentIndex,
-    required this.children,
-  });
-
-  /// The index (in [children]) of the branch Navigator to display.
-  final int currentIndex;
-
-  /// The children (branch Navigators) to display in this container.
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: children.mapIndexed((int index, Widget navigator) {
-        return AnimatedSlide(
-          offset: Offset(0, index == currentIndex ? 0 : 0.01),
-          curve: Curves.easeInOutCubic,
-          duration: const Duration(milliseconds: 400),
-          child: AnimatedOpacity(
-            opacity: index == currentIndex ? 1 : 0,
-            duration: const Duration(milliseconds: 400),
-            child: _branchNavigatorWrapper(index, navigator),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _branchNavigatorWrapper(int index, Widget navigator) => IgnorePointer(
-    ignoring: index != currentIndex,
-    child: TickerMode(enabled: index == currentIndex, child: navigator),
-  );
 }
