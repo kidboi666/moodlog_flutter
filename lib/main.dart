@@ -42,7 +42,7 @@ class MoodLogApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Pretendard',
         textTheme: TextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
       ),
       routerConfig: router(),
     );

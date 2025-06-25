@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:drift/drift.dart';
 
-class AddJournalRequest extends Equatable {
+class AddJournalRequest extends Table {
   final String? content;
   final String moodName;
   final String? imageUri;
@@ -10,7 +10,4 @@ class AddJournalRequest extends Equatable {
     required this.moodName,
     required this.imageUri,
   });
-
-  @override
-  List<Object?> get props => [content, moodName, imageUri];
 }

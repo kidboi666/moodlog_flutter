@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class BackButton extends StatelessWidget {
+class PopButton extends StatelessWidget {
   final GestureTapCallback? onTap;
 
-  const BackButton({super.key, this.onTap});
+  const PopButton({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {

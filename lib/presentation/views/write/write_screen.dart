@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../router/routes.dart';
 import '../../view_models/write/write_viewmodel.dart';
+import '../../widgets/pop_button.dart';
 
 class WriteScreen extends StatefulWidget {
   final WriteViewModel viewModel;
@@ -14,6 +16,8 @@ class WriteScreen extends StatefulWidget {
 }
 
 class _WriteScreenState extends State<WriteScreen> {
+  bool light = true;
+
   @override
   void initState() {
     super.initState();
@@ -30,9 +34,11 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: PopButton(),
         title: Text('Write'),
         centerTitle: true,
       ),
@@ -44,12 +50,41 @@ class _WriteScreenState extends State<WriteScreen> {
               minLines: 4,
               maxLines: 4,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'content',
+                fillColor: Theme.of(context).colorScheme.surfaceContainer,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                labelText: t.write_input_placeholder,
               ),
               onChanged: widget.viewModel.onContentChange,
             ),
-            TextField(onChanged: widget.viewModel.onMoodNameChange),
+            Card(
+              clipBehavior: Clip.hardEdge,
+              child: InkWell(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Icon(Icons.radio),
+                    Column(
+                      children: [
+                        Text('AI 위로 메시지'),
+                        Text('일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.'),
+                      ],
+                    ),
+                    Switch(
+                      value: light,
+                      activeColor: Colors.red,
+                      onChanged: (bool value) {
+                        setState(() {
+                          light = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
             ElevatedButton(
               onPressed: widget.viewModel.onSubmit,
               child: Text('submit'),

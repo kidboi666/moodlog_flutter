@@ -94,6 +94,114 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('ko')];
 
+  /// No description provided for @onboarding_welcome_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'무드로그에 오신것을 환영합니다!'**
+  String get onboarding_welcome_title;
+
+  /// No description provided for @onboarding_welcome_description1.
+  ///
+  /// In ko, this message translates to:
+  /// **'무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장 앱 입니다.'**
+  String get onboarding_welcome_description1;
+
+  /// No description provided for @onboarding_welcome_description2.
+  ///
+  /// In ko, this message translates to:
+  /// **'매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을 발견해보세요.'**
+  String get onboarding_welcome_description2;
+
+  /// No description provided for @onboarding_welcome_next.
+  ///
+  /// In ko, this message translates to:
+  /// **'함께 무드로그를 시작해볼까요?'**
+  String get onboarding_welcome_next;
+
+  /// No description provided for @onboarding_nickname_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임 설정'**
+  String get onboarding_nickname_title;
+
+  /// No description provided for @onboarding_nickname_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'무드로그에서 사용할 닉네임을 입력해주세요'**
+  String get onboarding_nickname_description;
+
+  /// No description provided for @onboarding_nickname_input_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임'**
+  String get onboarding_nickname_input_title;
+
+  /// No description provided for @onboarding_nickname_input_placeholder.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임을 입력하세요 (2~10자)'**
+  String get onboarding_nickname_input_placeholder;
+
+  /// No description provided for @onboarding_nickname_next.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.'**
+  String get onboarding_nickname_next;
+
+  /// No description provided for @onboarding_personality_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'시작할 준비가 되었어요!'**
+  String get onboarding_personality_title;
+
+  /// No description provided for @onboarding_personality_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'당신의 일기에 답장해줄 AI의 친절도를 선택하세요.'**
+  String get onboarding_personality_description;
+
+  /// No description provided for @onboarding_personality_option1_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'냉철한 분석가'**
+  String get onboarding_personality_option1_title;
+
+  /// No description provided for @onboarding_personality_option1_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'객관적이고 실용적인 조언을 제공합니다'**
+  String get onboarding_personality_option1_description;
+
+  /// No description provided for @onboarding_personality_option2_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'균형잡힌 조언자'**
+  String get onboarding_personality_option2_title;
+
+  /// No description provided for @onboarding_personality_option2_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'공감과 현실적 조언의 균형을 맞춥니다.'**
+  String get onboarding_personality_option2_description;
+
+  /// No description provided for @onboarding_personality_option3_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'다정한 치유자'**
+  String get onboarding_personality_option3_title;
+
+  /// No description provided for @onboarding_personality_option3_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'따뜻한 위로와 깊은 공감을 전합니다.'**
+  String get onboarding_personality_option3_description;
+
+  /// No description provided for @onboarding_personality_next.
+  ///
+  /// In ko, this message translates to:
+  /// **'시작하기'**
+  String get onboarding_personality_next;
+
   /// No description provided for @home_hello.
   ///
   /// In ko, this message translates to:
@@ -135,6 +243,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'글쓰기'**
   String get tab_write;
+
+  /// No description provided for @write_input_placeholder.
+  ///
+  /// In ko, this message translates to:
+  /// **'내용'**
+  String get write_input_placeholder;
 }
 
 class _AppLocalizationsDelegate
