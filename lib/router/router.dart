@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/view_models/journal/journal_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/repositories/app_state_repository.dart';
 import '../presentation/view_models/home/home_viewmodel.dart';
+import '../presentation/view_models/journal/journal_viewmodel.dart';
+import '../presentation/view_models/onboarding/onboarding_viewmodel.dart';
 import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/entries_screen.dart';
 import '../presentation/views/home/home_screen.dart';
@@ -22,7 +23,10 @@ GoRouter router() => GoRouter(
   routes: [
     GoRoute(
       path: Routes.onboarding,
-      builder: (context, state) => const OnboardingScreen(),
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => OnboardingViewModel(totalSteps: 3),
+        child: const OnboardingScreen(),
+      ),
     ),
 
     StatefulShellRoute(

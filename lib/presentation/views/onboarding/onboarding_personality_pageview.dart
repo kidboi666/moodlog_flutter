@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
 
+import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
 
-class OnboardingWelcomePageView extends StatelessWidget {
-  const OnboardingWelcomePageView({super.key});
+class OnboardingPersonalityPageView extends StatelessWidget {
+  const OnboardingPersonalityPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +14,28 @@ class OnboardingWelcomePageView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 40,
-      children: [
+      children: <Widget>[
         FadeIn(
           child: Text(
-            t.onboarding_welcome_title,
-            style: Theme.of(context).textTheme.displaySmall,
+            t.onboarding_personality_title,
+            style: Theme.of(
+              context,
+            ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         FadeIn(
           delay: const Duration(milliseconds: DelayMs.lazy),
           child: Text(
-            t.onboarding_welcome_description1,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            t.onboarding_personality_description,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
+        TextFormField(),
         Expanded(
           flex: 1,
           child: FadeIn(
             delay: const Duration(milliseconds: DelayMs.lazy * 2),
-            child: Text(
-              t.onboarding_welcome_description2,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            child: Text(t.onboarding_welcome_description2),
           ),
         ),
         FadeIn(

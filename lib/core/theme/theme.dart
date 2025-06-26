@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+abstract final class AppTheme {
+  static ThemeData lightTheme = ThemeData(
+    fontFamily: 'Pretendard',
+    brightness: Brightness.light,
+    textTheme: _textTheme,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: Brightness.light,
+    ),
+  );
+
+  static ThemeData darkTheme = ThemeData(
+    fontFamily: 'Pretendard',
+    brightness: Brightness.dark,
+    textTheme: _textTheme,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: Brightness.dark,
+    ),
+  );
+
+  static const _boldFontWeight = FontWeight.bold;
+
+  static const _textTheme = TextTheme(
+    displayLarge: TextStyle(fontWeight: _boldFontWeight),
+    displayMedium: TextStyle(fontWeight: _boldFontWeight),
+    displaySmall: TextStyle(fontWeight: _boldFontWeight),
+    headlineLarge: TextStyle(fontWeight: _boldFontWeight),
+    headlineMedium: TextStyle(fontWeight: _boldFontWeight),
+    headlineSmall: TextStyle(fontWeight: _boldFontWeight),
+    titleLarge: TextStyle(fontWeight: _boldFontWeight),
+    titleMedium: TextStyle(fontWeight: _boldFontWeight),
+    titleSmall: TextStyle(fontWeight: _boldFontWeight),
+  );
+}

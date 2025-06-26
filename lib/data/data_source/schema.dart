@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 
-import '../../domain/entities/app_state.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/stat.dart';
 
