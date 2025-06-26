@@ -1,5 +1,7 @@
 abstract final class Routes {
   static const String home = '/';
+  static const String onboarding = '/$onboardingRelative';
+  static const String onboardingRelative = 'onboarding';
   static const String settings = '/$settingsRelative';
   static const String settingsRelative = 'settings';
   static const String entries = '/$entriesRelative';

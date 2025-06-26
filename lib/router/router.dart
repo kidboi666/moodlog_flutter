@@ -1,21 +1,30 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/presentation/view_models/journal/journal_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/repositories/app_state_repository.dart';
 import '../presentation/view_models/home/home_viewmodel.dart';
 import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/entries_screen.dart';
 import '../presentation/views/home/home_screen.dart';
 import '../presentation/views/journal/journal_screen.dart';
+import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/settings_screen.dart';
 import '../presentation/views/write/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router() => GoRouter(
-  initialLocation: Routes.home,
+  initialLocation: Routes.onboarding,
   debugLogDiagnostics: true,
+  // redirect: _redirect,
   routes: [
+    GoRoute(
+      path: Routes.onboarding,
+      builder: (context, state) => const OnboardingScreen(),
+    ),
+
     StatefulShellRoute(
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
@@ -60,6 +69,7 @@ GoRouter router() => GoRouter(
         ),
       ],
     ),
+
     GoRoute(
       path: Routes.write,
       builder: (context, state) {
@@ -78,3 +88,13 @@ GoRouter router() => GoRouter(
     ),
   ],
 );
+
+Future<String?> _redirect(BuildContext context, GoRouterState state) async {
+  final result = await context.read<AppStateRepository>().getAppState();
+  final isFirstLaunch = result.isFirstLaunch;
+
+  if (isFirstLaunch) {
+    return Routes.onboarding;
+  }
+  return Routes.home;
+}

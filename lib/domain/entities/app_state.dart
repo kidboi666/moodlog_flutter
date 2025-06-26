@@ -1,13 +1,24 @@
-class AppState {
-  final bool isInitialApp;
-  final bool isDarkMode;
-  final DateTime? lastActiveDate;
-  final DateTime firstExecutedDate;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  AppState({
-    required this.isInitialApp,
-    required this.isDarkMode,
-    required this.lastActiveDate,
-    required this.firstExecutedDate,
-  });
+part 'app_state.freezed.dart';
+part 'app_state.g.dart';
+
+@freezed
+abstract class AppState with _$AppState {
+  const AppState._();
+
+  const factory AppState({
+    @Default(true) bool isFirstLaunch,
+    @Default(ThemeMode.system) ThemeMode themeMode,
+    @Default(LanguageCode.ko) LanguageCode languageCode,
+    DateTime? lastActiveDate,
+    DateTime? firstLaunchedDate,
+  }) = _AppState;
+
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
 }
+
+enum ThemeMode { system, dark, light }
+
+enum LanguageCode { ko, en }

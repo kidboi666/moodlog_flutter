@@ -13,7 +13,7 @@ class GradientBox extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(28),
         gradient: LinearGradient(
           colors: [
             theme.colorScheme.onSurface,
@@ -34,7 +34,7 @@ class GradientBox extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(
             colors: [
               theme.colorScheme.onSurfaceVariant,

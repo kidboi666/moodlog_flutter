@@ -9,6 +9,7 @@ class PaginationDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         total,
         (index) => GestureDetector(

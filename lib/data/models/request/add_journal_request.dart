@@ -1,13 +1,12 @@
-import 'package:drift/drift.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class AddJournalRequest extends Table {
-  final String? content;
-  final String moodName;
-  final String? imageUri;
+part 'add_journal_request.freezed.dart';
 
-  const AddJournalRequest({
-    required this.content,
-    required this.moodName,
-    required this.imageUri,
-  });
+@freezed
+abstract class AddJournalRequest with _$AddJournalRequest {
+  const factory AddJournalRequest({
+    String? content,
+    required String moodName,
+    String? imageUri,
+  }) = _AddJournalRequest;
 }

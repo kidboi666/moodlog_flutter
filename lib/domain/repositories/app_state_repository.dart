@@ -1,5 +1,11 @@
-abstract class AppStateRepository {
-  Future<void> initializeFirstLaunchStatus();
+import '../entities/app_state.dart';
 
-  Future<void> updateExecutedDate();
+abstract class AppStateRepository {
+  Future<AppState> getAppState();
+
+  Future<void> setFirstLaunchComplete();
+
+  Future<void> updateThemeMode(String themeMode);
+
+  Future<void> updateLanguage(String languageCode);
 }

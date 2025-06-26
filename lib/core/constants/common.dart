@@ -79,3 +79,11 @@ abstract final class MoodColor {
   static const anxious = '#9932CC';
   static const grateful = '#32CD32';
 }
+
+abstract final class PreferenceKeys {
+  static const isFirstLaunch = 'is_first_launch';
+  static const themeMode = 'theme_mode';
+  static const languageCode = 'language_code';
+  static const lastActiveDate = 'last_active_date';
+  static const firstLaunchedDate = 'first_launched_date';
+}

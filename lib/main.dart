@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:moodlog/core/providers/app_state_provider.dart';
+import 'package:moodlog/data/repositories/app_state_repository_impl.dart';
 import 'package:provider/provider.dart';
 
 import 'core/l10n/app_localizations.dart';
@@ -15,6 +17,11 @@ void main() {
         Provider(
           create: (_) => MoodLogDatabase(),
           dispose: (_, db) => db.close(),
+        ),
+        Provider(create: (_) => AppStateRepositoryImpl()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              AppStateProvider(appStateRepository: context.read()),
         ),
         ProxyProvider<MoodLogDatabase, JournalRepository>(
           update: (_, db, _) => JournalRepositoryImpl(db: db),

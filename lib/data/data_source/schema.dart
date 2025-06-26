@@ -27,15 +27,3 @@ class Stats extends Table {
 
   TextColumn get lastActiveDate => text()();
 }
-
-@UseRowClass(AppState)
-class AppStates extends Table {
-  BoolColumn get isInitialApp => boolean().withDefault(const Constant(true))();
-
-  BoolColumn get isDarkMode => boolean().withDefault(const Constant(false))();
-
-  DateTimeColumn get lastActiveDate => dateTime().nullable()();
-
-  DateTimeColumn get firstExecutedDate =>
-      dateTime().withDefault(currentDateAndTime)();
-}

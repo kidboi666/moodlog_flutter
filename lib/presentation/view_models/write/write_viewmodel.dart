@@ -45,12 +45,12 @@ class WriteViewModel extends ChangeNotifier {
   Future<Result<void>> onSubmit() async {
     _isSubmitted = false;
     _submittedJournalId = null;
-    final dto = AddJournalRequest(
+    final newJournal = AddJournalRequest(
       content: content,
       moodName: moodName,
       imageUri: imageUri,
     );
-    final result = await _journalRepository.addJournal(dto);
+    final result = await _journalRepository.addJournal(newJournal);
     switch (result) {
       case Ok<int>():
         _log.fine('Journal added successfully');
