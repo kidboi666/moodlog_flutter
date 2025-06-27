@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../core/constants/enum.dart';
 
 part 'app_state.freezed.dart';
 part 'app_state.g.dart';
@@ -13,13 +16,10 @@ abstract class AppState with _$AppState {
     @Default(LanguageCode.ko) LanguageCode languageCode,
     DateTime? lastActiveDate,
     DateTime? firstLaunchedDate,
-    required String nickname,
+    @Default(AiPersonality.balanced) AiPersonality aiPersonality,
+    @Default('') String nickname,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
 }
-
-enum ThemeMode { system, dark, light }
-
-enum LanguageCode { ko, en }

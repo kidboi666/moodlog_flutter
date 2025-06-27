@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/common.dart';
 import '../../view_models/onboarding/onboarding_viewmodel.dart';
 import '../../widgets/pagination_dot.dart';
 import 'onboarding_nickname_pageview.dart';
 import 'onboarding_personality_pageview.dart';
+import 'onboarding_success_pageview.dart';
 import 'onboarding_welcome_pageview.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -18,10 +20,17 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late PageController _pageController;
 
+  void onNext() {
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: DurationMs.medium),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: 1);
   }
 
   @override
@@ -34,7 +43,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox.shrink(),
         title: ListenableBuilder(
           listenable: widget.viewModel,
           builder: (_, _) => PaginationDot(
@@ -42,12 +50,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             total: widget.viewModel.totalSteps,
           ),
         ),
-        actions: [
-          Align(
-            alignment: Alignment.topRight,
-            child: TextButton(onPressed: () {}, child: Text('건너뛰기')),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -59,16 +61,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onPageChanged: widget.viewModel.setStep,
                 children: [
                   OnboardingWelcomePageView(
-                    onPageChange: () =>
-                        widget.viewModel.onPageChange(_pageController),
+                    viewModel: widget.viewModel,
+                    onNext: onNext,
                   ),
                   OnboardingNicknamePageView(
-                    onPageChange: () =>
-                        widget.viewModel.onPageChange(_pageController),
+                    viewModel: widget.viewModel,
+                    onNext: onNext,
                   ),
                   OnboardingPersonalityPageView(
-                    onPageChange: () =>
-                        widget.viewModel.onPageChange(_pageController),
+                    viewModel: widget.viewModel,
+                    onNext: onNext,
+                  ),
+                  OnboardingSuccessPageView(
+                    viewModel: widget.viewModel,
+                    onNext: widget.viewModel.init,
                   ),
                 ],
               ),

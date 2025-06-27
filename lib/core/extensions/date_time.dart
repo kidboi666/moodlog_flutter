@@ -8,4 +8,13 @@ extension DateTimeExtension on DateTime {
   int get lastDateOfMonth => DateTime(year, month + 1, 0).day;
 
   int get firstDateOfMonth => DateTime(year, month + 1, 1).day;
+
+  static DateTime? fromString(String? value) {
+    if (value == null) return null;
+    try {
+      return DateTime.parse(value);
+    } catch (e) {
+      return null;
+    }
+  }
 }

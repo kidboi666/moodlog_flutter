@@ -20,7 +20,10 @@ _AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
   firstLaunchedDate: json['firstLaunchedDate'] == null
       ? null
       : DateTime.parse(json['firstLaunchedDate'] as String),
-  nickname: json['nickname'] as String,
+  aiPersonality:
+      $enumDecodeNullable(_$AiPersonalityEnumMap, json['aiPersonality']) ??
+      AiPersonality.balanced,
+  nickname: json['nickname'] as String? ?? '',
 );
 
 Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
@@ -29,13 +32,20 @@ Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
   'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
   'lastActiveDate': instance.lastActiveDate?.toIso8601String(),
   'firstLaunchedDate': instance.firstLaunchedDate?.toIso8601String(),
+  'aiPersonality': _$AiPersonalityEnumMap[instance.aiPersonality]!,
   'nickname': instance.nickname,
 };
 
 const _$ThemeModeEnumMap = {
   ThemeMode.system: 'system',
-  ThemeMode.dark: 'dark',
   ThemeMode.light: 'light',
+  ThemeMode.dark: 'dark',
 };
 
 const _$LanguageCodeEnumMap = {LanguageCode.ko: 'ko', LanguageCode.en: 'en'};
+
+const _$AiPersonalityEnumMap = {
+  AiPersonality.rational: 'rational',
+  AiPersonality.balanced: 'balanced',
+  AiPersonality.compassionate: 'compassionate',
+};

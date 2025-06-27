@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
 
+import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../view_models/onboarding/onboarding_viewmodel.dart';
 import '../../widgets/fade_in.dart';
 
 class OnboardingWelcomePageView extends StatelessWidget {
-  final Function onPageChange;
+  final void Function() onNext;
+  final OnboardingViewModel viewModel;
 
-  const OnboardingWelcomePageView({super.key, required this.onPageChange});
+  const OnboardingWelcomePageView({
+    super.key,
+    required this.onNext,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +56,16 @@ class OnboardingWelcomePageView extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
-        IconButton.filled(
-          onPressed: () => onPageChange(),
-          icon: Icon(Icons.arrow_forward),
+        FadeIn(
+          delay: const Duration(milliseconds: DelayMs.lazy * 4),
+          child: SizedBox(
+            width: double.infinity,
+            child: IconButton.filled(
+              alignment: Alignment.center,
+              onPressed: onNext,
+              icon: const Icon(Icons.arrow_forward),
+            ),
+          ),
         ),
       ],
     );

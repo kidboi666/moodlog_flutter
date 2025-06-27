@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'core/l10n/app_localizations.dart';
-import 'core/providers/app_state_provider.dart';
 import 'core/theme/theme.dart';
 import 'data/data_source/database.dart';
 import 'data/repositories/app_state_repository_impl.dart';
 import 'data/repositories/journal_repository_impl.dart';
+import 'domain/repositories/app_state_repository.dart';
 import 'domain/repositories/journal_repository.dart';
 import 'router/router.dart';
 
@@ -35,7 +35,7 @@ class MoodLogApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      routerConfig: router(),
+      routerConfig: router(context.read()),
     );
   }
 }
@@ -45,17 +45,13 @@ List<SingleChildWidget> _createProviders() {
     Provider<MoodLogDatabase>(
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
+      lazy: false,
     ),
-    Provider<AppStateRepositoryImpl>(create: (_) => AppStateRepositoryImpl()),
     ProxyProvider<MoodLogDatabase, JournalRepository>(
-      update: (_, db, __) => JournalRepositoryImpl(db: db),
+      update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
     ),
-    ChangeNotifierProxyProvider<AppStateRepositoryImpl, AppStateProvider>(
-      create: (context) => AppStateProvider(
-        appStateRepository: context.read<AppStateRepositoryImpl>(),
-      ),
-      update: (_, appStateRepo, previous) =>
-          previous ?? AppStateProvider(appStateRepository: appStateRepo),
+    ChangeNotifierProvider<AppStateRepository>(
+      create: (_) => AppStateRepositoryImpl(),
     ),
   ];
 }

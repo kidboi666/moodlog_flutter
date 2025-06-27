@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/extensions/ai_personalities.dart';
-import '../../view_models/onboarding/onboarding_viewmodel.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/extensions/enum.dart';
 
 class PersonalityItem extends StatelessWidget {
-  final AiPersonalities personality;
+  final AiPersonality personality;
   final bool isSelected;
-  final AiPersonalities? selectedPersonality;
+  final AiPersonality? selectedPersonality;
   final Function onPersonalityChanged;
 
   const PersonalityItem({
@@ -21,9 +21,8 @@ class PersonalityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.hardEdge,
-      color: isSelected ? Theme.of(context).colorScheme.primaryFixed : null,
+      color: isSelected ? Theme.of(context).colorScheme.primaryContainer : null,
       child: InkWell(
-        splashColor: Theme.of(context).colorScheme.primaryFixedDim,
         onTap: () => onPersonalityChanged(personality),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

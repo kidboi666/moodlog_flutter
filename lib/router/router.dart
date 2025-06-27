@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/app_state_repository.dart';
 import 'package:provider/provider.dart';
 
-import '../domain/repositories/app_state_repository.dart';
 import '../presentation/view_models/home/home_viewmodel.dart';
 import '../presentation/view_models/journal/journal_viewmodel.dart';
 import '../presentation/view_models/onboarding/onboarding_viewmodel.dart';
@@ -16,15 +17,19 @@ import '../presentation/views/write/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
-GoRouter router() => GoRouter(
+GoRouter router(AppStateRepository appStateRepository) => GoRouter(
   initialLocation: Routes.onboarding,
   debugLogDiagnostics: true,
-  // redirect: _redirect,
+  refreshListenable: appStateRepository,
+  redirect: _redirect,
   routes: [
     GoRoute(
       path: Routes.onboarding,
       builder: (context, state) {
-        final viewModel = OnboardingViewModel(totalSteps: 3);
+        final viewModel = OnboardingViewModel(
+          totalSteps: 4,
+          appStateRepository: context.read(),
+        );
         return OnboardingScreen(viewModel: viewModel);
       },
     ),
@@ -94,11 +99,20 @@ GoRouter router() => GoRouter(
 );
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final result = await context.read<AppStateRepository>().getAppState();
-  final isFirstLaunch = result.isFirstLaunch;
+  final Logger log = Logger('Redirect');
+  final appState = context.read<AppStateRepository>().appState;
+  final isFirstLaunch = appState.isFirstLaunch;
+  final isInOnboarding = state.matchedLocation == Routes.onboarding;
 
   if (isFirstLaunch) {
+    log.info('First launch, redirecting to onboarding');
     return Routes.onboarding;
   }
-  return Routes.home;
+
+  if (isInOnboarding) {
+    log.info('Redirecting to home');
+    return Routes.home;
+  }
+
+  return null;
 }

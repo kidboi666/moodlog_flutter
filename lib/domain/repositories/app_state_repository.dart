@@ -1,7 +1,15 @@
+import 'package:flutter/foundation.dart';
+
+import '../../core/constants/enum.dart';
 import '../entities/app_state.dart';
 
-abstract class AppStateRepository {
-  Future<AppState> getAppState();
+abstract class AppStateRepository extends ChangeNotifier {
+  AppState get appState;
+
+  Future<void> init({
+    required String nickname,
+    required AiPersonality aiPersonality,
+  });
 
   Future<void> setFirstLaunchComplete();
 

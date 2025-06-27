@@ -1,40 +1,75 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/constants/enum.dart';
+import '../../core/extensions/enum.dart';
 import '../../domain/entities/app_state.dart';
 import '../../domain/repositories/app_state_repository.dart';
 
-class AppStateRepositoryImpl implements AppStateRepository {
-  AppStateRepositoryImpl();
+class AppStateRepositoryImpl extends AppStateRepository {
+  AppStateRepositoryImpl() {
+    _load();
+  }
 
   final SharedPreferencesAsync _asyncPrefs = SharedPreferencesAsync();
+  AppState? _appState = const AppState();
 
   @override
-  Future<AppState> getAppState() async {
+  AppState get appState {
+    return _appState!;
+  }
+
+  Future<void> _load() async {
     final isFirstLaunch =
         await _asyncPrefs.getBool(PreferenceKeys.isFirstLaunch) ?? true;
-    final themeMode =
-        await _asyncPrefs.getString(PreferenceKeys.themeMode) ??
-        ThemeMode.system;
-    final languageCode =
-        await _asyncPrefs.getString(PreferenceKeys.languageCode) ??
-        LanguageCode.ko;
-    final lastActiveDate =
-        await _asyncPrefs.getString(PreferenceKeys.lastActiveDate) ??
-        DateTime.now();
-    final firstLaunchedDate =
-        await _asyncPrefs.getString(PreferenceKeys.firstLaunchedDate) ??
-        DateTime.now();
+    final themeModeString = await _asyncPrefs.getString(
+      PreferenceKeys.themeMode,
+    );
+    final themeMode = ThemeModeExtension.fromString(themeModeString);
+    final languageCodeString = await _asyncPrefs.getString(
+      PreferenceKeys.languageCode,
+    );
+    final languageCode = LanguageCodeExtension.fromString(languageCodeString);
+    final lastActiveDateString = await _asyncPrefs.getString(
+      PreferenceKeys.lastActiveDate,
+    );
+    final lastActiveDate = DateTime.tryParse(lastActiveDateString ?? '');
+    final firstLaunchedDateString = await _asyncPrefs.getString(
+      PreferenceKeys.firstLaunchedDate,
+    );
+    final firstLaunchedDate = DateTime.tryParse(firstLaunchedDateString ?? '');
     final nickname = await _asyncPrefs.getString(PreferenceKeys.nickname) ?? '';
+    final aiPersonalityString = await _asyncPrefs.getString(
+      PreferenceKeys.aiPersonality,
+    );
+    final aiPersonality = AiPersonalityExtension.fromString(
+      aiPersonalityString,
+    );
 
-    return AppState(
+    _appState = AppState(
       isFirstLaunch: isFirstLaunch,
-      themeMode: themeMode as ThemeMode,
-      languageCode: languageCode as LanguageCode,
-      lastActiveDate: lastActiveDate as DateTime,
-      firstLaunchedDate: firstLaunchedDate as DateTime,
+      themeMode: themeMode,
+      languageCode: languageCode,
+      lastActiveDate: lastActiveDate,
+      firstLaunchedDate: firstLaunchedDate,
+      aiPersonality: aiPersonality,
       nickname: nickname,
     );
+    notifyListeners();
+  }
+
+  @override
+  Future<void> init({
+    required String nickname,
+    required AiPersonality aiPersonality,
+  }) async {
+    await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
+    await _asyncPrefs.setString(
+      PreferenceKeys.aiPersonality,
+      appState.aiPersonality.name,
+    );
+    await _asyncPrefs.setString(PreferenceKeys.nickname, appState.nickname);
+    notifyListeners();
   }
 
   @override

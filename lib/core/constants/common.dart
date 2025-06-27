@@ -90,4 +90,5 @@ abstract final class PreferenceKeys {
   static const lastActiveDate = 'last_active_date';
   static const firstLaunchedDate = 'first_launched_date';
   static const nickname = 'nick_name';
+  static const aiPersonality = 'ai_personality';
 }

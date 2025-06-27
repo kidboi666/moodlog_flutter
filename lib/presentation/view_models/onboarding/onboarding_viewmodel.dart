@@ -1,23 +1,30 @@
-import 'package:flutter/material.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 
-import '../../../core/constants/common.dart';
-
-enum AiPersonalities { rational, balanced, compassionate }
+import '../../../core/constants/enum.dart';
+import '../../../domain/entities/app_state.dart';
+import '../../../domain/repositories/app_state_repository.dart';
 
 class OnboardingViewModel extends ChangeNotifier {
   final int totalSteps;
+  final AppStateRepository _appStateRepository;
 
-  OnboardingViewModel({this.totalSteps = 0});
+  OnboardingViewModel({
+    required this.totalSteps,
+    required AppStateRepository appStateRepository,
+  }) : _appStateRepository = appStateRepository;
 
+  final Logger _log = Logger('OnboardingViewModel');
   int _currentStep = 0;
   bool _isLastStep = false;
-  AiPersonalities? _selectedPersonality;
+  AiPersonality _selectedPersonality = AiPersonality.balanced;
   String _nickname = '';
 
   String get nickname => _nickname;
 
-  AiPersonalities? get selectedPersonality => _selectedPersonality;
+  AppState get appState => _appStateRepository.appState;
+
+  AiPersonality get selectedPersonality => _selectedPersonality;
 
   int get currentStep => _currentStep;
 
@@ -28,30 +35,29 @@ class OnboardingViewModel extends ChangeNotifier {
 
     _currentStep = safeStep;
     _isLastStep = safeStep == totalSteps - 1;
+    _log.info('Setting step to $safeStep');
     notifyListeners();
   }
 
-  void onPersonalityChanged(AiPersonalities personality) {
+  void setPersonality(AiPersonality personality) {
     _selectedPersonality = personality;
+    _log.info('Setting personality to $personality');
     notifyListeners();
   }
 
-  void onNicknameChanged(String value) {
+  void setNickname(String value) {
     _nickname = value;
+    _log.info('Setting nickname to $value');
     notifyListeners();
   }
 
-  String? validateNickname(AppLocalizations t, String? value) {
-    if (value == null || value.isEmpty) {
-      return t.onboarding_nickname_input_error;
-    }
-    return null;
-  }
+  bool validateNickname(String? value) => value != null && value.isNotEmpty;
 
-  Future<void> onPageChange(PageController controller) async {
-    controller.nextPage(
-      duration: const Duration(milliseconds: DurationMs.medium),
-      curve: Curves.easeInOut,
+  void init() {
+    _log.info('Initializing $_nickname with personality $_selectedPersonality');
+    _appStateRepository.init(
+      nickname: _nickname,
+      aiPersonality: _selectedPersonality,
     );
   }
 }

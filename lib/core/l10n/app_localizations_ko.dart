@@ -13,14 +13,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onboarding_welcome_description1 =>
-      '무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장 앱 입니다.';
+      '무드로그는 당신의 일상 감정을 기록하고 그에 대한 AI의 답장을 받을 수 있는 앱입니다.';
 
   @override
-  String get onboarding_welcome_description2 =>
-      '매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을 발견해보세요.';
+  String get onboarding_welcome_description2 => '매일 감정을 기록하고 AI가 해준 답장을 읽어보세요.';
 
   @override
-  String get onboarding_welcome_next => '함께 무드로그를 시작해볼까요?';
+  String get onboarding_welcome_next => '함께 준비해볼까요?';
 
   @override
   String get onboarding_nickname_title => '닉네임 설정';
@@ -41,7 +40,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboarding_nickname_input_error => '닉네임을 입력해주세요.';
 
   @override
-  String get onboarding_personality_title => '시작할 준비가 되었어요!';
+  String get onboarding_personality_title => '답장 스타일 정하기';
 
   @override
   String get onboarding_personality_description =>
@@ -69,7 +68,13 @@ class AppLocalizationsKo extends AppLocalizations {
       '따뜻한 위로와 깊은 공감을 전합니다.';
 
   @override
-  String get onboarding_personality_next => '시작하기';
+  String get onboarding_success_title => '시작할 준비가 되었어요!';
+
+  @override
+  String get onboarding_success_description => '무드로그를 시작해볼까요?';
+
+  @override
+  String get onboarding_success_button => '시작하기';
 
   @override
   String get home_hello => '안녕하세요!';
