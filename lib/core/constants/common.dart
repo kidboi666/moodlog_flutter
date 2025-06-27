@@ -67,6 +67,9 @@ abstract final class DurationMs {
 abstract final class Emoji {
   static const shakeHand = '👋';
   static const pencil = '✏️';
+  static const rational = '🧠';
+  static const balanced = '⚖️';
+  static const compassionate = '💝';
 }
 
 abstract final class MoodColor {
@@ -86,4 +89,5 @@ abstract final class PreferenceKeys {
   static const languageCode = 'language_code';
   static const lastActiveDate = 'last_active_date';
   static const firstLaunchedDate = 'first_launched_date';
+  static const nickname = 'nick_name';
 }

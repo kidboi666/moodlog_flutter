@@ -13,6 +13,7 @@ abstract class AppState with _$AppState {
     @Default(LanguageCode.ko) LanguageCode languageCode,
     DateTime? lastActiveDate,
     DateTime? firstLaunchedDate,
+    required String nickname,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>

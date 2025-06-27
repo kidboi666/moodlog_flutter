@@ -38,6 +38,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboarding_nickname_next => '닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.';
 
   @override
+  String get onboarding_nickname_input_error => '닉네임을 입력해주세요.';
+
+  @override
   String get onboarding_personality_title => '시작할 준비가 되었어요!';
 
   @override
@@ -45,24 +48,24 @@ class AppLocalizationsKo extends AppLocalizations {
       '당신의 일기에 답장해줄 AI의 친절도를 선택하세요.';
 
   @override
-  String get onboarding_personality_option1_title => '냉철한 분석가';
+  String get onboarding_personality_rational_title => '냉철한 분석가';
 
   @override
-  String get onboarding_personality_option1_description =>
+  String get onboarding_personality_rational_description =>
       '객관적이고 실용적인 조언을 제공합니다';
 
   @override
-  String get onboarding_personality_option2_title => '균형잡힌 조언자';
+  String get onboarding_personality_balanced_title => '균형잡힌 조언자';
 
   @override
-  String get onboarding_personality_option2_description =>
+  String get onboarding_personality_balanced_description =>
       '공감과 현실적 조언의 균형을 맞춥니다.';
 
   @override
-  String get onboarding_personality_option3_title => '다정한 치유자';
+  String get onboarding_personality_compassionate_title => '다정한 치유자';
 
   @override
-  String get onboarding_personality_option3_description =>
+  String get onboarding_personality_compassionate_description =>
       '따뜻한 위로와 깊은 공감을 전합니다.';
 
   @override

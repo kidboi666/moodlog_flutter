@@ -25,6 +25,7 @@ class AppStateRepositoryImpl implements AppStateRepository {
     final firstLaunchedDate =
         await _asyncPrefs.getString(PreferenceKeys.firstLaunchedDate) ??
         DateTime.now();
+    final nickname = await _asyncPrefs.getString(PreferenceKeys.nickname) ?? '';
 
     return AppState(
       isFirstLaunch: isFirstLaunch,
@@ -32,6 +33,7 @@ class AppStateRepositoryImpl implements AppStateRepository {
       languageCode: languageCode as LanguageCode,
       lastActiveDate: lastActiveDate as DateTime,
       firstLaunchedDate: firstLaunchedDate as DateTime,
+      nickname: nickname,
     );
   }
 
@@ -48,5 +50,10 @@ class AppStateRepositoryImpl implements AppStateRepository {
   @override
   Future<void> updateThemeMode(String themeMode) async {
     await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode);
+  }
+
+  @override
+  Future<void> updateNickname(String nickname) async {
+    await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
   }
 }

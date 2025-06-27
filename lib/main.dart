@@ -46,13 +46,10 @@ List<SingleChildWidget> _createProviders() {
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
     ),
-
     Provider<AppStateRepositoryImpl>(create: (_) => AppStateRepositoryImpl()),
-
     ProxyProvider<MoodLogDatabase, JournalRepository>(
       update: (_, db, __) => JournalRepositoryImpl(db: db),
     ),
-
     ChangeNotifierProxyProvider<AppStateRepositoryImpl, AppStateProvider>(
       create: (context) => AppStateProvider(
         appStateRepository: context.read<AppStateRepositoryImpl>(),

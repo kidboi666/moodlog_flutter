@@ -8,4 +8,6 @@ abstract class AppStateRepository {
   Future<void> updateThemeMode(String themeMode);
 
   Future<void> updateLanguage(String languageCode);
+
+  Future<void> updateNickname(String nickname);
 }

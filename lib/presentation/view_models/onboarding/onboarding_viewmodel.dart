@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 import '../../../core/constants/common.dart';
 
+enum AiPersonalities { rational, balanced, compassionate }
+
 class OnboardingViewModel extends ChangeNotifier {
   final int totalSteps;
+
+  OnboardingViewModel({this.totalSteps = 0});
+
   int _currentStep = 0;
-  bool _isLastStep;
+  bool _isLastStep = false;
+  AiPersonalities? _selectedPersonality;
+  String _nickname = '';
 
-  OnboardingViewModel({this.totalSteps = 0})
-    : _currentStep = 0,
-      _isLastStep = false;
+  String get nickname => _nickname;
 
-  final PageController _pageController = PageController();
-
-  PageController get pageController => _pageController;
+  AiPersonalities? get selectedPersonality => _selectedPersonality;
 
   int get currentStep => _currentStep;
 
   bool get isLastStep => _isLastStep;
-
-  void nextStep() {
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: DurationMs.medium),
-      curve: Curves.easeInOut,
-    );
-  }
 
   void setStep(int step) {
     final safeStep = step.clamp(0, totalSteps - 1);
@@ -32,5 +29,29 @@ class OnboardingViewModel extends ChangeNotifier {
     _currentStep = safeStep;
     _isLastStep = safeStep == totalSteps - 1;
     notifyListeners();
+  }
+
+  void onPersonalityChanged(AiPersonalities personality) {
+    _selectedPersonality = personality;
+    notifyListeners();
+  }
+
+  void onNicknameChanged(String value) {
+    _nickname = value;
+    notifyListeners();
+  }
+
+  String? validateNickname(AppLocalizations t, String? value) {
+    if (value == null || value.isEmpty) {
+      return t.onboarding_nickname_input_error;
+    }
+    return null;
+  }
+
+  Future<void> onPageChange(PageController controller) async {
+    controller.nextPage(
+      duration: const Duration(milliseconds: DurationMs.medium),
+      curve: Curves.easeInOut,
+    );
   }
 }

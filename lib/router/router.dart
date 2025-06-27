@@ -23,10 +23,10 @@ GoRouter router() => GoRouter(
   routes: [
     GoRoute(
       path: Routes.onboarding,
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => OnboardingViewModel(totalSteps: 3),
-        child: const OnboardingScreen(),
-      ),
+      builder: (context, state) {
+        final viewModel = OnboardingViewModel(totalSteps: 3);
+        return OnboardingScreen(viewModel: viewModel);
+      },
     ),
 
     StatefulShellRoute(

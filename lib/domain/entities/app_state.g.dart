@@ -20,6 +20,7 @@ _AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
   firstLaunchedDate: json['firstLaunchedDate'] == null
       ? null
       : DateTime.parse(json['firstLaunchedDate'] as String),
+  nickname: json['nickname'] as String,
 );
 
 Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
@@ -28,6 +29,7 @@ Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
   'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
   'lastActiveDate': instance.lastActiveDate?.toIso8601String(),
   'firstLaunchedDate': instance.firstLaunchedDate?.toIso8601String(),
+  'nickname': instance.nickname,
 };
 
 const _$ThemeModeEnumMap = {

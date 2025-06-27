@@ -148,6 +148,12 @@ abstract class AppLocalizations {
   /// **'닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.'**
   String get onboarding_nickname_next;
 
+  /// No description provided for @onboarding_nickname_input_error.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임을 입력해주세요.'**
+  String get onboarding_nickname_input_error;
+
   /// No description provided for @onboarding_personality_title.
   ///
   /// In ko, this message translates to:
@@ -160,41 +166,41 @@ abstract class AppLocalizations {
   /// **'당신의 일기에 답장해줄 AI의 친절도를 선택하세요.'**
   String get onboarding_personality_description;
 
-  /// No description provided for @onboarding_personality_option1_title.
+  /// No description provided for @onboarding_personality_rational_title.
   ///
   /// In ko, this message translates to:
   /// **'냉철한 분석가'**
-  String get onboarding_personality_option1_title;
+  String get onboarding_personality_rational_title;
 
-  /// No description provided for @onboarding_personality_option1_description.
+  /// No description provided for @onboarding_personality_rational_description.
   ///
   /// In ko, this message translates to:
   /// **'객관적이고 실용적인 조언을 제공합니다'**
-  String get onboarding_personality_option1_description;
+  String get onboarding_personality_rational_description;
 
-  /// No description provided for @onboarding_personality_option2_title.
+  /// No description provided for @onboarding_personality_balanced_title.
   ///
   /// In ko, this message translates to:
   /// **'균형잡힌 조언자'**
-  String get onboarding_personality_option2_title;
+  String get onboarding_personality_balanced_title;
 
-  /// No description provided for @onboarding_personality_option2_description.
+  /// No description provided for @onboarding_personality_balanced_description.
   ///
   /// In ko, this message translates to:
   /// **'공감과 현실적 조언의 균형을 맞춥니다.'**
-  String get onboarding_personality_option2_description;
+  String get onboarding_personality_balanced_description;
 
-  /// No description provided for @onboarding_personality_option3_title.
+  /// No description provided for @onboarding_personality_compassionate_title.
   ///
   /// In ko, this message translates to:
   /// **'다정한 치유자'**
-  String get onboarding_personality_option3_title;
+  String get onboarding_personality_compassionate_title;
 
-  /// No description provided for @onboarding_personality_option3_description.
+  /// No description provided for @onboarding_personality_compassionate_description.
   ///
   /// In ko, this message translates to:
   /// **'따뜻한 위로와 깊은 공감을 전합니다.'**
-  String get onboarding_personality_option3_description;
+  String get onboarding_personality_compassionate_description;
 
   /// No description provided for @onboarding_personality_next.
   ///
