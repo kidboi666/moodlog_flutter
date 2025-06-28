@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
+import 'package:moodlog/presentation/view_models/entries/entries_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../presentation/view_models/home/home_viewmodel.dart';
 import '../presentation/view_models/journal/journal_viewmodel.dart';
 import '../presentation/view_models/onboarding/onboarding_viewmodel.dart';
 import '../presentation/view_models/write/write_viewmodel.dart';
-import '../presentation/views/entries/entries_screen.dart';
-import '../presentation/views/home/home_screen.dart';
+import '../presentation/views/entries/screen/entries_screen.dart';
+import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/settings_screen.dart';
@@ -18,7 +19,6 @@ import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
-  initialLocation: Routes.onboarding,
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,
   redirect: _redirect,
@@ -61,7 +61,10 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
             GoRoute(
               path: Routes.entries,
               builder: (context, state) {
-                return EntriesScreen();
+                final viewModel = EntriesViewModel(
+                  journalRepository: context.read(),
+                );
+                return EntriesScreen(viewModel: viewModel);
               },
             ),
           ],

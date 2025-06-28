@@ -8,16 +8,15 @@ class PopButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8.0),
-      onTap: () {
+    return IconButton(
+      onPressed: () {
         if (onTap != null) {
           onTap!();
         } else {
           context.pop();
         }
       },
-      child: Center(child: Icon(Icons.arrow_back)),
+      icon: Icon(Icons.arrow_back),
     );
   }
 }

@@ -22,15 +22,24 @@ class JournalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = '${createdAt.toLocal().toString()} - $moodName';
     return Card(
+      elevation: 2,
+      shadowColor: Theme.of(context).colorScheme.surfaceBright,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: InkWell(
         onTap: () => context.push(Routes.journal(id)),
         borderRadius: BorderRadius.circular(12.0),
         child: ListTile(
-          contentPadding: EdgeInsets.all(16.0),
-          leading: Container(width: 8),
+          contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+          leading: Container(
+            width: 8,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: Colors.red,
+            ),
+          ),
           title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
           subtitle: Text(content, style: Theme.of(context).textTheme.bodyLarge),
-          trailing: Icon(Icons.more_vert),
+          trailing: Icon(Icons.keyboard_arrow_left),
         ),
       ),
     );

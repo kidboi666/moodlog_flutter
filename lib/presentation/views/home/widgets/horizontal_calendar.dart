@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../view_models/home/home_viewmodel.dart';
-import '../../widgets/fade_in.dart';
-import '../../widgets/gradient_box.dart';
-import 'home_date_and_day.dart';
+import '../../../../core/constants/common.dart';
+import '../../../view_models/home/home_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
+import '../../../widgets/gradient_box.dart';
+import 'date_and_day.dart';
 
 class HorizontalCalendar extends StatefulWidget {
   final DateTime selectedDate;
@@ -25,12 +25,12 @@ class HorizontalCalendar extends StatefulWidget {
 
 class _HorizontalCalendarState extends State<HorizontalCalendar> {
   final DateTime now = DateTime.now();
-  late final ScrollController _controller;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -55,7 +55,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
             SizedBox(
               height: 70,
               child: ListView(
-                controller: _controller,
+                controller: _scrollController,
                 scrollDirection: Axis.horizontal,
                 children: widget.homeViewModel.dateItems
                     .map(
@@ -77,7 +77,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 }

@@ -5,6 +5,8 @@ import '../entities/journal.dart';
 abstract class JournalRepository {
   Future<Result<List<Journal>>> getJournals();
 
+  Future<Result<List<Journal>>> getJournalsByMonth(DateTime date);
+
   Future<Result<Journal>> getJournalById(int id);
 
   Future<Result<int>> addJournal(AddJournalRequest dto);

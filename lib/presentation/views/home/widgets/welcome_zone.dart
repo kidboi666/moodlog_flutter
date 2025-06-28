@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../widgets/fade_in.dart';
-import '../../widgets/shake_emoji.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../widgets/fade_in.dart';
+import '../../../widgets/shake_emoji.dart';
 
 class WelcomeZone extends StatelessWidget {
   const WelcomeZone({super.key});

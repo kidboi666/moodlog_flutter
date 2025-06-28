@@ -6,7 +6,7 @@ abstract final class AppTheme {
     brightness: Brightness.light,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Colors.red,
       brightness: Brightness.light,
     ),
   );
@@ -16,7 +16,7 @@ abstract final class AppTheme {
     brightness: Brightness.dark,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Colors.red,
       brightness: Brightness.dark,
     ),
   );

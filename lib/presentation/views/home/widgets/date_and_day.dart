@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../../core/constants/common.dart';
 
 class DateAndDay extends StatelessWidget {
   final String date;

@@ -28,25 +28,31 @@ class HomeViewModel extends ChangeNotifier {
       };
     },
   );
+  bool _isLoading = false;
 
   List<Journal> get journal => _journal;
+
+  bool get isLoading => _isLoading;
 
   void onSelectedDateChange(DateTime date) {
     selectedDate = date;
     notifyListeners();
   }
 
-  Future<Result<void>> _load() async {
+  Future<void> _load() async {
+    _isLoading = true;
+    notifyListeners();
+
     final result = await _journalRepository.getJournals();
     switch (result) {
       case Ok<List<Journal>>():
         _journal = result.value;
-        _log.fine('Loaded User');
+        _log.fine('Loaded journals');
       case Error<List<Journal>>():
         _journal = [];
         _log.warning('Failed to load journals', result.error);
     }
+    _isLoading = false;
     notifyListeners();
-    return Result.ok(null);
   }
 }

@@ -12,6 +12,26 @@ class JournalRepositoryImpl implements JournalRepository {
   JournalRepositoryImpl({required MoodLogDatabase? db}) : _db = db!;
 
   @override
+  Future<Result<List<Journal>>> getJournalsByMonth(DateTime date) async {
+    final startOfMonth = DateTime(date.year, date.month, 1);
+    final endOfMonth = DateTime(date.year, date.month + 1, 0);
+
+    final journals =
+        await (_db.select(_db.journals)..where(
+              (t) => t.createdAt.isBetween(
+                Variable(startOfMonth),
+                Variable(endOfMonth),
+              ),
+            ))
+            .get();
+
+    if (journals.isEmpty) {
+      return Result.error(Exception('journals not found for the month'));
+    }
+    return Result.ok(journals);
+  }
+
+  @override
   Future<Result<List<Journal>>> getJournals() async {
     final journals = await (_db.select(_db.journals)).get();
     if (journals.isEmpty) {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../view_models/home/home_viewmodel.dart';
-import '../../widgets/journal_card.dart';
-import 'home_horizontal_calendar.dart';
-import 'home_welcome_zone.dart';
+import '../../../view_models/home/home_viewmodel.dart';
+import '../../../widgets/journal_card.dart';
+import '../widgets/empty_box.dart';
+import '../widgets/horizontal_calendar.dart';
+import '../widgets/welcome_zone.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeViewModel viewModel;
@@ -43,6 +44,7 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
+          const EmptyBox(),
         ],
       ),
     );

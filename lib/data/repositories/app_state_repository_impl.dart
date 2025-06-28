@@ -69,26 +69,30 @@ class AppStateRepositoryImpl extends AppStateRepository {
       appState.aiPersonality.name,
     );
     await _asyncPrefs.setString(PreferenceKeys.nickname, appState.nickname);
-    notifyListeners();
+    _load();
   }
 
   @override
   Future<void> setFirstLaunchComplete() async {
     await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
+    _load();
   }
 
   @override
   Future<void> updateLanguage(String languageCode) async {
     await _asyncPrefs.setString(PreferenceKeys.languageCode, languageCode);
+    _load();
   }
 
   @override
   Future<void> updateThemeMode(String themeMode) async {
     await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode);
+    _load();
   }
 
   @override
   Future<void> updateNickname(String nickname) async {
     await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
+    _load();
   }
 }

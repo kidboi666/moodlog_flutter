@@ -33,6 +33,8 @@ class ScaffoldWithNavbar extends StatelessWidget {
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.circular(40.0),
         child: NavigationBar(
+          elevation: 20,
+          shadowColor: Theme.of(context).colorScheme.primary,
           backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           animationDuration: const Duration(milliseconds: DurationMs.lazy),
           selectedIndex: navigationShell.currentIndex,
@@ -53,7 +55,11 @@ class ScaffoldWithNavbar extends StatelessWidget {
               selectedIcon: Icon(Icons.settings),
               label: 'Settings',
             ),
-            SizedBox(width: 10),
+            NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
           ],
         ),
       ),
@@ -61,7 +67,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
         onPressed: () => context.push(Routes.write),
         child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
