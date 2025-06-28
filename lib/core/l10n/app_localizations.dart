@@ -136,11 +136,11 @@ abstract class AppLocalizations {
   /// **'닉네임'**
   String get onboarding_nickname_input_title;
 
-  /// No description provided for @onboarding_nickname_input_placeholder.
+  /// No description provided for @onboarding_nickname_input_hint.
   ///
   /// In ko, this message translates to:
   /// **'닉네임을 입력하세요 (2~10자)'**
-  String get onboarding_nickname_input_placeholder;
+  String get onboarding_nickname_input_hint;
 
   /// No description provided for @onboarding_nickname_next.
   ///
@@ -238,6 +238,12 @@ abstract class AppLocalizations {
   /// **'오늘 기분은 어떠세요?'**
   String get home_howareyou;
 
+  /// No description provided for @home_empty_box.
+  ///
+  /// In ko, this message translates to:
+  /// **'당신의 이야기를 기다리고 있어요.'**
+  String get home_empty_box;
+
   /// No description provided for @tab_home.
   ///
   /// In ko, this message translates to:
@@ -262,11 +268,29 @@ abstract class AppLocalizations {
   /// **'글쓰기'**
   String get tab_write;
 
-  /// No description provided for @write_input_placeholder.
+  /// No description provided for @write_input_title.
   ///
   /// In ko, this message translates to:
   /// **'내용'**
-  String get write_input_placeholder;
+  String get write_input_title;
+
+  /// No description provided for @write_input_hint.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘의 감정과 경험을 기록해보세요.'**
+  String get write_input_hint;
+
+  /// No description provided for @write_ai_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI 위로 메시지'**
+  String get write_ai_title;
+
+  /// No description provided for @write_ai_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.'**
+  String get write_ai_description;
 }
 
 class _AppLocalizationsDelegate

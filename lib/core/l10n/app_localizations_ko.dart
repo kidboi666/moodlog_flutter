@@ -31,7 +31,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboarding_nickname_input_title => '닉네임';
 
   @override
-  String get onboarding_nickname_input_placeholder => '닉네임을 입력하세요 (2~10자)';
+  String get onboarding_nickname_input_hint => '닉네임을 입력하세요 (2~10자)';
 
   @override
   String get onboarding_nickname_next => '닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.';
@@ -88,6 +88,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get home_howareyou => '오늘 기분은 어떠세요?';
 
   @override
+  String get home_empty_box => '당신의 이야기를 기다리고 있어요.';
+
+  @override
   String get tab_home => '홈';
 
   @override
@@ -100,5 +103,14 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_write => '글쓰기';
 
   @override
-  String get write_input_placeholder => '내용';
+  String get write_input_title => '내용';
+
+  @override
+  String get write_input_hint => '오늘의 감정과 경험을 기록해보세요.';
+
+  @override
+  String get write_ai_title => 'AI 위로 메시지';
+
+  @override
+  String get write_ai_description => '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.';
 }

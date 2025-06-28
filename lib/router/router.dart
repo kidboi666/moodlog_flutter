@@ -15,11 +15,13 @@ import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/settings_screen.dart';
-import '../presentation/views/write/write_screen.dart';
+import '../presentation/views/write/screen/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
+  initialLocation: Routes.home,
+  restorationScopeId: 'app',
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,
   redirect: _redirect,
@@ -34,7 +36,6 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
         return OnboardingScreen(viewModel: viewModel);
       },
     ),
-
     StatefulShellRoute(
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
@@ -104,8 +105,12 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
       path: '/:id',
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
-        final viewModel = JournalViewModel(journalRepository: context.read());
-        viewModel.load(id);
+        final data = state.extra as Map<String, dynamic>;
+        final viewModel = JournalViewModel(
+          journalRepository: context.read(),
+          source: data['source'],
+          id: id,
+        );
         return JournalScreen(viewModel: viewModel);
       },
     ),
@@ -115,8 +120,13 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final Logger log = Logger('Redirect');
   final appState = context.read<AppStateRepository>().appState;
+  final isLoading = context.read<AppStateRepository>().isLoading;
   final isFirstLaunch = appState.isFirstLaunch;
   final isInOnboarding = state.matchedLocation == Routes.onboarding;
+
+  if (isLoading) {
+    return null;
+  }
 
   if (isFirstLaunch) {
     log.info('First launch, redirecting to onboarding');

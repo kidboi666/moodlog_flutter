@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract final class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    fontFamily: 'Pretendard',
+    fontFamily: 'LeeSeoyun',
     brightness: Brightness.light,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(
@@ -12,7 +12,7 @@ abstract final class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
-    fontFamily: 'Pretendard',
+    fontFamily: 'LeeSeoyun',
     brightness: Brightness.dark,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(

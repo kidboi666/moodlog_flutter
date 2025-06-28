@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:drift/drift.dart';
 
 import '../../core/utils/result.dart';
@@ -59,7 +61,7 @@ class JournalRepositoryImpl implements JournalRepository {
           JournalsCompanion(
             content: Value(dto.content),
             moodName: Value(dto.moodName),
-            imageUri: Value(dto.imageUri),
+            imageUri: Value(json.encode(dto.imageUri)),
           ),
         );
     if (journal == null) {

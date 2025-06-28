@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/domain/repositories/app_state_repository.dart';
+import 'package:provider/provider.dart';
 
 import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/journal_card.dart';
@@ -13,6 +15,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = context.watch<AppStateRepository>().isLoading;
+    if (isLoading) {
+      return Flexible(child: Center(child: CircularProgressIndicator()));
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: ListView(

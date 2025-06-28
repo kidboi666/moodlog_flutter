@@ -89,7 +89,7 @@ class _OnboardingNicknamePageViewState
                         )!.onboarding_nickname_input_title,
                         hintText: AppLocalizations.of(
                           context,
-                        )!.onboarding_nickname_input_placeholder,
+                        )!.onboarding_nickname_input_hint,
                         filled: true,
                         fillColor: Theme.of(
                           context,

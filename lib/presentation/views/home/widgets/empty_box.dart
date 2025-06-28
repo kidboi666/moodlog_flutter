@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+
+import '../../../../router/routes.dart';
 
 class EmptyBox extends StatelessWidget {
   const EmptyBox({super.key});
@@ -15,18 +19,19 @@ class EmptyBox extends StatelessWidget {
           spacing: 28,
           children: [
             Text(
-              // TODO: Localization
-              '당신의 이야기를 기다리고 있어요.',
+              AppLocalizations.of(context)!.home_empty_box,
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            FloatingActionButton(
-              // TODO: Add onPressed
-              onPressed: () {},
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              elevation: 2.0,
-              mini: true,
-              child: Icon(Icons.add),
+            IconButton.filled(
+              style: IconButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                context.push(Routes.write);
+              },
+              icon: Icon(Icons.add),
             ),
           ],
         ),

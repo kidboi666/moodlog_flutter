@@ -6,6 +6,8 @@ import '../entities/app_state.dart';
 abstract class AppStateRepository extends ChangeNotifier {
   AppState get appState;
 
+  bool get isLoading;
+
   Future<void> init({
     required String nickname,
     required AiPersonality aiPersonality,

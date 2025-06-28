@@ -13,6 +13,10 @@ class AppStateRepositoryImpl extends AppStateRepository {
 
   final SharedPreferencesAsync _asyncPrefs = SharedPreferencesAsync();
   AppState? _appState = const AppState();
+  bool _isLoading = true;
+
+  @override
+  bool get isLoading => _isLoading;
 
   @override
   AppState get appState {
@@ -20,6 +24,9 @@ class AppStateRepositoryImpl extends AppStateRepository {
   }
 
   Future<void> _load() async {
+    _isLoading = true;
+    notifyListeners();
+
     final isFirstLaunch =
         await _asyncPrefs.getBool(PreferenceKeys.isFirstLaunch) ?? true;
     final themeModeString = await _asyncPrefs.getString(
@@ -55,6 +62,8 @@ class AppStateRepositoryImpl extends AppStateRepository {
       aiPersonality: aiPersonality,
       nickname: nickname,
     );
+    _isLoading = false;
+    // await Future.delayed(const Duration(milliseconds: 500));
     notifyListeners();
   }
 

@@ -7,16 +7,23 @@ import '../../../domain/repositories/journal_repository.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
+  final String source;
+  final int id;
 
-  JournalViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository;
+  JournalViewModel({
+    required JournalRepository journalRepository,
+    required this.source,
+    required this.id,
+  }) : _journalRepository = journalRepository {
+    _load();
+  }
 
   final Logger _logger = Logger('JournalViewModel');
   Journal? _journal;
 
   Journal? get journal => _journal;
 
-  Future<Result<void>> load(int id) async {
+  Future<Result<void>> _load() async {
     final journal = await _journalRepository.getJournalById(id);
     switch (journal) {
       case Ok<Journal>():
