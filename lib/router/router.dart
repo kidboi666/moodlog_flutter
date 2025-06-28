@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
 import 'package:moodlog/presentation/view_models/entries/entries_viewmodel.dart';
+import 'package:moodlog/presentation/views/statistics/screen/statistics_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../presentation/view_models/home/home_viewmodel.dart';
@@ -65,6 +66,16 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
                   journalRepository: context.read(),
                 );
                 return EntriesScreen(viewModel: viewModel);
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.statistics,
+              builder: (context, state) {
+                return StatisticsScreen();
               },
             ),
           ],
