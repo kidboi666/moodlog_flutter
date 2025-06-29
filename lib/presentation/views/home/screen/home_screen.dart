@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoading = context.watch<AppStateRepository>().isLoading;
     if (isLoading) {
-      return Flexible(child: Center(child: CircularProgressIndicator()));
+      return Center(child: CircularProgressIndicator());
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:moodlog/core/utils/string_list_converter.dart';
 
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/stat.dart';
@@ -11,7 +12,8 @@ class Journals extends Table {
 
   TextColumn get moodName => text()();
 
-  TextColumn get imageUri => text().nullable()();
+  TextColumn get imageUri =>
+      text().map(const StringListConverter()).nullable()();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

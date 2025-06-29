@@ -2,7 +2,7 @@ class Journal {
   final int id;
   final String? content;
   final String moodName;
-  final String? imageUri;
+  final List<String>? imageUri;
   final DateTime createdAt;
 
   Journal({

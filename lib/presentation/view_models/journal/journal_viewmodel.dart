@@ -18,7 +18,7 @@ class JournalViewModel extends ChangeNotifier {
     _load();
   }
 
-  final Logger _logger = Logger('JournalViewModel');
+  final Logger _log = Logger('JournalViewModel');
   Journal? _journal;
 
   Journal? get journal => _journal;
@@ -27,12 +27,13 @@ class JournalViewModel extends ChangeNotifier {
     final journal = await _journalRepository.getJournalById(id);
     switch (journal) {
       case Ok<Journal>():
-        _logger.fine('Loaded Journal');
+        _log.fine('Loaded Journal');
         _journal = journal.value;
         notifyListeners();
         return Result.ok(null);
       case Error<Journal>():
-        _logger.warning('Failed to load Journal', journal.error);
+        _log.warning('Failed to load Journal', journal.error);
+        notifyListeners();
         return Result.error(journal.error);
     }
   }
