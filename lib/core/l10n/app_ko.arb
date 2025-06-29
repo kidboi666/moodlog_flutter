@@ -47,5 +47,9 @@
   "journal_delete_confirm_title": "삭제 확인",
   "journal_delete_confirm_description": "이 항목을 삭제하시겠습니까?",
   "journal_delete_confirm_delete": "삭제",
-  "journal_delete_confirm_cancel": "취소"
+  "journal_delete_confirm_cancel": "취소",
+  "settings_common_language_title": "언어",
+  "settings_common_language_dialog_title": "언어 선택",
+  "settings_common_theme_title": "테마",
+  "settings_common_theme_subtitle": "밝기 테마를 선택합니다."
 }

@@ -4,11 +4,15 @@ import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/view_models/journal/journal_viewmodel.dart';
 import 'package:moodlog/router/routes.dart';
 
-class DeleteConfirm extends StatelessWidget {
+class DeleteConfirmDialog extends StatelessWidget {
   final int id;
   final JournalViewModel viewModel;
 
-  const DeleteConfirm({super.key, required this.id, required this.viewModel});
+  const DeleteConfirmDialog({
+    super.key,
+    required this.id,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {

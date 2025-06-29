@@ -134,4 +134,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get journal_delete_confirm_cancel => '취소';
+
+  @override
+  String get settings_common_language_title => '언어';
+
+  @override
+  String get settings_common_language_dialog_title => '언어 선택';
+
+  @override
+  String get settings_common_theme_title => '테마';
+
+  @override
+  String get settings_common_theme_subtitle => '밝기 테마를 선택합니다.';
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
 import 'package:moodlog/presentation/view_models/entries/entries_viewmodel.dart';
+import 'package:moodlog/presentation/view_models/settings/settings_viewmodel.dart';
 import 'package:moodlog/presentation/views/statistics/screen/statistics_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +15,13 @@ import '../presentation/views/entries/screen/entries_screen.dart';
 import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/screen/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
-import '../presentation/views/settings/settings_screen.dart';
+import '../presentation/views/settings/screen/settings_screen.dart';
 import '../presentation/views/write/screen/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
-  initialLocation: Routes.home,
+  initialLocation: Routes.settings,
   restorationScopeId: 'app',
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,
@@ -86,7 +87,10 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
             GoRoute(
               path: Routes.settings,
               builder: (context, state) {
-                return SettingsScreen();
+                final viewModel = SettingsViewModel(
+                  appStateRepository: context.read(),
+                );
+                return SettingsScreen(viewModel: viewModel);
               },
             ),
           ],

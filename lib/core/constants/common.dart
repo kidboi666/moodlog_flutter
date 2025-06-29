@@ -91,4 +91,6 @@ abstract final class PreferenceKeys {
   static const firstLaunchedDate = 'first_launched_date';
   static const nickname = 'nick_name';
   static const aiPersonality = 'ai_personality';
+  static const hasNotificationEnabled = 'has_notification_enabled';
+  static const hasAutoSyncEnabled = 'has_auto_sync_enabled';
 }

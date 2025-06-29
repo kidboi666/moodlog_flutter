@@ -55,21 +55,6 @@ extension AiPersonalityExtension on AiPersonality {
   }
 }
 
-extension ThemeModeExtension on ThemeMode {
-  static ThemeMode fromString(String? value) {
-    switch (value) {
-      case 'system':
-        return ThemeMode.system;
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
-      default:
-        return ThemeMode.system;
-    }
-  }
-}
-
 extension LanguageCodeExtension on LanguageCode {
   static LanguageCode fromString(String? value) {
     switch (value) {

@@ -333,6 +333,30 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'취소'**
   String get journal_delete_confirm_cancel;
+
+  /// No description provided for @settings_common_language_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'언어'**
+  String get settings_common_language_title;
+
+  /// No description provided for @settings_common_language_dialog_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'언어 선택'**
+  String get settings_common_language_dialog_title;
+
+  /// No description provided for @settings_common_theme_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'테마'**
+  String get settings_common_theme_title;
+
+  /// No description provided for @settings_common_theme_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'밝기 테마를 선택합니다.'**
+  String get settings_common_theme_subtitle;
 }
 
 class _AppLocalizationsDelegate

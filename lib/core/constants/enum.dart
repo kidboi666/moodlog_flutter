@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
-enum LanguageCode { ko, en }
+enum LanguageCode {
+  ko,
+  en;
+
+  String get displayName {
+    switch (this) {
+      case LanguageCode.ko:
+        return '한국어';
+      case LanguageCode.en:
+        return 'English';
+    }
+  }
+}
 
 enum AiPersonality { rational, balanced, compassionate }
 
@@ -70,6 +82,36 @@ enum MoodType {
         return 0xFFFF9800;
       case MoodType.verySad:
         return 0xFFF44336;
+    }
+  }
+}
+
+enum ThemeMode {
+  light,
+  dark,
+  system;
+
+  String get displayName {
+    switch (this) {
+      case ThemeMode.light:
+        return 'Light';
+      case ThemeMode.dark:
+        return 'Dark';
+      case ThemeMode.system:
+        return 'System';
+    }
+  }
+
+  static ThemeMode fromString(String? value) {
+    switch (value) {
+      case 'system':
+        return ThemeMode.system;
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
     }
   }
 }

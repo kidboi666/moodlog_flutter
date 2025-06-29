@@ -7,7 +7,7 @@ import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../router/routes.dart';
-import '../../views/journal/widgets/delete_confirm.dart';
+import '../../views/journal/widgets/delete_confirm_dialog.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
@@ -51,7 +51,7 @@ class JournalViewModel extends ChangeNotifier {
   Future<void> handleDelete(BuildContext context) async {
     return showDialog(
       context: context,
-      builder: (context) => DeleteConfirm(viewModel: this, id: id),
+      builder: (context) => DeleteConfirmDialog(viewModel: this, id: id),
     );
   }
 

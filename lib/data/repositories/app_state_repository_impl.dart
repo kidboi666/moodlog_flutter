@@ -32,7 +32,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
     final themeModeString = await _asyncPrefs.getString(
       PreferenceKeys.themeMode,
     );
-    final themeMode = ThemeModeExtension.fromString(themeModeString);
+    final themeMode = ThemeMode.fromString(themeModeString);
     final languageCodeString = await _asyncPrefs.getString(
       PreferenceKeys.languageCode,
     );
@@ -52,6 +52,11 @@ class AppStateRepositoryImpl extends AppStateRepository {
     final aiPersonality = AiPersonalityExtension.fromString(
       aiPersonalityString,
     );
+    final hasNotificationEnabled =
+        await _asyncPrefs.getBool(PreferenceKeys.hasNotificationEnabled) ??
+        false;
+    final hasAutoSyncEnabled =
+        await _asyncPrefs.getBool(PreferenceKeys.hasAutoSyncEnabled) ?? false;
 
     _appState = AppState(
       isFirstLaunch: isFirstLaunch,
@@ -61,9 +66,10 @@ class AppStateRepositoryImpl extends AppStateRepository {
       firstLaunchedDate: firstLaunchedDate,
       aiPersonality: aiPersonality,
       nickname: nickname,
+      hasNotificationEnabled: hasNotificationEnabled,
+      hasAutoSyncEnabled: hasAutoSyncEnabled,
     );
     _isLoading = false;
-    // await Future.delayed(const Duration(milliseconds: 500));
     notifyListeners();
   }
 
@@ -88,20 +94,41 @@ class AppStateRepositoryImpl extends AppStateRepository {
   }
 
   @override
-  Future<void> updateLanguage(String languageCode) async {
-    await _asyncPrefs.setString(PreferenceKeys.languageCode, languageCode);
+  Future<void> updateLanguage(LanguageCode languageCode) async {
+    await _asyncPrefs.setString(
+      PreferenceKeys.languageCode,
+      languageCode.toString(),
+    );
     _load();
   }
 
   @override
-  Future<void> updateThemeMode(String themeMode) async {
-    await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode);
+  Future<void> updateThemeMode(ThemeMode themeMode) async {
+    await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode.toString());
     _load();
   }
 
   @override
   Future<void> updateNickname(String nickname) async {
     await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
+    _load();
+  }
+
+  @override
+  Future<void> updateNotificationEnabled(bool hasNotificationEnabled) async {
+    await _asyncPrefs.setBool(
+      PreferenceKeys.hasNotificationEnabled,
+      hasNotificationEnabled,
+    );
+    _load();
+  }
+
+  @override
+  Future<void> updateAutoSyncEnabled(bool hasAutoSyncEnabled) async {
+    await _asyncPrefs.setBool(
+      PreferenceKeys.hasAutoSyncEnabled,
+      hasAutoSyncEnabled,
+    );
     _load();
   }
 }

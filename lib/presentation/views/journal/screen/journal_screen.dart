@@ -80,7 +80,7 @@ class _MoodBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 8,
+      width: 12,
       margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         color: Color(moodType.colorValue),
@@ -103,21 +103,36 @@ class _ContentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isVisibleImage = viewModel.journal?.imageUri?.isNotEmpty ?? false;
     return Expanded(
       child: Column(
         spacing: 20,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.width - 32,
-            child: ListView(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              children: [
-                ...viewModel.journal?.imageUri?.map(
-                      (image) => CoverImage(image: image),
-                    ) ??
-                    [],
-              ],
+            width: double.infinity,
+            child: RichText(
+              textAlign: TextAlign.start,
+              text: TextSpan(
+                text: viewModel.journal?.moodType.name ?? '',
+                style: Theme.of(context).textTheme.titleLarge,
+                children: [TextSpan(text: viewModel.journal?.moodType.emoji)],
+              ),
+            ),
+          ),
+          Offstage(
+            offstage: !isVisibleImage,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.width - 32,
+              child: ListView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ...viewModel.journal?.imageUri?.map(
+                        (image) => CoverImage(image: image),
+                      ) ??
+                      [],
+                ],
+              ),
             ),
           ),
           SizedBox(

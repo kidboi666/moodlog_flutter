@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' hide ThemeMode;
 
 import '../../core/constants/enum.dart';
 import '../entities/app_state.dart';
@@ -15,9 +15,13 @@ abstract class AppStateRepository extends ChangeNotifier {
 
   Future<void> setFirstLaunchComplete();
 
-  Future<void> updateThemeMode(String themeMode);
+  Future<void> updateThemeMode(ThemeMode themeMode);
 
-  Future<void> updateLanguage(String languageCode);
+  Future<void> updateLanguage(LanguageCode languageCode);
 
   Future<void> updateNickname(String nickname);
+
+  Future<void> updateNotificationEnabled(bool enabled);
+
+  Future<void> updateAutoSyncEnabled(bool enabled);
 }
