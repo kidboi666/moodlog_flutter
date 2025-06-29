@@ -43,17 +43,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _imageUriMeta = const VerificationMeta(
-    'imageUri',
-  );
   @override
-  late final GeneratedColumn<String> imageUri = GeneratedColumn<String>(
-    'image_uri',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+  late final GeneratedColumnWithTypeConverter<List<String>?, String> imageUri =
+      GeneratedColumn<String>(
+        'image_uri',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<List<String>?>($JournalsTable.$converterimageUri);
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -103,12 +101,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     } else if (isInserting) {
       context.missing(_moodNameMeta);
     }
-    if (data.containsKey('image_uri')) {
-      context.handle(
-        _imageUriMeta,
-        imageUri.isAcceptableOrUnknown(data['image_uri']!, _imageUriMeta),
-      );
-    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -136,9 +128,11 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.string,
         data['${effectivePrefix}mood_name'],
       )!,
-      imageUri: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}image_uri'],
+      imageUri: $JournalsTable.$converterimageUri.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}image_uri'],
+        ),
       ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -151,13 +145,16 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   $JournalsTable createAlias(String alias) {
     return $JournalsTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<List<String>?, String?> $converterimageUri =
+      const StringListConverter();
 }
 
 class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<int> id;
   final Value<String?> content;
   final Value<String> moodName;
-  final Value<String?> imageUri;
+  final Value<List<String>?> imageUri;
   final Value<DateTime> createdAt;
   const JournalsCompanion({
     this.id = const Value.absent(),
@@ -193,7 +190,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<int>? id,
     Value<String?>? content,
     Value<String>? moodName,
-    Value<String?>? imageUri,
+    Value<List<String>?>? imageUri,
     Value<DateTime>? createdAt,
   }) {
     return JournalsCompanion(
@@ -218,7 +215,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       map['mood_name'] = Variable<String>(moodName.value);
     }
     if (imageUri.present) {
-      map['image_uri'] = Variable<String>(imageUri.value);
+      map['image_uri'] = Variable<String>(
+        $JournalsTable.$converterimageUri.toSql(imageUri.value),
+      );
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -466,7 +465,7 @@ typedef $$JournalsTableCreateCompanionBuilder =
       Value<int> id,
       Value<String?> content,
       required String moodName,
-      Value<String?> imageUri,
+      Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
     });
 typedef $$JournalsTableUpdateCompanionBuilder =
@@ -474,7 +473,7 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<int> id,
       Value<String?> content,
       Value<String> moodName,
-      Value<String?> imageUri,
+      Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
     });
 
@@ -502,9 +501,10 @@ class $$JournalsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get imageUri => $composableBuilder(
+  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
+  get imageUri => $composableBuilder(
     column: $table.imageUri,
-    builder: (column) => ColumnFilters(column),
+    builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
@@ -566,7 +566,7 @@ class $$JournalsTableAnnotationComposer
   GeneratedColumn<String> get moodName =>
       $composableBuilder(column: $table.moodName, builder: (column) => column);
 
-  GeneratedColumn<String> get imageUri =>
+  GeneratedColumnWithTypeConverter<List<String>?, String> get imageUri =>
       $composableBuilder(column: $table.imageUri, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
@@ -604,7 +604,7 @@ class $$JournalsTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String?> content = const Value.absent(),
                 Value<String> moodName = const Value.absent(),
-                Value<String?> imageUri = const Value.absent(),
+                Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
@@ -618,7 +618,7 @@ class $$JournalsTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String?> content = const Value.absent(),
                 required String moodName,
-                Value<String?> imageUri = const Value.absent(),
+                Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
