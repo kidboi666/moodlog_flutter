@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/views/journal/widgets/delete_confirm.dart';
-import 'package:moodlog/presentation/widgets/pop_button.dart';
-import 'package:moodlog/router/routes.dart';
 
+import '../../../../core/constants/enum.dart';
+import '../../../../core/extensions/date_time.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../../presentation/widgets/pop_button.dart';
 import '../../../view_models/journal/journal_viewmodel.dart';
 import '../widgets/cover_image.dart';
 
@@ -17,29 +17,33 @@ class JournalScreen extends StatefulWidget {
 }
 
 class _JournalScreenState extends State<JournalScreen> {
-  final ScrollController _scrollController = ScrollController();
-
-  Future<void> _dialogBuilder(BuildContext context) async {
-    return await showDialog(
-      context: context,
-      builder: (context) =>
-          DeleteConfirm(viewModel: widget.viewModel, id: widget.viewModel.id),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: PopButton(
-          onTap: widget.viewModel.source == 'write'
-              ? () => context.replace(Routes.home)
-              : null,
+          onTap: () => widget.viewModel.handleBackNavigation(context),
+        ),
+        title: Text(
+          widget.viewModel.journal?.createdAt.formatted(
+                AppLocalizations.of(context)!,
+              ) ??
+              '',
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         actions: [
+          ListenableBuilder(
+            listenable: widget.viewModel,
+            builder: (context, _) {
+              return IconButton(
+                onPressed: widget.viewModel.changeAlign,
+                icon: Icon(widget.viewModel.currentAlign.icon),
+              );
+            },
+          ),
           IconButton(
-            onPressed: () => _dialogBuilder(context),
-            icon: Icon(Icons.delete),
+            onPressed: () => widget.viewModel.handleDelete(context),
+            icon: const Icon(Icons.delete),
           ),
         ],
       ),
@@ -52,36 +56,10 @@ class _JournalScreenState extends State<JournalScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Container(
-                      width: 8,
-                      margin: const EdgeInsets.only(right: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(8.0),
-                          bottomRight: Radius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width - 32,
-                            child: ListView(
-                              controller: _scrollController,
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                ...widget.viewModel.journal?.imageUri?.map(
-                                      (image) => CoverImage(image: image),
-                                    ) ??
-                                    [],
-                              ],
-                            ),
-                          ),
-                          Text(widget.viewModel.journal?.content ?? ''),
-                        ],
-                      ),
+                    _MoodBar(moodType: widget.viewModel.journal!.moodType),
+                    _ContentBox(
+                      viewModel: widget.viewModel,
+                      currentAlign: widget.viewModel.currentAlign,
                     ),
                   ],
                 ),
@@ -89,6 +67,71 @@ class _JournalScreenState extends State<JournalScreen> {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _MoodBar extends StatelessWidget {
+  final MoodType moodType;
+
+  const _MoodBar({required this.moodType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 8,
+      margin: const EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+        color: Color(moodType.colorValue),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(8.0),
+          bottomRight: Radius.circular(8.0),
+        ),
+      ),
+    );
+  }
+}
+
+class _ContentBox extends StatelessWidget {
+  final JournalViewModel viewModel;
+  final SimpleTextAlign currentAlign;
+
+  _ContentBox({required this.viewModel, required this.currentAlign});
+
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        spacing: 20,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.width - 32,
+            child: ListView(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              children: [
+                ...viewModel.journal?.imageUri?.map(
+                      (image) => CoverImage(image: image),
+                    ) ??
+                    [],
+              ],
+            ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Text(
+                viewModel.journal?.content ?? '',
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: currentAlign.textAlign,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -5,12 +5,14 @@ import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/models/request/add_journal_request.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
 
+import '../../../core/constants/enum.dart';
+
 class WriteViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
   final Logger _log = Logger('WriteViewModel');
 
   String? _content;
-  String _moodName = 'happy';
+  MoodType _moodType = MoodType.neutral;
   List<String> _imageFileList = [];
   bool _isSubmitted = false;
   int? _submittedJournalId;
@@ -25,7 +27,7 @@ class WriteViewModel extends ChangeNotifier {
 
   bool get aiEnabled => _aiEnabled;
 
-  String get moodName => _moodName;
+  MoodType get moodType => _moodType;
 
   List<String> get imageUri => _imageFileList;
 
@@ -38,9 +40,9 @@ class WriteViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMoodName(String value) {
-    if (_moodName != value) {
-      _moodName = value;
+  void updateMoodType(MoodType value) {
+    if (_moodType != value) {
+      _moodType = value;
       notifyListeners();
     }
   }
@@ -72,7 +74,7 @@ class WriteViewModel extends ChangeNotifier {
 
   void resetForm() {
     _content = null;
-    _moodName = 'happy';
+    _moodType = MoodType.neutral;
     _imageFileList = [];
     _isSubmitted = false;
     _submittedJournalId = null;
@@ -95,7 +97,7 @@ class WriteViewModel extends ChangeNotifier {
 
     final newJournal = AddJournalRequest(
       content: content,
-      moodName: moodName,
+      moodType: moodType,
       imageUri: imageUri,
       aiEnabled: aiEnabled,
     );

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
+import '../../../core/constants/enum.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
+import '../../../router/routes.dart';
+import '../../views/journal/widgets/delete_confirm.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
@@ -20,11 +24,36 @@ class JournalViewModel extends ChangeNotifier {
 
   final Logger _log = Logger('JournalViewModel');
   Journal? _journal;
+  SimpleTextAlign _currentAlign = SimpleTextAlign.left;
   bool _isLoading = true;
+
+  bool get shouldReplaceOnPop => source == 'write';
 
   Journal? get journal => _journal;
 
   bool get isLoading => _isLoading;
+
+  SimpleTextAlign get currentAlign => _currentAlign;
+
+  void handleBackNavigation(BuildContext context) {
+    if (shouldReplaceOnPop) {
+      context.replace(Routes.home);
+    } else {
+      context.pop();
+    }
+  }
+
+  void changeAlign() {
+    _currentAlign = _currentAlign.next;
+    notifyListeners();
+  }
+
+  Future<void> handleDelete(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) => DeleteConfirm(viewModel: this, id: id),
+    );
+  }
 
   Future<Result<void>> delete() async {
     _isLoading = true;
@@ -52,9 +81,9 @@ class JournalViewModel extends ChangeNotifier {
     final journal = await _journalRepository.getJournalById(id);
     switch (journal) {
       case Ok<Journal>():
-        _log.fine('Loaded Journal');
         _journal = journal.value;
         _isLoading = false;
+        _log.fine('Loaded Journal', journal.value.createdAt);
         notifyListeners();
         return Result.ok(null);
       case Error<Journal>():

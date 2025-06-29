@@ -58,7 +58,7 @@ class JournalRepositoryImpl implements JournalRepository {
         .insertReturningOrNull(
           JournalsCompanion(
             content: Value(dto.content),
-            moodName: Value(dto.moodName),
+            moodType: Value(dto.moodType),
             imageUri: Value(dto.imageUri),
           ),
         );

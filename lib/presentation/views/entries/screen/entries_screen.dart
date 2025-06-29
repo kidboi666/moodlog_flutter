@@ -24,7 +24,7 @@ class EntriesScreen extends StatelessWidget {
                       (e) => JournalCard(
                         id: e.id,
                         content: e.content ?? '',
-                        moodName: e.moodName,
+                        moodType: e.moodType,
                         createdAt: e.createdAt,
                       ),
                     )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -13,6 +14,7 @@ import 'domain/repositories/journal_repository.dart';
 import 'router/router.dart';
 
 void main() {
+  Logger.root.level = Level.ALL;
   runApp(
     MultiProvider(providers: _createProviders(), child: const MoodLogApp()),
   );

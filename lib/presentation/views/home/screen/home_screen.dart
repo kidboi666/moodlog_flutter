@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                   return JournalCard(
                     id: e.id,
                     content: e.content ?? '',
-                    moodName: e.moodName,
+                    moodType: e.moodType,
                     createdAt: e.createdAt,
                   );
                 }, childCount: viewModel.journal.length),

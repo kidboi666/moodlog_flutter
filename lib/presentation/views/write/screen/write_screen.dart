@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/presentation/views/write/widgets/content_input.dart';
 import 'package:moodlog/presentation/views/write/widgets/image_picking_section.dart';
+import 'package:moodlog/presentation/views/write/widgets/mood_selector.dart';
 
 import '../../../../router/routes.dart';
 import '../../../view_models/write/write_viewmodel.dart';
@@ -66,6 +67,11 @@ class _WriteScreenState extends State<WriteScreen> {
                     contentController: _contentController,
                   ),
                   AiEnableCard(viewModel: widget.viewModel),
+                  MoodSelector(
+                    onMoodSelected: widget.viewModel.updateMoodType,
+                    selectedMood: widget.viewModel.moodType,
+                    viewModel: widget.viewModel,
+                  ),
                 ],
               ),
             );

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:moodlog/core/utils/string_list_converter.dart';
+import 'package:moodlog/core/utils/converter.dart';
 
+import '../../core/constants/enum.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/stat.dart';
 
@@ -10,7 +11,7 @@ class Journals extends Table {
 
   TextColumn get content => text().nullable()();
 
-  TextColumn get moodName => text()();
+  IntColumn get moodType => intEnum<MoodType>()();
 
   TextColumn get imageUri =>
       text().map(const StringListConverter()).nullable()();

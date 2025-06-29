@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../core/constants/enum.dart';
+
 part 'add_journal_request.freezed.dart';
 part 'add_journal_request.g.dart';
 
@@ -7,7 +9,7 @@ part 'add_journal_request.g.dart';
 abstract class AddJournalRequest with _$AddJournalRequest {
   const factory AddJournalRequest({
     String? content,
-    required String moodName,
+    required MoodType moodType,
     required List<String> imageUri,
     bool? aiEnabled,
   }) = _AddJournalRequest;

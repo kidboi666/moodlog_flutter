@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppTheme {
-  static final seedColor = Colors.blueGrey;
+  static final seedColor = Colors.teal;
 
   static final ThemeData lightTheme = ThemeData(
     fontFamily: 'LeeSeoyun',
