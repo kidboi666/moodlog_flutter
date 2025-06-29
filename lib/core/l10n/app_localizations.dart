@@ -94,6 +94,24 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('ko')];
 
+  /// No description provided for @common_date_today.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘'**
+  String get common_date_today;
+
+  /// No description provided for @common_date_tomorrow.
+  ///
+  /// In ko, this message translates to:
+  /// **'내일'**
+  String get common_date_tomorrow;
+
+  /// No description provided for @common_date_yesterday.
+  ///
+  /// In ko, this message translates to:
+  /// **'어제'**
+  String get common_date_yesterday;
+
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In ko, this message translates to:

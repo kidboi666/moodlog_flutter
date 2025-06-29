@@ -46,17 +46,14 @@ class _JournalScreenState extends State<JournalScreen> {
       body: ListenableBuilder(
         listenable: widget.viewModel,
         builder: (context, child) {
-          return Column(
+          return ListView(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.width - 32,
-                child: ListView(
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
                       width: 8,
-                      height: MediaQuery.of(context).size.width - 32,
                       margin: const EdgeInsets.only(right: 12),
                       decoration: BoxDecoration(
                         color: Colors.red,
@@ -66,14 +63,29 @@ class _JournalScreenState extends State<JournalScreen> {
                         ),
                       ),
                     ),
-                    ...widget.viewModel.journal?.imageUri?.map(
-                          (image) => CoverImage(image: image),
-                        ) ??
-                        [],
+                    Expanded(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width - 32,
+                            child: ListView(
+                              controller: _scrollController,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                ...widget.viewModel.journal?.imageUri?.map(
+                                      (image) => CoverImage(image: image),
+                                    ) ??
+                                    [],
+                              ],
+                            ),
+                          ),
+                          Text(widget.viewModel.journal?.content ?? ''),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Text(widget.viewModel.journal?.content ?? ''),
             ],
           );
         },

@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+
 import '../../core/constants/common.dart';
 
 extension DateTimeExtension on DateTime {
@@ -9,12 +12,19 @@ extension DateTimeExtension on DateTime {
 
   int get firstDateOfMonth => DateTime(year, month + 1, 1).day;
 
-  static DateTime? fromString(String? value) {
-    if (value == null) return null;
-    try {
-      return DateTime.parse(value);
-    } catch (e) {
-      return null;
+  String formatted(AppLocalizations localizations) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly = DateTime(year, month, day);
+
+    if (dateOnly == today) {
+      return '${localizations.common_date_today} ${DateFormat('HH:mm').format(this)}';
+    } else if (dateOnly == today.subtract(Duration(days: 1))) {
+      return '${localizations.common_date_yesterday} ${DateFormat('HH:mm').format(this)}';
+    } else if (now.year == year) {
+      return DateFormat('MM.dd HH:mm').format(this);
+    } else {
+      return DateFormat('yyyy.MM.dd HH:mm').format(this);
     }
   }
 }

@@ -50,27 +50,17 @@ class ScaffoldWithNavbar extends StatelessWidget {
         children: children,
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(
-                context,
-              ).colorScheme.shadow.withValues(alpha: 0.04),
-              blurRadius: 20,
-              offset: const Offset(0, 0),
-            ),
-          ],
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(40.0)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(40.0),
           child: BottomAppBar(
             shape: const CircularNotchedRectangle(),
             child: NavigationBar(
               elevation: 0,
-              backgroundColor: Colors.transparent,
               animationDuration: const Duration(milliseconds: DurationMs.lazy),
               selectedIndex: _setSelectedIndex(navigationShell.currentIndex),
               onDestinationSelected: _onTap,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
               destinations: const [
                 NavigationDestination(
                   icon: Icon(Icons.home_outlined),

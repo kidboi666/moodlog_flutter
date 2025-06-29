@@ -9,6 +9,15 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get common_date_today => '오늘';
+
+  @override
+  String get common_date_tomorrow => '내일';
+
+  @override
+  String get common_date_yesterday => '어제';
+
+  @override
   String get onboarding_welcome_title => '무드로그에 오신것을 환영합니다!';
 
   @override
