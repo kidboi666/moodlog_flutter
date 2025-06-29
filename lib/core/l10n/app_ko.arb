@@ -40,5 +40,9 @@
   "write_input_title": "내용",
   "write_input_hint": "오늘의 감정과 경험을 기록해보세요.",
   "write_ai_title": "AI 위로 메시지",
-  "write_ai_description": "일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요."
+  "write_ai_description": "일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.",
+  "journal_delete_confirm_title": "삭제 확인",
+  "journal_delete_confirm_description": "이 항목을 삭제하시겠습니까?",
+  "journal_delete_confirm_delete": "삭제",
+  "journal_delete_confirm_cancel": "취소"
 }

@@ -67,4 +67,16 @@ class JournalRepositoryImpl implements JournalRepository {
     }
     return Result.ok(journal.id);
   }
+
+  @override
+  Future<Result<void>> deleteJournalById(int id) async {
+    final deletedRows = await (_db.delete(
+      _db.journals,
+    )..where((t) => t.id.equals(id))).go();
+
+    if (deletedRows == 0) {
+      return Result.error(Exception('Failed to delete journal'));
+    }
+    return Result.ok(null);
+  }
 }

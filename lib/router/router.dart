@@ -12,7 +12,7 @@ import '../presentation/view_models/onboarding/onboarding_viewmodel.dart';
 import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/screen/entries_screen.dart';
 import '../presentation/views/home/screen/home_screen.dart';
-import '../presentation/views/journal/journal_screen.dart';
+import '../presentation/views/journal/screen/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/settings_screen.dart';
 import '../presentation/views/write/screen/write_screen.dart';

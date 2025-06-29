@@ -10,4 +10,6 @@ abstract class JournalRepository {
   Future<Result<Journal>> getJournalById(int id);
 
   Future<Result<int>> addJournal(AddJournalRequest dto);
+
+  Future<Result<void>> deleteJournalById(int id);
 }

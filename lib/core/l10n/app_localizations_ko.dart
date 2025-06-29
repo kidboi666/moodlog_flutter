@@ -113,4 +113,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get write_ai_description => '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.';
+
+  @override
+  String get journal_delete_confirm_title => '삭제 확인';
+
+  @override
+  String get journal_delete_confirm_description => '이 항목을 삭제하시겠습니까?';
+
+  @override
+  String get journal_delete_confirm_delete => '삭제';
+
+  @override
+  String get journal_delete_confirm_cancel => '취소';
 }

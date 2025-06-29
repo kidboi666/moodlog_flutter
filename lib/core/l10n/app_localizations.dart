@@ -291,6 +291,30 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.'**
   String get write_ai_description;
+
+  /// No description provided for @journal_delete_confirm_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'삭제 확인'**
+  String get journal_delete_confirm_title;
+
+  /// No description provided for @journal_delete_confirm_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'이 항목을 삭제하시겠습니까?'**
+  String get journal_delete_confirm_description;
+
+  /// No description provided for @journal_delete_confirm_delete.
+  ///
+  /// In ko, this message translates to:
+  /// **'삭제'**
+  String get journal_delete_confirm_delete;
+
+  /// No description provided for @journal_delete_confirm_cancel.
+  ///
+  /// In ko, this message translates to:
+  /// **'취소'**
+  String get journal_delete_confirm_cancel;
 }
 
 class _AppLocalizationsDelegate
