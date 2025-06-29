@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/journal_card.dart';
-import '../widgets/empty_box.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
 
@@ -16,42 +15,46 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading = context.watch<AppStateRepository>().isLoading;
+
     if (isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: ListView(
-        children: [
-          WelcomeZone(),
-          const SizedBox(height: 20),
-          HorizontalCalendar(
-            homeViewModel: viewModel,
-            selectedDate: viewModel.selectedDate,
-            onSelectedDateChange: viewModel.onSelectedDateChange,
-          ),
-          const SizedBox(height: 20),
-          ListenableBuilder(
-            listenable: viewModel,
-            builder: (context, _) {
-              return ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: viewModel.journal
-                    .map(
-                      (e) => JournalCard(
-                        id: e.id,
-                        content: e.content ?? '',
-                        moodName: e.moodName,
-                        createdAt: e.createdAt,
-                      ),
-                    )
-                    .toList(),
-              );
-            },
-          ),
-          const EmptyBox(),
-        ],
+      child: ListenableBuilder(
+        listenable: viewModel,
+        builder: (context, _) {
+          return CustomScrollView(
+            slivers: [
+              SliverSafeArea(
+                top: true,
+                bottom: false,
+                sliver: SliverToBoxAdapter(child: WelcomeZone()),
+              ),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverToBoxAdapter(
+                child: HorizontalCalendar(
+                  homeViewModel: viewModel,
+                  selectedDate: viewModel.selectedDate,
+                  onSelectedDateChange: viewModel.onSelectedDateChange,
+                ),
+              ),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final e = viewModel.journal[index];
+                  return JournalCard(
+                    id: e.id,
+                    content: e.content ?? '',
+                    moodName: e.moodName,
+                    createdAt: e.createdAt,
+                  );
+                }, childCount: viewModel.journal.length),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

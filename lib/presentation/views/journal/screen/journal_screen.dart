@@ -53,11 +53,24 @@ class _JournalScreenState extends State<JournalScreen> {
                 child: ListView(
                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,
-                  children:
-                      widget.viewModel.journal?.imageUri
-                          ?.map((image) => CoverImage(image: image))
-                          .toList() ??
-                      [],
+                  children: [
+                    Container(
+                      width: 8,
+                      height: MediaQuery.of(context).size.width - 32,
+                      margin: const EdgeInsets.only(right: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(8.0),
+                          bottomRight: Radius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    ...widget.viewModel.journal?.imageUri?.map(
+                          (image) => CoverImage(image: image),
+                        ) ??
+                        [],
+                  ],
                 ),
               ),
               Text(widget.viewModel.journal?.content ?? ''),

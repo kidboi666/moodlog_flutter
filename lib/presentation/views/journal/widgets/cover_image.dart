@@ -33,14 +33,17 @@ class _CoverImageState extends State<CoverImage> {
           ),
         ),
       ),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width - 32,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.file(
-            File(widget.image),
-            fit: BoxFit.cover,
-            width: double.infinity,
+      child: Container(
+        margin: const EdgeInsets.only(right: 12),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width - 32,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.file(
+              File(widget.image),
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
           ),
         ),
       ),
