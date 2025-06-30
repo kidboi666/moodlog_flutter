@@ -17,13 +17,16 @@ class DialogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.all(4.0),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        leading: Icon(icon),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
+      child: InkWell(
+        child: ListTile(
+          title: Text(title),
+          subtitle: Text(subtitle),
+          leading: Icon(icon),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: onTap,
+        ),
       ),
     );
   }

@@ -24,6 +24,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_confirm_ok => '확인';
 
   @override
+  String get common_confirm_delete => '삭제';
+
+  @override
+  String get common_email => '이메일';
+
+  @override
+  String get common_phone => '전화';
+
+  @override
   String get onboarding_welcome_title => '무드로그에 오신것을 환영합니다!';
 
   @override
@@ -136,12 +145,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_description => '이 항목을 삭제하시겠습니까?';
 
   @override
-  String get journal_delete_confirm_delete => '삭제';
-
-  @override
-  String get journal_delete_confirm_cancel => '취소';
-
-  @override
   String get settings_title => '설정';
 
   @override
@@ -193,13 +196,26 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_data_cash_cleanup_subtitle => '임시 파일을 삭제합니다.';
 
   @override
+  String get settings_data_cash_cleanup_confirm =>
+      '캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
+
+  @override
   String get settings_information_title => '정보';
 
   @override
-  String get settings_information_version_title => '앱 정보';
+  String get settings_information_app_title => '앱 정보';
 
   @override
-  String get settings_information_version_subtitle => '버전 및 라이선스 정보';
+  String get settings_information_app_subtitle => '버전 및 라이선스 정보';
+
+  @override
+  String get settings_information_app_version => '버전';
+
+  @override
+  String get settings_information_app_build => '라이선스';
+
+  @override
+  String get settings_information_app_developer => '개발자';
 
   @override
   String get settings_information_faq_title => '도움말';

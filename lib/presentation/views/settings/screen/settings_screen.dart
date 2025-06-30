@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/views/settings/widgets/app_info_dialog.dart';
-import 'package:moodlog/presentation/views/settings/widgets/backup_dialog.dart';
-import 'package:moodlog/presentation/views/settings/widgets/clear_cache_dialog.dart';
-import 'package:moodlog/presentation/views/settings/widgets/contact_dialog.dart';
-import 'package:moodlog/presentation/views/settings/widgets/language_dialog.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/settings/settings_viewmodel.dart';
+import '../widgets/app_info_dialog.dart';
+import '../widgets/backup_dialog.dart';
 import '../widgets/card_list_tile.dart';
+import '../widgets/clear_cache_dialog.dart';
+import '../widgets/contact_dialog.dart';
 import '../widgets/dialog_tile.dart';
+import '../widgets/language_dialog.dart';
 import '../widgets/section_header.dart';
 import '../widgets/switch_tile.dart';
 import '../widgets/theme_dialog.dart';
@@ -123,10 +123,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 CardListTile(
                   title: AppLocalizations.of(
                     context,
-                  )!.settings_information_version_title,
+                  )!.settings_information_app_title,
                   subtitle: AppLocalizations.of(
                     context,
-                  )!.settings_information_version_subtitle,
+                  )!.settings_information_app_subtitle,
                   icon: Icons.info,
                   onTap: () => widget.viewModel.showDialogWithWidget(
                     context,

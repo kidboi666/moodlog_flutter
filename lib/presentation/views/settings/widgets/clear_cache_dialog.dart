@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/view_models/settings/settings_viewmodel.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+
+import '../../../view_models/settings/settings_viewmodel.dart';
 
 class ClearCacheDialog extends StatelessWidget {
   final SettingsViewModel viewModel;
@@ -9,12 +12,16 @@ class ClearCacheDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('캐시 삭제'),
-      content: const Text('캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
+      title: Text(
+        AppLocalizations.of(context)!.settings_data_cash_cleanup_title,
+      ),
+      content: Text(
+        AppLocalizations.of(context)!.settings_data_cash_cleanup_confirm,
+      ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('취소'),
+          onPressed: () => context.pop(),
+          child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -24,7 +31,7 @@ class ClearCacheDialog extends StatelessWidget {
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
           ),
-          child: const Text('삭제'),
+          child: Text(AppLocalizations.of(context)!.common_confirm_delete),
         ),
       ],
     );

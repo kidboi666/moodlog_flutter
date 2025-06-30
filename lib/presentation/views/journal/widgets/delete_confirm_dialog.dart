@@ -24,18 +24,18 @@ class DeleteConfirmDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(
-            AppLocalizations.of(context)!.journal_delete_confirm_cancel,
-          ),
+          child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
         ),
-        TextButton(
+        ElevatedButton(
           onPressed: () {
             viewModel.delete();
             context.replace(Routes.home);
           },
-          child: Text(
-            AppLocalizations.of(context)!.journal_delete_confirm_delete,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
           ),
+          child: Text(AppLocalizations.of(context)!.common_confirm_delete),
         ),
       ],
     );

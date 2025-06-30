@@ -124,6 +124,24 @@ abstract class AppLocalizations {
   /// **'확인'**
   String get common_confirm_ok;
 
+  /// No description provided for @common_confirm_delete.
+  ///
+  /// In ko, this message translates to:
+  /// **'삭제'**
+  String get common_confirm_delete;
+
+  /// No description provided for @common_email.
+  ///
+  /// In ko, this message translates to:
+  /// **'이메일'**
+  String get common_email;
+
+  /// No description provided for @common_phone.
+  ///
+  /// In ko, this message translates to:
+  /// **'전화'**
+  String get common_phone;
+
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In ko, this message translates to:
@@ -334,18 +352,6 @@ abstract class AppLocalizations {
   /// **'이 항목을 삭제하시겠습니까?'**
   String get journal_delete_confirm_description;
 
-  /// No description provided for @journal_delete_confirm_delete.
-  ///
-  /// In ko, this message translates to:
-  /// **'삭제'**
-  String get journal_delete_confirm_delete;
-
-  /// No description provided for @journal_delete_confirm_cancel.
-  ///
-  /// In ko, this message translates to:
-  /// **'취소'**
-  String get journal_delete_confirm_cancel;
-
   /// No description provided for @settings_title.
   ///
   /// In ko, this message translates to:
@@ -448,23 +454,47 @@ abstract class AppLocalizations {
   /// **'임시 파일을 삭제합니다.'**
   String get settings_data_cash_cleanup_subtitle;
 
+  /// No description provided for @settings_data_cash_cleanup_confirm.
+  ///
+  /// In ko, this message translates to:
+  /// **'캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'**
+  String get settings_data_cash_cleanup_confirm;
+
   /// No description provided for @settings_information_title.
   ///
   /// In ko, this message translates to:
   /// **'정보'**
   String get settings_information_title;
 
-  /// No description provided for @settings_information_version_title.
+  /// No description provided for @settings_information_app_title.
   ///
   /// In ko, this message translates to:
   /// **'앱 정보'**
-  String get settings_information_version_title;
+  String get settings_information_app_title;
 
-  /// No description provided for @settings_information_version_subtitle.
+  /// No description provided for @settings_information_app_subtitle.
   ///
   /// In ko, this message translates to:
   /// **'버전 및 라이선스 정보'**
-  String get settings_information_version_subtitle;
+  String get settings_information_app_subtitle;
+
+  /// No description provided for @settings_information_app_version.
+  ///
+  /// In ko, this message translates to:
+  /// **'버전'**
+  String get settings_information_app_version;
+
+  /// No description provided for @settings_information_app_build.
+  ///
+  /// In ko, this message translates to:
+  /// **'라이선스'**
+  String get settings_information_app_build;
+
+  /// No description provided for @settings_information_app_developer.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발자'**
+  String get settings_information_app_developer;
 
   /// No description provided for @settings_information_faq_title.
   ///
