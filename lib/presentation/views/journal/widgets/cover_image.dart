@@ -19,8 +19,10 @@ class _CoverImageState extends State<CoverImage> {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
+          barrierDismissible: true,
           builder: (context) => Scaffold(
             extendBody: true,
+            extendBodyBehindAppBar: true,
             backgroundColor: Colors.black,
             appBar: AppBar(
               iconTheme: IconThemeData(color: Colors.white),

@@ -122,7 +122,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
 );
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final Logger log = Logger('Redirect');
+  final log = Logger('Redirect');
   final appState = context.read<AppStateRepository>().appState;
   final isLoading = context.read<AppStateRepository>().isLoading;
   final isFirstLaunch = appState.isFirstLaunch;

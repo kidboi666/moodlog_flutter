@@ -24,12 +24,17 @@ class _JournalScreenState extends State<JournalScreen> {
         leading: PopButton(
           onTap: () => widget.viewModel.handleBackNavigation(context),
         ),
-        title: Text(
-          widget.viewModel.journal?.createdAt.formatted(
-                AppLocalizations.of(context)!,
-              ) ??
-              '',
-          style: Theme.of(context).textTheme.titleMedium,
+        title: ListenableBuilder(
+          listenable: widget.viewModel,
+          builder: (context, _) {
+            return Text(
+              widget.viewModel.journal?.createdAt.formatted(
+                    AppLocalizations.of(context)!,
+                  ) ??
+                  '',
+              style: Theme.of(context).textTheme.titleMedium,
+            );
+          },
         ),
         actions: [
           ListenableBuilder(
