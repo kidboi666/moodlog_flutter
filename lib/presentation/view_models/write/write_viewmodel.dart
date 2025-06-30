@@ -124,14 +124,29 @@ class WriteViewModel extends ChangeNotifier {
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(DateTime.now().year),
+      firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime.now(),
-      initialDate: selectedDate,
+      initialDate: _selectedDate,
     );
 
-    if (pickedDate != selectedDate) {
-      _selectedDate = pickedDate ?? DateTime.now();
-      notifyListeners();
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(_selectedDate),
+      );
+
+      _log.info('Picked time: $pickedTime');
+
+      if (pickedTime != null) {
+        _selectedDate = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+        notifyListeners();
+      }
     }
   }
 }
