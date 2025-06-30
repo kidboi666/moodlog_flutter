@@ -11,7 +11,6 @@ class PopButton extends StatelessWidget {
     return IconButton(
       onPressed: () {
         if (onTap != null) {
-          print('asdf');
           onTap!();
         } else {
           context.pop();

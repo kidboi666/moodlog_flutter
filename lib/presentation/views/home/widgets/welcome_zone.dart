@@ -21,12 +21,7 @@ class WelcomeZone extends StatelessWidget {
           delay: const Duration(milliseconds: DelayMs.medium),
           child: Row(
             children: [
-              Text(
-                t.home_hello,
-                style: theme.textTheme.displayMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(t.home_hello, style: theme.textTheme.displayMedium),
               const ShakeEmoji(emoji: Emoji.shakeHand),
             ],
           ),
@@ -37,9 +32,7 @@ class WelcomeZone extends StatelessWidget {
           delay: const Duration(milliseconds: DelayMs.medium * 2),
           child: Text(
             t.home_welcome('이진욱'),
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: theme.textTheme.headlineSmall,
           ),
         ),
         FadeIn(
@@ -47,7 +40,6 @@ class WelcomeZone extends StatelessWidget {
           child: Text(
             t.home_howareyou,
             style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
               color: theme.colorScheme.secondary,
             ),
           ),

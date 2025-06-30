@@ -21,6 +21,7 @@ abstract final class Spacing {
   static const EdgeInsetsGeometry headerVerticalPadding = EdgeInsets.symmetric(
     vertical: 12.0,
   );
+  static const double bottomNavigationBarHeight = 80.0;
   static const double calendarScrollSize = 44.0;
   static const double recordUnitLineHeight = 26.0;
   static const double recordCardHeight = 180.0;

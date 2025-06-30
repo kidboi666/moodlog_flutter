@@ -60,6 +60,7 @@ class JournalRepositoryImpl implements JournalRepository {
             content: Value(dto.content),
             moodType: Value(dto.moodType),
             imageUri: Value(dto.imageUri),
+            createdAt: Value(dto.createdAt),
           ),
         );
     if (journal == null) {

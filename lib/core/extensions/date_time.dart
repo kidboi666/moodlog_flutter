@@ -27,4 +27,12 @@ extension DateTimeExtension on DateTime {
       return DateFormat('yyyy.MM.dd HH:mm').format(this);
     }
   }
+
+  String formattedDotNation() {
+    return DateFormat('yyyy.MM.dd').format(this);
+  }
+
+  String formattedDotNationWithTime() {
+    return DateFormat('yyyy.MM.dd HH:mm').format(this);
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_models/home/home_viewmodel.dart';
@@ -45,13 +46,22 @@ class HomeScreen extends StatelessWidget {
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final e = viewModel.journal[index];
-                  return JournalCard(
-                    id: e.id,
-                    content: e.content ?? '',
-                    moodType: e.moodType,
-                    createdAt: e.createdAt,
+                  return FadeIn(
+                    delay: const Duration(milliseconds: DelayMs.medium * 5),
+                    child: JournalCard(
+                      id: e.id,
+                      content: e.content ?? '',
+                      moodType: e.moodType,
+                      createdAt: e.createdAt,
+                    ),
                   );
                 }, childCount: viewModel.journal.length),
+              ),
+              SliverToBoxAdapter(
+                child: const SizedBox(
+                  height: Spacing.bottomNavigationBarHeight * 2,
+                  width: double.infinity,
+                ),
               ),
             ],
           ),

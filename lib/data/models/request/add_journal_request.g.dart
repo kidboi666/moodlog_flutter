@@ -14,6 +14,7 @@ _AddJournalRequest _$AddJournalRequestFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       aiEnabled: json['aiEnabled'] as bool?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
@@ -22,6 +23,7 @@ Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
       'moodType': _$MoodTypeEnumMap[instance.moodType]!,
       'imageUri': instance.imageUri,
       'aiEnabled': instance.aiEnabled,
+      'createdAt': instance.createdAt.toIso8601String(),
     };
 
 const _$MoodTypeEnumMap = {

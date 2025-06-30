@@ -12,6 +12,7 @@ abstract class AddJournalRequest with _$AddJournalRequest {
     required MoodType moodType,
     required List<String> imageUri,
     bool? aiEnabled,
+    required DateTime createdAt,
   }) = _AddJournalRequest;
 
   factory AddJournalRequest.fromJson(Map<String, dynamic> json) =>

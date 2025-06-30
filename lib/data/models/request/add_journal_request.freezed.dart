@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddJournalRequest {
 
- String? get content; MoodType get moodType; List<String> get imageUri; bool? get aiEnabled;
+ String? get content; MoodType get moodType; List<String> get imageUri; bool? get aiEnabled; DateTime get createdAt;
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AddJournalRequestCopyWith<AddJournalRequest> get copyWith => _$AddJournalReques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiEnabled);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiEnabled,createdAt);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled, createdAt: $createdAt)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AddJournalRequestCopyWith<$Res>  {
   factory $AddJournalRequestCopyWith(AddJournalRequest value, $Res Function(AddJournalRequest) _then) = _$AddJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled
+ String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled, DateTime createdAt
 });
 
 
@@ -66,13 +66,14 @@ class _$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,imageUri: null == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
 as List<String>,aiEnabled: freezed == aiEnabled ? _self.aiEnabled : aiEnabled // ignore: cast_nullable_to_non_nullable
-as bool?,
+as bool?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 
@@ -83,7 +84,7 @@ as bool?,
 @JsonSerializable()
 
 class _AddJournalRequest implements AddJournalRequest {
-  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, this.aiEnabled}): _imageUri = imageUri;
+  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, this.aiEnabled, required this.createdAt}): _imageUri = imageUri;
   factory _AddJournalRequest.fromJson(Map<String, dynamic> json) => _$AddJournalRequestFromJson(json);
 
 @override final  String? content;
@@ -96,6 +97,7 @@ class _AddJournalRequest implements AddJournalRequest {
 }
 
 @override final  bool? aiEnabled;
+@override final  DateTime createdAt;
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -110,16 +112,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiEnabled);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiEnabled,createdAt);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled, createdAt: $createdAt)';
 }
 
 
@@ -130,7 +132,7 @@ abstract mixin class _$AddJournalRequestCopyWith<$Res> implements $AddJournalReq
   factory _$AddJournalRequestCopyWith(_AddJournalRequest value, $Res Function(_AddJournalRequest) _then) = __$AddJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled
+ String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled, DateTime createdAt
 });
 
 
@@ -147,13 +149,14 @@ class __$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,Object? createdAt = null,}) {
   return _then(_AddJournalRequest(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,imageUri: null == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
 as List<String>,aiEnabled: freezed == aiEnabled ? _self.aiEnabled : aiEnabled // ignore: cast_nullable_to_non_nullable
-as bool?,
+as bool?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 

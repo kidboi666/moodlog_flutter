@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/presentation/views/write/widgets/content_input.dart';
 import 'package:moodlog/presentation/views/write/widgets/image_picking_section.dart';
 import 'package:moodlog/presentation/views/write/widgets/mood_selector.dart';
@@ -44,7 +45,22 @@ class _WriteScreenState extends State<WriteScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: PopButton(),
-        title: Text(DateTime.now().toIso8601String().split('T')[0]),
+        title: TextButton(
+          onPressed: () => widget.viewModel.selectDate(context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 8,
+            children: [
+              Icon(Icons.calendar_month),
+              ListenableBuilder(
+                listenable: widget.viewModel,
+                builder: (context, _) => Text(
+                  widget.viewModel.selectedDate.formattedDotNationWithTime(),
+                ),
+              ),
+            ],
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: widget.viewModel.onSubmit,

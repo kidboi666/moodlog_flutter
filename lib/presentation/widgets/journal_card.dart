@@ -38,7 +38,7 @@ class JournalCard extends StatelessWidget {
             width: 8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
-              color: Colors.red,
+              color: Color(moodType.colorValue),
             ),
           ),
           title: Text(

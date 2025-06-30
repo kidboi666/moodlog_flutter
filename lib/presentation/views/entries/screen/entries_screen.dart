@@ -12,10 +12,7 @@ class EntriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.tab_entries),
-        scrolledUnderElevation: 8.0,
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.tab_entries)),
       body: ListView(
         children: [
           ListenableBuilder(

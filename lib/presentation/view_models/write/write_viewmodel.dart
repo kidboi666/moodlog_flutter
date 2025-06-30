@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/utils/result.dart';
@@ -9,17 +9,18 @@ import '../../../core/constants/enum.dart';
 
 class WriteViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
-  final Logger _log = Logger('WriteViewModel');
 
+  WriteViewModel({required JournalRepository journalRepository})
+    : _journalRepository = journalRepository;
+
+  final Logger _log = Logger('WriteViewModel');
   String? _content;
   MoodType _moodType = MoodType.neutral;
   List<String> _imageFileList = [];
   bool _isSubmitted = false;
   int? _submittedJournalId;
   bool _aiEnabled = true;
-
-  WriteViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository;
+  DateTime _selectedDate = DateTime.now();
 
   final ImagePicker _picker = ImagePicker();
 
@@ -28,6 +29,8 @@ class WriteViewModel extends ChangeNotifier {
   bool get aiEnabled => _aiEnabled;
 
   MoodType get moodType => _moodType;
+
+  DateTime get selectedDate => _selectedDate;
 
   List<String> get imageUri => _imageFileList;
 
@@ -100,6 +103,7 @@ class WriteViewModel extends ChangeNotifier {
       moodType: moodType,
       imageUri: imageUri,
       aiEnabled: aiEnabled,
+      createdAt: selectedDate,
     );
 
     final result = await _journalRepository.addJournal(newJournal);
@@ -114,6 +118,20 @@ class WriteViewModel extends ChangeNotifier {
       case Error<int>():
         _log.warning('Failed to add journal: ${result.error}');
         return Result.error(result.error);
+    }
+  }
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year),
+      lastDate: DateTime.now(),
+      initialDate: selectedDate,
+    );
+
+    if (pickedDate != selectedDate) {
+      _selectedDate = pickedDate ?? DateTime.now();
+      notifyListeners();
     }
   }
 }

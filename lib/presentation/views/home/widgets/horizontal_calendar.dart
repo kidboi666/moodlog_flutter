@@ -39,7 +39,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     final month = now.monthName;
 
     return FadeIn(
-      delay: Duration(milliseconds: DelayMs.medium * 4),
+      delay: const Duration(milliseconds: DelayMs.medium * 4),
       child: GradientBox(
         child: Column(
           spacing: 16,
