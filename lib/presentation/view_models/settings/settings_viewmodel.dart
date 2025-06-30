@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../domain/entities/app_state.dart';
 import '../../../domain/repositories/app_state_repository.dart';
-import '../../views/settings/widgets/language_dialog.dart';
-import '../../views/settings/widgets/theme_dialog.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateRepository _appStateRepository;
@@ -23,18 +22,8 @@ class SettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> showLanguageDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => LanguageDialog(viewModel: this),
-    );
-  }
-
-  Future<void> showThemeDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => ThemeDialog(viewModel: this),
-    );
+  Future<void> showDialogWithWidget(BuildContext context, Widget child) async {
+    return showDialog(context: context, builder: (context) => child);
   }
 
   void setNotificationEnabled(bool enabled) {
@@ -53,5 +42,21 @@ class SettingsViewModel extends ChangeNotifier {
     _log.info('Setting theme to $theme');
     _appStateRepository.updateThemeMode(theme!);
     notifyListeners();
+  }
+
+  void performBackup(BuildContext context) {
+    // TODO 백업 로직 구현
+    context.pop();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('백업이 완료되었습니다.')));
+  }
+
+  void clearCache(BuildContext context) {
+    // TODO 캐시 삭제 로직 구현
+    context.pop();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('캐시가 삭제되었습니다.')));
   }
 }

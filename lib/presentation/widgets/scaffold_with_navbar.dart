@@ -45,6 +45,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      extendBodyBehindAppBar: true,
       body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,

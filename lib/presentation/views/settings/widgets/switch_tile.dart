@@ -19,13 +19,16 @@ class SwitchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4.0),
-      child: SwitchListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        secondary: Icon(icon),
-        value: value,
-        onChanged: onChanged,
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.all(4.0),
+      child: InkWell(
+        child: SwitchListTile(
+          title: Text(title),
+          subtitle: Text(subtitle),
+          secondary: Icon(icon),
+          value: value,
+          onChanged: onChanged,
+        ),
       ),
     );
   }

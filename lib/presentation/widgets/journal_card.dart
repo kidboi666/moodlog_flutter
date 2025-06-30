@@ -22,10 +22,6 @@ class JournalCard extends StatelessWidget {
     this.coverImg,
   });
 
-  void _goToJournal(BuildContext context) {
-    context.push(Routes.journal(id), extra: {'source': 'home'});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +29,8 @@ class JournalCard extends StatelessWidget {
       shadowColor: Theme.of(context).colorScheme.surfaceBright,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: InkWell(
-        onTap: () => _goToJournal(context),
+        onTap: () =>
+            context.push(Routes.journal(id), extra: {'source': 'home'}),
         borderRadius: BorderRadius.circular(20.0),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),

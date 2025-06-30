@@ -112,6 +112,18 @@ abstract class AppLocalizations {
   /// **'어제'**
   String get common_date_yesterday;
 
+  /// No description provided for @common_confirm_cancel.
+  ///
+  /// In ko, this message translates to:
+  /// **'취소'**
+  String get common_confirm_cancel;
+
+  /// No description provided for @common_confirm_ok.
+  ///
+  /// In ko, this message translates to:
+  /// **'확인'**
+  String get common_confirm_ok;
+
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In ko, this message translates to:
@@ -334,17 +346,29 @@ abstract class AppLocalizations {
   /// **'취소'**
   String get journal_delete_confirm_cancel;
 
-  /// No description provided for @settings_common_language_title.
+  /// No description provided for @settings_title.
   ///
   /// In ko, this message translates to:
-  /// **'언어'**
-  String get settings_common_language_title;
+  /// **'설정'**
+  String get settings_title;
 
-  /// No description provided for @settings_common_language_dialog_title.
+  /// No description provided for @settings_common_title.
   ///
   /// In ko, this message translates to:
-  /// **'언어 선택'**
-  String get settings_common_language_dialog_title;
+  /// **'일반'**
+  String get settings_common_title;
+
+  /// No description provided for @settings_common_notification_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'알림'**
+  String get settings_common_notification_title;
+
+  /// No description provided for @settings_common_notification_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'푸시 알림을 받습니다.'**
+  String get settings_common_notification_subtitle;
 
   /// No description provided for @settings_common_theme_title.
   ///
@@ -357,6 +381,114 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'밝기 테마를 선택합니다.'**
   String get settings_common_theme_subtitle;
+
+  /// No description provided for @settings_common_language_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'언어'**
+  String get settings_common_language_title;
+
+  /// No description provided for @settings_common_language_dialog_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'언어 선택'**
+  String get settings_common_language_dialog_title;
+
+  /// No description provided for @settings_data_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터'**
+  String get settings_data_title;
+
+  /// No description provided for @settings_data_auto_sync_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'자동 동기화'**
+  String get settings_data_auto_sync_title;
+
+  /// No description provided for @settings_data_auto_sync_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터를 자동으로 동기화합니다.'**
+  String get settings_data_auto_sync_subtitle;
+
+  /// No description provided for @settings_data_backup_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터 백업'**
+  String get settings_data_backup_title;
+
+  /// No description provided for @settings_data_backup_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터를 백업합니다.'**
+  String get settings_data_backup_subtitle;
+
+  /// No description provided for @settings_data_backup_confirm.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터 백업하시겠습니까?'**
+  String get settings_data_backup_confirm;
+
+  /// No description provided for @settings_data_backup_confirm_ok.
+  ///
+  /// In ko, this message translates to:
+  /// **'백업'**
+  String get settings_data_backup_confirm_ok;
+
+  /// No description provided for @settings_data_cash_cleanup_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'캐시 정리'**
+  String get settings_data_cash_cleanup_title;
+
+  /// No description provided for @settings_data_cash_cleanup_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'임시 파일을 삭제합니다.'**
+  String get settings_data_cash_cleanup_subtitle;
+
+  /// No description provided for @settings_information_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'정보'**
+  String get settings_information_title;
+
+  /// No description provided for @settings_information_version_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'앱 정보'**
+  String get settings_information_version_title;
+
+  /// No description provided for @settings_information_version_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'버전 및 라이선스 정보'**
+  String get settings_information_version_subtitle;
+
+  /// No description provided for @settings_information_faq_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'도움말'**
+  String get settings_information_faq_title;
+
+  /// No description provided for @settings_information_faq_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'사용법 및 FAQ'**
+  String get settings_information_faq_subtitle;
+
+  /// No description provided for @settings_information_qna_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'문의하기'**
+  String get settings_information_qna_title;
+
+  /// No description provided for @settings_information_qna_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발자에게 문의합니다.'**
+  String get settings_information_qna_subtitle;
 }
 
 class _AppLocalizationsDelegate

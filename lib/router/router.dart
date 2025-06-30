@@ -21,7 +21,7 @@ import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
-  initialLocation: Routes.settings,
+  initialLocation: Routes.home,
   restorationScopeId: 'app',
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,

@@ -36,7 +36,7 @@ class DateAndDay extends StatelessWidget {
                 : Colors.transparent,
           ),
         ),
-        width: Layout.calendarScrollSize,
+        width: Spacing.calendarScrollSize,
         child: Column(
           children: [
             Text(day, style: dateStyle),

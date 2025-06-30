@@ -1,12 +1,26 @@
 import 'dart:io';
 
-abstract final class Layout {
-  static const double paddingHorizontal = 16.0;
-  static const double paddingVertical = 16.0;
-  static const double containerMarginTop = 28.0;
-  static const double containerPaddingTop = 80.0;
-  static const double containerPaddingBottom = 180.0;
-  static const double headerVerticalPadding = 12.0;
+import 'package:flutter/painting.dart';
+
+abstract final class Spacing {
+  static const EdgeInsetsGeometry paddingHorizontal = EdgeInsets.symmetric(
+    horizontal: 16.0,
+  );
+  static const EdgeInsetsGeometry paddingVertical = EdgeInsets.symmetric(
+    vertical: 16.0,
+  );
+  static const EdgeInsetsGeometry containerMarginTop = EdgeInsets.only(
+    top: 28.0,
+  );
+  static const EdgeInsetsGeometry containerPaddingTop = EdgeInsets.only(
+    top: 80.0,
+  );
+  static const EdgeInsetsGeometry containerPaddingBottom = EdgeInsets.only(
+    bottom: 180.0,
+  );
+  static const EdgeInsetsGeometry headerVerticalPadding = EdgeInsets.symmetric(
+    vertical: 12.0,
+  );
   static const double calendarScrollSize = 44.0;
   static const double recordUnitLineHeight = 26.0;
   static const double recordCardHeight = 180.0;

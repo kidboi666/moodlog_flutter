@@ -18,6 +18,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_date_yesterday => '어제';
 
   @override
+  String get common_confirm_cancel => '취소';
+
+  @override
+  String get common_confirm_ok => '확인';
+
+  @override
   String get onboarding_welcome_title => '무드로그에 오신것을 환영합니다!';
 
   @override
@@ -136,14 +142,74 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_cancel => '취소';
 
   @override
-  String get settings_common_language_title => '언어';
+  String get settings_title => '설정';
 
   @override
-  String get settings_common_language_dialog_title => '언어 선택';
+  String get settings_common_title => '일반';
+
+  @override
+  String get settings_common_notification_title => '알림';
+
+  @override
+  String get settings_common_notification_subtitle => '푸시 알림을 받습니다.';
 
   @override
   String get settings_common_theme_title => '테마';
 
   @override
   String get settings_common_theme_subtitle => '밝기 테마를 선택합니다.';
+
+  @override
+  String get settings_common_language_title => '언어';
+
+  @override
+  String get settings_common_language_dialog_title => '언어 선택';
+
+  @override
+  String get settings_data_title => '데이터';
+
+  @override
+  String get settings_data_auto_sync_title => '자동 동기화';
+
+  @override
+  String get settings_data_auto_sync_subtitle => '데이터를 자동으로 동기화합니다.';
+
+  @override
+  String get settings_data_backup_title => '데이터 백업';
+
+  @override
+  String get settings_data_backup_subtitle => '데이터를 백업합니다.';
+
+  @override
+  String get settings_data_backup_confirm => '데이터 백업하시겠습니까?';
+
+  @override
+  String get settings_data_backup_confirm_ok => '백업';
+
+  @override
+  String get settings_data_cash_cleanup_title => '캐시 정리';
+
+  @override
+  String get settings_data_cash_cleanup_subtitle => '임시 파일을 삭제합니다.';
+
+  @override
+  String get settings_information_title => '정보';
+
+  @override
+  String get settings_information_version_title => '앱 정보';
+
+  @override
+  String get settings_information_version_subtitle => '버전 및 라이선스 정보';
+
+  @override
+  String get settings_information_faq_title => '도움말';
+
+  @override
+  String get settings_information_faq_subtitle => '사용법 및 FAQ';
+
+  @override
+  String get settings_information_qna_title => '문의하기';
+
+  @override
+  String get settings_information_qna_subtitle => '개발자에게 문의합니다.';
 }

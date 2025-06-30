@@ -17,7 +17,7 @@ class DialogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4.0),
+      margin: const EdgeInsets.all(4.0),
       child: ListTile(
         title: Text(title),
         subtitle: Text(subtitle),

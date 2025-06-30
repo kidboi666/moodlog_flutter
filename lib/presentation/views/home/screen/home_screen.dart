@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -20,12 +21,12 @@ class HomeScreen extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, _) {
-          return CustomScrollView(
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, _) {
+        return Container(
+          padding: Spacing.paddingHorizontal,
+          child: CustomScrollView(
             slivers: [
               SliverSafeArea(
                 top: true,
@@ -53,9 +54,9 @@ class HomeScreen extends StatelessWidget {
                 }, childCount: viewModel.journal.length),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
