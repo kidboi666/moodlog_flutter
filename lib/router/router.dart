@@ -15,17 +15,25 @@ import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/screen/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/screen/settings_screen.dart';
+import '../presentation/views/splash/splash_screen.dart';
 import '../presentation/views/statistics/screen/statistics_screen.dart';
 import '../presentation/views/write/screen/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
-  initialLocation: Routes.home,
+  initialLocation: Routes.splash,
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,
   redirect: _redirect,
   routes: [
+    GoRoute(
+      path: Routes.splash,
+      builder: (context, state) {
+        return SplashScreen();
+      },
+    ),
+
     GoRoute(
       path: Routes.onboarding,
       builder: (context, state) {
@@ -39,12 +47,6 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
     StatefulShellRoute(
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
-        final isLoading = context.watch<AppStateRepository>().isLoading;
-
-        if (isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
         return ScaffoldWithNavbar(
           navigationShell: navigationShell,
           children: children,
@@ -133,6 +135,7 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final isLoading = context.read<AppStateRepository>().isLoading;
   final isFirstLaunch = appState.isFirstLaunch;
   final isInOnboarding = state.matchedLocation == Routes.onboarding;
+  final isInSplash = state.matchedLocation == Routes.splash;
 
   if (isLoading) {
     return null;
@@ -143,7 +146,7 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
     return Routes.onboarding;
   }
 
-  if (isInOnboarding) {
+  if (isInOnboarding && !isFirstLaunch || isInSplash && !isFirstLaunch) {
     log.info('Redirecting to home');
     return Routes.home;
   }

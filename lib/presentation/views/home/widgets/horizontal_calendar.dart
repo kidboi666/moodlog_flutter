@@ -40,27 +40,22 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                 color: Theme.of(context).colorScheme.surface,
               ),
             ),
-            ListenableBuilder(
-              listenable: widget.viewModel,
-              builder: (context, _) {
-                return SizedBox(
-                  height: Spacing.horCalendarDateHeight,
-                  child: ListView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: widget.viewModel.dateItems!
-                        .map(
-                          (date) => DateAndDay(
-                            date: date,
-                            todayDate: widget.viewModel.now,
-                            selectedDate: widget.viewModel.selectedDate,
-                            selectDate: widget.viewModel.selectDate,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                );
-              },
+            SizedBox(
+              height: Spacing.horCalendarDateHeight,
+              child: ListView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                children: widget.viewModel.dateItems!
+                    .map(
+                      (date) => DateAndDay(
+                        date: date,
+                        todayDate: widget.viewModel.now,
+                        selectedDate: widget.viewModel.selectedDate,
+                        selectDate: widget.viewModel.selectDate,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),

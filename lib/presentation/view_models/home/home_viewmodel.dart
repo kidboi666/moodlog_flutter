@@ -28,6 +28,7 @@ class HomeViewModel extends ChangeNotifier {
   List<DateTime>? _dateItems;
   bool _isLoading = false;
   String? _nickname;
+  bool _firstMount = true;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -36,6 +37,8 @@ class HomeViewModel extends ChangeNotifier {
   List<DateTime>? get dateItems => _dateItems;
 
   String? get nickname => _nickname;
+
+  bool get firstMount => _firstMount;
 
   List<Journal> get journal => _journal;
 
@@ -56,6 +59,7 @@ class HomeViewModel extends ChangeNotifier {
   void selectDate(DateTime date) {
     _selectedDate = date;
     notifyListeners();
+    _load();
   }
 
   Future<void> _load() async {
@@ -72,6 +76,11 @@ class HomeViewModel extends ChangeNotifier {
         _log.warning('Failed to load journals', result.error);
     }
     _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> setFirstMount() async {
+    _firstMount = false;
     notifyListeners();
   }
 
