@@ -58,7 +58,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
             shape: const CircularNotchedRectangle(),
             child: NavigationBar(
               elevation: 0,
-              animationDuration: const Duration(milliseconds: DurationMs.lazy),
+              animationDuration: DurationMs.lazy,
               selectedIndex: _setSelectedIndex(navigationShell.currentIndex),
               onDestinationSelected: _onTap,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,

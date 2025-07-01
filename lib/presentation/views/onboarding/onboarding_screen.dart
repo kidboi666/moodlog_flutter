@@ -22,7 +22,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void onNext() {
     _pageController.nextPage(
-      duration: const Duration(milliseconds: DurationMs.medium),
+      duration: DurationMs.medium,
       curve: Curves.easeInOut,
     );
   }

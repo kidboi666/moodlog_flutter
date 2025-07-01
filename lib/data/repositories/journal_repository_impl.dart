@@ -32,10 +32,19 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<List<Journal>>> getJournals() async {
-    final journals = await (_db.select(_db.journals)).get();
+  Future<Result<List<Journal>>> getJournalsByDate(DateTime date) async {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+    final endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59, 999);
+    final journals =
+        await (_db.select(_db.journals)..where(
+              (t) => t.createdAt.isBetween(
+                Variable(startOfDay),
+                Variable(endOfDay),
+              ),
+            ))
+            .get();
     if (journals.isEmpty) {
-      return Result.error(Exception('journals not found'));
+      return Result.error(Exception('journals not found for the day'));
     }
     return Result.ok(journals);
   }

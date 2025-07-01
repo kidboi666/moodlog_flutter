@@ -58,7 +58,7 @@ class _OnboardingNicknamePageViewState
           ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.lazy),
+          delay: DelayMs.lazy,
           child: Text(
             AppLocalizations.of(context)!.onboarding_nickname_description,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -78,7 +78,7 @@ class _OnboardingNicknamePageViewState
                 spacing: 40,
                 children: [
                   FadeIn(
-                    delay: const Duration(milliseconds: DelayMs.lazy * 2),
+                    delay: DelayMs.lazy * 2,
                     child: TextFormField(
                       controller: _inputController,
                       onChanged: widget.viewModel.setNickname,
@@ -101,7 +101,7 @@ class _OnboardingNicknamePageViewState
                   Expanded(
                     flex: 1,
                     child: FadeIn(
-                      delay: const Duration(milliseconds: DelayMs.lazy * 3),
+                      delay: DelayMs.lazy * 3,
                       child: Text(
                         AppLocalizations.of(context)!.onboarding_nickname_next,
                         style: Theme.of(context).textTheme.titleMedium
@@ -113,7 +113,7 @@ class _OnboardingNicknamePageViewState
                   ),
 
                   FadeIn(
-                    delay: const Duration(milliseconds: DelayMs.lazy * 4),
+                    delay: DelayMs.lazy * 4,
                     child: SizedBox(
                       width: double.infinity,
                       child: IconButton.filled(

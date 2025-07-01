@@ -30,7 +30,7 @@ class OnboardingSuccessPageView extends StatelessWidget {
         Expanded(
           flex: 1,
           child: FadeIn(
-            delay: const Duration(milliseconds: DelayMs.lazy),
+            delay: DelayMs.lazy,
             child: Text(
               AppLocalizations.of(context)!.onboarding_success_description,
               style: Theme.of(context).textTheme.titleLarge,
@@ -38,7 +38,7 @@ class OnboardingSuccessPageView extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.lazy * 2),
+          delay: DelayMs.lazy * 2,
           child: SizedBox(
             width: double.infinity,
             child: FilledButton(

@@ -16,7 +16,10 @@ class InitDatabaseDialog extends StatelessWidget {
       actions: [
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            viewModel.clearDatabase();
+            context.pop();
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.error,
             foregroundColor: Theme.of(context).colorScheme.onError,

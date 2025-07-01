@@ -1,46 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
 
 import '../../../../core/constants/common.dart';
 
 class DateAndDay extends StatelessWidget {
-  final String date;
-  final String day;
+  final DateTime date;
+  final DateTime todayDate;
   final DateTime selectedDate;
-  final Function(DateTime) onTap;
+  final Function selectDate;
 
   const DateAndDay({
     super.key,
     required this.date,
-    required this.day,
+    required this.todayDate,
     required this.selectedDate,
-    required this.onTap,
+    required this.selectDate,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final dateStyle = theme.textTheme.titleMedium?.copyWith(
-      fontWeight: FontWeight.bold,
-      color: theme.colorScheme.surface,
-    );
-
     return InkWell(
-      onTap: () {},
-      child: Container(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () => selectDate(date),
+      child: AnimatedContainer(
+        duration: DurationMs.quick,
+        curve: Curves.easeInOutQuad,
+        height: Spacing.horCalendarDateHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
+          color: date.isSameDay(selectedDate)
+              ? Theme.of(context).colorScheme.primary
+              : Colors.transparent,
           border: BoxBorder.all(
             width: 1,
-            color: date == selectedDate
-                ? theme.colorScheme.surface
+            color: date.isSameDay(todayDate)
+                ? Theme.of(context).colorScheme.surface
                 : Colors.transparent,
           ),
         ),
         width: Spacing.calendarScrollSize,
         child: Column(
           children: [
-            Text(day, style: dateStyle),
-            Text(date.toString(), style: dateStyle),
+            Text(
+              date.weekdayName,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            Text(
+              date.day.toString(),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
           ],
         ),
       ),

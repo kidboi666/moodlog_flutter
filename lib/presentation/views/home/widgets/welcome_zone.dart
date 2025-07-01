@@ -13,40 +13,42 @@ class WelcomeZone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final t = AppLocalizations.of(context)!;
-
     return Column(
       spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.medium),
+          delay: DelayMs.medium,
           child: Row(
             children: [
-              Text(t.home_hello, style: theme.textTheme.displayMedium),
+              Text(
+                AppLocalizations.of(context)!.home_hello,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
               const ShakeEmoji(emoji: Emoji.shakeHand),
             ],
           ),
         ),
-        ListenableBuilder(
-          listenable: viewModel,
-          builder: (context, _) {
-            return FadeIn(
-              delay: const Duration(milliseconds: DelayMs.medium * 2),
-              child: Text(
-                t.home_welcome(viewModel.nickname!),
-                style: theme.textTheme.headlineSmall,
-              ),
-            );
-          },
+        FadeIn(
+          delay: DelayMs.medium * 2,
+          child: ListenableBuilder(
+            listenable: viewModel,
+            builder: (context, _) {
+              return Text(
+                AppLocalizations.of(
+                  context,
+                )!.home_welcome(viewModel.nickname ?? ''),
+                style: Theme.of(context).textTheme.headlineSmall,
+              );
+            },
+          ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.medium * 3),
+          delay: DelayMs.medium * 3,
           child: Text(
-            t.home_howareyou,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: theme.colorScheme.secondary,
+            AppLocalizations.of(context)!.home_howareyou,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),

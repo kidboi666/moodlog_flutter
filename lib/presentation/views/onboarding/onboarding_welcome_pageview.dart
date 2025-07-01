@@ -29,7 +29,7 @@ class OnboardingWelcomePageView extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.lazy),
+          delay: DelayMs.lazy,
           child: Text(
             AppLocalizations.of(context)!.onboarding_welcome_description1,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -40,7 +40,7 @@ class OnboardingWelcomePageView extends StatelessWidget {
         Expanded(
           flex: 1,
           child: FadeIn(
-            delay: const Duration(milliseconds: DelayMs.lazy * 2),
+            delay: DelayMs.lazy * 2,
             child: Text(
               AppLocalizations.of(context)!.onboarding_welcome_description2,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -50,14 +50,14 @@ class OnboardingWelcomePageView extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.lazy * 3),
+          delay: DelayMs.lazy * 3,
           child: Text(
             AppLocalizations.of(context)!.onboarding_welcome_next,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         FadeIn(
-          delay: const Duration(milliseconds: DelayMs.lazy * 4),
+          delay: DelayMs.lazy * 4,
           child: SizedBox(
             width: double.infinity,
             child: IconButton.filled(

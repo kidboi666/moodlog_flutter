@@ -12,6 +12,20 @@ extension DateTimeExtension on DateTime {
 
   int get firstDateOfMonth => DateTime(year, month + 1, 1).day;
 
+  bool isSameDay(DateTime otherDate) {
+    return year == otherDate.year &&
+        month == otherDate.month &&
+        day == otherDate.day;
+  }
+
+  bool isSameMonth(DateTime otherDate) {
+    return year == otherDate.year && month == otherDate.month;
+  }
+
+  bool isSameYear(DateTime otherDate) {
+    return year == otherDate.year;
+  }
+
   String formatted(AppLocalizations localizations) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);

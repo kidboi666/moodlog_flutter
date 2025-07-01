@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/repositories/app_state_repository.dart';
-import 'package:moodlog/presentation/view_models/entries/entries_viewmodel.dart';
-import 'package:moodlog/presentation/view_models/settings/settings_viewmodel.dart';
-import 'package:moodlog/presentation/views/statistics/screen/statistics_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/repositories/app_state_repository.dart';
+import '../presentation/view_models/entries/entries_viewmodel.dart';
 import '../presentation/view_models/home/home_viewmodel.dart';
 import '../presentation/view_models/journal/journal_viewmodel.dart';
 import '../presentation/view_models/onboarding/onboarding_viewmodel.dart';
+import '../presentation/view_models/settings/settings_viewmodel.dart';
 import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/screen/entries_screen.dart';
 import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/screen/journal_screen.dart';
 import '../presentation/views/onboarding/onboarding_screen.dart';
 import '../presentation/views/settings/screen/settings_screen.dart';
+import '../presentation/views/statistics/screen/statistics_screen.dart';
 import '../presentation/views/write/screen/write_screen.dart';
 import '../presentation/widgets/scaffold_with_navbar.dart';
 import 'routes.dart';
@@ -39,6 +39,12 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
     StatefulShellRoute(
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
+        final isLoading = context.watch<AppStateRepository>().isLoading;
+
+        if (isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
         return ScaffoldWithNavbar(
           navigationShell: navigationShell,
           children: children,

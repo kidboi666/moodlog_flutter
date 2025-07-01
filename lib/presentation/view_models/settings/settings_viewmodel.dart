@@ -70,4 +70,9 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateRepository.clearSharedPreferences();
     notifyListeners();
   }
+
+  void clearDatabase() {
+    _appStateRepository.clearDatabase();
+    notifyListeners();
+  }
 }

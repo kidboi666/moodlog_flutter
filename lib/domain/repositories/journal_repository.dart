@@ -3,9 +3,9 @@ import '../../data/models/request/add_journal_request.dart';
 import '../entities/journal.dart';
 
 abstract class JournalRepository {
-  Future<Result<List<Journal>>> getJournals();
-
   Future<Result<List<Journal>>> getJournalsByMonth(DateTime date);
+
+  Future<Result<List<Journal>>> getJournalsByDate(DateTime date);
 
   Future<Result<Journal>> getJournalById(int id);
 

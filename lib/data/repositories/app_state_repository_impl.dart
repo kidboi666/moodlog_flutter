@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,23 +7,24 @@ import '../../core/constants/enum.dart';
 import '../../core/extensions/enum.dart';
 import '../../domain/entities/app_state.dart';
 import '../../domain/repositories/app_state_repository.dart';
+import '../data_source/database.dart';
 
 class AppStateRepositoryImpl extends AppStateRepository {
-  AppStateRepositoryImpl() {
+  final MoodLogDatabase _db;
+
+  AppStateRepositoryImpl({required MoodLogDatabase? db}) : _db = db! {
     _initLoad();
   }
 
   final SharedPreferencesAsync _asyncPrefs = SharedPreferencesAsync();
-  AppState? _appState = const AppState();
+  AppState _appState = const AppState();
   bool _isLoading = true;
 
   @override
   bool get isLoading => _isLoading;
 
   @override
-  AppState get appState {
-    return _appState!;
-  }
+  AppState get appState => _appState;
 
   Future<void> _initLoad() async {
     _isLoading = true;
@@ -101,7 +103,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
   @override
   Future<void> setFirstLaunchComplete() async {
     await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
-    _updateState(_appState!.copyWith(isFirstLaunch: false));
+    _updateState(_appState.copyWith(isFirstLaunch: false));
   }
 
   @override
@@ -110,19 +112,19 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.languageCode,
       languageCode.toString(),
     );
-    _updateState(_appState!.copyWith(languageCode: languageCode));
+    _updateState(_appState.copyWith(languageCode: languageCode));
   }
 
   @override
   Future<void> updateThemeMode(ThemeMode themeMode) async {
     await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode.toString());
-    _updateState(_appState!.copyWith(themeMode: themeMode));
+    _updateState(_appState.copyWith(themeMode: themeMode));
   }
 
   @override
   Future<void> updateNickname(String nickname) async {
     await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
-    _updateState(_appState!.copyWith(nickname: nickname));
+    _updateState(_appState.copyWith(nickname: nickname));
   }
 
   @override
@@ -132,7 +134,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
       hasNotificationEnabled,
     );
     _updateState(
-      _appState!.copyWith(hasNotificationEnabled: hasNotificationEnabled),
+      _appState.copyWith(hasNotificationEnabled: hasNotificationEnabled),
     );
   }
 
@@ -142,7 +144,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.hasAutoSyncEnabled,
       hasAutoSyncEnabled,
     );
-    _updateState(_appState!.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled));
+    _updateState(_appState.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled));
   }
 
   @override
@@ -151,17 +153,27 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.colorTheme,
       colorTheme.toString(),
     );
-    _updateState(_appState!.copyWith(colorTheme: colorTheme));
+    _updateState(_appState.copyWith(colorTheme: colorTheme));
   }
 
+  /// kDebugMode
   @override
   Future<void> clearSharedPreferences() async {
-    await _asyncPrefs.clear();
-    _initLoad();
+    if (kDebugMode) {
+      await _asyncPrefs.clear();
+      _initLoad();
+    }
   }
 
+  /// kDebugMode
   @override
   Future<void> clearDatabase() async {
-    // TODO 구현
+    if (kDebugMode) {
+      await _db.transaction(() async {
+        for (final table in _db.allTables) {
+          await _db.delete(table).go();
+        }
+      });
+    }
   }
 }

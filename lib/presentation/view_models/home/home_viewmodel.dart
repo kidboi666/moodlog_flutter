@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
 
-import '../../../core/extensions/date_time.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
-
-enum DateItem { date, day }
 
 class HomeViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
@@ -18,24 +16,24 @@ class HomeViewModel extends ChangeNotifier {
     required AppStateRepository appStateRepository,
   }) : _journalRepository = journalRepository,
        _appStateRepository = appStateRepository {
+    _calculateDateItems();
     _load();
     _loadNickname();
   }
 
   final Logger _log = Logger('HomeViewModel');
+  final DateTime _now = DateTime.now();
   List<Journal> _journal = [];
-  DateTime selectedDate = DateTime.now();
-  final List<Map<DateItem, String>> dateItems = List.generate(
-    DateTime.now().lastDateOfMonth,
-    (index) {
-      return {
-        DateItem.date: '${index + 1}',
-        DateItem.day: '월화수목금토일'[index % 7],
-      };
-    },
-  );
+  DateTime _selectedDate = DateTime.now();
+  List<DateTime>? _dateItems;
   bool _isLoading = false;
   String? _nickname;
+
+  DateTime get selectedDate => _selectedDate;
+
+  DateTime get now => _now;
+
+  List<DateTime>? get dateItems => _dateItems;
 
   String? get nickname => _nickname;
 
@@ -43,8 +41,20 @@ class HomeViewModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  void onSelectedDateChange(DateTime date) {
-    selectedDate = date;
+  void _calculateDateItems() {
+    final currentDate = DateTime.now();
+    final lastDateOfMonth = currentDate.lastDateOfMonth;
+
+    List<DateTime> dates = List.generate(
+      lastDateOfMonth,
+      (index) => DateTime(currentDate.year, currentDate.month, index + 1),
+    );
+
+    _dateItems = dates;
+  }
+
+  void selectDate(DateTime date) {
+    _selectedDate = date;
     notifyListeners();
   }
 
@@ -52,7 +62,7 @@ class HomeViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final result = await _journalRepository.getJournals();
+    final result = await _journalRepository.getJournalsByDate(_selectedDate);
     switch (result) {
       case Ok<List<Journal>>():
         _journal = result.value;
@@ -68,5 +78,6 @@ class HomeViewModel extends ChangeNotifier {
   void _loadNickname() {
     final result = _appStateRepository.appState;
     _nickname = result.nickname;
+    notifyListeners();
   }
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/domain/repositories/app_state_repository.dart';
-import 'package:moodlog/presentation/widgets/fade_in.dart';
-import 'package:provider/provider.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../view_models/home/home_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
 import '../../../widgets/journal_card.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
@@ -16,59 +14,42 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.watch<AppStateRepository>().isLoading;
-
-    if (isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    return ListenableBuilder(
-      listenable: viewModel,
-      builder: (context, _) {
-        return Container(
-          padding: Spacing.paddingHorizontal,
-          child: CustomScrollView(
-            slivers: [
-              SliverSafeArea(
-                top: true,
-                bottom: false,
-                sliver: SliverToBoxAdapter(
-                  child: WelcomeZone(viewModel: viewModel),
-                ),
-              ),
-              SliverToBoxAdapter(child: const SizedBox(height: 20)),
-              SliverToBoxAdapter(
-                child: HorizontalCalendar(
-                  viewModel: viewModel,
-                  selectedDate: viewModel.selectedDate,
-                  onSelectedDateChange: viewModel.onSelectedDateChange,
-                ),
-              ),
-              SliverToBoxAdapter(child: const SizedBox(height: 20)),
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final e = viewModel.journal[index];
-                  return FadeIn(
-                    delay: const Duration(milliseconds: DelayMs.medium * 5),
-                    child: JournalCard(
-                      id: e.id,
-                      content: e.content ?? '',
-                      moodType: e.moodType,
-                      createdAt: e.createdAt,
-                    ),
-                  );
-                }, childCount: viewModel.journal.length),
-              ),
-              SliverToBoxAdapter(
-                child: const SizedBox(
-                  height: Spacing.bottomNavigationBarHeight * 2,
-                  width: double.infinity,
-                ),
-              ),
-            ],
+    return Container(
+      padding: Spacing.paddingHorizontal,
+      child: CustomScrollView(
+        slivers: [
+          SliverSafeArea(
+            top: true,
+            bottom: false,
+            sliver: SliverToBoxAdapter(
+              child: WelcomeZone(viewModel: viewModel),
+            ),
           ),
-        );
-      },
+          SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          SliverToBoxAdapter(child: HorizontalCalendar(viewModel: viewModel)),
+          SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final e = viewModel.journal[index];
+              return FadeIn(
+                delay: DelayMs.medium * 5,
+                child: JournalCard(
+                  id: e.id,
+                  content: e.content ?? '',
+                  moodType: e.moodType,
+                  createdAt: e.createdAt,
+                ),
+              );
+            }, childCount: viewModel.journal.length),
+          ),
+          SliverToBoxAdapter(
+            child: const SizedBox(
+              height: Spacing.bottomNavigationBarHeight * 2,
+              width: double.infinity,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
