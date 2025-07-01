@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide ThemeMode;
 
-import '../../../../core/constants/enum.dart';
-import '../../../view_models/settings/settings_viewmodel.dart';
+import '../../../../../core/constants/enum.dart';
+import '../../../../view_models/settings/settings_viewmodel.dart';
 
 class LanguageDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

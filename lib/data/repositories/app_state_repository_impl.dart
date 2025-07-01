@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/common.dart';
@@ -8,7 +9,7 @@ import '../../domain/repositories/app_state_repository.dart';
 
 class AppStateRepositoryImpl extends AppStateRepository {
   AppStateRepositoryImpl() {
-    _load();
+    _initLoad();
   }
 
   final SharedPreferencesAsync _asyncPrefs = SharedPreferencesAsync();
@@ -23,7 +24,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
     return _appState!;
   }
 
-  Future<void> _load() async {
+  Future<void> _initLoad() async {
     _isLoading = true;
     notifyListeners();
 
@@ -32,7 +33,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
     final themeModeString = await _asyncPrefs.getString(
       PreferenceKeys.themeMode,
     );
-    final themeMode = ThemeMode.fromString(themeModeString);
+    final themeMode = ThemeModeExtension.fromString(themeModeString);
     final languageCodeString = await _asyncPrefs.getString(
       PreferenceKeys.languageCode,
     );
@@ -57,6 +58,10 @@ class AppStateRepositoryImpl extends AppStateRepository {
         false;
     final hasAutoSyncEnabled =
         await _asyncPrefs.getBool(PreferenceKeys.hasAutoSyncEnabled) ?? false;
+    final colorThemeString = await _asyncPrefs.getString(
+      PreferenceKeys.colorTheme,
+    );
+    final colorTheme = ColorTheme.fromString(colorThemeString);
 
     _appState = AppState(
       isFirstLaunch: isFirstLaunch,
@@ -68,6 +73,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
       nickname: nickname,
       hasNotificationEnabled: hasNotificationEnabled,
       hasAutoSyncEnabled: hasAutoSyncEnabled,
+      colorTheme: colorTheme,
     );
     _isLoading = false;
     notifyListeners();
@@ -81,16 +87,21 @@ class AppStateRepositoryImpl extends AppStateRepository {
     await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
     await _asyncPrefs.setString(
       PreferenceKeys.aiPersonality,
-      appState.aiPersonality.name,
+      aiPersonality.name,
     );
-    await _asyncPrefs.setString(PreferenceKeys.nickname, appState.nickname);
-    _load();
+    await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
+    _initLoad();
+  }
+
+  void _updateState(AppState newState) {
+    _appState = newState;
+    notifyListeners();
   }
 
   @override
   Future<void> setFirstLaunchComplete() async {
     await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
-    _load();
+    _updateState(_appState!.copyWith(isFirstLaunch: false));
   }
 
   @override
@@ -99,19 +110,19 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.languageCode,
       languageCode.toString(),
     );
-    _load();
+    _updateState(_appState!.copyWith(languageCode: languageCode));
   }
 
   @override
   Future<void> updateThemeMode(ThemeMode themeMode) async {
     await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode.toString());
-    _load();
+    _updateState(_appState!.copyWith(themeMode: themeMode));
   }
 
   @override
   Future<void> updateNickname(String nickname) async {
     await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
-    _load();
+    _updateState(_appState!.copyWith(nickname: nickname));
   }
 
   @override
@@ -120,7 +131,9 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.hasNotificationEnabled,
       hasNotificationEnabled,
     );
-    _load();
+    _updateState(
+      _appState!.copyWith(hasNotificationEnabled: hasNotificationEnabled),
+    );
   }
 
   @override
@@ -129,6 +142,26 @@ class AppStateRepositoryImpl extends AppStateRepository {
       PreferenceKeys.hasAutoSyncEnabled,
       hasAutoSyncEnabled,
     );
-    _load();
+    _updateState(_appState!.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled));
+  }
+
+  @override
+  Future<void> updateColorTheme(ColorTheme colorTheme) async {
+    await _asyncPrefs.setString(
+      PreferenceKeys.colorTheme,
+      colorTheme.toString(),
+    );
+    _updateState(_appState!.copyWith(colorTheme: colorTheme));
+  }
+
+  @override
+  Future<void> clearSharedPreferences() async {
+    await _asyncPrefs.clear();
+    _initLoad();
+  }
+
+  @override
+  Future<void> clearDatabase() async {
+    // TODO 구현
   }
 }

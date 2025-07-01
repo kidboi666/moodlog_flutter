@@ -1,18 +1,22 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/views/settings/widgets/dialog/init_db_dialog.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/settings/settings_viewmodel.dart';
-import '../widgets/app_info_dialog.dart';
-import '../widgets/backup_dialog.dart';
 import '../widgets/card_list_tile.dart';
-import '../widgets/clear_cache_dialog.dart';
-import '../widgets/contact_dialog.dart';
+import '../widgets/dialog/app_info_dialog.dart';
+import '../widgets/dialog/backup_dialog.dart';
+import '../widgets/dialog/clear_cache_dialog.dart';
+import '../widgets/dialog/color_theme_dialog.dart';
+import '../widgets/dialog/contact_dialog.dart';
+import '../widgets/dialog/init_storage_dialog.dart';
+import '../widgets/dialog/language_dialog.dart';
+import '../widgets/dialog/theme_dialog.dart';
 import '../widgets/dialog_tile.dart';
-import '../widgets/language_dialog.dart';
 import '../widgets/section_header.dart';
 import '../widgets/switch_tile.dart';
-import '../widgets/theme_dialog.dart';
 
 class SettingsScreen extends StatefulWidget {
   final SettingsViewModel viewModel;
@@ -35,6 +39,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context, _) {
             return ListView(
               children: [
+                if (kDebugMode) ...[
+                  SectionHeader(title: '디버그'),
+                  DialogTile(
+                    title: '스토리지 초기화',
+                    subtitle: '개발모드 전용 동작',
+                    icon: Icons.delete,
+                    onTap: () => widget.viewModel.showDialogWithWidget(
+                      context,
+                      InitStorageDialog(viewModel: widget.viewModel),
+                    ),
+                  ),
+                  DialogTile(
+                    title: '데이터베이스 초기화',
+                    subtitle: '개발모드 전용 동작',
+                    icon: Icons.delete,
+                    onTap: () => widget.viewModel.showDialogWithWidget(
+                      context,
+                      InitDatabaseDialog(viewModel: widget.viewModel),
+                    ),
+                  ),
+                ],
+
                 SectionHeader(
                   title: AppLocalizations.of(context)!.settings_common_title,
                 ),
@@ -60,6 +86,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () => widget.viewModel.showDialogWithWidget(
                     context,
                     ThemeDialog(viewModel: widget.viewModel),
+                  ),
+                ),
+                DialogTile(
+                  title: AppLocalizations.of(
+                    context,
+                  )!.settings_common_color_theme_title,
+                  subtitle: AppLocalizations.of(
+                    context,
+                  )!.settings_common_color_theme_subtitle,
+                  icon: Icons.color_lens,
+                  onTap: () => widget.viewModel.showDialogWithWidget(
+                    context,
+                    ColorThemeDialog(viewModel: widget.viewModel),
                   ),
                 ),
                 DialogTile(

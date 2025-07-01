@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
-import '../../../view_models/settings/settings_viewmodel.dart';
+import '../../../../view_models/settings/settings_viewmodel.dart';
 
 class ClearCacheDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

@@ -67,3 +67,29 @@ extension LanguageCodeExtension on LanguageCode {
     }
   }
 }
+
+extension ThemeModeExtension on ThemeMode {
+  static ThemeMode fromString(String? value) {
+    switch (value) {
+      case 'system':
+        return ThemeMode.system;
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
+    }
+  }
+
+  String get displayName {
+    switch (this) {
+      case ThemeMode.light:
+        return 'Light';
+      case ThemeMode.dark:
+        return 'Dark';
+      case ThemeMode.system:
+        return 'System';
+    }
+  }
+}

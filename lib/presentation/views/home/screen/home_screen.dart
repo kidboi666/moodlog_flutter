@@ -32,12 +32,14 @@ class HomeScreen extends StatelessWidget {
               SliverSafeArea(
                 top: true,
                 bottom: false,
-                sliver: SliverToBoxAdapter(child: WelcomeZone()),
+                sliver: SliverToBoxAdapter(
+                  child: WelcomeZone(viewModel: viewModel),
+                ),
               ),
               SliverToBoxAdapter(child: const SizedBox(height: 20)),
               SliverToBoxAdapter(
                 child: HorizontalCalendar(
-                  homeViewModel: viewModel,
+                  viewModel: viewModel,
                   selectedDate: viewModel.selectedDate,
                   onSelectedDateChange: viewModel.onSelectedDateChange,
                 ),

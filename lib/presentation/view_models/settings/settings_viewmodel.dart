@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
@@ -44,6 +44,12 @@ class SettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setColorTheme(ColorTheme? colorTheme) {
+    _log.info('Setting color theme to $colorTheme');
+    _appStateRepository.updateColorTheme(colorTheme!);
+    notifyListeners();
+  }
+
   void performBackup(BuildContext context) {
     // TODO 백업 로직 구현
     context.pop();
@@ -58,5 +64,10 @@ class SettingsViewModel extends ChangeNotifier {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('캐시가 삭제되었습니다.')));
+  }
+
+  void clearSharedPreferences() {
+    _appStateRepository.clearSharedPreferences();
+    notifyListeners();
   }
 }

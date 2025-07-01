@@ -388,6 +388,18 @@ abstract class AppLocalizations {
   /// **'밝기 테마를 선택합니다.'**
   String get settings_common_theme_subtitle;
 
+  /// No description provided for @settings_common_color_theme_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'색상 테마'**
+  String get settings_common_color_theme_title;
+
+  /// No description provided for @settings_common_color_theme_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'색상 테마를 선택합니다.'**
+  String get settings_common_color_theme_subtitle;
+
   /// No description provided for @settings_common_language_title.
   ///
   /// In ko, this message translates to:

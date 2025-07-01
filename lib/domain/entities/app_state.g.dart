@@ -13,6 +13,9 @@ _AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
   themeMode:
       $enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']) ??
       ThemeMode.system,
+  colorTheme:
+      $enumDecodeNullable(_$ColorThemeEnumMap, json['colorTheme']) ??
+      ColorTheme.teal,
   languageCode:
       $enumDecodeNullable(_$LanguageCodeEnumMap, json['languageCode']) ??
       LanguageCode.ko,
@@ -33,6 +36,7 @@ Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
   'hasNotificationEnabled': instance.hasNotificationEnabled,
   'hasAutoSyncEnabled': instance.hasAutoSyncEnabled,
   'themeMode': _$ThemeModeEnumMap[instance.themeMode]!,
+  'colorTheme': _$ColorThemeEnumMap[instance.colorTheme]!,
   'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
   'lastActiveDate': instance.lastActiveDate?.toIso8601String(),
   'firstLaunchedDate': instance.firstLaunchedDate?.toIso8601String(),
@@ -41,9 +45,18 @@ Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
 };
 
 const _$ThemeModeEnumMap = {
+  ThemeMode.system: 'system',
   ThemeMode.light: 'light',
   ThemeMode.dark: 'dark',
-  ThemeMode.system: 'system',
+};
+
+const _$ColorThemeEnumMap = {
+  ColorTheme.teal: 'teal',
+  ColorTheme.blue: 'blue',
+  ColorTheme.purple: 'purple',
+  ColorTheme.green: 'green',
+  ColorTheme.orange: 'orange',
+  ColorTheme.pink: 'pink',
 };
 
 const _$LanguageCodeEnumMap = {LanguageCode.ko: 'ko', LanguageCode.en: 'en'};

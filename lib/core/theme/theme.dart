@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
-abstract final class AppTheme {
-  static final seedColor = Colors.teal;
+import '../constants/enum.dart';
+import 'colors.dart';
 
-  static final ThemeData lightTheme = ThemeData(
+abstract final class AppTheme {
+  static ThemeData lightTheme(ColorTheme colorTheme) => ThemeData(
     fontFamily: 'LeeSeoyun',
     brightness: Brightness.light,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: seedColor,
+      seedColor: AppColor.colorMap[colorTheme]!,
       brightness: Brightness.light,
     ),
   );
 
-  static final ThemeData darkTheme = ThemeData(
+  static ThemeData darkTheme(ColorTheme colorTheme) => ThemeData(
     fontFamily: 'LeeSeoyun',
     brightness: Brightness.dark,
     textTheme: _textTheme,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: seedColor,
+      seedColor: AppColor.colorMap[colorTheme]!,
       brightness: Brightness.dark,
     ),
   );

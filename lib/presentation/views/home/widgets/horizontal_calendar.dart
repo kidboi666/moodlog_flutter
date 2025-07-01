@@ -10,13 +10,13 @@ import 'date_and_day.dart';
 class HorizontalCalendar extends StatefulWidget {
   final DateTime selectedDate;
   final Function(DateTime) onSelectedDateChange;
-  final HomeViewModel homeViewModel;
+  final HomeViewModel viewModel;
 
   const HorizontalCalendar({
     super.key,
     required this.selectedDate,
     required this.onSelectedDateChange,
-    required this.homeViewModel,
+    required this.viewModel,
   });
 
   @override
@@ -57,7 +57,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
               child: ListView(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                children: widget.homeViewModel.dateItems
+                children: widget.viewModel.dateItems
                     .map(
                       (item) => DateAndDay(
                         day: item[DateItem.day] ?? '',

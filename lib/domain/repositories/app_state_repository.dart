@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:flutter/material.dart';
 
 import '../../core/constants/enum.dart';
 import '../entities/app_state.dart';
@@ -24,4 +24,10 @@ abstract class AppStateRepository extends ChangeNotifier {
   Future<void> updateNotificationEnabled(bool enabled);
 
   Future<void> updateAutoSyncEnabled(bool enabled);
+
+  Future<void> updateColorTheme(ColorTheme colorTheme);
+
+  Future<void> clearSharedPreferences();
+
+  Future<void> clearDatabase();
 }

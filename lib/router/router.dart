@@ -22,7 +22,6 @@ import 'routes.dart';
 
 GoRouter router(AppStateRepository appStateRepository) => GoRouter(
   initialLocation: Routes.home,
-  restorationScopeId: 'app',
   debugLogDiagnostics: true,
   refreshListenable: appStateRepository,
   redirect: _redirect,
@@ -53,6 +52,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
               builder: (context, state) {
                 final viewModel = HomeViewModel(
                   journalRepository: context.read(),
+                  appStateRepository: context.read(),
                 );
                 return HomeScreen(viewModel: viewModel);
               },

@@ -86,32 +86,30 @@ enum MoodType {
   }
 }
 
-enum ThemeMode {
-  light,
-  dark,
-  system;
+enum ColorTheme {
+  teal,
+  blue,
+  purple,
+  green,
+  orange,
+  pink;
 
-  String get displayName {
-    switch (this) {
-      case ThemeMode.light:
-        return 'Light';
-      case ThemeMode.dark:
-        return 'Dark';
-      case ThemeMode.system:
-        return 'System';
-    }
-  }
-
-  static ThemeMode fromString(String? value) {
+  static ColorTheme fromString(String? value) {
     switch (value) {
-      case 'system':
-        return ThemeMode.system;
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
+      case 'teal':
+        return ColorTheme.teal;
+      case 'blue':
+        return ColorTheme.blue;
+      case 'purple':
+        return ColorTheme.purple;
+      case 'green':
+        return ColorTheme.green;
+      case 'orange':
+        return ColorTheme.orange;
+      case 'pink':
+        return ColorTheme.pink;
       default:
-        return ThemeMode.system;
+        return ColorTheme.teal;
     }
   }
 }

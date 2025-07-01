@@ -57,6 +57,8 @@
   "settings_common_notification_subtitle": "푸시 알림을 받습니다.",
   "settings_common_theme_title": "테마",
   "settings_common_theme_subtitle": "밝기 테마를 선택합니다.",
+  "settings_common_color_theme_title": "색상 테마",
+  "settings_common_color_theme_subtitle": "색상 테마를 선택합니다.",
   "settings_common_language_title": "언어",
   "settings_common_language_dialog_title": "언어 선택",
   "settings_data_title": "데이터",

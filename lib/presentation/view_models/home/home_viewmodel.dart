@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/app_state_repository.dart';
 
 import '../../../core/extensions/date_time.dart';
 import '../../../core/utils/result.dart';
@@ -10,10 +11,15 @@ enum DateItem { date, day }
 
 class HomeViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
+  final AppStateRepository _appStateRepository;
 
-  HomeViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository {
+  HomeViewModel({
+    required JournalRepository journalRepository,
+    required AppStateRepository appStateRepository,
+  }) : _journalRepository = journalRepository,
+       _appStateRepository = appStateRepository {
     _load();
+    _loadNickname();
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -29,6 +35,9 @@ class HomeViewModel extends ChangeNotifier {
     },
   );
   bool _isLoading = false;
+  String? _nickname;
+
+  String? get nickname => _nickname;
 
   List<Journal> get journal => _journal;
 
@@ -54,5 +63,10 @@ class HomeViewModel extends ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+  }
+
+  void _loadNickname() {
+    final result = _appStateRepository.appState;
+    _nickname = result.nickname;
   }
 }

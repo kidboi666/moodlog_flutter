@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../core/constants/enum.dart';
@@ -14,6 +15,7 @@ abstract class AppState with _$AppState {
     @Default(false) bool hasNotificationEnabled,
     @Default(false) bool hasAutoSyncEnabled,
     @Default(ThemeMode.system) ThemeMode themeMode,
+    @Default(ColorTheme.teal) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
     DateTime? lastActiveDate,
     DateTime? firstLaunchedDate,
