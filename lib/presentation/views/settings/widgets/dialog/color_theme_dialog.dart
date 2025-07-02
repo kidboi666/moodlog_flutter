@@ -20,65 +20,58 @@ class ColorThemeDialog extends StatelessWidget {
       ),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListenableBuilder(
-          listenable: viewModel,
-          builder: (context, _) {
-            return GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 1,
-              ),
-              itemCount: ColorTheme.values.length,
-              itemBuilder: (context, index) {
-                final colorTheme = ColorTheme.values[index];
-                final isSelected = viewModel.appState.colorTheme == colorTheme;
-                final color = AppColor.colorMap[colorTheme]!;
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 1,
+          ),
+          itemCount: ColorTheme.values.length,
+          itemBuilder: (context, index) {
+            final colorTheme = ColorTheme.values[index];
+            final isSelected = viewModel.appState.colorTheme == colorTheme;
+            final color = AppColor.colorMap[colorTheme]!;
 
-                return GestureDetector(
-                  onTap: () {
-                    viewModel.setColorTheme(colorTheme);
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: color,
-                          shape: BoxShape.circle,
-                          border: isSelected
-                              ? Border.all(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                  width: 3,
-                                )
-                              : Border.all(
-                                  color: Theme.of(context).colorScheme.outline,
-                                  width: 1,
-                                ),
-                          boxShadow: isSelected
-                              ? [
-                                  BoxShadow(
-                                    color: color.withValues(alpha: 0.3),
-                                    blurRadius: 8,
-                                    spreadRadius: 2,
-                                  ),
-                                ]
-                              : null,
-                        ),
-                        child: isSelected
-                            ? Icon(Icons.check, color: Colors.white, size: 24)
-                            : null,
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                  ),
-                );
+            return GestureDetector(
+              onTap: () {
+                viewModel.setColorTheme(colorTheme);
               },
+              child: Column(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                      border: isSelected
+                          ? Border.all(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              width: 3,
+                            )
+                          : Border.all(
+                              color: Theme.of(context).colorScheme.outline,
+                              width: 1,
+                            ),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: color.withValues(alpha: 0.3),
+                                blurRadius: 8,
+                                spreadRadius: 2,
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: isSelected
+                        ? Icon(Icons.check, color: Colors.white, size: 24)
+                        : null,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             );
           },
         ),

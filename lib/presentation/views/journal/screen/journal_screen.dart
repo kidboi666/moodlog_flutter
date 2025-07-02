@@ -19,49 +19,43 @@ class JournalScreen extends StatefulWidget {
 class _JournalScreenState extends State<JournalScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: PopButton(
-          onTap: () => widget.viewModel.handleBackNavigation(context),
-        ),
-        title: ListenableBuilder(
-          listenable: widget.viewModel,
-          builder: (context, _) {
-            return Text(
-              widget.viewModel.journal?.createdAt.formatted(
-                    AppLocalizations.of(context)!,
-                  ) ??
-                  '',
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        if (widget.viewModel.isLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            leading: PopButton(
+              onTap: () => widget.viewModel.handleBackNavigation(context),
+            ),
+            title: Text(
+              widget.viewModel.journal.createdAt.formatted(
+                AppLocalizations.of(context)!,
+              ),
               style: Theme.of(context).textTheme.titleMedium,
-            );
-          },
-        ),
-        actions: [
-          ListenableBuilder(
-            listenable: widget.viewModel,
-            builder: (context, _) {
-              return IconButton(
+            ),
+            actions: [
+              IconButton(
                 onPressed: widget.viewModel.changeAlign,
                 icon: Icon(widget.viewModel.currentAlign.icon),
-              );
-            },
+              ),
+              IconButton(
+                onPressed: () => widget.viewModel.handleDelete(context),
+                icon: const Icon(Icons.delete),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () => widget.viewModel.handleDelete(context),
-            icon: const Icon(Icons.delete),
-          ),
-        ],
-      ),
-      body: ListenableBuilder(
-        listenable: widget.viewModel,
-        builder: (context, child) {
-          return ListView(
+          body: ListView(
             children: [
               IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _MoodBar(moodType: widget.viewModel.journal!.moodType),
+                    _MoodBar(moodType: widget.viewModel.journal.moodType),
                     _ContentBox(
                       viewModel: widget.viewModel,
                       currentAlign: widget.viewModel.currentAlign,
@@ -70,9 +64,9 @@ class _JournalScreenState extends State<JournalScreen> {
                 ),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -108,7 +102,7 @@ class _ContentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isVisibleImage = viewModel.journal?.imageUri?.isNotEmpty ?? false;
+    final isVisibleImage = viewModel.journal.imageUri?.isNotEmpty ?? false;
     return Expanded(
       child: Column(
         spacing: 20,
@@ -118,9 +112,9 @@ class _ContentBox extends StatelessWidget {
             child: RichText(
               textAlign: TextAlign.start,
               text: TextSpan(
-                text: viewModel.journal?.moodType.name ?? '',
+                text: viewModel.journal.moodType.name,
                 style: Theme.of(context).textTheme.titleLarge,
-                children: [TextSpan(text: viewModel.journal?.moodType.emoji)],
+                children: [TextSpan(text: viewModel.journal.moodType.emoji)],
               ),
             ),
           ),
@@ -132,7 +126,7 @@ class _ContentBox extends StatelessWidget {
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  ...viewModel.journal?.imageUri?.map(
+                  ...viewModel.journal.imageUri?.map(
                         (image) => CoverImage(image: image),
                       ) ??
                       [],
@@ -145,7 +139,7 @@ class _ContentBox extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 12),
               child: Text(
-                viewModel.journal?.content ?? '',
+                viewModel.journal.content ?? '',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: currentAlign.textAlign,
               ),

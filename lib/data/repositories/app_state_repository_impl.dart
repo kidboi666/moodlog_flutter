@@ -122,6 +122,15 @@ class AppStateRepositoryImpl extends AppStateRepository {
   }
 
   @override
+  Future<void> updateColorTheme(ColorTheme colorTheme) async {
+    await _asyncPrefs.setString(
+      PreferenceKeys.colorTheme,
+      colorTheme.toString(),
+    );
+    _updateState(_appState.copyWith(colorTheme: colorTheme));
+  }
+
+  @override
   Future<void> updateNickname(String nickname) async {
     await _asyncPrefs.setString(PreferenceKeys.nickname, nickname);
     _updateState(_appState.copyWith(nickname: nickname));
@@ -145,15 +154,6 @@ class AppStateRepositoryImpl extends AppStateRepository {
       hasAutoSyncEnabled,
     );
     _updateState(_appState.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled));
-  }
-
-  @override
-  Future<void> updateColorTheme(ColorTheme colorTheme) async {
-    await _asyncPrefs.setString(
-      PreferenceKeys.colorTheme,
-      colorTheme.toString(),
-    );
-    _updateState(_appState.copyWith(colorTheme: colorTheme));
   }
 
   /// kDebugMode

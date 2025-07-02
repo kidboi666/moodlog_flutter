@@ -23,13 +23,13 @@ class JournalViewModel extends ChangeNotifier {
   }
 
   final Logger _log = Logger('JournalViewModel');
-  Journal? _journal;
+  late final Journal _journal;
   SimpleTextAlign _currentAlign = SimpleTextAlign.left;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   bool get shouldReplaceOnPop => source == 'write';
 
-  Journal? get journal => _journal;
+  Journal get journal => _journal;
 
   bool get isLoading => _isLoading;
 
@@ -62,7 +62,7 @@ class JournalViewModel extends ChangeNotifier {
     final result = await _journalRepository.deleteJournalById(id);
     switch (result) {
       case Ok<void>():
-        _log.fine('Deleted Journal');
+        _log.fine('Deleted Journal', journal.id);
         _isLoading = false;
         notifyListeners();
         return Result.ok(null);
@@ -83,7 +83,7 @@ class JournalViewModel extends ChangeNotifier {
       case Ok<Journal>():
         _journal = journal.value;
         _isLoading = false;
-        _log.fine('Loaded Journal', journal.value.createdAt);
+        _log.fine('Loaded Journal', journal.value.id);
         notifyListeners();
         return Result.ok(null);
       case Error<Journal>():

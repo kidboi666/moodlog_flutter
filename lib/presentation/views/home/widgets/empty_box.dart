@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../router/routes.dart';
 
 class EmptyBox extends StatelessWidget {

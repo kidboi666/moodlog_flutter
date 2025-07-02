@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/enum.dart';
 import '../../../../view_models/settings/settings_viewmodel.dart';
