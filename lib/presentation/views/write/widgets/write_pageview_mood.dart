@@ -1,4 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
@@ -17,11 +20,12 @@ class WritePageViewMood extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 28,
         children: [
-          Text(
-            '오늘 기분은 어떠신가요?',
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          FadeIn(
+            delay: DelayMs.quick,
+            child: Text(
+              AppLocalizations.of(context)!.write_mood_title,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,31 +36,40 @@ class WritePageViewMood extends StatelessWidget {
                   return Column(
                     spacing: 12,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: MoodType.values.map((mood) {
+                    children: MoodType.values.mapIndexed((index, mood) {
                       final isSelected = viewModel.selectedMood == mood;
 
-                      return ElevatedButton(
-                        onPressed: () => viewModel.updateMoodType(mood),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                            isSelected
-                                ? Color(mood.colorValue).withValues(alpha: 0.3)
-                                : null,
-                          ),
-                          overlayColor: WidgetStateProperty.all(
-                            Color(mood.colorValue).withValues(alpha: 0.5),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              mood.emoji,
-                              style: const TextStyle(fontSize: 20),
+                      return FadeIn(
+                        delay: DelayMs.quick * index + DelayMs.quick,
+                        duration: DurationMs.lazy,
+                        child: ElevatedButton(
+                          onPressed: () => viewModel.updateMoodType(mood),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              isSelected
+                                  ? Color(
+                                      mood.colorValue,
+                                    ).withValues(alpha: 0.5)
+                                  : null,
                             ),
-                            const SizedBox(width: 8),
-                            Text(mood.name),
-                          ],
+                            overlayColor: WidgetStateProperty.all(
+                              Color(mood.colorValue).withValues(alpha: 0.5),
+                            ),
+                            shadowColor: WidgetStateProperty.all(
+                              Color(mood.colorValue),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                mood.emoji,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(mood.name),
+                            ],
+                          ),
                         ),
                       );
                     }).toList(),

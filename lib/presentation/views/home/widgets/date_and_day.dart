@@ -34,12 +34,13 @@ class DateAndDay extends StatelessWidget {
           border: BoxBorder.all(
             width: 1,
             color: date.isSameDay(todayDate)
-                ? Theme.of(context).colorScheme.surface
+                ? Theme.of(context).colorScheme.outline
                 : Colors.transparent,
           ),
         ),
         width: Spacing.calendarScrollSize,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               date.weekdayName,

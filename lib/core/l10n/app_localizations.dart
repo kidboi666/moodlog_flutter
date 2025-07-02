@@ -316,6 +316,12 @@ abstract class AppLocalizations {
   /// **'글쓰기'**
   String get tab_write;
 
+  /// No description provided for @write_mood_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘의 기분은 어떠신가요?'**
+  String get write_mood_title;
+
   /// No description provided for @write_input_title.
   ///
   /// In ko, this message translates to:

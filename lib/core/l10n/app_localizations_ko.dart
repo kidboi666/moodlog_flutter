@@ -127,6 +127,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_write => '글쓰기';
 
   @override
+  String get write_mood_title => '오늘의 기분은 어떠신가요?';
+
+  @override
   String get write_input_title => '내용';
 
   @override

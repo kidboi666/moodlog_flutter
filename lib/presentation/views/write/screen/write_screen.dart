@@ -58,10 +58,6 @@ class _WriteScreenState extends State<WriteScreen> {
               total: widget.viewModel.totalSteps,
             ),
             actions: [
-              IconButton(
-                onPressed: () => widget.viewModel.selectDate(context),
-                icon: Icon(Icons.calendar_month),
-              ),
               AnimatedCrossFade(
                 crossFadeState: widget.viewModel.isLastStep
                     ? CrossFadeState.showSecond

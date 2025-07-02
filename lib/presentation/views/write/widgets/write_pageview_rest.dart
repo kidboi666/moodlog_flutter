@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../router/routes.dart';
@@ -46,12 +48,41 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
       child: Column(
         spacing: 28,
         children: [
-          ImagePickingSection(viewModel: widget.viewModel),
-          ContentInput(
-            viewModel: widget.viewModel,
-            contentController: _contentController,
+          FadeIn(
+            delay: DelayMs.quick,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: ImagePickingSection(viewModel: widget.viewModel),
+                ),
+                TextButton(
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      Text(
+                        widget.viewModel.selectedDate
+                            .formattedDotNationWithTime(),
+                      ),
+                      Icon(Icons.calendar_month),
+                    ],
+                  ),
+                  onPressed: () => widget.viewModel.selectDate(context),
+                ),
+              ],
+            ),
           ),
-          AiEnableCard(viewModel: widget.viewModel),
+          FadeIn(
+            delay: DelayMs.quick * 2,
+            child: ContentInput(
+              viewModel: widget.viewModel,
+              contentController: _contentController,
+            ),
+          ),
+          FadeIn(
+            delay: DelayMs.quick * 3,
+            child: AiEnableCard(viewModel: widget.viewModel),
+          ),
         ],
       ),
     );

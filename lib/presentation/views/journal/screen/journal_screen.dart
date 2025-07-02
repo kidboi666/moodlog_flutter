@@ -29,6 +29,9 @@ class _JournalScreenState extends State<JournalScreen> {
         }
         return Scaffold(
           appBar: AppBar(
+            surfaceTintColor: Color(
+              widget.viewModel.journal.moodType.colorValue,
+            ),
             leading: PopButton(
               onTap: () => widget.viewModel.handleBackNavigation(context),
             ),
