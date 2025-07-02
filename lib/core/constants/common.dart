@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:flutter/painting.dart';
 
 abstract final class Spacing {
-  static const EdgeInsetsGeometry paddingHorizontal = EdgeInsets.symmetric(
-    horizontal: 16.0,
-  );
+  static const EdgeInsetsGeometry containerHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: 16.0);
   static const EdgeInsetsGeometry paddingVertical = EdgeInsets.symmetric(
     vertical: 16.0,
   );

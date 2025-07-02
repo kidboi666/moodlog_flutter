@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../view_models/onboarding/onboarding_viewmodel.dart';
-import '../../widgets/fade_in.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../view_models/onboarding/onboarding_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
 
-class OnboardingNicknamePageView extends StatefulWidget {
+class OnboardingPageViewNickName extends StatefulWidget {
   final OnboardingViewModel viewModel;
   final void Function() onNext;
 
-  const OnboardingNicknamePageView({
+  const OnboardingPageViewNickName({
     super.key,
     required this.viewModel,
     required this.onNext,
   });
 
   @override
-  State<OnboardingNicknamePageView> createState() =>
-      _OnboardingNicknamePageViewState();
+  State<OnboardingPageViewNickName> createState() =>
+      _OnboardingPageViewNickNameState();
 }
 
-class _OnboardingNicknamePageViewState
-    extends State<OnboardingNicknamePageView> {
+class _OnboardingPageViewNickNameState
+    extends State<OnboardingPageViewNickName> {
   late TextEditingController _inputController;
   final formKey = GlobalKey<FormState>();
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/views/onboarding/widgets/onboarding_pageview_nickname.dart';
 
-import '../../../core/constants/common.dart';
-import '../../view_models/onboarding/onboarding_viewmodel.dart';
-import '../../widgets/pagination_dot.dart';
-import 'onboarding_nickname_pageview.dart';
-import 'onboarding_personality_pageview.dart';
-import 'onboarding_success_pageview.dart';
-import 'onboarding_welcome_pageview.dart';
+import '../../../../core/constants/common.dart';
+import '../../../view_models/onboarding/onboarding_viewmodel.dart';
+import '../../../widgets/pagination_dot.dart';
+import '../widgets/onboarding_pageview_personality.dart';
+import '../widgets/onboarding_pageview_success.dart';
+import '../widgets/onboarding_pageview_welcome.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final OnboardingViewModel viewModel;
@@ -30,13 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 1);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -52,7 +46,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             Expanded(
@@ -60,19 +54,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 controller: _pageController,
                 onPageChanged: widget.viewModel.setStep,
                 children: [
-                  OnboardingWelcomePageView(
+                  OnboardingPageViewWelcome(
                     viewModel: widget.viewModel,
                     onNext: onNext,
                   ),
-                  OnboardingNicknamePageView(
+                  OnboardingPageViewNickName(
                     viewModel: widget.viewModel,
                     onNext: onNext,
                   ),
-                  OnboardingPersonalityPageView(
+                  OnboardingPageViewPersonality(
                     viewModel: widget.viewModel,
                     onNext: onNext,
                   ),
-                  OnboardingSuccessPageView(
+                  OnboardingPageViewSuccess(
                     viewModel: widget.viewModel,
                     onNext: widget.viewModel.init,
                   ),
@@ -84,5 +78,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

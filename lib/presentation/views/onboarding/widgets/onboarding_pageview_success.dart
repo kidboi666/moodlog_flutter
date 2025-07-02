@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../view_models/onboarding/onboarding_viewmodel.dart';
-import '../../widgets/fade_in.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../view_models/onboarding/onboarding_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
 
-class OnboardingSuccessPageView extends StatelessWidget {
+class OnboardingPageViewSuccess extends StatelessWidget {
   final OnboardingViewModel viewModel;
   final void Function() onNext;
 
-  const OnboardingSuccessPageView({
+  const OnboardingPageViewSuccess({
     super.key,
     required this.viewModel,
     required this.onNext,

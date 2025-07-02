@@ -13,7 +13,7 @@ import '../presentation/view_models/write/write_viewmodel.dart';
 import '../presentation/views/entries/screen/entries_screen.dart';
 import '../presentation/views/home/screen/home_screen.dart';
 import '../presentation/views/journal/screen/journal_screen.dart';
-import '../presentation/views/onboarding/onboarding_screen.dart';
+import '../presentation/views/onboarding/screen/onboarding_screen.dart';
 import '../presentation/views/settings/screen/settings_screen.dart';
 import '../presentation/views/splash/splash_screen.dart';
 import '../presentation/views/statistics/screen/statistics_screen.dart';
@@ -109,7 +109,10 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
     GoRoute(
       path: Routes.write,
       builder: (context, state) {
-        final viewModel = WriteViewModel(journalRepository: context.read());
+        final viewModel = WriteViewModel(
+          journalRepository: context.read(),
+          totalSteps: 2,
+        );
         return WriteScreen(viewModel: viewModel);
       },
     ),

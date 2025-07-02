@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/presentation/views/write/widgets/content_input.dart';
-import 'package:moodlog/presentation/views/write/widgets/image_picking_section.dart';
-import 'package:moodlog/presentation/views/write/widgets/mood_selector.dart';
 
-import '../../../../router/routes.dart';
+import '../../../../core/constants/common.dart';
 import '../../../view_models/write/write_viewmodel.dart';
+import '../../../widgets/pagination_dot.dart';
 import '../../../widgets/pop_button.dart';
-import '../widgets/ai_enable_card.dart';
+import '../widgets/write_pageview_mood.dart';
+import '../widgets/write_pageview_rest.dart';
 
 class WriteScreen extends StatefulWidget {
   final WriteViewModel viewModel;
@@ -20,87 +17,83 @@ class WriteScreen extends StatefulWidget {
 }
 
 class _WriteScreenState extends State<WriteScreen> {
-  final TextEditingController _contentController = TextEditingController();
+  late PageController _pageController;
+
+  void nextPage() {
+    _pageController.nextPage(
+      duration: DurationMs.medium,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void previousPage() {
+    _pageController.previousPage(
+      duration: DurationMs.medium,
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    _contentController.addListener(() {
-      widget.viewModel.updateContent(_contentController.text);
-    });
-    widget.viewModel.addListener(_listener);
-  }
-
-  void _listener() {
-    if (widget.viewModel.isSubmitted) {
-      context.go(
-        Routes.journal(widget.viewModel.submittedJournalId.toString()),
-        extra: {'source': 'write'},
-      );
-    }
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: PopButton(),
-        title: TextButton(
-          onPressed: () => widget.viewModel.selectDate(context),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 8,
-            children: [
-              Icon(Icons.calendar_month),
-              ListenableBuilder(
-                listenable: widget.viewModel,
-                builder: (context, _) => Text(
-                  widget.viewModel.selectedDate.formattedDotNationWithTime(),
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        return Scaffold(
+          appBar: AppBar(
+            leading: Row(
+              children: [
+                PopButton(
+                  onTap: widget.viewModel.isLastStep ? previousPage : null,
+                ),
+              ],
+            ),
+            title: PaginationDot(
+              current: widget.viewModel.currentStep,
+              total: widget.viewModel.totalSteps,
+            ),
+            actions: [
+              IconButton(
+                onPressed: () => widget.viewModel.selectDate(context),
+                icon: Icon(Icons.calendar_month),
+              ),
+              AnimatedCrossFade(
+                crossFadeState: widget.viewModel.isLastStep
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                duration: DurationMs.quick,
+                firstChild: IconButton(
+                  onPressed: nextPage,
+                  icon: Icon(Icons.arrow_forward),
+                ),
+                secondChild: IconButton(
+                  onPressed: widget.viewModel.submitJournal,
+                  icon: Icon(Icons.send),
                 ),
               ),
             ],
           ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: widget.viewModel.onSubmit,
-            icon: Icon(Icons.send),
+          body: PageView(
+            controller: _pageController,
+            onPageChanged: widget.viewModel.setStep,
+            children: [
+              WritePageViewMood(viewModel: widget.viewModel),
+              WritePageViewRest(viewModel: widget.viewModel),
+            ],
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListenableBuilder(
-          listenable: widget.viewModel,
-          builder: (context, _) {
-            return Form(
-              child: Column(
-                spacing: 20,
-                children: [
-                  ImagePickingSection(viewModel: widget.viewModel),
-                  ContentInput(
-                    viewModel: widget.viewModel,
-                    contentController: _contentController,
-                  ),
-                  AiEnableCard(viewModel: widget.viewModel),
-                  MoodSelector(
-                    onMoodSelected: widget.viewModel.updateMoodType,
-                    selectedMood: widget.viewModel.moodType,
-                    viewModel: widget.viewModel,
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
+        );
+      },
     );
   }
 
   @override
   void dispose() {
-    _contentController.dispose();
-    widget.viewModel.removeListener(_listener);
+    _pageController.dispose();
     super.dispose();
   }
 }

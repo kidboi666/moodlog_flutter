@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/views/settings/widgets/dialog/init_db_dialog.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -11,6 +10,7 @@ import '../widgets/dialog/backup_dialog.dart';
 import '../widgets/dialog/clear_cache_dialog.dart';
 import '../widgets/dialog/color_theme_dialog.dart';
 import '../widgets/dialog/contact_dialog.dart';
+import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
 import '../widgets/dialog/language_dialog.dart';
 import '../widgets/dialog/theme_dialog.dart';
@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings_title)),
       body: Container(
-        padding: Spacing.paddingHorizontal,
+        padding: Spacing.containerHorizontalPadding,
         child: ListenableBuilder(
           listenable: widget.viewModel,
           builder: (context, _) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/enum.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/extensions/enum.dart';
 
 class PersonalityItem extends StatelessWidget {
   final AiPersonality personality;

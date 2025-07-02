@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       listenable: widget.viewModel,
       builder: (context, _) {
         return Container(
-          padding: Spacing.paddingHorizontal,
+          padding: Spacing.containerHorizontalPadding,
           child: CustomScrollView(
             slivers: [
               SliverSafeArea(

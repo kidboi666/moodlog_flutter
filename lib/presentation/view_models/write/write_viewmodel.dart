@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/data/models/request/add_journal_request.dart';
-import 'package:moodlog/domain/repositories/journal_repository.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/mixins/step_mixin.dart';
+import '../../../core/utils/result.dart';
+import '../../../data/models/request/add_journal_request.dart';
+import '../../../domain/repositories/journal_repository.dart';
 
-class WriteViewModel extends ChangeNotifier {
+class WriteViewModel extends ChangeNotifier with StepMixin {
   final JournalRepository _journalRepository;
 
-  WriteViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository;
+  WriteViewModel({
+    required JournalRepository journalRepository,
+    required int totalSteps,
+  }) : _journalRepository = journalRepository {
+    super.initStep(totalSteps);
+  }
 
   final Logger _log = Logger('WriteViewModel');
   String? _content;
-  MoodType _moodType = MoodType.neutral;
+  MoodType _selectedMood = MoodType.neutral;
   List<String> _imageFileList = [];
   bool _isSubmitted = false;
   int? _submittedJournalId;
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
+  bool _isLoading = false;
 
   final ImagePicker _picker = ImagePicker();
 
   String? get content => _content;
 
+  bool get isLoading => _isLoading;
+
   bool get aiEnabled => _aiEnabled;
 
-  MoodType get moodType => _moodType;
+  MoodType get selectedMood => _selectedMood;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -44,8 +52,8 @@ class WriteViewModel extends ChangeNotifier {
   }
 
   void updateMoodType(MoodType value) {
-    if (_moodType != value) {
-      _moodType = value;
+    if (_selectedMood != value) {
+      _selectedMood = value;
       notifyListeners();
     }
   }
@@ -57,9 +65,10 @@ class WriteViewModel extends ChangeNotifier {
     }
   }
 
-  void updateImageUri(XFile? imageFile) {}
-
   Future<void> pickImage() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: ImageSource.gallery,
@@ -77,7 +86,7 @@ class WriteViewModel extends ChangeNotifier {
 
   void resetForm() {
     _content = null;
-    _moodType = MoodType.neutral;
+    _selectedMood = MoodType.neutral;
     _imageFileList = [];
     _isSubmitted = false;
     _submittedJournalId = null;
@@ -89,7 +98,7 @@ class WriteViewModel extends ChangeNotifier {
     return _content != null && _content!.trim().isNotEmpty;
   }
 
-  Future<Result<void>> onSubmit() async {
+  Future<Result<void>> submitJournal() async {
     if (!isFormValid) {
       _log.warning('Content is required');
       return Result.error(Exception('Content is required'));
@@ -100,7 +109,7 @@ class WriteViewModel extends ChangeNotifier {
 
     final newJournal = AddJournalRequest(
       content: content,
-      moodType: moodType,
+      moodType: selectedMood,
       imageUri: imageUri,
       aiEnabled: aiEnabled,
       createdAt: selectedDate,
