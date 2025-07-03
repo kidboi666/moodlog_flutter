@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -7,14 +8,17 @@ import 'package:provider/single_child_widget.dart';
 
 import 'core/l10n/app_localizations.dart';
 import 'core/theme/theme.dart';
-import 'data/data_source/database.dart';
+import 'data/data_source/local/database.dart';
 import 'data/repositories/app_state_repository_impl.dart';
 import 'data/repositories/journal_repository_impl.dart';
 import 'domain/repositories/app_state_repository.dart';
 import 'domain/repositories/journal_repository.dart';
+import 'firebase_options.dart';
 import 'router/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Logger.root.level = Level.ALL;
   runApp(
     MultiProvider(providers: _createProviders(), child: const MoodLogApp()),

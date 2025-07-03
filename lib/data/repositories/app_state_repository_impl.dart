@@ -7,7 +7,7 @@ import '../../core/constants/enum.dart';
 import '../../core/extensions/enum.dart';
 import '../../domain/entities/app_state.dart';
 import '../../domain/repositories/app_state_repository.dart';
-import '../data_source/database.dart';
+import '../data_source/local/database.dart';
 
 class AppStateRepositoryImpl extends AppStateRepository {
   final MoodLogDatabase _db;

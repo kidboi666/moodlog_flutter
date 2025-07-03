@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/presentation/widgets/fade_in.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../router/routes.dart';
 import '../../../view_models/write/write_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
 import 'image_picking_section.dart';

@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:moodlog/core/utils/converter.dart';
 
-import '../../core/constants/enum.dart';
-import '../../domain/entities/journal.dart';
-import '../../domain/entities/stat.dart';
+import '../../../core/constants/enum.dart';
+import '../../../domain/entities/journal.dart';
+import '../../../domain/entities/stat.dart';
 
 @UseRowClass(Journal)
 class Journals extends Table {
