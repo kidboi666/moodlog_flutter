@@ -4,24 +4,21 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 
+import 'core/di/injection_container.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/theme/theme.dart';
-import 'data/data_source/local/database.dart';
-import 'data/repositories/app_state_repository_impl.dart';
-import 'data/repositories/journal_repository_impl.dart';
 import 'domain/repositories/app_state_repository.dart';
-import 'domain/repositories/journal_repository.dart';
 import 'firebase_options.dart';
 import 'router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   Logger.root.level = Level.ALL;
   runApp(
-    MultiProvider(providers: _createProviders(), child: const MoodLogApp()),
+    MultiProvider(providers: createProviders(), child: const MoodLogApp()),
   );
 }
 
@@ -62,24 +59,4 @@ class _MoodLogAppState extends State<MoodLogApp> {
       },
     );
   }
-}
-
-List<SingleChildWidget> _createProviders() {
-  return [
-    Provider<MoodLogDatabase>(
-      create: (_) => MoodLogDatabase(),
-      dispose: (_, db) => db.close(),
-      lazy: false,
-    ),
-    ProxyProvider<MoodLogDatabase, JournalRepository>(
-      update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
-    ),
-    ChangeNotifierProxyProvider<MoodLogDatabase, AppStateRepository>(
-      create: (context) {
-        final db = context.read<MoodLogDatabase>();
-        return AppStateRepositoryImpl(db: db);
-      },
-      update: (_, db, previous) => previous ?? AppStateRepositoryImpl(db: db),
-    ),
-  ];
 }
