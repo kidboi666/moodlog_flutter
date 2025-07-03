@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '447252073051',
     projectId: 'moodlog-dcb10',
     storageBucket: 'moodlog-dcb10.firebasestorage.app',
+    iosClientId: '447252073051-ecvgcd8v7aj2jikjb6tn1r4fggop9ib7.apps.googleusercontent.com',
     iosBundleId: 'com.example.moodlog',
   );
+
 }

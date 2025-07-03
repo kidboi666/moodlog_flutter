@@ -12,7 +12,12 @@
           "package_name": "com.example.moodlog"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "447252073051-8jgcfmabae7hqb2k2umpn5pev0rsir4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD4JTaL7m_jzTEt19bv-KD2_r8cTnY2U6Q"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447252073051-8jgcfmabae7hqb2k2umpn5pev0rsir4t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "447252073051-ecvgcd8v7aj2jikjb6tn1r4fggop9ib7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodlog"
+              }
+            }
+          ]
         }
       }
     }

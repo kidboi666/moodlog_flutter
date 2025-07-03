@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/domain/repositories/app_state_repository.dart';
 
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
+import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
