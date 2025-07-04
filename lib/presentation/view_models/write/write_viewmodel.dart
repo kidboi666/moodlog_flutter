@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/app_state_repository.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/step_mixin.dart';
 import '../../../core/utils/result.dart';
 import '../../../data/models/request/add_journal_request.dart';
+import '../../../data/models/request/update_journal_request.dart';
+import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin {
   final JournalRepository _journalRepository;
+  final GeminiRepository _geminiRepository;
+  final AppStateRepository _appStateRepository;
 
   WriteViewModel({
     required JournalRepository journalRepository,
+    required GeminiRepository geminiRepository,
+    required AppStateRepository appStateRepository,
     required int totalSteps,
-  }) : _journalRepository = journalRepository {
+  }) : _journalRepository = journalRepository,
+       _geminiRepository = geminiRepository,
+       _appStateRepository = appStateRepository {
     super.initStep(totalSteps);
   }
 
@@ -27,7 +36,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
   bool _isLoading = false;
-
   final ImagePicker _picker = ImagePicker();
 
   String? get content => _content;
@@ -111,20 +119,41 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
       content: content,
       moodType: selectedMood,
       imageUri: imageUri,
-      aiEnabled: aiEnabled,
+      aiResponseEnabled: aiEnabled,
       createdAt: selectedDate,
     );
 
     final result = await _journalRepository.addJournal(newJournal);
 
     switch (result) {
-      case Ok<int>():
+      case Ok<Map<String, dynamic>>():
         _log.fine('Journal added successfully');
         _isSubmitted = true;
-        _submittedJournalId = result.value;
+        _submittedJournalId = result.value['id'];
+        final aiResponseEnabled = result.value['aiResponseEnabled'];
+        if (aiResponseEnabled == true) {
+          final aiPersonality = _appStateRepository.appState.aiPersonality;
+          await _geminiRepository.initialize(aiPersonality: aiPersonality);
+          final aiResponse = await _geminiRepository.generateResponse(
+            prompt: content!,
+            moodType: selectedMood,
+          );
+
+          switch (aiResponse) {
+            case Ok<String>():
+              _log.fine('AI response generated successfully');
+              final newJournal = UpdateJournalRequest(
+                id: _submittedJournalId!,
+                aiResponse: aiResponse.value,
+              );
+              await _journalRepository.updateJournal(newJournal);
+            case Error<String>():
+              _log.warning('Failed to add AI response: ${aiResponse.error}');
+          }
+        }
         notifyListeners();
         return Result.ok(null);
-      case Error<int>():
+      case Error<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
         return Result.error(result.error);
     }

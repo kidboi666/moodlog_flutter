@@ -1,5 +1,7 @@
 import 'package:moodlog/core/constants/enum.dart';
 
+import '../../core/utils/result.dart';
+
 abstract class GeminiRepository {
   bool get isInitialized;
 
@@ -7,5 +9,8 @@ abstract class GeminiRepository {
 
   void updatePersonality(AiPersonality personality);
 
-  Future<String> generateResponse(String prompt);
+  Future<Result<String>> generateResponse({
+    required String prompt,
+    required MoodType moodType,
+  });
 }

@@ -111,6 +111,8 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
       builder: (context, state) {
         final viewModel = WriteViewModel(
           journalRepository: context.read(),
+          geminiRepository: context.read(),
+          appStateRepository: context.read(),
           totalSteps: 2,
         );
         return WriteScreen(viewModel: viewModel);

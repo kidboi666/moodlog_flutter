@@ -1,5 +1,6 @@
 import '../../core/utils/result.dart';
 import '../../data/models/request/add_journal_request.dart';
+import '../../data/models/request/update_journal_request.dart';
 import '../entities/journal.dart';
 
 abstract class JournalRepository {
@@ -9,7 +10,9 @@ abstract class JournalRepository {
 
   Future<Result<Journal>> getJournalById(int id);
 
-  Future<Result<int>> addJournal(AddJournalRequest dto);
+  Future<Result<Map<String, dynamic>>> addJournal(AddJournalRequest dto);
+
+  Future<Result<int>> updateJournal(UpdateJournalRequest dto);
 
   Future<Result<void>> deleteJournalById(int id);
 }

@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:moodlog/core/utils/converter.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/entities/stat.dart';
+import '../../core/constants/enum.dart';
+import '../../domain/entities/journal.dart';
+import '../../domain/entities/stat.dart';
 
 @UseRowClass(Journal)
 class Journals extends Table {
@@ -17,6 +17,10 @@ class Journals extends Table {
       text().map(const StringListConverter()).nullable()();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  BoolColumn get aiResponseEnabled => boolean()();
+
+  TextColumn get aiResponse => text().nullable()();
 }
 
 @UseRowClass(Stat)

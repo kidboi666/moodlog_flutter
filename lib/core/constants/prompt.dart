@@ -33,7 +33,7 @@ abstract final class Prompt {
   static const dailyQuote =
       '오늘 하루를 보내는 사용자에게 영감을 줄 수 있는 짧은 한 줄의 메시지나 명언을 제시해주세요.';
 
-  String generateComfortPrompt(String diaryContent, MoodType moodType) {
+  static String generateAnswerPrompt(String diaryContent, MoodType moodType) {
     return '''
       다음은 사용자가 작성한 일기입니다: $diaryContent
       현재 사용자의 감정: $moodType

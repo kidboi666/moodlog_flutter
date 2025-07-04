@@ -3,8 +3,9 @@ import 'package:drift/drift.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
-import '../data_source/local/database.dart';
+import '../data_source/database.dart';
 import '../models/request/add_journal_request.dart';
+import '../models/request/update_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
@@ -61,7 +62,7 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<int>> addJournal(AddJournalRequest dto) async {
+  Future<Result<Map<String, dynamic>>> addJournal(AddJournalRequest dto) async {
     final journal = await _db
         .into(_db.journals)
         .insertReturningOrNull(
@@ -70,12 +71,40 @@ class JournalRepositoryImpl implements JournalRepository {
             moodType: Value(dto.moodType),
             imageUri: Value(dto.imageUri),
             createdAt: Value(dto.createdAt),
+            aiResponseEnabled: Value(dto.aiResponseEnabled),
           ),
         );
+
     if (journal == null) {
       return Result.error(Exception('Failed to add journal'));
     }
-    return Result.ok(journal.id);
+    final response = {
+      'id': journal.id,
+      'aiResponseEnabled': journal.aiResponseEnabled,
+    };
+    return Result.ok(response);
+  }
+
+  @override
+  Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
+    final updatedRows =
+        await (_db.update(
+          _db.journals,
+        )..where((t) => t.id.equals(dto.id))).write(
+          JournalsCompanion(
+            content: dto.content == null ? Value.absent() : Value(dto.content),
+            imageUri: dto.imageUri == null
+                ? Value.absent()
+                : Value(dto.imageUri),
+            aiResponse: dto.aiResponse == null
+                ? Value.absent()
+                : Value(dto.aiResponse),
+          ),
+        );
+    if (updatedRows == 0) {
+      return Result.error(Exception('Failed to update journal'));
+    }
+    return Result.ok(updatedRows);
   }
 
   @override

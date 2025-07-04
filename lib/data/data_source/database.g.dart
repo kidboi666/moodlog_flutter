@@ -62,6 +62,31 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+  static const VerificationMeta _aiResponseEnabledMeta = const VerificationMeta(
+    'aiResponseEnabled',
+  );
+  @override
+  late final GeneratedColumn<bool> aiResponseEnabled = GeneratedColumn<bool>(
+    'ai_response_enabled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("ai_response_enabled" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _aiResponseMeta = const VerificationMeta(
+    'aiResponse',
+  );
+  @override
+  late final GeneratedColumn<String> aiResponse = GeneratedColumn<String>(
+    'ai_response',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -69,6 +94,8 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     moodType,
     imageUri,
     createdAt,
+    aiResponseEnabled,
+    aiResponse,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -95,6 +122,23 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       context.handle(
         _createdAtMeta,
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('ai_response_enabled')) {
+      context.handle(
+        _aiResponseEnabledMeta,
+        aiResponseEnabled.isAcceptableOrUnknown(
+          data['ai_response_enabled']!,
+          _aiResponseEnabledMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_aiResponseEnabledMeta);
+    }
+    if (data.containsKey('ai_response')) {
+      context.handle(
+        _aiResponseMeta,
+        aiResponse.isAcceptableOrUnknown(data['ai_response']!, _aiResponseMeta),
       );
     }
     return context;
@@ -130,6 +174,14 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
       )!,
+      aiResponseEnabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}ai_response_enabled'],
+      )!,
+      aiResponse: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ai_response'],
+      ),
     );
   }
 
@@ -150,12 +202,16 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<MoodType> moodType;
   final Value<List<String>?> imageUri;
   final Value<DateTime> createdAt;
+  final Value<bool> aiResponseEnabled;
+  final Value<String?> aiResponse;
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
     this.moodType = const Value.absent(),
     this.imageUri = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.aiResponseEnabled = const Value.absent(),
+    this.aiResponse = const Value.absent(),
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
@@ -163,13 +219,18 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     required MoodType moodType,
     this.imageUri = const Value.absent(),
     this.createdAt = const Value.absent(),
-  }) : moodType = Value(moodType);
+    required bool aiResponseEnabled,
+    this.aiResponse = const Value.absent(),
+  }) : moodType = Value(moodType),
+       aiResponseEnabled = Value(aiResponseEnabled);
   static Insertable<Journal> custom({
     Expression<int>? id,
     Expression<String>? content,
     Expression<int>? moodType,
     Expression<String>? imageUri,
     Expression<DateTime>? createdAt,
+    Expression<bool>? aiResponseEnabled,
+    Expression<String>? aiResponse,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -177,6 +238,8 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (moodType != null) 'mood_type': moodType,
       if (imageUri != null) 'image_uri': imageUri,
       if (createdAt != null) 'created_at': createdAt,
+      if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
+      if (aiResponse != null) 'ai_response': aiResponse,
     });
   }
 
@@ -186,6 +249,8 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<MoodType>? moodType,
     Value<List<String>?>? imageUri,
     Value<DateTime>? createdAt,
+    Value<bool>? aiResponseEnabled,
+    Value<String?>? aiResponse,
   }) {
     return JournalsCompanion(
       id: id ?? this.id,
@@ -193,6 +258,8 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       moodType: moodType ?? this.moodType,
       imageUri: imageUri ?? this.imageUri,
       createdAt: createdAt ?? this.createdAt,
+      aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
+      aiResponse: aiResponse ?? this.aiResponse,
     );
   }
 
@@ -218,6 +285,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
+    if (aiResponseEnabled.present) {
+      map['ai_response_enabled'] = Variable<bool>(aiResponseEnabled.value);
+    }
+    if (aiResponse.present) {
+      map['ai_response'] = Variable<String>(aiResponse.value);
+    }
     return map;
   }
 
@@ -228,7 +301,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('content: $content, ')
           ..write('moodType: $moodType, ')
           ..write('imageUri: $imageUri, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('aiResponseEnabled: $aiResponseEnabled, ')
+          ..write('aiResponse: $aiResponse')
           ..write(')'))
         .toString();
   }
@@ -463,6 +538,8 @@ typedef $$JournalsTableCreateCompanionBuilder =
       required MoodType moodType,
       Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
+      required bool aiResponseEnabled,
+      Value<String?> aiResponse,
     });
 typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
@@ -471,6 +548,8 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<MoodType> moodType,
       Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
+      Value<bool> aiResponseEnabled,
+      Value<String?> aiResponse,
     });
 
 class $$JournalsTableFilterComposer
@@ -508,6 +587,16 @@ class $$JournalsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<bool> get aiResponseEnabled => $composableBuilder(
+    column: $table.aiResponseEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get aiResponse => $composableBuilder(
+    column: $table.aiResponse,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$JournalsTableOrderingComposer
@@ -543,6 +632,16 @@ class $$JournalsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<bool> get aiResponseEnabled => $composableBuilder(
+    column: $table.aiResponseEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get aiResponse => $composableBuilder(
+    column: $table.aiResponse,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$JournalsTableAnnotationComposer
@@ -568,6 +667,16 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get aiResponseEnabled => $composableBuilder(
+    column: $table.aiResponseEnabled,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get aiResponse => $composableBuilder(
+    column: $table.aiResponse,
+    builder: (column) => column,
+  );
 }
 
 class $$JournalsTableTableManager
@@ -603,12 +712,16 @@ class $$JournalsTableTableManager
                 Value<MoodType> moodType = const Value.absent(),
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                Value<bool> aiResponseEnabled = const Value.absent(),
+                Value<String?> aiResponse = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
                 content: content,
                 moodType: moodType,
                 imageUri: imageUri,
                 createdAt: createdAt,
+                aiResponseEnabled: aiResponseEnabled,
+                aiResponse: aiResponse,
               ),
           createCompanionCallback:
               ({
@@ -617,12 +730,16 @@ class $$JournalsTableTableManager
                 required MoodType moodType,
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                required bool aiResponseEnabled,
+                Value<String?> aiResponse = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
                 content: content,
                 moodType: moodType,
                 imageUri: imageUri,
                 createdAt: createdAt,
+                aiResponseEnabled: aiResponseEnabled,
+                aiResponse: aiResponse,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

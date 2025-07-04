@@ -3,6 +3,13 @@ import 'dart:io';
 import 'package:flutter/painting.dart';
 
 abstract final class Spacing {
+  static const double xs = 4.0;
+  static const double sm = 8.0;
+  static const double md = 12.0;
+  static const double lg = 16.0;
+  static const double xl = 20.0;
+  static const double xxl = 24.0;
+
   static const EdgeInsetsGeometry containerHorizontalPadding =
       EdgeInsets.symmetric(horizontal: 16.0);
   static const EdgeInsetsGeometry paddingVertical = EdgeInsets.symmetric(
@@ -22,7 +29,7 @@ abstract final class Spacing {
   );
   static const double bottomNavigationBarHeight = 80.0;
   static const double calendarScrollSize = 44.0;
-  static const double recordUnitLineHeight = 26.0;
+  static const double aiResponseGap = 26.0;
   static const double horCalendarDateHeight = 60.0;
 
   static double get tabBarHeight => Platform.isIOS ? 60.0 : 80.0;

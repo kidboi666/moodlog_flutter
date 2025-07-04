@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/constants/prompt.dart';
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 
 class GeminiRepositoryImpl implements GeminiRepository {
@@ -11,7 +14,7 @@ class GeminiRepositoryImpl implements GeminiRepository {
 
   GeminiRepositoryImpl._();
 
-  static GeminiRepositoryImpl? get instance {
+  static GeminiRepositoryImpl get instance {
     return _instance ??= GeminiRepositoryImpl._();
   }
 
@@ -35,9 +38,17 @@ class GeminiRepositoryImpl implements GeminiRepository {
   }
 
   @override
-  Future<String> generateResponse(String prompt) {
-    // TODO: implement generateResponse
-    throw UnimplementedError();
+  Future<Result<String>> generateResponse({
+    required String prompt,
+    required MoodType moodType,
+  }) async {
+    if (!isInitialized) {
+      return Result.error(Exception('Gemini model is not initialized'));
+    }
+    final response = await _model!.generateContent([
+      Content.text(Prompt.generateAnswerPrompt(prompt, moodType)),
+    ]);
+    return Result.ok(response.text ?? '');
   }
 
   @override

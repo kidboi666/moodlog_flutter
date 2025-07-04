@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddJournalRequest {
 
- String? get content; MoodType get moodType; List<String> get imageUri; bool? get aiEnabled; DateTime get createdAt;
+ String? get content; MoodType get moodType; List<String> get imageUri; bool get aiResponseEnabled; String? get aiResponse; DateTime get createdAt;
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AddJournalRequestCopyWith<AddJournalRequest> get copyWith => _$AddJournalReques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiEnabled,createdAt);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,aiResponse,createdAt);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled, createdAt: $createdAt)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AddJournalRequestCopyWith<$Res>  {
   factory $AddJournalRequestCopyWith(AddJournalRequest value, $Res Function(AddJournalRequest) _then) = _$AddJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled, DateTime createdAt
+ String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt
 });
 
 
@@ -66,13 +66,14 @@ class _$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,imageUri: null == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>,aiEnabled: freezed == aiEnabled ? _self.aiEnabled : aiEnabled // ignore: cast_nullable_to_non_nullable
-as bool?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<String>,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
+as bool,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
@@ -84,7 +85,7 @@ as DateTime,
 @JsonSerializable()
 
 class _AddJournalRequest implements AddJournalRequest {
-  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, this.aiEnabled, required this.createdAt}): _imageUri = imageUri;
+  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, required this.aiResponseEnabled, this.aiResponse, required this.createdAt}): _imageUri = imageUri;
   factory _AddJournalRequest.fromJson(Map<String, dynamic> json) => _$AddJournalRequestFromJson(json);
 
 @override final  String? content;
@@ -96,7 +97,8 @@ class _AddJournalRequest implements AddJournalRequest {
   return EqualUnmodifiableListView(_imageUri);
 }
 
-@override final  bool? aiEnabled;
+@override final  bool aiResponseEnabled;
+@override final  String? aiResponse;
 @override final  DateTime createdAt;
 
 /// Create a copy of AddJournalRequest
@@ -112,16 +114,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiEnabled, aiEnabled) || other.aiEnabled == aiEnabled)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiEnabled,createdAt);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,aiResponse,createdAt);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiEnabled: $aiEnabled, createdAt: $createdAt)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt)';
 }
 
 
@@ -132,7 +134,7 @@ abstract mixin class _$AddJournalRequestCopyWith<$Res> implements $AddJournalReq
   factory _$AddJournalRequestCopyWith(_AddJournalRequest value, $Res Function(_AddJournalRequest) _then) = __$AddJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool? aiEnabled, DateTime createdAt
+ String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt
 });
 
 
@@ -149,13 +151,14 @@ class __$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiEnabled = freezed,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,}) {
   return _then(_AddJournalRequest(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,imageUri: null == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>,aiEnabled: freezed == aiEnabled ? _self.aiEnabled : aiEnabled // ignore: cast_nullable_to_non_nullable
-as bool?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<String>,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
+as bool,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }

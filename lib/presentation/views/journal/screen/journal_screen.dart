@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/date_time.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -66,6 +67,8 @@ class _JournalScreenState extends State<JournalScreen> {
                   ],
                 ),
               ),
+              SizedBox(height: Spacing.lg),
+              _AiResponseBox(viewModel: widget.viewModel),
             ],
           ),
         );
@@ -108,7 +111,7 @@ class _ContentBox extends StatelessWidget {
     final isVisibleImage = viewModel.journal.imageUri?.isNotEmpty ?? false;
     return Expanded(
       child: Column(
-        spacing: 20,
+        spacing: Spacing.xl,
         children: [
           SizedBox(
             width: double.infinity,
@@ -149,6 +152,47 @@ class _ContentBox extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AiResponseBox extends StatelessWidget {
+  final JournalViewModel viewModel;
+
+  const _AiResponseBox({required this.viewModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Offstage(
+      offstage: !viewModel.journal.aiResponseEnabled,
+      child: Card(
+        color: Color(
+          viewModel.journal.moodType.colorValue,
+        ).withValues(alpha: 0.4),
+        margin: const EdgeInsets.all(Spacing.md),
+        child: Padding(
+          padding: const EdgeInsets.all(Spacing.md),
+          child: Column(
+            spacing: Spacing.xl,
+            children: [
+              Row(
+                spacing: Spacing.md,
+                children: [
+                  Icon(Icons.adb),
+                  Text(
+                    AppLocalizations.of(context)!.write_ai_title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
+              ),
+              Text(
+                viewModel.journal.aiResponse ?? '',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

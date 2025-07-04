@@ -13,7 +13,8 @@ _AddJournalRequest _$AddJournalRequestFromJson(Map<String, dynamic> json) =>
       imageUri: (json['imageUri'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      aiEnabled: json['aiEnabled'] as bool?,
+      aiResponseEnabled: json['aiResponseEnabled'] as bool,
+      aiResponse: json['aiResponse'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
@@ -22,7 +23,8 @@ Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
       'content': instance.content,
       'moodType': _$MoodTypeEnumMap[instance.moodType]!,
       'imageUri': instance.imageUri,
-      'aiEnabled': instance.aiEnabled,
+      'aiResponseEnabled': instance.aiResponseEnabled,
+      'aiResponse': instance.aiResponse,
       'createdAt': instance.createdAt.toIso8601String(),
     };
 
