@@ -132,30 +132,34 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
         _submittedJournalId = result.value['id'];
         final aiResponseEnabled = result.value['aiResponseEnabled'];
         if (aiResponseEnabled == true) {
-          final aiPersonality = _appStateRepository.appState.aiPersonality;
-          await _geminiRepository.initialize(aiPersonality: aiPersonality);
-          final aiResponse = await _geminiRepository.generateResponse(
-            prompt: content!,
-            moodType: selectedMood,
-          );
-
-          switch (aiResponse) {
-            case Ok<String>():
-              _log.fine('AI response generated successfully');
-              final newJournal = UpdateJournalRequest(
-                id: _submittedJournalId!,
-                aiResponse: aiResponse.value,
-              );
-              await _journalRepository.updateJournal(newJournal);
-            case Error<String>():
-              _log.warning('Failed to add AI response: ${aiResponse.error}');
-          }
+          _generateAiResponse();
         }
         notifyListeners();
         return Result.ok(null);
       case Error<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
         return Result.error(result.error);
+    }
+  }
+
+  void _generateAiResponse() async {
+    final aiPersonality = _appStateRepository.appState.aiPersonality;
+    await _geminiRepository.initialize(aiPersonality: aiPersonality);
+    final aiResponse = await _geminiRepository.generateResponse(
+      prompt: content!,
+      moodType: selectedMood,
+    );
+
+    switch (aiResponse) {
+      case Ok<String>():
+        _log.fine('AI response generated successfully');
+        final newJournal = UpdateJournalRequest(
+          id: _submittedJournalId!,
+          aiResponse: aiResponse.value,
+        );
+        await _journalRepository.updateJournal(newJournal);
+      case Error<String>():
+        _log.warning('Failed to add AI response: ${aiResponse.error}');
     }
   }
 
