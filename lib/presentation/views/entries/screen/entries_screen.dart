@@ -4,62 +4,35 @@ import 'package:moodlog/core/extensions/date_time.dart';
 import '../../../view_models/entries/entries_viewmodel.dart';
 import '../../../widgets/journal_card.dart';
 
-class EntriesScreen extends StatefulWidget {
+class EntriesScreen extends StatelessWidget {
   final EntriesViewModel viewModel;
 
   const EntriesScreen({super.key, required this.viewModel});
 
   @override
-  State<EntriesScreen> createState() => _EntriesScreenState();
-}
-
-class _EntriesScreenState extends State<EntriesScreen> {
-  DateTime _selectedMonth = DateTime.now();
-
-  void _setPreviousMonth() {
-    setState(() {
-      _selectedMonth = DateTime(
-        _selectedMonth.year,
-        _selectedMonth.month - 1,
-        1,
-      );
-    });
-  }
-
-  void _setNextMonth() {
-    setState(() {
-      _selectedMonth = DateTime(
-        _selectedMonth.year,
-        _selectedMonth.month + 1,
-        1,
-      );
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_selectedMonth.formattedDotNationWithMonth()),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => _setPreviousMonth(),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_forward),
-            onPressed: () => _setNextMonth(),
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(viewModel.selectedMonth.formattedDotNationWithMonth()),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => viewModel.setPreviousMonth(),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.arrow_forward),
+                onPressed: () => viewModel.setNextMonth(),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          ListenableBuilder(
-            listenable: widget.viewModel,
-            builder: (context, _) {
-              return ListView(
+          body: ListView(
+            children: [
+              ListView(
                 shrinkWrap: true,
-                children: widget.viewModel.entries
+                children: viewModel.entries
                     .map(
                       (e) => JournalCard(
                         id: e.id,
@@ -69,11 +42,11 @@ class _EntriesScreenState extends State<EntriesScreen> {
                       ),
                     )
                     .toList(),
-              );
-            },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

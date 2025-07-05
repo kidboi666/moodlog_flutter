@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/views/onboarding/widgets/onboarding_pageview_nickname.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../view_models/onboarding/onboarding_viewmodel.dart';
 import '../../../widgets/pagination_dot.dart';
+import '../widgets/onboarding_pageview_nickname.dart';
 import '../widgets/onboarding_pageview_personality.dart';
 import '../widgets/onboarding_pageview_success.dart';
 import '../widgets/onboarding_pageview_welcome.dart';

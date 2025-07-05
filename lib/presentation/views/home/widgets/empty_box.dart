@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../router/routes.dart';
+import '../../../../core/router/routes.dart';
 
 class EmptyBox extends StatelessWidget {
   const EmptyBox({super.key});
@@ -16,7 +17,7 @@ class EmptyBox extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 24),
         child: Column(
-          spacing: 28,
+          spacing: Spacing.xxl,
           children: [
             Text(
               AppLocalizations.of(context)!.home_empty_box,

@@ -10,11 +10,12 @@ class EntriesViewModel extends ChangeNotifier {
 
   EntriesViewModel({required JournalRepository journalRepository})
     : _journalRepository = journalRepository {
-    _load();
+    _loadMonthEntries();
   }
 
   final Logger _log = Logger('EntriesViewModel');
   DateTime selectedDate = DateTime.now();
+  DateTime _selectedMonth = DateTime.now();
   List<Journal> _entries = [];
   bool _isLoading = false;
 
@@ -22,11 +23,25 @@ class EntriesViewModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Future<void> _load() async {
+  DateTime get selectedMonth => _selectedMonth;
+
+  void setPreviousMonth() {
+    _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1, 1);
+    notifyListeners();
+    _loadMonthEntries();
+  }
+
+  void setNextMonth() {
+    _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
+    notifyListeners();
+    _loadMonthEntries();
+  }
+
+  Future<void> _loadMonthEntries() async {
     _isLoading = true;
     notifyListeners();
 
-    final result = await _journalRepository.getJournalsByMonth(selectedDate);
+    final result = await _journalRepository.getJournalsByMonth(_selectedMonth);
     switch (result) {
       case Ok<List<Journal>>():
         _entries = result.value;

@@ -14,7 +14,7 @@ class WelcomeZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 8,
+      spacing: Spacing.sm,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeIn(

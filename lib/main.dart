@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
 import 'core/l10n/app_localizations.dart';
+import 'core/router/router.dart';
 import 'core/theme/theme.dart';
 import 'domain/repositories/app_state_repository.dart';
 import 'firebase_options.dart';
-import 'router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
+
   Logger.root.level = Level.ALL;
   runApp(
     MultiProvider(providers: createProviders(), child: const MoodLogApp()),

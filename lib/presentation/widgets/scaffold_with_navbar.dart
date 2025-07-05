@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/router/routes.dart';
 import '../../core/utils/animated_container.dart';
-import '../../router/routes.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final List<Widget> children;

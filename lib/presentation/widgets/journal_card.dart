@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/router/routes.dart';
+import 'package:moodlog/core/router/routes.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/l10n/app_localizations.dart';
@@ -33,7 +34,10 @@ class JournalCard extends StatelessWidget {
             context.push(Routes.journal(id), extra: {'source': 'home'}),
         borderRadius: BorderRadius.circular(20.0),
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: Spacing.xxl,
+            vertical: Spacing.md,
+          ),
           leading: Container(
             width: 8,
             decoration: BoxDecoration(

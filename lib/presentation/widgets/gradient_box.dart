@@ -7,8 +7,6 @@ class GradientBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(6),
@@ -16,8 +14,8 @@ class GradientBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(28),
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.onSurface,
-            theme.colorScheme.onSurfaceVariant,
+            Theme.of(context).colorScheme.onSurface,
+            Theme.of(context).colorScheme.onSurfaceVariant,
           ],
           begin: const Alignment(-1.0, -0.8),
           end: const Alignment(0.8, 1.0),
@@ -37,8 +35,8 @@ class GradientBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(
             colors: [
-              theme.colorScheme.onSurfaceVariant,
-              theme.colorScheme.onSurface,
+              Theme.of(context).colorScheme.onSurfaceVariant,
+              Theme.of(context).colorScheme.onSurface,
             ],
             begin: const Alignment(-1.0, -0.8),
             end: const Alignment(0.8, 1.0),

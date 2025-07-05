@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 
 import '../../../../core/constants/common.dart';
-import '../../../../router/routes.dart';
+import '../../../../core/router/routes.dart';
 import '../../../view_models/write/write_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
 import 'ai_enable_card.dart';

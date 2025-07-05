@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/router/routes.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
-import '../../../router/routes.dart';
 import '../../views/journal/widgets/delete_confirm_dialog.dart';
 
 class JournalViewModel extends ChangeNotifier {

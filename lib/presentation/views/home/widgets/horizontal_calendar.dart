@@ -31,7 +31,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
       delay: DelayMs.medium * 4,
       child: GradientBox(
         child: Column(
-          spacing: 16,
+          spacing: Spacing.lg,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/router/routes.dart';
 import 'package:moodlog/presentation/view_models/journal/journal_viewmodel.dart';
-import 'package:moodlog/router/routes.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
   final int id;

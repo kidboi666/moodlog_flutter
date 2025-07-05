@@ -26,7 +26,6 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(vsync: this, duration: widget.duration);
     _opacity = Tween<double>(
       begin: 0.0,
@@ -36,11 +35,11 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
       begin: 0.95,
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutExpo));
-    widget.delay > Duration.zero
-        ? Future.delayed(widget.delay, () {
-            if (mounted) _controller.forward();
-          })
-        : _controller.forward();
+    Future.delayed(widget.delay, () {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
   }
 
   @override

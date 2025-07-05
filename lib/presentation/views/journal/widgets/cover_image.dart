@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../widgets/pop_button.dart';
 
 class CoverImage extends StatefulWidget {
@@ -36,9 +37,9 @@ class _CoverImageState extends State<CoverImage> {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.only(right: 12),
+        margin: const EdgeInsets.only(right: Spacing.md),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width - 32,
+          width: MediaQuery.of(context).size.width - (Spacing.lg * 2),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.file(
