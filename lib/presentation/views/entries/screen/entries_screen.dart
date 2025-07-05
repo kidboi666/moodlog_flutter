@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../view_models/entries/entries_viewmodel.dart';
+import '../../../widgets/fade_in.dart';
 import '../../../widgets/journal_card.dart';
 
 class EntriesScreen extends StatelessWidget {
@@ -28,20 +30,21 @@ class EntriesScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: ListView(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                children: viewModel.entries
-                    .map(
-                      (e) => JournalCard(
-                        id: e.id,
-                        content: e.content ?? '',
-                        moodType: e.moodType,
-                        createdAt: e.createdAt,
-                      ),
-                    )
-                    .toList(),
+          body: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final e = viewModel.entries[index];
+                  return FadeIn(
+                    delay: DelayMs.medium,
+                    child: JournalCard(
+                      id: e.id,
+                      content: e.content ?? '',
+                      moodType: e.moodType,
+                      createdAt: e.createdAt,
+                    ),
+                  );
+                }, childCount: viewModel.entries.length),
               ),
             ],
           ),

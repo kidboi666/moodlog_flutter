@@ -316,6 +316,12 @@ abstract class AppLocalizations {
   /// **'글쓰기'**
   String get tab_write;
 
+  /// No description provided for @tab_statistics.
+  ///
+  /// In ko, this message translates to:
+  /// **'통계'**
+  String get tab_statistics;
+
   /// No description provided for @write_mood_title.
   ///
   /// In ko, this message translates to:
@@ -363,6 +369,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'AI가 답변을 작성 중입니다.'**
   String get journal_ai_generating_response_title;
+
+  /// No description provided for @statistics_dev_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발 중입니다.'**
+  String get statistics_dev_title;
+
+  /// No description provided for @statistics_dev_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'곧 제공될 예정입니다.'**
+  String get statistics_dev_description;
 
   /// No description provided for @settings_title.
   ///

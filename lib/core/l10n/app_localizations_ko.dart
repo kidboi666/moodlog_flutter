@@ -127,6 +127,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_write => '글쓰기';
 
   @override
+  String get tab_statistics => '통계';
+
+  @override
   String get write_mood_title => '오늘의 기분은 어떠신가요?';
 
   @override
@@ -149,6 +152,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get journal_ai_generating_response_title => 'AI가 답변을 작성 중입니다.';
+
+  @override
+  String get statistics_dev_title => '개발 중입니다.';
+
+  @override
+  String get statistics_dev_description => '곧 제공될 예정입니다.';
 
   @override
   String get settings_title => '설정';
