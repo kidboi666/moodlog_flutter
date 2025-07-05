@@ -9,6 +9,7 @@ import '../../presentation/view_models/home/home_viewmodel.dart';
 import '../../presentation/view_models/journal/journal_viewmodel.dart';
 import '../../presentation/view_models/onboarding/onboarding_viewmodel.dart';
 import '../../presentation/view_models/settings/settings_viewmodel.dart';
+import '../../presentation/view_models/statistics/statistics_viewmodel.dart';
 import '../../presentation/view_models/write/write_viewmodel.dart';
 import '../../presentation/views/entries/screen/entries_screen.dart';
 import '../../presentation/views/home/screen/home_screen.dart';
@@ -85,7 +86,10 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
             GoRoute(
               path: Routes.statistics,
               builder: (context, state) {
-                return StatisticsScreen();
+                final viewModel = StatisticsViewModel(
+                  journalRepository: context.read(),
+                );
+                return StatisticsScreen(viewModel: viewModel);
               },
             ),
           ],
@@ -97,6 +101,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
               builder: (context, state) {
                 final viewModel = SettingsViewModel(
                   appStateRepository: context.read(),
+                  journalRepository: context.read(),
                 );
                 return SettingsScreen(viewModel: viewModel);
               },

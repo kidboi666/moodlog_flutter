@@ -70,6 +70,21 @@ enum MoodType {
     }
   }
 
+  int get score {
+    switch (this) {
+      case MoodType.veryHappy:
+        return 5;
+      case MoodType.happy:
+        return 4;
+      case MoodType.neutral:
+        return 3;
+      case MoodType.sad:
+        return 2;
+      case MoodType.verySad:
+        return 1;
+    }
+  }
+
   int get colorValue {
     switch (this) {
       case MoodType.veryHappy:

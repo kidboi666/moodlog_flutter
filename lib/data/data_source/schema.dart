@@ -6,6 +6,7 @@ import '../../domain/entities/journal.dart';
 import '../../domain/entities/stat.dart';
 
 @UseRowClass(Journal)
+@TableIndex(name: 'journals_created_at', columns: {#createdAt})
 class Journals extends Table {
   IntColumn get id => integer().autoIncrement()();
 
@@ -31,5 +32,5 @@ class Stats extends Table {
 
   IntColumn get maxStreak => integer().withDefault(const Constant(0))();
 
-  TextColumn get lastActiveDate => text()();
+  DateTimeColumn get lastActiveDate => dateTime()();
 }

@@ -19,7 +19,20 @@ class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onUpgrade: (migrator, from, to) async {
+        if (from == 1) {
+          await migrator.createIndex(
+            Index('journals', 'CREATE INDEX journals_created_at ON journals (created_at)'),
+          );
+        }
+      },
+    );
+  }
 }
 
 LazyDatabase _openConnection() {
@@ -27,12 +40,7 @@ LazyDatabase _openConnection() {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'mood_log.db'));
 
-    if (kDebugMode) {
-      if (await file.exists()) {
-        await file.delete();
-        print('Database file deleted successfully');
-      }
-    }
+    
 
     return NativeDatabase(file);
   });

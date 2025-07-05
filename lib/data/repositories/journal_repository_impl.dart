@@ -9,8 +9,19 @@ import '../models/request/update_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
+  List<Journal>? _cachedJournals; // 인메모리 캐시
 
-  JournalRepositoryImpl({required MoodLogDatabase? db}) : _db = db!;
+  JournalRepositoryImpl({required MoodLogDatabase db}) : _db = db;
+
+  @override
+  Future<Result<List<Journal>>> getAllJournals() async {
+    if (_cachedJournals != null) {
+      return Result.ok(_cachedJournals!); // 캐시된 데이터 반환
+    }
+    final journals = await _db.select(_db.journals).get();
+    _cachedJournals = journals; // 데이터베이스에서 가져온 후 캐시
+    return Result.ok(journals);
+  }
 
   @override
   Future<Result<List<Journal>>> getJournalsByMonth(DateTime date) async {
@@ -26,9 +37,6 @@ class JournalRepositoryImpl implements JournalRepository {
             ))
             .get();
 
-    if (journals.isEmpty) {
-      return Result.error(Exception('journals not found for the month'));
-    }
     return Result.ok(journals);
   }
 
@@ -44,9 +52,6 @@ class JournalRepositoryImpl implements JournalRepository {
               ),
             ))
             .get();
-    if (journals.isEmpty) {
-      return Result.error(Exception('journals not found for the day'));
-    }
     return Result.ok(journals);
   }
 
@@ -55,10 +60,12 @@ class JournalRepositoryImpl implements JournalRepository {
     final journal = await (_db.select(
       _db.journals,
     )..where((t) => t.id.equals(id))).getSingleOrNull();
+
     if (journal == null) {
-      return Result.error(Exception('journal not found'));
+      return Result.error(Exception('Journal with ID $id not found.'));
+    } else {
+      return Result.ok(journal);
     }
-    return Result.ok(journal);
   }
 
   @override
@@ -82,6 +89,8 @@ class JournalRepositoryImpl implements JournalRepository {
       'id': journal.id,
       'aiResponseEnabled': journal.aiResponseEnabled,
     };
+    // 새로운 일기가 추가되었으므로 캐시 무효화
+    _cachedJournals = null;
     return Result.ok(response);
   }
 
@@ -104,6 +113,8 @@ class JournalRepositoryImpl implements JournalRepository {
     if (updatedRows == 0) {
       return Result.error(Exception('Failed to update journal'));
     }
+    // 일기가 업데이트되었으므로 캐시 무효화
+    _cachedJournals = null;
     return Result.ok(updatedRows);
   }
 
@@ -116,6 +127,13 @@ class JournalRepositoryImpl implements JournalRepository {
     if (deletedRows == 0) {
       return Result.error(Exception('Failed to delete journal'));
     }
+    // 일기가 삭제되었으므로 캐시 무효화
+    _cachedJournals = null;
     return Result.ok(null);
+  }
+
+  @override
+  void clearCache() {
+    _cachedJournals = null;
   }
 }

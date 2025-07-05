@@ -2,7 +2,7 @@ class Stat {
   final int id;
   final int currentStreak;
   final int maxStreak;
-  final String lastActiveDate;
+  final DateTime lastActiveDate;
 
   Stat({
     required this.id,

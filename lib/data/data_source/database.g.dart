@@ -355,13 +355,14 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
     'lastActiveDate',
   );
   @override
-  late final GeneratedColumn<String> lastActiveDate = GeneratedColumn<String>(
-    'last_active_date',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+  late final GeneratedColumn<DateTime> lastActiveDate =
+      GeneratedColumn<DateTime>(
+        'last_active_date',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -432,7 +433,7 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
         data['${effectivePrefix}max_streak'],
       )!,
       lastActiveDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
+        DriftSqlType.dateTime,
         data['${effectivePrefix}last_active_date'],
       )!,
     );
@@ -448,7 +449,7 @@ class StatsCompanion extends UpdateCompanion<Stat> {
   final Value<int> id;
   final Value<int> currentStreak;
   final Value<int> maxStreak;
-  final Value<String> lastActiveDate;
+  final Value<DateTime> lastActiveDate;
   const StatsCompanion({
     this.id = const Value.absent(),
     this.currentStreak = const Value.absent(),
@@ -459,13 +460,13 @@ class StatsCompanion extends UpdateCompanion<Stat> {
     this.id = const Value.absent(),
     this.currentStreak = const Value.absent(),
     this.maxStreak = const Value.absent(),
-    required String lastActiveDate,
+    required DateTime lastActiveDate,
   }) : lastActiveDate = Value(lastActiveDate);
   static Insertable<Stat> custom({
     Expression<int>? id,
     Expression<int>? currentStreak,
     Expression<int>? maxStreak,
-    Expression<String>? lastActiveDate,
+    Expression<DateTime>? lastActiveDate,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -479,7 +480,7 @@ class StatsCompanion extends UpdateCompanion<Stat> {
     Value<int>? id,
     Value<int>? currentStreak,
     Value<int>? maxStreak,
-    Value<String>? lastActiveDate,
+    Value<DateTime>? lastActiveDate,
   }) {
     return StatsCompanion(
       id: id ?? this.id,
@@ -502,7 +503,7 @@ class StatsCompanion extends UpdateCompanion<Stat> {
       map['max_streak'] = Variable<int>(maxStreak.value);
     }
     if (lastActiveDate.present) {
-      map['last_active_date'] = Variable<String>(lastActiveDate.value);
+      map['last_active_date'] = Variable<DateTime>(lastActiveDate.value);
     }
     return map;
   }
@@ -524,11 +525,19 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
   $MoodLogDatabaseManager get managers => $MoodLogDatabaseManager(this);
   late final $JournalsTable journals = $JournalsTable(this);
   late final $StatsTable stats = $StatsTable(this);
+  late final Index journalsCreatedAt = Index(
+    'journals_created_at',
+    'CREATE INDEX journals_created_at ON journals (created_at)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [journals, stats];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    journals,
+    stats,
+    journalsCreatedAt,
+  ];
 }
 
 typedef $$JournalsTableCreateCompanionBuilder =
@@ -768,14 +777,14 @@ typedef $$StatsTableCreateCompanionBuilder =
       Value<int> id,
       Value<int> currentStreak,
       Value<int> maxStreak,
-      required String lastActiveDate,
+      required DateTime lastActiveDate,
     });
 typedef $$StatsTableUpdateCompanionBuilder =
     StatsCompanion Function({
       Value<int> id,
       Value<int> currentStreak,
       Value<int> maxStreak,
-      Value<String> lastActiveDate,
+      Value<DateTime> lastActiveDate,
     });
 
 class $$StatsTableFilterComposer
@@ -802,7 +811,7 @@ class $$StatsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get lastActiveDate => $composableBuilder(
+  ColumnFilters<DateTime> get lastActiveDate => $composableBuilder(
     column: $table.lastActiveDate,
     builder: (column) => ColumnFilters(column),
   );
@@ -832,7 +841,7 @@ class $$StatsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get lastActiveDate => $composableBuilder(
+  ColumnOrderings<DateTime> get lastActiveDate => $composableBuilder(
     column: $table.lastActiveDate,
     builder: (column) => ColumnOrderings(column),
   );
@@ -858,7 +867,7 @@ class $$StatsTableAnnotationComposer
   GeneratedColumn<int> get maxStreak =>
       $composableBuilder(column: $table.maxStreak, builder: (column) => column);
 
-  GeneratedColumn<String> get lastActiveDate => $composableBuilder(
+  GeneratedColumn<DateTime> get lastActiveDate => $composableBuilder(
     column: $table.lastActiveDate,
     builder: (column) => column,
   );
@@ -895,7 +904,7 @@ class $$StatsTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<int> currentStreak = const Value.absent(),
                 Value<int> maxStreak = const Value.absent(),
-                Value<String> lastActiveDate = const Value.absent(),
+                Value<DateTime> lastActiveDate = const Value.absent(),
               }) => StatsCompanion(
                 id: id,
                 currentStreak: currentStreak,
@@ -907,7 +916,7 @@ class $$StatsTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<int> currentStreak = const Value.absent(),
                 Value<int> maxStreak = const Value.absent(),
-                required String lastActiveDate,
+                required DateTime lastActiveDate,
               }) => StatsCompanion.insert(
                 id: id,
                 currentStreak: currentStreak,
