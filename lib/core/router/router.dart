@@ -113,6 +113,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
           journalRepository: context.read(),
           geminiRepository: context.read(),
           appStateRepository: context.read(),
+          aiGenerationRepository: context.read(),
           totalSteps: 2,
         );
         return WriteScreen(viewModel: viewModel);
@@ -125,6 +126,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
         final data = state.extra as Map<String, dynamic>;
         final viewModel = JournalViewModel(
           journalRepository: context.read(),
+          aiGenerationRepository: context.read(),
           source: data['source'],
           id: id,
         );

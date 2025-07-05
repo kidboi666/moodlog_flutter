@@ -358,6 +358,12 @@ abstract class AppLocalizations {
   /// **'이 항목을 삭제하시겠습니까?'**
   String get journal_delete_confirm_description;
 
+  /// No description provided for @journal_ai_generating_response_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI가 답변을 작성 중입니다.'**
+  String get journal_ai_generating_response_title;
+
   /// No description provided for @settings_title.
   ///
   /// In ko, this message translates to:

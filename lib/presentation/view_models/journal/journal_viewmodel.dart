@@ -6,20 +6,25 @@ import '../../../core/constants/enum.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
+import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../views/journal/widgets/delete_confirm_dialog.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
+  final AiGenerationRepository _aiGenerationRepository;
   final String source;
   final int id;
 
   JournalViewModel({
     required JournalRepository journalRepository,
+    required AiGenerationRepository aiGenerationRepository,
     required this.source,
     required this.id,
-  }) : _journalRepository = journalRepository {
+  }) : _journalRepository = journalRepository,
+       _aiGenerationRepository = aiGenerationRepository {
     _load();
+    _aiGenerationRepository.addListener(_onAiGenerationStateChange);
   }
 
   final Logger _log = Logger('JournalViewModel');
@@ -34,6 +39,14 @@ class JournalViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   SimpleTextAlign get currentAlign => _currentAlign;
+
+  bool get isGeneratingAiResponse =>
+      _aiGenerationRepository.isGeneratingAiResponse;
+
+  void _onAiGenerationStateChange() {
+    _load();
+    notifyListeners();
+  }
 
   void handleBackNavigation(BuildContext context) {
     if (shouldReplaceOnPop) {
@@ -92,5 +105,11 @@ class JournalViewModel extends ChangeNotifier {
         notifyListeners();
         return Result.error(journal.error);
     }
+  }
+
+  @override
+  void dispose() {
+    _aiGenerationRepository.removeListener(_onAiGenerationStateChange);
+    super.dispose();
   }
 }

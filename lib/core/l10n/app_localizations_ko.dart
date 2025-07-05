@@ -148,6 +148,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_description => '이 항목을 삭제하시겠습니까?';
 
   @override
+  String get journal_ai_generating_response_title => 'AI가 답변을 작성 중입니다.';
+
+  @override
   String get settings_title => '설정';
 
   @override

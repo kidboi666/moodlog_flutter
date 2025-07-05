@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/ai_generation_repository.dart';
 import 'package:moodlog/domain/repositories/app_state_repository.dart';
 
 import '../../../core/constants/enum.dart';
@@ -15,15 +16,18 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
   final JournalRepository _journalRepository;
   final GeminiRepository _geminiRepository;
   final AppStateRepository _appStateRepository;
+  final AiGenerationRepository _aiGenerationRepository;
 
   WriteViewModel({
     required JournalRepository journalRepository,
     required GeminiRepository geminiRepository,
     required AppStateRepository appStateRepository,
+    required AiGenerationRepository aiGenerationRepository,
     required int totalSteps,
   }) : _journalRepository = journalRepository,
        _geminiRepository = geminiRepository,
-       _appStateRepository = appStateRepository {
+       _appStateRepository = appStateRepository,
+       _aiGenerationRepository = aiGenerationRepository {
     super.initStep(totalSteps);
   }
 
@@ -143,6 +147,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
   }
 
   void _generateAiResponse() async {
+    _aiGenerationRepository.setGeneratingState(true);
+
     final aiPersonality = _appStateRepository.appState.aiPersonality;
     await _geminiRepository.initialize(aiPersonality: aiPersonality);
     final aiResponse = await _geminiRepository.generateResponse(
@@ -158,8 +164,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
           aiResponse: aiResponse.value,
         );
         await _journalRepository.updateJournal(newJournal);
+        _aiGenerationRepository.setGeneratingState(false);
       case Error<String>():
         _log.warning('Failed to add AI response: ${aiResponse.error}');
+        _aiGenerationRepository.setGeneratingState(false);
     }
   }
 
