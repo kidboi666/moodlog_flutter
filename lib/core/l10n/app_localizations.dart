@@ -142,6 +142,36 @@ abstract class AppLocalizations {
   /// **'전화'**
   String get common_phone;
 
+  /// No description provided for @common_mood_verygood.
+  ///
+  /// In ko, this message translates to:
+  /// **'매우 좋음'**
+  String get common_mood_verygood;
+
+  /// No description provided for @common_mood_good.
+  ///
+  /// In ko, this message translates to:
+  /// **'좋음'**
+  String get common_mood_good;
+
+  /// No description provided for @common_mood_neutral.
+  ///
+  /// In ko, this message translates to:
+  /// **'보통'**
+  String get common_mood_neutral;
+
+  /// No description provided for @common_mood_bad.
+  ///
+  /// In ko, this message translates to:
+  /// **'안좋음'**
+  String get common_mood_bad;
+
+  /// No description provided for @common_mood_verybad.
+  ///
+  /// In ko, this message translates to:
+  /// **'매우 안좋음'**
+  String get common_mood_verybad;
+
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In ko, this message translates to:
@@ -370,17 +400,89 @@ abstract class AppLocalizations {
   /// **'AI가 답변을 작성 중입니다.'**
   String get journal_ai_generating_response_title;
 
-  /// No description provided for @statistics_dev_title.
+  /// No description provided for @statistics_total_title.
   ///
   /// In ko, this message translates to:
-  /// **'개발 중입니다.'**
-  String get statistics_dev_title;
+  /// **'전체 통계'**
+  String get statistics_total_title;
 
-  /// No description provided for @statistics_dev_description.
+  /// No description provided for @statistics_total_record_description.
   ///
   /// In ko, this message translates to:
-  /// **'곧 제공될 예정입니다.'**
-  String get statistics_dev_description;
+  /// **'총 기록'**
+  String get statistics_total_record_description;
+
+  /// 총 기록
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}개'**
+  String statistics_total_record(Object count);
+
+  /// No description provided for @statistics_total_streak_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'연속 기록'**
+  String get statistics_total_streak_description;
+
+  /// 연속 기록
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}일'**
+  String statistics_total_streak(Object count);
+
+  /// No description provided for @statistics_total_streak_max_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'최대 연속 기록'**
+  String get statistics_total_streak_max_description;
+
+  /// 최대 연속 기록
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}일'**
+  String statistics_total_streak_max(Object count);
+
+  /// No description provided for @statistics_mood_calendar_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'감정 달력'**
+  String get statistics_mood_calendar_title;
+
+  /// No description provided for @statistics_mood_distribution_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분 분포'**
+  String get statistics_mood_distribution_title;
+
+  /// 횟수
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}회'**
+  String statistics_mood_distribution_unit(Object count);
+
+  /// No description provided for @statistics_mood_trend_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분 추이'**
+  String get statistics_mood_trend_title;
+
+  /// No description provided for @statistics_mood_trend_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분 추이 데이터가 없습니다.'**
+  String get statistics_mood_trend_empty;
+
+  /// No description provided for @statistics_recent_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'최근 일기'**
+  String get statistics_recent_title;
+
+  /// No description provided for @statistics_recent_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'최근 일기가 없습니다.'**
+  String get statistics_recent_empty;
 
   /// No description provided for @settings_title.
   ///

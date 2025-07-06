@@ -1,4 +1,4 @@
-import 'package:fl_chart/fl_chart.dart'; // Import fl_chart
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/enum.dart';
@@ -29,9 +29,9 @@ class StatisticsScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   _buildMoodCalendarCard(context, viewModel),
                   SizedBox(height: 20),
-                  _buildMoodDistributionCard(context, viewModel), // Pie Chart
+                  _buildMoodDistributionCard(context, viewModel),
                   SizedBox(height: 20),
-                  _buildMoodTrendCard(context, viewModel), // Line Chart
+                  _buildMoodTrendCard(context, viewModel),
                   SizedBox(height: 20),
                   _buildRecentActivityCard(context, viewModel),
                 ],
@@ -55,7 +55,7 @@ class StatisticsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '전체 통계',
+              AppLocalizations.of(context)!.statistics_total_title,
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -66,20 +66,32 @@ class StatisticsScreen extends StatelessWidget {
               children: [
                 _buildStatItem(
                   context,
-                  '총 기록',
-                  viewModel.totalJournals.toString(),
+                  AppLocalizations.of(
+                    context,
+                  )!.statistics_total_record_description,
+                  AppLocalizations.of(context)!.statistics_total_record(
+                    viewModel.totalJournals.toString(),
+                  ),
                   Icons.edit_note,
                 ),
                 _buildStatItem(
                   context,
-                  '연속 기록',
-                  '${viewModel.currentStreak}일',
+                  AppLocalizations.of(
+                    context,
+                  )!.statistics_total_streak_description,
+                  AppLocalizations.of(
+                    context,
+                  )!.statistics_total_streak(viewModel.currentStreak),
                   Icons.local_fire_department,
                 ),
                 _buildStatItem(
                   context,
-                  '최대 연속 기록',
-                  '${viewModel.maxStreak}일',
+                  AppLocalizations.of(
+                    context,
+                  )!.statistics_total_streak_max_description,
+                  AppLocalizations.of(
+                    context,
+                  )!.statistics_total_streak_max(viewModel.maxStreak),
                   Icons.emoji_events,
                 ),
               ],
@@ -123,7 +135,7 @@ class StatisticsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '감정 달력',
+              AppLocalizations.of(context)!.statistics_mood_calendar_title,
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -142,36 +154,30 @@ class StatisticsScreen extends StatelessWidget {
                 defaultBuilder: (context, day, focusedDay) {
                   final mood = viewModel
                       .moodCalendar[DateTime(day.year, day.month, day.day)];
-                  return GestureDetector(
-                    onTap: () {
-                      // 탭 이벤트 처리: 선택된 날짜에 대한 추가 동작 (예: 해당 날짜의 일기 목록 보기)
-                      debugPrint('Selected day: $day');
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(6.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: mood != null
-                            ? _getMoodColor(mood)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: mood != null
-                          ? Text(
-                              mood.emoji, // Use emoji here
-                              style: TextStyle(
-                                fontSize: 18,
-                              ), // Adjust font size for emoji
-                            )
-                          : Text(
-                              '${day.day}',
-                              style: TextStyle(
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodySmall?.color,
-                              ),
-                            ),
+                  return Container(
+                    margin: const EdgeInsets.all(6.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: mood != null
+                          ? Color(mood.colorValue)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
+                    child: mood != null
+                        ? Text(
+                            mood.emoji, // Use emoji here
+                            style: TextStyle(
+                              fontSize: 18,
+                            ), // Adjust font size for emoji
+                          )
+                        : Text(
+                            '${day.day}',
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodySmall?.color,
+                            ),
+                          ),
                   );
                 },
               ),
@@ -186,51 +192,6 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  Color _getMoodColor(MoodType mood) {
-    switch (mood) {
-      case MoodType.veryHappy:
-        return Colors.green.shade700;
-      case MoodType.happy:
-        return Colors.lightGreen.shade500;
-      case MoodType.neutral:
-        return Colors.orange.shade400;
-      case MoodType.sad:
-        return Colors.red.shade500;
-      case MoodType.verySad:
-        return Colors.deepPurple.shade700;
-    }
-  }
-
-  String _getMoodText(MoodType mood) {
-    switch (mood) {
-      case MoodType.veryHappy:
-        return '매우 행복';
-      case MoodType.happy:
-        return '행복';
-      case MoodType.neutral:
-        return '보통';
-      case MoodType.sad:
-        return '슬픔';
-      case MoodType.verySad:
-        return '매우 슬픔';
-    }
-  }
-
-  IconData _getMoodIcon(MoodType mood) {
-    switch (mood) {
-      case MoodType.veryHappy:
-        return Icons.sentiment_very_satisfied;
-      case MoodType.happy:
-        return Icons.sentiment_satisfied;
-      case MoodType.neutral:
-        return Icons.sentiment_neutral;
-      case MoodType.sad:
-        return Icons.sentiment_dissatisfied;
-      case MoodType.verySad:
-        return Icons.sentiment_very_dissatisfied;
-    }
-  }
-
   Widget _buildMoodDistributionCard(
     BuildContext context,
     StatisticsViewModel viewModel,
@@ -241,22 +202,16 @@ class StatisticsScreen extends StatelessWidget {
     );
     final List<PieChartSectionData> sections = MoodType.values.map((moodType) {
       final count = viewModel.moodCounts[moodType] ?? 0;
-      final isTouched = false; // For interactivity, can be managed by state
-      final double fontSize = isTouched ? 20 : 16;
-      final double radius = isTouched ? 60 : 50;
       final double percentage = totalCount > 0 ? (count / totalCount) * 100 : 0;
 
       return PieChartSectionData(
-        color: _getMoodColor(moodType),
+        color: Color(moodType.colorValue),
         value: count.toDouble(),
         title: '${percentage.toStringAsFixed(1)}%',
-        radius: radius,
-        titleStyle: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-          shadows: [Shadow(color: Colors.black, blurRadius: 2)],
-        ),
+        radius: 50,
+        titleStyle: Theme.of(
+          context,
+        ).textTheme.bodyMedium?.copyWith(color: Colors.black87),
         badgeWidget: Text(moodType.emoji, style: TextStyle(fontSize: 24)),
         // Emoji as badge
         badgePositionPercentageOffset: .98,
@@ -271,7 +226,7 @@ class StatisticsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '기분 분포',
+              AppLocalizations.of(context)!.statistics_mood_distribution_title,
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -297,9 +252,9 @@ class StatisticsScreen extends StatelessWidget {
                 final count = viewModel.moodCounts[moodType] ?? 0;
                 return _buildMoodDistributionItem(
                   context,
-                  _getMoodText(moodType),
+                  moodType.displayName,
                   count,
-                  _getMoodColor(moodType),
+                  Color(moodType.colorValue),
                 );
               }).toList(),
             ),
@@ -330,7 +285,9 @@ class StatisticsScreen extends StatelessWidget {
           SizedBox(width: 12),
           Expanded(child: Text(mood)),
           Text(
-            '$count회',
+            AppLocalizations.of(
+              context,
+            )!.statistics_mood_distribution_unit(count),
             style: Theme.of(
               context,
             ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -357,13 +314,13 @@ class StatisticsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '기분 추이',
+                AppLocalizations.of(context)!.statistics_mood_trend_title,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 16),
-              Text('기분 추이 데이터가 없습니다.'),
+              Text(AppLocalizations.of(context)!.statistics_mood_trend_empty),
             ],
           ),
         ),
@@ -384,7 +341,6 @@ class StatisticsScreen extends StatelessWidget {
             .toDouble() +
         0.5;
 
-    // Create FlSpot for each data point
     final List<FlSpot> spots = sortedMoodTrendData.asMap().entries.map((entry) {
       final index = entry.key.toDouble();
       final value = entry.value.value;
@@ -399,7 +355,7 @@ class StatisticsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '기분 추이',
+              AppLocalizations.of(context)!.statistics_mood_trend_title,
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -493,10 +449,10 @@ class StatisticsScreen extends StatelessWidget {
                           colors: [
                             Theme.of(
                               context,
-                            ).colorScheme.primary.withOpacity(0.3),
+                            ).colorScheme.primary.withValues(alpha: 0.3),
                             Theme.of(
                               context,
-                            ).colorScheme.secondary.withOpacity(0.3),
+                            ).colorScheme.secondary.withValues(alpha: 0.3),
                           ],
                         ),
                       ),
@@ -523,24 +479,23 @@ class StatisticsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '최근 일기',
+              AppLocalizations.of(context)!.statistics_recent_title,
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
             if (viewModel.recentJournals.isEmpty)
-              Text('최근 일기가 없습니다.')
+              Text(AppLocalizations.of(context)!.statistics_recent_empty)
             else
               ...viewModel.recentJournals.map((journal) {
                 return _buildActivityItem(
                   context,
                   DateFormat('yyyy.MM.dd').format(journal.createdAt),
                   journal.content ?? '',
-                  _getMoodIcon(journal.moodType),
                   journal.moodType.emoji, // Pass emoji
                 );
-              }).toList(),
+              }),
           ],
         ),
       ),
@@ -551,7 +506,6 @@ class StatisticsScreen extends StatelessWidget {
     BuildContext context,
     String date,
     String note,
-    IconData icon,
     String emoji, // New parameter for emoji
   ) {
     return Padding(

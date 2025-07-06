@@ -33,6 +33,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_phone => '전화';
 
   @override
+  String get common_mood_verygood => '매우 좋음';
+
+  @override
+  String get common_mood_good => '좋음';
+
+  @override
+  String get common_mood_neutral => '보통';
+
+  @override
+  String get common_mood_bad => '안좋음';
+
+  @override
+  String get common_mood_verybad => '매우 안좋음';
+
+  @override
   String get onboarding_welcome_title => '무드로그에 오신것을 환영합니다!';
 
   @override
@@ -154,10 +169,54 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_ai_generating_response_title => 'AI가 답변을 작성 중입니다.';
 
   @override
-  String get statistics_dev_title => '개발 중입니다.';
+  String get statistics_total_title => '전체 통계';
 
   @override
-  String get statistics_dev_description => '곧 제공될 예정입니다.';
+  String get statistics_total_record_description => '총 기록';
+
+  @override
+  String statistics_total_record(Object count) {
+    return '$count개';
+  }
+
+  @override
+  String get statistics_total_streak_description => '연속 기록';
+
+  @override
+  String statistics_total_streak(Object count) {
+    return '$count일';
+  }
+
+  @override
+  String get statistics_total_streak_max_description => '최대 연속 기록';
+
+  @override
+  String statistics_total_streak_max(Object count) {
+    return '$count일';
+  }
+
+  @override
+  String get statistics_mood_calendar_title => '감정 달력';
+
+  @override
+  String get statistics_mood_distribution_title => '기분 분포';
+
+  @override
+  String statistics_mood_distribution_unit(Object count) {
+    return '$count회';
+  }
+
+  @override
+  String get statistics_mood_trend_title => '기분 추이';
+
+  @override
+  String get statistics_mood_trend_empty => '기분 추이 데이터가 없습니다.';
+
+  @override
+  String get statistics_recent_title => '최근 일기';
+
+  @override
+  String get statistics_recent_empty => '최근 일기가 없습니다.';
 
   @override
   String get settings_title => '설정';

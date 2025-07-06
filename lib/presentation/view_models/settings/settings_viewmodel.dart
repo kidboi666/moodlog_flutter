@@ -5,18 +5,17 @@ import 'package:logging/logging.dart';
 import '../../../core/constants/enum.dart';
 import '../../../domain/entities/app_state.dart';
 import '../../../domain/repositories/app_state_repository.dart';
-import '../../../domain/repositories/journal_repository.dart'; // JournalRepository 임포트
+import '../../../domain/repositories/journal_repository.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateRepository _appStateRepository;
-  final JournalRepository _journalRepository; // JournalRepository 추가
+  final JournalRepository _journalRepository;
 
   SettingsViewModel({
     required AppStateRepository appStateRepository,
-    required JournalRepository journalRepository, // 생성자에 추가
-  })
-    : _appStateRepository = appStateRepository,
-      _journalRepository = journalRepository; // 초기화
+    required JournalRepository journalRepository,
+  }) : _appStateRepository = appStateRepository,
+       _journalRepository = journalRepository;
 
   final Logger _log = Logger('SettingsViewModel');
 
@@ -65,7 +64,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void clearCache(BuildContext context) {
-    _journalRepository.clearCache(); // JournalRepository의 캐시 삭제 호출
+    _journalRepository.clearCache();
     context.pop();
     ScaffoldMessenger.of(
       context,

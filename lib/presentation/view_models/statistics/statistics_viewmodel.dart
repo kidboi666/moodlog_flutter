@@ -121,7 +121,6 @@ class StatisticsViewModel extends ChangeNotifier {
     }
 
     dailyMoods.forEach((date, moods) {
-      // 해당 날짜의 평균 감정 점수를 계산하여 대표 MoodType 결정
       final averageScore = moods.map((m) => m.score).average;
       MoodType representativeMood = MoodType.neutral;
       if (averageScore >= 4.5) {

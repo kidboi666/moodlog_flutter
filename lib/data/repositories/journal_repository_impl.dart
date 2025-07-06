@@ -9,7 +9,7 @@ import '../models/request/update_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
-  List<Journal>? _cachedJournals; // 인메모리 캐시
+  List<Journal>? _cachedJournals;
 
   JournalRepositoryImpl({required MoodLogDatabase db}) : _db = db;
 

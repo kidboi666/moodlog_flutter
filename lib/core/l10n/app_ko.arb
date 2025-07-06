@@ -7,6 +7,11 @@
   "common_confirm_delete": "삭제",
   "common_email": "이메일",
   "common_phone": "전화",
+  "common_mood_verygood": "매우 좋음",
+  "common_mood_good": "좋음",
+  "common_mood_neutral": "보통",
+  "common_mood_bad": "안좋음",
+  "common_mood_verybad": "매우 안좋음",
   "onboarding_welcome_title": "무드로그에 오신것을 환영합니다!",
   "onboarding_welcome_description1": "무드로그는 당신의 일상 감정을 기록하고 그에 대한 AI의 답장을 받을 수 있는 앱입니다.",
   "onboarding_welcome_description2": "매일 감정을 기록하고 AI가 해준 답장을 읽어보세요.",
@@ -54,8 +59,52 @@
   "journal_delete_confirm_title": "삭제 확인",
   "journal_delete_confirm_description": "이 항목을 삭제하시겠습니까?",
   "journal_ai_generating_response_title": "AI가 답변을 작성 중입니다.",
-  "statistics_dev_title": "개발 중입니다.",
-  "statistics_dev_description": "곧 제공될 예정입니다.",
+  "statistics_total_title": "전체 통계",
+  "statistics_total_record_description": "총 기록",
+  "statistics_total_record": "{count}개",
+  "@statistics_total_record": {
+    "description": "총 기록",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_total_streak_description": "연속 기록",
+  "statistics_total_streak": "{count}일",
+  "@statistics_total_streak": {
+    "description": "연속 기록",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_total_streak_max_description": "최대 연속 기록",
+  "statistics_total_streak_max": "{count}일",
+  "@statistics_total_streak_max": {
+    "description": "최대 연속 기록",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_mood_calendar_title": "감정 달력",
+  "statistics_mood_distribution_title": "기분 분포",
+  "statistics_mood_distribution_unit": "{count}회",
+  "@statistics_mood_distribution_unit": {
+    "description": "횟수",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_mood_trend_title": "기분 추이",
+  "statistics_mood_trend_empty": "기분 추이 데이터가 없습니다.",
+  "statistics_recent_title": "최근 일기",
+  "statistics_recent_empty": "최근 일기가 없습니다.",
   "settings_title": "설정",
   "settings_common_title": "일반",
   "settings_common_notification_title": "알림",
