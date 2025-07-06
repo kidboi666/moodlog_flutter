@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:447252073051:android:dd84f73d84dabc9238cd7e",
         "android_client_info": {
-          "package_name": "com.example.moodlog"
+          "package_name": "com.kidboi666.moodlog"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "447252073051-ecvgcd8v7aj2jikjb6tn1r4fggop9ib7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.moodlog"
+                "bundle_id": "com.kidboi666.moodlog"
               }
             }
           ]

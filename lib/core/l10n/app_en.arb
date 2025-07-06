@@ -1,0 +1,138 @@
+{
+  "common_date_today": "Today",
+  "common_date_tomorrow": "Tomorrow",
+  "common_date_yesterday": "Yesterday",
+  "common_confirm_cancel": "Cancel",
+  "common_confirm_ok": "OK",
+  "common_confirm_delete": "Delete",
+  "common_email": "Email",
+  "common_phone": "Phone",
+  "common_mood_verygood": "Very Good",
+  "common_mood_good": "Good",
+  "common_mood_neutral": "Neutral",
+  "common_mood_bad": "Bad",
+  "common_mood_verybad": "Very Bad",
+  "onboarding_welcome_title": "Welcome to MoodLog!",
+  "onboarding_welcome_description1": "MoodLog is an app where you can record your daily emotions and receive AI responses to them.",
+  "onboarding_welcome_description2": "Record your emotions every day and read the responses from AI.",
+  "onboarding_welcome_next": "Shall we get started together?",
+  "onboarding_nickname_title": "Set Nickname",
+  "onboarding_nickname_description": "Please enter a nickname to use in MoodLog",
+  "onboarding_nickname_input_title": "Nickname",
+  "onboarding_nickname_input_hint": "Enter nickname (2-10 characters)",
+  "onboarding_nickname_next": "You can change your nickname anytime in the settings menu.",
+  "onboarding_nickname_input_error": "Please enter a nickname.",
+  "onboarding_personality_title": "Choose Reply Style",
+  "onboarding_personality_description": "Choose the kindness level of the AI that will reply to your journal.",
+  "onboarding_personality_rational_title": "Rational Analyst",
+  "onboarding_personality_rational_description": "Provides objective and practical advice",
+  "onboarding_personality_balanced_title": "Balanced Advisor",
+  "onboarding_personality_balanced_description": "Balances empathy with realistic advice.",
+  "onboarding_personality_compassionate_title": "Compassionate Healer",
+  "onboarding_personality_compassionate_description": "Provides warm comfort and deep empathy.",
+  "onboarding_success_title": "Ready to start!",
+  "onboarding_success_description": "Shall we start MoodLog?",
+  "onboarding_success_button": "Get Started",
+  "home_hello": "Hello!",
+  "home_welcome": "{userName}.",
+  "@home_welcome": {
+    "description": "userName",
+    "placeholder": {
+      "userName": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "home_howareyou": "How are you feeling today?",
+  "home_empty_box": "Waiting for your story.",
+  "tab_home": "Home",
+  "tab_entries": "Entries",
+  "tab_settings": "Settings",
+  "tab_write": "Write",
+  "tab_statistics": "Statistics",
+  "write_mood_title": "How are you feeling today?",
+  "write_input_title": "Content",
+  "write_input_hint": "Record your emotions and experiences today.",
+  "write_ai_title": "AI Comfort Message",
+  "write_ai_description": "After writing your journal, AI will send you messages of comfort and encouragement.",
+  "journal_delete_confirm_title": "Confirm Delete",
+  "journal_delete_confirm_description": "Are you sure you want to delete this entry?",
+  "journal_ai_generating_response_title": "AI is generating a response.",
+  "statistics_total_title": "Total Statistics",
+  "statistics_total_record_description": "Total Records",
+  "statistics_total_record": "{count} entries",
+  "@statistics_total_record": {
+    "description": "Total Records",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_total_streak_description": "Current Streak",
+  "statistics_total_streak": "{count} days",
+  "@statistics_total_streak": {
+    "description": "Current Streak",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_total_streak_max_description": "Max Streak",
+  "statistics_total_streak_max": "{count} days",
+  "@statistics_total_streak_max": {
+    "description": "Max Streak",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_mood_calendar_title": "Mood Calendar",
+  "statistics_mood_distribution_title": "Mood Distribution",
+  "statistics_mood_distribution_unit": "{count} times",
+  "@statistics_mood_distribution_unit": {
+    "description": "Times",
+    "placeholder": {
+      "count": {
+        "type": "Integer"
+      }
+    }
+  },
+  "statistics_mood_trend_title": "Mood Trends",
+  "statistics_mood_trend_empty": "No mood trend data available.",
+  "statistics_recent_title": "Recent Entries",
+  "statistics_recent_empty": "No recent entries.",
+  "settings_title": "Settings",
+  "settings_common_title": "General",
+  "settings_common_notification_title": "Notifications",
+  "settings_common_notification_subtitle": "Receive push notifications.",
+  "settings_common_theme_title": "Theme",
+  "settings_common_theme_subtitle": "Select brightness theme.",
+  "settings_common_color_theme_title": "Color Theme",
+  "settings_common_color_theme_subtitle": "Select color theme.",
+  "settings_common_language_title": "Language",
+  "settings_common_language_dialog_title": "Select Language",
+  "settings_data_title": "Data",
+  "settings_data_auto_sync_title": "Auto Sync",
+  "settings_data_auto_sync_subtitle": "Automatically sync data.",
+  "settings_data_backup_title": "Data Backup",
+  "settings_data_backup_subtitle": "Backup your data.",
+  "settings_data_backup_confirm": "Do you want to backup your data?",
+  "settings_data_backup_confirm_ok": "Backup",
+  "settings_data_cash_cleanup_title": "Clear Cache",
+  "settings_data_cash_cleanup_subtitle": "Delete temporary files.",
+  "settings_data_cash_cleanup_confirm": "Are you sure you want to clear the cache?\nThis action cannot be undone.",
+  "settings_information_title": "Information",
+  "settings_information_app_title": "App Info",
+  "settings_information_app_subtitle": "Version and license information",
+  "settings_information_app_version": "Version",
+  "settings_information_app_build": "License",
+  "settings_information_app_developer": "Developer",
+  "settings_information_faq_title": "Help",
+  "settings_information_faq_subtitle": "Usage and FAQ",
+  "settings_information_qna_title": "Contact",
+  "settings_information_qna_subtitle": "Contact the developer."
+}

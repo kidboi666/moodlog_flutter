@@ -16,10 +16,10 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<List<Journal>>> getAllJournals() async {
     if (_cachedJournals != null) {
-      return Result.ok(_cachedJournals!); // 캐시된 데이터 반환
+      return Result.ok(_cachedJournals!);
     }
     final journals = await _db.select(_db.journals).get();
-    _cachedJournals = journals; // 데이터베이스에서 가져온 후 캐시
+    _cachedJournals = journals;
     return Result.ok(journals);
   }
 
@@ -89,7 +89,6 @@ class JournalRepositoryImpl implements JournalRepository {
       'id': journal.id,
       'aiResponseEnabled': journal.aiResponseEnabled,
     };
-    // 새로운 일기가 추가되었으므로 캐시 무효화
     _cachedJournals = null;
     return Result.ok(response);
   }

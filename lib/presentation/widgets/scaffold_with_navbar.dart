@@ -51,9 +51,17 @@ class ScaffoldWithNavbar extends StatelessWidget {
         children: children,
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(40.0)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40.0),
+            topLeft: Radius.circular(40.0),
+          ),
+        ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(40.0),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40.0),
+            topLeft: Radius.circular(40.0),
+          ),
           child: BottomAppBar(
             shape: const CircularNotchedRectangle(),
             child: NavigationBar(

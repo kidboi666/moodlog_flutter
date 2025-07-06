@@ -12,6 +12,15 @@ enum LanguageCode {
         return 'English';
     }
   }
+
+  String get code {
+    switch (this) {
+      case LanguageCode.ko:
+        return 'ko';
+      case LanguageCode.en:
+        return 'en';
+    }
+  }
 }
 
 enum AiPersonality { rational, balanced, compassionate }
