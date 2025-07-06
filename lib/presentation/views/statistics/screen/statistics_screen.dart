@@ -6,6 +6,8 @@ import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/view_models/statistics/statistics_viewmodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../../core/constants/common.dart';
+
 class StatisticsScreen extends StatelessWidget {
   final StatisticsViewModel viewModel;
 
@@ -14,30 +16,26 @@ class StatisticsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.tab_statistics)),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: ListenableBuilder(
-            listenable: viewModel,
-            builder: (context, _) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildOverallStatsCard(context, viewModel),
-                  SizedBox(height: 20),
-                  _buildMoodCalendarCard(context, viewModel),
-                  SizedBox(height: 20),
-                  _buildMoodDistributionCard(context, viewModel),
-                  SizedBox(height: 20),
-                  _buildMoodTrendCard(context, viewModel),
-                  SizedBox(height: 20),
-                  _buildRecentActivityCard(context, viewModel),
-                ],
-              );
-            },
-          ),
+      body: Container(
+        padding: Spacing.containerHorizontalPadding,
+        child: ListenableBuilder(
+          listenable: viewModel,
+          builder: (context, _) {
+            return ListView(
+              children: [
+                _buildOverallStatsCard(context, viewModel),
+                SizedBox(height: 20),
+                _buildMoodCalendarCard(context, viewModel),
+                SizedBox(height: 20),
+                _buildMoodDistributionCard(context, viewModel),
+                SizedBox(height: 20),
+                _buildMoodTrendCard(context, viewModel),
+                SizedBox(height: 20),
+                _buildRecentActivityCard(context, viewModel),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -48,7 +46,6 @@ class StatisticsScreen extends StatelessWidget {
     StatisticsViewModel viewModel,
   ) {
     return Card(
-      elevation: 4,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -128,7 +125,6 @@ class StatisticsScreen extends StatelessWidget {
     StatisticsViewModel viewModel,
   ) {
     return Card(
-      elevation: 4,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -219,7 +215,6 @@ class StatisticsScreen extends StatelessWidget {
     }).toList();
 
     return Card(
-      elevation: 4,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -307,7 +302,6 @@ class StatisticsScreen extends StatelessWidget {
 
     if (sortedMoodTrendData.isEmpty) {
       return Card(
-        elevation: 4,
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -348,7 +342,6 @@ class StatisticsScreen extends StatelessWidget {
     }).toList();
 
     return Card(
-      elevation: 4,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -472,7 +465,6 @@ class StatisticsScreen extends StatelessWidget {
     StatisticsViewModel viewModel,
   ) {
     return Card(
-      elevation: 4,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(

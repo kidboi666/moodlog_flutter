@@ -11,7 +11,6 @@ class EmptyBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
       shadowColor: Theme.of(context).colorScheme.surfaceBright,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
