@@ -1,28 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../constants/enum.dart';
 import 'colors.dart';
 
 abstract final class AppTheme {
-  static ThemeData lightTheme(ColorTheme colorTheme) => ThemeData(
-    fontFamily: 'LeeSeoyun',
-    brightness: Brightness.light,
-    textTheme: _textTheme,
-    colorScheme: ColorScheme.fromSeed(
+  static ThemeData lightTheme(ColorTheme colorTheme) {
+    final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColor.colorMap[colorTheme]!,
       brightness: Brightness.light,
-    ),
-  );
+    );
+    return ThemeData(
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: colorScheme.surfaceContainer,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+      ),
+      fontFamily: 'LeeSeoyun',
+      brightness: Brightness.light,
+      textTheme: _textTheme,
+      colorScheme: colorScheme,
+    );
+  }
 
-  static ThemeData darkTheme(ColorTheme colorTheme) => ThemeData(
-    fontFamily: 'LeeSeoyun',
-    brightness: Brightness.dark,
-    textTheme: _textTheme,
-    colorScheme: ColorScheme.fromSeed(
+  static ThemeData darkTheme(ColorTheme colorTheme) {
+    final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColor.colorMap[colorTheme]!,
       brightness: Brightness.dark,
-    ),
-  );
+    );
+    return ThemeData(
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: colorScheme.surfaceContainer,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+      ),
+      fontFamily: 'LeeSeoyun',
+      brightness: Brightness.dark,
+      textTheme: _textTheme,
+      colorScheme: colorScheme,
+    );
+  }
 
   static const _boldFontWeight = FontWeight.bold;
 

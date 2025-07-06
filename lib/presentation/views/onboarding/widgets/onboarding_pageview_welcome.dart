@@ -58,12 +58,15 @@ class OnboardingPageViewWelcome extends StatelessWidget {
         ),
         FadeIn(
           delay: DelayMs.lazy * 4,
-          child: SizedBox(
-            width: double.infinity,
-            child: IconButton.filled(
-              alignment: Alignment.center,
-              onPressed: onNext,
-              icon: const Icon(Icons.arrow_forward),
+          child: SafeArea(
+            bottom: true,
+            child: SizedBox(
+              width: double.infinity,
+              child: IconButton.filled(
+                alignment: Alignment.center,
+                onPressed: onNext,
+                icon: const Icon(Icons.arrow_forward),
+              ),
             ),
           ),
         ),

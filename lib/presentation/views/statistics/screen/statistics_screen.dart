@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/view_models/statistics/statistics_viewmodel.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -141,6 +142,7 @@ class StatisticsScreen extends StatelessWidget {
               firstDay: DateTime.utc(2020, 1, 1),
               lastDay: DateTime.utc(2030, 12, 31),
               focusedDay: DateTime.now(),
+              availableGestures: AvailableGestures.none,
               calendarFormat: CalendarFormat.month,
               headerStyle: HeaderStyle(
                 formatButtonVisible: false,
@@ -247,7 +249,7 @@ class StatisticsScreen extends StatelessWidget {
                 final count = viewModel.moodCounts[moodType] ?? 0;
                 return _buildMoodDistributionItem(
                   context,
-                  moodType.displayName,
+                  moodType.getDisplayName(context),
                   count,
                   Color(moodType.colorValue),
                 );
@@ -387,19 +389,19 @@ class StatisticsScreen extends StatelessWidget {
                           // Map score back to mood text for Y-axis labels
                           String text = '';
                           if (value == MoodType.verySad.score.toDouble()) {
-                            text = MoodType.verySad.displayName;
+                            text = MoodType.verySad.getDisplayName(context);
                           }
                           if (value == MoodType.sad.score.toDouble()) {
-                            text = MoodType.sad.displayName;
+                            text = MoodType.sad.getDisplayName(context);
                           }
                           if (value == MoodType.neutral.score.toDouble()) {
-                            text = MoodType.neutral.displayName;
+                            text = MoodType.neutral.getDisplayName(context);
                           }
                           if (value == MoodType.happy.score.toDouble()) {
-                            text = MoodType.happy.displayName;
+                            text = MoodType.happy.getDisplayName(context);
                           }
                           if (value == MoodType.veryHappy.score.toDouble()) {
-                            text = MoodType.veryHappy.displayName;
+                            text = MoodType.veryHappy.getDisplayName(context);
                           }
                           return Text(text, style: TextStyle(fontSize: 10));
                         },

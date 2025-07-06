@@ -34,7 +34,6 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
         return SplashScreen();
       },
     ),
-
     GoRoute(
       path: Routes.onboarding,
       builder: (context, state) {

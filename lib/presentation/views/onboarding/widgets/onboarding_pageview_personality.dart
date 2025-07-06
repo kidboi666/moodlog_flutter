@@ -68,11 +68,14 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                 ),
                 FadeIn(
                   delay: DelayMs.lazy * 3,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: IconButton.filled(
-                      onPressed: onNext,
-                      icon: const Icon(Icons.arrow_forward),
+                  child: SafeArea(
+                    bottom: true,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: IconButton.filled(
+                        onPressed: onNext,
+                        icon: const Icon(Icons.arrow_forward),
+                      ),
                     ),
                   ),
                 ),

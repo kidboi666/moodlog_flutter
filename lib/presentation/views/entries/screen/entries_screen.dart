@@ -30,23 +30,27 @@ class EntriesScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final e = viewModel.entries[index];
-                  return FadeIn(
-                    delay: DelayMs.medium,
-                    child: JournalCard(
-                      id: e.id,
-                      content: e.content ?? '',
-                      moodType: e.moodType,
-                      createdAt: e.createdAt,
-                    ),
-                  );
-                }, childCount: viewModel.entries.length),
-              ),
-            ],
+          body: Container(
+            padding: Spacing.containerHorizontalPadding,
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final e = viewModel.entries[index];
+                    return FadeIn(
+                      delay: DelayMs.medium,
+                      child: JournalCard(
+                        id: e.id,
+                        content: e.content ?? '',
+                        moodType: e.moodType,
+                        createdAt: e.createdAt,
+                      ),
+                    );
+                  }, childCount: viewModel.entries.length),
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/widgets/fade_in.dart';
 
@@ -67,7 +68,7 @@ class WritePageViewMood extends StatelessWidget {
                                 style: const TextStyle(fontSize: 20),
                               ),
                               const SizedBox(width: 8),
-                              Text(mood.name),
+                              Text(mood.getDisplayName(context)),
                             ],
                           ),
                         ),

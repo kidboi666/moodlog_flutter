@@ -39,12 +39,15 @@ class OnboardingPageViewSuccess extends StatelessWidget {
         ),
         FadeIn(
           delay: DelayMs.lazy * 2,
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: onNext,
-              child: Text(
-                AppLocalizations.of(context)!.onboarding_success_button,
+          child: SafeArea(
+            bottom: true,
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: onNext,
+                child: Text(
+                  AppLocalizations.of(context)!.onboarding_success_button,
+                ),
               ),
             ),
           ),

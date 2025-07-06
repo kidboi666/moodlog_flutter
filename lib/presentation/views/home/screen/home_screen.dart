@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: Spacing.containerHorizontalPadding,
           child: CustomScrollView(
             slivers: [
+              SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
               SliverSafeArea(
                 top: true,
                 bottom: false,
@@ -34,11 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: WelcomeZone(viewModel: widget.viewModel),
                 ),
               ),
-              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
               SliverToBoxAdapter(
                 child: HorizontalCalendar(viewModel: widget.viewModel),
               ),
-              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final e = widget.viewModel.journal[index];

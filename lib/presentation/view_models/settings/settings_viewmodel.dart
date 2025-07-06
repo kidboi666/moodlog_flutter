@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
@@ -32,6 +32,9 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void setNotificationEnabled(bool enabled) {
+    if (enabled == appState.hasNotificationEnabled) {
+      return;
+    }
     _log.info('Setting notification enabled to $enabled');
     _appStateRepository.updateNotificationEnabled(enabled);
     notifyListeners();

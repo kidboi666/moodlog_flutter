@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/constants/enum.dart';
 import '../entities/app_state.dart';

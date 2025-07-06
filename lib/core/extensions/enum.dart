@@ -1,8 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ThemeMode;
 
 import '../constants/common.dart';
 import '../constants/enum.dart';
 import '../l10n/app_localizations.dart';
+
+extension MoodTypeExtension on MoodType {
+  String getDisplayName(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    switch (this) {
+      case MoodType.veryHappy:
+        return t.common_mood_verygood;
+      case MoodType.happy:
+        return t.common_mood_good;
+      case MoodType.neutral:
+        return t.common_mood_neutral;
+      case MoodType.sad:
+        return t.common_mood_bad;
+      case MoodType.verySad:
+        return t.common_mood_verybad;
+    }
+  }
+}
 
 extension AiPersonalityExtension on AiPersonality {
   String getTitle(BuildContext context) {

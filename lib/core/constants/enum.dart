@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
 
 enum LanguageCode {
   ko,
@@ -26,14 +26,14 @@ enum LanguageCode {
 enum AiPersonality { rational, balanced, compassionate }
 
 enum SimpleTextAlign {
-  left(TextAlign.left, Icons.format_align_left),
-  center(TextAlign.center, Icons.format_align_center),
-  right(TextAlign.right, Icons.format_align_right);
+  left(material.TextAlign.left, material.Icons.format_align_left),
+  center(material.TextAlign.center, material.Icons.format_align_center),
+  right(material.TextAlign.right, material.Icons.format_align_right);
 
   const SimpleTextAlign(this.textAlign, this.icon);
 
-  final TextAlign textAlign;
-  final IconData icon;
+  final material.TextAlign textAlign;
+  final material.IconData icon;
 
   SimpleTextAlign get next {
     final currentIndex = SimpleTextAlign.values.indexOf(this);
@@ -48,21 +48,6 @@ enum MoodType {
   neutral,
   sad,
   verySad;
-
-  String get displayName {
-    switch (this) {
-      case MoodType.veryHappy:
-        return '매우 행복';
-      case MoodType.happy:
-        return '행복';
-      case MoodType.neutral:
-        return '보통';
-      case MoodType.sad:
-        return '슬픔';
-      case MoodType.verySad:
-        return '매우 슬픔';
-    }
-  }
 
   String get emoji {
     switch (this) {
@@ -133,7 +118,48 @@ enum ColorTheme {
       case 'pink':
         return ColorTheme.pink;
       default:
-        return ColorTheme.teal;
+        return ColorTheme.blue;
+    }
+  }
+}
+
+enum ThemeMode {
+  light,
+  dark,
+  system;
+
+  static ThemeMode fromString(String? value) {
+    switch (value) {
+      case 'system':
+        return ThemeMode.system;
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
+    }
+  }
+
+  String get displayName {
+    switch (this) {
+      case ThemeMode.light:
+        return 'Light';
+      case ThemeMode.dark:
+        return 'Dark';
+      case ThemeMode.system:
+        return 'System';
+    }
+  }
+
+  material.ThemeMode get materialThemeMode {
+    switch (this) {
+      case ThemeMode.light:
+        return material.ThemeMode.light;
+      case ThemeMode.dark:
+        return material.ThemeMode.dark;
+      case ThemeMode.system:
+        return material.ThemeMode.system;
     }
   }
 }

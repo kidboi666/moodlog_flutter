@@ -54,7 +54,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
           locale: Locale(appState.languageCode.code),
           theme: AppTheme.lightTheme(appState.colorTheme),
           darkTheme: AppTheme.darkTheme(appState.colorTheme),
-          themeMode: appState.themeMode,
+          themeMode: appState.themeMode.materialThemeMode,
           routerConfig: _router,
         );
       },

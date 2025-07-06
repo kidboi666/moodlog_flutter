@@ -114,16 +114,20 @@ class _OnboardingPageViewNickNameState
 
                   FadeIn(
                     delay: DelayMs.lazy * 4,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: IconButton.filled(
-                        alignment: Alignment.center,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            widget.onNext();
-                          }
-                        },
-                        icon: const Icon(Icons.arrow_forward),
+                    child: SafeArea(
+                      bottom: true,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: IconButton.filled(
+                          alignment: Alignment.center,
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            if (formKey.currentState!.validate()) {
+                              widget.onNext();
+                            }
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
                       ),
                     ),
                   ),
