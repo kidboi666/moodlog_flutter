@@ -28,7 +28,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
        _geminiRepository = geminiRepository,
        _appStateRepository = appStateRepository,
        _aiGenerationRepository = aiGenerationRepository {
-    super.initStep(totalSteps);
+    initStep(totalSteps);
   }
 
   final Logger _log = Logger('WriteViewModel');
@@ -78,9 +78,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
   }
 
   Future<void> pickImage() async {
-    _isLoading = true;
-    notifyListeners();
-
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: ImageSource.gallery,

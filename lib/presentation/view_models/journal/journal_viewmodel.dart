@@ -24,11 +24,11 @@ class JournalViewModel extends ChangeNotifier {
   }) : _journalRepository = journalRepository,
        _aiGenerationRepository = aiGenerationRepository {
     _load();
-    _aiGenerationRepository.addListener(_onAiGenerationStateChange);
+    _aiGenerationRepository.addListener(_load);
   }
 
   final Logger _log = Logger('JournalViewModel');
-  late final Journal _journal;
+  late Journal _journal;
   SimpleTextAlign _currentAlign = SimpleTextAlign.left;
   bool _isLoading = false;
 
@@ -42,11 +42,6 @@ class JournalViewModel extends ChangeNotifier {
 
   bool get isGeneratingAiResponse =>
       _aiGenerationRepository.isGeneratingAiResponse;
-
-  void _onAiGenerationStateChange() {
-    _load();
-    notifyListeners();
-  }
 
   void handleBackNavigation(BuildContext context) {
     if (shouldReplaceOnPop) {
@@ -109,7 +104,7 @@ class JournalViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
-    _aiGenerationRepository.removeListener(_onAiGenerationStateChange);
+    _aiGenerationRepository.removeListener(_load);
     super.dispose();
   }
 }

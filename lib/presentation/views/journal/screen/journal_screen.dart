@@ -10,47 +10,40 @@ import '../widgets/ai_response_box.dart';
 import '../widgets/content_box.dart';
 import '../widgets/mood_bar.dart';
 
-class JournalScreen extends StatefulWidget {
+class JournalScreen extends StatelessWidget {
   final JournalViewModel viewModel;
 
   const JournalScreen({super.key, required this.viewModel});
 
   @override
-  State<JournalScreen> createState() => _JournalScreenState();
-}
-
-class _JournalScreenState extends State<JournalScreen> {
-  @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: widget.viewModel,
+      listenable: viewModel,
       builder: (context, _) {
-        if (widget.viewModel.isLoading) {
+        if (viewModel.isLoading) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
         return Scaffold(
           appBar: AppBar(
-            surfaceTintColor: Color(
-              widget.viewModel.journal.moodType.colorValue,
-            ),
+            surfaceTintColor: Color(viewModel.journal.moodType.colorValue),
             leading: PopButton(
-              onTap: () => widget.viewModel.handleBackNavigation(context),
+              onTap: () => viewModel.handleBackNavigation(context),
             ),
             title: Text(
-              widget.viewModel.journal.createdAt.formatted(
+              viewModel.journal.createdAt.formatted(
                 AppLocalizations.of(context)!,
               ),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             actions: [
               IconButton(
-                onPressed: widget.viewModel.changeAlign,
-                icon: Icon(widget.viewModel.currentAlign.icon),
+                onPressed: viewModel.changeAlign,
+                icon: Icon(viewModel.currentAlign.icon),
               ),
               IconButton(
-                onPressed: () => widget.viewModel.handleDelete(context),
+                onPressed: () => viewModel.handleDelete(context),
                 icon: const Icon(Icons.delete),
               ),
             ],
@@ -63,10 +56,10 @@ class _JournalScreenState extends State<JournalScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      MoodBar(moodType: widget.viewModel.journal.moodType),
+                      MoodBar(moodType: viewModel.journal.moodType),
                       ContentBox(
-                        viewModel: widget.viewModel,
-                        currentAlign: widget.viewModel.currentAlign,
+                        viewModel: viewModel,
+                        currentAlign: viewModel.currentAlign,
                       ),
                     ],
                   ),
@@ -75,7 +68,7 @@ class _JournalScreenState extends State<JournalScreen> {
               SizedBox(height: Spacing.lg),
               FadeIn(
                 delay: DelayMs.quick * 2,
-                child: AiResponseBox(viewModel: widget.viewModel),
+                child: AiResponseBox(viewModel: viewModel),
               ),
             ],
           ),
