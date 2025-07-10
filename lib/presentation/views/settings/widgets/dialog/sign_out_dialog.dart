@@ -17,7 +17,7 @@ class SignOutDialog extends StatelessWidget {
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
         ElevatedButton(
           onPressed: () {
-            viewModel.signOut();
+            // viewModel.signOut();
             context.pop();
           },
           style: ElevatedButton.styleFrom(

@@ -65,6 +65,7 @@ class AppStateRepositoryImpl extends AppStateRepository {
     final colorTheme = ColorTheme.fromString(colorThemeString);
 
     _appState = AppState(
+      isFirstLaunch: isFirstLaunch,
       themeMode: themeMode,
       languageCode: languageCode,
       lastActiveDate: lastActiveDate,

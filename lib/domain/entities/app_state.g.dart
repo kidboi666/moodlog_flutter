@@ -29,6 +29,9 @@ _AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
       $enumDecodeNullable(_$AiPersonalityEnumMap, json['aiPersonality']) ??
       AiPersonality.balanced,
   nickname: json['nickname'] as String? ?? '',
+  fontFamily:
+      $enumDecodeNullable(_$FontFamilyEnumMap, json['fontFamily']) ??
+      FontFamily.pretendard,
 );
 
 Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
@@ -42,12 +45,13 @@ Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
   'firstLaunchedDate': instance.firstLaunchedDate?.toIso8601String(),
   'aiPersonality': _$AiPersonalityEnumMap[instance.aiPersonality]!,
   'nickname': instance.nickname,
+  'fontFamily': _$FontFamilyEnumMap[instance.fontFamily]!,
 };
 
 const _$ThemeModeEnumMap = {
-  ThemeMode.system: 'system',
   ThemeMode.light: 'light',
   ThemeMode.dark: 'dark',
+  ThemeMode.system: 'system',
 };
 
 const _$ColorThemeEnumMap = {
@@ -65,4 +69,9 @@ const _$AiPersonalityEnumMap = {
   AiPersonality.rational: 'rational',
   AiPersonality.balanced: 'balanced',
   AiPersonality.compassionate: 'compassionate',
+};
+
+const _$FontFamilyEnumMap = {
+  FontFamily.pretendard: 'pretendard',
+  FontFamily.leeSeoyun: 'leeSeoyun',
 };

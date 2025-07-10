@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppState {
 
- bool get isFirstLaunch; bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; ThemeMode get themeMode; ColorTheme get colorTheme; LanguageCode get languageCode; DateTime? get lastActiveDate; DateTime? get firstLaunchedDate; AiPersonality get aiPersonality; String get nickname;
+ bool get isFirstLaunch; bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; ThemeMode get themeMode; ColorTheme get colorTheme; LanguageCode get languageCode; DateTime? get lastActiveDate; DateTime? get firstLaunchedDate; AiPersonality get aiPersonality; String get nickname; FontFamily get fontFamily;
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AppStateCopyWith<AppState> get copyWith => _$AppStateCopyWithImpl<AppState>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.isFirstLaunch, isFirstLaunch) || other.isFirstLaunch == isFirstLaunch)&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.lastActiveDate, lastActiveDate) || other.lastActiveDate == lastActiveDate)&&(identical(other.firstLaunchedDate, firstLaunchedDate) || other.firstLaunchedDate == firstLaunchedDate)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.nickname, nickname) || other.nickname == nickname));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.isFirstLaunch, isFirstLaunch) || other.isFirstLaunch == isFirstLaunch)&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.lastActiveDate, lastActiveDate) || other.lastActiveDate == lastActiveDate)&&(identical(other.firstLaunchedDate, firstLaunchedDate) || other.firstLaunchedDate == firstLaunchedDate)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,isFirstLaunch,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,lastActiveDate,firstLaunchedDate,aiPersonality,nickname);
+int get hashCode => Object.hash(runtimeType,isFirstLaunch,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,lastActiveDate,firstLaunchedDate,aiPersonality,nickname,fontFamily);
 
 @override
 String toString() {
-  return 'AppState(isFirstLaunch: $isFirstLaunch, hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, lastActiveDate: $lastActiveDate, firstLaunchedDate: $firstLaunchedDate, aiPersonality: $aiPersonality, nickname: $nickname)';
+  return 'AppState(isFirstLaunch: $isFirstLaunch, hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, lastActiveDate: $lastActiveDate, firstLaunchedDate: $firstLaunchedDate, aiPersonality: $aiPersonality, nickname: $nickname, fontFamily: $fontFamily)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AppStateCopyWith<$Res>  {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) _then) = _$AppStateCopyWithImpl;
 @useResult
 $Res call({
- bool isFirstLaunch, bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, DateTime? lastActiveDate, DateTime? firstLaunchedDate, AiPersonality aiPersonality, String nickname
+ bool isFirstLaunch, bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, DateTime? lastActiveDate, DateTime? firstLaunchedDate, AiPersonality aiPersonality, String nickname, FontFamily fontFamily
 });
 
 
@@ -66,7 +66,7 @@ class _$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isFirstLaunch = null,Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? lastActiveDate = freezed,Object? firstLaunchedDate = freezed,Object? aiPersonality = null,Object? nickname = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isFirstLaunch = null,Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? lastActiveDate = freezed,Object? firstLaunchedDate = freezed,Object? aiPersonality = null,Object? nickname = null,Object? fontFamily = null,}) {
   return _then(_self.copyWith(
 isFirstLaunch: null == isFirstLaunch ? _self.isFirstLaunch : isFirstLaunch // ignore: cast_nullable_to_non_nullable
 as bool,hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,8 @@ as LanguageCode,lastActiveDate: freezed == lastActiveDate ? _self.lastActiveDate
 as DateTime?,firstLaunchedDate: freezed == firstLaunchedDate ? _self.firstLaunchedDate : firstLaunchedDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as AiPersonality,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
-as String,
+as String,fontFamily: null == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
+as FontFamily,
   ));
 }
 
@@ -89,7 +90,7 @@ as String,
 @JsonSerializable()
 
 class _AppState extends AppState {
-  const _AppState({this.isFirstLaunch = true, this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.teal, this.languageCode = LanguageCode.ko, this.lastActiveDate, this.firstLaunchedDate, this.aiPersonality = AiPersonality.balanced, this.nickname = ''}): super._();
+  const _AppState({this.isFirstLaunch = true, this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.teal, this.languageCode = LanguageCode.ko, this.lastActiveDate, this.firstLaunchedDate, this.aiPersonality = AiPersonality.balanced, this.nickname = '', this.fontFamily = FontFamily.pretendard}): super._();
   factory _AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
 
 @override@JsonKey() final  bool isFirstLaunch;
@@ -102,6 +103,7 @@ class _AppState extends AppState {
 @override final  DateTime? firstLaunchedDate;
 @override@JsonKey() final  AiPersonality aiPersonality;
 @override@JsonKey() final  String nickname;
+@override@JsonKey() final  FontFamily fontFamily;
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
@@ -116,16 +118,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.isFirstLaunch, isFirstLaunch) || other.isFirstLaunch == isFirstLaunch)&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.lastActiveDate, lastActiveDate) || other.lastActiveDate == lastActiveDate)&&(identical(other.firstLaunchedDate, firstLaunchedDate) || other.firstLaunchedDate == firstLaunchedDate)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.nickname, nickname) || other.nickname == nickname));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.isFirstLaunch, isFirstLaunch) || other.isFirstLaunch == isFirstLaunch)&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.lastActiveDate, lastActiveDate) || other.lastActiveDate == lastActiveDate)&&(identical(other.firstLaunchedDate, firstLaunchedDate) || other.firstLaunchedDate == firstLaunchedDate)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,isFirstLaunch,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,lastActiveDate,firstLaunchedDate,aiPersonality,nickname);
+int get hashCode => Object.hash(runtimeType,isFirstLaunch,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,lastActiveDate,firstLaunchedDate,aiPersonality,nickname,fontFamily);
 
 @override
 String toString() {
-  return 'AppState(isFirstLaunch: $isFirstLaunch, hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, lastActiveDate: $lastActiveDate, firstLaunchedDate: $firstLaunchedDate, aiPersonality: $aiPersonality, nickname: $nickname)';
+  return 'AppState(isFirstLaunch: $isFirstLaunch, hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, lastActiveDate: $lastActiveDate, firstLaunchedDate: $firstLaunchedDate, aiPersonality: $aiPersonality, nickname: $nickname, fontFamily: $fontFamily)';
 }
 
 
@@ -136,7 +138,7 @@ abstract mixin class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res>
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) _then) = __$AppStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isFirstLaunch, bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, DateTime? lastActiveDate, DateTime? firstLaunchedDate, AiPersonality aiPersonality, String nickname
+ bool isFirstLaunch, bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, DateTime? lastActiveDate, DateTime? firstLaunchedDate, AiPersonality aiPersonality, String nickname, FontFamily fontFamily
 });
 
 
@@ -153,7 +155,7 @@ class __$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isFirstLaunch = null,Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? lastActiveDate = freezed,Object? firstLaunchedDate = freezed,Object? aiPersonality = null,Object? nickname = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isFirstLaunch = null,Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? lastActiveDate = freezed,Object? firstLaunchedDate = freezed,Object? aiPersonality = null,Object? nickname = null,Object? fontFamily = null,}) {
   return _then(_AppState(
 isFirstLaunch: null == isFirstLaunch ? _self.isFirstLaunch : isFirstLaunch // ignore: cast_nullable_to_non_nullable
 as bool,hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
@@ -165,7 +167,8 @@ as LanguageCode,lastActiveDate: freezed == lastActiveDate ? _self.lastActiveDate
 as DateTime?,firstLaunchedDate: freezed == firstLaunchedDate ? _self.firstLaunchedDate : firstLaunchedDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as AiPersonality,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
-as String,
+as String,fontFamily: null == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
+as FontFamily,
   ));
 }
 
