@@ -163,3 +163,17 @@ enum ThemeMode {
     }
   }
 }
+
+enum FontFamily {
+  pretendard,
+  leeSeoyun;
+
+  String get displayName {
+    switch (this) {
+      case FontFamily.pretendard:
+        return 'Pretendard';
+      case FontFamily.leeSeoyun:
+        return 'LeeSeoyun';
+    }
+  }
+}

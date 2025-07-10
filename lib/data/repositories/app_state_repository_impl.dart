@@ -65,7 +65,6 @@ class AppStateRepositoryImpl extends AppStateRepository {
     final colorTheme = ColorTheme.fromString(colorThemeString);
 
     _appState = AppState(
-      isFirstLaunch: isFirstLaunch,
       themeMode: themeMode,
       languageCode: languageCode,
       lastActiveDate: lastActiveDate,
@@ -85,7 +84,6 @@ class AppStateRepositoryImpl extends AppStateRepository {
     required String nickname,
     required AiPersonality aiPersonality,
   }) async {
-    await _asyncPrefs.setBool(PreferenceKeys.isFirstLaunch, false);
     await _asyncPrefs.setString(
       PreferenceKeys.aiPersonality,
       aiPersonality.name,
@@ -118,6 +116,15 @@ class AppStateRepositoryImpl extends AppStateRepository {
   Future<void> updateThemeMode(ThemeMode themeMode) async {
     await _asyncPrefs.setString(PreferenceKeys.themeMode, themeMode.toString());
     _updateState(_appState.copyWith(themeMode: themeMode));
+  }
+
+  @override
+  Future<void> updateFontFamily(FontFamily fontFamily) async {
+    await _asyncPrefs.setString(
+      PreferenceKeys.fontFamily,
+      fontFamily.toString(),
+    );
+    _updateState(_appState.copyWith(fontFamily: fontFamily));
   }
 
   @override

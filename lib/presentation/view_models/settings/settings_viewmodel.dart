@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/auth_repository.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../domain/entities/app_state.dart';
@@ -10,12 +11,15 @@ import '../../../domain/repositories/journal_repository.dart';
 class SettingsViewModel extends ChangeNotifier {
   final AppStateRepository _appStateRepository;
   final JournalRepository _journalRepository;
+  final AuthRepository _authRepository;
 
   SettingsViewModel({
     required AppStateRepository appStateRepository,
     required JournalRepository journalRepository,
+    required AuthRepository authRepository,
   }) : _appStateRepository = appStateRepository,
-       _journalRepository = journalRepository;
+       _journalRepository = journalRepository,
+       _authRepository = authRepository;
 
   final Logger _log = Logger('SettingsViewModel');
 
@@ -24,7 +28,6 @@ class SettingsViewModel extends ChangeNotifier {
   void setLanguage(LanguageCode? language) {
     _log.info('Setting language to $language');
     _appStateRepository.updateLanguage(language!);
-    notifyListeners();
   }
 
   Future<void> showDialogWithWidget(BuildContext context, Widget child) async {
@@ -37,25 +40,26 @@ class SettingsViewModel extends ChangeNotifier {
     }
     _log.info('Setting notification enabled to $enabled');
     _appStateRepository.updateNotificationEnabled(enabled);
-    notifyListeners();
   }
 
   void setAutoSyncEnabled(bool enabled) {
     _log.info('Setting auto sync enabled to $enabled');
     _appStateRepository.updateAutoSyncEnabled(enabled);
-    notifyListeners();
   }
 
   void setTheme(ThemeMode? theme) {
     _log.info('Setting theme to $theme');
     _appStateRepository.updateThemeMode(theme!);
-    notifyListeners();
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
     _log.info('Setting color theme to $colorTheme');
     _appStateRepository.updateColorTheme(colorTheme!);
-    notifyListeners();
+  }
+
+  void setFontFamily(FontFamily? fontType) {
+    _log.info('Setting font type to $fontType');
+    _appStateRepository.updateFontFamily(fontType!);
   }
 
   void performBackup(BuildContext context) {
@@ -76,11 +80,13 @@ class SettingsViewModel extends ChangeNotifier {
 
   void clearSharedPreferences() {
     _appStateRepository.clearSharedPreferences();
-    notifyListeners();
   }
 
   void clearDatabase() {
     _appStateRepository.clearDatabase();
-    notifyListeners();
+  }
+
+  void signOut() {
+    _authRepository.signOut();
   }
 }

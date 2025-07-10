@@ -10,9 +10,11 @@ import '../widgets/dialog/backup_dialog.dart';
 import '../widgets/dialog/clear_cache_dialog.dart';
 import '../widgets/dialog/color_theme_dialog.dart';
 import '../widgets/dialog/contact_dialog.dart';
+import '../widgets/dialog/font_family_dialog.dart';
 import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
 import '../widgets/dialog/language_dialog.dart';
+import '../widgets/dialog/sign_out_dialog.dart';
 import '../widgets/dialog/theme_dialog.dart';
 import '../widgets/dialog_tile.dart';
 import '../widgets/section_header.dart';
@@ -57,6 +59,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () => widget.viewModel.showDialogWithWidget(
                       context,
                       InitDatabaseDialog(viewModel: widget.viewModel),
+                    ),
+                  ),
+                  DialogTile(
+                    title: '로그아웃',
+                    subtitle: '개발모드 전용 동작',
+                    icon: Icons.logout,
+                    onTap: () => widget.viewModel.showDialogWithWidget(
+                      context,
+                      SignOutDialog(viewModel: widget.viewModel),
                     ),
                   ),
                 ],
@@ -110,6 +121,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () => widget.viewModel.showDialogWithWidget(
                     context,
                     LanguageDialog(viewModel: widget.viewModel),
+                  ),
+                ),
+                DialogTile(
+                  title: AppLocalizations.of(
+                    context,
+                  )!.settings_common_font_family_title,
+                  subtitle: widget.viewModel.appState.fontFamily.displayName,
+                  icon: Icons.text_format,
+                  onTap: () => widget.viewModel.showDialogWithWidget(
+                    context,
+                    FontFamilyDialog(viewModel: widget.viewModel),
                   ),
                 ),
                 const SizedBox(height: 40),

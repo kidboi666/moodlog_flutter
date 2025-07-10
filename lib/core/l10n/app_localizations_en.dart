@@ -258,6 +258,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_language_dialog_title => 'Select Language';
 
   @override
+  String get settings_common_font_family_title => '폰트';
+
+  @override
   String get settings_data_title => 'Data';
 
   @override

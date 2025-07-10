@@ -548,6 +548,12 @@ abstract class AppLocalizations {
   /// **'언어 선택'**
   String get settings_common_language_dialog_title;
 
+  /// No description provided for @settings_common_font_family_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'폰트'**
+  String get settings_common_font_family_title;
+
   /// No description provided for @settings_data_title.
   ///
   /// In ko, this message translates to:

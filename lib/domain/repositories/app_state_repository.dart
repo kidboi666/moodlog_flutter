@@ -27,6 +27,8 @@ abstract class AppStateRepository extends ChangeNotifier {
 
   Future<void> updateColorTheme(ColorTheme colorTheme);
 
+  Future<void> updateFontFamily(FontFamily fontType);
+
   Future<void> clearSharedPreferences();
 
   Future<void> clearDatabase();

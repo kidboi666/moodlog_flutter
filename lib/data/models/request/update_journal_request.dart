@@ -1,9 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../core/constants/enum.dart';
-
-part 'update_journal_request.freezed.dart';
-part 'update_journal_request.g.dart';
+part 'update_journal_request.freezed.dart';part 'update_journal_request.g.dart';
 
 @freezed
 abstract class UpdateJournalRequest with _$UpdateJournalRequest {

@@ -249,6 +249,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_language_dialog_title => '언어 선택';
 
   @override
+  String get settings_common_font_family_title => '폰트';
+
+  @override
   String get settings_data_title => '데이터';
 
   @override

@@ -102,4 +102,5 @@ abstract final class PreferenceKeys {
   static const hasNotificationEnabled = 'has_notification_enabled';
   static const hasAutoSyncEnabled = 'has_auto_sync_enabled';
   static const colorTheme = 'color_theme';
+  static const fontFamily = 'font_family';
 }

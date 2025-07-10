@@ -115,6 +115,7 @@
   "settings_common_color_theme_subtitle": "색상 테마를 선택합니다.",
   "settings_common_language_title": "언어",
   "settings_common_language_dialog_title": "언어 선택",
+  "settings_common_font_family_title": "폰트",
   "settings_data_title": "데이터",
   "settings_data_auto_sync_title": "자동 동기화",
   "settings_data_auto_sync_subtitle": "데이터를 자동으로 동기화합니다.",

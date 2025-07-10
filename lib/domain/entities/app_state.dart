@@ -20,6 +20,7 @@ abstract class AppState with _$AppState {
     DateTime? firstLaunchedDate,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default('') String nickname,
+    @Default(FontFamily.pretendard) FontFamily fontFamily,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
