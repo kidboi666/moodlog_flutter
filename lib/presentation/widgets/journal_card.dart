@@ -26,22 +26,23 @@ class JournalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
-      shadowColor: Theme.of(context).colorScheme.surfaceBright,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Spacing.xl),
+      ),
       child: InkWell(
         onTap: () =>
             context.push(Routes.journal(id), extra: {'source': 'home'}),
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(Spacing.xl),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(
             horizontal: Spacing.xxl,
             vertical: Spacing.md,
           ),
           leading: Container(
-            width: 8,
+            width: Spacing.sm,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(Spacing.xl),
               color: Color(moodType.colorValue),
             ),
           ),

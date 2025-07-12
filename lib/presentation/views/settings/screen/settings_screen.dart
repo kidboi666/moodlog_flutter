@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/router/routes.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -33,7 +35,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings_title)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.settings_title),
+        actionsPadding: Spacing.containerHorizontalPadding,
+        actions: [
+          IconButton.filledTonal(
+            onPressed: () => context.push(Routes.profile),
+            icon: Icon(Icons.person),
+          ),
+        ],
+      ),
       body: Container(
         padding: Spacing.containerHorizontalPadding,
         child: ListenableBuilder(
@@ -41,8 +52,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context, _) {
             return ListView(
               children: [
+                const SizedBox(height: Spacing.xl),
                 if (kDebugMode) ...[
-                  SectionHeader(title: '디버그'),
+                  SectionHeader(title: '개발용 옵션'),
                   DialogTile(
                     title: '스토리지 초기화',
                     subtitle: '개발모드 전용 동작',
@@ -70,6 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       SignOutDialog(viewModel: widget.viewModel),
                     ),
                   ),
+                  const SizedBox(height: Spacing.xl),
                 ],
 
                 SectionHeader(
@@ -134,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     FontFamilyDialog(viewModel: widget.viewModel),
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: Spacing.xl),
                 SectionHeader(
                   title: AppLocalizations.of(context)!.settings_data_title,
                 ),
@@ -175,7 +188,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ClearCacheDialog(viewModel: widget.viewModel),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: Spacing.xl),
                 SectionHeader(
                   title: AppLocalizations.of(
                     context,
@@ -217,6 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ContactDialog(),
                   ),
                 ),
+                const SizedBox(height: kBottomNavigationBarHeight),
               ],
             );
           },

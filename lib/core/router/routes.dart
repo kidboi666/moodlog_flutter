@@ -12,6 +12,8 @@ abstract final class Routes {
   static const String statisticsRelative = 'statistics';
   static const String settings = '/$settingsRelative';
   static const String settingsRelative = 'settings';
+  static const String profile = '/$settingsRelative/$profileRelative';
+  static const String profileRelative = 'profile';
 
   static String journalImageDetail(id) => '/$id/image';
 

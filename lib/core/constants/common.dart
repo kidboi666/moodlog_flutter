@@ -3,45 +3,35 @@ import 'dart:io';
 import 'package:flutter/painting.dart';
 
 abstract final class Spacing {
-  static const double xs = 4.0;
-  static const double sm = 8.0;
-  static const double md = 12.0;
-  static const double lg = 16.0;
-  static const double xl = 20.0;
-  static const double xxl = 24.0;
+  static const xs = 4.0;
+  static const sm = 8.0;
+  static const md = 12.0;
+  static const lg = 16.0;
+  static const xl = 20.0;
+  static const xxl = 24.0;
 
-  static const EdgeInsetsGeometry containerHorizontalPadding =
-      EdgeInsets.symmetric(horizontal: 16.0);
-  static const EdgeInsetsGeometry paddingVertical = EdgeInsets.symmetric(
-    vertical: 16.0,
+  static const containerHorizontalPadding = EdgeInsets.symmetric(
+    horizontal: 16.0,
   );
-  static const EdgeInsetsGeometry containerMarginTop = EdgeInsets.only(
-    top: 28.0,
-  );
-  static const EdgeInsetsGeometry containerPaddingTop = EdgeInsets.only(
-    top: 80.0,
-  );
-  static const EdgeInsetsGeometry containerPaddingBottom = EdgeInsets.only(
-    bottom: 180.0,
-  );
-  static const EdgeInsetsGeometry headerVerticalPadding = EdgeInsets.symmetric(
-    vertical: 12.0,
-  );
-  static const double bottomNavigationBarHeight = 80.0;
-  static const double calendarScrollSize = 44.0;
-  static const double aiResponseGap = 26.0;
-  static const double horCalendarDateHeight = 60.0;
+  static const paddingVertical = EdgeInsets.symmetric(vertical: 16.0);
+  static const containerMarginTop = EdgeInsets.only(top: 28.0);
+  static const containerPaddingTop = EdgeInsets.only(top: 80.0);
+  static const containerPaddingBottom = EdgeInsets.only(bottom: 180.0);
+  static const headerVerticalPadding = EdgeInsets.symmetric(vertical: 12.0);
+  static const calendarScrollSize = 44.0;
+  static const aiResponseGap = 26.0;
+  static const horCalendarDateHeight = 60.0;
 
-  static double get tabBarHeight => Platform.isIOS ? 60.0 : 80.0;
+  static get tabBarHeight => Platform.isIOS ? 60.0 : 80.0;
 
-  static double get keyboardVerticalOffset => Platform.isIOS ? 140.0 : 0.0;
+  static get keyboardVerticalOffset => Platform.isIOS ? 140.0 : 0.0;
 }
 
 abstract final class SnapPoint {
-  static const double delete = 0.3;
-  static const double journalWrite = 0.7;
-  static const double logout = 0.3;
-  static const double auth = 0.6;
+  static const delete = 0.3;
+  static const journalWrite = 0.7;
+  static const logout = 0.3;
+  static const auth = 0.6;
 }
 
 const Map<String, String> weekDays = {

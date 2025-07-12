@@ -11,10 +11,12 @@ class EmptyBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shadowColor: Theme.of(context).colorScheme.surfaceBright,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Spacing.xl),
+      ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 24),
+        padding: EdgeInsets.symmetric(vertical: Spacing.xxl),
         child: Column(
           spacing: Spacing.xxl,
           children: [
@@ -25,7 +27,7 @@ class EmptyBox extends StatelessWidget {
             IconButton.filled(
               style: IconButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(Spacing.sm),
                 ),
               ),
               onPressed: () {

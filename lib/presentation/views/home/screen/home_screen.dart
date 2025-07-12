@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/views/home/widgets/empty_box.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
 import '../../../widgets/journal_card.dart';
+import '../widgets/empty_box.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
 
@@ -58,10 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   !widget.viewModel.isLoading)
                 SliverToBoxAdapter(child: FadeIn(child: EmptyBox())),
               SliverToBoxAdapter(
-                child: const SizedBox(
-                  height: Spacing.bottomNavigationBarHeight * 2,
-                  width: double.infinity,
-                ),
+                child: const SizedBox(height: kBottomNavigationBarHeight),
               ),
             ],
           ),

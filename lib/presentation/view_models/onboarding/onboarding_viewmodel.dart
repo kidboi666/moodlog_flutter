@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/mixins/step_mixin.dart';
@@ -8,11 +9,14 @@ import '../../../domain/repositories/app_state_repository.dart';
 
 class OnboardingViewModel extends ChangeNotifier with StepMixin {
   final AppStateRepository _appStateRepository;
+  final FirebaseAuth _firebaseAuth;
 
   OnboardingViewModel({
     required int totalSteps,
     required AppStateRepository appStateRepository,
-  }) : _appStateRepository = appStateRepository {
+    required FirebaseAuth firebaseAuth,
+  }) : _appStateRepository = appStateRepository,
+       _firebaseAuth = firebaseAuth {
     initStep(totalSteps);
   }
 
@@ -40,11 +44,25 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
 
   bool validateNickname(String? value) => value != null && value.isNotEmpty;
 
-  void init() {
-    _log.info('Initializing $_nickname with personality $_selectedPersonality');
-    _appStateRepository.init(
-      nickname: _nickname,
-      aiPersonality: _selectedPersonality,
-    );
+  Future<void> init() async {
+    try {
+      _log.info('Signing in anonymously...');
+      final userCredential = await _firebaseAuth.signInAnonymously();
+      _log.info('Signed in with temporary user: ${userCredential.user}');
+
+      _log.info(
+        'Initializing $_nickname with personality $_selectedPersonality',
+      );
+      await _appStateRepository.init(
+        nickname: _nickname,
+        aiPersonality: _selectedPersonality,
+      );
+
+      // Onboarding is complete, set isFirstLaunch to false.
+      await _appStateRepository.setFirstLaunchComplete();
+    } on FirebaseAuthException catch (e) {
+      _log.severe('Failed to sign in anonymously', e);
+      // TODO: Handle error appropriately, e.g., show a snackbar
+    }
   }
 }

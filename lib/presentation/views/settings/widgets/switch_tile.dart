@@ -20,6 +20,7 @@ class SwitchTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
+      elevation: 0,
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
         child: SwitchListTile(

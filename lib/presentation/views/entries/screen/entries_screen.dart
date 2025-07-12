@@ -18,6 +18,7 @@ class EntriesScreen extends StatelessWidget {
       builder: (context, _) {
         return Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             title: Text(viewModel.selectedMonth.formattedDotNationWithMonth()),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
@@ -48,6 +49,9 @@ class EntriesScreen extends StatelessWidget {
                       ),
                     );
                   }, childCount: viewModel.entries.length),
+                ),
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: kBottomNavigationBarHeight),
                 ),
               ],
             ),

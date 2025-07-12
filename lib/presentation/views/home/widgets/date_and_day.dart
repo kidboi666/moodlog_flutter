@@ -20,14 +20,14 @@ class DateAndDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(Spacing.md),
       onTap: () => selectDate(date),
       child: AnimatedContainer(
         duration: DurationMs.quick,
         curve: Curves.easeInOutQuad,
         height: Spacing.horCalendarDateHeight,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(Spacing.md),
           color: date.isSameDay(selectedDate)
               ? Theme.of(context).colorScheme.primary
               : Colors.transparent,
