@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/common.dart';
+
 class AnimatedNavigatorContainer extends StatelessWidget {
   final int currentIndex;
   final List<Widget> children;
@@ -17,11 +19,11 @@ class AnimatedNavigatorContainer extends StatelessWidget {
       children: children.mapIndexed((int index, Widget navigator) {
         return AnimatedSlide(
           offset: Offset(0, index == currentIndex ? 0 : 0.01),
-          curve: Curves.easeInOutCubic,
-          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOutQuart,
+          duration: DurationMs.medium,
           child: AnimatedOpacity(
             opacity: index == currentIndex ? 1 : 0,
-            duration: const Duration(milliseconds: 400),
+            duration: DurationMs.medium,
             child: _branchNavigatorWrapper(index, navigator),
           ),
         );

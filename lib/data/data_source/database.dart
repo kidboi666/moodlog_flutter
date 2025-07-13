@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -27,7 +26,10 @@ class MoodLogDatabase extends _$MoodLogDatabase {
       onUpgrade: (migrator, from, to) async {
         if (from == 1) {
           await migrator.createIndex(
-            Index('journals', 'CREATE INDEX journals_created_at ON journals (created_at)'),
+            Index(
+              'journals',
+              'CREATE INDEX journals_created_at ON journals (created_at)',
+            ),
           );
         }
       },
@@ -39,8 +41,6 @@ LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'mood_log.db'));
-
-    
 
     return NativeDatabase(file);
   });

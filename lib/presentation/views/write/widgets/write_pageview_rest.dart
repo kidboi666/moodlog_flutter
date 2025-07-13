@@ -46,7 +46,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
     return Padding(
       padding: Spacing.containerHorizontalPadding,
       child: Column(
-        spacing: 28,
+        spacing: Spacing.xxl,
         children: [
           FadeIn(
             delay: DelayMs.quick,

@@ -8,7 +8,7 @@ class ImagePickingSection extends StatelessWidget {
   final WriteViewModel viewModel;
 
   ImagePickingSection({super.key, required this.viewModel});
- 
+
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -22,7 +22,7 @@ class ImagePickingSection extends StatelessWidget {
           if (viewModel.imageUri.isNotEmpty)
             ...viewModel.imageUri.map(
               (imageUri) => Card(
-                elevation: 1,
+                elevation: 0,
                 margin: const EdgeInsets.only(right: 8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
@@ -35,6 +35,8 @@ class ImagePickingSection extends StatelessWidget {
               ),
             ),
           Card(
+            elevation: 0,
+            color: Theme.of(context).colorScheme.surfaceContainer,
             margin: const EdgeInsets.all(0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),

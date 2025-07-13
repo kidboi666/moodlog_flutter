@@ -19,7 +19,7 @@ class WritePageViewMood extends StatelessWidget {
       padding: Spacing.containerHorizontalPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 28,
+        spacing: Spacing.xxl,
         children: [
           FadeIn(
             delay: DelayMs.quick,
@@ -35,7 +35,7 @@ class WritePageViewMood extends StatelessWidget {
                 listenable: viewModel,
                 builder: (context, _) {
                   return Column(
-                    spacing: 12,
+                    spacing: Spacing.lg,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: MoodType.values.mapIndexed((index, mood) {
                       final isSelected = viewModel.selectedMood == mood;
@@ -46,12 +46,15 @@ class WritePageViewMood extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => viewModel.updateMoodType(mood),
                           style: ButtonStyle(
+                            elevation: WidgetStateProperty.all(0),
                             backgroundColor: WidgetStateProperty.all(
                               isSelected
                                   ? Color(
                                       mood.colorValue,
                                     ).withValues(alpha: 0.5)
-                                  : null,
+                                  : Theme.of(
+                                      context,
+                                    ).colorScheme.surfaceContainer,
                             ),
                             overlayColor: WidgetStateProperty.all(
                               Color(mood.colorValue).withValues(alpha: 0.5),
@@ -67,7 +70,7 @@ class WritePageViewMood extends StatelessWidget {
                                 mood.emoji,
                                 style: const TextStyle(fontSize: 20),
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: Spacing.sm),
                               Text(mood.getDisplayName(context)),
                             ],
                           ),

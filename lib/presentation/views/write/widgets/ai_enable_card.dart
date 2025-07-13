@@ -11,6 +11,8 @@ class AiEnableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceContainer,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(

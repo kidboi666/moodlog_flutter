@@ -23,7 +23,7 @@ class ClearCacheDialog extends StatelessWidget {
           onPressed: () => context.pop(),
           child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
         ),
-        ElevatedButton(
+        FilledButton(
           onPressed: () {
             viewModel.clearCache(context);
           },

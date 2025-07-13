@@ -22,7 +22,7 @@ class DialogTile extends StatelessWidget {
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
         child: ListTile(
-          title: Text(title),
+          title: Text(title, style: Theme.of(context).textTheme.titleMedium),
           subtitle: Text(subtitle),
           leading: Icon(icon),
           trailing: const Icon(Icons.chevron_right),
