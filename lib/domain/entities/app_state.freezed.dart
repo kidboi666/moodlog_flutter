@@ -90,7 +90,7 @@ as FontFamily,
 @JsonSerializable()
 
 class _AppState extends AppState {
-  const _AppState({this.isFirstLaunch = true, this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.teal, this.languageCode = LanguageCode.ko, this.lastActiveDate, this.firstLaunchedDate, this.aiPersonality = AiPersonality.balanced, this.nickname = '', this.fontFamily = FontFamily.pretendard}): super._();
+  const _AppState({this.isFirstLaunch = true, this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.lastActiveDate, this.firstLaunchedDate, this.aiPersonality = AiPersonality.balanced, this.nickname = '', this.fontFamily = FontFamily.pretendard}): super._();
   factory _AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
 
 @override@JsonKey() final  bool isFirstLaunch;

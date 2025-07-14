@@ -24,7 +24,7 @@ void main() {
       expect(appState.hasNotificationEnabled, false);
       expect(appState.hasAutoSyncEnabled, false);
       expect(appState.themeMode, ThemeMode.system);
-      expect(appState.colorTheme, ColorTheme.teal);
+      expect(appState.colorTheme, ColorTheme.red);
       expect(appState.languageCode, LanguageCode.ko);
       expect(appState.lastActiveDate, isNotNull);
       expect(appState.firstLaunchedDate, isNotNull);
@@ -38,7 +38,7 @@ void main() {
         hasNotificationEnabled: false,
         hasAutoSyncEnabled: false,
         themeMode: ThemeMode.system,
-        colorTheme: ColorTheme.teal,
+        colorTheme: ColorTheme.red,
         languageCode: LanguageCode.ko,
         lastActiveDate: DateTime.now(),
         firstLaunchedDate: DateTime.now(),
@@ -66,7 +66,7 @@ void main() {
       expect(appState.hasNotificationEnabled, false);
       expect(appState.hasAutoSyncEnabled, false);
       expect(appState.themeMode, ThemeMode.system);
-      expect(appState.colorTheme, ColorTheme.teal);
+      expect(appState.colorTheme, ColorTheme.red);
       expect(appState.languageCode, LanguageCode.ko);
       expect(appState.lastActiveDate, isNull);
       expect(appState.firstLaunchedDate, isNull);

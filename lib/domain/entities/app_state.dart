@@ -14,7 +14,7 @@ abstract class AppState with _$AppState {
     @Default(false) bool hasNotificationEnabled,
     @Default(false) bool hasAutoSyncEnabled,
     @Default(ThemeMode.system) ThemeMode themeMode,
-    @Default(ColorTheme.teal) ColorTheme colorTheme,
+    @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
     DateTime? lastActiveDate,
     DateTime? firstLaunchedDate,

@@ -96,17 +96,17 @@ enum MoodType {
 }
 
 enum ColorTheme {
-  teal,
+  red,
   blue,
   purple,
   green,
   orange,
-  pink;
+  indigo;
 
   static ColorTheme fromString(String? value) {
     switch (value) {
-      case 'teal':
-        return ColorTheme.teal;
+      case 'red':
+        return ColorTheme.red;
       case 'blue':
         return ColorTheme.blue;
       case 'purple':
@@ -115,8 +115,8 @@ enum ColorTheme {
         return ColorTheme.green;
       case 'orange':
         return ColorTheme.orange;
-      case 'pink':
-        return ColorTheme.pink;
+      case 'indigo':
+        return ColorTheme.indigo;
       default:
         return ColorTheme.blue;
     }
@@ -163,7 +163,7 @@ enum ThemeMode {
     }
   }
 }
- 
+
 enum FontFamily {
   pretendard,
   leeSeoyun;

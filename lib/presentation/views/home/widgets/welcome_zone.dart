@@ -4,7 +4,6 @@ import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
-import '../../../widgets/shake_emoji.dart';
 
 class WelcomeZone extends StatelessWidget {
   final HomeViewModel viewModel;
@@ -17,18 +16,6 @@ class WelcomeZone extends StatelessWidget {
       spacing: Spacing.sm,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FadeIn(
-          delay: DelayMs.medium,
-          child: Row(
-            children: [
-              Text(
-                AppLocalizations.of(context)!.home_hello,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const ShakeEmoji(emoji: Emoji.shakeHand),
-            ],
-          ),
-        ),
         FadeIn(
           delay: DelayMs.medium * 2,
           child: ListenableBuilder(

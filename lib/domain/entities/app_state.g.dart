@@ -15,7 +15,7 @@ _AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
       ThemeMode.system,
   colorTheme:
       $enumDecodeNullable(_$ColorThemeEnumMap, json['colorTheme']) ??
-      ColorTheme.teal,
+      ColorTheme.blue,
   languageCode:
       $enumDecodeNullable(_$LanguageCodeEnumMap, json['languageCode']) ??
       LanguageCode.ko,
@@ -55,12 +55,12 @@ const _$ThemeModeEnumMap = {
 };
 
 const _$ColorThemeEnumMap = {
-  ColorTheme.teal: 'teal',
+  ColorTheme.red: 'red',
   ColorTheme.blue: 'blue',
   ColorTheme.purple: 'purple',
   ColorTheme.green: 'green',
   ColorTheme.orange: 'orange',
-  ColorTheme.pink: 'pink',
+  ColorTheme.indigo: 'indigo',
 };
 
 const _$LanguageCodeEnumMap = {LanguageCode.ko: 'ko', LanguageCode.en: 'en'};

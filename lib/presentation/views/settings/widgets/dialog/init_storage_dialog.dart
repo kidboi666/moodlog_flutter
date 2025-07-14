@@ -15,7 +15,7 @@ class InitStorageDialog extends StatelessWidget {
       content: const Text('SharedPreferences를 초기화합니다.'),
       actions: [
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
-        ElevatedButton(
+        FilledButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.error,
             foregroundColor: Theme.of(context).colorScheme.onError,

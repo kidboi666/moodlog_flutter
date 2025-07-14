@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../constants/enum.dart';
 import 'colors.dart';
@@ -12,13 +11,11 @@ abstract final class AppTheme {
     );
     return ThemeData(
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          systemNavigationBarColor: colorScheme.surfaceContainer,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ),
+        backgroundColor: colorScheme.surfaceContainerLowest,
       ),
       fontFamily: fontFamily.displayName,
       brightness: Brightness.light,
+      scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _textTheme,
       colorScheme: colorScheme,
     );
@@ -31,13 +28,11 @@ abstract final class AppTheme {
     );
     return ThemeData(
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          systemNavigationBarColor: colorScheme.surfaceContainer,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ),
+        backgroundColor: colorScheme.surfaceContainerLowest,
       ),
       fontFamily: fontFamily.displayName,
       brightness: Brightness.dark,
+      scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _textTheme,
       colorScheme: colorScheme,
     );

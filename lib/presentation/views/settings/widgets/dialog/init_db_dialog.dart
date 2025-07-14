@@ -15,7 +15,7 @@ class InitDatabaseDialog extends StatelessWidget {
       content: const Text('SQLite 데이터베이스를 초기화합니다.'),
       actions: [
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
-        ElevatedButton(
+        FilledButton(
           onPressed: () {
             viewModel.clearDatabase();
             context.pop();
