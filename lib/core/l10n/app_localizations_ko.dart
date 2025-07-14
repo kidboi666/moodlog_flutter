@@ -48,7 +48,85 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_mood_verybad => '매우 안좋음';
 
   @override
-  String get onboarding_welcome_title => '무드로그에 오신것을 환영합니다!';
+  String get common_month_jan => '1월';
+
+  @override
+  String get common_month_feb => '2월';
+
+  @override
+  String get common_month_mar => '3월';
+
+  @override
+  String get common_month_apr => '4월';
+
+  @override
+  String get common_month_may => '5월';
+
+  @override
+  String get common_month_jun => '6월';
+
+  @override
+  String get common_month_jul => '7월';
+
+  @override
+  String get common_month_aug => '8월';
+
+  @override
+  String get common_month_sep => '9월';
+
+  @override
+  String get common_month_oct => '10월';
+
+  @override
+  String get common_month_nov => '11월';
+
+  @override
+  String get common_month_dec => '12월';
+
+  @override
+  String get common_weekday_mon => '월요일';
+
+  @override
+  String get common_weekday_tue => '화요일';
+
+  @override
+  String get common_weekday_wed => '수요일';
+
+  @override
+  String get common_weekday_thu => '목요일';
+
+  @override
+  String get common_weekday_fri => '금요일';
+
+  @override
+  String get common_weekday_sat => '토요일';
+
+  @override
+  String get common_weekday_sun => '일요일';
+
+  @override
+  String get common_weekday_mon_short => '월';
+
+  @override
+  String get common_weekday_tue_short => '화';
+
+  @override
+  String get common_weekday_wed_short => '수';
+
+  @override
+  String get common_weekday_thu_short => '목';
+
+  @override
+  String get common_weekday_fri_short => '금';
+
+  @override
+  String get common_weekday_sat_short => '토';
+
+  @override
+  String get common_weekday_sun_short => '일';
+
+  @override
+  String get onboarding_welcome_title => '무드로그에 오신 것을 환영합니다!';
 
   @override
   String get onboarding_welcome_description1 =>
@@ -83,7 +161,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onboarding_personality_description =>
-      '당신의 일기에 답장해줄 AI의 친절도를 선택하세요.';
+      '당신의 일기에 답변해줄 AI의 성격을 선택하세요.';
 
   @override
   String get onboarding_personality_rational_title => '냉철한 분석가';
@@ -273,13 +351,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_data_backup_confirm_ok => '백업';
 
   @override
-  String get settings_data_cash_cleanup_title => '캐시 정리';
+  String get settings_data_cache_cleanup_title => '캐시 정리';
 
   @override
-  String get settings_data_cash_cleanup_subtitle => '임시 파일을 삭제합니다.';
+  String get settings_data_cache_cleanup_subtitle => '임시 파일을 삭제합니다.';
 
   @override
-  String get settings_data_cash_cleanup_confirm =>
+  String get settings_data_cache_cleanup_confirm =>
       '캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
 
   @override

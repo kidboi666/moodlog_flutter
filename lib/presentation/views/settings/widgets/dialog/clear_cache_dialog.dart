@@ -13,10 +13,10 @@ class ClearCacheDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        AppLocalizations.of(context)!.settings_data_cash_cleanup_title,
+        AppLocalizations.of(context)!.settings_data_cache_cleanup_title,
       ),
       content: Text(
-        AppLocalizations.of(context)!.settings_data_cash_cleanup_confirm,
+        AppLocalizations.of(context)!.settings_data_cache_cleanup_confirm,
       ),
       actions: [
         TextButton(

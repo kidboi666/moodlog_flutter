@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../view_models/profile/profile_viewmodel.dart';
-
 class ProfileScreen extends StatelessWidget {
-  final ProfileViewModel viewModel;
-
-  const ProfileScreen({super.key, required this.viewModel});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

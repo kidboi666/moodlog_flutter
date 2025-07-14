@@ -2,10 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/router/routes.dart';
+import 'package:moodlog/presentation/view_models/settings/settings_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../view_models/settings/settings_viewmodel.dart';
 import '../widgets/card_list_tile.dart';
 import '../widgets/dialog/app_info_dialog.dart';
 import '../widgets/dialog/backup_dialog.dart';
@@ -22,220 +23,204 @@ import '../widgets/dialog_tile.dart';
 import '../widgets/section_header.dart';
 import '../widgets/switch_tile.dart';
 
-class SettingsScreen extends StatefulWidget {
-  final SettingsViewModel viewModel;
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
-  const SettingsScreen({super.key, required this.viewModel});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings_title),
-        actionsPadding: Spacing.containerHorizontalPadding,
-        actions: [
-          IconButton.filledTonal(
-            onPressed: () => context.push(Routes.profile),
-            icon: Icon(Icons.person),
-          ),
-        ],
-      ),
-      body: Container(
-        padding: Spacing.containerHorizontalPadding,
-        child: ListenableBuilder(
-          listenable: widget.viewModel,
-          builder: (context, _) {
-            return ListView(
-              children: [
-                const SizedBox(height: Spacing.xl),
-                if (kDebugMode) ...[
-                  SectionHeader(title: '개발용 옵션'),
-                  DialogTile(
-                    title: '스토리지 초기화',
-                    subtitle: '개발모드 전용 동작',
-                    icon: Icons.delete,
-                    onTap: () => widget.viewModel.showDialogWithWidget(
-                      context,
-                      InitStorageDialog(viewModel: widget.viewModel),
-                    ),
-                  ),
-                  DialogTile(
-                    title: '데이터베이스 초기화',
-                    subtitle: '개발모드 전용 동작',
-                    icon: Icons.delete,
-                    onTap: () => widget.viewModel.showDialogWithWidget(
-                      context,
-                      InitDatabaseDialog(viewModel: widget.viewModel),
-                    ),
-                  ),
-                  DialogTile(
-                    title: '로그아웃',
-                    subtitle: '개발모드 전용 동작',
-                    icon: Icons.logout,
-                    onTap: () => widget.viewModel.showDialogWithWidget(
-                      context,
-                      SignOutDialog(viewModel: widget.viewModel),
-                    ),
-                  ),
-                  const SizedBox(height: Spacing.xl),
-                ],
-
-                SectionHeader(
-                  title: AppLocalizations.of(context)!.settings_common_title,
-                ),
-                SwitchTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_common_notification_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_common_notification_subtitle,
-                  icon: Icons.notifications,
-                  value: widget.viewModel.appState.hasNotificationEnabled,
-                  onChanged: widget.viewModel.setNotificationEnabled,
-                ),
-                DialogTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_common_theme_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_common_theme_subtitle,
-                  icon: Icons.dark_mode,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    ThemeDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                DialogTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_common_color_theme_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_common_color_theme_subtitle,
-                  icon: Icons.color_lens,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    ColorThemeDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                DialogTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_common_language_title,
-                  subtitle: widget.viewModel.appState.languageCode.displayName,
-                  icon: Icons.language,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    LanguageDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                DialogTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_common_font_family_title,
-                  subtitle: widget.viewModel.appState.fontFamily.displayName,
-                  icon: Icons.text_format,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    FontFamilyDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                const SizedBox(height: Spacing.xl),
-                SectionHeader(
-                  title: AppLocalizations.of(context)!.settings_data_title,
-                ),
-                SwitchTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_data_auto_sync_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_data_auto_sync_subtitle,
-                  icon: Icons.sync,
-                  value: widget.viewModel.appState.hasAutoSyncEnabled,
-                  onChanged: widget.viewModel.setAutoSyncEnabled,
-                ),
-                CardListTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_data_backup_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_data_backup_subtitle,
-                  icon: Icons.backup,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    BackupDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                CardListTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_data_cash_cleanup_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_data_cash_cleanup_subtitle,
-                  icon: Icons.delete_sweep,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    ClearCacheDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                const SizedBox(height: Spacing.xl),
-                SectionHeader(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_information_title,
-                ),
-                CardListTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_information_app_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_information_app_subtitle,
-                  icon: Icons.info,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    AppInfoDialog(viewModel: widget.viewModel),
-                  ),
-                ),
-                CardListTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_information_faq_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_information_faq_subtitle,
-                  icon: Icons.help,
-                  onTap: () {},
-                ),
-                CardListTile(
-                  title: AppLocalizations.of(
-                    context,
-                  )!.settings_information_qna_title,
-                  subtitle: AppLocalizations.of(
-                    context,
-                  )!.settings_information_qna_subtitle,
-                  icon: Icons.mail,
-                  onTap: () => widget.viewModel.showDialogWithWidget(
-                    context,
-                    ContactDialog(),
-                  ),
-                ),
-                const SizedBox(height: kBottomNavigationBarHeight),
-              ],
-            );
-          },
+    final viewModel = Provider.of<SettingsViewModel>(context);
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          title: Text(AppLocalizations.of(context)!.settings_title),
+          actionsPadding: Spacing.containerHorizontalPadding,
+          actions: [
+            IconButton.filledTonal(
+              onPressed: () => context.push(Routes.profile),
+              icon: Icon(Icons.person),
+            ),
+          ],
         ),
-      ),
+
+        SliverPadding(
+          padding: Spacing.containerHorizontalPadding,
+          sliver: SliverList(
+            delegate: SliverChildListDelegate.fixed([
+              const SizedBox(height: Spacing.xl),
+              if (kDebugMode) ...[
+                SectionHeader(title: '개발용 옵션'),
+                DialogTile(
+                  title: '스토리지 초기화',
+                  subtitle: '개발모드 전용 동작',
+                  icon: Icons.delete,
+                  onTap: () => viewModel.showDialogWithWidget(
+                    context,
+                    InitStorageDialog(viewModel: viewModel),
+                  ),
+                ),
+                DialogTile(
+                  title: '데이터베이스 초기화',
+                  subtitle: '개발모드 전용 동작',
+                  icon: Icons.delete,
+                  onTap: () => viewModel.showDialogWithWidget(
+                    context,
+                    InitDatabaseDialog(viewModel: viewModel),
+                  ),
+                ),
+                DialogTile(
+                  title: '로그아웃',
+                  subtitle: '개발모드 전용 동작',
+                  icon: Icons.logout,
+                  onTap: () => viewModel.showDialogWithWidget(
+                    context,
+                    SignOutDialog(viewModel: viewModel),
+                  ),
+                ),
+                const SizedBox(height: Spacing.xl),
+              ],
+
+              SectionHeader(
+                title: AppLocalizations.of(context)!.settings_common_title,
+              ),
+              SwitchTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_common_notification_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_common_notification_subtitle,
+                icon: Icons.notifications,
+                value: viewModel.appState.hasNotificationEnabled,
+                onChanged: viewModel.setNotificationEnabled,
+              ),
+              DialogTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_common_theme_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_common_theme_subtitle,
+                icon: Icons.dark_mode,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  ThemeDialog(viewModel: viewModel),
+                ),
+              ),
+              DialogTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_common_color_theme_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_common_color_theme_subtitle,
+                icon: Icons.color_lens,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  ColorThemeDialog(viewModel: viewModel),
+                ),
+              ),
+              DialogTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_common_language_title,
+                subtitle: viewModel.appState.languageCode.displayName,
+                icon: Icons.language,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  LanguageDialog(viewModel: viewModel),
+                ),
+              ),
+              DialogTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_common_font_family_title,
+                subtitle: viewModel.appState.fontFamily.displayName,
+                icon: Icons.text_format,
+                onTap: () =>
+                    viewModel.showDialogWithWidget(context, FontFamilyDialog()),
+              ),
+              const SizedBox(height: Spacing.xl),
+              SectionHeader(
+                title: AppLocalizations.of(context)!.settings_data_title,
+              ),
+              SwitchTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_data_auto_sync_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_data_auto_sync_subtitle,
+                icon: Icons.sync,
+                value: viewModel.appState.hasAutoSyncEnabled,
+                onChanged: viewModel.setAutoSyncEnabled,
+              ),
+              CardListTile(
+                title: AppLocalizations.of(context)!.settings_data_backup_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_data_backup_subtitle,
+                icon: Icons.backup,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  BackupDialog(viewModel: viewModel),
+                ),
+              ),
+              CardListTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_data_cache_cleanup_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_data_cache_cleanup_subtitle,
+                icon: Icons.delete_sweep,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  ClearCacheDialog(viewModel: viewModel),
+                ),
+              ),
+              const SizedBox(height: Spacing.xl),
+              SectionHeader(
+                title: AppLocalizations.of(context)!.settings_information_title,
+              ),
+              CardListTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_information_app_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_information_app_subtitle,
+                icon: Icons.info,
+                onTap: () => viewModel.showDialogWithWidget(
+                  context,
+                  AppInfoDialog(viewModel: viewModel),
+                ),
+              ),
+              CardListTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_information_faq_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_information_faq_subtitle,
+                icon: Icons.help,
+                onTap: () {},
+              ),
+              CardListTile(
+                title: AppLocalizations.of(
+                  context,
+                )!.settings_information_qna_title,
+                subtitle: AppLocalizations.of(
+                  context,
+                )!.settings_information_qna_subtitle,
+                icon: Icons.mail,
+                onTap: () =>
+                    viewModel.showDialogWithWidget(context, ContactDialog()),
+              ),
+              const SizedBox(height: kBottomNavigationBarHeight * 3),
+            ]),
+          ),
+        ),
+      ],
     );
   }
 }

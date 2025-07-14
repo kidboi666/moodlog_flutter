@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/view_models/statistics/statistics_viewmodel.dart';
 import 'package:moodlog/presentation/views/statistics/widgets/base_card.dart';
 import 'package:moodlog/presentation/views/statistics/widgets/stat_item.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../view_models/statistics/statistics_viewmodel.dart';
 
 class OverallStatsCard extends StatelessWidget {
-  final StatisticsViewModel viewModel;
-
-  const OverallStatsCard({super.key, required this.viewModel});
+  const OverallStatsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<StatisticsViewModel>(context);
+    final totalJournals = viewModel.totalJournals;
+    final currentStreak = viewModel.currentStreak;
+    final maxStreak = viewModel.maxStreak;
+
     return BaseCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +37,7 @@ class OverallStatsCard extends StatelessWidget {
                 )!.statistics_total_record_description,
                 value: AppLocalizations.of(
                   context,
-                )!.statistics_total_record(viewModel.totalJournals.toString()),
+                )!.statistics_total_record(totalJournals),
                 icon: Icons.edit_note,
               ),
               StatItem(
@@ -42,7 +46,7 @@ class OverallStatsCard extends StatelessWidget {
                 )!.statistics_total_streak_description,
                 value: AppLocalizations.of(
                   context,
-                )!.statistics_total_streak(viewModel.currentStreak),
+                )!.statistics_total_streak(currentStreak),
                 icon: Icons.local_fire_department,
               ),
               StatItem(
@@ -51,7 +55,7 @@ class OverallStatsCard extends StatelessWidget {
                 )!.statistics_total_streak_max_description,
                 value: AppLocalizations.of(
                   context,
-                )!.statistics_total_streak_max(viewModel.maxStreak),
+                )!.statistics_total_streak_max(maxStreak),
                 icon: Icons.emoji_events,
               ),
             ],

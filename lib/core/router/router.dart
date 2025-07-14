@@ -5,13 +5,8 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/repositories/app_state_repository.dart';
-import '../../presentation/view_models/entries/entries_viewmodel.dart';
-import '../../presentation/view_models/home/home_viewmodel.dart';
 import '../../presentation/view_models/journal/journal_viewmodel.dart';
 import '../../presentation/view_models/onboarding/onboarding_viewmodel.dart';
-import '../../presentation/view_models/profile/profile_viewmodel.dart';
-import '../../presentation/view_models/settings/settings_viewmodel.dart';
-import '../../presentation/view_models/statistics/statistics_viewmodel.dart';
 import '../../presentation/view_models/write/write_viewmodel.dart';
 import '../../presentation/views/entries/screen/entries_screen.dart';
 import '../../presentation/views/home/screen/home_screen.dart';
@@ -59,28 +54,14 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
       branches: [
         StatefulShellBranch(
           routes: [
-            GoRoute(
-              path: Routes.home,
-              builder: (context, state) {
-                final viewModel = HomeViewModel(
-                  journalRepository: context.read(),
-                  appStateRepository: context.read(),
-                );
-                return HomeScreen(viewModel: viewModel);
-              },
-            ),
+            GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
           ],
         ),
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: Routes.entries,
-              builder: (context, state) {
-                final viewModel = EntriesViewModel(
-                  journalRepository: context.read(),
-                );
-                return EntriesScreen(viewModel: viewModel);
-              },
+              builder: (_, _) => const EntriesScreen(),
             ),
           ],
         ),
@@ -88,12 +69,7 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.statistics,
-              builder: (context, state) {
-                final viewModel = StatisticsViewModel(
-                  journalRepository: context.read(),
-                );
-                return StatisticsScreen(viewModel: viewModel);
-              },
+              builder: (_, _) => const StatisticsScreen(),
             ),
           ],
         ),
@@ -101,21 +77,11 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.settings,
-              builder: (context, state) {
-                final viewModel = SettingsViewModel(
-                  appStateRepository: context.read(),
-                  journalRepository: context.read(),
-                  firebaseAuth: FirebaseAuth.instance,
-                );
-                return SettingsScreen(viewModel: viewModel);
-              },
+              builder: (_, _) => const SettingsScreen(),
               routes: [
                 GoRoute(
                   path: Routes.profileRelative,
-                  builder: (context, state) {
-                    final viewModel = ProfileViewModel();
-                    return ProfileScreen(viewModel: viewModel);
-                  },
+                  builder: (_, _) => const ProfileScreen(),
                 ),
               ],
             ),

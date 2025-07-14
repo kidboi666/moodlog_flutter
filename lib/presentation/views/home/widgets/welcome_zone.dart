@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -6,9 +7,7 @@ import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
 
 class WelcomeZone extends StatelessWidget {
-  final HomeViewModel viewModel;
-
-  const WelcomeZone({super.key, required this.viewModel});
+  const WelcomeZone({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +17,11 @@ class WelcomeZone extends StatelessWidget {
       children: [
         FadeIn(
           delay: DelayMs.medium * 2,
-          child: ListenableBuilder(
-            listenable: viewModel,
-            builder: (context, _) {
+          child: Selector<HomeViewModel, String?>(
+            selector: (_, viewModel) => viewModel.nickname,
+            builder: (context, nickname, _) {
               return Text(
-                AppLocalizations.of(
-                  context,
-                )!.home_welcome(viewModel.nickname ?? ''),
+                AppLocalizations.of(context)!.home_welcome(nickname ?? ''),
                 style: Theme.of(context).textTheme.headlineSmall,
               );
             },

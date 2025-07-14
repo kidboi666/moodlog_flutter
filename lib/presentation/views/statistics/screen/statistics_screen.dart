@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/common.dart';
-import '../../../view_models/statistics/statistics_viewmodel.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/router/routes.dart';
 import '../widgets/mood_calendar_card.dart';
 import '../widgets/mood_distribution_card.dart';
 import '../widgets/mood_trend_card.dart';
@@ -10,35 +11,42 @@ import '../widgets/overall_stats_card.dart';
 import '../widgets/recent_activity_card.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  final StatisticsViewModel viewModel;
-
-  const StatisticsScreen({super.key, required this.viewModel});
+  const StatisticsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.tab_statistics)),
-      body: Container(
-        padding: Spacing.containerHorizontalPadding,
-        child: ListenableBuilder(
-          listenable: viewModel,
-          builder: (context, _) {
-            return ListView(
-              children: [
-                OverallStatsCard(viewModel: viewModel),
-                SizedBox(height: Spacing.xl),
-                MoodCalendarCard(viewModel: viewModel),
-                SizedBox(height: Spacing.xl),
-                MoodDistributionCard(viewModel: viewModel),
-                SizedBox(height: Spacing.xl),
-                MoodTrendCard(viewModel: viewModel),
-                SizedBox(height: Spacing.xl),
-                RecentActivityCard(viewModel: viewModel),
-                SizedBox(height: kBottomNavigationBarHeight),
-              ],
-            );
-          },
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.tab_statistics),
+            actionsPadding: Spacing.containerHorizontalPadding,
+            actions: [
+              IconButton.filledTonal(
+                onPressed: () => context.push(Routes.profile),
+                icon: Icon(Icons.person),
+              ),
+            ],
+          ),
+          SliverPadding(
+            padding: Spacing.containerHorizontalPadding,
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                const SizedBox(height: Spacing.xl),
+                OverallStatsCard(),
+                const SizedBox(height: Spacing.xl),
+                MoodCalendarCard(),
+                const SizedBox(height: Spacing.xl),
+                MoodDistributionCard(),
+                const SizedBox(height: Spacing.xl),
+                MoodTrendCard(),
+                const SizedBox(height: Spacing.xl),
+                RecentActivityCard(),
+                const SizedBox(height: kBottomNavigationBarHeight * 3),
+              ]),
+            ),
+          ),
+        ],
       ),
     );
   }

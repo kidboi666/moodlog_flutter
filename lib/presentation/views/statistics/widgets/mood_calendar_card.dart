@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/statistics/statistics_viewmodel.dart';
 import 'base_card.dart';
 
 class MoodCalendarCard extends StatelessWidget {
-  final StatisticsViewModel viewModel;
-
-  const MoodCalendarCard({super.key, required this.viewModel});
+  const MoodCalendarCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<StatisticsViewModel>(context);
+    final moodCalendar = viewModel.moodCalendar;
+
     return BaseCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,8 +38,8 @@ class MoodCalendarCard extends StatelessWidget {
             ),
             calendarBuilders: CalendarBuilders(
               defaultBuilder: (context, day, focusedDay) {
-                final mood = viewModel
-                    .moodCalendar[DateTime(day.year, day.month, day.day)];
+                final mood =
+                    moodCalendar[DateTime(day.year, day.month, day.day)];
                 return Container(
                   margin: const EdgeInsets.all(Spacing.sm),
                   alignment: Alignment.center,

@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/presentation/views/statistics/widgets/base_card.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/statistics/statistics_viewmodel.dart';
 import 'activity_item.dart';
 
 class RecentActivityCard extends StatelessWidget {
-  final StatisticsViewModel viewModel;
-
-  const RecentActivityCard({super.key, required this.viewModel});
+  const RecentActivityCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<StatisticsViewModel>(context);
+
     return BaseCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

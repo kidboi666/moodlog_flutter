@@ -48,6 +48,84 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_mood_verybad => 'Very Bad';
 
   @override
+  String get common_month_jan => 'January';
+
+  @override
+  String get common_month_feb => 'February';
+
+  @override
+  String get common_month_mar => 'March';
+
+  @override
+  String get common_month_apr => 'April';
+
+  @override
+  String get common_month_may => 'May';
+
+  @override
+  String get common_month_jun => 'June';
+
+  @override
+  String get common_month_jul => 'July';
+
+  @override
+  String get common_month_aug => 'August';
+
+  @override
+  String get common_month_sep => 'September';
+
+  @override
+  String get common_month_oct => 'October';
+
+  @override
+  String get common_month_nov => 'November';
+
+  @override
+  String get common_month_dec => 'December';
+
+  @override
+  String get common_weekday_mon => 'Monday';
+
+  @override
+  String get common_weekday_tue => 'Tuesday';
+
+  @override
+  String get common_weekday_wed => 'Wednesday';
+
+  @override
+  String get common_weekday_thu => 'Thursday';
+
+  @override
+  String get common_weekday_fri => 'Friday';
+
+  @override
+  String get common_weekday_sat => 'Saturday';
+
+  @override
+  String get common_weekday_sun => 'Sunday';
+
+  @override
+  String get common_weekday_mon_short => 'Mon';
+
+  @override
+  String get common_weekday_tue_short => 'Tue';
+
+  @override
+  String get common_weekday_wed_short => 'Wed';
+
+  @override
+  String get common_weekday_thu_short => 'Thu';
+
+  @override
+  String get common_weekday_fri_short => 'Fri';
+
+  @override
+  String get common_weekday_sat_short => 'Sat';
+
+  @override
+  String get common_weekday_sun_short => 'Sun';
+
+  @override
   String get onboarding_welcome_title => 'Welcome to MoodLog!';
 
   @override
@@ -282,13 +360,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_data_backup_confirm_ok => 'Backup';
 
   @override
-  String get settings_data_cash_cleanup_title => 'Clear Cache';
+  String get settings_data_cache_cleanup_title => 'Clear Cache';
 
   @override
-  String get settings_data_cash_cleanup_subtitle => 'Delete temporary files.';
+  String get settings_data_cache_cleanup_subtitle => 'Delete temporary files.';
 
   @override
-  String get settings_data_cash_cleanup_confirm =>
+  String get settings_data_cache_cleanup_confirm =>
       'Are you sure you want to clear the cache?\nThis action cannot be undone.';
 
   @override

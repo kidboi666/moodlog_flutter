@@ -176,10 +176,166 @@ abstract class AppLocalizations {
   /// **'매우 안좋음'**
   String get common_mood_verybad;
 
+  /// No description provided for @common_month_jan.
+  ///
+  /// In ko, this message translates to:
+  /// **'1월'**
+  String get common_month_jan;
+
+  /// No description provided for @common_month_feb.
+  ///
+  /// In ko, this message translates to:
+  /// **'2월'**
+  String get common_month_feb;
+
+  /// No description provided for @common_month_mar.
+  ///
+  /// In ko, this message translates to:
+  /// **'3월'**
+  String get common_month_mar;
+
+  /// No description provided for @common_month_apr.
+  ///
+  /// In ko, this message translates to:
+  /// **'4월'**
+  String get common_month_apr;
+
+  /// No description provided for @common_month_may.
+  ///
+  /// In ko, this message translates to:
+  /// **'5월'**
+  String get common_month_may;
+
+  /// No description provided for @common_month_jun.
+  ///
+  /// In ko, this message translates to:
+  /// **'6월'**
+  String get common_month_jun;
+
+  /// No description provided for @common_month_jul.
+  ///
+  /// In ko, this message translates to:
+  /// **'7월'**
+  String get common_month_jul;
+
+  /// No description provided for @common_month_aug.
+  ///
+  /// In ko, this message translates to:
+  /// **'8월'**
+  String get common_month_aug;
+
+  /// No description provided for @common_month_sep.
+  ///
+  /// In ko, this message translates to:
+  /// **'9월'**
+  String get common_month_sep;
+
+  /// No description provided for @common_month_oct.
+  ///
+  /// In ko, this message translates to:
+  /// **'10월'**
+  String get common_month_oct;
+
+  /// No description provided for @common_month_nov.
+  ///
+  /// In ko, this message translates to:
+  /// **'11월'**
+  String get common_month_nov;
+
+  /// No description provided for @common_month_dec.
+  ///
+  /// In ko, this message translates to:
+  /// **'12월'**
+  String get common_month_dec;
+
+  /// No description provided for @common_weekday_mon.
+  ///
+  /// In ko, this message translates to:
+  /// **'월요일'**
+  String get common_weekday_mon;
+
+  /// No description provided for @common_weekday_tue.
+  ///
+  /// In ko, this message translates to:
+  /// **'화요일'**
+  String get common_weekday_tue;
+
+  /// No description provided for @common_weekday_wed.
+  ///
+  /// In ko, this message translates to:
+  /// **'수요일'**
+  String get common_weekday_wed;
+
+  /// No description provided for @common_weekday_thu.
+  ///
+  /// In ko, this message translates to:
+  /// **'목요일'**
+  String get common_weekday_thu;
+
+  /// No description provided for @common_weekday_fri.
+  ///
+  /// In ko, this message translates to:
+  /// **'금요일'**
+  String get common_weekday_fri;
+
+  /// No description provided for @common_weekday_sat.
+  ///
+  /// In ko, this message translates to:
+  /// **'토요일'**
+  String get common_weekday_sat;
+
+  /// No description provided for @common_weekday_sun.
+  ///
+  /// In ko, this message translates to:
+  /// **'일요일'**
+  String get common_weekday_sun;
+
+  /// No description provided for @common_weekday_mon_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'월'**
+  String get common_weekday_mon_short;
+
+  /// No description provided for @common_weekday_tue_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'화'**
+  String get common_weekday_tue_short;
+
+  /// No description provided for @common_weekday_wed_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'수'**
+  String get common_weekday_wed_short;
+
+  /// No description provided for @common_weekday_thu_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'목'**
+  String get common_weekday_thu_short;
+
+  /// No description provided for @common_weekday_fri_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'금'**
+  String get common_weekday_fri_short;
+
+  /// No description provided for @common_weekday_sat_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'토'**
+  String get common_weekday_sat_short;
+
+  /// No description provided for @common_weekday_sun_short.
+  ///
+  /// In ko, this message translates to:
+  /// **'일'**
+  String get common_weekday_sun_short;
+
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In ko, this message translates to:
-  /// **'무드로그에 오신것을 환영합니다!'**
+  /// **'무드로그에 오신 것을 환영합니다!'**
   String get onboarding_welcome_title;
 
   /// No description provided for @onboarding_welcome_description1.
@@ -245,7 +401,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_personality_description.
   ///
   /// In ko, this message translates to:
-  /// **'당신의 일기에 답장해줄 AI의 친절도를 선택하세요.'**
+  /// **'당신의 일기에 답변해줄 AI의 성격을 선택하세요.'**
   String get onboarding_personality_description;
 
   /// No description provided for @onboarding_personality_rational_title.
@@ -596,23 +752,23 @@ abstract class AppLocalizations {
   /// **'백업'**
   String get settings_data_backup_confirm_ok;
 
-  /// No description provided for @settings_data_cash_cleanup_title.
+  /// No description provided for @settings_data_cache_cleanup_title.
   ///
   /// In ko, this message translates to:
   /// **'캐시 정리'**
-  String get settings_data_cash_cleanup_title;
+  String get settings_data_cache_cleanup_title;
 
-  /// No description provided for @settings_data_cash_cleanup_subtitle.
+  /// No description provided for @settings_data_cache_cleanup_subtitle.
   ///
   /// In ko, this message translates to:
   /// **'임시 파일을 삭제합니다.'**
-  String get settings_data_cash_cleanup_subtitle;
+  String get settings_data_cache_cleanup_subtitle;
 
-  /// No description provided for @settings_data_cash_cleanup_confirm.
+  /// No description provided for @settings_data_cache_cleanup_confirm.
   ///
   /// In ko, this message translates to:
   /// **'캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'**
-  String get settings_data_cash_cleanup_confirm;
+  String get settings_data_cache_cleanup_confirm;
 
   /// No description provided for @settings_information_title.
   ///

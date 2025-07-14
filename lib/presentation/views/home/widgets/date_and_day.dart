@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 import '../../../../core/constants/common.dart';
 
@@ -43,7 +44,7 @@ class DateAndDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              date.weekdayName,
+              date.getLocalizedWeekdayShortName(AppLocalizations.of(context)!),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.surface,
               ),

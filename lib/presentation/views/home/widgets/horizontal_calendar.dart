@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/view_models/home/home_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
-import '../../../view_models/home/home_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
 import '../../../widgets/gradient_box.dart';
 import 'date_and_day.dart';
 
 class HorizontalCalendar extends StatefulWidget {
-  final HomeViewModel viewModel;
-
-  const HorizontalCalendar({super.key, required this.viewModel});
+  const HorizontalCalendar({super.key});
 
   @override
   State<HorizontalCalendar> createState() => _HorizontalCalendarState();
@@ -27,6 +27,8 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<HomeViewModel>(context);
+
     return FadeIn(
       delay: DelayMs.medium * 4,
       child: GradientBox(
@@ -35,7 +37,9 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.viewModel.now.monthName,
+              viewModel.now.getLocalizedMonthName(
+                AppLocalizations.of(context)!,
+              ),
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: Theme.of(context).colorScheme.surface,
               ),
@@ -45,13 +49,13 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
               child: ListView(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                children: widget.viewModel.dateItems!
+                children: viewModel.dateItems!
                     .map(
                       (date) => DateAndDay(
                         date: date,
-                        todayDate: widget.viewModel.now,
-                        selectedDate: widget.viewModel.selectedDate,
-                        selectDate: widget.viewModel.selectDate,
+                        todayDate: viewModel.now,
+                        selectedDate: viewModel.selectedDate,
+                        selectDate: viewModel.selectDate,
                       ),
                     )
                     .toList(),

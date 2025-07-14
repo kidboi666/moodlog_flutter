@@ -1,63 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
+import '../../../../domain/entities/journal.dart';
 import '../../../view_models/entries/entries_viewmodel.dart';
 import '../../../widgets/fade_in.dart';
 import '../../../widgets/journal_card.dart';
 
 class EntriesScreen extends StatelessWidget {
-  final EntriesViewModel viewModel;
-
-  const EntriesScreen({super.key, required this.viewModel});
+  const EntriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: viewModel,
-      builder: (context, _) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(viewModel.selectedMonth.formattedDotNationWithMonth()),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => viewModel.setPreviousMonth(),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Selector<EntriesViewModel, DateTime>(
+          selector: (_, viewModel) => viewModel.selectedMonth,
+          builder: (_, selectedMonth, _) =>
+              Text(selectedMonth.formattedDotNationWithMonth()),
+        ),
+        leading: Selector<EntriesViewModel, Function>(
+          selector: (_, viewModel) => viewModel.setPreviousMonth,
+          builder: (_, setPreviousMonth, _) => IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => setPreviousMonth(),
+          ),
+        ),
+        actions: [
+          Selector<EntriesViewModel, Function>(
+            selector: (_, viewModel) => viewModel.setNextMonth,
+            builder: (_, setNextMonth, _) => IconButton(
+              icon: Icon(Icons.arrow_forward),
+              onPressed: () => setNextMonth(),
             ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.arrow_forward),
-                onPressed: () => viewModel.setNextMonth(),
+          ),
+        ],
+      ),
+      body: Container(
+        padding: Spacing.containerHorizontalPadding,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
+            Selector<EntriesViewModel, List<Journal>>(
+              selector: (_, viewModel) => viewModel.entries,
+              builder: (_, entries, _) => SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final e = entries[index];
+                  return FadeIn(
+                    delay: DelayMs.medium,
+                    child: JournalCard(
+                      id: e.id,
+                      content: e.content ?? '',
+                      moodType: e.moodType,
+                      createdAt: e.createdAt,
+                    ),
+                  );
+                }, childCount: entries.length),
               ),
-            ],
-          ),
-          body: Container(
-            padding: Spacing.containerHorizontalPadding,
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    final e = viewModel.entries[index];
-                    return FadeIn(
-                      delay: DelayMs.medium,
-                      child: JournalCard(
-                        id: e.id,
-                        content: e.content ?? '',
-                        moodType: e.moodType,
-                        createdAt: e.createdAt,
-                      ),
-                    );
-                  }, childCount: viewModel.entries.length),
-                ),
-                SliverToBoxAdapter(
-                  child: const SizedBox(height: kBottomNavigationBarHeight),
-                ),
-              ],
             ),
-          ),
-        );
-      },
+            SliverToBoxAdapter(
+              child: const SizedBox(height: kBottomNavigationBarHeight),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

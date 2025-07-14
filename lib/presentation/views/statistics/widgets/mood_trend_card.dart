@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/extensions/enum.dart';
 import 'package:moodlog/presentation/views/statistics/widgets/base_card.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
@@ -10,12 +11,11 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../view_models/statistics/statistics_viewmodel.dart';
 
 class MoodTrendCard extends StatelessWidget {
-  final StatisticsViewModel viewModel;
-
-  const MoodTrendCard({super.key, required this.viewModel});
+  const MoodTrendCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<StatisticsViewModel>(context);
     final sortedMoodTrendData = viewModel.moodTrendData.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
 

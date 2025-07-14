@@ -1,16 +1,62 @@
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
-import '../../core/constants/common.dart';
-
 extension DateTimeExtension on DateTime {
-  String get monthName => months.values.elementAt(month - 1);
-
-  String get weekdayName => weekDays.values.elementAt(weekday - 1);
-
   int get lastDateOfMonth => DateTime(year, month + 1, 0).day;
 
   int get firstDateOfMonth => DateTime(year, month + 1, 1).day;
+
+  String getLocalizedWeekdayShortName(AppLocalizations localizations) {
+    switch (weekday) {
+      case DateTime.monday:
+        return localizations.common_weekday_mon_short;
+      case DateTime.tuesday:
+        return localizations.common_weekday_tue_short;
+      case DateTime.wednesday:
+        return localizations.common_weekday_wed_short;
+      case DateTime.thursday:
+        return localizations.common_weekday_thu_short;
+      case DateTime.friday:
+        return localizations.common_weekday_fri_short;
+      case DateTime.saturday:
+        return localizations.common_weekday_sat_short;
+      case DateTime.sunday:
+        return localizations.common_weekday_sun_short;
+      default:
+        return '';
+    }
+  }
+
+  String getLocalizedMonthName(AppLocalizations localizations) {
+    switch (month) {
+      case 1:
+        return localizations.common_month_jan;
+      case 2:
+        return localizations.common_month_feb;
+      case 3:
+        return localizations.common_month_mar;
+      case 4:
+        return localizations.common_month_apr;
+      case 5:
+        return localizations.common_month_may;
+      case 6:
+        return localizations.common_month_jun;
+      case 7:
+        return localizations.common_month_jul;
+      case 8:
+        return localizations.common_month_aug;
+      case 9:
+        return localizations.common_month_sep;
+      case 10:
+        return localizations.common_month_oct;
+      case 11:
+        return localizations.common_month_nov;
+      case 12:
+        return localizations.common_month_dec;
+      default:
+        return '';
+    }
+  }
 
   bool isSameDay(DateTime otherDate) {
     return year == otherDate.year &&

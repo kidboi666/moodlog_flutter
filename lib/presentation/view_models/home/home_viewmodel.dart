@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 
+import '../../../core/constants/common.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/app_state_repository.dart';
@@ -19,6 +20,9 @@ class HomeViewModel extends ChangeNotifier {
     _calculateDateItems();
     _load();
     _loadNickname();
+    Future.delayed(DelayMs.medium * 4, () {
+      setIsFirstRender(false);
+    });
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -28,7 +32,7 @@ class HomeViewModel extends ChangeNotifier {
   List<DateTime>? _dateItems;
   bool _isLoading = false;
   String? _nickname;
-  bool _firstMount = true;
+  bool _isFirstRender = true;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -38,7 +42,7 @@ class HomeViewModel extends ChangeNotifier {
 
   String? get nickname => _nickname;
 
-  bool get firstMount => _firstMount;
+  bool get isFirstRender => _isFirstRender;
 
   List<Journal> get journal => _journal;
 
@@ -58,6 +62,7 @@ class HomeViewModel extends ChangeNotifier {
 
   void selectDate(DateTime date) {
     _selectedDate = date;
+    _log.info('isFirstRender $isFirstRender');
     notifyListeners();
     _load();
   }
@@ -79,8 +84,8 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setFirstMount() async {
-    _firstMount = false;
+  Future<void> setIsFirstRender(bool value) async {
+    _isFirstRender = value;
     notifyListeners();
   }
 
