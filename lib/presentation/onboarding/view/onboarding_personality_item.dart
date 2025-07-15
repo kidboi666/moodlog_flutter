@@ -19,9 +19,11 @@ class PersonalityItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return Card(
       clipBehavior: Clip.hardEdge,
-      color: isSelected ? Theme.of(context).colorScheme.primaryContainer : null,
+      color: isSelected ? colorScheme.primaryContainer : null,
       child: InkWell(
         onTap: () => onPersonalityChanged(personality),
         child: Padding(
@@ -36,7 +38,7 @@ class PersonalityItem extends StatelessWidget {
                 ),
                 child: Text(
                   personality.getEmoji(context),
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: textTheme.titleLarge,
                 ),
               ),
               Expanded(
@@ -46,7 +48,7 @@ class PersonalityItem extends StatelessWidget {
                   children: [
                     Text(
                       personality.getTitle(context),
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: textTheme.titleMedium,
                     ),
                     Text(personality.getDescription(context)),
                   ],

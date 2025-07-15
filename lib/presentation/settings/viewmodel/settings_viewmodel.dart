@@ -24,9 +24,18 @@ class SettingsViewModel extends ChangeNotifier {
 
   final Logger _log = Logger('SettingsViewModel');
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
   AppState get appState => _appStateRepository.appState;
 
   User? get currentUser => _authRepository.user;
+
+  void setLoading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
 
   void setLanguage(LanguageCode? language) {
     _log.info('Setting language to $language');
@@ -81,7 +90,6 @@ class SettingsViewModel extends ChangeNotifier {
 
   void signOut(BuildContext context) {
     _authRepository.signOut();
-    context.pop();
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('로그아웃 되었습니다.')));

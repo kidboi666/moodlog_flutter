@@ -15,26 +15,29 @@ class OnboardingPageViewPersonality extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final onPersonalityChanged = context
+        .read<OnboardingViewModel>()
+        .setPersonality;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 40,
+      spacing: Spacing.xl * 2,
       children: [
         FadeIn(
           child: Text(
-            AppLocalizations.of(context)!.onboarding_personality_title,
-            style: Theme.of(
-              context,
-            ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
+            t.onboarding_personality_title,
+            style: textTheme.displaySmall,
           ),
         ),
         FadeIn(
           delay: DelayMs.lazy,
           child: Text(
-            AppLocalizations.of(context)!.onboarding_personality_description,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            t.onboarding_personality_description,
+            style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
           ),
         ),
         Expanded(
@@ -45,25 +48,22 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                 flex: 1,
                 child: FadeIn(
                   delay: DelayMs.lazy * 2,
-                  child: Column(
-                    children: AiPersonality.values.map((personality) {
-                      final isSelected =
-                          personality ==
-                          context
-                              .watch<OnboardingViewModel>()
-                              .selectedPersonality;
+                  child: Selector<OnboardingViewModel, AiPersonality>(
+                    selector: (_, viewModel) => viewModel.selectedPersonality,
+                    builder: (context, selectedPersonality, _) {
+                      return Column(
+                        children: AiPersonality.values.map((personality) {
+                          final isSelected = personality == selectedPersonality;
 
-                      return PersonalityItem(
-                        personality: personality,
-                        isSelected: isSelected,
-                        selectedPersonality: context
-                            .watch<OnboardingViewModel>()
-                            .selectedPersonality,
-                        onPersonalityChanged: context
-                            .read<OnboardingViewModel>()
-                            .setPersonality,
+                          return PersonalityItem(
+                            personality: personality,
+                            isSelected: isSelected,
+                            selectedPersonality: selectedPersonality,
+                            onPersonalityChanged: onPersonalityChanged,
+                          );
+                        }).toList(),
                       );
-                    }).toList(),
+                    },
                   ),
                 ),
               ),

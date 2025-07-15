@@ -28,11 +28,12 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final viewModel = Provider.of<SettingsViewModel>(context);
     return CustomScrollView(
       slivers: [
         SliverAppBar(
-          title: Text(AppLocalizations.of(context)!.settings_title),
+          title: Text(t.settings_title),
           actionsPadding: Spacing.containerHorizontalPadding,
           actions: [
             IconButton.filledTonal(
@@ -53,168 +54,128 @@ class SettingsScreen extends StatelessWidget {
                   title: '스토리지 초기화',
                   subtitle: '개발모드 전용 동작',
                   icon: Icons.delete,
-                  onTap: () => viewModel.showDialogWithWidget(
-                    context,
-                    InitStorageDialog(viewModel: viewModel),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => InitStorageDialog(viewModel: viewModel),
                   ),
                 ),
                 DialogTile(
                   title: '데이터베이스 초기화',
                   subtitle: '개발모드 전용 동작',
                   icon: Icons.delete,
-                  onTap: () => viewModel.showDialogWithWidget(
-                    context,
-                    InitDatabaseDialog(),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => InitDatabaseDialog(),
                   ),
                 ),
                 DialogTile(
                   title: '로그아웃',
                   subtitle: '개발모드 전용 동작',
                   icon: Icons.logout,
-                  onTap: () => viewModel.showDialogWithWidget(
-                    context,
-                    SignOutDialog(viewModel: viewModel),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => SignOutDialog(viewModel: viewModel),
                   ),
                 ),
                 const SizedBox(height: Spacing.xl),
               ],
 
-              SectionHeader(
-                title: AppLocalizations.of(context)!.settings_common_title,
-              ),
+              SectionHeader(title: t.settings_common_title),
               SwitchTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_common_notification_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_common_notification_subtitle,
+                title: t.settings_common_notification_title,
+                subtitle: t.settings_common_notification_subtitle,
                 icon: Icons.notifications,
                 value: viewModel.appState.hasNotificationEnabled,
                 onChanged: viewModel.setNotificationEnabled,
               ),
               DialogTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_common_theme_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_common_theme_subtitle,
+                title: t.settings_common_theme_title,
+                subtitle: t.settings_common_theme_subtitle,
                 icon: Icons.dark_mode,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  ThemeDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => ThemeDialog(viewModel: viewModel),
                 ),
               ),
               DialogTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_common_color_theme_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_common_color_theme_subtitle,
+                title: t.settings_common_color_theme_title,
+                subtitle: t.settings_common_color_theme_subtitle,
                 icon: Icons.color_lens,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  ColorThemeDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => ColorThemeDialog(viewModel: viewModel),
                 ),
               ),
               DialogTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_common_language_title,
+                title: t.settings_common_language_title,
                 subtitle: viewModel.appState.languageCode.displayName,
                 icon: Icons.language,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  LanguageDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => LanguageDialog(viewModel: viewModel),
                 ),
               ),
               DialogTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_common_font_family_title,
+                title: t.settings_common_font_family_title,
                 subtitle: viewModel.appState.fontFamily.displayName,
                 icon: Icons.text_format,
-                onTap: () =>
-                    viewModel.showDialogWithWidget(context, FontFamilyDialog()),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => FontFamilyDialog(viewModel: viewModel),
+                ),
               ),
               const SizedBox(height: Spacing.xl),
-              SectionHeader(
-                title: AppLocalizations.of(context)!.settings_data_title,
-              ),
+              SectionHeader(title: t.settings_data_title),
               SwitchTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_data_auto_sync_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_data_auto_sync_subtitle,
+                title: t.settings_data_auto_sync_title,
+                subtitle: t.settings_data_auto_sync_subtitle,
                 icon: Icons.sync,
                 value: viewModel.appState.hasAutoSyncEnabled,
                 onChanged: viewModel.setAutoSyncEnabled,
               ),
               CardListTile(
-                title: AppLocalizations.of(context)!.settings_data_backup_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_data_backup_subtitle,
+                title: t.settings_data_backup_title,
+                subtitle: t.settings_data_backup_subtitle,
                 icon: Icons.backup,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  BackupDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => BackupDialog(viewModel: viewModel),
                 ),
               ),
               CardListTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_data_cache_cleanup_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_data_cache_cleanup_subtitle,
+                title: t.settings_data_cache_cleanup_title,
+                subtitle: t.settings_data_cache_cleanup_subtitle,
                 icon: Icons.delete_sweep,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  ClearCacheDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => ClearCacheDialog(viewModel: viewModel),
                 ),
               ),
               const SizedBox(height: Spacing.xl),
-              SectionHeader(
-                title: AppLocalizations.of(context)!.settings_information_title,
-              ),
+              SectionHeader(title: t.settings_information_title),
               CardListTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_information_app_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_information_app_subtitle,
+                title: t.settings_information_app_title,
+                subtitle: t.settings_information_app_subtitle,
                 icon: Icons.info,
-                onTap: () => viewModel.showDialogWithWidget(
-                  context,
-                  AppInfoDialog(viewModel: viewModel),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => AppInfoDialog(viewModel: viewModel),
                 ),
               ),
               CardListTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_information_faq_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_information_faq_subtitle,
+                title: t.settings_information_faq_title,
+                subtitle: t.settings_information_faq_subtitle,
                 icon: Icons.help,
                 onTap: () {},
               ),
               CardListTile(
-                title: AppLocalizations.of(
-                  context,
-                )!.settings_information_qna_title,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.settings_information_qna_subtitle,
+                title: t.settings_information_qna_title,
+                subtitle: t.settings_information_qna_subtitle,
                 icon: Icons.mail,
-                onTap: () =>
-                    viewModel.showDialogWithWidget(context, ContactDialog()),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => ContactDialog(),
+                ),
               ),
               const SizedBox(height: kBottomNavigationBarHeight * 3),
             ]),

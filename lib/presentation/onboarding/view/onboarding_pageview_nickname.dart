@@ -42,24 +42,27 @@ class _OnboardingPageViewNickNameState
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final onChangedNickname = context.read<OnboardingViewModel>().setNickname;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 40,
+      spacing: Spacing.xl * 2,
       children: [
         FadeIn(
           child: Text(
-            AppLocalizations.of(context)!.onboarding_nickname_title,
-            style: Theme.of(context).textTheme.displaySmall,
+            t.onboarding_nickname_title,
+            style: textTheme.displaySmall,
           ),
         ),
         FadeIn(
           delay: DelayMs.lazy,
           child: Text(
-            AppLocalizations.of(context)!.onboarding_nickname_description,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            t.onboarding_nickname_description,
+            style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
           ),
         ),
 
@@ -75,19 +78,13 @@ class _OnboardingPageViewNickNameState
                   delay: DelayMs.lazy * 2,
                   child: TextFormField(
                     controller: _inputController,
-                    onChanged: context.read<OnboardingViewModel>().setNickname,
+                    onChanged: onChangedNickname,
                     validator: _validateNickname,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        context,
-                      )!.onboarding_nickname_input_title,
-                      hintText: AppLocalizations.of(
-                        context,
-                      )!.onboarding_nickname_input_hint,
+                      labelText: t.onboarding_nickname_input_title,
+                      hintText: t.onboarding_nickname_input_hint,
                       filled: true,
-                      fillColor: Theme.of(
-                        context,
-                      ).colorScheme.secondaryContainer,
+                      fillColor: colorScheme.secondaryContainer,
                       border: const UnderlineInputBorder(),
                     ),
                   ),
@@ -97,9 +94,9 @@ class _OnboardingPageViewNickNameState
                   child: FadeIn(
                     delay: DelayMs.lazy * 3,
                     child: Text(
-                      AppLocalizations.of(context)!.onboarding_nickname_next,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
+                      t.onboarding_nickname_next,
+                      style: textTheme.titleMedium?.copyWith(
+                        color: colorScheme.secondary,
                       ),
                     ),
                   ),

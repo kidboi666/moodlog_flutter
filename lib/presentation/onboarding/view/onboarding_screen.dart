@@ -9,6 +9,8 @@ import 'onboarding_pageview_personality.dart';
 import 'onboarding_pageview_success.dart';
 import 'onboarding_pageview_welcome.dart';
 
+typedef PaginationDotProps = ({int current, int total});
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -34,11 +36,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final onPageChanged = context.read<OnboardingViewModel>().setStep;
+    final init = context.read<OnboardingViewModel>().init;
+
     return Scaffold(
       appBar: AppBar(
-        title: PaginationDot(
-          current: context.watch<OnboardingViewModel>().currentStep,
-          total: context.watch<OnboardingViewModel>().totalSteps,
+        title: Selector<OnboardingViewModel, PaginationDotProps>(
+          selector: (context, viewModel) =>
+              (current: viewModel.currentStep, total: viewModel.totalSteps),
+          builder: (_, props, _) {
+            return PaginationDot(current: props.current, total: props.total);
+          },
         ),
       ),
       body: Padding(
@@ -48,14 +56,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               child: PageView(
                 controller: _pageController,
-                onPageChanged: context.read<OnboardingViewModel>().setStep,
+                onPageChanged: onPageChanged,
                 children: [
                   OnboardingPageViewWelcome(onNext: onNext),
                   OnboardingPageViewNickName(onNext: onNext),
                   OnboardingPageViewPersonality(onNext: onNext),
-                  OnboardingPageViewSuccess(
-                    onNext: context.read<OnboardingViewModel>().init,
-                  ),
+                  OnboardingPageViewSuccess(onNext: init),
                 ],
               ),
             ),

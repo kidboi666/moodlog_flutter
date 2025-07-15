@@ -24,12 +24,20 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
   final Logger _log = Logger('OnboardingViewModel');
   AiPersonality _selectedPersonality = AiPersonality.balanced;
   String _nickname = '';
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
 
   String get nickname => _nickname;
 
   AppState get appState => _appStateRepository.appState;
 
   AiPersonality get selectedPersonality => _selectedPersonality;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   void setPersonality(AiPersonality personality) {
     _selectedPersonality = personality;
@@ -46,6 +54,9 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
   bool validateNickname(String? value) => value != null && value.isNotEmpty;
 
   Future<void> init() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       await _appStateRepository.init(
         nickname: _nickname,
@@ -57,6 +68,9 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
     } on FirebaseAuthException catch (e) {
       _log.severe('Failed to sign in anonymously', e);
       // TODO: Handle error appropriately, e.g., show a snackbar
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

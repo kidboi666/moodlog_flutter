@@ -11,24 +11,26 @@ class OnboardingPageViewWelcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 40,
+      spacing: Spacing.xl * 2,
       children: [
         FadeIn(
           child: Text(
-            AppLocalizations.of(context)!.onboarding_welcome_title,
-            style: Theme.of(context).textTheme.displaySmall,
+            t.onboarding_welcome_title,
+            style: textTheme.displaySmall,
           ),
         ),
         FadeIn(
           delay: DelayMs.lazy,
           child: Text(
-            AppLocalizations.of(context)!.onboarding_welcome_description1,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            t.onboarding_welcome_description1,
+            style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
           ),
         ),
         Expanded(
@@ -36,19 +38,16 @@ class OnboardingPageViewWelcome extends StatelessWidget {
           child: FadeIn(
             delay: DelayMs.lazy * 2,
             child: Text(
-              AppLocalizations.of(context)!.onboarding_welcome_description2,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
+              t.onboarding_welcome_description2,
+              style: textTheme.titleLarge?.copyWith(
+                color: colorScheme.secondary,
               ),
             ),
           ),
         ),
         FadeIn(
           delay: DelayMs.lazy * 3,
-          child: Text(
-            AppLocalizations.of(context)!.onboarding_welcome_next,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          child: Text(t.onboarding_welcome_next, style: textTheme.titleLarge),
         ),
         FadeIn(
           delay: DelayMs.lazy * 4,

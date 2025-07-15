@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
+import '../viewmodel/onboarding_viewmodel.dart';
 
 class OnboardingPageViewSuccess extends StatelessWidget {
   final void Function() onNext;
@@ -11,14 +13,17 @@ class OnboardingPageViewSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
-      spacing: 40,
+      spacing: Spacing.xl * 2,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeIn(
           child: Text(
-            AppLocalizations.of(context)!.onboarding_success_title,
-            style: Theme.of(context).textTheme.displaySmall,
+            t.onboarding_success_title,
+            style: textTheme.displaySmall,
           ),
         ),
         Expanded(
@@ -26,8 +31,8 @@ class OnboardingPageViewSuccess extends StatelessWidget {
           child: FadeIn(
             delay: DelayMs.lazy,
             child: Text(
-              AppLocalizations.of(context)!.onboarding_success_description,
-              style: Theme.of(context).textTheme.titleLarge,
+              t.onboarding_success_description,
+              style: textTheme.titleLarge,
             ),
           ),
         ),
@@ -37,11 +42,20 @@ class OnboardingPageViewSuccess extends StatelessWidget {
             bottom: true,
             child: SizedBox(
               width: double.infinity,
-              child: FilledButton(
-                onPressed: onNext,
-                child: Text(
-                  AppLocalizations.of(context)!.onboarding_success_button,
-                ),
+              child: Selector<OnboardingViewModel, bool>(
+                selector: (context, viewModel) => viewModel.isLoading,
+                builder: (context, isLoading, _) {
+                  return FilledButton(
+                    onPressed: isLoading ? null : onNext,
+                    child: isLoading
+                        ? SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(t.onboarding_success_button),
+                  );
+                },
               ),
             ),
           ),

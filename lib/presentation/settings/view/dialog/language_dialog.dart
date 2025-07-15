@@ -11,10 +11,9 @@ class LanguageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text(
-        AppLocalizations.of(context)!.settings_common_language_dialog_title,
-      ),
+      title: Text(t.settings_common_language_dialog_title),
       content: ListenableBuilder(
         listenable: viewModel,
         builder: (_, _) {
