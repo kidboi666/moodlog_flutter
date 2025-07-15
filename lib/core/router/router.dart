@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/domain/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/repositories/app_state_repository.dart';
 import '../../presentation/entries/view/entries_screen.dart';
 import '../../presentation/home/view/home_screen.dart';
 import '../../presentation/journal/view/journal_screen.dart';
@@ -13,22 +12,14 @@ import '../../presentation/profile/view/profile_screen.dart';
 import '../../presentation/settings/view/settings_screen.dart';
 import '../../presentation/statistics/view/statistics_screen.dart';
 import '../../presentation/widgets/scaffold_with_navbar.dart';
-import '../../presentation/widgets/splash_screen.dart';
 import '../../presentation/write/view/write_screen.dart';
 import 'routes.dart';
 
-GoRouter router(AppStateRepository appStateRepository) => GoRouter(
-  initialLocation: Routes.splash,
-  debugLogDiagnostics: true,
-  refreshListenable: appStateRepository,
+GoRouter router(AuthRepository authRepository) => GoRouter(
+  initialLocation: Routes.home,
+  refreshListenable: authRepository,
   redirect: _redirect,
   routes: [
-    GoRoute(
-      path: Routes.splash,
-      builder: (context, state) {
-        return SplashScreen();
-      },
-    ),
     GoRoute(
       path: Routes.onboarding,
       builder: (_, _) => const OnboardingScreen(),
@@ -94,29 +85,16 @@ GoRouter router(AppStateRepository appStateRepository) => GoRouter(
 );
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final user = FirebaseAuth.instance.currentUser;
-  final isLoggedIn = user != null;
-
-  final appStateRepository = context.read<AppStateRepository>();
-  final isLoading = appStateRepository.isLoading;
-
-  if (isLoading) {
-    return null;
-  }
-
-  final isFirstLaunch = appStateRepository.appState.isFirstLaunch;
+  final authRepository = context.read<AuthRepository>();
+  final isAuthenticated = authRepository.isAuthenticated;
   final location = state.matchedLocation;
 
-  if (!isLoggedIn) {
+  if (!isAuthenticated) {
     return location == Routes.onboarding ? null : Routes.onboarding;
-  } else {
-    if (isFirstLaunch) {
-      return location == Routes.onboarding ? null : Routes.onboarding;
-    }
+  }
 
-    if (location == Routes.onboarding || location == Routes.splash) {
-      return Routes.home;
-    }
+  if (location == Routes.onboarding) {
+    return Routes.home;
   }
 
   return null;

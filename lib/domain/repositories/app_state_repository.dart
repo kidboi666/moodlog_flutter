@@ -30,6 +30,4 @@ abstract class AppStateRepository extends ChangeNotifier {
   Future<void> updateFontFamily(FontFamily fontType);
 
   Future<void> clearSharedPreferences();
-
-  Future<void> clearDatabase();
 }

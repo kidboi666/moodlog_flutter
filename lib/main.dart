@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
@@ -35,7 +36,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
   @override
   void initState() {
     super.initState();
-    _router = router(context.read<AppStateRepository>());
+    _router = router(context.read<AuthRepository>());
   }
 
   @override

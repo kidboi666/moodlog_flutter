@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moodlog/presentation/profile/viewmodel/profile_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -21,27 +20,23 @@ import '../../presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import '../../presentation/profile/view/profile_screen.dart';
 import '../../presentation/settings/view/settings_screen.dart';
 import '../../presentation/settings/viewmodel/settings_viewmodel.dart';
-import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
-import '../../presentation/write/viewmodel/write_viewmodel.dart';
 import '../../presentation/statistics/view/statistics_screen.dart';
+import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
 import '../../presentation/write/view/write_screen.dart';
+import '../../presentation/write/viewmodel/write_viewmodel.dart';
 
 List<SingleChildWidget> createProviders() {
   return [
     ChangeNotifierProvider<AuthRepository>(
-      create: (context) => AuthRepositoryImpl(auth: FirebaseAuth.instance),
+      create: (context) => AuthRepositoryImpl(),
     ),
     Provider<MoodLogDatabase>(
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
       lazy: false,
     ),
-    ChangeNotifierProxyProvider<MoodLogDatabase, AppStateRepository>(
-      create: (context) {
-        final db = context.read<MoodLogDatabase>();
-        return AppStateRepositoryImpl(db: db);
-      },
-      update: (_, db, previous) => previous ?? AppStateRepositoryImpl(db: db),
+    ChangeNotifierProvider<AppStateRepository>(
+      create: (context) => AppStateRepositoryImpl(),
     ),
     Provider<GeminiRepository>(
       create: (_) => GeminiRepositoryImpl.instance,

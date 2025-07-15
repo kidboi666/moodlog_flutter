@@ -47,20 +47,13 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
 
   Future<void> init() async {
     try {
-      _log.info('Signing in anonymously...');
-      final userCredential = await _authRepository.signInAnonymously();
-      _log.info('Signed in with temporary user: ${userCredential.user}');
-
-      _log.info(
-        'Initializing $_nickname with personality $_selectedPersonality',
-      );
       await _appStateRepository.init(
         nickname: _nickname,
         aiPersonality: _selectedPersonality,
       );
+      await _authRepository.signInAnonymously();
 
       // Onboarding is complete, set isFirstLaunch to false.
-      await _appStateRepository.setFirstLaunchComplete();
     } on FirebaseAuthException catch (e) {
       _log.severe('Failed to sign in anonymously', e);
       // TODO: Handle error appropriately, e.g., show a snackbar

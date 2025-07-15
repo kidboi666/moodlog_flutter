@@ -4,6 +4,7 @@ import 'package:moodlog/core/theme/colors.dart';
 
 import '../../../../../core/constants/enum.dart';
 import '../../../../../core/l10n/app_localizations.dart';
+import '../../../../core/constants/common.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
 class ColorThemeDialog extends StatelessWidget {
@@ -13,10 +14,13 @@ class ColorThemeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+
     return AlertDialog(
       title: Text(
-        AppLocalizations.of(context)!.settings_common_color_theme_title,
-        style: Theme.of(context).textTheme.titleLarge,
+        t.settings_common_color_theme_title,
+        style: textTheme.titleLarge,
       ),
       content: SizedBox(
         width: double.maxFinite,
@@ -45,16 +49,8 @@ class ColorThemeDialog extends StatelessWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       color: color,
-                      shape: BoxShape.circle,
-                      border: isSelected
-                          ? Border.all(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              width: 3,
-                            )
-                          : Border.all(
-                              color: Theme.of(context).colorScheme.outline,
-                              width: 1,
-                            ),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(12),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
@@ -69,7 +65,7 @@ class ColorThemeDialog extends StatelessWidget {
                         ? Icon(Icons.check, color: Colors.white, size: 24)
                         : null,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: Spacing.md),
                 ],
               ),
             );
@@ -79,7 +75,7 @@ class ColorThemeDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
+          child: Text(t.common_confirm_cancel),
         ),
       ],
     );

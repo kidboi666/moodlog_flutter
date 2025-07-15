@@ -10,6 +10,7 @@ class SignOutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).colorScheme;
     return AlertDialog(
       title: const Text('로그아웃'),
       content: const Text('로그아웃 합니다.'),
@@ -17,12 +18,12 @@ class SignOutDialog extends StatelessWidget {
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
         FilledButton(
           onPressed: () {
-            // viewModel.signOut();
+            viewModel.signOut(context);
             context.pop();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.error,
-            foregroundColor: Theme.of(context).colorScheme.onError,
+            backgroundColor: colorTheme.error,
+            foregroundColor: colorTheme.onError,
           ),
           child: const Text('로그아웃'),
         ),

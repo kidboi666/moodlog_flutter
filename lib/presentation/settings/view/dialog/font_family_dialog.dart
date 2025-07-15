@@ -10,29 +10,35 @@ class FontFamilyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<SettingsViewModel>();
-    final fontFamily = context.select(
-      (SettingsViewModel viewModel) => viewModel.appState.fontFamily,
-    );
+    final t = AppLocalizations.of(context)!;
+    final setFontFamily = context.read<SettingsViewModel>().setFontFamily;
 
     return AlertDialog(
-      title: Text(
-        AppLocalizations.of(context)!.settings_common_font_family_title,
-      ),
+      title: Text(t.settings_common_font_family_title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          RadioListTile<FontFamily>(
-            title: Text(FontFamily.pretendard.displayName),
-            value: FontFamily.pretendard,
-            groupValue: fontFamily,
-            onChanged: viewModel.setFontFamily,
-          ),
-          RadioListTile<FontFamily>(
-            title: Text(FontFamily.leeSeoyun.displayName),
-            value: FontFamily.leeSeoyun,
-            groupValue: fontFamily,
-            onChanged: viewModel.setFontFamily,
+          Selector<SettingsViewModel, FontFamily>(
+            selector: (context, viewModel) => viewModel.appState.fontFamily,
+            builder: (context, fontFamily, child) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RadioListTile<FontFamily>(
+                    title: Text(FontFamily.pretendard.displayName),
+                    value: FontFamily.pretendard,
+                    groupValue: fontFamily,
+                    onChanged: setFontFamily,
+                  ),
+                  RadioListTile<FontFamily>(
+                    title: Text(FontFamily.leeSeoyun.displayName),
+                    value: FontFamily.leeSeoyun,
+                    groupValue: fontFamily,
+                    onChanged: setFontFamily,
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

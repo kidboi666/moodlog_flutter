@@ -26,7 +26,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   AppState get appState => _appStateRepository.appState;
 
-  User? get currentUser => _authRepository.currentUser;
+  User? get currentUser => _authRepository.user;
 
   void setLanguage(LanguageCode? language) {
     _log.info('Setting language to $language');
@@ -79,6 +79,14 @@ class SettingsViewModel extends ChangeNotifier {
     ).showSnackBar(const SnackBar(content: Text('백업이 완료되었습니다.')));
   }
 
+  void signOut(BuildContext context) {
+    _authRepository.signOut();
+    context.pop();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('로그아웃 되었습니다.')));
+  }
+
   void clearCache(BuildContext context) {
     _journalRepository.clearCache();
     context.pop();
@@ -89,11 +97,6 @@ class SettingsViewModel extends ChangeNotifier {
 
   void clearSharedPreferences() {
     _appStateRepository.clearSharedPreferences();
-    notifyListeners();
-  }
-
-  void clearDatabase() {
-    _appStateRepository.clearDatabase();
     notifyListeners();
   }
 }

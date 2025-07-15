@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.delete,
                   onTap: () => viewModel.showDialogWithWidget(
                     context,
-                    InitDatabaseDialog(viewModel: viewModel),
+                    InitDatabaseDialog(),
                   ),
                 ),
                 DialogTile(
