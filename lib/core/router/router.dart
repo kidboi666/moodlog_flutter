@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/domain/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
 
+import '../../domain/repositories/auth_repository.dart';
 import '../../presentation/entries/view/entries_screen.dart';
+import '../../presentation/entries/viewmodel/entries_viewmodel.dart';
 import '../../presentation/home/view/home_screen.dart';
+import '../../presentation/home/viewmodel/home_viewmodel.dart';
 import '../../presentation/journal/view/journal_screen.dart';
 import '../../presentation/journal/viewmodel/journal_viewmodel.dart';
 import '../../presentation/onboarding/view/onboarding_screen.dart';
+import '../../presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import '../../presentation/profile/view/profile_screen.dart';
+import '../../presentation/profile/viewmodel/profile_viewmodel.dart';
 import '../../presentation/settings/view/settings_screen.dart';
+import '../../presentation/settings/viewmodel/settings_viewmodel.dart';
 import '../../presentation/statistics/view/statistics_screen.dart';
+import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
 import '../../presentation/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/view/write_screen.dart';
+import '../../presentation/write/viewmodel/write_viewmodel.dart';
 import 'routes.dart';
 
 GoRouter router(AuthRepository authRepository) => GoRouter(
@@ -22,9 +29,22 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
   routes: [
     GoRoute(
       path: Routes.onboarding,
-      builder: (_, _) => const OnboardingScreen(),
+      builder: (_, _) => ChangeNotifierProvider(
+        create: (context) => OnboardingViewModel(
+          totalSteps: 4,
+          appStateRepository: context.read(),
+          authRepository: context.read(),
+        ),
+        child: const OnboardingScreen(),
+      ),
     ),
-    GoRoute(path: Routes.profile, builder: (_, _) => const ProfileScreen()),
+    GoRoute(
+      path: Routes.profile,
+      builder: (_, _) => ChangeNotifierProvider(
+        create: (context) => ProfileViewModel(authRepository: context.read()),
+        child: const ProfileScreen(),
+      ),
+    ),
     StatefulShellRoute(
       builder: (_, _, navigationShell) => navigationShell,
       navigatorContainerBuilder: (_, navigationShell, children) {
@@ -36,14 +56,27 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       branches: [
         StatefulShellBranch(
           routes: [
-            GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
+            GoRoute(
+              path: Routes.home,
+              builder: (_, _) => ChangeNotifierProvider(
+                create: (context) => HomeViewModel(
+                  journalRepository: context.read(),
+                  appStateRepository: context.read(),
+                ),
+                child: const HomeScreen(),
+              ),
+            ),
           ],
         ),
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: Routes.entries,
-              builder: (_, _) => const EntriesScreen(),
+              builder: (_, _) => ChangeNotifierProvider(
+                create: (context) =>
+                    EntriesViewModel(journalRepository: context.read()),
+                child: const EntriesScreen(),
+              ),
             ),
           ],
         ),
@@ -51,7 +84,11 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.statistics,
-              builder: (_, _) => const StatisticsScreen(),
+              builder: (_, _) => ChangeNotifierProvider(
+                create: (context) =>
+                    StatisticsViewModel(journalRepository: context.read()),
+                child: const StatisticsScreen(),
+              ),
             ),
           ],
         ),
@@ -59,14 +96,33 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.settings,
-              builder: (_, _) => const SettingsScreen(),
+              builder: (_, _) => ChangeNotifierProvider(
+                create: (context) => SettingsViewModel(
+                  appStateRepository: context.read(),
+                  journalRepository: context.read(),
+                  authRepository: context.read(),
+                ),
+                child: const SettingsScreen(),
+              ),
             ),
           ],
         ),
       ],
     ),
 
-    GoRoute(path: Routes.write, builder: (_, _) => const WriteScreen()),
+    GoRoute(
+      path: Routes.write,
+      builder: (_, _) => ChangeNotifierProvider(
+        create: (context) => WriteViewModel(
+          journalRepository: context.read(),
+          geminiRepository: context.read(),
+          appStateRepository: context.read(),
+          aiGenerationRepository: context.read(),
+          totalSteps: 2,
+        ),
+        child: const WriteScreen(),
+      ),
+    ),
     GoRoute(
       path: '/:id',
       builder: (context, state) {
