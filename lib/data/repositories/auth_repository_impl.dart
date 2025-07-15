@@ -5,26 +5,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
+
+  AuthRepositoryImpl({required FirebaseAuth? auth})
+    : _auth = auth ?? FirebaseAuth.instance;
 
   @override
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   @override
-  User? get currentUser => _firebaseAuth.currentUser;
+  User? get currentUser => _auth.currentUser;
 
   @override
-  bool get isAuthenticated => _firebaseAuth.currentUser != null;
+  bool get isAuthenticated => _auth.currentUser != null;
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    await _auth.signOut();
   }
 
   @override
-  Future<void> signInAnonymously() {
+  Future<UserCredential> signInAnonymously() {
     try {
-      return _firebaseAuth.signInAnonymously();
+      return _auth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
     }

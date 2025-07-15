@@ -8,7 +8,7 @@ abstract class AuthRepository extends ChangeNotifier {
 
   Stream<User?> get authStateChanges;
 
-  Future<void> signInAnonymously();
+  Future<UserCredential> signInAnonymously();
 
   Future<void> signInWithGoogle();
 
