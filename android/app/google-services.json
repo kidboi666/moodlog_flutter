@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761406625155:android:9ac92360eaadfb8cc712b6",
+        "mobilesdk_app_id": "1:761406625155:android:e45f3ebf5df9ed13c712b6",
         "android_client_info": {
           "package_name": "com.kidboi666.moodlog"
         }
@@ -19,14 +19,6 @@
           "android_info": {
             "package_name": "com.kidboi666.moodlog",
             "certificate_hash": "16197ec678f65657c0ebba33f88ffc67999eae6c"
-          }
-        },
-        {
-          "client_id": "761406625155-9jqf6vvtqts8los3mqj0vuromob9l1dc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.kidboi666.moodlog",
-            "certificate_hash": "2048f8747c113151bae3be9efd67fe88cc804eff"
           }
         },
         {

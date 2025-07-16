@@ -6,9 +6,9 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/journal_viewmodel.dart';
-import 'ai_response_box.dart';
-import 'content_box.dart';
-import 'mood_bar.dart';
+import '../widgets/ai_response_box.dart';
+import '../widgets/content_box.dart';
+import '../widgets/mood_bar.dart';
 
 class JournalScreen extends StatelessWidget {
   final JournalViewModel viewModel;

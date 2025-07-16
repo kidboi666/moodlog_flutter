@@ -5,8 +5,8 @@ import '../../../core/constants/common.dart';
 import '../../widgets/pagination_dot.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
-import 'write_pageview_mood.dart';
-import 'write_pageview_rest.dart';
+import '../widgets/write_pageview_mood.dart';
+import '../widgets/write_pageview_rest.dart';
 
 class WriteScreen extends StatefulWidget {
   const WriteScreen({super.key});

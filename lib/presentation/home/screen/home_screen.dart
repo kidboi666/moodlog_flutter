@@ -11,9 +11,9 @@ import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../../widgets/shake_emoji.dart';
 import '../viewmodel/home_viewmodel.dart';
-import 'empty_box.dart';
-import 'horizontal_calendar.dart';
-import 'welcome_zone.dart';
+import '../widgets/empty_box.dart';
+import '../widgets/horizontal_calendar.dart';
+import '../widgets/welcome_zone.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
         SliverAppBar(
           title: FadeIn(
             delay: DelayMs.medium,

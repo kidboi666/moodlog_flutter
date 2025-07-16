@@ -7,11 +7,11 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
 import '../../widgets/avatar.dart';
 import '../viewmodel/statistics_viewmodel.dart';
-import 'mood_calendar_card.dart';
-import 'mood_distribution_card.dart';
-import 'mood_trend_card.dart';
-import 'overall_stats_card.dart';
-import 'recent_activity_card.dart';
+import '../widgets/mood_calendar_card.dart';
+import '../widgets/mood_distribution_card.dart';
+import '../widgets/mood_trend_card.dart';
+import '../widgets/overall_stats_card.dart';
+import '../widgets/recent_activity_card.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});

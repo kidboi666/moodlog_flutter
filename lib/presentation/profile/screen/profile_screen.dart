@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
-import 'account_card.dart';
-import 'creation_time_card.dart';
-import 'nickname_card.dart';
-import 'profile_avatar.dart';
-import 'user_id_card.dart';
+import '../widgets/account_card.dart';
+import '../widgets/creation_time_card.dart';
+import '../widgets/nickname_card.dart';
+import '../widgets/profile_avatar.dart';
+import '../widgets/user_id_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

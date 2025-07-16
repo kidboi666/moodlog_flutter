@@ -8,7 +8,7 @@ import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
-import '../view/delete_confirm_dialog.dart';
+import '../widgets/delete_confirm_dialog.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;

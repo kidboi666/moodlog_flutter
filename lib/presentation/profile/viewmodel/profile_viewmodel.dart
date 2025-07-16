@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/repositories/auth_repository.dart';
-import '../view/dialog/edit_display_name_dialog.dart';
+import '../widgets/dialog/edit_display_name_dialog.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final AuthRepository _authRepository;

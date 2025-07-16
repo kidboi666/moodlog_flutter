@@ -52,6 +52,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
     try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize();
       final GoogleSignInAccount googleUser = await GoogleSignIn.instance
           .authenticate();
 

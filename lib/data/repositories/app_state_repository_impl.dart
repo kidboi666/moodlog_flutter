@@ -11,7 +11,9 @@ class AppStateRepositoryImpl extends AppStateRepository {
   final SharedPreferencesAsync _prefs;
 
   AppStateRepositoryImpl({SharedPreferencesAsync? prefs})
-    : _prefs = prefs ?? SharedPreferencesAsync();
+    : _prefs = prefs ?? SharedPreferencesAsync() {
+    _initLoad();
+  }
 
   AppState _appState = const AppState();
   bool _isLoading = true;

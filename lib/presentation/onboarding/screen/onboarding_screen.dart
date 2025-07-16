@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../widgets/pagination_dot.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
-import 'onboarding_pageview_nickname.dart';
-import 'onboarding_pageview_personality.dart';
-import 'onboarding_pageview_success.dart';
-import 'onboarding_pageview_welcome.dart';
+import '../widgets/onboarding_pageview_nickname.dart';
+import '../widgets/onboarding_pageview_personality.dart';
+import '../widgets/onboarding_pageview_success.dart';
+import '../widgets/onboarding_pageview_welcome.dart';
 
 typedef PaginationDotProps = ({int current, int total});
 
