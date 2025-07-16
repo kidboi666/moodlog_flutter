@@ -5,21 +5,17 @@ import 'package:moodlog/core/extensions/date_time.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
-import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
-  final AppStateRepository _appStateRepository;
   final AuthRepository _authRepository;
 
   HomeViewModel({
     required JournalRepository journalRepository,
-    required AppStateRepository appStateRepository,
     required AuthRepository authRepository,
   }) : _journalRepository = journalRepository,
-       _appStateRepository = appStateRepository,
        _authRepository = authRepository {
     _calculateDateItems();
     _load();

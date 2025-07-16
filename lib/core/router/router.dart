@@ -61,7 +61,6 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
               builder: (_, _) => ChangeNotifierProvider(
                 create: (context) => HomeViewModel(
                   journalRepository: context.read(),
-                  appStateRepository: context.read(),
                   authRepository: context.read(),
                 ),
                 child: const HomeScreen(),
