@@ -452,11 +452,23 @@ abstract class AppLocalizations {
   /// **'무드로그를 시작해볼까요?'**
   String get onboarding_success_description;
 
-  /// No description provided for @onboarding_success_button.
+  /// No description provided for @onboarding_success_guest.
   ///
   /// In ko, this message translates to:
-  /// **'시작하기'**
-  String get onboarding_success_button;
+  /// **'게스트로 시작하기'**
+  String get onboarding_success_guest;
+
+  /// No description provided for @onboarding_success_google.
+  ///
+  /// In ko, this message translates to:
+  /// **'구글 아이디로 시작하기'**
+  String get onboarding_success_google;
+
+  /// No description provided for @onboarding_success_kakao.
+  ///
+  /// In ko, this message translates to:
+  /// **'카카오 아이디로 시작하기'**
+  String get onboarding_success_kakao;
 
   /// No description provided for @home_hello.
   ///

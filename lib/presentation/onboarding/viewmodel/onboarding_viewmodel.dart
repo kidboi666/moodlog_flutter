@@ -63,11 +63,25 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
         aiPersonality: _selectedPersonality,
       );
       await _authRepository.signInAnonymously();
-
-      // Onboarding is complete, set isFirstLaunch to false.
     } on FirebaseAuthException catch (e) {
-      _log.severe('Failed to sign in anonymously', e);
-      // TODO: Handle error appropriately, e.g., show a snackbar
+      _log.warning('Failed to sign in anonymously', e);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> signInGoogle() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _appStateRepository.init(
+        nickname: _nickname,
+        aiPersonality: _selectedPersonality,
+      );
+      await _authRepository.signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      _log.warning('Failed to sign in with Google', e);
     } finally {
       _isLoading = false;
       notifyListeners();

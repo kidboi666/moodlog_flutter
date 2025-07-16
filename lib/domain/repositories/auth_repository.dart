@@ -10,6 +10,8 @@ abstract class AuthRepository extends ChangeNotifier {
 
   Future<void> signInAnonymously();
 
+  Future<void> updateDisplayName(String displayName);
+
   Future<void> signInWithGoogle();
 
   Future<void> signOut();

@@ -34,7 +34,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.lazy,
+          delay: DelayMs.medium,
           child: Text(
             t.onboarding_personality_description,
             style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
@@ -47,7 +47,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: FadeIn(
-                  delay: DelayMs.lazy * 2,
+                  delay: DelayMs.medium * 2,
                   child: Selector<OnboardingViewModel, AiPersonality>(
                     selector: (_, viewModel) => viewModel.selectedPersonality,
                     builder: (context, selectedPersonality, _) {
@@ -68,7 +68,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                 ),
               ),
               FadeIn(
-                delay: DelayMs.lazy * 3,
+                delay: DelayMs.medium * 3,
                 child: SafeArea(
                   bottom: true,
                   child: SizedBox(

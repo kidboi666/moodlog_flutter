@@ -59,7 +59,7 @@ class _OnboardingPageViewNickNameState
           ),
         ),
         FadeIn(
-          delay: DelayMs.lazy,
+          delay: DelayMs.medium,
           child: Text(
             t.onboarding_nickname_description,
             style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
@@ -75,7 +75,7 @@ class _OnboardingPageViewNickNameState
               spacing: 40,
               children: [
                 FadeIn(
-                  delay: DelayMs.lazy * 2,
+                  delay: DelayMs.medium * 2,
                   child: TextFormField(
                     controller: _inputController,
                     onChanged: onChangedNickname,
@@ -92,7 +92,7 @@ class _OnboardingPageViewNickNameState
                 Expanded(
                   flex: 1,
                   child: FadeIn(
-                    delay: DelayMs.lazy * 3,
+                    delay: DelayMs.medium * 3,
                     child: Text(
                       t.onboarding_nickname_next,
                       style: textTheme.titleMedium?.copyWith(
@@ -103,7 +103,7 @@ class _OnboardingPageViewNickNameState
                 ),
 
                 FadeIn(
-                  delay: DelayMs.lazy * 4,
+                  delay: DelayMs.medium * 4,
                   child: SafeArea(
                     bottom: true,
                     child: SizedBox(

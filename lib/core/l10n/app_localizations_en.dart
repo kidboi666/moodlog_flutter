@@ -196,7 +196,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboarding_success_description => 'Shall we start MoodLog?';
 
   @override
-  String get onboarding_success_button => 'Get Started';
+  String get onboarding_success_guest => '게스트로 시작하기';
+
+  @override
+  String get onboarding_success_google => '구글 아이디로 시작하기';
+
+  @override
+  String get onboarding_success_kakao => '카카오 아이디로 시작하기';
 
   @override
   String get home_hello => 'Hello!';

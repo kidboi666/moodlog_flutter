@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../domain/repositories/auth_repository.dart';
 
@@ -39,7 +40,6 @@ class AuthRepositoryImpl extends AuthRepository {
       if (userCredential.user != null) {
         _user = userCredential.user;
         notifyListeners();
-        print('User signed in anonymously: ${_user}');
       } else {
         throw Exception('User is null');
       }
@@ -49,8 +49,42 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<void> signInWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+          .authenticate();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+      if (userCredential.user != null) {
+        _user = userCredential.user;
+        notifyListeners();
+      } else {
+        throw Exception('User is null');
+      }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  @override
+  Future<void> updateDisplayName(String displayName) async {
+    try {
+      await _user?.updateDisplayName(displayName);
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message);
+    }
   }
 }

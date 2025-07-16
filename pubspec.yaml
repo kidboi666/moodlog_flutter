@@ -30,6 +30,8 @@ dependencies:
   firebase_ai: ^2.2.0
   firebase_auth: ^5.6.1
   fl_chart: ^0.68.0
+  flutter_svg: ^2.2.0
+  google_sign_in: ^7.1.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +47,10 @@ flutter:
   generate: true
 
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svg/
 
   fonts:
     - family: Pretendard

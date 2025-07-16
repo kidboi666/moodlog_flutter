@@ -36,8 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final onPageChanged = context.read<OnboardingViewModel>().setStep;
-    final init = context.read<OnboardingViewModel>().init;
+    final viewModel = context.read<OnboardingViewModel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -55,13 +54,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                onPageChanged: onPageChanged,
+                onPageChanged: viewModel.setStep,
                 children: [
                   OnboardingPageViewWelcome(onNext: onNext),
                   OnboardingPageViewNickName(onNext: onNext),
                   OnboardingPageViewPersonality(onNext: onNext),
-                  OnboardingPageViewSuccess(onNext: init),
+                  OnboardingPageViewSuccess(
+                    onNext: viewModel.init,
+                    signInGoogle: viewModel.signInGoogle,
+                  ),
                 ],
               ),
             ),

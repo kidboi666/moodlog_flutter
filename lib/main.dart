@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import "package:flutter_localizations/flutter_localizations.dart";
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
@@ -11,6 +10,7 @@ import 'core/l10n/app_localizations.dart';
 import 'core/router/router.dart';
 import 'core/theme/theme.dart';
 import 'domain/repositories/app_state_repository.dart';
+import 'domain/repositories/auth_repository.dart';
 import 'firebase_options.dart';
 
 void main() async {

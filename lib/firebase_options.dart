@@ -50,21 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD4JTaL7m_jzTEt19bv-KD2_r8cTnY2U6Q',
-    appId: '1:447252073051:android:dd84f73d84dabc9238cd7e',
-    messagingSenderId: '447252073051',
-    projectId: 'moodlog-dcb10',
-    storageBucket: 'moodlog-dcb10.firebasestorage.app',
+    apiKey: 'AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g',
+    appId: '1:761406625155:android:9ac92360eaadfb8cc712b6',
+    messagingSenderId: '761406625155',
+    projectId: 'moodlog-ba790',
+    storageBucket: 'moodlog-ba790.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCVdQGkl25JKQ6uPqJlxaz-VFfnQEVMFbU',
-    appId: '1:447252073051:ios:49a4bd4596058ccf38cd7e',
-    messagingSenderId: '447252073051',
-    projectId: 'moodlog-dcb10',
-    storageBucket: 'moodlog-dcb10.firebasestorage.app',
-    iosClientId: '447252073051-ecvgcd8v7aj2jikjb6tn1r4fggop9ib7.apps.googleusercontent.com',
-    iosBundleId: 'com.example.moodlog',
+    apiKey: 'AIzaSyBW50LByIz8nstWavjOBbiZfp5KgLfXaM8',
+    appId: '1:761406625155:ios:99543007b90791b1c712b6',
+    messagingSenderId: '761406625155',
+    projectId: 'moodlog-ba790',
+    storageBucket: 'moodlog-ba790.firebasestorage.app',
+    androidClientId: '761406625155-9gs74ltv95rd4euf8fqbjudgranfo38q.apps.googleusercontent.com',
+    iosClientId: '761406625155-iel6nd3d9fpoaqlu59i8ft7q1p55goh3.apps.googleusercontent.com',
+    iosBundleId: 'com.kidboi666.moodlog',
   );
 
 }

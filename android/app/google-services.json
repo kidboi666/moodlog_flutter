@@ -1,37 +1,53 @@
 {
   "project_info": {
-    "project_number": "447252073051",
-    "project_id": "moodlog-dcb10",
-    "storage_bucket": "moodlog-dcb10.firebasestorage.app"
+    "project_number": "761406625155",
+    "project_id": "moodlog-ba790",
+    "storage_bucket": "moodlog-ba790.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:447252073051:android:dd84f73d84dabc9238cd7e",
+        "mobilesdk_app_id": "1:761406625155:android:9ac92360eaadfb8cc712b6",
         "android_client_info": {
           "package_name": "com.kidboi666.moodlog"
         }
       },
       "oauth_client": [
         {
-          "client_id": "447252073051-8jgcfmabae7hqb2k2umpn5pev0rsir4t.apps.googleusercontent.com",
+          "client_id": "761406625155-9gs74ltv95rd4euf8fqbjudgranfo38q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kidboi666.moodlog",
+            "certificate_hash": "16197ec678f65657c0ebba33f88ffc67999eae6c"
+          }
+        },
+        {
+          "client_id": "761406625155-9jqf6vvtqts8los3mqj0vuromob9l1dc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kidboi666.moodlog",
+            "certificate_hash": "2048f8747c113151bae3be9efd67fe88cc804eff"
+          }
+        },
+        {
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD4JTaL7m_jzTEt19bv-KD2_r8cTnY2U6Q"
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "447252073051-8jgcfmabae7hqb2k2umpn5pev0rsir4t.apps.googleusercontent.com",
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "447252073051-ecvgcd8v7aj2jikjb6tn1r4fggop9ib7.apps.googleusercontent.com",
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.kidboi666.moodlog"

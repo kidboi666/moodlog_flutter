@@ -58,7 +58,9 @@
   "onboarding_personality_compassionate_description": "따뜻한 위로와 깊은 공감을 전합니다.",
   "onboarding_success_title": "시작할 준비가 되었어요!",
   "onboarding_success_description": "무드로그를 시작해볼까요?",
-  "onboarding_success_button": "시작하기",
+  "onboarding_success_guest": "게스트로 시작하기",
+  "onboarding_success_google": "구글 아이디로 시작하기",
+  "onboarding_success_kakao": "카카오 아이디로 시작하기",
   "home_hello": "안녕하세요!",
   "home_welcome": "{userName}님.",
   "@home_welcome": {
