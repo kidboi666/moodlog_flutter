@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/profile_avatar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -19,6 +20,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -26,19 +30,21 @@ class HomeScreen extends StatelessWidget {
             delay: DelayMs.medium,
             child: Row(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.home_hello,
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
+                Text(t.home_hello, style: textTheme.displayMedium),
                 const ShakeEmoji(emoji: Emoji.shakeHand),
               ],
             ),
           ),
           actionsPadding: Spacing.containerHorizontalPadding,
           actions: [
-            IconButton.filledTonal(
-              onPressed: () => context.push(Routes.profile),
-              icon: Icon(Icons.person),
+            Selector<HomeViewModel, String?>(
+              selector: (_, viewModel) => viewModel.profileImage,
+              builder: (context, profileImage, _) {
+                return ProfileAvatar(
+                  photoUrl: profileImage,
+                  onTap: () => context.push(Routes.profile),
+                );
+              },
             ),
           ],
         ),

@@ -62,6 +62,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
                 create: (context) => HomeViewModel(
                   journalRepository: context.read(),
                   appStateRepository: context.read(),
+                  authRepository: context.read(),
                 ),
                 child: const HomeScreen(),
               ),
@@ -85,8 +86,10 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
             GoRoute(
               path: Routes.statistics,
               builder: (_, _) => ChangeNotifierProvider(
-                create: (context) =>
-                    StatisticsViewModel(journalRepository: context.read()),
+                create: (context) => StatisticsViewModel(
+                  journalRepository: context.read(),
+                  authRepository: context.read(),
+                ),
                 child: const StatisticsScreen(),
               ),
             ),

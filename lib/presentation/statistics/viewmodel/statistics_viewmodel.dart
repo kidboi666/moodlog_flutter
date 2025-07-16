@@ -1,16 +1,21 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:moodlog/core/constants/enum.dart';
 
+import '../../../core/constants/enum.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
+import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class StatisticsViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
+  final AuthRepository _authRepository;
 
-  StatisticsViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository {
+  StatisticsViewModel({
+    required JournalRepository journalRepository,
+    required AuthRepository authRepository,
+  }) : _journalRepository = journalRepository,
+       _authRepository = authRepository {
     _loadStatistics();
   }
 
@@ -21,7 +26,9 @@ class StatisticsViewModel extends ChangeNotifier {
   int _maxStreak = 0;
   Map<DateTime, MoodType> _moodCalendar = {};
   List<Journal> _recentJournals = [];
-  Map<DateTime, double> _moodTrendData = {}; // 날짜별 평균 감정 점수
+  Map<DateTime, double> _moodTrendData = {};
+
+  String? get profileImage => _authRepository.user?.photoURL;
 
   List<Journal> get allJournals => _allJournals;
 

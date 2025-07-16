@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/repositories/auth_repository.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../domain/entities/app_state.dart';
 import '../../../domain/repositories/app_state_repository.dart';
+import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class SettingsViewModel extends ChangeNotifier {
@@ -25,6 +25,8 @@ class SettingsViewModel extends ChangeNotifier {
   final Logger _log = Logger('SettingsViewModel');
 
   bool _isLoading = false;
+
+  String? get profileImage => _authRepository.user?.photoURL;
 
   bool get isLoading => _isLoading;
 

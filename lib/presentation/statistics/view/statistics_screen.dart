@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/profile_avatar.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
+import '../viewmodel/statistics_viewmodel.dart';
 import 'mood_calendar_card.dart';
 import 'mood_distribution_card.dart';
 import 'mood_trend_card.dart';
@@ -18,15 +21,18 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            title: Text(AppLocalizations.of(context)!.tab_statistics),
-            actionsPadding: Spacing.containerHorizontalPadding,
-            actions: [
-              IconButton.filledTonal(
-                onPressed: () => context.push(Routes.profile),
-                icon: Icon(Icons.person),
-              ),
-            ],
+          Selector<StatisticsViewModel, String?>(
+            selector: (_, viewModel) => viewModel.profileImage,
+            builder: (_, profileImage, _) => SliverAppBar(
+              title: Text(AppLocalizations.of(context)!.tab_statistics),
+              actionsPadding: Spacing.containerHorizontalPadding,
+              actions: [
+                ProfileAvatar(
+                  photoUrl: profileImage,
+                  onTap: () => context.push(Routes.profile),
+                ),
+              ],
+            ),
           ),
           SliverPadding(
             padding: Spacing.containerHorizontalPadding,

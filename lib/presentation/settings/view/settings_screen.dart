@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
+import '../../widgets/profile_avatar.dart';
 import '../viewmodel/settings_viewmodel.dart';
 import 'card_list_tile.dart';
 import 'dialog/app_info_dialog.dart';
@@ -32,15 +33,20 @@ class SettingsScreen extends StatelessWidget {
     final viewModel = Provider.of<SettingsViewModel>(context);
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
-          title: Text(t.settings_title),
-          actionsPadding: Spacing.containerHorizontalPadding,
-          actions: [
-            IconButton.filledTonal(
-              onPressed: () => context.push(Routes.profile),
-              icon: Icon(Icons.person),
-            ),
-          ],
+        Selector<SettingsViewModel, String?>(
+          selector: (_, viewModel) => viewModel.profileImage,
+          builder: (context, profileImage, _) {
+            return SliverAppBar(
+              title: Text(t.settings_title),
+              actionsPadding: Spacing.containerHorizontalPadding,
+              actions: [
+                ProfileAvatar(
+                  photoUrl: profileImage,
+                  onTap: () => context.push(Routes.profile),
+                ),
+              ],
+            );
+          },
         ),
 
         SliverPadding(
