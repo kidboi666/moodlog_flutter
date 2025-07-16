@@ -8,6 +8,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: Text('프로필 설정'),
@@ -17,26 +18,25 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       body: Consumer<ProfileViewModel>(
-        builder: (_, viewModel, _) =>
-            Column(
-              children: [
-                ListTile(
-                  title: Text('유저 ID'),
-                  subtitle: Text(viewModel.user?.uid ?? ''),
-                ),
-                ListTile(
-                  title: Text('닉네임 변경'),
-                  subtitle: Text(viewModel.user?.displayName ?? ''),
-                  trailing: Icon(Icons.edit),
-                ),
-                ListTile(
-                  title: Text('시작일'),
-                  subtitle: Text(
-                    viewModel.user?.metadata.creationTime.toString() ?? '',
-                  ),
-                ),
-              ],
+        builder: (_, viewModel, _) => Column(
+          children: [
+            ListTile(
+              title: Text('유저 ID', style: textTheme.titleMedium),
+              subtitle: Text(viewModel.user?.uid ?? ''),
             ),
+            ListTile(
+              title: Text('닉네임 변경', style: textTheme.titleMedium),
+              subtitle: Text(viewModel.user?.displayName ?? ''),
+              trailing: Icon(Icons.edit),
+            ),
+            ListTile(
+              title: Text('시작일', style: textTheme.titleMedium),
+              subtitle: Text(
+                viewModel.user?.metadata.creationTime.toString() ?? '',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
