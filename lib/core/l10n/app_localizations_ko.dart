@@ -204,7 +204,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String home_welcome(Object userName) {
-    return '$userName님.';
+    return '$userName 님.';
   }
 
   @override
@@ -395,4 +395,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_information_qna_subtitle => '개발자에게 문의합니다.';
+
+  @override
+  String get profile_title => '프로필';
+
+  @override
+  String get profile_account_title => '가입 정보';
+
+  @override
+  String get profile_nickname_title => '닉네임 변경';
+
+  @override
+  String get profile_creation_time_title => '가입일';
+
+  @override
+  String get profile_uid_title => '유저 ID';
 }

@@ -11,6 +11,10 @@ class WelcomeZone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       spacing: Spacing.sm,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,8 +25,8 @@ class WelcomeZone extends StatelessWidget {
             selector: (_, viewModel) => viewModel.nickname,
             builder: (context, nickname, _) {
               return Text(
-                AppLocalizations.of(context)!.home_welcome(nickname ?? ''),
-                style: Theme.of(context).textTheme.headlineSmall,
+                t.home_welcome(nickname ?? ''),
+                style: textTheme.headlineSmall,
               );
             },
           ),
@@ -30,9 +34,9 @@ class WelcomeZone extends StatelessWidget {
         FadeIn(
           delay: DelayMs.medium * 3,
           child: Text(
-            AppLocalizations.of(context)!.home_howareyou,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
+            t.home_howareyou,
+            style: textTheme.headlineSmall?.copyWith(
+              color: colorScheme.secondary,
             ),
           ),
         ),

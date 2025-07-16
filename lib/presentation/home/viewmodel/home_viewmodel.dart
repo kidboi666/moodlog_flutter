@@ -23,7 +23,6 @@ class HomeViewModel extends ChangeNotifier {
        _authRepository = authRepository {
     _calculateDateItems();
     _load();
-    _loadNickname();
     Future.delayed(DelayMs.medium * 4, () {
       setIsFirstRender(false);
     });
@@ -35,18 +34,17 @@ class HomeViewModel extends ChangeNotifier {
   DateTime _selectedDate = DateTime.now();
   List<DateTime>? _dateItems;
   bool _isLoading = false;
-  String? _nickname;
   bool _isFirstRender = true;
 
   String? get profileImage => _authRepository.user?.photoURL;
+
+  String? get nickname => _authRepository.user?.displayName;
 
   DateTime get selectedDate => _selectedDate;
 
   DateTime get now => _now;
 
   List<DateTime>? get dateItems => _dateItems;
-
-  String? get nickname => _nickname;
 
   bool get isFirstRender => _isFirstRender;
 
@@ -92,12 +90,6 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<void> setIsFirstRender(bool value) async {
     _isFirstRender = value;
-    notifyListeners();
-  }
-
-  void _loadNickname() {
-    final result = _appStateRepository.appState;
-    _nickname = result.nickname;
     notifyListeners();
   }
 }

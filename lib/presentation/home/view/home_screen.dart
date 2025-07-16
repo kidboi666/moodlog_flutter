@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/widgets/profile_avatar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
 import '../../../domain/entities/journal.dart';
+import '../../widgets/avatar.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../../widgets/shake_emoji.dart';
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             Selector<HomeViewModel, String?>(
               selector: (_, viewModel) => viewModel.profileImage,
               builder: (context, profileImage, _) {
-                return ProfileAvatar(
+                return Avatar(
                   photoUrl: profileImage,
                   onTap: () => context.push(Routes.profile),
                 );

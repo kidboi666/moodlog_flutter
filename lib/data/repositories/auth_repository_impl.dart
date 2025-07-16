@@ -82,6 +82,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> updateDisplayName(String displayName) async {
     try {
       await _user?.updateDisplayName(displayName);
+      await _user?.reload();
+      _user = _firebaseAuth.currentUser;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);

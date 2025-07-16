@@ -130,11 +130,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_welcome_description1 =>
-      'MoodLog is an app where you can record your daily emotions and receive AI responses to them.';
+      'MoodLog is an app where you can record your daily emotions and receive AI responses.';
 
   @override
   String get onboarding_welcome_description2 =>
-      'Record your emotions every day and read the responses from AI.';
+      'Record your emotions daily and read AI responses.';
 
   @override
   String get onboarding_welcome_next => 'Shall we get started together?';
@@ -161,11 +161,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboarding_nickname_input_error => 'Please enter a nickname.';
 
   @override
-  String get onboarding_personality_title => 'Choose Reply Style';
+  String get onboarding_personality_title => 'Choose Response Style';
 
   @override
   String get onboarding_personality_description =>
-      'Choose the kindness level of the AI that will reply to your journal.';
+      'Choose the AI personality that will respond to your diary.';
 
   @override
   String get onboarding_personality_rational_title => 'Rational Analyst';
@@ -179,7 +179,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_personality_balanced_description =>
-      'Balances empathy with realistic advice.';
+      'Balances empathy and realistic advice.';
 
   @override
   String get onboarding_personality_compassionate_title =>
@@ -190,19 +190,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Provides warm comfort and deep empathy.';
 
   @override
-  String get onboarding_success_title => 'Ready to start!';
+  String get onboarding_success_title => 'You\'re ready to start!';
 
   @override
   String get onboarding_success_description => 'Shall we start MoodLog?';
 
   @override
-  String get onboarding_success_guest => '게스트로 시작하기';
+  String get onboarding_success_guest => 'Start as Guest';
 
   @override
-  String get onboarding_success_google => '구글 아이디로 시작하기';
+  String get onboarding_success_google => 'Start with Google ID';
 
   @override
-  String get onboarding_success_kakao => '카카오 아이디로 시작하기';
+  String get onboarding_success_kakao => 'Start with Kakao ID';
 
   @override
   String get home_hello => 'Hello!';
@@ -247,10 +247,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get write_ai_description =>
-      'After writing your journal, AI will send you messages of comfort and encouragement.';
+      'After writing your diary, AI will send you comfort and encouragement messages.';
 
   @override
-  String get journal_delete_confirm_title => 'Confirm Delete';
+  String get journal_delete_confirm_title => 'Delete Confirmation';
 
   @override
   String get journal_delete_confirm_description =>
@@ -258,7 +258,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get journal_ai_generating_response_title =>
-      'AI is generating a response.';
+      'AI is writing a response.';
 
   @override
   String get statistics_total_title => 'Total Statistics';
@@ -342,7 +342,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_language_dialog_title => 'Select Language';
 
   @override
-  String get settings_common_font_family_title => '폰트';
+  String get settings_common_font_family_title => 'Font';
 
   @override
   String get settings_data_title => 'Data';
@@ -357,7 +357,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_data_backup_title => 'Data Backup';
 
   @override
-  String get settings_data_backup_subtitle => 'Backup your data.';
+  String get settings_data_backup_subtitle => 'Back up data.';
 
   @override
   String get settings_data_backup_confirm => 'Do you want to backup your data?';
@@ -373,13 +373,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_data_cache_cleanup_confirm =>
-      'Are you sure you want to clear the cache?\nThis action cannot be undone.';
+      'Do you want to delete the cache?\nThis action cannot be undone.';
 
   @override
   String get settings_information_title => 'Information';
 
   @override
-  String get settings_information_app_title => 'App Info';
+  String get settings_information_app_title => 'App Information';
 
   @override
   String get settings_information_app_subtitle =>
@@ -405,4 +405,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_information_qna_subtitle => 'Contact the developer.';
+
+  @override
+  String get profile_title => 'Profile';
+
+  @override
+  String get profile_account_title => 'Account Information';
+
+  @override
+  String get profile_nickname_title => 'Change Nickname';
+
+  @override
+  String get profile_creation_time_title => 'Join Date';
+
+  @override
+  String get profile_uid_title => 'User ID';
 }

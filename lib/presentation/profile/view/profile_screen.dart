@@ -2,43 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
+import 'account_card.dart';
+import 'creation_time_card.dart';
+import 'nickname_card.dart';
+import 'profile_avatar.dart';
+import 'user_id_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('프로필 설정'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
-        ),
-      ),
-      body: Consumer<ProfileViewModel>(
-        builder: (_, viewModel, _) => Column(
-          children: [
-            ListTile(
-              title: Text('유저 ID', style: textTheme.titleMedium),
-              subtitle: Text(viewModel.user?.uid ?? ''),
+    final t = AppLocalizations.of(context)!;
+
+    return Consumer<ProfileViewModel>(
+      builder: (context, viewModel, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(t.profile_title),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => context.pop(),
             ),
-            ListTile(
-              title: Text('닉네임 변경', style: textTheme.titleMedium),
-              subtitle: Text(viewModel.user?.displayName ?? ''),
-              trailing: Icon(Icons.edit),
-            ),
-            ListTile(
-              title: Text('시작일', style: textTheme.titleMedium),
-              subtitle: Text(
-                viewModel.user?.metadata.creationTime.toString() ?? '',
+          ),
+          body: Stack(
+            children: [
+              Column(
+                spacing: Spacing.sm,
+                children: [
+                  ProfileAvatar(photoUrl: viewModel.user?.photoURL),
+                  AccountCard(
+                    isGoogleUser: viewModel.isGoogleUser,
+                    email: viewModel.user?.email ?? '',
+                  ),
+                  NicknameCard(
+                    nickname: viewModel.user?.displayName ?? '',
+                    updateDisplayName: viewModel.updateDisplayName,
+                    showEditDisplayNameDialog:
+                        viewModel.showEditDisplayNameDialog,
+                  ),
+                  CreationTimeCard(
+                    creationTime: viewModel.user?.metadata.creationTime,
+                  ),
+                  const Expanded(child: SizedBox()),
+                  UserIdCard(uid: viewModel.user?.uid ?? ''),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
+              if (viewModel.isLoading)
+                Container(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

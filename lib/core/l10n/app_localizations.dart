@@ -479,7 +479,7 @@ abstract class AppLocalizations {
   /// userName
   ///
   /// In ko, this message translates to:
-  /// **'{userName}님.'**
+  /// **'{userName} 님.'**
   String home_welcome(Object userName);
 
   /// No description provided for @home_howareyou.
@@ -841,6 +841,36 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'개발자에게 문의합니다.'**
   String get settings_information_qna_subtitle;
+
+  /// No description provided for @profile_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'프로필'**
+  String get profile_title;
+
+  /// No description provided for @profile_account_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'가입 정보'**
+  String get profile_account_title;
+
+  /// No description provided for @profile_nickname_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'닉네임 변경'**
+  String get profile_nickname_title;
+
+  /// No description provided for @profile_creation_time_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'가입일'**
+  String get profile_creation_time_title;
+
+  /// No description provided for @profile_uid_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'유저 ID'**
+  String get profile_uid_title;
 }
 
 class _AppLocalizationsDelegate

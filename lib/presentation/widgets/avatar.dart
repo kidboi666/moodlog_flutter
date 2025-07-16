@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/common.dart';
 
-class ProfileAvatar extends StatelessWidget {
+class Avatar extends StatelessWidget {
   final String? photoUrl;
   final double size;
   final VoidCallback? onTap;
 
-  const ProfileAvatar({
+  const Avatar({
     super.key,
     this.photoUrl,
     this.size = Spacing.xl * 2,

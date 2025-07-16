@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
-import '../../widgets/profile_avatar.dart';
+import '../../widgets/avatar.dart';
 import '../viewmodel/settings_viewmodel.dart';
 import 'card_list_tile.dart';
 import 'dialog/app_info_dialog.dart';
@@ -40,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
               title: Text(t.settings_title),
               actionsPadding: Spacing.containerHorizontalPadding,
               actions: [
-                ProfileAvatar(
+                Avatar(
                   photoUrl: profileImage,
                   onTap: () => context.push(Routes.profile),
                 ),

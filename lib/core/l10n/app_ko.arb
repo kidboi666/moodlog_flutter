@@ -62,7 +62,7 @@
   "onboarding_success_google": "구글 아이디로 시작하기",
   "onboarding_success_kakao": "카카오 아이디로 시작하기",
   "home_hello": "안녕하세요!",
-  "home_welcome": "{userName}님.",
+  "home_welcome": "{userName} 님.",
   "@home_welcome": {
     "description": "userName",
     "placeholder": {
@@ -163,5 +163,10 @@
   "settings_information_faq_title": "도움말",
   "settings_information_faq_subtitle": "사용법 및 FAQ",
   "settings_information_qna_title": "문의하기",
-  "settings_information_qna_subtitle": "개발자에게 문의합니다."
+  "settings_information_qna_subtitle": "개발자에게 문의합니다.",
+  "profile_title": "프로필",
+  "profile_account_title": "가입 정보",
+  "profile_nickname_title": "닉네임 변경",
+  "profile_creation_time_title": "가입일",
+  "profile_uid_title": "유저 ID"
 }

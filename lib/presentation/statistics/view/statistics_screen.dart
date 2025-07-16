@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/widgets/profile_avatar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/routes.dart';
+import '../../widgets/avatar.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import 'mood_calendar_card.dart';
 import 'mood_distribution_card.dart';
@@ -27,7 +27,7 @@ class StatisticsScreen extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.tab_statistics),
               actionsPadding: Spacing.containerHorizontalPadding,
               actions: [
-                ProfileAvatar(
+                Avatar(
                   photoUrl: profileImage,
                   onTap: () => context.push(Routes.profile),
                 ),
