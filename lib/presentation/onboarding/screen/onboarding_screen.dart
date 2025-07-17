@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   OnboardingPageViewNickName(onNext: onNext),
                   OnboardingPageViewPersonality(onNext: onNext),
                   OnboardingPageViewSuccess(
-                    onNext: viewModel.init,
+                    onNext: viewModel.signInAnonymously,
                     signInGoogle: viewModel.signInGoogle,
                   ),
                 ],

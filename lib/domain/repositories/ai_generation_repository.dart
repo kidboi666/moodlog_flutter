@@ -1,16 +1,22 @@
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
 
-class AiGenerationRepository extends ChangeNotifier {
-  bool _isGeneratingAiResponse = false;
-  final Logger _log = Logger('AiGenerationRepository');
+class AiGenerationRepository extends ChangeNotifier with AsyncStateMixin {
+  bool get isGeneratingAiResponse => isLoading;
 
-  bool get isGeneratingAiResponse => _isGeneratingAiResponse;
+  void setGeneratingAiResponse() {
+    setLoading();
+  }
 
-  void setGeneratingState(bool isGenerating) {
-    if (_isGeneratingAiResponse == isGenerating) return;
-    _log.info('Setting generating state to $isGenerating');
-    _isGeneratingAiResponse = isGenerating;
-    notifyListeners();
+  void setSuccessGeneratingAiResponse() {
+    setSuccess();
+  }
+
+  void setErrorGeneratingAiResponse(Object error) {
+    setError(error);
+  }
+
+  void clearErrorGeneratingAiResponse() {
+    clearError();
   }
 }

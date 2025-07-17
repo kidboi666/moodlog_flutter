@@ -37,6 +37,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
   void initState() {
     super.initState();
     _router = router(context.read<AuthRepository>());
+    context.read<AppStateRepository>().load();
   }
 
   @override

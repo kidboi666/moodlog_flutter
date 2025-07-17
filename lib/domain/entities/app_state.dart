@@ -10,16 +10,12 @@ abstract class AppState with _$AppState {
   const AppState._();
 
   const factory AppState({
-    @Default(true) bool isFirstLaunch,
     @Default(false) bool hasNotificationEnabled,
     @Default(false) bool hasAutoSyncEnabled,
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
-    DateTime? lastActiveDate,
-    DateTime? firstLaunchedDate,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
-    @Default('') String nickname,
     @Default(FontFamily.pretendard) FontFamily fontFamily,
   }) = _AppState;
 

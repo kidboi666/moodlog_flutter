@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/step_mixin.dart';
@@ -12,7 +13,7 @@ import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class WriteViewModel extends ChangeNotifier with StepMixin {
+class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;
   final GeminiRepository _geminiRepository;
   final AppStateRepository _appStateRepository;
@@ -39,12 +40,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
   int? _submittedJournalId;
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
-  bool _isLoading = false;
   final ImagePicker _picker = ImagePicker();
 
   String? get content => _content;
-
-  bool get isLoading => _isLoading;
 
   bool get aiEnabled => _aiEnabled;
 
@@ -143,31 +141,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
     }
   }
 
-  void _generateAiResponse() async {
-    _aiGenerationRepository.setGeneratingState(true);
-
-    final aiPersonality = _appStateRepository.appState.aiPersonality;
-    await _geminiRepository.initialize(aiPersonality: aiPersonality);
-    final aiResponse = await _geminiRepository.generateResponse(
-      prompt: content!,
-      moodType: selectedMood,
-    );
-
-    switch (aiResponse) {
-      case Ok<String>():
-        _log.fine('AI response generated successfully');
-        final newJournal = UpdateJournalRequest(
-          id: _submittedJournalId!,
-          aiResponse: aiResponse.value,
-        );
-        await _journalRepository.updateJournal(newJournal);
-        _aiGenerationRepository.setGeneratingState(false);
-      case Error<String>():
-        _log.warning('Failed to add AI response: ${aiResponse.error}');
-        _aiGenerationRepository.setGeneratingState(false);
-    }
-  }
-
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -194,6 +167,31 @@ class WriteViewModel extends ChangeNotifier with StepMixin {
         );
         notifyListeners();
       }
+    }
+  }
+
+  void _generateAiResponse() async {
+    _aiGenerationRepository.setGeneratingAiResponse();
+
+    final aiPersonality = _appStateRepository.appState.aiPersonality;
+    await _geminiRepository.init(aiPersonality);
+    final aiResponse = await _geminiRepository.generateResponse(
+      prompt: content!,
+      moodType: selectedMood,
+    );
+
+    switch (aiResponse) {
+      case Ok<String>():
+        _log.fine('AI response generated successfully');
+        final newJournal = UpdateJournalRequest(
+          id: _submittedJournalId!,
+          aiResponse: aiResponse.value,
+        );
+        await _journalRepository.updateJournal(newJournal);
+        _aiGenerationRepository.setSuccessGeneratingAiResponse();
+      case Error<String>():
+        _log.warning('Failed to add AI response: ${aiResponse.error}');
+        _aiGenerationRepository.setErrorGeneratingAiResponse(aiResponse.error);
     }
   }
 }

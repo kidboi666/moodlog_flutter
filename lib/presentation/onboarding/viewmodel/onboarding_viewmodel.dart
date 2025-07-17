@@ -3,12 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/step_mixin.dart';
 import '../../../domain/entities/app_state.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
-class OnboardingViewModel extends ChangeNotifier with StepMixin {
+class OnboardingViewModel extends ChangeNotifier
+    with StepMixin, AsyncStateMixin {
   final AppStateRepository _appStateRepository;
   final AuthRepository _authRepository;
 
@@ -34,7 +36,7 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
 
   AiPersonality get selectedPersonality => _selectedPersonality;
 
-  void setLoading(bool value) {
+  void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
@@ -51,23 +53,19 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
     notifyListeners();
   }
 
-  bool validateNickname(String? value) => value != null && value.isNotEmpty;
+  bool validateNickname(String? value) =>
+      value != null && value.isNotEmpty && value.length <= 10;
 
-  Future<void> init() async {
-    _isLoading = true;
-    notifyListeners();
-
+  Future<void> signInAnonymously() async {
+    _setLoading(true);
     try {
-      await _appStateRepository.init(
-        nickname: _nickname,
-        aiPersonality: _selectedPersonality,
-      );
+      await _appStateRepository.init(aiPersonality: _selectedPersonality);
       await _authRepository.signInAnonymously();
+      await _authRepository.updateDisplayName(_nickname);
     } on FirebaseAuthException catch (e) {
       _log.warning('Failed to sign in anonymously', e);
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
   }
 
@@ -75,11 +73,9 @@ class OnboardingViewModel extends ChangeNotifier with StepMixin {
     _isLoading = true;
     notifyListeners();
     try {
-      await _appStateRepository.init(
-        nickname: _nickname,
-        aiPersonality: _selectedPersonality,
-      );
+      await _appStateRepository.init(aiPersonality: _selectedPersonality);
       await _authRepository.signInWithGoogle();
+      await _authRepository.updateDisplayName(_nickname);
     } on FirebaseAuthException catch (e) {
       _log.warning('Failed to sign in with Google', e);
     } finally {

@@ -8,9 +8,6 @@ import 'package:moodlog/domain/repositories/gemini_repository.dart';
 
 class GeminiRepositoryImpl implements GeminiRepository {
   static GeminiRepositoryImpl? _instance;
-  GenerativeModel? _model;
-  AiPersonality? _aiPersonality;
-  bool _isInitialized = false;
 
   GeminiRepositoryImpl._();
 
@@ -18,11 +15,15 @@ class GeminiRepositoryImpl implements GeminiRepository {
     return _instance ??= GeminiRepositoryImpl._();
   }
 
+  AiPersonality? _aiPersonality;
+  GenerativeModel? _model;
+  bool _isInitialized = false;
+
   @override
   bool get isInitialized => _isInitialized && _model != null;
 
   @override
-  Future<void> initialize({required AiPersonality aiPersonality}) async {
+  Future<void> init(AiPersonality aiPersonality) async {
     if (_isInitialized && _aiPersonality == aiPersonality) return;
 
     _aiPersonality = aiPersonality;
