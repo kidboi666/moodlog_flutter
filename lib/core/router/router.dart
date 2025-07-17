@@ -42,13 +42,13 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.signIn,
       builder: (_, state) {
-        final data = state.extra as Map<String, dynamic>;
+        final data = state.extra as Map<String, dynamic>?;
         return ChangeNotifierProvider(
           create: (context) => AuthViewModel(
             authRepository: context.read(),
             appStateProvider: context.read(),
-            nickname: data['nickname'],
-            aiPersonality: data['aiPersonality'],
+            nickname: data?['nickname'],
+            aiPersonality: data?['aiPersonality'],
           ),
           child: const SignInScreen(),
         );
@@ -161,6 +161,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final authRepository = context.read<AuthRepository>();
   final isAuthenticated = authRepository.isAuthenticated;
+  final isAnonymousUser = authRepository.isAnonymousUser;
   final location = state.matchedLocation;
 
   if (!isAuthenticated && location != Routes.signIn) {
@@ -172,7 +173,7 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   }
 
   if (isAuthenticated && location == Routes.signIn) {
-    return Routes.home;
+    return isAnonymousUser ? null : Routes.home;
   }
 
   return null;

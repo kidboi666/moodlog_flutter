@@ -422,4 +422,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profile_uid_title => '유저 ID';
+
+  @override
+  String get profile_button_login => '로그인 하러 가기';
 }

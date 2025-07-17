@@ -895,6 +895,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'유저 ID'**
   String get profile_uid_title;
+
+  /// No description provided for @profile_button_login.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인 하러 가기'**
+  String get profile_button_login;
 }
 
 class _AppLocalizationsDelegate

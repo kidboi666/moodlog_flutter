@@ -432,4 +432,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile_uid_title => 'User ID';
+
+  @override
+  String get profile_button_login => 'Go to SignIn';
 }

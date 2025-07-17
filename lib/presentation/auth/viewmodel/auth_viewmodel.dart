@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
@@ -10,8 +9,8 @@ import '../../../domain/repositories/auth_repository.dart';
 class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   final AuthRepository _authRepository;
   final AppStateProvider _appStateProvider;
-  final String _nickname;
-  final AiPersonality _aiPersonality;
+  final String? _nickname;
+  final AiPersonality? _aiPersonality;
 
   AuthViewModel({
     required AuthRepository authRepository,
@@ -40,6 +39,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> signInAnonymously() async {
+    if (_aiPersonality == null || _nickname == null) return;
     setLoginType(LoginType.anonymous);
     setLoading();
     try {
@@ -47,9 +47,6 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
       await _authRepository.signInAnonymously();
       await _authRepository.updateDisplayName(_nickname);
       setSuccess();
-    } on FirebaseAuthException catch (e) {
-      _log.warning('Failed to sign in anonymously', e);
-      setError(e);
     } catch (e) {
       _log.warning('Failed to sign in anonymously', e);
       setError(e);
@@ -57,6 +54,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> signInGoogle() async {
+    if (_aiPersonality == null || _nickname == null) return;
     setLoginType(LoginType.google);
     setLoading();
     try {
@@ -64,9 +62,6 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
       await _authRepository.signInWithGoogle();
       await _authRepository.updateDisplayName(_nickname);
       setSuccess();
-    } on FirebaseAuthException catch (e) {
-      _log.warning('Failed to sign in with Google', e);
-      setError(e);
     } catch (e) {
       _log.warning('Failed to sign in with Google', e);
       setError(e);

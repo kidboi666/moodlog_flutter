@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:moodlog/presentation/auth/viewmodel/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
+import '../viewmodel/auth_viewmodel.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

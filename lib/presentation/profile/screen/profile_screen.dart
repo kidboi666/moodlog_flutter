@@ -37,6 +37,7 @@ class ProfileScreen extends StatelessWidget {
                   ProfileAvatar(photoUrl: viewModel.user?.photoURL),
                   AccountCard(
                     isGoogleUser: viewModel.isGoogleUser,
+                    isAnonymousUser: viewModel.isAnonymousUser,
                     email: viewModel.user?.email ?? '',
                   ),
                   NicknameCard(

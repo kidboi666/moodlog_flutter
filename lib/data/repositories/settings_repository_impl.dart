@@ -59,6 +59,11 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
+  Future<bool> getIsFirstLaunch() async {
+    return await _prefs.getBool(PreferenceKeys.isFirstLaunch) ?? true;
+  }
+
+  @override
   Future<void> updateAiPersonality(AiPersonality aiPersonality) async {
     await _prefs.setString(PreferenceKeys.aiPersonality, aiPersonality.value);
   }
@@ -94,6 +99,11 @@ class SettingsRepositoryImpl extends SettingsRepository {
   @override
   Future<void> updateAutoSyncEnabled(bool hasAutoSyncEnabled) async {
     await _prefs.setBool(PreferenceKeys.hasAutoSyncEnabled, hasAutoSyncEnabled);
+  }
+
+  @override
+  Future<void> updateIsFirstLaunch(bool isFirstLaunch) async {
+    await _prefs.setBool(PreferenceKeys.isFirstLaunch, isFirstLaunch);
   }
 
   /// kDebugMode

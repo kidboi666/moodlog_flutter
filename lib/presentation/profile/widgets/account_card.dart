@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/router/routes.dart';
 
 import 'google_account_card.dart';
 
 class AccountCard extends StatelessWidget {
   final bool isGoogleUser;
+  final bool isAnonymousUser;
   final String email;
 
   const AccountCard({
     super.key,
     required this.isGoogleUser,
+    required this.isAnonymousUser,
     required this.email,
   });
 
@@ -22,7 +26,18 @@ class AccountCard extends StatelessWidget {
       title: Row(
         children: [
           const Expanded(child: SizedBox()),
-          Column(children: [if (isGoogleUser) GoogleAccountCard(email: email)]),
+          Column(
+            children: [
+              if (isGoogleUser) GoogleAccountCard(email: email),
+              if (isAnonymousUser)
+                FilledButton(
+                  onPressed: () {
+                    context.go(Routes.signIn);
+                  },
+                  child: Text(t.profile_button_login),
+                ),
+            ],
+          ),
         ],
       ),
     );

@@ -32,6 +32,8 @@ class ProfileViewModel extends ChangeNotifier {
     );
   }
 
+  bool get isAnonymousUser => _user!.isAnonymous;
+
   Future<void> updateDisplayName(String displayName) async {
     try {
       _isLoading = true;

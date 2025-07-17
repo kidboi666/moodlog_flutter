@@ -172,5 +172,6 @@
   "profile_account_title": "Account Information",
   "profile_nickname_title": "Change Nickname",
   "profile_creation_time_title": "Join Date",
-  "profile_uid_title": "User ID"
+  "profile_uid_title": "User ID",
+  "profile_button_login": "Go to SignIn"
 }

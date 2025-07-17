@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/providers/app_state_provider.dart';
@@ -26,8 +25,6 @@ class SettingsViewModel extends ChangeNotifier {
        _journalRepository = journalRepository,
        _authRepository = authRepository;
 
-  final Logger _log = Logger('SettingsViewModel');
-
   bool _isLoading = false;
 
   String? get profileImage => _authRepository.user?.photoURL;
@@ -44,7 +41,6 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void setLanguage(LanguageCode? language) {
-    _log.info('Setting language to $language');
     _appStateProvider.updateLanguage(language!);
     notifyListeners();
   }
@@ -54,34 +50,26 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void setNotificationEnabled(bool enabled) {
-    if (enabled == appState.hasNotificationEnabled) {
-      return;
-    }
-    _log.info('Setting notification enabled to $enabled');
     _appStateProvider.updateNotificationEnabled(enabled);
     notifyListeners();
   }
 
   void setAutoSyncEnabled(bool enabled) {
-    _log.info('Setting auto sync enabled to $enabled');
     _appStateProvider.updateAutoSyncEnabled(enabled);
     notifyListeners();
   }
 
   void setTheme(ThemeMode? theme) {
-    _log.info('Setting theme to $theme');
     _appStateProvider.updateThemeMode(theme!);
     notifyListeners();
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
-    _log.info('Setting color theme to $colorTheme');
     _appStateProvider.updateColorTheme(colorTheme!);
     notifyListeners();
   }
 
   void setFontFamily(FontFamily? fontType) {
-    _log.info('Setting font type to $fontType');
     _appStateProvider.updateFontFamily(fontType!);
     notifyListeners();
   }
