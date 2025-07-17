@@ -284,3 +284,5 @@ enum FontFamily {
     }
   }
 }
+
+enum LoginType { google, kakao, anonymous }

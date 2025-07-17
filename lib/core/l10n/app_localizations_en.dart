@@ -196,13 +196,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboarding_success_description => 'Shall we start MoodLog?';
 
   @override
-  String get onboarding_success_guest => 'Start as Guest';
+  String get onboarding_success_next => 'Start!';
 
   @override
-  String get onboarding_success_google => 'Start with Google ID';
+  String get signin_title => 'You\'re ready to start!';
 
   @override
-  String get onboarding_success_kakao => 'Start with Kakao ID';
+  String get signin_growth => 'Record your emotions.';
+
+  @override
+  String get signin_login_title => 'Save your entries by logging in.';
+
+  @override
+  String get signin_button_guest => 'Start as Guest';
+
+  @override
+  String get signin_button_google => 'Start with Google';
+
+  @override
+  String get signin_button_kakao => 'Start with Kakao';
 
   @override
   String get home_hello => 'Hello!';

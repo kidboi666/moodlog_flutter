@@ -23,6 +23,7 @@ class PersonalityItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Card(
       clipBehavior: Clip.hardEdge,
+      elevation: 0,
       color: isSelected ? colorScheme.primaryContainer : null,
       child: InkWell(
         onTap: () => onPersonalityChanged(personality),

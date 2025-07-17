@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/auth/screen/sign_in_screen.dart';
+import 'package:moodlog/presentation/auth/viewmodel/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/repositories/auth_repository.dart';
@@ -33,10 +35,24 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
         create: (context) => OnboardingViewModel(
           totalSteps: 4,
           appStateProvider: context.read(),
-          authRepository: context.read(),
         ),
         child: const OnboardingScreen(),
       ),
+    ),
+    GoRoute(
+      path: Routes.signIn,
+      builder: (_, state) {
+        final data = state.extra as Map<String, dynamic>;
+        return ChangeNotifierProvider(
+          create: (context) => AuthViewModel(
+            authRepository: context.read(),
+            appStateProvider: context.read(),
+            nickname: data['nickname'],
+            aiPersonality: data['aiPersonality'],
+          ),
+          child: const SignInScreen(),
+        );
+      },
     ),
     GoRoute(
       path: Routes.profile,
@@ -44,6 +60,33 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
         create: (context) => ProfileViewModel(authRepository: context.read()),
         child: const ProfileScreen(),
       ),
+    ),
+    GoRoute(
+      path: Routes.write,
+      builder: (_, _) => ChangeNotifierProvider(
+        create: (context) => WriteViewModel(
+          journalRepository: context.read(),
+          geminiRepository: context.read(),
+          appStateProvider: context.read(),
+          aiGenerationRepository: context.read(),
+          totalSteps: 2,
+        ),
+        child: const WriteScreen(),
+      ),
+    ),
+    GoRoute(
+      path: Routes.journalPage,
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        final data = state.extra as Map<String, dynamic>;
+        final viewModel = JournalViewModel(
+          journalRepository: context.read(),
+          aiGenerationRepository: context.read(),
+          source: data['source'],
+          id: id,
+        );
+        return JournalScreen(viewModel: viewModel);
+      },
     ),
     StatefulShellRoute(
       builder: (_, _, navigationShell) => navigationShell,
@@ -112,34 +155,6 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
         ),
       ],
     ),
-
-    GoRoute(
-      path: Routes.write,
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (context) => WriteViewModel(
-          journalRepository: context.read(),
-          geminiRepository: context.read(),
-          appStateProvider: context.read(),
-          aiGenerationRepository: context.read(),
-          totalSteps: 2,
-        ),
-        child: const WriteScreen(),
-      ),
-    ),
-    GoRoute(
-      path: '/:id',
-      builder: (context, state) {
-        final id = int.parse(state.pathParameters['id']!);
-        final data = state.extra as Map<String, dynamic>;
-        final viewModel = JournalViewModel(
-          journalRepository: context.read(),
-          aiGenerationRepository: context.read(),
-          source: data['source'],
-          id: id,
-        );
-        return JournalScreen(viewModel: viewModel);
-      },
-    ),
   ],
 );
 
@@ -148,11 +163,15 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final isAuthenticated = authRepository.isAuthenticated;
   final location = state.matchedLocation;
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && location != Routes.signIn) {
     return location == Routes.onboarding ? null : Routes.onboarding;
   }
 
-  if (location == Routes.onboarding) {
+  if (!isAuthenticated) {
+    return location == Routes.signIn ? null : Routes.signIn;
+  }
+
+  if (isAuthenticated && location == Routes.signIn) {
     return Routes.home;
   }
 

@@ -191,13 +191,25 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onboarding_success_description => '무드로그를 시작해볼까요?';
 
   @override
-  String get onboarding_success_guest => '게스트로 시작하기';
+  String get onboarding_success_next => '시작하기';
 
   @override
-  String get onboarding_success_google => '구글 아이디로 시작하기';
+  String get signin_title => '시작할 준비가 되었어요!';
 
   @override
-  String get onboarding_success_kakao => '카카오 아이디로 시작하기';
+  String get signin_growth => '성장하는 마음을 기록하세요.';
+
+  @override
+  String get signin_login_title => '가입하여 기록을 저장하세요.';
+
+  @override
+  String get signin_button_guest => '게스트로 시작하기';
+
+  @override
+  String get signin_button_google => '구글 아이디로 시작하기';
+
+  @override
+  String get signin_button_kakao => '카카오 아이디로 시작하기';
 
   @override
   String get home_hello => '안녕하세요!';

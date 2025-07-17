@@ -452,23 +452,47 @@ abstract class AppLocalizations {
   /// **'무드로그를 시작해볼까요?'**
   String get onboarding_success_description;
 
-  /// No description provided for @onboarding_success_guest.
+  /// No description provided for @onboarding_success_next.
+  ///
+  /// In ko, this message translates to:
+  /// **'시작하기'**
+  String get onboarding_success_next;
+
+  /// No description provided for @signin_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'시작할 준비가 되었어요!'**
+  String get signin_title;
+
+  /// No description provided for @signin_growth.
+  ///
+  /// In ko, this message translates to:
+  /// **'성장하는 마음을 기록하세요.'**
+  String get signin_growth;
+
+  /// No description provided for @signin_login_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'가입하여 기록을 저장하세요.'**
+  String get signin_login_title;
+
+  /// No description provided for @signin_button_guest.
   ///
   /// In ko, this message translates to:
   /// **'게스트로 시작하기'**
-  String get onboarding_success_guest;
+  String get signin_button_guest;
 
-  /// No description provided for @onboarding_success_google.
+  /// No description provided for @signin_button_google.
   ///
   /// In ko, this message translates to:
   /// **'구글 아이디로 시작하기'**
-  String get onboarding_success_google;
+  String get signin_button_google;
 
-  /// No description provided for @onboarding_success_kakao.
+  /// No description provided for @signin_button_kakao.
   ///
   /// In ko, this message translates to:
   /// **'카카오 아이디로 시작하기'**
-  String get onboarding_success_kakao;
+  String get signin_button_kakao;
 
   /// No description provided for @home_hello.
   ///
