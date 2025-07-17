@@ -1,14 +1,23 @@
 import 'package:flutter/foundation.dart';
 
 import '../../core/constants/enum.dart';
-import '../entities/app_state.dart';
 
-abstract class AppStateRepository extends ChangeNotifier {
-  AppState get appState;
+abstract class SettingsRepository extends ChangeNotifier {
+  Future<ThemeMode> getThemeMode();
 
-  Future<void> load();
+  Future<LanguageCode> getLanguageCode();
 
-  Future<void> init({required AiPersonality aiPersonality});
+  Future<AiPersonality> getAiPersonality();
+
+  Future<bool> getHasNotificationEnabled();
+
+  Future<bool> getHasAutoSyncEnabled();
+
+  Future<ColorTheme> getColorTheme();
+
+  Future<FontFamily> getFontFamily();
+
+  Future<void> updateAiPersonality(AiPersonality aiPersonality);
 
   Future<void> updateThemeMode(ThemeMode themeMode);
 

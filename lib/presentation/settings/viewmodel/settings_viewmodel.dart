@@ -4,21 +4,25 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
-import '../../../domain/entities/app_state.dart';
+import '../../../core/providers/app_state_provider.dart';
+import '../../../domain/entities/settings.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class SettingsViewModel extends ChangeNotifier {
-  final AppStateRepository _appStateRepository;
+  final AppStateProvider _appStateProvider;
+  final SettingsRepository _settingsRepository;
   final JournalRepository _journalRepository;
   final AuthRepository _authRepository;
 
   SettingsViewModel({
-    required AppStateRepository appStateRepository,
+    required AppStateProvider appStateProvider,
+    required SettingsRepository settingsRepository,
     required JournalRepository journalRepository,
     required AuthRepository authRepository,
-  }) : _appStateRepository = appStateRepository,
+  }) : _appStateProvider = appStateProvider,
+       _settingsRepository = settingsRepository,
        _journalRepository = journalRepository,
        _authRepository = authRepository;
 
@@ -30,7 +34,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  AppState get appState => _appStateRepository.appState;
+  Settings get appState => _appStateProvider.appState;
 
   User? get currentUser => _authRepository.user;
 
@@ -41,7 +45,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setLanguage(LanguageCode? language) {
     _log.info('Setting language to $language');
-    _appStateRepository.updateLanguage(language!);
+    _appStateProvider.updateLanguage(language!);
     notifyListeners();
   }
 
@@ -54,31 +58,31 @@ class SettingsViewModel extends ChangeNotifier {
       return;
     }
     _log.info('Setting notification enabled to $enabled');
-    _appStateRepository.updateNotificationEnabled(enabled);
+    _appStateProvider.updateNotificationEnabled(enabled);
     notifyListeners();
   }
 
   void setAutoSyncEnabled(bool enabled) {
     _log.info('Setting auto sync enabled to $enabled');
-    _appStateRepository.updateAutoSyncEnabled(enabled);
+    _appStateProvider.updateAutoSyncEnabled(enabled);
     notifyListeners();
   }
 
   void setTheme(ThemeMode? theme) {
     _log.info('Setting theme to $theme');
-    _appStateRepository.updateThemeMode(theme!);
+    _appStateProvider.updateThemeMode(theme!);
     notifyListeners();
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
     _log.info('Setting color theme to $colorTheme');
-    _appStateRepository.updateColorTheme(colorTheme!);
+    _appStateProvider.updateColorTheme(colorTheme!);
     notifyListeners();
   }
 
   void setFontFamily(FontFamily? fontType) {
     _log.info('Setting font type to $fontType');
-    _appStateRepository.updateFontFamily(fontType!);
+    _appStateProvider.updateFontFamily(fontType!);
     notifyListeners();
   }
 
@@ -106,7 +110,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void clearSharedPreferences() {
-    _appStateRepository.clearSharedPreferences();
+    _settingsRepository.clearSharedPreferences();
     notifyListeners();
   }
 }

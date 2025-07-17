@@ -21,6 +21,7 @@ class ProfileScreen extends StatelessWidget {
     return Consumer<ProfileViewModel>(
       builder: (context, viewModel, _) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(t.profile_title),
             leading: IconButton(

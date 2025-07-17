@@ -64,6 +64,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
           ),
           child: BottomAppBar(
             shape: const CircularNotchedRectangle(),
+            height: 56,
             child: NavigationBar(
               elevation: 0,
               animationDuration: DurationMs.lazy,

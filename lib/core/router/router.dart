@@ -32,7 +32,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       builder: (_, _) => ChangeNotifierProvider(
         create: (context) => OnboardingViewModel(
           totalSteps: 4,
-          appStateRepository: context.read(),
+          appStateProvider: context.read(),
           authRepository: context.read(),
         ),
         child: const OnboardingScreen(),
@@ -100,7 +100,8 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
               path: Routes.settings,
               builder: (_, _) => ChangeNotifierProvider(
                 create: (context) => SettingsViewModel(
-                  appStateRepository: context.read(),
+                  settingsRepository: context.read(),
+                  appStateProvider: context.read(),
                   journalRepository: context.read(),
                   authRepository: context.read(),
                 ),
@@ -118,7 +119,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
         create: (context) => WriteViewModel(
           journalRepository: context.read(),
           geminiRepository: context.read(),
-          appStateRepository: context.read(),
+          appStateProvider: context.read(),
           aiGenerationRepository: context.read(),
           totalSteps: 2,
         ),

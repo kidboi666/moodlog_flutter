@@ -1,24 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/providers/app_state_provider.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/step_mixin.dart';
-import '../../../domain/entities/app_state.dart';
-import '../../../domain/repositories/app_state_repository.dart';
+import '../../../domain/entities/settings.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
 class OnboardingViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {
-  final AppStateRepository _appStateRepository;
+  final AppStateProvider _appStateProvider;
   final AuthRepository _authRepository;
 
   OnboardingViewModel({
     required int totalSteps,
-    required AppStateRepository appStateRepository,
+    required AppStateProvider appStateProvider,
     required AuthRepository authRepository,
-  }) : _appStateRepository = appStateRepository,
+  }) : _appStateProvider = appStateProvider,
        _authRepository = authRepository {
     initStep(totalSteps);
   }
@@ -26,20 +26,12 @@ class OnboardingViewModel extends ChangeNotifier
   final Logger _log = Logger('OnboardingViewModel');
   AiPersonality _selectedPersonality = AiPersonality.balanced;
   String _nickname = '';
-  bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
 
   String get nickname => _nickname;
 
-  AppState get appState => _appStateRepository.appState;
+  Settings get appState => _appStateProvider.appState;
 
   AiPersonality get selectedPersonality => _selectedPersonality;
-
-  void _setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
 
   void setPersonality(AiPersonality personality) {
     _selectedPersonality = personality;
@@ -57,30 +49,28 @@ class OnboardingViewModel extends ChangeNotifier
       value != null && value.isNotEmpty && value.length <= 10;
 
   Future<void> signInAnonymously() async {
-    _setLoading(true);
+    setLoading();
     try {
-      await _appStateRepository.init(aiPersonality: _selectedPersonality);
+      await _appStateProvider.updateAiPersonality(_selectedPersonality);
       await _authRepository.signInAnonymously();
       await _authRepository.updateDisplayName(_nickname);
+      setSuccess();
     } on FirebaseAuthException catch (e) {
       _log.warning('Failed to sign in anonymously', e);
-    } finally {
-      _setLoading(false);
+      setError(e);
     }
   }
 
   Future<void> signInGoogle() async {
-    _isLoading = true;
-    notifyListeners();
+    setLoading();
     try {
-      await _appStateRepository.init(aiPersonality: _selectedPersonality);
+      await _appStateProvider.updateAiPersonality(_selectedPersonality);
       await _authRepository.signInWithGoogle();
       await _authRepository.updateDisplayName(_nickname);
+      setSuccess();
     } on FirebaseAuthException catch (e) {
       _log.warning('Failed to sign in with Google', e);
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      setError(e);
     }
   }
 }

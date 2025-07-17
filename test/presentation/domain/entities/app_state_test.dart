@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/domain/entities/app_state.dart';
+import 'package:moodlog/domain/entities/settings.dart';
 
 void main() {
   group('AppState', () {
@@ -14,7 +14,7 @@ void main() {
         'aiPersonality': 'balanced',
       };
 
-      final appState = AppState.fromJson(json);
+      final appState = Settings.fromJson(json);
 
       expect(appState.hasNotificationEnabled, false);
       expect(appState.hasAutoSyncEnabled, false);
@@ -25,7 +25,7 @@ void main() {
     });
 
     test('toJson returns valid JSON', () {
-      final appState = AppState(
+      final appState = Settings(
         hasNotificationEnabled: false,
         hasAutoSyncEnabled: false,
         themeMode: ThemeMode.system,
@@ -45,8 +45,8 @@ void main() {
     });
 
     test('fromJson creates a valid AppState with default values', () {
-      final json = AppState();
-      final appState = AppState.fromJson(json.toJson());
+      final json = Settings();
+      final appState = Settings.fromJson(json.toJson());
       expect(appState.hasNotificationEnabled, false);
       expect(appState.hasAutoSyncEnabled, false);
       expect(appState.themeMode, ThemeMode.system);

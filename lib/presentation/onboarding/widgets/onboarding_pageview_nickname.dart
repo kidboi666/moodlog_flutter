@@ -77,6 +77,7 @@ class _OnboardingPageViewNickNameState
                 FadeIn(
                   delay: DelayMs.medium * 2,
                   child: TextFormField(
+                    maxLength: 10,
                     controller: _inputController,
                     onChanged: onChangedNickname,
                     validator: _validateNickname,

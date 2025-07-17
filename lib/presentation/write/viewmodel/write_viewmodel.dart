@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/core/providers/app_state_provider.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/step_mixin.dart';
@@ -9,25 +10,24 @@ import '../../../core/utils/result.dart';
 import '../../../data/models/request/add_journal_request.dart';
 import '../../../data/models/request/update_journal_request.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
-import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;
   final GeminiRepository _geminiRepository;
-  final AppStateRepository _appStateRepository;
+  final AppStateProvider _appStateProvider;
   final AiGenerationRepository _aiGenerationRepository;
 
   WriteViewModel({
     required JournalRepository journalRepository,
     required GeminiRepository geminiRepository,
-    required AppStateRepository appStateRepository,
+    required AppStateProvider appStateProvider,
     required AiGenerationRepository aiGenerationRepository,
     required int totalSteps,
   }) : _journalRepository = journalRepository,
        _geminiRepository = geminiRepository,
-       _appStateRepository = appStateRepository,
+       _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository {
     initStep(totalSteps);
   }
@@ -173,7 +173,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   void _generateAiResponse() async {
     _aiGenerationRepository.setGeneratingAiResponse();
 
-    final aiPersonality = _appStateRepository.appState.aiPersonality;
+    final aiPersonality = _appStateProvider.appState.aiPersonality;
     await _geminiRepository.init(aiPersonality);
     final aiResponse = await _geminiRepository.generateResponse(
       prompt: content!,

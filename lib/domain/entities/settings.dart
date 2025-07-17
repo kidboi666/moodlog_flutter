@@ -2,14 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../core/constants/enum.dart';
 
-part 'app_state.freezed.dart';
-part 'app_state.g.dart';
+part 'settings.freezed.dart';
+part 'settings.g.dart';
 
 @freezed
-abstract class AppState with _$AppState {
-  const AppState._();
+abstract class Settings with _$Settings {
+  const Settings._();
 
-  const factory AppState({
+  const factory Settings({
     @Default(false) bool hasNotificationEnabled,
     @Default(false) bool hasAutoSyncEnabled,
     @Default(ThemeMode.system) ThemeMode themeMode,
@@ -17,8 +17,8 @@ abstract class AppState with _$AppState {
     @Default(LanguageCode.ko) LanguageCode languageCode,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default(FontFamily.pretendard) FontFamily fontFamily,
-  }) = _AppState;
+  }) = _Settings;
 
-  factory AppState.fromJson(Map<String, dynamic> json) =>
-      _$AppStateFromJson(json);
+  factory Settings.fromJson(Map<String, dynamic> json) =>
+      _$SettingsFromJson(json);
 }

@@ -39,6 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final viewModel = context.read<OnboardingViewModel>();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Selector<OnboardingViewModel, PaginationDotProps>(
           selector: (context, viewModel) =>

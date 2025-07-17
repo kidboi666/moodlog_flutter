@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart' as material;
 
+import 'common.dart';
+
 enum LanguageCode {
   ko,
   en;
+
+  static LanguageCode fromString(String? value) {
+    switch (value) {
+      case 'en':
+        return LanguageCode.en;
+      case 'ko':
+        return LanguageCode.ko;
+      default:
+        return LanguageCode.ko;
+    }
+  }
 
   String get displayName {
     switch (this) {
@@ -13,7 +26,7 @@ enum LanguageCode {
     }
   }
 
-  String get code {
+  String get value {
     switch (this) {
       case LanguageCode.ko:
         return 'ko';
@@ -23,7 +36,46 @@ enum LanguageCode {
   }
 }
 
-enum AiPersonality { rational, balanced, compassionate }
+enum AiPersonality {
+  rational,
+  balanced,
+  compassionate;
+
+  static AiPersonality fromString(String? value) {
+    switch (value) {
+      case 'balanced':
+        return AiPersonality.balanced;
+      case 'rational':
+        return AiPersonality.rational;
+      case 'compassionate':
+        return AiPersonality.compassionate;
+      default:
+        return AiPersonality.balanced;
+    }
+  }
+
+  String get emoji {
+    switch (this) {
+      case AiPersonality.rational:
+        return Emoji.rational;
+      case AiPersonality.balanced:
+        return Emoji.balanced;
+      case AiPersonality.compassionate:
+        return Emoji.compassionate;
+    }
+  }
+
+  String get value {
+    switch (this) {
+      case AiPersonality.rational:
+        return 'rational';
+      case AiPersonality.balanced:
+        return 'balanced';
+      case AiPersonality.compassionate:
+        return 'compassionate';
+    }
+  }
+}
 
 enum SimpleTextAlign {
   left(material.TextAlign.left, material.Icons.format_align_left),
@@ -96,12 +148,12 @@ enum MoodType {
 }
 
 enum ColorTheme {
-  red,
   blue,
+  indigo,
+  red,
   purple,
   green,
-  orange,
-  indigo;
+  orange;
 
   static ColorTheme fromString(String? value) {
     switch (value) {
@@ -119,6 +171,23 @@ enum ColorTheme {
         return ColorTheme.indigo;
       default:
         return ColorTheme.blue;
+    }
+  }
+
+  String get value {
+    switch (this) {
+      case ColorTheme.red:
+        return 'red';
+      case ColorTheme.blue:
+        return 'blue';
+      case ColorTheme.purple:
+        return 'purple';
+      case ColorTheme.green:
+        return 'green';
+      case ColorTheme.orange:
+        return 'orange';
+      case ColorTheme.indigo:
+        return 'indigo';
     }
   }
 }
@@ -152,6 +221,17 @@ enum ThemeMode {
     }
   }
 
+  String get value {
+    switch (this) {
+      case ThemeMode.light:
+        return 'light';
+      case ThemeMode.dark:
+        return 'dark';
+      case ThemeMode.system:
+        return 'system';
+    }
+  }
+
   material.ThemeMode get materialThemeMode {
     switch (this) {
       case ThemeMode.light:
@@ -166,7 +246,21 @@ enum ThemeMode {
 
 enum FontFamily {
   pretendard,
-  leeSeoyun;
+  leeSeoyun,
+  system;
+
+  static FontFamily fromString(String? value) {
+    switch (value) {
+      case 'pretendard':
+        return FontFamily.pretendard;
+      case 'leeSeoyun':
+        return FontFamily.leeSeoyun;
+      case 'system':
+        return FontFamily.system;
+      default:
+        return FontFamily.pretendard;
+    }
+  }
 
   String get displayName {
     switch (this) {
@@ -174,6 +268,19 @@ enum FontFamily {
         return 'Pretendard';
       case FontFamily.leeSeoyun:
         return 'LeeSeoyun';
+      case FontFamily.system:
+        return 'System';
+    }
+  }
+
+  String get value {
+    switch (this) {
+      case FontFamily.pretendard:
+        return 'pretendard';
+      case FontFamily.leeSeoyun:
+        return 'leeSeoyun';
+      case FontFamily.system:
+        return 'system';
     }
   }
 }

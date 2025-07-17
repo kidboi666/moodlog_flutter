@@ -1,0 +1,95 @@
+import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/domain/entities/settings.dart';
+
+import '../../domain/repositories/app_state_repository.dart';
+import '../constants/enum.dart';
+
+class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
+  final SettingsRepository _settingsRepository;
+
+  AppStateProvider({required SettingsRepository settingsRepository})
+    : _settingsRepository = settingsRepository {
+    loadSettings();
+  }
+
+  final Logger _log = Logger('AppStateProvider');
+  Settings? _appState;
+
+  Settings get appState => _appState ?? Settings();
+
+  Future<void> loadSettings() async {
+    setLoading();
+    try {
+      final results = await Future.wait([
+        _settingsRepository.getThemeMode(),
+        _settingsRepository.getLanguageCode(),
+        _settingsRepository.getAiPersonality(),
+        _settingsRepository.getHasNotificationEnabled(),
+        _settingsRepository.getHasAutoSyncEnabled(),
+        _settingsRepository.getColorTheme(),
+        _settingsRepository.getFontFamily(),
+      ]);
+
+      _appState = Settings(
+        themeMode: results[0] as ThemeMode,
+        languageCode: results[1] as LanguageCode,
+        aiPersonality: results[2] as AiPersonality,
+        hasNotificationEnabled: results[3] as bool,
+        hasAutoSyncEnabled: results[4] as bool,
+        colorTheme: results[5] as ColorTheme,
+        fontFamily: results[6] as FontFamily,
+      );
+      _log.info('Loaded settings: $_appState');
+      setSuccess();
+    } catch (e) {
+      setError(e);
+      _appState = Settings();
+    }
+  }
+
+  Future<void> updateThemeMode(ThemeMode themeMode) async {
+    await _settingsRepository.updateThemeMode(themeMode);
+    _appState = _appState?.copyWith(themeMode: themeMode);
+    notifyListeners();
+  }
+
+  Future<void> updateLanguage(LanguageCode languageCode) async {
+    await _settingsRepository.updateLanguage(languageCode);
+    _appState = _appState?.copyWith(languageCode: languageCode);
+    notifyListeners();
+  }
+
+  Future<void> updateAiPersonality(AiPersonality aiPersonality) async {
+    await _settingsRepository.updateAiPersonality(aiPersonality);
+    _appState = _appState?.copyWith(aiPersonality: aiPersonality);
+    notifyListeners();
+  }
+
+  Future<void> updateNotificationEnabled(bool hasNotificationEnabled) async {
+    await _settingsRepository.updateNotificationEnabled(hasNotificationEnabled);
+    _appState = _appState?.copyWith(
+      hasNotificationEnabled: hasNotificationEnabled,
+    );
+    notifyListeners();
+  }
+
+  Future<void> updateAutoSyncEnabled(bool hasAutoSyncEnabled) async {
+    await _settingsRepository.updateAutoSyncEnabled(hasAutoSyncEnabled);
+    _appState = _appState?.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled);
+    notifyListeners();
+  }
+
+  Future<void> updateColorTheme(ColorTheme colorTheme) async {
+    await _settingsRepository.updateColorTheme(colorTheme);
+    _appState = _appState?.copyWith(colorTheme: colorTheme);
+    notifyListeners();
+  }
+
+  Future<void> updateFontFamily(FontFamily fontFamily) async {
+    await _settingsRepository.updateFontFamily(fontFamily);
+    _appState = _appState?.copyWith(fontFamily: fontFamily);
+    notifyListeners();
+  }
+}

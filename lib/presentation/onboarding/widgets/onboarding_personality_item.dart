@@ -36,10 +36,7 @@ class PersonalityItem extends StatelessWidget {
                   horizontal: 8.0,
                   vertical: 20.0,
                 ),
-                child: Text(
-                  personality.getEmoji(context),
-                  style: textTheme.titleLarge,
-                ),
+                child: Text(personality.emoji, style: textTheme.titleLarge),
               ),
               Expanded(
                 flex: 1,
