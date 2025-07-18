@@ -24,6 +24,7 @@ _Settings _$SettingsFromJson(Map<String, dynamic> json) => _Settings(
   fontFamily:
       $enumDecodeNullable(_$FontFamilyEnumMap, json['fontFamily']) ??
       FontFamily.pretendard,
+  onboardingCompleted: json['onboardingCompleted'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$SettingsToJson(_Settings instance) => <String, dynamic>{
@@ -34,6 +35,7 @@ Map<String, dynamic> _$SettingsToJson(_Settings instance) => <String, dynamic>{
   'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
   'aiPersonality': _$AiPersonalityEnumMap[instance.aiPersonality]!,
   'fontFamily': _$FontFamilyEnumMap[instance.fontFamily]!,
+  'onboardingCompleted': instance.onboardingCompleted,
 };
 
 const _$ThemeModeEnumMap = {

@@ -30,6 +30,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         _settingsRepository.getHasAutoSyncEnabled(),
         _settingsRepository.getColorTheme(),
         _settingsRepository.getFontFamily(),
+        _settingsRepository.getOnboardingCompleted(),
       ]);
 
       _appState = Settings(
@@ -40,6 +41,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         hasAutoSyncEnabled: results[4] as bool,
         colorTheme: results[5] as ColorTheme,
         fontFamily: results[6] as FontFamily,
+        onboardingCompleted: results[7] as bool,
       );
       _log.info('Loaded settings: $_appState');
       setSuccess();
@@ -90,6 +92,12 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   Future<void> updateFontFamily(FontFamily fontFamily) async {
     await _settingsRepository.updateFontFamily(fontFamily);
     _appState = _appState?.copyWith(fontFamily: fontFamily);
+    notifyListeners();
+  }
+
+  Future<void> updateOnboardingCompleted(bool onboardingCompleted) async {
+    await _settingsRepository.updateOnboardingCompleted(onboardingCompleted);
+    _appState = _appState?.copyWith(onboardingCompleted: onboardingCompleted);
     notifyListeners();
   }
 }

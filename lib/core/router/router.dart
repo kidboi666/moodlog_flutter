@@ -22,6 +22,7 @@ import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
 import '../../presentation/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/screen/write_screen.dart';
 import '../../presentation/write/viewmodel/write_viewmodel.dart';
+import '../providers/app_state_provider.dart';
 import 'routes.dart';
 
 GoRouter router(AuthRepository authRepository) => GoRouter(
@@ -160,20 +161,29 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final authRepository = context.read<AuthRepository>();
+  final appStateProvider = context.read<AppStateProvider>();
   final isAuthenticated = authRepository.isAuthenticated;
   final isAnonymousUser = authRepository.isAnonymousUser;
+  final onboardingCompleted = appStateProvider.appState.onboardingCompleted;
   final location = state.matchedLocation;
 
-  if (!isAuthenticated && location != Routes.signIn) {
-    return location == Routes.onboarding ? null : Routes.onboarding;
-  }
+  final isGoingToOnboarding = location == Routes.onboarding;
+  final isGoingToSignIn = location == Routes.signIn;
 
   if (!isAuthenticated) {
-    return location == Routes.signIn ? null : Routes.signIn;
+    if (!onboardingCompleted) {
+      return isGoingToOnboarding ? null : Routes.onboarding;
+    }
+
+    return isGoingToSignIn ? null : Routes.signIn;
   }
 
-  if (isAuthenticated && location == Routes.signIn) {
+  if (isGoingToSignIn) {
     return isAnonymousUser ? null : Routes.home;
+  }
+
+  if (isGoingToOnboarding) {
+    return Routes.home;
   }
 
   return null;

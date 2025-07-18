@@ -82,12 +82,10 @@ abstract final class Emoji {
 }
 
 abstract final class PreferenceKeys {
-  static const isFirstLaunch = 'is_first_launch';
   static const themeMode = 'theme_mode';
   static const languageCode = 'language_code';
-  static const lastActiveDate = 'last_active_date';
-  static const firstLaunchedDate = 'first_launched_date';
   static const nickname = 'nick_name';
+  static const onboardingCompleted = 'onboarding_completed';
   static const aiPersonality = 'ai_personality';
   static const hasNotificationEnabled = 'has_notification_enabled';
   static const hasAutoSyncEnabled = 'has_auto_sync_enabled';

@@ -14,10 +14,7 @@ class SettingsRepositoryImpl extends SettingsRepository {
   @override
   Future<ThemeMode> getThemeMode() async {
     final themeModeString = await _prefs.getString(PreferenceKeys.themeMode);
-    print('DEBUG: themeModeString = $themeModeString');
-    final result = ThemeMode.fromString(themeModeString);
-    print('DEBUG: parsed ThemeMode = $result');
-    return result;
+    return ThemeMode.fromString(themeModeString);
   }
 
   @override
@@ -59,8 +56,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<bool> getIsFirstLaunch() async {
-    return await _prefs.getBool(PreferenceKeys.isFirstLaunch) ?? true;
+  Future<bool> getOnboardingCompleted() async {
+    return await _prefs.getBool(PreferenceKeys.onboardingCompleted) ?? false;
   }
 
   @override
@@ -102,8 +99,11 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<void> updateIsFirstLaunch(bool isFirstLaunch) async {
-    await _prefs.setBool(PreferenceKeys.isFirstLaunch, isFirstLaunch);
+  Future<void> updateOnboardingCompleted(bool onboardingCompleted) async {
+    await _prefs.setBool(
+      PreferenceKeys.onboardingCompleted,
+      onboardingCompleted,
+    );
   }
 
   /// kDebugMode

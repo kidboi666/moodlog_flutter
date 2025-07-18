@@ -57,6 +57,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
                           'nickname': nickname,
                         },
                       );
+                      viewModel.setOnboardingCompleted();
                     },
                     child: Text(t.onboarding_success_next),
                   ),
