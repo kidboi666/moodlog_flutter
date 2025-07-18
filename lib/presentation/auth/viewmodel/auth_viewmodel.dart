@@ -1,26 +1,20 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/providers/app_state_provider.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/app_state_provider.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
 class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   final AuthRepository _authRepository;
   final AppStateProvider _appStateProvider;
-  final String? _nickname;
-  final AiPersonality? _aiPersonality;
 
   AuthViewModel({
     required AuthRepository authRepository,
     required AppStateProvider appStateProvider,
-    required String nickname,
-    required AiPersonality aiPersonality,
   }) : _authRepository = authRepository,
-       _appStateProvider = appStateProvider,
-       _nickname = nickname,
-       _aiPersonality = aiPersonality;
+       _appStateProvider = appStateProvider;
 
   LoginType? _loginType;
   final Logger _log = Logger('AuthViewModel');
@@ -34,37 +28,45 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
-  void setLoginType(LoginType loginType) {
-    _loginType = loginType;
-  }
+  bool get isGoogleOnboardingCompleted =>
+      _appStateProvider.appState.onboardedLoginTypes?.contains(
+        LoginType.google.value,
+      ) ??
+      false;
 
-  Future<void> signInAnonymously() async {
-    if (_aiPersonality == null || _nickname == null) return;
-    setLoginType(LoginType.anonymous);
+  Future<void> signInAnonymously(BuildContext context) async {
+    _loginType = LoginType.anonymous;
     setLoading();
     try {
-      await _appStateProvider.updateAiPersonality(_aiPersonality);
       await _authRepository.signInAnonymously();
-      await _authRepository.updateDisplayName(_nickname);
       setSuccess();
     } catch (e) {
       _log.warning('Failed to sign in anonymously', e);
       setError(e);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Anonymous sign in failed: ${e.toString()}')),
+        );
+      }
     }
   }
 
-  Future<void> signInGoogle() async {
-    if (_aiPersonality == null || _nickname == null) return;
-    setLoginType(LoginType.google);
+  Future<void> signInGoogle(BuildContext context) async {
+    _loginType = LoginType.google;
     setLoading();
     try {
-      await _appStateProvider.updateAiPersonality(_aiPersonality);
       await _authRepository.signInWithGoogle();
-      await _authRepository.updateDisplayName(_nickname);
       setSuccess();
     } catch (e) {
       _log.warning('Failed to sign in with Google', e);
       setError(e);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Google sign in failed: ${e.toString()}')),
+        );
+      }
     }
   }
+
+  Future<void> signInKakao() async {}
 }

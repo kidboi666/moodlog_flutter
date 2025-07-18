@@ -56,8 +56,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<bool> getOnboardingCompleted() async {
-    return await _prefs.getBool(PreferenceKeys.onboardingCompleted) ?? false;
+  Future<List<String>?> getOnboardedLoginTypes() async {
+    return await _prefs.getStringList(PreferenceKeys.onboardingCompleted);
   }
 
   @override
@@ -99,10 +99,18 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<void> updateOnboardingCompleted(bool onboardingCompleted) async {
-    await _prefs.setBool(
+  Future<void> updateOnboardedLoginTypes(LoginType loginType) async {
+    List<String>? onboardedLoginTypes = await getOnboardedLoginTypes();
+
+    if (onboardedLoginTypes != null) {
+      onboardedLoginTypes.add(loginType.value);
+    } else {
+      onboardedLoginTypes = [loginType.value];
+    }
+
+    await _prefs.setStringList(
       PreferenceKeys.onboardingCompleted,
-      onboardingCompleted,
+      onboardedLoginTypes,
     );
   }
 

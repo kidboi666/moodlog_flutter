@@ -6,15 +6,22 @@ import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/step_mixin.dart';
 import '../../../core/providers/app_state_provider.dart';
 import '../../../domain/entities/settings.dart';
+import '../../../domain/repositories/auth_repository.dart';
 
 class OnboardingViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {
   final AppStateProvider _appStateProvider;
+  final AuthRepository _authRepository;
+  final LoginType _loginType;
 
   OnboardingViewModel({
     required int totalSteps,
     required AppStateProvider appStateProvider,
-  }) : _appStateProvider = appStateProvider {
+    required AuthRepository authRepository,
+    required LoginType loginType,
+  }) : _appStateProvider = appStateProvider,
+       _authRepository = authRepository,
+       _loginType = loginType {
     initStep(totalSteps);
   }
 
@@ -43,7 +50,16 @@ class OnboardingViewModel extends ChangeNotifier
     notifyListeners();
   }
 
-  void setOnboardingCompleted() {
-    _appStateProvider.updateOnboardingCompleted(true);
+  Future<void> setOnboardingCompleted() async {
+    setLoading();
+    try {
+      await _appStateProvider.updateOnboardedLoginTypes(_loginType);
+      await _appStateProvider.updateAiPersonality(_selectedPersonality);
+      await _authRepository.updateDisplayName(_nickname);
+      setSuccess();
+    } catch (e) {
+      _log.warning('Failed to update base user info', e);
+      setError(e);
+    }
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/router/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../core/router/routes.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 
@@ -15,7 +15,6 @@ class OnboardingPageViewSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    final viewModel = context.read<OnboardingViewModel>();
 
     return Column(
       spacing: Spacing.xl * 2,
@@ -46,20 +45,22 @@ class OnboardingPageViewSuccess extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FilledButton(
-                    onPressed: () {
-                      final aiPersonality = viewModel.selectedPersonality;
-                      final nickname = viewModel.nickname;
-                      context.go(
-                        Routes.signIn,
-                        extra: {
-                          'aiPersonality': aiPersonality,
-                          'nickname': nickname,
-                        },
+                  Consumer<OnboardingViewModel>(
+                    builder: (context, viewModel, _) {
+                      return FilledButton(
+                        onPressed: viewModel.isLoading
+                            ? null
+                            : () async {
+                                await viewModel.setOnboardingCompleted();
+                                if (context.mounted) {
+                                  context.go(Routes.home);
+                                }
+                              },
+                        child: viewModel.isLoading
+                            ? const CircularProgressIndicator()
+                            : Text(t.onboarding_success_next),
                       );
-                      viewModel.setOnboardingCompleted();
                     },
-                    child: Text(t.onboarding_success_next),
                   ),
                 ],
               ),

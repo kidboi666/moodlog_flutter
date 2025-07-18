@@ -1,21 +1,25 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
+import 'package:moodlog/presentation/auth/widgets/google_signin_button.dart';
+import 'package:moodlog/presentation/auth/widgets/guest_signin_button.dart';
+import 'package:moodlog/presentation/auth/widgets/kakao_signin_button.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
-import '../viewmodel/auth_viewmodel.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  final SignInSource? source;
+
+  const SignInScreen({super.key, this.source});
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final mediaquery = MediaQuery.of(context);
 
     return Scaffold(
       appBar: AppBar(title: Text(t.signin_title)),
@@ -28,8 +32,8 @@ class SignInScreen extends StatelessWidget {
               delay: DelayMs.medium,
               child: Image.asset(
                 'assets/images/icon.png',
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.width / 2,
+                width: mediaquery.size.width / 2,
+                height: mediaquery.size.width / 2,
                 fit: BoxFit.contain,
               ),
             ),
@@ -58,87 +62,14 @@ class SignInScreen extends StatelessWidget {
                 bottom: true,
                 child: SizedBox(
                   width: double.infinity,
-                  child: Consumer<AuthViewModel>(
-                    builder: (context, viewModel, _) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          FilledButton(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: colorScheme.surfaceContainer,
-                              foregroundColor: colorScheme.onSurface,
-                            ),
-                            onPressed: viewModel.isLoading
-                                ? null
-                                : viewModel.signInGoogle,
-                            child: viewModel.isLoadingGoogle
-                                ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Row(
-                                    spacing: Spacing.md,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/svg/google-icon.svg',
-                                        width: 24,
-                                        height: 24,
-                                      ),
-                                      Text(t.signin_button_google),
-                                    ],
-                                  ),
-                          ),
-                          // TODO 카카오 로그인
-                          if (kDebugMode)
-                            FilledButton(
-                              style: FilledButton.styleFrom(
-                                backgroundColor: Colors.yellow,
-                                foregroundColor: Colors.black,
-                              ),
-                              onPressed: viewModel.isLoading ? null : () {},
-                              child: viewModel.isLoadingKakao
-                                  ? SizedBox(
-                                      width: 20,
-                                      height: 20,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
-                                    )
-                                  : Row(
-                                      spacing: Spacing.md,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/svg/kakao-icon.svg',
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        Text(t.signin_button_kakao),
-                                      ],
-                                    ),
-                            ),
-                          TextButton(
-                            onPressed: viewModel.isLoading
-                                ? null
-                                : viewModel.signInAnonymously,
-                            child: viewModel.isLoadingAnonymously
-                                ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Text(t.signin_button_guest),
-                          ),
-                        ],
-                      );
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      GoogleSigninButton(),
+                      // TODO 카카오 로그인
+                      if (kDebugMode) KakaoSigninButton(),
+                      if (source != SignInSource.profile) GuestSigninButton(),
+                    ],
                   ),
                 ),
               ),

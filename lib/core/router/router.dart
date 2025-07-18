@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/auth/screen/sign_in_screen.dart';
-import 'package:moodlog/presentation/auth/viewmodel/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/repositories/auth_repository.dart';
+import '../../presentation/auth/screen/sign_in_screen.dart';
+import '../../presentation/auth/viewmodel/auth_viewmodel.dart';
 import '../../presentation/entries/screen/entries_screen.dart';
 import '../../presentation/entries/viewmodel/entries_viewmodel.dart';
 import '../../presentation/home/screen/home_screen.dart';
@@ -22,7 +22,7 @@ import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
 import '../../presentation/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/screen/write_screen.dart';
 import '../../presentation/write/viewmodel/write_viewmodel.dart';
-import '../providers/app_state_provider.dart';
+import '../constants/enum.dart';
 import 'routes.dart';
 
 GoRouter router(AuthRepository authRepository) => GoRouter(
@@ -31,27 +31,30 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
   redirect: _redirect,
   routes: [
     GoRoute(
-      path: Routes.onboarding,
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (context) => OnboardingViewModel(
-          totalSteps: 4,
-          appStateProvider: context.read(),
-        ),
-        child: const OnboardingScreen(),
-      ),
-    ),
-    GoRoute(
       path: Routes.signIn,
       builder: (_, state) {
-        final data = state.extra as Map<String, dynamic>?;
+        final extra = state.extra as Map<String, SignInSource>?;
         return ChangeNotifierProvider(
           create: (context) => AuthViewModel(
             authRepository: context.read(),
             appStateProvider: context.read(),
-            nickname: data?['nickname'],
-            aiPersonality: data?['aiPersonality'],
           ),
-          child: const SignInScreen(),
+          child: SignInScreen(source: extra?['source']),
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.onboarding,
+      builder: (_, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return ChangeNotifierProvider(
+          create: (context) => OnboardingViewModel(
+            totalSteps: 4,
+            appStateProvider: context.read(),
+            authRepository: context.read(),
+            loginType: extra['loginType'],
+          ),
+          child: const OnboardingScreen(),
         );
       },
     ),
@@ -79,11 +82,11 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       path: Routes.journalPage,
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
-        final data = state.extra as Map<String, dynamic>;
+        final extra = state.extra as Map<String, dynamic>;
         final viewModel = JournalViewModel(
           journalRepository: context.read(),
           aiGenerationRepository: context.read(),
-          source: data['source'],
+          source: extra['source'],
           id: id,
         );
         return JournalScreen(viewModel: viewModel);
@@ -161,29 +164,23 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final authRepository = context.read<AuthRepository>();
-  final appStateProvider = context.read<AppStateProvider>();
   final isAuthenticated = authRepository.isAuthenticated;
   final isAnonymousUser = authRepository.isAnonymousUser;
-  final onboardingCompleted = appStateProvider.appState.onboardingCompleted;
   final location = state.matchedLocation;
+  final isOnboarding = location == Routes.onboarding;
+  final isSigning = location == Routes.signIn;
 
-  final isGoingToOnboarding = location == Routes.onboarding;
-  final isGoingToSignIn = location == Routes.signIn;
-
+  // 로그인을 안했다면
   if (!isAuthenticated) {
-    if (!onboardingCompleted) {
-      return isGoingToOnboarding ? null : Routes.onboarding;
-    }
-
-    return isGoingToSignIn ? null : Routes.signIn;
+    // 로그인 페이지가 아니라면 로그인 페이지로
+    return isSigning ? null : Routes.signIn;
   }
 
-  if (isGoingToSignIn) {
+  // 로그인을 했고
+  // 로그인 페이지이거나 온보딩 페이지라면
+  if (isSigning || isOnboarding) {
+    // 익명 사용자가 아니라면 홈으로
     return isAnonymousUser ? null : Routes.home;
-  }
-
-  if (isGoingToOnboarding) {
-    return Routes.home;
   }
 
   return null;

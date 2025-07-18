@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/router/routes.dart';
 
@@ -32,7 +33,10 @@ class AccountCard extends StatelessWidget {
               if (isAnonymousUser)
                 FilledButton(
                   onPressed: () {
-                    context.go(Routes.signIn);
+                    context.push(
+                      Routes.signIn,
+                      extra: {'source': SignInSource.profile},
+                    );
                   },
                   child: Text(t.profile_button_login),
                 ),

@@ -17,7 +17,7 @@ abstract class SettingsRepository extends ChangeNotifier {
 
   Future<FontFamily> getFontFamily();
 
-  Future<bool> getOnboardingCompleted();
+  Future<List<String>?> getOnboardedLoginTypes();
 
   Future<void> updateAiPersonality(AiPersonality aiPersonality);
 
@@ -33,7 +33,7 @@ abstract class SettingsRepository extends ChangeNotifier {
 
   Future<void> updateFontFamily(FontFamily fontType);
 
-  Future<void> updateOnboardingCompleted(bool onboardingCompleted);
+  Future<void> updateOnboardedLoginTypes(LoginType loginType);
 
   Future<void> clearSharedPreferences();
 }

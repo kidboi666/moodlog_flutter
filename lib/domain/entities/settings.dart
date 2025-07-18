@@ -17,7 +17,7 @@ abstract class Settings with _$Settings {
     @Default(LanguageCode.ko) LanguageCode languageCode,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default(FontFamily.pretendard) FontFamily fontFamily,
-    @Default(false) bool onboardingCompleted,
+    List<String>? onboardedLoginTypes,
   }) = _Settings;
 
   factory Settings.fromJson(Map<String, dynamic> json) =>
