@@ -8,7 +8,9 @@ import '../../widgets/fade_in.dart';
 import 'mood_button.dart';
 
 class WritePageViewMood extends StatelessWidget {
-  const WritePageViewMood({super.key});
+  final Function nextPage;
+
+  const WritePageViewMood({super.key, required this.nextPage});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,11 @@ class WritePageViewMood extends StatelessWidget {
                   return FadeIn(
                     delay: DelayMs.quick * index + DelayMs.quick,
                     duration: DurationMs.lazy,
-                    child: MoodButton(mood: mood, index: index),
+                    child: MoodButton(
+                      mood: mood,
+                      index: index,
+                      nextPage: nextPage,
+                    ),
                   );
                 }).toList(),
               ),
