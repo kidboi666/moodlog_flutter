@@ -12,7 +12,6 @@ class UserIdCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-
     return SafeArea(
       bottom: true,
       child: ListTile(

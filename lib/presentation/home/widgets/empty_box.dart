@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/router/routes.dart';
+import '../../../core/routing/routes.dart';
 
 class EmptyBox extends StatelessWidget {
   const EmptyBox({super.key});

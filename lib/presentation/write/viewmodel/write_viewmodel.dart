@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/mixins/async_state_mixin.dart';
-import 'package:moodlog/core/providers/app_state_provider.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/step_mixin.dart';
+import '../../../core/providers/app_state_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../data/models/request/add_journal_request.dart';
 import '../../../data/models/request/update_journal_request.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
+import '../../../domain/use_cases/image/pick_image_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;
   final GeminiRepository _geminiRepository;
   final AppStateProvider _appStateProvider;
   final AiGenerationRepository _aiGenerationRepository;
+  final PickImageUseCase _pickImageUseCase;
 
   WriteViewModel({
     required JournalRepository journalRepository,
     required GeminiRepository geminiRepository,
     required AppStateProvider appStateProvider,
     required AiGenerationRepository aiGenerationRepository,
+    required PickImageUseCase pickImageUseCase,
     required int totalSteps,
   }) : _journalRepository = journalRepository,
        _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
-       _aiGenerationRepository = aiGenerationRepository {
+       _aiGenerationRepository = aiGenerationRepository,
+       _pickImageUseCase = pickImageUseCase {
     initStep(totalSteps);
   }
 
@@ -40,7 +43,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   int? _submittedJournalId;
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
-  final ImagePicker _picker = ImagePicker();
 
   String? get content => _content;
 
@@ -72,22 +74,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     if (_content != value) {
       _content = value;
       notifyListeners();
-    }
-  }
-
-  Future<void> pickImage() async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(
-        source: ImageSource.gallery,
-      );
-
-      if (pickedFile != null) {
-        _imageFileList.add(pickedFile.path);
-        _log.fine('Image picked: ${pickedFile.name}');
-        notifyListeners();
-      }
-    } catch (e) {
-      _log.warning('Error picking image: $e');
     }
   }
 
@@ -141,6 +127,19 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     }
   }
 
+  Future<void> pickImage() async {
+    final result = await _pickImageUseCase.pickImage();
+    switch (result) {
+      case Ok<String?>():
+        _log.fine('Image picked successfully');
+        _imageFileList.add(result.value!);
+        notifyListeners();
+      case Error<String?>():
+        _log.warning('Failed to pick image: ${result.error}');
+        notifyListeners();
+    }
+  }
+
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -149,7 +148,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       initialDate: _selectedDate,
     );
 
-    if (pickedDate != null) {
+    if (pickedDate != null && context.mounted) {
       final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.fromDateTime(_selectedDate),

@@ -428,6 +428,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_nickname_title => 'Change Nickname';
 
   @override
+  String get profile_nickname_hint => 'Please enter a new nickname';
+
+  @override
   String get profile_creation_time_title => 'Join Date';
 
   @override

@@ -9,12 +9,14 @@ class ContentInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     return TextFormField(
       controller: contentController,
       minLines: 8,
       maxLines: 8,
       decoration: InputDecoration(
-        fillColor: Theme.of(context).colorScheme.surfaceContainer,
+        fillColor: colorScheme.surfaceContainer,
         filled: true,
         border: UnderlineInputBorder(
           borderRadius: BorderRadius.only(
@@ -22,8 +24,8 @@ class ContentInput extends StatelessWidget {
             topRight: Radius.circular(20.0),
           ),
         ),
-        labelText: AppLocalizations.of(context)!.write_input_title,
-        hintText: AppLocalizations.of(context)!.write_input_hint,
+        labelText: t.write_input_title,
+        hintText: t.write_input_hint,
       ),
     );
   }

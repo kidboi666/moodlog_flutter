@@ -4,14 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
-import '../../../core/router/routes.dart';
+import '../../../core/routing/routes.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
 import 'image_picking_section.dart';
-
-typedef SubmissionData = ({bool isSubmitted, String journalId});
 
 class WritePageViewRest extends StatefulWidget {
   const WritePageViewRest({super.key});
@@ -23,13 +21,15 @@ class WritePageViewRest extends StatefulWidget {
 class _WritePageViewRestState extends State<WritePageViewRest> {
   late TextEditingController _contentController;
 
+  void _onContentChanged() {
+    context.read<WriteViewModel>().updateContent(_contentController.text);
+  }
+
   @override
   void initState() {
     super.initState();
     _contentController = TextEditingController();
-    _contentController.addListener(() {
-      context.read<WriteViewModel>().updateContent(_contentController.text);
-    });
+    _contentController.addListener(_onContentChanged);
   }
 
   @override
@@ -39,20 +39,16 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
       child: Column(
         spacing: Spacing.xxl,
         children: [
-          Selector<WriteViewModel, SubmissionData>(
-            selector: (context, viewModel) => (
-              isSubmitted: viewModel.isSubmitted,
-              journalId: viewModel.submittedJournalId.toString(),
-            ),
-            builder: (context, submissionData, child) {
-              if (submissionData.isSubmitted) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+          Consumer<WriteViewModel>(
+            builder: (context, viewModel, _) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (viewModel.isSubmitted && mounted) {
                   context.go(
-                    Routes.journal(submissionData.journalId),
+                    Routes.journal(viewModel.submittedJournalId),
                     extra: {'source': 'write'},
                   );
-                });
-              }
+                }
+              });
               return const SizedBox.shrink();
             },
           ),
@@ -67,7 +63,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                   builder: (context, selectedDate, child) {
                     return TextButton(
                       child: Row(
-                        spacing: 8,
+                        spacing: Spacing.md,
                         children: [
                           Text(selectedDate.formattedDotNationWithTime()),
                           Icon(Icons.calendar_month),
@@ -93,6 +89,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
 
   @override
   void dispose() {
+    _contentController.removeListener(_onContentChanged);
     _contentController.dispose();
     super.dispose();
   }

@@ -1,4 +1,5 @@
 import 'package:moodlog/core/providers/app_state_provider.dart';
+import 'package:moodlog/domain/use_cases/image/pick_image_use_case.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -15,9 +16,6 @@ import '../../domain/repositories/journal_repository.dart';
 
 List<SingleChildWidget> createProviders() {
   return [
-    ChangeNotifierProvider<AuthRepository>(
-      create: (context) => AuthRepositoryImpl(),
-    ),
     Provider<MoodLogDatabase>(
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
@@ -25,19 +23,31 @@ List<SingleChildWidget> createProviders() {
     ),
     ChangeNotifierProvider<SettingsRepository>(
       create: (_) => SettingsRepositoryImpl(),
+      lazy: false,
+    ),
+    ChangeNotifierProvider<AuthRepository>(
+      create: (context) => AuthRepositoryImpl(),
+      lazy: false,
     ),
     ChangeNotifierProvider<AppStateProvider>(
       create: (context) => AppStateProvider(settingsRepository: context.read()),
+      lazy: false,
     ),
     Provider<GeminiRepository>(
       create: (_) => GeminiRepositoryImpl.instance,
       lazy: false,
     ),
+    ProxyProvider<MoodLogDatabase, JournalRepository>(
+      update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
+      lazy: false,
+    ),
     ChangeNotifierProvider<AiGenerationRepository>(
       create: (_) => AiGenerationRepository(),
     ),
-    ProxyProvider<MoodLogDatabase, JournalRepository>(
-      update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
-    ),
+    ..._createUseCases(),
   ];
+}
+
+List<SingleChildWidget> _createUseCases() {
+  return [Provider<PickImageUseCase>(create: (_) => PickImageUseCase())];
 }

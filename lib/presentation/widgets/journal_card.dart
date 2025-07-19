@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/core/router/routes.dart';
 
+import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
+import '../../core/extensions/date_time.dart';
 import '../../core/l10n/app_localizations.dart';
+import '../../core/routing/routes.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;

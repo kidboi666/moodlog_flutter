@@ -27,8 +27,8 @@ import 'routes.dart';
 
 GoRouter router(AuthRepository authRepository) => GoRouter(
   initialLocation: Routes.home,
-  refreshListenable: authRepository,
   redirect: _redirect,
+  refreshListenable: authRepository,
   routes: [
     GoRoute(
       path: Routes.signIn,
@@ -73,6 +73,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
           geminiRepository: context.read(),
           appStateProvider: context.read(),
           aiGenerationRepository: context.read(),
+          pickImageUseCase: context.read(),
           totalSteps: 2,
         ),
         child: const WriteScreen(),

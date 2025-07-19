@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/router/routes.dart';
+import '../../../core/routing/routes.dart';
 import '../../widgets/avatar.dart';
 import '../viewmodel/settings_viewmodel.dart';
 import '../widgets/card_list_tile.dart';

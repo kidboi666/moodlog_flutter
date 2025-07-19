@@ -418,6 +418,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile_nickname_title => '닉네임 변경';
 
   @override
+  String get profile_nickname_hint => '새 닉네임을 입력하세요.';
+
+  @override
   String get profile_creation_time_title => '가입일';
 
   @override

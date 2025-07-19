@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 class EditDisplayNameDialog extends StatefulWidget {
   final String? initialName;
@@ -6,10 +8,10 @@ class EditDisplayNameDialog extends StatefulWidget {
   const EditDisplayNameDialog({super.key, this.initialName});
 
   @override
-  State<EditDisplayNameDialog> createState() => EditDisplayNameDialogState();
+  State<EditDisplayNameDialog> createState() => _EditDisplayNameDialogState();
 }
 
-class EditDisplayNameDialogState extends State<EditDisplayNameDialog> {
+class _EditDisplayNameDialogState extends State<EditDisplayNameDialog> {
   late final TextEditingController _controller;
   bool _isValid = false;
 
@@ -28,32 +30,36 @@ class EditDisplayNameDialogState extends State<EditDisplayNameDialog> {
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text('닉네임 변경'),
+      title: Text(t.profile_nickname_title),
       content: TextField(
         controller: _controller,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: '새 닉네임을 입력하세요',
-          border: OutlineInputBorder(),
+          hintText: t.profile_nickname_hint,
+          border: const OutlineInputBorder(),
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: Text('취소')),
+        TextButton(
+          onPressed: () => context.pop(),
+          child: Text(t.common_confirm_cancel),
+        ),
         TextButton(
           onPressed: _isValid
-              ? () => Navigator.pop(context, _controller.text.trim())
+              ? () => context.pop(_controller.text.trim())
               : null,
-          child: Text('확인'),
+          child: Text(t.common_confirm_ok),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

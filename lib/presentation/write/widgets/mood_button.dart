@@ -20,14 +20,14 @@ class MoodButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<WriteViewModel, MoodType?>(
-      selector: (context, viewModel) => viewModel.selectedMood,
-      builder: (context, selectedMood, child) {
-        final isSelected = selectedMood == mood;
+    final colorScheme = Theme.of(context).colorScheme;
+    return Consumer<WriteViewModel>(
+      builder: (context, viewModel, _) {
+        final isSelected = viewModel.selectedMood == mood;
 
         return ElevatedButton(
           onPressed: () {
-            context.read<WriteViewModel>().updateMoodType(mood);
+            viewModel.updateMoodType(mood);
             nextPage();
           },
           style: ButtonStyle(
@@ -35,7 +35,7 @@ class MoodButton extends StatelessWidget {
             backgroundColor: WidgetStateProperty.all(
               isSelected
                   ? Color(mood.colorValue).withValues(alpha: 0.5)
-                  : Theme.of(context).colorScheme.surfaceContainer,
+                  : colorScheme.surfaceContainer,
             ),
             overlayColor: WidgetStateProperty.all(
               Color(mood.colorValue).withValues(alpha: 0.5),

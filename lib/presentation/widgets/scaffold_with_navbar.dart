@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/common.dart';
-import '../../core/router/routes.dart';
+import '../../core/routing/routes.dart';
 import '../../core/utils/animated_container.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {

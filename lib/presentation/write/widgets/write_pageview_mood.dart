@@ -14,6 +14,8 @@ class WritePageViewMood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: Spacing.containerHorizontalPadding,
       child: Column(
@@ -22,10 +24,7 @@ class WritePageViewMood extends StatelessWidget {
         children: [
           FadeIn(
             delay: DelayMs.quick,
-            child: Text(
-              AppLocalizations.of(context)!.write_mood_title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            child: Text(t.write_mood_title, style: textTheme.headlineMedium),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

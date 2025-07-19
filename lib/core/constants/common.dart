@@ -18,6 +18,7 @@ abstract final class Spacing {
   static const containerPaddingTop = EdgeInsets.only(top: 80.0);
   static const containerPaddingBottom = EdgeInsets.only(bottom: 180.0);
   static const headerVerticalPadding = EdgeInsets.symmetric(vertical: 12.0);
+  static const imagePickerBoxInnerPadding = EdgeInsets.only(right: 8.0);
   static const calendarScrollSize = 44.0;
   static const aiResponseGap = 26.0;
   static const horCalendarDateHeight = 60.0;

@@ -171,6 +171,7 @@
   "profile_title": "프로필",
   "profile_account_title": "가입 정보",
   "profile_nickname_title": "닉네임 변경",
+  "profile_nickname_hint": "새 닉네임을 입력하세요.",
   "profile_creation_time_title": "가입일",
   "profile_uid_title": "유저 ID",
   "profile_button_login": "로그인 하러 가기"

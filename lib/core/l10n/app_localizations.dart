@@ -884,6 +884,12 @@ abstract class AppLocalizations {
   /// **'닉네임 변경'**
   String get profile_nickname_title;
 
+  /// No description provided for @profile_nickname_hint.
+  ///
+  /// In ko, this message translates to:
+  /// **'새 닉네임을 입력하세요.'**
+  String get profile_nickname_hint;
+
   /// No description provided for @profile_creation_time_title.
   ///
   /// In ko, this message translates to:

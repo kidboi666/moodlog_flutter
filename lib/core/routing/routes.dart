@@ -1,0 +1,16 @@
+abstract final class Routes {
+  static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
+  static const String signIn = '/signin';
+  static const String home = '/';
+  static const String entries = '/entries';
+  static const String write = '/write';
+  static const String statistics = '/statistics';
+  static const String settings = '/settings';
+  static const String profile = '/profile';
+  static const String journalPage = '/journal/:id';
+
+  static String journalImageDetail(id) => '/journal/:id/image';
+
+  static String journal(id) => '/journal/:id';
+}

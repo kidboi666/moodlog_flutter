@@ -9,47 +9,51 @@ class AiEnableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceContainer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () => context.read<WriteViewModel>().updateAiEnabled(
-          !context.watch<WriteViewModel>().aiEnabled,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Center(child: Icon(Icons.adb)),
-              ),
-              Expanded(
-                flex: 4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.write_ai_title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(AppLocalizations.of(context)!.write_ai_description),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Switch(
-                  value: context.watch<WriteViewModel>().aiEnabled,
-                  onChanged: context.read<WriteViewModel>().updateAiEnabled,
-                ),
-              ),
-            ],
+    final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    return Consumer<WriteViewModel>(
+      builder: (context, viewModel, _) {
+        return Card(
+          elevation: 0,
+          color: colorScheme.surfaceContainer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
           ),
-        ),
-      ),
+          clipBehavior: Clip.hardEdge,
+          child: InkWell(
+            onTap: () => viewModel.updateAiEnabled(!viewModel.aiEnabled),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Center(child: Icon(Icons.adb)),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(t.write_ai_title, style: textTheme.titleMedium),
+                        Text(t.write_ai_description),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Switch(
+                      value: viewModel.aiEnabled,
+                      onChanged: viewModel.updateAiEnabled,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
