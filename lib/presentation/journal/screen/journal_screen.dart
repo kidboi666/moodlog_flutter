@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
@@ -8,18 +9,18 @@ import '../../widgets/pop_button.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import '../widgets/ai_response_box.dart';
 import '../widgets/content_box.dart';
+import '../widgets/dialog/delete_confirm_dialog.dart';
 import '../widgets/mood_bar.dart';
 
 class JournalScreen extends StatelessWidget {
-  final JournalViewModel viewModel;
-
-  const JournalScreen({super.key, required this.viewModel});
+  const JournalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: viewModel,
-      builder: (context, _) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    return Consumer<JournalViewModel>(
+      builder: (context, viewModel, _) {
         if (viewModel.isLoading) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
@@ -32,10 +33,8 @@ class JournalScreen extends StatelessWidget {
               onTap: () => viewModel.handleBackNavigation(context),
             ),
             title: Text(
-              viewModel.journal.createdAt.formatted(
-                AppLocalizations.of(context)!,
-              ),
-              style: Theme.of(context).textTheme.titleMedium,
+              viewModel.journal.createdAt.formatted(t),
+              style: textTheme.titleMedium,
             ),
             actions: [
               IconButton(
@@ -43,7 +42,13 @@ class JournalScreen extends StatelessWidget {
                 icon: Icon(viewModel.currentAlign.icon),
               ),
               IconButton(
-                onPressed: () => viewModel.handleDelete(context),
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => DeleteConfirmDialog(
+                    viewModel: viewModel,
+                    id: viewModel.id,
+                  ),
+                ),
                 icon: const Icon(Icons.delete),
               ),
             ],

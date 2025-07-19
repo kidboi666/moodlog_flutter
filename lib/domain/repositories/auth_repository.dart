@@ -19,4 +19,6 @@ abstract class AuthRepository extends ChangeNotifier {
   Future<void> linkWithCredential();
 
   Future<void> signOut();
+
+  Future<void> updateProfileImage(String profileImage);
 }

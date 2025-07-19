@@ -8,12 +8,11 @@ import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
-import '../widgets/delete_confirm_dialog.dart';
 
 class JournalViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
   final AiGenerationRepository _aiGenerationRepository;
-  final String source;
+  final JournalSource source;
   final int id;
 
   JournalViewModel({
@@ -32,7 +31,7 @@ class JournalViewModel extends ChangeNotifier {
   SimpleTextAlign _currentAlign = SimpleTextAlign.left;
   bool _isLoading = false;
 
-  bool get shouldReplaceOnPop => source == 'write';
+  bool get shouldReplaceOnPop => source == JournalSource.write;
 
   Journal get journal => _journal;
 
@@ -54,13 +53,6 @@ class JournalViewModel extends ChangeNotifier {
   void changeAlign() {
     _currentAlign = _currentAlign.next;
     notifyListeners();
-  }
-
-  Future<void> handleDelete(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => DeleteConfirmDialog(viewModel: this, id: id),
-    );
   }
 
   Future<Result<void>> delete() async {

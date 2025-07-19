@@ -46,13 +46,14 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.onboarding,
       builder: (_, state) {
-        final extra = state.extra as Map<String, dynamic>;
+        final extra = state.extra as Map<String, LoginType>;
+        final loginType = extra['loginType']!;
         return ChangeNotifierProvider(
           create: (context) => OnboardingViewModel(
             totalSteps: 4,
             appStateProvider: context.read(),
             authRepository: context.read(),
-            loginType: extra['loginType'],
+            loginType: loginType,
           ),
           child: const OnboardingScreen(),
         );
@@ -61,7 +62,10 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.profile,
       builder: (_, _) => ChangeNotifierProvider(
-        create: (context) => ProfileViewModel(authRepository: context.read()),
+        create: (context) => ProfileViewModel(
+          authRepository: context.read(),
+          pickImageUseCase: context.read(),
+        ),
         child: const ProfileScreen(),
       ),
     ),
@@ -83,14 +87,17 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       path: Routes.journalPage,
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
-        final extra = state.extra as Map<String, dynamic>;
-        final viewModel = JournalViewModel(
-          journalRepository: context.read(),
-          aiGenerationRepository: context.read(),
-          source: extra['source'],
-          id: id,
+        final extra = state.extra as Map<String, JournalSource>?;
+        final source = extra?['source'] ?? JournalSource.home;
+        return ChangeNotifierProvider(
+          create: (context) => JournalViewModel(
+            journalRepository: context.read(),
+            aiGenerationRepository: context.read(),
+            source: source,
+            id: id,
+          ),
+          child: const JournalScreen(),
         );
-        return JournalScreen(viewModel: viewModel);
       },
     ),
     StatefulShellRoute(

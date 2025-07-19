@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/string.dart';
 import 'pop_button.dart';
 
-class ImageScreenWithButton extends StatefulWidget {
+class ImageScreenWithButton extends StatelessWidget {
   final String image;
   final Widget button;
 
@@ -14,11 +15,6 @@ class ImageScreenWithButton extends StatefulWidget {
     required this.button,
   });
 
-  @override
-  State<ImageScreenWithButton> createState() => _ImageScreenWithButtonState();
-}
-
-class _ImageScreenWithButtonState extends State<ImageScreenWithButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,12 +31,16 @@ class _ImageScreenWithButtonState extends State<ImageScreenWithButton> {
               backgroundColor: Colors.transparent,
             ),
             body: InteractiveViewer(
-              child: Center(child: Image.file(File(widget.image))),
+              child: Center(
+                child: image.isNetworkImage()
+                    ? Image.network(image)
+                    : Image.file(File(image)),
+              ),
             ),
           ),
         ),
       ),
-      child: widget.button,
+      child: button,
     );
   }
 }

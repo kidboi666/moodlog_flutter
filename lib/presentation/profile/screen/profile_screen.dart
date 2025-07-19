@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
               Column(
                 spacing: Spacing.sm,
                 children: [
-                  ProfileAvatar(photoUrl: viewModel.user?.photoURL),
+                  ProfileAvatar(image: viewModel.user?.photoURL),
                   AccountCard(
                     isGoogleUser: viewModel.isGoogleUser,
                     isAnonymousUser: viewModel.isAnonymousUser,

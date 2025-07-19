@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/routing_extension.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
-import '../../../core/routing/routes.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
@@ -43,10 +42,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             builder: (context, viewModel, _) {
               if (viewModel.isSubmitted) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  context.go(
-                    Routes.journal(viewModel.submittedJournalId.toString()),
-                    extra: {'source': 'write'},
-                  );
+                  context.goToJournalFromWrite(viewModel.submittedJournalId!);
                 });
               }
               return const SizedBox.shrink();

@@ -316,3 +316,20 @@ enum LoginType {
 }
 
 enum SignInSource { profile, first }
+
+enum JournalSource {
+  home,
+  write,
+  entries;
+
+  String get value {
+    switch (this) {
+      case JournalSource.home:
+        return 'home';
+      case JournalSource.write:
+        return 'write';
+      case JournalSource.entries:
+        return 'entries';
+    }
+  }
+}

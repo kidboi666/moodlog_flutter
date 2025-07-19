@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/extensions/routing_extension.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -55,6 +56,7 @@ class EntriesScreen extends StatelessWidget {
                       content: e.content ?? '',
                       moodType: e.moodType,
                       createdAt: e.createdAt,
+                      onTap: () => context.pushToJournalFromEntries(e.id),
                     ),
                   );
                 }, childCount: entries.length),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
-import '../viewmodel/journal_viewmodel.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/routing/routes.dart';
+import '../../viewmodel/journal_viewmodel.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
   final int id;
@@ -17,17 +17,16 @@ class DeleteConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.journal_delete_confirm_title),
-      content: Text(
-        AppLocalizations.of(context)!.journal_delete_confirm_description,
-      ),
+      title: Text(t.journal_delete_confirm_title),
+      content: Text(t.journal_delete_confirm_description),
       actions: [
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
+          child: Text(t.common_confirm_cancel),
         ),
-        ElevatedButton(
+        FilledButton(
           onPressed: () async {
             await viewModel.delete();
             if (context.mounted) {
@@ -38,7 +37,7 @@ class DeleteConfirmDialog extends StatelessWidget {
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
           ),
-          child: Text(AppLocalizations.of(context)!.common_confirm_delete),
+          child: Text(t.common_confirm_delete),
         ),
       ],
     );

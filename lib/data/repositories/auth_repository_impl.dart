@@ -99,6 +99,18 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
+  @override
+  Future<void> updateProfileImage(String profileImage) async {
+    try {
+      await _user?.updatePhotoURL(profileImage);
+      await _user?.reload();
+      _user = _firebaseAuth.currentUser;
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
   void _onAuthStateChanged(User? user) {
     _user = user;
     notifyListeners();
