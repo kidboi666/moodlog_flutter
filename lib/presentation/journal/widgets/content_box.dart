@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
+import '../../widgets/image_screen_with_button.dart';
 import '../viewmodel/journal_viewmodel.dart';
-import 'cover_image.dart';
+import 'cover_image_button.dart';
 
 class ContentBox extends StatelessWidget {
   final JournalViewModel viewModel;
@@ -15,6 +16,8 @@ class ContentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final mediaQuery = MediaQuery.of(context);
     final isVisibleImage = viewModel.journal.imageUri?.isNotEmpty ?? false;
     return Expanded(
       child: Column(
@@ -26,7 +29,7 @@ class ContentBox extends StatelessWidget {
               textAlign: TextAlign.start,
               text: TextSpan(
                 text: viewModel.journal.moodType.name,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: textTheme.titleLarge,
                 children: [TextSpan(text: viewModel.journal.moodType.emoji)],
               ),
             ),
@@ -34,13 +37,16 @@ class ContentBox extends StatelessWidget {
           Offstage(
             offstage: !isVisibleImage,
             child: SizedBox(
-              height: MediaQuery.of(context).size.width - (Spacing.lg * 2),
+              height: mediaQuery.size.width - (Spacing.lg * 2),
               child: ListView(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...viewModel.journal.imageUri?.map(
-                        (image) => CoverImage(image: image),
+                        (image) => ImageScreenWithButton(
+                          image: image,
+                          button: CoverImageButton(image: image),
+                        ),
                       ) ??
                       [],
                 ],
@@ -53,7 +59,7 @@ class ContentBox extends StatelessWidget {
               padding: const EdgeInsets.only(right: Spacing.md),
               child: Text(
                 viewModel.journal.content ?? '',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: textTheme.bodyLarge,
                 textAlign: currentAlign.textAlign,
               ),
             ),

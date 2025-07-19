@@ -1,0 +1,29 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import '../../../core/constants/common.dart';
+
+class CoverImageButton extends StatelessWidget {
+  final String image;
+
+  const CoverImageButton({super.key, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: Spacing.md),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width - (Spacing.lg * 2),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.file(
+            File(image),
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
+        ),
+      ),
+    );
+  }
+}

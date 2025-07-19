@@ -2,19 +2,23 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../widgets/pop_button.dart';
+import 'pop_button.dart';
 
-class CoverImage extends StatefulWidget {
+class ImageScreenWithButton extends StatefulWidget {
   final String image;
+  final Widget button;
 
-  const CoverImage({super.key, required this.image});
+  const ImageScreenWithButton({
+    super.key,
+    required this.image,
+    required this.button,
+  });
 
   @override
-  State<CoverImage> createState() => _CoverImageState();
+  State<ImageScreenWithButton> createState() => _ImageScreenWithButtonState();
 }
 
-class _CoverImageState extends State<CoverImage> {
+class _ImageScreenWithButtonState extends State<ImageScreenWithButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,20 +40,7 @@ class _CoverImageState extends State<CoverImage> {
           ),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.only(right: Spacing.md),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width - (Spacing.lg * 2),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.file(
-              File(widget.image),
-              fit: BoxFit.cover,
-              width: double.infinity,
-            ),
-          ),
-        ),
-      ),
+      child: widget.button,
     );
   }
 }

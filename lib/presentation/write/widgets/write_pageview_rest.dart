@@ -41,14 +41,14 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
         children: [
           Consumer<WriteViewModel>(
             builder: (context, viewModel, _) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (viewModel.isSubmitted && mounted) {
+              if (viewModel.isSubmitted) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   context.go(
-                    Routes.journal(viewModel.submittedJournalId),
+                    Routes.journal(viewModel.submittedJournalId.toString()),
                     extra: {'source': 'write'},
                   );
-                }
-              });
+                });
+              }
               return const SizedBox.shrink();
             },
           ),
@@ -57,7 +57,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: const ImagePickingSection()),
+                const Expanded(child: ImagePickingSection()),
                 Selector<WriteViewModel, DateTime>(
                   selector: (context, viewModel) => viewModel.selectedDate,
                   builder: (context, selectedDate, child) {

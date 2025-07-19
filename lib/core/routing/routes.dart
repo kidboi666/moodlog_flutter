@@ -7,10 +7,10 @@ abstract final class Routes {
   static const String write = '/write';
   static const String statistics = '/statistics';
   static const String settings = '/settings';
-  static const String profile = '/profile';
   static const String journalPage = '/journal/:id';
+  static const String profile = '/profile';
 
-  static String journalImageDetail(id) => '/journal/:id/image';
+  static String journalImageDetail(id) => '/journal/$id/image';
 
-  static String journal(id) => '/journal/:id';
+  static String journal(id) => '/journal/$id';
 }
