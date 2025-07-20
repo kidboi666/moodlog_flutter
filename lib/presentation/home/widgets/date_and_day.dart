@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 
 import '../../../../core/constants/common.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../../core/l10n/app_localizations.dart';
 
 class DateAndDay extends StatelessWidget {
   final DateTime date;
@@ -20,6 +20,10 @@ class DateAndDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return InkWell(
       borderRadius: BorderRadius.circular(Spacing.md),
       onTap: () => selectDate(date),
@@ -30,12 +34,12 @@ class DateAndDay extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Spacing.md),
           color: date.isSameDay(selectedDate)
-              ? Theme.of(context).colorScheme.primary
+              ? colorScheme.primary
               : Colors.transparent,
           border: BoxBorder.all(
             width: 1,
             color: date.isSameDay(todayDate)
-                ? Theme.of(context).colorScheme.outline
+                ? colorScheme.outline
                 : Colors.transparent,
           ),
         ),
@@ -44,15 +48,15 @@ class DateAndDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              date.getLocalizedWeekdayShortName(AppLocalizations.of(context)!),
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.surface,
+              date.getLocalizedWeekdayShortName(t),
+              style: textTheme.titleMedium?.copyWith(
+                color: colorScheme.surface,
               ),
             ),
             Text(
               date.day.toString(),
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.surface,
+              style: textTheme.titleMedium?.copyWith(
+                color: colorScheme.surface,
               ),
             ),
           ],

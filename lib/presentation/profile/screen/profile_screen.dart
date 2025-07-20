@@ -11,57 +11,92 @@ import '../widgets/nickname_card.dart';
 import '../widgets/profile_avatar.dart';
 import '../widgets/user_id_card.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<ProfileViewModel>();
+      viewModel.addListener(_handleViewModelChanges);
+    });
+  }
+
+  void _handleViewModelChanges() {
+    final viewModel = context.read<ProfileViewModel>();
+    if (viewModel.successMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(viewModel.successMessage!),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      viewModel.clearSuccessMessage();
+    }
+    if (viewModel.error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('오류: ${viewModel.error!}'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      viewModel.clearError();
+    }
+  }
+
+  @override
+  void dispose() {
+    context.read<ProfileViewModel>().removeListener(_handleViewModelChanges);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    return Consumer<ProfileViewModel>(
-      builder: (context, viewModel, _) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Text(t.profile_title),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => context.pop(),
-            ),
-          ),
-          body: Stack(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(t.profile_title),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: Stack(
+        children: [
+          Column(
+            spacing: Spacing.sm,
             children: [
-              Column(
-                spacing: Spacing.sm,
-                children: [
-                  ProfileAvatar(image: viewModel.user?.photoURL),
-                  AccountCard(
-                    isGoogleUser: viewModel.isGoogleUser,
-                    isAnonymousUser: viewModel.isAnonymousUser,
-                    email: viewModel.user?.email ?? '',
-                  ),
-                  NicknameCard(
-                    nickname: viewModel.user?.displayName ?? '',
-                    updateDisplayName: viewModel.updateDisplayName,
-                    showEditDisplayNameDialog:
-                        viewModel.showEditDisplayNameDialog,
-                  ),
-                  CreationTimeCard(
-                    creationTime: viewModel.user?.metadata.creationTime,
-                  ),
-                  const Expanded(child: SizedBox()),
-                  UserIdCard(uid: viewModel.user?.uid ?? ''),
-                ],
-              ),
-              if (viewModel.isLoading)
-                Container(
+              const ProfileAvatar(),
+              const AccountCard(),
+              const NicknameCard(),
+              const CreationTimeCard(),
+              const Expanded(child: SizedBox()),
+              const UserIdCard(),
+              const SizedBox(height: Spacing.md),
+            ],
+          ),
+          Selector<ProfileViewModel, bool>(
+            selector: (context, viewModel) => viewModel.isLoading,
+            builder: (context, isLoading, _) {
+              return Visibility(
+                visible: isLoading,
+                child: Container(
                   color: Colors.black.withValues(alpha: 0.3),
                   child: Center(child: CircularProgressIndicator()),
                 ),
-            ],
+              );
+            },
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

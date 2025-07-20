@@ -63,7 +63,8 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       path: Routes.profile,
       builder: (_, _) => ChangeNotifierProvider(
         create: (context) => ProfileViewModel(
-          authRepository: context.read(),
+          userProvider: context.read(),
+          authUseCase: context.read(),
           pickImageUseCase: context.read(),
         ),
         child: const ProfileScreen(),
@@ -116,7 +117,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
               builder: (_, _) => ChangeNotifierProvider(
                 create: (context) => HomeViewModel(
                   journalRepository: context.read(),
-                  authRepository: context.read(),
+                  userProvider: context.read(),
                 ),
                 child: const HomeScreen(),
               ),
@@ -142,7 +143,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
               builder: (_, _) => ChangeNotifierProvider(
                 create: (context) => StatisticsViewModel(
                   journalRepository: context.read(),
-                  authRepository: context.read(),
+                  userProvider: context.read(),
                 ),
                 child: const StatisticsScreen(),
               ),
@@ -158,7 +159,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
                   settingsRepository: context.read(),
                   appStateProvider: context.read(),
                   journalRepository: context.read(),
-                  authRepository: context.read(),
+                  userProvider: context.read(),
                 ),
                 child: const SettingsScreen(),
               ),

@@ -1,24 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../core/utils/result.dart';
+
 abstract class AuthRepository extends ChangeNotifier {
-  User? get user;
+  Stream<User?> get userChanges;
 
   bool get isAuthenticated;
 
-  Stream<User?> get authStateChanges;
-
   bool get isAnonymousUser;
 
-  Future<void> signInAnonymously();
+  Future<Result<User?>> getCurrentUser();
 
-  Future<void> updateDisplayName(String displayName);
+  Future<Result<User?>> signInAnonymously();
 
-  Future<void> signInWithGoogle();
+  Future<Result<void>> updateDisplayName(String displayName);
 
-  Future<void> linkWithCredential();
+  Future<Result<User?>> signInWithGoogle();
+
+  Future<Result<User?>> linkWithCredential();
 
   Future<void> signOut();
 
-  Future<void> updateProfileImage(String profileImage);
+  Future<Result<void>> updateProfileImage(String profileImage);
 }

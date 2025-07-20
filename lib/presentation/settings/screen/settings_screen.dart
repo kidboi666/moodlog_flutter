@@ -87,13 +87,15 @@ class SettingsScreen extends StatelessWidget {
               ],
 
               SectionHeader(title: t.settings_common_title),
-              SwitchTile(
-                title: t.settings_common_notification_title,
-                subtitle: t.settings_common_notification_subtitle,
-                icon: Icons.notifications,
-                value: viewModel.appState.hasNotificationEnabled,
-                onChanged: viewModel.setNotificationEnabled,
-              ),
+              // TODO: 미구현 알림 기능
+              if (kDebugMode)
+                SwitchTile(
+                  title: t.settings_common_notification_title,
+                  subtitle: t.settings_common_notification_subtitle,
+                  icon: Icons.notifications,
+                  value: viewModel.appState.hasNotificationEnabled,
+                  onChanged: viewModel.setNotificationEnabled,
+                ),
               DialogTile(
                 title: t.settings_common_theme_title,
                 subtitle: t.settings_common_theme_subtitle,
@@ -132,22 +134,25 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: Spacing.xl),
               SectionHeader(title: t.settings_data_title),
-              SwitchTile(
-                title: t.settings_data_auto_sync_title,
-                subtitle: t.settings_data_auto_sync_subtitle,
-                icon: Icons.sync,
-                value: viewModel.appState.hasAutoSyncEnabled,
-                onChanged: viewModel.setAutoSyncEnabled,
-              ),
-              CardListTile(
-                title: t.settings_data_backup_title,
-                subtitle: t.settings_data_backup_subtitle,
-                icon: Icons.backup,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => BackupDialog(viewModel: viewModel),
+              // TODO: 미구현 데이터 백업
+              if (kDebugMode) ...[
+                SwitchTile(
+                  title: t.settings_data_auto_sync_title,
+                  subtitle: t.settings_data_auto_sync_subtitle,
+                  icon: Icons.sync,
+                  value: viewModel.appState.hasAutoSyncEnabled,
+                  onChanged: viewModel.setAutoSyncEnabled,
                 ),
-              ),
+                CardListTile(
+                  title: t.settings_data_backup_title,
+                  subtitle: t.settings_data_backup_subtitle,
+                  icon: Icons.backup,
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => BackupDialog(viewModel: viewModel),
+                  ),
+                ),
+              ],
               CardListTile(
                 title: t.settings_data_cache_cleanup_title,
                 subtitle: t.settings_data_cache_cleanup_subtitle,
@@ -168,12 +173,14 @@ class SettingsScreen extends StatelessWidget {
                   builder: (_) => AppInfoDialog(viewModel: viewModel),
                 ),
               ),
-              CardListTile(
-                title: t.settings_information_faq_title,
-                subtitle: t.settings_information_faq_subtitle,
-                icon: Icons.help,
-                onTap: () {},
-              ),
+              // TODO: 미구현 FAQ
+              if (kDebugMode)
+                CardListTile(
+                  title: t.settings_information_faq_title,
+                  subtitle: t.settings_information_faq_subtitle,
+                  icon: Icons.help,
+                  onTap: () {},
+                ),
               CardListTile(
                 title: t.settings_information_qna_title,
                 subtitle: t.settings_information_qna_subtitle,

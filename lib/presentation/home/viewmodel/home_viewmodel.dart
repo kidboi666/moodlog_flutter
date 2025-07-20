@@ -3,20 +3,21 @@ import 'package:logging/logging.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/providers/user_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
-import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
-  final AuthRepository _authRepository;
+  final UserProvider _userProvider;
 
   HomeViewModel({
     required JournalRepository journalRepository,
-    required AuthRepository authRepository,
+    required UserProvider userProvider,
   }) : _journalRepository = journalRepository,
-       _authRepository = authRepository {
+       _userProvider = userProvider {
     _calculateDateItems();
     _load();
     Future.delayed(DelayMs.medium * 4, () {
@@ -29,12 +30,11 @@ class HomeViewModel extends ChangeNotifier {
   List<Journal> _journal = [];
   DateTime _selectedDate = DateTime.now();
   List<DateTime>? _dateItems;
-  bool _isLoading = false;
   bool _isFirstRender = true;
 
-  String? get profileImage => _authRepository.user?.photoURL;
+  String? get profileImage => _userProvider.user?.photoURL;
 
-  String? get nickname => _authRepository.user?.displayName;
+  String? get nickname => _userProvider.user?.displayName;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -46,7 +46,17 @@ class HomeViewModel extends ChangeNotifier {
 
   List<Journal> get journal => _journal;
 
-  bool get isLoading => _isLoading;
+  void selectDate(DateTime date) {
+    _selectedDate = date;
+    _log.info('isFirstRender $isFirstRender');
+    notifyListeners();
+    _load();
+  }
+
+  Future<void> setIsFirstRender(bool value) async {
+    _isFirstRender = value;
+    notifyListeners();
+  }
 
   void _calculateDateItems() {
     final currentDate = DateTime.now();
@@ -60,32 +70,18 @@ class HomeViewModel extends ChangeNotifier {
     _dateItems = dates;
   }
 
-  void selectDate(DateTime date) {
-    _selectedDate = date;
-    _log.info('isFirstRender $isFirstRender');
-    notifyListeners();
-    _load();
-  }
-
   Future<void> _load() async {
-    _isLoading = true;
-    notifyListeners();
-
+    setLoading();
     final result = await _journalRepository.getJournalsByDate(_selectedDate);
     switch (result) {
       case Ok<List<Journal>>():
-        _journal = result.value;
         _log.fine('Loaded journals');
+        _journal = result.value;
+        setSuccess();
       case Error<List<Journal>>():
-        _journal = [];
         _log.warning('Failed to load journals', result.error);
+        _journal = [];
+        setError(result.error);
     }
-    _isLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> setIsFirstRender(bool value) async {
-    _isFirstRender = value;
-    notifyListeners();
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/profile/viewmodel/profile_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 
 class UserIdCard extends StatelessWidget {
-  final String uid;
-
-  const UserIdCard({super.key, required this.uid});
+  const UserIdCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,12 @@ class UserIdCard extends StatelessWidget {
         title: Row(
           children: [
             const Expanded(child: SizedBox()),
-            Text(uid, style: textTheme.bodyMedium),
+            Selector<ProfileViewModel, String>(
+              selector: (context, viewModel) => viewModel.user?.uid ?? '',
+              builder: (context, uid, _) {
+                return Text(uid, style: textTheme.bodyMedium);
+              },
+            ),
           ],
         ),
       ),

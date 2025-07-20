@@ -19,7 +19,7 @@ class GuestSigninButton extends StatelessWidget {
           onPressed: viewModel.isLoading
               ? null
               : () async {
-                  await viewModel.signInAnonymously(context);
+                  await viewModel.signInAnonymously();
                   if (context.mounted) {
                     context.go(
                       Routes.onboarding,

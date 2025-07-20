@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/providers/app_state_provider.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/providers/app_state_provider.dart';
+import '../../../core/utils/result.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
 class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
@@ -34,37 +36,33 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
       ) ??
       false;
 
-  Future<void> signInAnonymously(BuildContext context) async {
+  Future<Result<void>> signInAnonymously() async {
     _loginType = LoginType.anonymous;
     setLoading();
-    try {
-      await _authRepository.signInAnonymously();
-      setSuccess();
-    } catch (e) {
-      _log.warning('Failed to sign in anonymously', e);
-      setError(e);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Anonymous sign in failed: ${e.toString()}')),
-        );
-      }
+    final result = await _authRepository.signInAnonymously();
+    switch (result) {
+      case Ok<User?>():
+        setSuccess();
+        return Result.ok(null);
+      case Error<User?>():
+        _log.warning('Failed to sign in anonymously', result.error);
+        setError(result.error);
+        return Result.error(result.error);
     }
   }
 
-  Future<void> signInGoogle(BuildContext context) async {
+  Future<Result<void>> signInGoogle() async {
     _loginType = LoginType.google;
     setLoading();
-    try {
-      await _authRepository.signInWithGoogle();
-      setSuccess();
-    } catch (e) {
-      _log.warning('Failed to sign in with Google', e);
-      setError(e);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Google sign in failed: ${e.toString()}')),
-        );
-      }
+    final result = await _authRepository.signInWithGoogle();
+    switch (result) {
+      case Ok<User?>():
+        setSuccess();
+        return Result.ok(null);
+      case Error<User?>():
+        _log.warning('Failed to sign in with Google', result.error);
+        setError(result.error);
+        return Result.error(result.error);
     }
   }
 

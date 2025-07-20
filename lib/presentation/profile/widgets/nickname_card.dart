@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../viewmodel/profile_viewmodel.dart';
+import 'dialog/edit_display_name_dialog.dart';
 
 class NicknameCard extends StatelessWidget {
-  final String nickname;
-  final Function updateDisplayName;
-  final Function showEditDisplayNameDialog;
-
-  const NicknameCard({
-    super.key,
-    required this.nickname,
-    required this.updateDisplayName,
-    required this.showEditDisplayNameDialog,
-  });
+  const NicknameCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    return ListTile(
-      leading: Text(t.profile_nickname_title, style: textTheme.titleSmall),
-      title: Row(
-        children: [
-          const Expanded(child: SizedBox()),
-          Text(nickname, style: textTheme.bodyMedium),
-        ],
-      ),
-      trailing: Icon(Icons.edit),
-      onTap: () => showEditDisplayNameDialog(context, nickname),
+    return Selector<ProfileViewModel, String>(
+      selector: (context, viewModel) => viewModel.user?.displayName ?? '',
+      builder: (context, nickname, _) {
+        return ListTile(
+          leading: Text(t.profile_nickname_title, style: textTheme.titleSmall),
+          title: Row(
+            children: [
+              const Expanded(child: SizedBox()),
+              Text(nickname, style: textTheme.bodyMedium),
+            ],
+          ),
+          trailing: Icon(Icons.edit),
+          onTap: () async {
+            final newName = await showDialog<String?>(
+              context: context,
+              builder: (_) => EditDisplayNameDialog(initialName: nickname),
+            );
+
+            if (newName != null && newName.isNotEmpty && context.mounted) {
+              await context.read<ProfileViewModel>().updateDisplayName(newName);
+            }
+          },
+        );
+      },
     );
   }
 }

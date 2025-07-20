@@ -3,29 +3,33 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../core/utils/result.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final FirebaseAuth _firebaseAuth;
 
   AuthRepositoryImpl({FirebaseAuth? auth})
-    : _firebaseAuth = auth ?? FirebaseAuth.instance {
-    _firebaseAuth.authStateChanges().listen(_onAuthStateChanged);
+    : _firebaseAuth = auth ?? FirebaseAuth.instance;
+
+  @override
+  bool get isAuthenticated => _firebaseAuth.currentUser != null;
+
+  @override
+  bool get isAnonymousUser => _firebaseAuth.currentUser?.isAnonymous ?? false;
+
+  @override
+  Stream<User?> get userChanges => _firebaseAuth.userChanges();
+
+  @override
+  Future<Result<User?>> getCurrentUser() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      return Result.ok(user);
+    } catch (e) {
+      return Result.error(Exception(e));
+    }
   }
-
-  User? _user;
-
-  @override
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
-  @override
-  User? get user => _user;
-
-  @override
-  bool get isAuthenticated => _user != null;
-
-  @override
-  bool get isAnonymousUser => _user?.isAnonymous ?? false;
 
   @override
   Future<void> signOut() async {
@@ -33,86 +37,68 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signInAnonymously() async {
+  Future<Result<User?>> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
-      _user = userCredential.user;
-      notifyListeners();
+      return Result.ok(userCredential.user);
     } catch (e) {
-      rethrow;
+      return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<Result<User?>> signInWithGoogle() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
-
-      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
-          .authenticate();
-
-      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-      );
+      final credential = await _getGoogleCredential();
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
-
-      _user = userCredential.user;
-      notifyListeners();
+      return Result.ok(userCredential.user);
     } catch (e) {
-      rethrow;
+      return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<void> linkWithCredential() async {
+  Future<Result<User?>> linkWithCredential() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
-      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
-          .authenticate();
-      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-      );
+      final credential = await _getGoogleCredential();
       final userCredential = await _firebaseAuth.currentUser
           ?.linkWithCredential(credential);
-      _user = userCredential?.user;
-      notifyListeners();
+      return Result.ok(userCredential?.user);
     } catch (e) {
-      rethrow;
+      return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<void> updateDisplayName(String displayName) async {
+  Future<Result<void>> updateDisplayName(String displayName) async {
     try {
-      await _user?.updateDisplayName(displayName);
-      await _user?.reload();
-      _user = _firebaseAuth.currentUser;
-      notifyListeners();
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.message);
+      await _firebaseAuth.currentUser?.updateDisplayName(displayName);
+      await _firebaseAuth.currentUser?.reload();
+      return Result.ok(null);
+    } catch (e) {
+      return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<void> updateProfileImage(String profileImage) async {
+  Future<Result<void>> updateProfileImage(String profileImage) async {
     try {
-      await _user?.updatePhotoURL(profileImage);
-      await _user?.reload();
-      _user = _firebaseAuth.currentUser;
-      notifyListeners();
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.message);
+      await _firebaseAuth.currentUser?.updatePhotoURL(profileImage);
+      await _firebaseAuth.currentUser?.reload();
+      return Result.ok(null);
+    } catch (e) {
+      return Result.error(Exception(e));
     }
   }
 
-  void _onAuthStateChanged(User? user) {
-    _user = user;
-    notifyListeners();
+  Future<OAuthCredential> _getGoogleCredential() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+    await googleSignIn.initialize();
+    final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+        .authenticate();
+    final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+    return GoogleAuthProvider.credential(idToken: googleAuth.idToken);
   }
 }

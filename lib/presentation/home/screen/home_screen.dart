@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/extensions/routing_extension.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/routing_extension.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+        const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
         SliverAppBar(
           title: FadeIn(
             delay: DelayMs.medium,

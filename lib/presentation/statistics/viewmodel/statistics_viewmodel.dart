@@ -2,20 +2,20 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/providers/user_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
-import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class StatisticsViewModel extends ChangeNotifier {
   final JournalRepository _journalRepository;
-  final AuthRepository _authRepository;
+  final UserProvider _userProvider;
 
   StatisticsViewModel({
     required JournalRepository journalRepository,
-    required AuthRepository authRepository,
+    required UserProvider userProvider,
   }) : _journalRepository = journalRepository,
-       _authRepository = authRepository {
+       _userProvider = userProvider {
     _loadStatistics();
   }
 
@@ -28,7 +28,7 @@ class StatisticsViewModel extends ChangeNotifier {
   List<Journal> _recentJournals = [];
   Map<DateTime, double> _moodTrendData = {};
 
-  String? get profileImage => _authRepository.user?.photoURL;
+  String? get profileImage => _userProvider.user?.photoURL;
 
   List<Journal> get allJournals => _allJournals;
 

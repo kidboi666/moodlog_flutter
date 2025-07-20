@@ -4,36 +4,36 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/providers/app_state_provider.dart';
+import '../../../core/providers/user_provider.dart';
 import '../../../domain/entities/settings.dart';
 import '../../../domain/repositories/app_state_repository.dart';
-import '../../../domain/repositories/auth_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateProvider _appStateProvider;
   final SettingsRepository _settingsRepository;
   final JournalRepository _journalRepository;
-  final AuthRepository _authRepository;
+  final UserProvider _userProvider;
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
     required SettingsRepository settingsRepository,
     required JournalRepository journalRepository,
-    required AuthRepository authRepository,
+    required UserProvider userProvider,
   }) : _appStateProvider = appStateProvider,
        _settingsRepository = settingsRepository,
        _journalRepository = journalRepository,
-       _authRepository = authRepository;
+       _userProvider = userProvider;
 
   bool _isLoading = false;
 
-  String? get profileImage => _authRepository.user?.photoURL;
+  String? get profileImage => _userProvider.user?.photoURL;
 
   bool get isLoading => _isLoading;
 
   Settings get appState => _appStateProvider.appState;
 
-  User? get currentUser => _authRepository.user;
+  User? get currentUser => _userProvider.user;
 
   void setLoading(bool isLoading) {
     _isLoading = isLoading;
@@ -83,7 +83,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void signOut(BuildContext context) {
-    _authRepository.signOut();
+    _userProvider.authRepository.signOut();
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('로그아웃 되었습니다.')));

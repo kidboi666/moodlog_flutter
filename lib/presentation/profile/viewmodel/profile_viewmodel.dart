@@ -1,110 +1,91 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/use_cases/image/pick_image_use_case.dart';
 
-import '../../../domain/repositories/auth_repository.dart';
-import '../widgets/dialog/edit_display_name_dialog.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/providers/user_provider.dart';
+import '../../../core/utils/result.dart';
+import '../../../domain/use_cases/auth/auth_use_case.dart';
+import '../../../domain/use_cases/image/pick_image_usecase.dart';
 
-class ProfileViewModel extends ChangeNotifier {
-  final AuthRepository _authRepository;
+class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   final PickImageUseCase _pickImageUseCase;
+  final UserProvider _userProvider;
+  final AuthUseCase _authUseCase;
 
   ProfileViewModel({
-    required AuthRepository authRepository,
     required PickImageUseCase pickImageUseCase,
-  }) : _authRepository = authRepository,
-       _pickImageUseCase = pickImageUseCase {
-    _user = _authRepository.user;
-    _authRepository.authStateChanges.listen((user) {
-      _user = user;
-      notifyListeners();
-    });
-  }
+    required UserProvider userProvider,
+    required AuthUseCase authUseCase,
+  }) : _pickImageUseCase = pickImageUseCase,
+       _userProvider = userProvider,
+       _authUseCase = authUseCase;
 
   final Logger _log = Logger('ProfileViewModel');
-  User? _user;
-  bool _isLoading = false;
-  String? _profileImage;
+  String? _successMessage;
 
-  User? get user => _user;
+  String? get successMessage => _successMessage;
 
-  bool get isLoading => _isLoading;
-
-  String? get profileImage => _profileImage;
-
-  bool get isGoogleUser {
-    if (_user == null) {
-      return false;
-    }
-    return _user!.providerData.any(
-      (provider) => provider.providerId == 'google.com',
-    );
+  void clearSuccessMessage() {
+    _successMessage = null;
+    notifyListeners();
   }
 
-  bool get isAnonymousUser => _user!.isAnonymous;
-
-  Future<void> updateDisplayName(String displayName) async {
-    try {
-      _isLoading = true;
-      notifyListeners();
-
-      await _authRepository.updateDisplayName(displayName);
-      _user = _authRepository.user;
-    } catch (e) {
-      rethrow;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+  Future<Result<void>> updateDisplayName(String displayName) async {
+    setLoading();
+    final result = await _authUseCase.updateDisplayName(displayName);
+    switch (result) {
+      case Ok<void>():
+        _successMessage = '닉네임이 변경되었습니다.';
+        setSuccess();
+        return Result.ok(null);
+      case Error<void>():
+        setError(result.error);
+        return Result.error(result.error);
     }
   }
+
+  bool get isGoogleUser => _userProvider.isGoogleUser;
+
+  User? get user => _userProvider.user;
+
+  bool get isAnonymousUser => _userProvider.isAnonymousUser;
 
   Future<void> updateProfilePhoto(String photoURL) async {}
 
-  void showEditDisplayNameDialog(BuildContext context, String nickname) async {
-    final result = await showDialog(
-      context: context,
-      builder: (_) => EditDisplayNameDialog(initialName: nickname),
-    );
+  // TODO: 프로필 이미지 기능 (파이어베이스 요금제 업그레이드 필요)
+  Future<Result<void>> pickImage() async {
+    setLoading();
+    final result = await _pickImageUseCase.pickImage();
 
-    if (result != null && context.mounted) {
-      try {
-        await updateDisplayName(result);
-        if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('닉네임이 성공적으로 변경되었습니다')));
+    switch (result) {
+      case Ok<String?>():
+        final newProfilePhoto = await _updateProfilePhoto(result.value!);
+        switch (newProfilePhoto) {
+          case Ok<void>():
+            _log.fine('Image updated successfully');
+            setSuccess();
+            return Result.ok(null);
+          case Error<void>():
+            setError(newProfilePhoto.error);
+            return Result.error(newProfilePhoto.error);
         }
-      } catch (e) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('닉네임 변경에 실패했습니다: ${e.toString()}')),
-          );
-        }
-      }
+      case Error<String?>():
+        _log.warning('Failed to pick image: ${result.error}');
+        return Result.error(result.error);
     }
   }
 
-  Future<Result<void>> pickImage(BuildContext context) async {
-    if (context.mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('미구현 기능입니다.')));
+  Future<Result<void>> _updateProfilePhoto(String photoURL) async {
+    setLoading();
+    final result = await _authUseCase.updateProfileImage(photoURL);
+    switch (result) {
+      case Ok<void>():
+        return Result.ok(null);
+      case Error<void>():
+        return Result.error(result.error);
     }
-    return Result.ok(null);
-    // final image = await _pickImageUseCase.pickImage();
-    //
-    // switch (image) {
-    //   case Ok<String?>():
-    //     _log.fine('Image picked successfully');
-    //     _authRepository.updateProfileImage(image.value!);
-    //     notifyListeners();
-    //     return Result.ok(null);
-    //   case Error<String?>():
-    //     _log.warning('Failed to pick image: ${image.error}');
-    //     notifyListeners();
-    //     return Result.error(image.error);
-    // }
   }
 }

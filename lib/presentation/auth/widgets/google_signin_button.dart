@@ -26,7 +26,7 @@ class GoogleSigninButton extends StatelessWidget {
           onPressed: viewModel.isLoading
               ? null
               : () async {
-                  await viewModel.signInGoogle(context);
+                  await viewModel.signInGoogle();
                   if (context.mounted) {
                     context.go(
                       Routes.onboarding,

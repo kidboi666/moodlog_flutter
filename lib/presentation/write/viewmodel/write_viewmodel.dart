@@ -11,7 +11,7 @@ import '../../../data/models/request/update_journal_request.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
-import '../../../domain/use_cases/image/pick_image_use_case.dart';
+import '../../../domain/use_cases/image/pick_image_usecase.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;

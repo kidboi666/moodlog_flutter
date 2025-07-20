@@ -10,6 +10,8 @@ class EmptyBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -20,19 +22,14 @@ class EmptyBox extends StatelessWidget {
         child: Column(
           spacing: Spacing.xxl,
           children: [
-            Text(
-              AppLocalizations.of(context)!.home_empty_box,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text(t.home_empty_box, style: textTheme.titleLarge),
             IconButton.filled(
               style: IconButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Spacing.sm),
                 ),
               ),
-              onPressed: () {
-                context.push(Routes.write);
-              },
+              onPressed: () => context.push(Routes.write),
               icon: Icon(Icons.add),
             ),
           ],

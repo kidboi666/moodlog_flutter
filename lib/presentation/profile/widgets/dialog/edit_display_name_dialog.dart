@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
+
+import '../../../../core/l10n/app_localizations.dart';
 
 class EditDisplayNameDialog extends StatefulWidget {
   final String? initialName;
@@ -49,7 +50,9 @@ class _EditDisplayNameDialogState extends State<EditDisplayNameDialog> {
         ),
         TextButton(
           onPressed: _isValid
-              ? () => context.pop(_controller.text.trim())
+              ? () {
+                  context.pop(_controller.text.trim());
+                }
               : null,
           child: Text(t.common_confirm_ok),
         ),
