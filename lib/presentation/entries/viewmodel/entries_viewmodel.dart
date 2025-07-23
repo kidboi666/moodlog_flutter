@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
 
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class EntriesViewModel extends ChangeNotifier {
+class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
 
   EntriesViewModel({required JournalRepository journalRepository})
@@ -17,11 +18,8 @@ class EntriesViewModel extends ChangeNotifier {
   DateTime selectedDate = DateTime.now();
   DateTime _selectedMonth = DateTime.now();
   List<Journal> _entries = [];
-  bool _isLoading = false;
 
   List<Journal> get entries => _entries;
-
-  bool get isLoading => _isLoading;
 
   DateTime get selectedMonth => _selectedMonth;
 
@@ -38,8 +36,7 @@ class EntriesViewModel extends ChangeNotifier {
   }
 
   Future<void> _loadMonthEntries() async {
-    _isLoading = true;
-    notifyListeners();
+    setLoading();
 
     final result = await _journalRepository.getJournalsByMonth(_selectedMonth);
     switch (result) {
@@ -48,9 +45,9 @@ class EntriesViewModel extends ChangeNotifier {
         _log.fine('Loaded journals');
       case Error<List<Journal>>():
         _entries = [];
+        setError(result.error);
         _log.warning('Failed to load journals', result.error);
     }
-    _isLoading = false;
-    notifyListeners();
+    setSuccess();
   }
 }

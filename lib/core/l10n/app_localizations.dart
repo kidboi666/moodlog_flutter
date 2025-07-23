@@ -518,6 +518,24 @@ abstract class AppLocalizations {
   /// **'당신의 이야기를 기다리고 있어요.'**
   String get home_empty_box;
 
+  /// No description provided for @entries_empty_box_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'작성된 일기가 없습니다.'**
+  String get entries_empty_box_title;
+
+  /// No description provided for @entries_empty_box_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'작성한 일기가 이곳에 나타납니다.'**
+  String get entries_empty_box_description;
+
+  /// No description provided for @entries_empty_box_button.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기 작성하러 가기'**
+  String get entries_empty_box_button;
+
   /// No description provided for @tab_home.
   ///
   /// In ko, this message translates to:

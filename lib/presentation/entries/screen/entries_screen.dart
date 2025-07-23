@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing_extension.dart';
+import 'package:moodlog/presentation/entries/widgets/empty_entries_box.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -25,7 +26,7 @@ class EntriesScreen extends StatelessWidget {
         leading: Selector<EntriesViewModel, Function>(
           selector: (_, viewModel) => viewModel.setPreviousMonth,
           builder: (_, setPreviousMonth, _) => IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () => setPreviousMonth(),
           ),
         ),
@@ -33,7 +34,7 @@ class EntriesScreen extends StatelessWidget {
           Selector<EntriesViewModel, Function>(
             selector: (_, viewModel) => viewModel.setNextMonth,
             builder: (_, setNextMonth, _) => IconButton(
-              icon: Icon(Icons.arrow_forward),
+              icon: const Icon(Icons.arrow_forward),
               onPressed: () => setNextMonth(),
             ),
           ),
@@ -43,27 +44,50 @@ class EntriesScreen extends StatelessWidget {
         padding: Spacing.containerHorizontalPadding,
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: const SizedBox(height: Spacing.xl)),
-            Selector<EntriesViewModel, List<Journal>>(
-              selector: (_, viewModel) => viewModel.entries,
-              builder: (_, entries, _) => SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final e = entries[index];
-                  return FadeIn(
-                    delay: DelayMs.medium,
-                    child: JournalCard(
-                      id: e.id,
-                      content: e.content ?? '',
-                      moodType: e.moodType,
-                      createdAt: e.createdAt,
-                      onTap: () => context.pushToJournalFromEntries(e.id),
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
+            Selector<
+              EntriesViewModel,
+              ({bool isLoading, List<Journal> entries})
+            >(
+              selector: (_, viewModel) =>
+                  (entries: viewModel.entries, isLoading: viewModel.isLoading),
+              builder: (_, viewModel, _) {
+                if (viewModel.isLoading) {
+                  return SliverToBoxAdapter(
+                    child: FadeIn(
+                      delay: DelayMs.medium,
+                      child: const CircularProgressIndicator(),
                     ),
                   );
-                }, childCount: entries.length),
-              ),
+                }
+                if (viewModel.entries.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: FadeIn(
+                      delay: DelayMs.medium,
+                      child: EmptyEntriesBox(),
+                    ),
+                  );
+                }
+
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final e = viewModel.entries[index];
+                    return FadeIn(
+                      delay: DelayMs.medium,
+                      child: JournalCard(
+                        id: e.id,
+                        content: e.content ?? '',
+                        moodType: e.moodType,
+                        createdAt: e.createdAt,
+                        onTap: () => context.pushToJournalFromEntries(e.id),
+                      ),
+                    );
+                  }, childCount: viewModel.entries.length),
+                );
+              },
             ),
-            SliverToBoxAdapter(
-              child: const SizedBox(height: kBottomNavigationBarHeight),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: kBottomNavigationBarHeight),
             ),
           ],
         ),

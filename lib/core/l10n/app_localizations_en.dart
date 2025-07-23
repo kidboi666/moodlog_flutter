@@ -231,6 +231,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_empty_box => 'Waiting for your story.';
 
   @override
+  String get entries_empty_box_title => '작성된 일기가 없습니다.';
+
+  @override
+  String get entries_empty_box_description => '작성한 일기가 이곳에 나타납니다.';
+
+  @override
+  String get entries_empty_box_button => '일기 작성하러 가기';
+
+  @override
   String get tab_home => 'Home';
 
   @override
