@@ -746,6 +746,24 @@ abstract class AppLocalizations {
   /// **'폰트'**
   String get settings_common_font_family_title;
 
+  /// No description provided for @settings_common_font_family_pretendard.
+  ///
+  /// In ko, this message translates to:
+  /// **'프리텐다드'**
+  String get settings_common_font_family_pretendard;
+
+  /// No description provided for @settings_common_font_family_leeSeoyun.
+  ///
+  /// In ko, this message translates to:
+  /// **'이서윤체'**
+  String get settings_common_font_family_leeSeoyun;
+
+  /// No description provided for @settings_common_font_family_system.
+  ///
+  /// In ko, this message translates to:
+  /// **'시스템 기본'**
+  String get settings_common_font_family_system;
+
   /// No description provided for @settings_data_title.
   ///
   /// In ko, this message translates to:

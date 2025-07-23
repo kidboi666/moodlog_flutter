@@ -348,6 +348,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_font_family_title => '폰트';
 
   @override
+  String get settings_common_font_family_pretendard => '프리텐다드';
+
+  @override
+  String get settings_common_font_family_leeSeoyun => '이서윤체';
+
+  @override
+  String get settings_common_font_family_system => '시스템 기본';
+
+  @override
   String get settings_data_title => '데이터';
 
   @override

@@ -46,3 +46,17 @@ extension AiPersonalityExtension on AiPersonality {
     }
   }
 }
+
+extension FontFamilyExtension on FontFamily {
+  String getDisplayName(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    switch (this) {
+      case FontFamily.pretendard:
+        return t.settings_common_font_family_pretendard;
+      case FontFamily.leeSeoyun:
+        return t.settings_common_font_family_leeSeoyun;
+      case FontFamily.system:
+        return t.settings_common_font_family_system;
+    }
+  }
+}

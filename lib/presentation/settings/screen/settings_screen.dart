@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../widgets/avatar.dart';
@@ -125,7 +126,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               DialogTile(
                 title: t.settings_common_font_family_title,
-                subtitle: viewModel.appState.fontFamily.displayName,
+                subtitle: viewModel.appState.fontFamily.getDisplayName(context),
                 icon: Icons.text_format,
                 onTap: () => showDialog(
                   context: context,

@@ -262,17 +262,6 @@ enum FontFamily {
     }
   }
 
-  String get displayName {
-    switch (this) {
-      case FontFamily.pretendard:
-        return 'Pretendard';
-      case FontFamily.leeSeoyun:
-        return 'LeeSeoyun';
-      case FontFamily.system:
-        return 'System';
-    }
-  }
-
   String get value {
     switch (this) {
       case FontFamily.pretendard:

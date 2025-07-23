@@ -357,6 +357,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_title => 'Font';
 
   @override
+  String get settings_common_font_family_pretendard => 'Pretendard';
+
+  @override
+  String get settings_common_font_family_leeSeoyun => 'LeeSeoyun';
+
+  @override
+  String get settings_common_font_family_system => 'System Font';
+
+  @override
   String get settings_data_title => 'Data';
 
   @override
