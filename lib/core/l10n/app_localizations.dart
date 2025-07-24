@@ -943,6 +943,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'로그인 하러 가기'**
   String get profile_button_login;
+
+  /// No description provided for @profile_button_logout.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그아웃'**
+  String get profile_button_logout;
 }
 
 class _AppLocalizationsDelegate

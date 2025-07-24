@@ -78,6 +78,10 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
+  void signOut() {
+    _authUseCase.signOut();
+  }
+
   Future<Result<void>> _updateProfilePhoto(String photoURL) async {
     setLoading();
     final result = await _authUseCase.updateProfileImage(photoURL);

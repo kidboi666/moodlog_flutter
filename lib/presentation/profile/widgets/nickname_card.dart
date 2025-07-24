@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
-import 'dialog/edit_display_name_dialog.dart';
+import 'bottom_sheet/edit_display_name_dialog.dart';
 
 class NicknameCard extends StatelessWidget {
   const NicknameCard({super.key});
@@ -25,9 +25,12 @@ class NicknameCard extends StatelessWidget {
           ),
           trailing: Icon(Icons.edit),
           onTap: () async {
-            final newName = await showDialog<String?>(
+            final newName = await showModalBottomSheet<String?>(
+              isScrollControlled: true,
               context: context,
-              builder: (_) => EditDisplayNameDialog(initialName: nickname),
+              builder: (_) {
+                return EditDisplayNameBottomSheet(initialName: nickname);
+              },
             );
 
             if (newName != null && newName.isNotEmpty && context.mounted) {

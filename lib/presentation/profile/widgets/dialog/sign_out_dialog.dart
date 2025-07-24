@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../viewmodel/settings_viewmodel.dart';
+import '../../viewmodel/profile_viewmodel.dart';
 
 class SignOutDialog extends StatelessWidget {
-  final SettingsViewModel viewModel;
+  final ProfileViewModel viewModel;
 
   const SignOutDialog({super.key, required this.viewModel});
 
@@ -13,12 +13,12 @@ class SignOutDialog extends StatelessWidget {
     final colorTheme = Theme.of(context).colorScheme;
     return AlertDialog(
       title: const Text('로그아웃'),
-      content: const Text('로그아웃 합니다.'),
+      content: const Text('로그아웃 하시겠습니까?'),
       actions: [
         TextButton(onPressed: () => context.pop(), child: const Text('취소')),
         FilledButton(
           onPressed: () {
-            viewModel.signOut(context);
+            viewModel.signOut();
             context.pop();
           },
           style: ElevatedButton.styleFrom(

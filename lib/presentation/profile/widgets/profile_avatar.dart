@@ -29,7 +29,10 @@ class ProfileAvatar extends StatelessWidget {
             Positioned(
               bottom: -12,
               right: -12,
-              child: IconButton.filled(
+              child: IconButton.filledTonal(
+                padding: EdgeInsets.all(Spacing.xs),
+                constraints: const BoxConstraints(),
+                iconSize: 20,
                 icon: const Icon(Icons.edit),
                 onPressed: () async {
                   final result = await context

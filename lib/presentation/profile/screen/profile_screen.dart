@@ -9,6 +9,7 @@ import '../widgets/account_card.dart';
 import '../widgets/creation_time_card.dart';
 import '../widgets/nickname_card.dart';
 import '../widgets/profile_avatar.dart';
+import '../widgets/sign_out_button.dart';
 import '../widgets/user_id_card.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -61,7 +62,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(t.profile_title),
         leading: IconButton(
@@ -79,8 +79,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const NicknameCard(),
               const CreationTimeCard(),
               const Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
+              const SignOutButton(),
               const UserIdCard(),
-              const SizedBox(height: Spacing.md),
             ],
           ),
           Selector<ProfileViewModel, bool>(

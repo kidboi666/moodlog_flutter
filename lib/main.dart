@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_localizations/flutter_localizations.dart";
-import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +10,6 @@ import 'core/l10n/app_localizations.dart';
 import 'core/providers/app_state_provider.dart';
 import 'core/routing/router.dart';
 import 'core/theme/theme.dart';
-import 'domain/repositories/auth_repository.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,14 +29,6 @@ class MoodLogApp extends StatefulWidget {
 }
 
 class _MoodLogAppState extends State<MoodLogApp> {
-  late final GoRouter _router;
-
-  @override
-  void initState() {
-    super.initState();
-    _router = router(context.read<AuthRepository>());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppStateProvider>(
@@ -67,7 +57,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
             appState.fontFamily,
           ),
           themeMode: appState.themeMode.materialThemeMode,
-          routerConfig: _router,
+          routerConfig: router(context.read()),
         );
       },
     );

@@ -82,13 +82,6 @@ class SettingsViewModel extends ChangeNotifier {
     ).showSnackBar(const SnackBar(content: Text('백업이 완료되었습니다.')));
   }
 
-  void signOut(BuildContext context) {
-    _userProvider.authRepository.signOut();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('로그아웃 되었습니다.')));
-  }
-
   void clearCache(BuildContext context) {
     _journalRepository.clearCache();
     context.pop();

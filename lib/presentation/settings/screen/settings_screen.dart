@@ -19,7 +19,6 @@ import '../widgets/dialog/font_family_dialog.dart';
 import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
 import '../widgets/dialog/language_dialog.dart';
-import '../widgets/dialog/sign_out_dialog.dart';
 import '../widgets/dialog/theme_dialog.dart';
 import '../widgets/dialog_tile.dart';
 import '../widgets/section_header.dart';
@@ -75,15 +74,7 @@ class SettingsScreen extends StatelessWidget {
                     builder: (_) => InitDatabaseDialog(),
                   ),
                 ),
-                DialogTile(
-                  title: '로그아웃',
-                  subtitle: '개발모드 전용 동작',
-                  icon: Icons.logout,
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => SignOutDialog(viewModel: viewModel),
-                  ),
-                ),
+
                 const SizedBox(height: Spacing.xl),
               ],
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/repositories/auth_repository.dart';
 import '../../presentation/auth/screen/sign_in_screen.dart';
 import '../../presentation/auth/viewmodel/auth_viewmodel.dart';
 import '../../presentation/entries/screen/entries_screen.dart';
@@ -23,12 +22,13 @@ import '../../presentation/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/screen/write_screen.dart';
 import '../../presentation/write/viewmodel/write_viewmodel.dart';
 import '../constants/enum.dart';
+import '../providers/user_provider.dart';
 import 'routes.dart';
 
-GoRouter router(AuthRepository authRepository) => GoRouter(
+GoRouter router(UserProvider userProvider) => GoRouter(
   initialLocation: Routes.home,
   redirect: _redirect,
-  refreshListenable: authRepository,
+  refreshListenable: userProvider,
   routes: [
     GoRoute(
       path: Routes.signIn,
@@ -172,9 +172,9 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
 );
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final authRepository = context.read<AuthRepository>();
-  final isAuthenticated = authRepository.isAuthenticated;
-  final isAnonymousUser = authRepository.isAnonymousUser;
+  final userProvider = context.read<UserProvider>();
+  final isAuthenticated = userProvider.isAuthenticated;
+  final isAnonymousUser = userProvider.isAnonymousUser;
   final location = state.matchedLocation;
   final isOnboarding = location == Routes.onboarding;
   final isSigning = location == Routes.signIn;

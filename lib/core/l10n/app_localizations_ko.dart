@@ -446,4 +446,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profile_button_login => '로그인 하러 가기';
+
+  @override
+  String get profile_button_logout => '로그아웃';
 }

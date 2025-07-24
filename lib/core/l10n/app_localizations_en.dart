@@ -456,4 +456,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile_button_login => 'Go to SignIn';
+
+  @override
+  String get profile_button_logout => '로그아웃';
 }
