@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/enum.dart';
@@ -28,11 +29,7 @@ class GuestSigninButton extends StatelessWidget {
                   }
                 },
           child: viewModel.isLoadingAnonymously
-              ? SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
+              ? const Spinner(spinnerType: SpinnerType.button)
               : Text(t.signin_button_guest),
         );
       },

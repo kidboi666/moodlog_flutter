@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -26,56 +27,71 @@ class JournalScreen extends StatelessWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        return Scaffold(
-          appBar: AppBar(
-            surfaceTintColor: Color(viewModel.journal.moodType.colorValue),
-            leading: PopButton(
-              onTap: () => viewModel.handleBackNavigation(context),
-            ),
-            title: Text(
-              viewModel.journal.createdAt.formatted(t),
-              style: textTheme.titleMedium,
-            ),
-            actions: [
-              IconButton(
-                onPressed: viewModel.changeAlign,
-                icon: Icon(viewModel.currentAlign.icon),
+        return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            if (!didPop) {
+              viewModel.handleBackNavigation(context);
+            }
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              surfaceTintColor: Color(viewModel.journal.moodType.colorValue),
+              leading: PopButton(
+                onTap: () => viewModel.handleBackNavigation(context),
               ),
-              IconButton(
-                onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => DeleteConfirmDialog(
-                    viewModel: viewModel,
-                    id: viewModel.id,
-                  ),
+              title: Text(
+                viewModel.journal.createdAt.formatted(t),
+                style: textTheme.titleMedium,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: viewModel.changeAlign,
+                  icon: Icon(viewModel.currentAlign.icon),
                 ),
-                icon: const Icon(Icons.delete),
-              ),
-            ],
-          ),
-          body: ListView(
-            children: [
-              IntrinsicHeight(
-                child: FadeIn(
-                  delay: DelayMs.quick,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      MoodBar(moodType: viewModel.journal.moodType),
-                      ContentBox(
+                IconButton(
+                  onPressed: () async {
+                    final shouldPopPage = await showDialog(
+                      context: context,
+                      builder: (context) => DeleteConfirmDialog(
                         viewModel: viewModel,
-                        currentAlign: viewModel.currentAlign,
+                        id: viewModel.id,
                       ),
-                    ],
+                    );
+                    if (shouldPopPage) {
+                      if (context.mounted) {
+                        context.pop();
+                      }
+                    }
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ],
+            ),
+            body: ListView(
+              children: [
+                IntrinsicHeight(
+                  child: FadeIn(
+                    delay: DelayMs.quick,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        MoodBar(moodType: viewModel.journal.moodType),
+                        ContentBox(
+                          viewModel: viewModel,
+                          currentAlign: viewModel.currentAlign,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: Spacing.lg),
-              FadeIn(
-                delay: DelayMs.quick * 2,
-                child: AiResponseBox(viewModel: viewModel),
-              ),
-            ],
+                const SizedBox(height: Spacing.lg),
+                FadeIn(
+                  delay: DelayMs.quick * 2,
+                  child: AiResponseBox(viewModel: viewModel),
+                ),
+              ],
+            ),
           ),
         );
       },

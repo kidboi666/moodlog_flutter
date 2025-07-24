@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/routing/routes.dart';
@@ -9,7 +10,7 @@ import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class JournalViewModel extends ChangeNotifier {
+class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final AiGenerationRepository _aiGenerationRepository;
   final JournalSource source;
@@ -29,13 +30,10 @@ class JournalViewModel extends ChangeNotifier {
   final Logger _log = Logger('JournalViewModel');
   late Journal _journal;
   SimpleTextAlign _currentAlign = SimpleTextAlign.left;
-  bool _isLoading = false;
 
   bool get shouldReplaceOnPop => source == JournalSource.write;
 
   Journal get journal => _journal;
-
-  bool get isLoading => _isLoading;
 
   SimpleTextAlign get currentAlign => _currentAlign;
 
@@ -56,40 +54,32 @@ class JournalViewModel extends ChangeNotifier {
   }
 
   Future<Result<void>> delete() async {
-    _isLoading = true;
-    notifyListeners();
-
+    setLoading();
     final result = await _journalRepository.deleteJournalById(id);
     switch (result) {
       case Ok<void>():
         _log.fine('Deleted Journal', journal.id);
-        _isLoading = false;
-        notifyListeners();
+        setSuccess();
         return Result.ok(null);
       case Error<void>():
         _log.warning('Failed to delete Journal', result.error);
-        _isLoading = false;
-        notifyListeners();
+        setError(result.error);
         return Result.error(result.error);
     }
   }
 
   Future<Result<void>> _load() async {
-    _isLoading = true;
-    notifyListeners();
-
+    setLoading();
     final journal = await _journalRepository.getJournalById(id);
     switch (journal) {
       case Ok<Journal>():
         _journal = journal.value;
-        _isLoading = false;
         _log.fine('Loaded Journal', journal.value.id);
-        notifyListeners();
+        setSuccess();
         return Result.ok(null);
       case Error<Journal>():
         _log.warning('Failed to load Journal', journal.error);
-        _isLoading = false;
-        notifyListeners();
+        setError(journal.error);
         return Result.error(journal.error);
     }
   }

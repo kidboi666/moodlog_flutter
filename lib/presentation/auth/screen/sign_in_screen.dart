@@ -8,6 +8,7 @@ import '../../widgets/fade_in.dart';
 import '../widgets/google_signin_button.dart';
 import '../widgets/guest_signin_button.dart';
 import '../widgets/kakao_signin_button.dart';
+import '../widgets/sign_in_terms_message.dart';
 
 class SignInScreen extends StatelessWidget {
   final SignInSource? source;
@@ -22,11 +23,13 @@ class SignInScreen extends StatelessWidget {
     final mediaquery = MediaQuery.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.signin_title)),
+      appBar: AppBar(
+        title: Text(t.signin_title, style: textTheme.headlineMedium),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(Spacing.md),
         child: Column(
-          spacing: Spacing.xl * 2,
           children: [
             FadeIn(
               delay: DelayMs.medium,
@@ -37,21 +40,13 @@ class SignInScreen extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
+            const SizedBox(height: Spacing.md),
             FadeIn(
               delay: DelayMs.medium * 2,
               child: Text(
                 t.signin_growth,
-                style: textTheme.headlineSmall?.copyWith(
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ),
-            FadeIn(
-              delay: DelayMs.medium * 3,
-              child: Text(
-                t.signin_login_title,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface,
+                style: textTheme.titleMedium?.copyWith(
+                  color: colorScheme.outline,
                 ),
               ),
             ),
@@ -60,17 +55,16 @@ class SignInScreen extends StatelessWidget {
               delay: DelayMs.medium * 4,
               child: SafeArea(
                 bottom: true,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      GoogleSigninButton(),
-                      // TODO 카카오 로그인
-                      if (kDebugMode) KakaoSigninButton(),
-                      if (source != SignInSource.profile) GuestSigninButton(),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    GoogleSigninButton(),
+                    // TODO 카카오 로그인
+                    if (kDebugMode) KakaoSigninButton(),
+                    if (source != SignInSource.profile) GuestSigninButton(),
+                    const SizedBox(height: Spacing.md),
+                    SignInTermsMessage(),
+                  ],
                 ),
               ),
             ),

@@ -322,3 +322,5 @@ enum JournalSource {
     }
   }
 }
+
+enum SpinnerType { button, screen, element }

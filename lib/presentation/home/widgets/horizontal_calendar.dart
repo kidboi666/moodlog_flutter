@@ -28,6 +28,9 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomeViewModel>(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
 
     return FadeIn(
       delay: DelayMs.medium * 4,
@@ -37,11 +40,9 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              viewModel.now.getLocalizedMonthName(
-                AppLocalizations.of(context)!,
-              ),
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                color: Theme.of(context).colorScheme.surface,
+              viewModel.now.getLocalizedMonthName(t),
+              style: textTheme.displayMedium?.copyWith(
+                color: colorScheme.surface,
               ),
             ),
             SizedBox(

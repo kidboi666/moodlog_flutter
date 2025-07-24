@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
@@ -57,7 +58,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
                                 }
                               },
                         child: viewModel.isLoading
-                            ? const CircularProgressIndicator()
+                            ? const Spinner()
                             : Text(t.onboarding_success_next),
                       );
                     },

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/core/extensions/routing_extension.dart';
-import 'package:moodlog/presentation/entries/widgets/empty_entries_box.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../../core/extensions/routing_extension.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
+import '../widgets/empty_entries_box.dart';
 
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -32,11 +33,7 @@ class KakaoSigninButton extends StatelessWidget {
                   );
                 },
           child: viewModel.isLoadingKakao
-              ? SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
+              ? const Spinner(spinnerType: SpinnerType.button)
               : Row(
                   spacing: Spacing.md,
                   mainAxisAlignment: MainAxisAlignment.center,

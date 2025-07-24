@@ -28,38 +28,6 @@ abstract final class Spacing {
   static get keyboardVerticalOffset => Platform.isIOS ? 140.0 : 0.0;
 }
 
-abstract final class SnapPoint {
-  static const delete = 0.3;
-  static const journalWrite = 0.7;
-  static const logout = 0.3;
-  static const auth = 0.6;
-}
-
-const Map<String, String> weekDays = {
-  'mon': 'Mon',
-  'tue': 'Tue',
-  'wed': 'Wed',
-  'thu': 'Thu',
-  'fri': 'Fri',
-  'sat': 'Sat',
-  'sun': 'Sun',
-};
-
-const Map<String, String> months = {
-  'jan': 'Jan',
-  'feb': 'Feb',
-  'mar': 'Mar',
-  'apr': 'Apr',
-  'may': 'May',
-  'jun': 'Jun',
-  'jul': 'Jul',
-  'aug': 'Aug',
-  'sep': 'Sep',
-  'oct': 'Oct',
-  'nov': 'Nov',
-  'dec': 'Dec',
-};
-
 abstract final class DelayMs {
   static const lazy = Duration(milliseconds: 1000);
   static const medium = Duration(milliseconds: 500);

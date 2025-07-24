@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drift/drift.dart';
 
 import '../../core/utils/result.dart';
@@ -9,9 +11,13 @@ import '../models/request/update_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
-  List<Journal>? _cachedJournals;
 
   JournalRepositoryImpl({required MoodLogDatabase db}) : _db = db;
+
+  List<Journal>? _cachedJournals;
+  final _journalStreamController = StreamController<List<Journal>>.broadcast();
+
+  Stream<List<Journal>> get journalStream => _journalStreamController.stream;
 
   @override
   Future<Result<List<Journal>>> getAllJournals() async {
@@ -112,7 +118,6 @@ class JournalRepositoryImpl implements JournalRepository {
     if (updatedRows == 0) {
       return Result.error(Exception('Failed to update journal'));
     }
-    // 일기가 업데이트되었으므로 캐시 무효화
     _cachedJournals = null;
     return Result.ok(updatedRows);
   }

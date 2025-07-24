@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
@@ -26,6 +28,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   final Logger _log = Logger('HomeViewModel');
+  StreamSubscription? _journalSubscription;
   final DateTime _now = DateTime.now();
   List<Journal> _journal = [];
   DateTime _selectedDate = DateTime.now();

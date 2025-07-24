@@ -16,6 +16,12 @@ import '../widgets/empty_box.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
 
+typedef HomeFeedState = ({
+  bool isFirstRender,
+  List<Journal> journal,
+  bool isLoading,
+});
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -50,75 +56,71 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        SliverPadding(
+        const SliverPadding(
           padding: Spacing.containerHorizontalPadding,
           sliver: SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 WelcomeZone(),
-                const SizedBox(height: Spacing.xl),
+                SizedBox(height: Spacing.xl),
                 HorizontalCalendar(),
-                const SizedBox(height: Spacing.xl),
+                SizedBox(height: Spacing.xl),
               ],
             ),
           ),
         ),
         SliverPadding(
           padding: Spacing.containerHorizontalPadding,
-          sliver:
-              Selector<
-                HomeViewModel,
-                ({bool isFirstRender, List<Journal> journal, bool isLoading})
-              >(
-                selector: (_, viewModel) => (
-                  isFirstRender: viewModel.isFirstRender,
-                  journal: viewModel.journal,
-                  isLoading: viewModel.isLoading,
-                ),
-                builder: (_, viewModel, _) {
-                  if (viewModel.isLoading) {
-                    return SliverToBoxAdapter(
-                      child: FadeIn(
-                        delay: viewModel.isFirstRender
-                            ? DelayMs.medium * 5
-                            : DelayMs.medium,
-                        child: const CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  if (viewModel.journal.isEmpty) {
-                    return SliverToBoxAdapter(
-                      child: FadeIn(
-                        delay: viewModel.isFirstRender
-                            ? DelayMs.medium * 5
-                            : DelayMs.medium,
-                        child: EmptyBox(),
-                      ),
-                    );
-                  }
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final e = viewModel.journal[index];
-                      return FadeIn(
-                        delay: viewModel.isFirstRender
-                            ? DelayMs.medium * (5 + index)
-                            : DelayMs.medium,
-                        child: JournalCard(
-                          id: e.id,
-                          content: e.content ?? '',
-                          moodType: e.moodType,
-                          createdAt: e.createdAt,
-                          onTap: () => context.pushToJournalFromHome(e.id),
-                        ),
-                      );
-                    }, childCount: viewModel.journal.length),
+          sliver: Selector<HomeViewModel, HomeFeedState>(
+            selector: (_, viewModel) => (
+              isFirstRender: viewModel.isFirstRender,
+              journal: viewModel.journal,
+              isLoading: viewModel.isLoading,
+            ),
+            builder: (_, viewModel, _) {
+              if (viewModel.isLoading) {
+                return SliverToBoxAdapter(
+                  child: FadeIn(
+                    delay: viewModel.isFirstRender
+                        ? DelayMs.medium * 5
+                        : DelayMs.medium,
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
+              }
+              if (viewModel.journal.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: FadeIn(
+                    delay: viewModel.isFirstRender
+                        ? DelayMs.medium * 5
+                        : DelayMs.medium,
+                    child: const EmptyBox(),
+                  ),
+                );
+              }
+              return SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final e = viewModel.journal[index];
+                  return FadeIn(
+                    delay: viewModel.isFirstRender
+                        ? DelayMs.medium * (5 + index)
+                        : DelayMs.medium,
+                    child: JournalCard(
+                      id: e.id,
+                      content: e.content ?? '',
+                      moodType: e.moodType,
+                      createdAt: e.createdAt,
+                      onTap: () => context.pushToJournalFromHome(e.id),
+                    ),
                   );
-                },
-              ),
+                }, childCount: viewModel.journal.length),
+              );
+            },
+          ),
         ),
-        SliverToBoxAdapter(
-          child: const SizedBox(height: kBottomNavigationBarHeight * 3),
+        const SliverToBoxAdapter(
+          child: SizedBox(height: kBottomNavigationBarHeight * 3),
         ),
       ],
     );

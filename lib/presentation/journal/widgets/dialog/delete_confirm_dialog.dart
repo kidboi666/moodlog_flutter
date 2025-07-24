@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../core/routing/routes.dart';
 import '../../viewmodel/journal_viewmodel.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
@@ -18,11 +17,13 @@ class DeleteConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     return AlertDialog(
       title: Text(t.journal_delete_confirm_title),
       content: Text(t.journal_delete_confirm_description),
       actions: [
         TextButton(
+          style: TextButton.styleFrom(foregroundColor: colorScheme.onSurface),
           onPressed: () => context.pop(),
           child: Text(t.common_confirm_cancel),
         ),
@@ -30,7 +31,7 @@ class DeleteConfirmDialog extends StatelessWidget {
           onPressed: () async {
             await viewModel.delete();
             if (context.mounted) {
-              context.replace(Routes.home);
+              context.pop(true);
             }
           },
           style: ElevatedButton.styleFrom(
