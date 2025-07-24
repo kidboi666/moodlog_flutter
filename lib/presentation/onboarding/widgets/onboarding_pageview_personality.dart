@@ -18,9 +18,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final onPersonalityChanged = context
-        .read<OnboardingViewModel>()
-        .setPersonality;
+    final setPersonality = context.read<OnboardingViewModel>().setPersonality;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +57,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                             personality: personality,
                             isSelected: isSelected,
                             selectedPersonality: selectedPersonality,
-                            onPersonalityChanged: onPersonalityChanged,
+                            setPersonality: setPersonality,
                           );
                         }).toList(),
                       );

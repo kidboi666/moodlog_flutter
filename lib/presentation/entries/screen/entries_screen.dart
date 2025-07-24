@@ -10,6 +10,8 @@ import '../../widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
 import '../widgets/empty_entries_box.dart';
 
+typedef EntriesSelectorType = ({bool isLoading, List<Journal> entries});
+
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({super.key});
 
@@ -45,10 +47,7 @@ class EntriesScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
-            Selector<
-              EntriesViewModel,
-              ({bool isLoading, List<Journal> entries})
-            >(
+            Selector<EntriesViewModel, EntriesSelectorType>(
               selector: (_, viewModel) =>
                   (entries: viewModel.entries, isLoading: viewModel.isLoading),
               builder: (_, viewModel, _) {
@@ -80,6 +79,9 @@ class EntriesScreen extends StatelessWidget {
                         moodType: e.moodType,
                         createdAt: e.createdAt,
                         onTap: () => context.pushToJournalFromEntries(e.id),
+                        onDismissed: () => context
+                            .read<EntriesViewModel>()
+                            .deleteJournal(e.id),
                       ),
                     );
                   }, childCount: viewModel.entries.length),

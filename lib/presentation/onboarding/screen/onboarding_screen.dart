@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   OnboardingPageViewWelcome(onNext: onNext),
                   OnboardingPageViewNickName(onNext: onNext),
                   OnboardingPageViewPersonality(onNext: onNext),
-                  OnboardingPageViewSuccess(),
+                  const OnboardingPageViewSuccess(),
                 ],
               ),
             ),

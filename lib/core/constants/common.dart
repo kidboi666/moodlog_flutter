@@ -36,8 +36,8 @@ abstract final class DelayMs {
 }
 
 abstract final class DurationMs {
-  static const lazy = Duration(milliseconds: 1000);
-  static const medium = Duration(milliseconds: 500);
+  static const lazy = Duration(milliseconds: 900);
+  static const medium = Duration(milliseconds: 600);
   static const quick = Duration(milliseconds: 300);
   static const instant = Duration(milliseconds: 150);
 }

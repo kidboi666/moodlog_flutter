@@ -12,6 +12,7 @@ class JournalCard extends StatelessWidget {
   final String? coverImg;
   final DateTime createdAt;
   final void Function() onTap;
+  final void Function() onDismissed;
 
   const JournalCard({
     super.key,
@@ -20,6 +21,7 @@ class JournalCard extends StatelessWidget {
     required this.moodType,
     required this.createdAt,
     required this.onTap,
+    required this.onDismissed,
     this.coverImg,
   });
 
@@ -29,36 +31,43 @@ class JournalCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Spacing.xl),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(Spacing.xl),
-        child: ListTile(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: Spacing.xxl,
-            vertical: Spacing.md,
-          ),
-          leading: Container(
-            width: Spacing.sm,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Spacing.xl),
-              color: Color(moodType.colorValue),
+    return Dismissible(
+      key: ValueKey(id),
+      direction: DismissDirection.endToStart,
+      onDismissed: (DismissDirection direction) {
+        onDismissed();
+      },
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Spacing.xl),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(Spacing.xl),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: Spacing.xxl,
+              vertical: Spacing.md,
             ),
+            leading: Container(
+              width: Spacing.sm,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Spacing.xl),
+                color: Color(moodType.colorValue),
+              ),
+            ),
+            title: Text(
+              createdAt.formatted(t),
+              style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
+            ),
+            subtitle: Text(
+              content.trim(),
+              style: textTheme.bodyLarge,
+              maxLines: 4,
+            ),
+            trailing: Icon(Icons.keyboard_arrow_left),
           ),
-          title: Text(
-            createdAt.formatted(t),
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
-          ),
-          subtitle: Text(
-            content.trim(),
-            style: textTheme.bodyLarge,
-            maxLines: 4,
-          ),
-          trailing: Icon(Icons.keyboard_arrow_left),
         ),
       ),
     );

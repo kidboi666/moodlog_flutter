@@ -1,3 +1,4 @@
+import 'package:moodlog/domain/use_cases/journal/delete_journal_use_case.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -59,5 +60,9 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) => AuthUseCase(authRepository: context.read()),
     ),
     Provider<PickImageUseCase>(create: (_) => PickImageUseCase()),
+    Provider<DeleteJournalUseCase>(
+      create: (context) =>
+          DeleteJournalUseCase(journalRepository: context.read()),
+    ),
   ];
 }

@@ -118,6 +118,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
                 create: (context) => HomeViewModel(
                   journalRepository: context.read(),
                   userProvider: context.read(),
+                  deleteJournalUseCase: context.read(),
                 ),
                 child: const HomeScreen(),
               ),
@@ -129,8 +130,10 @@ GoRouter router(UserProvider userProvider) => GoRouter(
             GoRoute(
               path: Routes.entries,
               builder: (_, _) => ChangeNotifierProvider(
-                create: (context) =>
-                    EntriesViewModel(journalRepository: context.read()),
+                create: (context) => EntriesViewModel(
+                  journalRepository: context.read(),
+                  deleteJournalUseCase: context.read(),
+                ),
                 child: const EntriesScreen(),
               ),
             ),

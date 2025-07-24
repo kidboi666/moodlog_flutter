@@ -7,14 +7,14 @@ class PersonalityItem extends StatelessWidget {
   final AiPersonality personality;
   final bool isSelected;
   final AiPersonality? selectedPersonality;
-  final Function onPersonalityChanged;
+  final Function setPersonality;
 
   const PersonalityItem({
     super.key,
     required this.personality,
     required this.isSelected,
     required this.selectedPersonality,
-    required this.onPersonalityChanged,
+    required this.setPersonality,
   });
 
   @override
@@ -26,7 +26,7 @@ class PersonalityItem extends StatelessWidget {
       elevation: 0,
       color: isSelected ? colorScheme.primaryContainer : null,
       child: InkWell(
-        onTap: () => onPersonalityChanged(personality),
+        onTap: () => setPersonality(personality),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -55,7 +55,7 @@ class PersonalityItem extends StatelessWidget {
               Radio(
                 value: personality,
                 groupValue: selectedPersonality,
-                onChanged: (Object? value) => onPersonalityChanged(value),
+                onChanged: (Object? value) => setPersonality(value),
               ),
             ],
           ),

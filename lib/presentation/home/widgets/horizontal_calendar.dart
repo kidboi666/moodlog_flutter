@@ -23,11 +23,22 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    final selectedDateDay = context.read<HomeViewModel>().selectedDate.day;
+
+    Future.delayed(DelayMs.lazy * 3, () {
+      if (context.mounted) {
+        _scrollController.animateTo(
+          40.0 * selectedDateDay,
+          duration: DurationMs.medium,
+          curve: Curves.easeInQuart,
+        );
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<HomeViewModel>(context);
+    final viewModel = context.read<HomeViewModel>();
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;

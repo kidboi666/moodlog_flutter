@@ -2,15 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/use_cases/journal/delete_journal_use_case.dart';
 
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
+  final DeleteJournalUseCase _deleteJournalUseCase;
 
-  EntriesViewModel({required JournalRepository journalRepository})
-    : _journalRepository = journalRepository {
+  EntriesViewModel({
+    required JournalRepository journalRepository,
+    required DeleteJournalUseCase deleteJournalUseCase,
+  }) : _journalRepository = journalRepository,
+       _deleteJournalUseCase = deleteJournalUseCase {
     _loadMonthEntries();
   }
 
@@ -33,6 +38,11 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
     notifyListeners();
     _loadMonthEntries();
+  }
+
+  Future<void> deleteJournal(int id) async {
+    setLoading();
+    await _deleteJournalUseCase.deleteJournal(id);
   }
 
   Future<void> _loadMonthEntries() async {

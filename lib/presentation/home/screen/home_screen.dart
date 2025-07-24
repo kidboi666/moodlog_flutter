@@ -112,6 +112,8 @@ class HomeScreen extends StatelessWidget {
                       moodType: e.moodType,
                       createdAt: e.createdAt,
                       onTap: () => context.pushToJournalFromHome(e.id),
+                      onDismissed: () =>
+                          context.read<HomeViewModel>().deleteJournal(e.id),
                     ),
                   );
                 }, childCount: viewModel.journal.length),

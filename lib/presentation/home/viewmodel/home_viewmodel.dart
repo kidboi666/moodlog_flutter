@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/use_cases/journal/delete_journal_use_case.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
@@ -14,12 +15,15 @@ import '../../../domain/repositories/journal_repository.dart';
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
+  final DeleteJournalUseCase _deleteJournalUseCase;
 
   HomeViewModel({
     required JournalRepository journalRepository,
     required UserProvider userProvider,
+    required DeleteJournalUseCase deleteJournalUseCase,
   }) : _journalRepository = journalRepository,
-       _userProvider = userProvider {
+       _userProvider = userProvider,
+       _deleteJournalUseCase = deleteJournalUseCase {
     _calculateDateItems();
     _load();
     Future.delayed(DelayMs.medium * 4, () {
@@ -61,6 +65,12 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
+  Future<void> deleteJournal(int id) async {
+    setLoading();
+    await _deleteJournalUseCase.deleteJournal(id);
+    setSuccess();
+  }
+
   void _calculateDateItems() {
     final currentDate = DateTime.now();
     final lastDateOfMonth = currentDate.lastDateOfMonth;
@@ -86,5 +96,11 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
         _journal = [];
         setError(result.error);
     }
+  }
+
+  @override
+  void dispose() {
+    _journalSubscription?.cancel();
+    super.dispose();
   }
 }
