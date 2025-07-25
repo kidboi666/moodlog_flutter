@@ -390,6 +390,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_restart => 'Restart';
 
   @override
+  String get settings_common_font_family_overcome => 'Overcome';
+
+  @override
   String get settings_common_font_family_system => 'System Font';
 
   @override

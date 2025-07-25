@@ -59,6 +59,8 @@ extension FontFamilyExtension on FontFamily {
         return t.settings_common_font_family_orbitOfTheMoon;
       case FontFamily.restart:
         return t.settings_common_font_family_restart;
+      case FontFamily.overcome:
+        return t.settings_common_font_family_overcome;
       case FontFamily.system:
         return t.settings_common_font_family_system;
     }

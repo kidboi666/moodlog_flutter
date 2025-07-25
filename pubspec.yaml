@@ -72,3 +72,6 @@ flutter:
     - family: Restart
       fonts:
         - asset: assets/fonts/Nanum-Restart-Regular.ttf
+    - family: Overcome
+      fonts:
+        - asset: assets/fonts/Nanum-Overcome-Regular.ttf

@@ -812,6 +812,12 @@ abstract class AppLocalizations {
   /// **'나눔손글씨 다시 시작해'**
   String get settings_common_font_family_restart;
 
+  /// No description provided for @settings_common_font_family_overcome.
+  ///
+  /// In ko, this message translates to:
+  /// **'나눔손글씨 나는 이겨낸다'**
+  String get settings_common_font_family_overcome;
+
   /// No description provided for @settings_common_font_family_system.
   ///
   /// In ko, this message translates to:
