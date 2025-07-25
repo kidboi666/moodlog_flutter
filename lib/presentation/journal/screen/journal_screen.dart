@@ -6,6 +6,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
 import '../../../core/extensions/widget_scale.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/routes.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/journal_viewmodel.dart';
@@ -61,7 +62,11 @@ class JournalScreen extends StatelessWidget {
                     );
                     if (shouldPopPage) {
                       if (context.mounted) {
-                        context.pop();
+                        if (viewModel.shouldReplaceOnPop) {
+                          context.replace(Routes.home);
+                        } else {
+                          context.pop();
+                        }
                       }
                     }
                   },
