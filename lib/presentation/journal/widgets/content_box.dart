@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/enum.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
@@ -28,9 +29,12 @@ class ContentBox extends StatelessWidget {
             child: RichText(
               textAlign: TextAlign.start,
               text: TextSpan(
-                text: viewModel.journal.moodType.name,
+                text: viewModel.journal.moodType.getDisplayName(context),
                 style: textTheme.titleLarge,
-                children: [TextSpan(text: viewModel.journal.moodType.emoji)],
+                children: [
+                  TextSpan(text: ' '),
+                  TextSpan(text: viewModel.journal.moodType.emoji),
+                ],
               ),
             ),
           ),

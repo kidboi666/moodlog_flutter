@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 
 class PopButton extends StatelessWidget {
   final GestureTapCallback? onTap;
@@ -17,6 +18,6 @@ class PopButton extends StatelessWidget {
         }
       },
       icon: Icon(Icons.arrow_back),
-    );
+    ).scale();
   }
 }
