@@ -9,6 +9,7 @@ import '../../../core/utils/result.dart';
 import '../../../data/models/request/add_journal_request.dart';
 import '../../../data/models/request/update_journal_request.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
+import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/image/pick_image_usecase.dart';
@@ -19,6 +20,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final AppStateProvider _appStateProvider;
   final AiGenerationRepository _aiGenerationRepository;
   final PickImageUseCase _pickImageUseCase;
+  final SettingsRepository _settingsRepository;
 
   WriteViewModel({
     required JournalRepository journalRepository,
@@ -26,13 +28,16 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required AppStateProvider appStateProvider,
     required AiGenerationRepository aiGenerationRepository,
     required PickImageUseCase pickImageUseCase,
+    required SettingsRepository settingsRepository,
     required int totalSteps,
   }) : _journalRepository = journalRepository,
        _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository,
-       _pickImageUseCase = pickImageUseCase {
-      initStep(totalSteps);
+       _pickImageUseCase = pickImageUseCase,
+       _settingsRepository = settingsRepository {
+    initStep(totalSteps);
+    _checkAiUsageLimit();
   }
 
   @override
@@ -52,6 +57,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
   bool _hasVisitedContentPage = false;
+  bool _canUseAiToday = true;
 
   String? get content => _content;
 
@@ -69,9 +75,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
 
   bool get shouldAutoNavigateOnMoodSelect => !_hasVisitedContentPage;
 
+  bool get canUseAiToday => _canUseAiToday;
+
+  bool get isAiAvailable => _aiEnabled && _canUseAiToday;
+
   void updateAiEnabled(bool value) {
-    _aiEnabled = value;
-    notifyListeners();
+    if (_canUseAiToday) {
+      _aiEnabled = value;
+      notifyListeners();
+    }
   }
 
   void updateMoodType(MoodType value) {
@@ -96,6 +108,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _submittedJournalId = null;
     _aiEnabled = true;
     _hasVisitedContentPage = false;
+    _checkAiUsageLimit();
     clearError();
     notifyListeners();
   }
@@ -185,8 +198,34 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     }
   }
 
+  Future<void> _checkAiUsageLimit() async {
+    final lastUsageDate = await _settingsRepository.getLastAiUsageDate();
+    final now = DateTime.now();
+
+    if (lastUsageDate == null) {
+      _canUseAiToday = true;
+    } else {
+      final isSameDay =
+          lastUsageDate.year == now.year &&
+          lastUsageDate.month == now.month &&
+          lastUsageDate.day == now.day;
+      _canUseAiToday = !isSameDay;
+    }
+
+    if (!_canUseAiToday) {
+      _aiEnabled = false;
+    }
+
+    notifyListeners();
+  }
+
   void _generateAiResponse() async {
     _aiGenerationRepository.setGeneratingAiResponse();
+
+    // Record AI usage
+    await _settingsRepository.updateLastAiUsageDate(DateTime.now());
+    _canUseAiToday = false;
+    notifyListeners();
 
     final aiPersonality = _appStateProvider.appState.aiPersonality;
     await _geminiRepository.init(aiPersonality);

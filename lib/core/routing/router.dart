@@ -77,6 +77,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           journalRepository: context.read(),
           geminiRepository: context.read(),
           appStateProvider: context.read(),
+          settingsRepository: context.read(),
           aiGenerationRepository: context.read(),
           pickImageUseCase: context.read(),
           totalSteps: 2,

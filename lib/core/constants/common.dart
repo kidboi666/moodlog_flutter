@@ -60,4 +60,5 @@ abstract final class PreferenceKeys {
   static const hasAutoSyncEnabled = 'has_auto_sync_enabled';
   static const colorTheme = 'color_theme';
   static const fontFamily = 'font_family';
+  static const lastAiUsageDate = 'last_ai_usage_date';
 }

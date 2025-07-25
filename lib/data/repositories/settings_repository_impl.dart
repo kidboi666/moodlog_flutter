@@ -137,6 +137,22 @@ class SettingsRepositoryImpl extends SettingsRepository {
 
   /// kDebugMode
   @override
+  Future<DateTime?> getLastAiUsageDate() async {
+    final p = await prefs;
+    final dateString = p.getString(PreferenceKeys.lastAiUsageDate);
+    if (dateString != null) {
+      return DateTime.tryParse(dateString);
+    }
+    return null;
+  }
+
+  @override
+  Future<void> updateLastAiUsageDate(DateTime date) async {
+    final p = await prefs;
+    await p.setString(PreferenceKeys.lastAiUsageDate, date.toIso8601String());
+  }
+
+  @override
   Future<void> clearSharedPreferences() async {
     if (kDebugMode) {
       final p = await prefs;

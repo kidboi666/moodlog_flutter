@@ -35,5 +35,9 @@ abstract class SettingsRepository extends ChangeNotifier {
 
   Future<void> updateOnboardedLoginTypes(LoginType loginType);
 
+  Future<DateTime?> getLastAiUsageDate();
+
+  Future<void> updateLastAiUsageDate(DateTime date);
+
   Future<void> clearSharedPreferences();
 }
