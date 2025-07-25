@@ -80,6 +80,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           settingsRepository: context.read(),
           aiGenerationRepository: context.read(),
           pickImageUseCase: context.read(),
+          getCurrentLocationUseCase: context.read(),
           totalSteps: 2,
         ),
         child: const WriteScreen(),

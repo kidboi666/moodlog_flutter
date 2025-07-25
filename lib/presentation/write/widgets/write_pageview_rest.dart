@@ -3,12 +3,14 @@ import 'package:moodlog/core/extensions/routing.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
+import 'date_button.dart';
 import 'image_picking_section.dart';
+import 'location_button.dart';
+import 'timestamp_button.dart';
 
 class WritePageViewRest extends StatefulWidget {
   const WritePageViewRest({super.key});
@@ -49,28 +51,15 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
               return const SizedBox.shrink();
             },
           ),
+          FadeIn(delay: DelayMs.quick, child: const ImagePickingSection()),
           FadeIn(
-            delay: DelayMs.quick,
+            delay: DelayMs.quick * 1.5,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Expanded(child: ImagePickingSection()),
-                Selector<WriteViewModel, DateTime>(
-                  selector: (context, viewModel) => viewModel.selectedDate,
-                  builder: (context, selectedDate, child) {
-                    return TextButton(
-                      child: Row(
-                        spacing: Spacing.md,
-                        children: [
-                          Text(selectedDate.formattedDotNationWithTime()),
-                          Icon(Icons.calendar_month),
-                        ],
-                      ),
-                      onPressed: () =>
-                          context.read<WriteViewModel>().selectDate(context),
-                    );
-                  },
-                ),
+                LocationButton(),
+                TimestampButton(contentController: _contentController),
+                DateButton(),
               ],
             ),
           ),

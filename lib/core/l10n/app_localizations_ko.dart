@@ -482,4 +482,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get write_timestamp_add => '시간 추가';
+
+  @override
+  String get write_location_add => '위치 추가';
 }

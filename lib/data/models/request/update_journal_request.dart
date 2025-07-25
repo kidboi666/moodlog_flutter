@@ -9,6 +9,9 @@ abstract class UpdateJournalRequest with _$UpdateJournalRequest {
     String? content,
     List<String>? imageUri,
     String? aiResponse,
+    double? latitude,
+    double? longitude,
+    String? address,
   }) = _UpdateJournalRequest;
 
   factory UpdateJournalRequest.fromJson(Map<String, dynamic> json) =>

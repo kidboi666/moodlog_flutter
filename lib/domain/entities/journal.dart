@@ -8,6 +8,9 @@ class Journal {
   final DateTime createdAt;
   final bool aiResponseEnabled;
   final String? aiResponse;
+  final double? latitude;
+  final double? longitude;
+  final String? address;
 
   Journal({
     required this.id,
@@ -17,5 +20,8 @@ class Journal {
     required this.createdAt,
     required this.aiResponseEnabled,
     this.aiResponse,
+    this.latitude,
+    this.longitude,
+    this.address,
   });
 }

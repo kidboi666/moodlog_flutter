@@ -39,7 +39,6 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         _settingsRepository.getFontFamily(),
         _settingsRepository.getOnboardedLoginTypes(),
       ]);
-      print('results: ${results[5]}');
 
       _appState = Settings(
         themeMode: results[0] as ThemeMode,
@@ -54,7 +53,6 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
       _log.info(
         'Successfully loaded settings from SharedPreferences: $_appState',
       );
-      print(_appState?.colorTheme);
       setSuccess();
     } catch (e) {
       _log.severe('Failed to load settings: $e');

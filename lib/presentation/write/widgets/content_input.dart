@@ -30,24 +30,7 @@ class ContentInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton.icon(
-              onPressed: _insertTimestamp,
-              icon: Icon(Icons.access_time, size: 16),
-              label: Text(t.write_timestamp_add),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-            ),
-          ],
-        ),
-        TextFormField(
+    return TextFormField(
           controller: contentController,
           minLines: 10,
           maxLines: 10,
@@ -63,8 +46,6 @@ class ContentInput extends StatelessWidget {
             labelText: t.write_input_title,
             hintText: t.write_input_hint,
           ),
-        ),
-      ],
-    );
+        );
   }
 }

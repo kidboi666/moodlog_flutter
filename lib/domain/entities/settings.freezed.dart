@@ -87,7 +87,7 @@ as List<String>?,
 @JsonSerializable()
 
 class _Settings extends Settings {
-  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontFamily = FontFamily.pretendard, final  List<String>? onboardedLoginTypes}): _onboardedLoginTypes = onboardedLoginTypes,super._();
+  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontFamily = FontFamily.restart, final  List<String>? onboardedLoginTypes}): _onboardedLoginTypes = onboardedLoginTypes,super._();
   factory _Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
 
 @override@JsonKey() final  bool hasNotificationEnabled;

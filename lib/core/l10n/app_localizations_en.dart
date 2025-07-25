@@ -495,4 +495,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get write_timestamp_add => 'Add Time';
+
+  @override
+  String get write_location_add => 'Add Location';
 }

@@ -23,7 +23,7 @@ _Settings _$SettingsFromJson(Map<String, dynamic> json) => _Settings(
       AiPersonality.balanced,
   fontFamily:
       $enumDecodeNullable(_$FontFamilyEnumMap, json['fontFamily']) ??
-      FontFamily.pretendard,
+      FontFamily.restart,
   onboardedLoginTypes: (json['onboardedLoginTypes'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
@@ -66,5 +66,8 @@ const _$AiPersonalityEnumMap = {
 const _$FontFamilyEnumMap = {
   FontFamily.pretendard: 'pretendard',
   FontFamily.leeSeoyun: 'leeSeoyun',
+  FontFamily.orbitOfTheMoon: 'orbitOfTheMoon',
+  FontFamily.restart: 'restart',
+  FontFamily.overcome: 'overcome',
   FontFamily.system: 'system',
 };

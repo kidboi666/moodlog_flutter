@@ -188,5 +188,6 @@
   "profile_uid_title": "User ID",
   "profile_button_login": "Go to SignIn",
   "write_ai_limit_reached": "AI responses are limited to once per day. Try again tomorrow!",
-  "write_timestamp_add": "Add Time"
+  "write_timestamp_add": "Add Time",
+  "write_location_add": "Add Location"
 }

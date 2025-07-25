@@ -15,6 +15,9 @@ _UpdateJournalRequest _$UpdateJournalRequestFromJson(
       ?.map((e) => e as String)
       .toList(),
   aiResponse: json['aiResponse'] as String?,
+  latitude: (json['latitude'] as num?)?.toDouble(),
+  longitude: (json['longitude'] as num?)?.toDouble(),
+  address: json['address'] as String?,
 );
 
 Map<String, dynamic> _$UpdateJournalRequestToJson(
@@ -24,4 +27,7 @@ Map<String, dynamic> _$UpdateJournalRequestToJson(
   'content': instance.content,
   'imageUri': instance.imageUri,
   'aiResponse': instance.aiResponse,
+  'latitude': instance.latitude,
+  'longitude': instance.longitude,
+  'address': instance.address,
 };

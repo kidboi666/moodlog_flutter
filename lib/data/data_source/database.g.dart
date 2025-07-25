@@ -87,6 +87,39 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _latitudeMeta = const VerificationMeta(
+    'latitude',
+  );
+  @override
+  late final GeneratedColumn<double> latitude = GeneratedColumn<double>(
+    'latitude',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _longitudeMeta = const VerificationMeta(
+    'longitude',
+  );
+  @override
+  late final GeneratedColumn<double> longitude = GeneratedColumn<double>(
+    'longitude',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -96,6 +129,9 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     createdAt,
     aiResponseEnabled,
     aiResponse,
+    latitude,
+    longitude,
+    address,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -141,6 +177,24 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         aiResponse.isAcceptableOrUnknown(data['ai_response']!, _aiResponseMeta),
       );
     }
+    if (data.containsKey('latitude')) {
+      context.handle(
+        _latitudeMeta,
+        latitude.isAcceptableOrUnknown(data['latitude']!, _latitudeMeta),
+      );
+    }
+    if (data.containsKey('longitude')) {
+      context.handle(
+        _longitudeMeta,
+        longitude.isAcceptableOrUnknown(data['longitude']!, _longitudeMeta),
+      );
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    }
     return context;
   }
 
@@ -182,6 +236,18 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.string,
         data['${effectivePrefix}ai_response'],
       ),
+      latitude: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}latitude'],
+      ),
+      longitude: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}longitude'],
+      ),
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      ),
     );
   }
 
@@ -204,6 +270,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<DateTime> createdAt;
   final Value<bool> aiResponseEnabled;
   final Value<String?> aiResponse;
+  final Value<double?> latitude;
+  final Value<double?> longitude;
+  final Value<String?> address;
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
@@ -212,6 +281,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.createdAt = const Value.absent(),
     this.aiResponseEnabled = const Value.absent(),
     this.aiResponse = const Value.absent(),
+    this.latitude = const Value.absent(),
+    this.longitude = const Value.absent(),
+    this.address = const Value.absent(),
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
@@ -221,6 +293,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.createdAt = const Value.absent(),
     required bool aiResponseEnabled,
     this.aiResponse = const Value.absent(),
+    this.latitude = const Value.absent(),
+    this.longitude = const Value.absent(),
+    this.address = const Value.absent(),
   }) : moodType = Value(moodType),
        aiResponseEnabled = Value(aiResponseEnabled);
   static Insertable<Journal> custom({
@@ -231,6 +306,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Expression<DateTime>? createdAt,
     Expression<bool>? aiResponseEnabled,
     Expression<String>? aiResponse,
+    Expression<double>? latitude,
+    Expression<double>? longitude,
+    Expression<String>? address,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -240,6 +318,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (createdAt != null) 'created_at': createdAt,
       if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
       if (aiResponse != null) 'ai_response': aiResponse,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
+      if (address != null) 'address': address,
     });
   }
 
@@ -251,6 +332,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<DateTime>? createdAt,
     Value<bool>? aiResponseEnabled,
     Value<String?>? aiResponse,
+    Value<double?>? latitude,
+    Value<double?>? longitude,
+    Value<String?>? address,
   }) {
     return JournalsCompanion(
       id: id ?? this.id,
@@ -260,6 +344,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       createdAt: createdAt ?? this.createdAt,
       aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
       aiResponse: aiResponse ?? this.aiResponse,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      address: address ?? this.address,
     );
   }
 
@@ -291,6 +378,15 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (aiResponse.present) {
       map['ai_response'] = Variable<String>(aiResponse.value);
     }
+    if (latitude.present) {
+      map['latitude'] = Variable<double>(latitude.value);
+    }
+    if (longitude.present) {
+      map['longitude'] = Variable<double>(longitude.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
     return map;
   }
 
@@ -303,7 +399,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('imageUri: $imageUri, ')
           ..write('createdAt: $createdAt, ')
           ..write('aiResponseEnabled: $aiResponseEnabled, ')
-          ..write('aiResponse: $aiResponse')
+          ..write('aiResponse: $aiResponse, ')
+          ..write('latitude: $latitude, ')
+          ..write('longitude: $longitude, ')
+          ..write('address: $address')
           ..write(')'))
         .toString();
   }
@@ -549,6 +648,9 @@ typedef $$JournalsTableCreateCompanionBuilder =
       Value<DateTime> createdAt,
       required bool aiResponseEnabled,
       Value<String?> aiResponse,
+      Value<double?> latitude,
+      Value<double?> longitude,
+      Value<String?> address,
     });
 typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
@@ -559,6 +661,9 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<bool> aiResponseEnabled,
       Value<String?> aiResponse,
+      Value<double?> latitude,
+      Value<double?> longitude,
+      Value<String?> address,
     });
 
 class $$JournalsTableFilterComposer
@@ -606,6 +711,21 @@ class $$JournalsTableFilterComposer
     column: $table.aiResponse,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$JournalsTableOrderingComposer
@@ -651,6 +771,21 @@ class $$JournalsTableOrderingComposer
     column: $table.aiResponse,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$JournalsTableAnnotationComposer
@@ -686,6 +821,15 @@ class $$JournalsTableAnnotationComposer
     column: $table.aiResponse,
     builder: (column) => column,
   );
+
+  GeneratedColumn<double> get latitude =>
+      $composableBuilder(column: $table.latitude, builder: (column) => column);
+
+  GeneratedColumn<double> get longitude =>
+      $composableBuilder(column: $table.longitude, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
 }
 
 class $$JournalsTableTableManager
@@ -723,6 +867,9 @@ class $$JournalsTableTableManager
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<bool> aiResponseEnabled = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
+                Value<double?> latitude = const Value.absent(),
+                Value<double?> longitude = const Value.absent(),
+                Value<String?> address = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
                 content: content,
@@ -731,6 +878,9 @@ class $$JournalsTableTableManager
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 aiResponse: aiResponse,
+                latitude: latitude,
+                longitude: longitude,
+                address: address,
               ),
           createCompanionCallback:
               ({
@@ -741,6 +891,9 @@ class $$JournalsTableTableManager
                 Value<DateTime> createdAt = const Value.absent(),
                 required bool aiResponseEnabled,
                 Value<String?> aiResponse = const Value.absent(),
+                Value<double?> latitude = const Value.absent(),
+                Value<double?> longitude = const Value.absent(),
+                Value<String?> address = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
                 content: content,
@@ -749,6 +902,9 @@ class $$JournalsTableTableManager
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 aiResponse: aiResponse,
+                latitude: latitude,
+                longitude: longitude,
+                address: address,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

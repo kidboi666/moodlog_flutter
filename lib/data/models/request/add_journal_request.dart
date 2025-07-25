@@ -14,6 +14,9 @@ abstract class AddJournalRequest with _$AddJournalRequest {
     required bool aiResponseEnabled,
     String? aiResponse,
     required DateTime createdAt,
+    double? latitude,
+    double? longitude,
+    String? address,
   }) = _AddJournalRequest;
 
   factory AddJournalRequest.fromJson(Map<String, dynamic> json) =>

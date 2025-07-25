@@ -192,5 +192,6 @@
   "profile_button_login": "로그인 하러 가기",
   "profile_button_logout": "로그아웃",
   "write_ai_limit_reached": "AI 답변은 하루에 한 번만 가능합니다. 내일 다시 시도해주세요!",
-  "write_timestamp_add": "시간 추가"
+  "write_timestamp_add": "시간 추가",
+  "write_location_add": "위치 추가"
 }

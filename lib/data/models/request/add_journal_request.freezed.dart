@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddJournalRequest {
 
- String? get content; MoodType get moodType; List<String> get imageUri; bool get aiResponseEnabled; String? get aiResponse; DateTime get createdAt;
+ String? get content; MoodType get moodType; List<String> get imageUri; bool get aiResponseEnabled; String? get aiResponse; DateTime get createdAt; double? get latitude; double? get longitude; String? get address;
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AddJournalRequestCopyWith<AddJournalRequest> get copyWith => _$AddJournalReques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,aiResponse,createdAt);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,aiResponse,createdAt,latitude,longitude,address);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AddJournalRequestCopyWith<$Res>  {
   factory $AddJournalRequestCopyWith(AddJournalRequest value, $Res Function(AddJournalRequest) _then) = _$AddJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt
+ String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address
 });
 
 
@@ -66,7 +66,7 @@ class _$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
   return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,10 @@ as MoodType,imageUri: null == imageUri ? _self.imageUri : imageUri // ignore: ca
 as List<String>,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
 as bool,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -85,7 +88,7 @@ as DateTime,
 @JsonSerializable()
 
 class _AddJournalRequest implements AddJournalRequest {
-  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, required this.aiResponseEnabled, this.aiResponse, required this.createdAt}): _imageUri = imageUri;
+  const _AddJournalRequest({this.content, required this.moodType, required final  List<String> imageUri, required this.aiResponseEnabled, this.aiResponse, required this.createdAt, this.latitude, this.longitude, this.address}): _imageUri = imageUri;
   factory _AddJournalRequest.fromJson(Map<String, dynamic> json) => _$AddJournalRequestFromJson(json);
 
 @override final  String? content;
@@ -100,6 +103,9 @@ class _AddJournalRequest implements AddJournalRequest {
 @override final  bool aiResponseEnabled;
 @override final  String? aiResponse;
 @override final  DateTime createdAt;
+@override final  double? latitude;
+@override final  double? longitude;
+@override final  String? address;
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -114,16 +120,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,aiResponse,createdAt);
+int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,aiResponse,createdAt,latitude,longitude,address);
 
 @override
 String toString() {
-  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt)';
+  return 'AddJournalRequest(content: $content, moodType: $moodType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address)';
 }
 
 
@@ -134,7 +140,7 @@ abstract mixin class _$AddJournalRequestCopyWith<$Res> implements $AddJournalReq
   factory _$AddJournalRequestCopyWith(_AddJournalRequest value, $Res Function(_AddJournalRequest) _then) = __$AddJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt
+ String? content, MoodType moodType, List<String> imageUri, bool aiResponseEnabled, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address
 });
 
 
@@ -151,7 +157,7 @@ class __$AddJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of AddJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? moodType = null,Object? imageUri = null,Object? aiResponseEnabled = null,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
   return _then(_AddJournalRequest(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
@@ -159,7 +165,10 @@ as MoodType,imageUri: null == imageUri ? _self._imageUri : imageUri // ignore: c
 as List<String>,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
 as bool,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

@@ -18,7 +18,7 @@ class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -31,6 +31,11 @@ class MoodLogDatabase extends _$MoodLogDatabase {
               'CREATE INDEX journals_created_at ON journals (created_at)',
             ),
           );
+        }
+        if (from <= 2) {
+          await migrator.addColumn(journals, journals.latitude);
+          await migrator.addColumn(journals, journals.longitude);
+          await migrator.addColumn(journals, journals.address);
         }
       },
     );

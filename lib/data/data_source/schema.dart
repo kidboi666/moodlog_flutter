@@ -22,6 +22,12 @@ class Journals extends Table {
   BoolColumn get aiResponseEnabled => boolean()();
 
   TextColumn get aiResponse => text().nullable()();
+
+  RealColumn get latitude => real().nullable()();
+
+  RealColumn get longitude => real().nullable()();
+
+  TextColumn get address => text().nullable()();
 }
 
 @UseRowClass(Stat)

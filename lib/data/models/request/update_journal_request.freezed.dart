@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UpdateJournalRequest {
 
- int get id; String? get content; List<String>? get imageUri; String? get aiResponse;
+ int get id; String? get content; List<String>? get imageUri; String? get aiResponse; double? get latitude; double? get longitude; String? get address;
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $UpdateJournalRequestCopyWith<UpdateJournalRequest> get copyWith => _$UpdateJour
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(imageUri),aiResponse);
+int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(imageUri),aiResponse,latitude,longitude,address);
 
 @override
 String toString() {
-  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse)';
+  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $UpdateJournalRequestCopyWith<$Res>  {
   factory $UpdateJournalRequestCopyWith(UpdateJournalRequest value, $Res Function(UpdateJournalRequest) _then) = _$UpdateJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- int id, String? content, List<String>? imageUri, String? aiResponse
+ int id, String? content, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address
 });
 
 
@@ -66,12 +66,15 @@ class _$UpdateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,imageUri: freezed == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
 as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
+as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -83,7 +86,7 @@ as String?,
 @JsonSerializable()
 
 class _UpdateJournalRequest implements UpdateJournalRequest {
-  const _UpdateJournalRequest({required this.id, this.content, final  List<String>? imageUri, this.aiResponse}): _imageUri = imageUri;
+  const _UpdateJournalRequest({required this.id, this.content, final  List<String>? imageUri, this.aiResponse, this.latitude, this.longitude, this.address}): _imageUri = imageUri;
   factory _UpdateJournalRequest.fromJson(Map<String, dynamic> json) => _$UpdateJournalRequestFromJson(json);
 
 @override final  int id;
@@ -98,6 +101,9 @@ class _UpdateJournalRequest implements UpdateJournalRequest {
 }
 
 @override final  String? aiResponse;
+@override final  double? latitude;
+@override final  double? longitude;
+@override final  String? address;
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -112,16 +118,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(_imageUri),aiResponse);
+int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(_imageUri),aiResponse,latitude,longitude,address);
 
 @override
 String toString() {
-  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse)';
+  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address)';
 }
 
 
@@ -132,7 +138,7 @@ abstract mixin class _$UpdateJournalRequestCopyWith<$Res> implements $UpdateJour
   factory _$UpdateJournalRequestCopyWith(_UpdateJournalRequest value, $Res Function(_UpdateJournalRequest) _then) = __$UpdateJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String? content, List<String>? imageUri, String? aiResponse
+ int id, String? content, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address
 });
 
 
@@ -149,12 +155,15 @@ class __$UpdateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
   return _then(_UpdateJournalRequest(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,imageUri: freezed == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
 as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
+as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -16,6 +16,9 @@ _AddJournalRequest _$AddJournalRequestFromJson(Map<String, dynamic> json) =>
       aiResponseEnabled: json['aiResponseEnabled'] as bool,
       aiResponse: json['aiResponse'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      address: json['address'] as String?,
     );
 
 Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
@@ -26,6 +29,9 @@ Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
       'aiResponseEnabled': instance.aiResponseEnabled,
       'aiResponse': instance.aiResponse,
       'createdAt': instance.createdAt.toIso8601String(),
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'address': instance.address,
     };
 
 const _$MoodTypeEnumMap = {

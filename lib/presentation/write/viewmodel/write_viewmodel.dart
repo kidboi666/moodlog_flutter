@@ -14,6 +14,8 @@ import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/image/pick_image_usecase.dart';
+import '../../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../../domain/entities/location_info.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;
@@ -22,6 +24,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final AiGenerationRepository _aiGenerationRepository;
   final PickImageUseCase _pickImageUseCase;
   final SettingsRepository _settingsRepository;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
 
   WriteViewModel({
     required JournalRepository journalRepository,
@@ -30,13 +33,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required AiGenerationRepository aiGenerationRepository,
     required PickImageUseCase pickImageUseCase,
     required SettingsRepository settingsRepository,
+    required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required int totalSteps,
   }) : _journalRepository = journalRepository,
        _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository,
        _pickImageUseCase = pickImageUseCase,
-       _settingsRepository = settingsRepository {
+       _settingsRepository = settingsRepository,
+       _getCurrentLocationUseCase = getCurrentLocationUseCase {
     initStep(totalSteps);
     _checkAiUsageLimit();
   }
@@ -59,6 +64,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   DateTime _selectedDate = DateTime.now();
   bool _hasVisitedContentPage = false;
   bool _canUseAiToday = true;
+  LocationInfo? _locationInfo;
 
   String? get content => _content;
 
@@ -79,6 +85,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool get canUseAiToday => _canUseAiToday;
 
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
+
+  LocationInfo? get locationInfo => _locationInfo;
 
   void updateAiEnabled(bool value) {
     if (_canUseAiToday) {
@@ -121,6 +129,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _submittedJournalId = null;
     _aiEnabled = true;
     _hasVisitedContentPage = false;
+    _locationInfo = null;
     _checkAiUsageLimit();
     clearError();
     notifyListeners();
@@ -146,6 +155,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       imageUri: imageUri,
       aiResponseEnabled: aiEnabled,
       createdAt: selectedDate,
+      latitude: _locationInfo?.latitude,
+      longitude: _locationInfo?.longitude,
+      address: _locationInfo?.address,
     );
 
     final result = await _journalRepository.addJournal(newJournal);
@@ -266,5 +278,25 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         _log.warning('Failed to add AI response: ${aiResponse.error}');
         _aiGenerationRepository.setErrorGeneratingAiResponse(aiResponse.error);
     }
+  }
+
+  Future<void> getCurrentLocation() async {
+    setLoading();
+    final result = await _getCurrentLocationUseCase.execute();
+    
+    switch (result) {
+      case Ok<LocationInfo>():
+        _log.fine('Location retrieved successfully');
+        _locationInfo = result.value;
+        setSuccess();
+      case Failure<LocationInfo>():
+        _log.warning('Failed to get location: ${result.error}');
+        setError(result.error);
+    }
+  }
+
+  void clearLocation() {
+    _locationInfo = null;
+    notifyListeners();
   }
 }

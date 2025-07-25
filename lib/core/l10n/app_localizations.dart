@@ -1015,6 +1015,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'시간 추가'**
   String get write_timestamp_add;
+
+  /// No description provided for @write_location_add.
+  ///
+  /// In ko, this message translates to:
+  /// **'위치 추가'**
+  String get write_location_add;
 }
 
 class _AppLocalizationsDelegate
