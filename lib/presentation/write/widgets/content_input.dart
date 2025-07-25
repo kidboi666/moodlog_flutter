@@ -17,7 +17,7 @@ class ContentInput extends StatelessWidget {
     final newText = text.replaceRange(
       selection.start,
       selection.end,
-      '[$timestamp] ',
+      '$timestamp ',
     );
 
     contentController.text = newText;
