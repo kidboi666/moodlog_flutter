@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/constants/navigation.dart';
+import '../../core/extensions/widget_scale.dart';
 import '../../core/routing/routes.dart';
 import '../../core/utils/animated_container.dart';
 
@@ -16,29 +18,17 @@ class ScaffoldWithNavbar extends StatelessWidget {
   });
 
   void _onTap(int index) {
-    final currentIndex = navigationShell.currentIndex > 2
-        ? navigationShell.currentIndex - 1
-        : navigationShell.currentIndex;
-    final nextIndex = index > 2 ? index - 1 : index;
+    final shellIndex = Navigation.shellIndexMap[index] ?? 0;
+    final currentShellIndex = navigationShell.currentIndex;
+
     navigationShell.goBranch(
-      nextIndex,
-      initialLocation: currentIndex == nextIndex,
+      shellIndex,
+      initialLocation: currentShellIndex == shellIndex,
     );
   }
 
-  int _setSelectedIndex(index) {
-    switch (index) {
-      case 0:
-        return 0;
-      case 1:
-        return 1;
-      case 2:
-        return 3;
-      case 3:
-        return 4;
-      default:
-        return 0;
-    }
+  int _getNavigationIndex(int shellIndex) {
+    return Navigation.navigationIndexMap[shellIndex] ?? 0;
   }
 
   @override
@@ -50,62 +40,54 @@ class ScaffoldWithNavbar extends StatelessWidget {
         currentIndex: navigationShell.currentIndex,
         children: children,
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40.0),
-            topLeft: Radius.circular(40.0),
-          ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(Navigation.bottomNavRadius),
+          topLeft: Radius.circular(Navigation.bottomNavRadius),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40.0),
-            topLeft: Radius.circular(40.0),
-          ),
-          child: BottomAppBar(
-            shape: const CircularNotchedRectangle(),
-            height: 56,
-            child: NavigationBar(
-              elevation: 0,
-              animationDuration: DurationMs.lazy,
-              selectedIndex: _setSelectedIndex(navigationShell.currentIndex),
-              onDestinationSelected: _onTap,
-              labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home_filled),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.book_outlined),
-                  selectedIcon: Icon(Icons.book),
-                  label: 'Entries',
-                ),
-                NavigationDestination(
-                  icon: SizedBox(),
-                  label: '',
-                  enabled: false,
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.query_stats),
-                  selectedIcon: Icon(Icons.query_stats_rounded),
-                  label: 'Statistics',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
-            ),
+        child: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          height: Navigation.bottomNavHeight,
+          child: NavigationBar(
+            elevation: 0,
+            animationDuration: DurationMs.lazy,
+            selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
+            onDestinationSelected: _onTap,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            destinations: [
+              const NavigationDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home_filled),
+                label: Navigation.home,
+              ).scale(scaleValue: 0.90),
+              const NavigationDestination(
+                icon: Icon(Icons.book_outlined),
+                selectedIcon: Icon(Icons.book),
+                label: Navigation.entries,
+              ).scale(scaleValue: 0.90),
+              const NavigationDestination(
+                icon: SizedBox(),
+                label: '',
+                enabled: false,
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.query_stats),
+                selectedIcon: Icon(Icons.query_stats_rounded),
+                label: Navigation.entries,
+              ).scale(scaleValue: 0.90),
+              const NavigationDestination(
+                icon: Icon(Icons.settings_outlined),
+                selectedIcon: Icon(Icons.settings),
+                label: Navigation.settings,
+              ).scale(scaleValue: 0.90),
+            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(Routes.write),
-        child: Icon(Icons.add),
-      ),
+        child: const Icon(Icons.add),
+      ).scale(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
