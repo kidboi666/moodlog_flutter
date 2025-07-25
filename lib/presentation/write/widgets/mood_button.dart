@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -26,10 +27,10 @@ class MoodButton extends StatelessWidget {
         final isSelected = viewModel.selectedMood == mood;
 
         return ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             viewModel.updateMoodType(mood);
             if (viewModel.shouldAutoNavigateOnMoodSelect) {
-              nextPage();
+              Future.delayed(DurationMs.instant, () => nextPage());
             }
           },
           style: ButtonStyle(
@@ -52,7 +53,7 @@ class MoodButton extends StatelessWidget {
               Text(mood.getDisplayName(context)),
             ],
           ),
-        );
+        ).scale();
       },
     );
   }
