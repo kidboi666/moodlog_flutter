@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/widgets/scaled_button.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../core/extensions/routing_extension.dart';
+import '../../../core/extensions/routing.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
@@ -22,6 +22,8 @@ typedef HomeFeedState = ({
   List<Journal> journal,
   bool isLoading,
 });
+
+typedef HomeCalendarState = ({DateTime selectedDate, String? nickname});
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,17 +59,24 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SliverPadding(
+
+        SliverPadding(
           padding: Spacing.containerHorizontalPadding,
-          sliver: SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                WelcomeZone(),
-                SizedBox(height: Spacing.xl),
-                HorizontalCalendar(),
-                SizedBox(height: Spacing.xl),
-              ],
+          sliver: Selector<HomeViewModel, HomeCalendarState>(
+            selector: (_, viewModel) => (
+              selectedDate: viewModel.selectedDate,
+              nickname: viewModel.nickname,
+            ),
+            builder: (_, viewModel, _) => SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  WelcomeZone(),
+                  SizedBox(height: Spacing.xl),
+                  HorizontalCalendar(),
+                  SizedBox(height: Spacing.xl),
+                ],
+              ),
             ),
           ),
         ),
@@ -125,7 +134,10 @@ class HomeScreen extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ScaledElevatedButton(onPressed: () {}, child: Text('asdf')),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('asdfasdf'),
+            ).scale(),
           ),
         ),
         const SliverToBoxAdapter(

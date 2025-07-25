@@ -41,7 +41,9 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   String? get profileImage => _userProvider.user?.photoURL;
 
-  String? get nickname => _userProvider.user?.displayName;
+  String? get nickname =>
+      _userProvider.user?.displayName ??
+      _userProvider.user?.email?.split('@').first;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -55,7 +57,6 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void selectDate(DateTime date) {
     _selectedDate = date;
-    _log.info('isFirstRender $isFirstRender');
     notifyListeners();
     _load();
   }

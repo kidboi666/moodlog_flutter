@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
-import '../../../core/extensions/routing_extension.dart';
+import '../../../core/extensions/routing.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';

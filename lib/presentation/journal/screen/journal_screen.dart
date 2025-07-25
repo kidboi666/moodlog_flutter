@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -48,7 +49,7 @@ class JournalScreen extends StatelessWidget {
                 IconButton(
                   onPressed: viewModel.changeAlign,
                   icon: Icon(viewModel.currentAlign.icon),
-                ),
+                ).scale(),
                 IconButton(
                   onPressed: () async {
                     final shouldPopPage = await showDialog(
@@ -65,7 +66,7 @@ class JournalScreen extends StatelessWidget {
                     }
                   },
                   icon: const Icon(Icons.delete),
-                ),
+                ).scale(),
               ],
             ),
             body: ListView(

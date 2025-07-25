@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
@@ -39,12 +40,9 @@ class JournalCard extends StatelessWidget {
       },
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Spacing.xl),
-        ),
-        child: InkWell(
+        child: InkResponse(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(Spacing.xl),
+          containedInkWell: true,
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(
               horizontal: Spacing.xxl,
@@ -69,7 +67,7 @@ class JournalCard extends StatelessWidget {
             trailing: Icon(Icons.keyboard_arrow_left),
           ),
         ),
-      ),
+      ).scale(),
     );
   }
 }

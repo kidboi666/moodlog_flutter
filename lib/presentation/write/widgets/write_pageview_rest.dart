@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/routing_extension.dart';
+import 'package:moodlog/core/extensions/routing.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
