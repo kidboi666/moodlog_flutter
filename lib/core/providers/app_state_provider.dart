@@ -17,11 +17,18 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   final Logger _log = Logger('AppStateProvider');
   Settings? _appState;
 
-  Settings get appState => _appState ?? Settings();
+  Settings get appState {
+    if (isLoading && _appState != null) {
+      return _appState!;
+    }
+    return _appState ?? Settings();
+  }
 
   Future<void> loadSettings() async {
+    _log.info('Starting to load settings from SharedPreferences');
     setLoading();
     try {
+      _log.info('Fetching individual settings...');
       final results = await Future.wait([
         _settingsRepository.getThemeMode(),
         _settingsRepository.getLanguageCode(),
@@ -32,6 +39,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         _settingsRepository.getFontFamily(),
         _settingsRepository.getOnboardedLoginTypes(),
       ]);
+      print('results: ${results[5]}');
 
       _appState = Settings(
         themeMode: results[0] as ThemeMode,
@@ -43,12 +51,21 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         fontFamily: results[6] as FontFamily,
         onboardedLoginTypes: results[7] as List<String>?,
       );
-      _log.info('Loaded settings: $_appState');
+      _log.info(
+        'Successfully loaded settings from SharedPreferences: $_appState',
+      );
+      print(_appState?.colorTheme);
       setSuccess();
     } catch (e) {
+      _log.severe('Failed to load settings: $e');
       setError(e);
-      _appState = Settings();
-    }
+      if (_appState == null) {
+        _appState = Settings();
+        _log.warning('Using default settings due to error (no previous state)');
+      } else {
+        _log.warning('Keeping previous settings due to error');
+      }
+    } finally {}
   }
 
   Future<void> updateThemeMode(ThemeMode themeMode) async {

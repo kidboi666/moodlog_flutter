@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_localizations/flutter_localizations.dart";
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,8 @@ class MoodLogApp extends StatefulWidget {
 }
 
 class _MoodLogAppState extends State<MoodLogApp> {
+  GoRouter? _router;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppStateProvider>(
@@ -38,6 +41,8 @@ class _MoodLogAppState extends State<MoodLogApp> {
         if (appStateProvider.isLoading) {
           return const Spinner(spinnerType: SpinnerType.screen);
         }
+        _router ??= router(context.read());
+
         return MaterialApp.router(
           localizationsDelegates: [
             AppLocalizations.delegate,
@@ -56,7 +61,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
             appState.fontFamily,
           ),
           themeMode: appState.themeMode.materialThemeMode,
-          routerConfig: router(context.read()),
+          routerConfig: _router!,
         );
       },
     );

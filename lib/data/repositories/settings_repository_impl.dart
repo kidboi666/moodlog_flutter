@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/common.dart';
@@ -6,88 +7,106 @@ import '../../core/constants/enum.dart';
 import '../../domain/repositories/app_state_repository.dart';
 
 class SettingsRepositoryImpl extends SettingsRepository {
-  final SharedPreferencesAsync _prefs;
+  SharedPreferences? _prefs;
+  final Logger _log = Logger('SettingsRepositoryImpl');
 
-  SettingsRepositoryImpl({SharedPreferencesAsync? prefs})
-    : _prefs = prefs ?? SharedPreferencesAsync();
+  SettingsRepositoryImpl();
+
+  Future<SharedPreferences> get prefs async {
+    return _prefs ??= await SharedPreferences.getInstance();
+  }
 
   @override
   Future<ThemeMode> getThemeMode() async {
-    final themeModeString = await _prefs.getString(PreferenceKeys.themeMode);
+    final p = await prefs;
+    final themeModeString = p.getString(PreferenceKeys.themeMode);
+    _log.info('Loading themeMode: $themeModeString');
     return ThemeMode.fromString(themeModeString);
   }
 
   @override
   Future<LanguageCode> getLanguageCode() async {
-    final languageCodeString = await _prefs.getString(
-      PreferenceKeys.languageCode,
-    );
+    final p = await prefs;
+    final languageCodeString = p.getString(PreferenceKeys.languageCode);
     return LanguageCode.fromString(languageCodeString);
   }
 
   @override
   Future<AiPersonality> getAiPersonality() async {
-    final aiPersonalityString = await _prefs.getString(
-      PreferenceKeys.aiPersonality,
-    );
+    final p = await prefs;
+    final aiPersonalityString = p.getString(PreferenceKeys.aiPersonality);
     return AiPersonality.fromString(aiPersonalityString);
   }
 
   @override
   Future<bool> getHasNotificationEnabled() async {
-    return await _prefs.getBool(PreferenceKeys.hasNotificationEnabled) ?? false;
+    final p = await prefs;
+    return p.getBool(PreferenceKeys.hasNotificationEnabled) ?? false;
   }
 
   @override
   Future<bool> getHasAutoSyncEnabled() async {
-    return await _prefs.getBool(PreferenceKeys.hasAutoSyncEnabled) ?? false;
+    final p = await prefs;
+    return p.getBool(PreferenceKeys.hasAutoSyncEnabled) ?? false;
   }
 
   @override
   Future<ColorTheme> getColorTheme() async {
-    final colorThemeString = await _prefs.getString(PreferenceKeys.colorTheme);
+    final p = await prefs;
+    final colorThemeString = p.getString(PreferenceKeys.colorTheme);
     return ColorTheme.fromString(colorThemeString);
   }
 
   @override
   Future<FontFamily> getFontFamily() async {
-    final fontFamilyString = await _prefs.getString(PreferenceKeys.fontFamily);
+    final p = await prefs;
+    final fontFamilyString = p.getString(PreferenceKeys.fontFamily);
+    _log.info('Loading fontFamily: $fontFamilyString');
     return FontFamily.fromString(fontFamilyString);
   }
 
   @override
   Future<List<String>?> getOnboardedLoginTypes() async {
-    return await _prefs.getStringList(PreferenceKeys.onboardingCompleted);
+    final p = await prefs;
+    return p.getStringList(PreferenceKeys.onboardingCompleted);
   }
 
   @override
   Future<void> updateAiPersonality(AiPersonality aiPersonality) async {
-    await _prefs.setString(PreferenceKeys.aiPersonality, aiPersonality.value);
+    final p = await prefs;
+    await p.setString(PreferenceKeys.aiPersonality, aiPersonality.value);
   }
 
   @override
   Future<void> updateLanguage(LanguageCode languageCode) async {
-    await _prefs.setString(PreferenceKeys.languageCode, languageCode.value);
+    final p = await prefs;
+    await p.setString(PreferenceKeys.languageCode, languageCode.value);
   }
 
   @override
   Future<void> updateThemeMode(ThemeMode themeMode) async {
-    await _prefs.setString(PreferenceKeys.themeMode, themeMode.value);
+    final p = await prefs;
+    _log.info('Saving themeMode: ${themeMode.value}');
+    await p.setString(PreferenceKeys.themeMode, themeMode.value);
   }
 
   @override
   Future<void> updateFontFamily(FontFamily fontFamily) async {
-    await _prefs.setString(PreferenceKeys.fontFamily, fontFamily.value);
+    final p = await prefs;
+    _log.info('Saving fontFamily: ${fontFamily.value}');
+    await p.setString(PreferenceKeys.fontFamily, fontFamily.value);
   }
 
   @override
   Future<void> updateColorTheme(ColorTheme colorTheme) async {
-    await _prefs.setString(PreferenceKeys.colorTheme, colorTheme.value);
+    final p = await prefs;
+    await p.setString(PreferenceKeys.colorTheme, colorTheme.value);
   }
 
   @override
   Future<void> updateNotificationEnabled(bool hasNotificationEnabled) async {
-    await _prefs.setBool(
+    final p = await prefs;
+    await p.setBool(
       PreferenceKeys.hasNotificationEnabled,
       hasNotificationEnabled,
     );
@@ -95,7 +114,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
 
   @override
   Future<void> updateAutoSyncEnabled(bool hasAutoSyncEnabled) async {
-    await _prefs.setBool(PreferenceKeys.hasAutoSyncEnabled, hasAutoSyncEnabled);
+    final p = await prefs;
+    await p.setBool(PreferenceKeys.hasAutoSyncEnabled, hasAutoSyncEnabled);
   }
 
   @override
@@ -108,7 +128,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
       onboardedLoginTypes = [loginType.value];
     }
 
-    await _prefs.setStringList(
+    final p = await prefs;
+    await p.setStringList(
       PreferenceKeys.onboardingCompleted,
       onboardedLoginTypes,
     );
@@ -118,7 +139,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
   @override
   Future<void> clearSharedPreferences() async {
     if (kDebugMode) {
-      await _prefs.clear();
+      final p = await prefs;
+      await p.clear();
     }
   }
 }

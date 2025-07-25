@@ -42,7 +42,6 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setLanguage(LanguageCode? language) {
     _appStateProvider.updateLanguage(language!);
-    notifyListeners();
   }
 
   Future<void> showDialogWithWidget(BuildContext context, Widget child) async {
@@ -51,27 +50,22 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setNotificationEnabled(bool enabled) {
     _appStateProvider.updateNotificationEnabled(enabled);
-    notifyListeners();
   }
 
   void setAutoSyncEnabled(bool enabled) {
     _appStateProvider.updateAutoSyncEnabled(enabled);
-    notifyListeners();
   }
 
   void setTheme(ThemeMode? theme) {
     _appStateProvider.updateThemeMode(theme!);
-    notifyListeners();
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
     _appStateProvider.updateColorTheme(colorTheme!);
-    notifyListeners();
   }
 
   void setFontFamily(FontFamily? fontType) {
     _appStateProvider.updateFontFamily(fontType!);
-    notifyListeners();
   }
 
   void performBackup(BuildContext context) {
