@@ -22,7 +22,13 @@ class AiEnableCard extends StatelessWidget {
           ),
           clipBehavior: Clip.hardEdge,
           child: InkWell(
-            onTap: () => viewModel.updateAiEnabled(!viewModel.aiEnabled),
+            onTap: () {
+              if (viewModel.canUseAiToday) {
+                viewModel.updateAiEnabled(!viewModel.aiEnabled);
+              } else {
+                viewModel.showAiLimitMessage(context);
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
@@ -45,7 +51,9 @@ class AiEnableCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Switch(
                       value: viewModel.aiEnabled,
-                      onChanged: viewModel.updateAiEnabled,
+                      onChanged: viewModel.canUseAiToday
+                          ? viewModel.updateAiEnabled
+                          : null,
                     ),
                   ),
                 ],

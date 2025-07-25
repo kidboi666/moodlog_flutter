@@ -955,6 +955,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'로그아웃'**
   String get profile_button_logout;
+
+  /// No description provided for @write_ai_limit_reached.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI 답변은 하루에 한 번만 가능합니다. 내일 다시 시도해주세요!'**
+  String get write_ai_limit_reached;
 }
 
 class _AppLocalizationsDelegate

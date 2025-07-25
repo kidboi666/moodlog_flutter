@@ -45,6 +45,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                   context.goToJournalFromWrite(viewModel.submittedJournalId!);
                 });
               }
+
               return const SizedBox.shrink();
             },
           ),

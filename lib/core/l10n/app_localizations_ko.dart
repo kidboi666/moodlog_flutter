@@ -452,4 +452,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profile_button_logout => '로그아웃';
+
+  @override
+  String get write_ai_limit_reached => 'AI 답변은 하루에 한 번만 가능합니다. 내일 다시 시도해주세요!';
 }

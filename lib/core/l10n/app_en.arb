@@ -177,5 +177,6 @@
   "profile_nickname_hint": "Please enter a new nickname",
   "profile_creation_time_title": "Join Date",
   "profile_uid_title": "User ID",
-  "profile_button_login": "Go to SignIn"
+  "profile_button_login": "Go to SignIn",
+  "write_ai_limit_reached": "AI responses are limited to once per day. Try again tomorrow!"
 }

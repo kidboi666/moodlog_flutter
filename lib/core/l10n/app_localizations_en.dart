@@ -462,4 +462,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile_button_logout => '로그아웃';
+
+  @override
+  String get write_ai_limit_reached =>
+      'AI responses are limited to once per day. Try again tomorrow!';
 }

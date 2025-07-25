@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/step_mixin.dart';
 import '../../../core/providers/app_state_provider.dart';
@@ -83,6 +84,18 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     if (_canUseAiToday) {
       _aiEnabled = value;
       notifyListeners();
+    }
+  }
+
+  void showAiLimitMessage(BuildContext context) {
+    if (!_canUseAiToday) {
+      final t = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(t.write_ai_limit_reached),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
@@ -202,6 +215,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     final lastUsageDate = await _settingsRepository.getLastAiUsageDate();
     final now = DateTime.now();
 
+    _log.info(
+      'Checking AI usage limit: lastUsageDate = $lastUsageDate, now = $now',
+    );
+
     if (lastUsageDate == null) {
       _canUseAiToday = true;
     } else {
@@ -211,6 +228,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
           lastUsageDate.day == now.day;
       _canUseAiToday = !isSameDay;
     }
+
+    _log.info('AI usage result: canUseAiToday = $_canUseAiToday');
 
     if (!_canUseAiToday) {
       _aiEnabled = false;
