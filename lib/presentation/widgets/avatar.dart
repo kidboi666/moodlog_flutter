@@ -19,11 +19,13 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return GestureDetector(
+    return InkResponse(
       onTap: onTap,
+      containedInkWell: true,
+      borderRadius: BorderRadius.circular(size / 2),
       child: CircleAvatar(
         radius: size / 2,
-        backgroundColor: colorScheme.surfaceTint,
+        backgroundColor: colorScheme.surfaceTint.withValues(alpha: 0.3),
         child: photoUrl != null && photoUrl!.isNotEmpty
             ? ClipOval(
                 child: Image.network(

@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import '../../core/extensions/widget_scale.dart';
 
 class ImageScreenWithButton extends StatelessWidget {
-  final String image;
+  final String? image;
   final Widget button;
 
-  const ImageScreenWithButton({
-    super.key,
-    required this.image,
-    required this.button,
-  });
+  const ImageScreenWithButton({super.key, this.image, required this.button});
 
   @override
   Widget build(BuildContext context) {
