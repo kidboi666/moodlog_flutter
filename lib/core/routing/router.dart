@@ -46,8 +46,8 @@ GoRouter router(UserProvider userProvider) => GoRouter(
     GoRoute(
       path: Routes.onboarding,
       builder: (_, state) {
-        final extra = state.extra as Map<String, LoginType>;
-        final loginType = extra['loginType']!;
+        final extra = state.extra as Map<String, LoginType>?;
+        final loginType = extra?['loginType'] ?? LoginType.anonymous;
         return ChangeNotifierProvider(
           create: (context) => OnboardingViewModel(
             totalSteps: 4,
