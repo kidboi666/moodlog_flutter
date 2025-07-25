@@ -30,6 +30,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_confirm_save => '저장';
 
   @override
+  String get settings_ai_personality_changed => 'AI 성격이 변경되었습니다.';
+
+  @override
   String get common_email => '이메일';
 
   @override

@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'저장'**
   String get common_confirm_save;
 
+  /// No description provided for @settings_ai_personality_changed.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI 성격이 변경되었습니다.'**
+  String get settings_ai_personality_changed;
+
   /// No description provided for @common_email.
   ///
   /// In ko, this message translates to:

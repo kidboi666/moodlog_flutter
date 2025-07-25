@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_confirm_save => 'Save';
 
   @override
+  String get settings_ai_personality_changed => 'AI personality has been changed.';
+
+  @override
   String get common_email => 'Email';
 
   @override

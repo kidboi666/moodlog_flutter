@@ -74,6 +74,12 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
           onPressed: () {
             widget.viewModel.setAiPersonality(_selectedPersonality);
             Navigator.of(context).pop();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(t.settings_ai_personality_changed),
+                duration: const Duration(seconds: 2),
+              ),
+            );
           },
           child: Text(t.common_confirm_save),
         ),
