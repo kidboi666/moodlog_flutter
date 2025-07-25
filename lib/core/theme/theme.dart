@@ -21,7 +21,7 @@ abstract final class AppTheme {
       fontFamily: fontFamily.value,
       brightness: Brightness.light,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
-      textTheme: _textTheme,
+      textTheme: _getTextTheme(fontFamily),
       colorScheme: colorScheme,
     );
   }
@@ -42,22 +42,36 @@ abstract final class AppTheme {
       fontFamily: fontFamily.value,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
-      textTheme: _textTheme,
+      textTheme: _getTextTheme(fontFamily),
       colorScheme: colorScheme,
     );
   }
 
   static const _boldFontWeight = FontWeight.bold;
 
-  static const _textTheme = TextTheme(
-    displayLarge: TextStyle(fontWeight: _boldFontWeight),
-    displayMedium: TextStyle(fontWeight: _boldFontWeight),
-    displaySmall: TextStyle(fontWeight: _boldFontWeight),
-    headlineLarge: TextStyle(fontWeight: _boldFontWeight),
-    headlineMedium: TextStyle(fontWeight: _boldFontWeight),
-    headlineSmall: TextStyle(fontWeight: _boldFontWeight),
-    titleLarge: TextStyle(fontWeight: _boldFontWeight),
-    titleMedium: TextStyle(fontWeight: _boldFontWeight),
-    titleSmall: TextStyle(fontWeight: _boldFontWeight),
-  );
+  static TextTheme _getTextTheme(FontFamily fontFamily) {
+    const baseTheme = TextTheme(
+      displayLarge: TextStyle(fontSize: 57, fontWeight: _boldFontWeight),
+      displayMedium: TextStyle(fontSize: 45, fontWeight: _boldFontWeight),
+      displaySmall: TextStyle(fontSize: 36, fontWeight: _boldFontWeight),
+      headlineLarge: TextStyle(fontSize: 32, fontWeight: _boldFontWeight),
+      headlineMedium: TextStyle(fontSize: 28, fontWeight: _boldFontWeight),
+      headlineSmall: TextStyle(fontSize: 24, fontWeight: _boldFontWeight),
+      titleLarge: TextStyle(fontSize: 22, fontWeight: _boldFontWeight),
+      titleMedium: TextStyle(fontSize: 16, fontWeight: _boldFontWeight),
+      titleSmall: TextStyle(fontSize: 14, fontWeight: _boldFontWeight),
+      bodyLarge: TextStyle(fontSize: 16),
+      bodyMedium: TextStyle(fontSize: 14),
+      bodySmall: TextStyle(fontSize: 12),
+      labelLarge: TextStyle(fontSize: 14, fontWeight: _boldFontWeight),
+      labelMedium: TextStyle(fontSize: 12, fontWeight: _boldFontWeight),
+      labelSmall: TextStyle(fontSize: 11, fontWeight: _boldFontWeight),
+    );
+
+    if (fontFamily == FontFamily.orbitOfTheMoon) {
+      return baseTheme.apply(fontSizeFactor: 1.2);
+    }
+
+    return baseTheme;
+  }
 }
