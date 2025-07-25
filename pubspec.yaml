@@ -68,4 +68,7 @@ flutter:
         - asset: assets/fonts/LeeSeoyun-Regular.ttf
     - family: OrbitOfTheMoon
       fonts:
-        - asset: assets/fonts/Nanum-OrbitOfTheMoon.ttf
+        - asset: assets/fonts/Nanum-OrbitOfTheMoon-Regular.ttf
+    - family: Restart
+      fonts:
+        - asset: assets/fonts/Nanum-Restart-Regular.ttf

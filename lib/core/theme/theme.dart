@@ -72,6 +72,10 @@ abstract final class AppTheme {
       return baseTheme.apply(fontSizeFactor: 1.2);
     }
 
+    if (fontFamily == FontFamily.restart) {
+      return baseTheme.apply(fontSizeFactor: 1.1);
+    }
+
     return baseTheme;
   }
 }

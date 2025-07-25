@@ -57,6 +57,8 @@ extension FontFamilyExtension on FontFamily {
         return t.settings_common_font_family_leeSeoyun;
       case FontFamily.orbitOfTheMoon:
         return t.settings_common_font_family_orbitOfTheMoon;
+      case FontFamily.restart:
+        return t.settings_common_font_family_restart;
       case FontFamily.system:
         return t.settings_common_font_family_system;
     }

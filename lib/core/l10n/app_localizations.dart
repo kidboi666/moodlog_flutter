@@ -782,6 +782,12 @@ abstract class AppLocalizations {
   /// **'나눔손글씨 달의궤도'**
   String get settings_common_font_family_orbitOfTheMoon;
 
+  /// No description provided for @settings_common_font_family_restart.
+  ///
+  /// In ko, this message translates to:
+  /// **'나눔손글씨 다시 시작해'**
+  String get settings_common_font_family_restart;
+
   /// No description provided for @settings_common_font_family_system.
   ///
   /// In ko, this message translates to:

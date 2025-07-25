@@ -248,6 +248,7 @@ enum FontFamily {
   pretendard,
   leeSeoyun,
   orbitOfTheMoon,
+  restart,
   system;
 
   static FontFamily fromString(String? value) {
@@ -258,6 +259,8 @@ enum FontFamily {
         return FontFamily.leeSeoyun;
       case 'orbitOfTheMoon':
         return FontFamily.orbitOfTheMoon;
+      case 'restart':
+        return FontFamily.restart;
       case 'system':
         return FontFamily.system;
       default:
@@ -273,6 +276,8 @@ enum FontFamily {
         return 'leeSeoyun';
       case FontFamily.orbitOfTheMoon:
         return 'orbitOfTheMoon';
+      case FontFamily.restart:
+        return 'restart';
       case FontFamily.system:
         return 'system';
     }

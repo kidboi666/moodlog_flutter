@@ -372,7 +372,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_leeSeoyun => 'LeeSeoyun';
 
   @override
-  String get settings_common_font_family_orbitOfTheMoon => '나눔손글씨 달의궤도';
+  String get settings_common_font_family_orbitOfTheMoon => 'Orbit of the Moon';
+
+  @override
+  String get settings_common_font_family_restart => 'Restart';
 
   @override
   String get settings_common_font_family_system => 'System Font';

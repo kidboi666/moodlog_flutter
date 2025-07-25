@@ -366,6 +366,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_font_family_orbitOfTheMoon => '나눔손글씨 달의궤도';
 
   @override
+  String get settings_common_font_family_restart => '나눔손글씨 다시 시작해';
+
+  @override
   String get settings_common_font_family_system => '시스템 기본';
 
   @override
