@@ -44,7 +44,7 @@ class ProfileAvatar extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('프로필 이미지가 변경되었습니다.')),
                         );
-                      case Error<void>():
+                      case Failure<void>():
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(result.error.toString())),
                         );

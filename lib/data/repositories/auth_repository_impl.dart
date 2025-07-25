@@ -27,7 +27,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final user = _firebaseAuth.currentUser;
       return Result.ok(user);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -42,7 +42,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final userCredential = await _firebaseAuth.signInAnonymously();
       return Result.ok(userCredential.user);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -55,7 +55,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Result.ok(userCredential.user);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -67,7 +67,7 @@ class AuthRepositoryImpl extends AuthRepository {
           ?.linkWithCredential(credential);
       return Result.ok(userCredential?.user);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -78,7 +78,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _firebaseAuth.currentUser?.reload();
       return Result.ok(null);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -89,7 +89,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _firebaseAuth.currentUser?.reload();
       return Result.ok(null);
     } catch (e) {
-      return Result.error(Exception(e));
+      return Result.error(e);
     }
   }
 
@@ -98,7 +98,13 @@ class AuthRepositoryImpl extends AuthRepository {
     await googleSignIn.initialize();
     final GoogleSignInAccount googleUser = await GoogleSignIn.instance
         .authenticate();
+
     final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+    if (googleAuth.idToken == null) {
+      throw Exception('Failed to get Google ID token');
+    }
+
     return GoogleAuthProvider.credential(idToken: googleAuth.idToken);
   }
 }

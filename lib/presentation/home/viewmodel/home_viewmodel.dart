@@ -26,9 +26,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
        _deleteJournalUseCase = deleteJournalUseCase {
     _calculateDateItems();
     _load();
-    Future.delayed(DelayMs.medium * 4, () {
-      setIsFirstRender(false);
-    });
+    _initializeDelayedRender();
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -92,11 +90,16 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Loaded journals');
         _journal = result.value;
         setSuccess();
-      case Error<List<Journal>>():
+      case Failure<List<Journal>>():
         _log.warning('Failed to load journals', result.error);
         _journal = [];
         setError(result.error);
     }
+  }
+
+  Future<void> _initializeDelayedRender() async {
+    await Future.delayed(DelayMs.medium * 4);
+    setIsFirstRender(false);
   }
 
   @override

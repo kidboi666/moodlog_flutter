@@ -53,7 +53,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
       case Ok<List<Journal>>():
         _entries = result.value;
         _log.fine('Loaded journals');
-      case Error<List<Journal>>():
+      case Failure<List<Journal>>():
         _entries = [];
         setError(result.error);
         _log.warning('Failed to load journals', result.error);

@@ -61,7 +61,7 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Deleted Journal', journal.id);
         setSuccess();
         return Result.ok(null);
-      case Error<void>():
+      case Failure<void>():
         _log.warning('Failed to delete Journal', result.error);
         setError(result.error);
         return Result.error(result.error);
@@ -77,7 +77,7 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Loaded Journal', journal.value.id);
         setSuccess();
         return Result.ok(null);
-      case Error<Journal>():
+      case Failure<Journal>():
         _log.warning('Failed to load Journal', journal.error);
         setError(journal.error);
         return Result.error(journal.error);

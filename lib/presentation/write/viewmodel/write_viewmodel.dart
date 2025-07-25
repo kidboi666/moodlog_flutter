@@ -121,7 +121,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         }
         notifyListeners();
         return Result.ok(null);
-      case Error<Map<String, dynamic>>():
+      case Failure<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
         return Result.error(result.error);
     }
@@ -134,7 +134,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         _log.fine('Image picked successfully');
         _imageFileList.add(result.value!);
         notifyListeners();
-      case Error<String?>():
+      case Failure<String?>():
         _log.warning('Failed to pick image: ${result.error}');
         notifyListeners();
     }
@@ -188,7 +188,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         );
         await _journalRepository.updateJournal(newJournal);
         _aiGenerationRepository.setSuccessGeneratingAiResponse();
-      case Error<String>():
+      case Failure<String>():
         _log.warning('Failed to add AI response: ${aiResponse.error}');
         _aiGenerationRepository.setErrorGeneratingAiResponse(aiResponse.error);
     }

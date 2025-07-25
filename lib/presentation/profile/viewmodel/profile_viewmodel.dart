@@ -41,7 +41,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
         _successMessage = '닉네임이 변경되었습니다.';
         setSuccess();
         return Result.ok(null);
-      case Error<void>():
+      case Failure<void>():
         setError(result.error);
         return Result.error(result.error);
     }
@@ -68,11 +68,11 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
             _log.fine('Image updated successfully');
             setSuccess();
             return Result.ok(null);
-          case Error<void>():
+          case Failure<void>():
             setError(newProfilePhoto.error);
             return Result.error(newProfilePhoto.error);
         }
-      case Error<String?>():
+      case Failure<String?>():
         _log.warning('Failed to pick image: ${result.error}');
         return Result.error(result.error);
     }
@@ -88,7 +88,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     switch (result) {
       case Ok<void>():
         return Result.ok(null);
-      case Error<void>():
+      case Failure<void>():
         return Result.error(result.error);
     }
   }

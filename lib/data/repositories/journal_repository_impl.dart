@@ -96,6 +96,7 @@ class JournalRepositoryImpl implements JournalRepository {
       'aiResponseEnabled': journal.aiResponseEnabled,
     };
     _cachedJournals = null;
+    _notifyJournalUpdate();
     return Result.ok(response);
   }
 
@@ -119,6 +120,7 @@ class JournalRepositoryImpl implements JournalRepository {
       return Result.error(Exception('Failed to update journal'));
     }
     _cachedJournals = null;
+    _notifyJournalUpdate();
     return Result.ok(updatedRows);
   }
 
@@ -131,13 +133,27 @@ class JournalRepositoryImpl implements JournalRepository {
     if (deletedRows == 0) {
       return Result.error(Exception('Failed to delete journal'));
     }
-    // 일기가 삭제되었으므로 캐시 무효화
+
     _cachedJournals = null;
+    _notifyJournalUpdate();
     return Result.ok(null);
   }
 
   @override
   void clearCache() {
     _cachedJournals = null;
+  }
+
+  Future<void> _notifyJournalUpdate() async {
+    if (!_journalStreamController.isClosed) {
+      final result = await getAllJournals();
+      if (result is Ok<List<Journal>>) {
+        _journalStreamController.add(result.value);
+      }
+    }
+  }
+
+  void dispose() {
+    _journalStreamController.close();
   }
 }

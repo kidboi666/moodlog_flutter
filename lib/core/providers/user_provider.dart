@@ -25,7 +25,7 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
 
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
-  bool get isAnonymousUser => _user?.isAnonymous ?? false;
+  bool get isAnonymousUser => _user?.isAnonymous ?? !isAuthenticated;
 
   bool get isGoogleUser {
     if (_user == null) {

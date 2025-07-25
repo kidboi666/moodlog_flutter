@@ -60,7 +60,7 @@ class StatisticsViewModel extends ChangeNotifier {
           .take(5)
           .toList();
       notifyListeners();
-    } else if (result is Error<List<Journal>>) {
+    } else if (result is Failure<List<Journal>>) {
       debugPrint('Error loading journals: ${result.error}');
     }
   }
