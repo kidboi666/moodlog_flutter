@@ -30,9 +30,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_confirm_save => 'Save';
 
   @override
-  String get settings_ai_personality_changed => 'AI personality has been changed.';
-
-  @override
   String get common_email => 'Email';
 
   @override
@@ -425,6 +422,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settings_data_cache_cleanup_confirm =>
       'Do you want to delete the cache?\nThis action cannot be undone.';
+
+  @override
+  String get settings_ai_personality_changed =>
+      'AI personality has been changed.';
 
   @override
   String get settings_information_title => 'Information';

@@ -282,6 +282,20 @@ enum FontFamily {
         return 'system';
     }
   }
+
+  double? get fixedFontSize {
+    switch (this) {
+      case FontFamily.leeSeoyun:
+        return 16.0;
+      case FontFamily.orbitOfTheMoon:
+        return 15.0;
+      case FontFamily.restart:
+        return 15.0;
+      case FontFamily.pretendard:
+      case FontFamily.system:
+        return null;
+    }
+  }
 }
 
 enum LoginType {

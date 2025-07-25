@@ -167,6 +167,7 @@
   "settings_data_cache_cleanup_title": "Clear Cache",
   "settings_data_cache_cleanup_subtitle": "Delete temporary files.",
   "settings_data_cache_cleanup_confirm": "Do you want to delete the cache?\nThis action cannot be undone.",
+  "settings_ai_personality_changed": "AI personality has been changed.",
   "settings_information_title": "Information",
   "settings_information_app_title": "App Information",
   "settings_information_app_subtitle": "Version and license information",

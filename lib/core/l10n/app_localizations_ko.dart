@@ -30,9 +30,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_confirm_save => '저장';
 
   @override
-  String get settings_ai_personality_changed => 'AI 성격이 변경되었습니다.';
-
-  @override
   String get common_email => '이메일';
 
   @override
@@ -416,6 +413,9 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get settings_data_cache_cleanup_confirm =>
       '캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
+
+  @override
+  String get settings_ai_personality_changed => 'AI 성격이 변경되었습니다.';
 
   @override
   String get settings_information_title => '정보';
