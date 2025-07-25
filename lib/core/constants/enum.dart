@@ -292,8 +292,9 @@ enum FontFamily {
       case FontFamily.restart:
         return 15.0;
       case FontFamily.pretendard:
+        return 16.0;
       case FontFamily.system:
-        return null;
+        return 16.0;
     }
   }
 }

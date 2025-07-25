@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
@@ -35,8 +34,9 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    
+
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       title: Text(t.onboarding_personality_title),
       content: SizedBox(
         width: double.maxFinite,
@@ -51,7 +51,7 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
             const SizedBox(height: Spacing.lg),
             ...AiPersonality.values.map((personality) {
               final isSelected = personality == _selectedPersonality;
-              
+
               return Padding(
                 padding: const EdgeInsets.only(bottom: Spacing.sm),
                 child: PersonalityItem(
