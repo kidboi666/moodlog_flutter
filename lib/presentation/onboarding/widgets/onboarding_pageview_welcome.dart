@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/widget_scale.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
 
@@ -59,7 +60,7 @@ class OnboardingPageViewWelcome extends StatelessWidget {
                 alignment: Alignment.center,
                 onPressed: onNext,
                 icon: const Icon(Icons.arrow_forward),
-              ),
+              ).scale(),
             ),
           ),
         ),

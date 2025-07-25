@@ -57,6 +57,7 @@
   "onboarding_personality_balanced_description": "Balances empathy and realistic advice.",
   "onboarding_personality_compassionate_title": "Compassionate Healer",
   "onboarding_personality_compassionate_description": "Provides warm comfort and deep empathy.",
+  "onboarding_personality_hint": "You can change the setting anytime in the settings menu.",
   "onboarding_success_title": "You're ready to start!",
   "onboarding_success_description": "Shall we start MoodLog?",
   "onboarding_success_next": "Start!",

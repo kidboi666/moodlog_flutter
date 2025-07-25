@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 
 import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/enum.dart';
@@ -61,6 +62,6 @@ class PersonalityItem extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ).scale();
   }
 }

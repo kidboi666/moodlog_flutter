@@ -38,47 +38,39 @@ class OnboardingPageViewPersonality extends StatelessWidget {
             style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: FadeIn(
-                  delay: DelayMs.medium * 2,
-                  child: Selector<OnboardingViewModel, AiPersonality>(
-                    selector: (_, viewModel) => viewModel.selectedPersonality,
-                    builder: (context, selectedPersonality, _) {
-                      return Column(
-                        children: AiPersonality.values.map((personality) {
-                          final isSelected = personality == selectedPersonality;
+        FadeIn(
+          delay: DelayMs.medium * 2,
+          child: Selector<OnboardingViewModel, AiPersonality>(
+            selector: (_, viewModel) => viewModel.selectedPersonality,
+            builder: (context, selectedPersonality, _) {
+              return Column(
+                children: AiPersonality.values.map((personality) {
+                  final isSelected = personality == selectedPersonality;
 
-                          return PersonalityItem(
-                            personality: personality,
-                            isSelected: isSelected,
-                            selectedPersonality: selectedPersonality,
-                            setPersonality: setPersonality,
-                          );
-                        }).toList(),
-                      );
-                    },
-                  ),
-                ),
+                  return PersonalityItem(
+                    personality: personality,
+                    isSelected: isSelected,
+                    selectedPersonality: selectedPersonality,
+                    setPersonality: setPersonality,
+                  );
+                }).toList(),
+              );
+            },
+          ),
+        ),
+        Text(t.onboarding_personality_hint, style: textTheme.bodyMedium),
+        const Expanded(child: SizedBox()),
+        FadeIn(
+          delay: DelayMs.medium * 3,
+          child: SafeArea(
+            bottom: true,
+            child: SizedBox(
+              width: double.infinity,
+              child: IconButton.filled(
+                onPressed: onNext,
+                icon: const Icon(Icons.arrow_forward),
               ),
-              FadeIn(
-                delay: DelayMs.medium * 3,
-                child: SafeArea(
-                  bottom: true,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: IconButton.filled(
-                      onPressed: onNext,
-                      icon: const Icon(Icons.arrow_forward),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ],

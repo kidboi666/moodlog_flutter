@@ -16,7 +16,7 @@ abstract class Settings with _$Settings {
     @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
-    @Default(FontFamily.pretendard) FontFamily fontFamily,
+    @Default(FontFamily.restart) FontFamily fontFamily,
     List<String>? onboardedLoginTypes,
   }) = _Settings;
 

@@ -193,6 +193,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Provides warm comfort and deep empathy.';
 
   @override
+  String get onboarding_personality_hint =>
+      'You can change the setting anytime in the settings menu.';
+
+  @override
   String get onboarding_success_title => 'You\'re ready to start!';
 
   @override

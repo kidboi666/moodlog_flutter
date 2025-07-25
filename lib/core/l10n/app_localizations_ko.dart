@@ -188,6 +188,9 @@ class AppLocalizationsKo extends AppLocalizations {
       '따뜻한 위로와 깊은 공감을 전합니다.';
 
   @override
+  String get onboarding_personality_hint => '설정에서 언제든지 바꿀 수 있습니다.';
+
+  @override
   String get onboarding_success_title => '시작할 준비가 되었어요!';
 
   @override

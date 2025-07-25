@@ -446,6 +446,12 @@ abstract class AppLocalizations {
   /// **'따뜻한 위로와 깊은 공감을 전합니다.'**
   String get onboarding_personality_compassionate_description;
 
+  /// No description provided for @onboarding_personality_hint.
+  ///
+  /// In ko, this message translates to:
+  /// **'설정에서 언제든지 바꿀 수 있습니다.'**
+  String get onboarding_personality_hint;
+
   /// No description provided for @onboarding_success_title.
   ///
   /// In ko, this message translates to:
