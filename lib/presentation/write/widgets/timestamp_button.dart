@@ -3,11 +3,8 @@ import 'package:intl/intl.dart';
 
 class TimestampButton extends StatelessWidget {
   final TextEditingController contentController;
-  
-  const TimestampButton({
-    super.key,
-    required this.contentController,
-  });
+
+  const TimestampButton({super.key, required this.contentController});
 
   void _insertTimestamp() {
     final now = DateTime.now();
@@ -31,10 +28,8 @@ class TimestampButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: _insertTimestamp,
-      icon: Icon(Icons.access_time, size: 20),
-      style: IconButton.styleFrom(
-        padding: EdgeInsets.all(8),
-      ),
+      icon: Icon(Icons.access_time),
+      style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
     );
   }
 }

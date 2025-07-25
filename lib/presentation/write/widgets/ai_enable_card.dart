@@ -35,7 +35,7 @@ class AiEnableCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Center(child: Icon(Icons.adb)),
+                    child: Center(child: Icon(Icons.psychology)),
                   ),
                   Expanded(
                     flex: 4,

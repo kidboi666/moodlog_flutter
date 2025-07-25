@@ -38,7 +38,6 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
     return Padding(
       padding: Spacing.containerHorizontalPadding,
       child: Column(
-        spacing: Spacing.xxl,
         children: [
           Consumer<WriteViewModel>(
             builder: (context, viewModel, _) {
@@ -52,21 +51,27 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             },
           ),
           FadeIn(delay: DelayMs.quick, child: const ImagePickingSection()),
-          FadeIn(
-            delay: DelayMs.quick * 1.5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LocationButton(),
-                TimestampButton(contentController: _contentController),
-                DateButton(),
-              ],
-            ),
+
+          Column(
+            children: [
+              FadeIn(
+                delay: DelayMs.quick * 1.5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    LocationButton(),
+                    TimestampButton(contentController: _contentController),
+                    DateButton(),
+                  ],
+                ),
+              ),
+              FadeIn(
+                delay: DelayMs.quick * 2,
+                child: ContentInput(contentController: _contentController),
+              ),
+            ],
           ),
-          FadeIn(
-            delay: DelayMs.quick * 2,
-            child: ContentInput(contentController: _contentController),
-          ),
+          const SizedBox(height: Spacing.xxl),
           FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
         ],
       ),

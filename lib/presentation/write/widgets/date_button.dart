@@ -13,10 +13,8 @@ class DateButton extends StatelessWidget {
       builder: (context, selectedDate, child) {
         return IconButton(
           onPressed: () => context.read<WriteViewModel>().selectDate(context),
-          icon: Icon(Icons.calendar_month, size: 20),
-          style: IconButton.styleFrom(
-            padding: EdgeInsets.all(8),
-          ),
+          icon: Icon(Icons.calendar_month),
+          style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
         );
       },
     );

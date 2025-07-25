@@ -54,7 +54,7 @@ class _AiResponseBoxState extends State<AiResponseBox>
                 Row(
                   spacing: Spacing.md,
                   children: [
-                    Icon(Icons.adb),
+                    Icon(Icons.psychology),
                     Text(
                       AppLocalizations.of(context)!.write_ai_title,
                       style: Theme.of(context).textTheme.titleSmall,

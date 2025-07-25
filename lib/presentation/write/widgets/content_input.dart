@@ -31,21 +31,21 @@ class ContentInput extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     return TextFormField(
-          controller: contentController,
-          minLines: 10,
-          maxLines: 10,
-          decoration: InputDecoration(
-            fillColor: colorScheme.surfaceContainer,
-            filled: true,
-            border: const UnderlineInputBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-            ),
-            labelText: t.write_input_title,
-            hintText: t.write_input_hint,
+      controller: contentController,
+      minLines: 8,
+      maxLines: 8,
+      decoration: InputDecoration(
+        fillColor: colorScheme.surfaceContainer,
+        filled: true,
+        border: const UnderlineInputBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
-        );
+        ),
+        labelText: t.write_input_title,
+        hintText: t.write_input_hint,
+      ),
+    );
   }
 }

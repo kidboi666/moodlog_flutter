@@ -11,23 +11,21 @@ class LocationButton extends StatelessWidget {
     return Consumer<WriteViewModel>(
       builder: (context, viewModel, child) {
         final locationInfo = viewModel.locationInfo;
-        
+
         if (locationInfo == null) {
           return IconButton(
             onPressed: () => viewModel.getCurrentLocation(),
-            icon: Icon(Icons.location_on, size: 20),
-            style: IconButton.styleFrom(
-              padding: EdgeInsets.all(8),
-            ),
+            icon: Icon(Icons.location_on),
           );
         }
-        
+
         return IconButton(
           onPressed: () => viewModel.clearLocation(),
-          icon: Icon(Icons.location_on, size: 20, color: Theme.of(context).colorScheme.primary),
-          style: IconButton.styleFrom(
-            padding: EdgeInsets.all(8),
+          icon: Icon(
+            Icons.location_on,
+            color: Theme.of(context).colorScheme.primary,
           ),
+          style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
         );
       },
     );
