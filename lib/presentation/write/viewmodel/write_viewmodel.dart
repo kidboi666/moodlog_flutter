@@ -94,7 +94,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   Future<Result<void>> submitJournal() async {
     if (!isFormValid) {
       _log.warning('Content is required');
-      return Result.error(Exception('Content is required'));
+      return Result.failure(Exception('Content is required'));
     }
 
     _isSubmitted = false;
@@ -123,7 +123,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         return Result.ok(null);
       case Failure<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
-        return Result.error(result.error);
+        return Result.failure(result.error);
     }
   }
 

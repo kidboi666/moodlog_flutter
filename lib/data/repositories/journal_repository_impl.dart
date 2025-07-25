@@ -68,7 +68,7 @@ class JournalRepositoryImpl implements JournalRepository {
     )..where((t) => t.id.equals(id))).getSingleOrNull();
 
     if (journal == null) {
-      return Result.error(Exception('Journal with ID $id not found.'));
+      return Result.failure(Exception('Journal with ID $id not found.'));
     } else {
       return Result.ok(journal);
     }
@@ -89,7 +89,7 @@ class JournalRepositoryImpl implements JournalRepository {
         );
 
     if (journal == null) {
-      return Result.error(Exception('Failed to add journal'));
+      return Result.failure(Exception('Failed to add journal'));
     }
     final response = {
       'id': journal.id,
@@ -117,7 +117,7 @@ class JournalRepositoryImpl implements JournalRepository {
           ),
         );
     if (updatedRows == 0) {
-      return Result.error(Exception('Failed to update journal'));
+      return Result.failure(Exception('Failed to update journal'));
     }
     _cachedJournals = null;
     _notifyJournalUpdate();
@@ -131,7 +131,7 @@ class JournalRepositoryImpl implements JournalRepository {
     )..where((t) => t.id.equals(id))).go();
 
     if (deletedRows == 0) {
-      return Result.error(Exception('Failed to delete journal'));
+      return Result.failure(Exception('Failed to delete journal'));
     }
 
     _cachedJournals = null;

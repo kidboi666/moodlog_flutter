@@ -43,7 +43,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
         return Result.ok(null);
       case Failure<void>():
         setError(result.error);
-        return Result.error(result.error);
+        return Result.failure(result.error);
     }
   }
 
@@ -70,11 +70,11 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
             return Result.ok(null);
           case Failure<void>():
             setError(newProfilePhoto.error);
-            return Result.error(newProfilePhoto.error);
+            return Result.failure(newProfilePhoto.error);
         }
       case Failure<String?>():
         _log.warning('Failed to pick image: ${result.error}');
-        return Result.error(result.error);
+        return Result.failure(result.error);
     }
   }
 
@@ -89,7 +89,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
       case Ok<void>():
         return Result.ok(null);
       case Failure<void>():
-        return Result.error(result.error);
+        return Result.failure(result.error);
     }
   }
 }

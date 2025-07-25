@@ -3,7 +3,7 @@ sealed class Result<T> {
 
   const factory Result.ok(T value) = Ok._;
 
-  const factory Result.error(Object error) = Failure._;
+  const factory Result.failure(Object error) = Failure._;
 }
 
 final class Ok<T> extends Result<T> {

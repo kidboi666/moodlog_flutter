@@ -20,7 +20,7 @@ class PickImageUseCase {
       return Result.ok(null);
     } catch (e) {
       _log.warning('Error picking image: $e');
-      return Result.error(e);
+      return Result.failure(e);
     }
   }
 }
