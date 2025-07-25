@@ -80,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
 
               SectionHeader(title: t.settings_common_title),
 
-              // TODO: 미구현 알림 기능
+              // TODO: 알림 On/Off 기능
               if (kDebugMode)
                 SwitchTile(
                   title: t.settings_common_notification_title,
@@ -128,7 +128,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: Spacing.xl),
               SectionHeader(title: t.settings_data_title),
-              // TODO: 미구현 데이터 백업
+              // TODO: 데이터 자동 백업 On/Off 기능
               if (kDebugMode) ...[
                 SwitchTile(
                   title: t.settings_data_auto_sync_title,
@@ -168,7 +168,7 @@ class SettingsScreen extends StatelessWidget {
                   builder: (_) => AppInfoDialog(viewModel: viewModel),
                 ),
               ),
-              // TODO: 미구현 FAQ
+              // TODO: FAQ 웹뷰 이동 기능
               if (kDebugMode)
                 CardListTile(
                   title: t.settings_information_faq_title,

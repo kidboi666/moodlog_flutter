@@ -59,7 +59,7 @@ class SignInScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GoogleSigninButton(),
-                    // TODO 카카오 로그인
+                    // TODO: 카카오 로그인 기능
                     if (kDebugMode) KakaoSigninButton(),
                     if (source != SignInSource.profile) GuestSigninButton(),
                     const SizedBox(height: Spacing.md),

@@ -69,7 +69,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void performBackup(BuildContext context) {
-    // TODO 백업 로직 구현
+    // TODO: 백업 기능
     context.pop();
     ScaffoldMessenger.of(
       context,
