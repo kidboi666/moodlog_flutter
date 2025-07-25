@@ -492,4 +492,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get write_ai_limit_reached =>
       'AI responses are limited to once per day. Try again tomorrow!';
+
+  @override
+  String get write_timestamp_add => 'Add Time';
 }
