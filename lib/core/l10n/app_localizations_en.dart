@@ -27,6 +27,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_confirm_delete => 'Delete';
 
   @override
+  String get common_confirm_save => 'Save';
+
+  @override
   String get common_email => 'Email';
 
   @override

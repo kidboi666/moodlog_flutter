@@ -68,6 +68,10 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateFontFamily(fontType!);
   }
 
+  void setAiPersonality(AiPersonality personality) {
+    _appStateProvider.updateAiPersonality(personality);
+  }
+
   void performBackup(BuildContext context) {
     // TODO: 백업 기능
     context.pop();

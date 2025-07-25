@@ -27,6 +27,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_confirm_delete => '삭제';
 
   @override
+  String get common_confirm_save => '저장';
+
+  @override
   String get common_email => '이메일';
 
   @override

@@ -134,6 +134,12 @@ abstract class AppLocalizations {
   /// **'삭제'**
   String get common_confirm_delete;
 
+  /// No description provided for @common_confirm_save.
+  ///
+  /// In ko, this message translates to:
+  /// **'저장'**
+  String get common_confirm_save;
+
   /// No description provided for @common_email.
   ///
   /// In ko, this message translates to:

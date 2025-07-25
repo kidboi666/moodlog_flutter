@@ -15,6 +15,7 @@ import '../widgets/dialog/backup_dialog.dart';
 import '../widgets/dialog/clear_cache_dialog.dart';
 import '../widgets/dialog/color_theme_dialog.dart';
 import '../widgets/dialog/contact_dialog.dart';
+import '../widgets/dialog/ai_personality_dialog.dart';
 import '../widgets/dialog/font_family_dialog.dart';
 import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
@@ -127,6 +128,19 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Spacing.xl),
+              
+              SectionHeader(title: 'AI 설정'),
+              DialogTile(
+                title: 'AI 성격',
+                subtitle: viewModel.appState.aiPersonality.getTitle(context),
+                icon: Icons.psychology,
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => AiPersonalityDialog(viewModel: viewModel),
+                ),
+              ),
+              const SizedBox(height: Spacing.xl),
+              
               SectionHeader(title: t.settings_data_title),
               // TODO: 데이터 자동 백업 On/Off 기능
               if (kDebugMode) ...[
