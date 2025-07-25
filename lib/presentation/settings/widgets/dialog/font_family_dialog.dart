@@ -24,26 +24,14 @@ class FontFamilyDialog extends StatelessWidget {
             builder: (_, _) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  RadioListTile<FontFamily>(
-                    title: Text(FontFamily.system.getDisplayName(context)),
-                    value: FontFamily.system,
+                children: FontFamily.values.map((fontFamily) {
+                  return RadioListTile<FontFamily>(
+                    title: Text(fontFamily.getDisplayName(context)),
+                    value: fontFamily,
                     groupValue: viewModel.appState.fontFamily,
                     onChanged: viewModel.setFontFamily,
-                  ),
-                  RadioListTile<FontFamily>(
-                    title: Text(FontFamily.pretendard.getDisplayName(context)),
-                    value: FontFamily.pretendard,
-                    groupValue: viewModel.appState.fontFamily,
-                    onChanged: viewModel.setFontFamily,
-                  ),
-                  RadioListTile<FontFamily>(
-                    title: Text(FontFamily.leeSeoyun.getDisplayName(context)),
-                    value: FontFamily.leeSeoyun,
-                    groupValue: viewModel.appState.fontFamily,
-                    onChanged: viewModel.setFontFamily,
-                  ),
-                ],
+                  );
+                }).toList(),
               );
             },
           ),

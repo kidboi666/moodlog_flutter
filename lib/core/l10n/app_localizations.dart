@@ -776,6 +776,12 @@ abstract class AppLocalizations {
   /// **'이서윤체'**
   String get settings_common_font_family_leeSeoyun;
 
+  /// No description provided for @settings_common_font_family_orbitOfTheMoon.
+  ///
+  /// In ko, this message translates to:
+  /// **'나눔손글씨 달의궤도'**
+  String get settings_common_font_family_orbitOfTheMoon;
+
   /// No description provided for @settings_common_font_family_system.
   ///
   /// In ko, this message translates to:

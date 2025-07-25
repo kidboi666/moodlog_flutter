@@ -66,3 +66,6 @@ flutter:
     - family: LeeSeoyun
       fonts:
         - asset: assets/fonts/LeeSeoyun-Regular.ttf
+    - family: OrbitOfTheMoon
+      fonts:
+        - asset: assets/fonts/Nanum-OrbitOfTheMoon.ttf
