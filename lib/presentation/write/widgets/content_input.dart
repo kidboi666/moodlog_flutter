@@ -13,12 +13,12 @@ class ContentInput extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return TextFormField(
       controller: contentController,
-      minLines: 8,
-      maxLines: 8,
+      minLines: 10,
+      maxLines: 10,
       decoration: InputDecoration(
         fillColor: colorScheme.surfaceContainer,
         filled: true,
-        border: UnderlineInputBorder(
+        border: const UnderlineInputBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),

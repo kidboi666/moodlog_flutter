@@ -11,6 +11,7 @@ import 'core/providers/app_state_provider.dart';
 import 'core/routing/router.dart';
 import 'core/theme/theme.dart';
 import 'firebase_options.dart';
+import 'presentation/widgets/spinner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +36,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
       builder: (context, appStateProvider, child) {
         final appState = appStateProvider.appState;
         if (appStateProvider.isLoading) {
-          return const MaterialApp(
-            home: Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
+          return const Spinner(spinnerType: SpinnerType.screen);
         }
         return MaterialApp.router(
           localizationsDelegates: [

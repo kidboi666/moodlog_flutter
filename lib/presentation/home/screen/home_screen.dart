@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/scaled_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -119,6 +120,12 @@ class HomeScreen extends StatelessWidget {
                 }, childCount: viewModel.journal.length),
               );
             },
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ScaledElevatedButton(onPressed: () {}, child: Text('asdf')),
           ),
         ),
         const SliverToBoxAdapter(
