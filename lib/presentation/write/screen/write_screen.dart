@@ -86,7 +86,7 @@ class _WriteScreenState extends State<WriteScreen> {
         onPageChanged: context.read<WriteViewModel>().setStep,
         children: [
           WritePageViewMood(nextPage: nextPage),
-          WritePageViewRest(),
+          const WritePageViewRest(),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/extensions/widget_scale.dart';
 
 class Avatar extends StatelessWidget {
   final String? photoUrl;
@@ -45,6 +46,6 @@ class Avatar extends StatelessWidget {
               )
             : Icon(Icons.person, size: size * 0.6),
       ),
-    );
+    ).scale();
   }
 }

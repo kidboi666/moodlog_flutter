@@ -32,7 +32,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository,
        _pickImageUseCase = pickImageUseCase {
-    initStep(totalSteps);
+      initStep(totalSteps);
+  }
+
+  @override
+  void setStep(int step) {
+    super.setStep(step);
+    if (step > 0) {
+      _hasVisitedContentPage = true;
+    }
   }
 
   final Logger _log = Logger('WriteViewModel');
@@ -43,6 +51,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   int? _submittedJournalId;
   bool _aiEnabled = true;
   DateTime _selectedDate = DateTime.now();
+  bool _hasVisitedContentPage = false;
 
   String? get content => _content;
 
@@ -57,6 +66,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool get isSubmitted => _isSubmitted;
 
   int? get submittedJournalId => _submittedJournalId;
+
+  bool get shouldAutoNavigateOnMoodSelect => !_hasVisitedContentPage;
 
   void updateAiEnabled(bool value) {
     _aiEnabled = value;
@@ -84,6 +95,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _isSubmitted = false;
     _submittedJournalId = null;
     _aiEnabled = true;
+    _hasVisitedContentPage = false;
+    clearError();
     notifyListeners();
   }
 
@@ -97,6 +110,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       return Result.failure(Exception('Content is required'));
     }
 
+    setLoading();
     _isSubmitted = false;
     _submittedJournalId = null;
 
@@ -119,24 +133,26 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         if (aiResponseEnabled == true) {
           _generateAiResponse();
         }
-        notifyListeners();
+        setSuccess();
         return Result.ok(null);
       case Failure<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
+        setError(result.error);
         return Result.failure(result.error);
     }
   }
 
   Future<void> pickImage() async {
+    setLoading();
     final result = await _pickImageUseCase.pickImage();
     switch (result) {
       case Ok<String?>():
         _log.fine('Image picked successfully');
         _imageFileList.add(result.value!);
-        notifyListeners();
+        setSuccess();
       case Failure<String?>():
         _log.warning('Failed to pick image: ${result.error}');
-        notifyListeners();
+        setError(result.error);
     }
   }
 

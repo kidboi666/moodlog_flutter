@@ -28,7 +28,9 @@ class MoodButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: () {
             viewModel.updateMoodType(mood);
-            nextPage();
+            if (viewModel.shouldAutoNavigateOnMoodSelect) {
+              nextPage();
+            }
           },
           style: ButtonStyle(
             elevation: WidgetStateProperty.all(0),
