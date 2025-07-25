@@ -39,11 +39,12 @@ class JournalCard extends StatelessWidget {
         onDismissed();
       },
       child: Card(
+        clipBehavior: Clip.antiAlias,
         elevation: 0,
         child: InkResponse(
-          onTap: onTap,
           containedInkWell: true,
           child: ListTile(
+            onTap: onTap,
             contentPadding: EdgeInsets.symmetric(
               horizontal: Spacing.xxl,
               vertical: Spacing.md,

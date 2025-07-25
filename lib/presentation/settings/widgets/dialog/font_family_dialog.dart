@@ -26,7 +26,10 @@ class FontFamilyDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: FontFamily.values.map((fontFamily) {
                   return RadioListTile<FontFamily>(
-                    title: Text(fontFamily.getDisplayName(context)),
+                    title: Text(
+                      fontFamily.getDisplayName(context),
+                      style: TextStyle(fontFamily: fontFamily.value),
+                    ),
                     value: fontFamily,
                     groupValue: viewModel.appState.fontFamily,
                     onChanged: viewModel.setFontFamily,

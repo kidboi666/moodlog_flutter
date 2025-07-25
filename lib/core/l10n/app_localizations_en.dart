@@ -351,6 +351,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_theme_subtitle => 'Select brightness theme.';
 
   @override
+  String get settings_common_theme_light => 'Light Theme';
+
+  @override
+  String get settings_common_theme_dark => 'Dark Theme';
+
+  @override
+  String get settings_common_theme_system => 'System Theme';
+
+  @override
   String get settings_common_color_theme_title => 'Color Theme';
 
   @override

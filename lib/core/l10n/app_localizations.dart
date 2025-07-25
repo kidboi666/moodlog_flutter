@@ -734,6 +734,24 @@ abstract class AppLocalizations {
   /// **'밝기 테마를 선택합니다.'**
   String get settings_common_theme_subtitle;
 
+  /// No description provided for @settings_common_theme_light.
+  ///
+  /// In ko, this message translates to:
+  /// **'밝은 테마'**
+  String get settings_common_theme_light;
+
+  /// No description provided for @settings_common_theme_dark.
+  ///
+  /// In ko, this message translates to:
+  /// **'어두운 테마'**
+  String get settings_common_theme_dark;
+
+  /// No description provided for @settings_common_theme_system.
+  ///
+  /// In ko, this message translates to:
+  /// **'시스템 테마'**
+  String get settings_common_theme_system;
+
   /// No description provided for @settings_common_color_theme_title.
   ///
   /// In ko, this message translates to:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:moodlog/core/extensions/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
 import '../../../../../core/constants/enum.dart';
@@ -21,19 +22,19 @@ class ThemeDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile<ThemeMode>(
-              title: Text(ThemeMode.light.displayName),
+              title: Text(ThemeMode.light.getDisplayName(context)),
               value: ThemeMode.light,
               groupValue: viewModel.appState.themeMode,
               onChanged: viewModel.setTheme,
             ),
             RadioListTile<ThemeMode>(
-              title: Text(ThemeMode.dark.displayName),
+              title: Text(ThemeMode.dark.getDisplayName(context)),
               value: ThemeMode.dark,
               groupValue: viewModel.appState.themeMode,
               onChanged: viewModel.setTheme,
             ),
             RadioListTile<ThemeMode>(
-              title: Text(ThemeMode.system.displayName),
+              title: Text(ThemeMode.system.getDisplayName(context)),
               value: ThemeMode.system,
               groupValue: viewModel.appState.themeMode,
               onChanged: viewModel.setTheme,

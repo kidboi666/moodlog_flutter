@@ -64,3 +64,17 @@ extension FontFamilyExtension on FontFamily {
     }
   }
 }
+
+extension ThemeModeExtension on ThemeMode {
+  String getDisplayName(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    switch (this) {
+      case ThemeMode.light:
+        return t.settings_common_theme_light;
+      case ThemeMode.dark:
+        return t.settings_common_theme_dark;
+      case ThemeMode.system:
+        return t.settings_common_theme_system;
+    }
+  }
+}

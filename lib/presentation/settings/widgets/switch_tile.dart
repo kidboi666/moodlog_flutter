@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extensions/widget_scale.dart';
+
 class SwitchTile extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -21,8 +23,7 @@ class SwitchTile extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 0,
-      margin: const EdgeInsets.all(4.0),
-      child: InkWell(
+      child: InkResponse(
         child: SwitchListTile(
           title: Text(title, style: Theme.of(context).textTheme.titleMedium),
           subtitle: Text(subtitle),
@@ -31,6 +32,6 @@ class SwitchTile extends StatelessWidget {
           onChanged: onChanged,
         ),
       ),
-    );
+    ).scale();
   }
 }

@@ -342,6 +342,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_theme_subtitle => '밝기 테마를 선택합니다.';
 
   @override
+  String get settings_common_theme_light => '밝은 테마';
+
+  @override
+  String get settings_common_theme_dark => '어두운 테마';
+
+  @override
+  String get settings_common_theme_system => '시스템 테마';
+
+  @override
   String get settings_common_color_theme_title => '색상 테마';
 
   @override

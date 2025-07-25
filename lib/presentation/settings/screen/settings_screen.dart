@@ -54,6 +54,7 @@ class SettingsScreen extends StatelessWidget {
           sliver: SliverList(
             delegate: SliverChildListDelegate.fixed([
               const SizedBox(height: Spacing.xl),
+
               if (kDebugMode) ...[
                 SectionHeader(title: '개발용 옵션'),
                 DialogTile(
@@ -74,11 +75,11 @@ class SettingsScreen extends StatelessWidget {
                     builder: (_) => InitDatabaseDialog(),
                   ),
                 ),
-
                 const SizedBox(height: Spacing.xl),
               ],
 
               SectionHeader(title: t.settings_common_title),
+
               // TODO: 미구현 알림 기능
               if (kDebugMode)
                 SwitchTile(
@@ -88,6 +89,7 @@ class SettingsScreen extends StatelessWidget {
                   value: viewModel.appState.hasNotificationEnabled,
                   onChanged: viewModel.setNotificationEnabled,
                 ),
+
               DialogTile(
                 title: t.settings_common_theme_title,
                 subtitle: t.settings_common_theme_subtitle,
@@ -145,6 +147,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ],
+
               CardListTile(
                 title: t.settings_data_cache_cleanup_title,
                 subtitle: t.settings_data_cache_cleanup_subtitle,
@@ -173,6 +176,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.help,
                   onTap: () {},
                 ),
+
               CardListTile(
                 title: t.settings_information_qna_title,
                 subtitle: t.settings_information_qna_subtitle,
