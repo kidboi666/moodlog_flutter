@@ -20,12 +20,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ProfileViewModel? _viewModel;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final viewModel = context.read<ProfileViewModel>();
-      viewModel.addListener(_handleViewModelChanges);
+      _viewModel = context.read<ProfileViewModel>();
+      _viewModel!.addListener(_handleViewModelChanges);
     });
   }
 
@@ -53,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void dispose() {
-    context.read<ProfileViewModel>().removeListener(_handleViewModelChanges);
+    _viewModel?.removeListener(_handleViewModelChanges);
     super.dispose();
   }
 

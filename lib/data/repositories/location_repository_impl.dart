@@ -30,22 +30,32 @@ class LocationRepositoryImpl implements LocationRepository {
   @override
   Future<Result<LocationInfo>> getCurrentLocation() async {
     try {
+      print('Checking location service...');
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
+        print('Location services are disabled');
         return Result.failure(Exception('Location services are disabled'));
       }
 
+      print('Checking location permission...');
       LocationPermission permission = await Geolocator.checkPermission();
+      print('Current permission: $permission');
+      
       if (permission == LocationPermission.denied) {
+        print('Requesting location permission...');
         permission = await Geolocator.requestPermission();
+        print('Permission after request: $permission');
         if (permission == LocationPermission.denied) {
           return Result.failure(Exception('Location permissions are denied'));
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied');
         return Result.failure(Exception('Location permissions are permanently denied'));
       }
+
+      print('Getting current position...');
 
       final position = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
