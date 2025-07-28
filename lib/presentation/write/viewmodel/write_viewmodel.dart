@@ -9,13 +9,13 @@ import '../../../core/providers/app_state_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../data/models/request/add_journal_request.dart';
 import '../../../data/models/request/update_journal_request.dart';
+import '../../../domain/entities/location_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/image/pick_image_usecase.dart';
 import '../../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../../domain/entities/location_info.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final JournalRepository _journalRepository;
@@ -150,16 +150,16 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _submittedJournalId = null;
 
     final newJournal = AddJournalRequest(
-      content: content,
-      moodType: selectedMood,
-      imageUri: imageUri,
-      aiResponseEnabled: aiEnabled,
-      createdAt: selectedDate,
+      content: _content,
+      moodType: _selectedMood,
+      imageUri: _imageFileList,
+      aiResponseEnabled: _aiEnabled,
+      createdAt: _selectedDate,
       latitude: _locationInfo?.latitude,
       longitude: _locationInfo?.longitude,
       address: _locationInfo?.address,
     );
-
+    print(newJournal);
     final result = await _journalRepository.addJournal(newJournal);
 
     switch (result) {
@@ -283,7 +283,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   Future<void> getCurrentLocation() async {
     setLoading();
     final result = await _getCurrentLocationUseCase.execute();
-    
+
     switch (result) {
       case Ok<LocationInfo>():
         _log.fine('Location retrieved successfully');

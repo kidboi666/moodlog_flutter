@@ -78,14 +78,36 @@ enum AiPersonality {
 }
 
 enum SimpleTextAlign {
-  left(material.TextAlign.left, material.Icons.format_align_left),
-  center(material.TextAlign.center, material.Icons.format_align_center),
-  right(material.TextAlign.right, material.Icons.format_align_right);
+  left(
+    material.TextAlign.left,
+    material.Icons.format_align_left,
+    material.MainAxisAlignment.start,
+    material.CrossAxisAlignment.start,
+  ),
+  center(
+    material.TextAlign.center,
+    material.Icons.format_align_center,
+    material.MainAxisAlignment.center,
+    material.CrossAxisAlignment.center,
+  ),
+  right(
+    material.TextAlign.right,
+    material.Icons.format_align_right,
+    material.MainAxisAlignment.end,
+    material.CrossAxisAlignment.end,
+  );
 
-  const SimpleTextAlign(this.textAlign, this.icon);
+  const SimpleTextAlign(
+    this.textAlign,
+    this.icon,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  );
 
   final material.TextAlign textAlign;
   final material.IconData icon;
+  final material.MainAxisAlignment mainAxisAlignment;
+  final material.CrossAxisAlignment crossAxisAlignment;
 
   SimpleTextAlign get next {
     final currentIndex = SimpleTextAlign.values.indexOf(this);

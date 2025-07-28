@@ -1,5 +1,5 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../core/utils/result.dart';
@@ -13,7 +13,9 @@ class LocationRepositoryImpl implements LocationRepository {
       final status = await Permission.location.status;
       return Result.ok(status.isGranted);
     } catch (e) {
-      return Result.failure(Exception('Failed to check location permission: $e'));
+      return Result.failure(
+        Exception('Failed to check location permission: $e'),
+      );
     }
   }
 
@@ -23,39 +25,34 @@ class LocationRepositoryImpl implements LocationRepository {
       final status = await Permission.location.request();
       return Result.ok(status.isGranted);
     } catch (e) {
-      return Result.failure(Exception('Failed to request location permission: $e'));
+      return Result.failure(
+        Exception('Failed to request location permission: $e'),
+      );
     }
   }
 
   @override
   Future<Result<LocationInfo>> getCurrentLocation() async {
     try {
-      print('Checking location service...');
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        print('Location services are disabled');
         return Result.failure(Exception('Location services are disabled'));
       }
 
-      print('Checking location permission...');
       LocationPermission permission = await Geolocator.checkPermission();
-      print('Current permission: $permission');
-      
+
       if (permission == LocationPermission.denied) {
-        print('Requesting location permission...');
         permission = await Geolocator.requestPermission();
-        print('Permission after request: $permission');
         if (permission == LocationPermission.denied) {
           return Result.failure(Exception('Location permissions are denied'));
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        print('Location permissions are permanently denied');
-        return Result.failure(Exception('Location permissions are permanently denied'));
+        return Result.failure(
+          Exception('Location permissions are permanently denied'),
+        );
       }
-
-      print('Getting current position...');
 
       final position = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
@@ -74,18 +71,23 @@ class LocationRepositoryImpl implements LocationRepository {
         Failure<String>() => null,
       };
 
-      return Result.ok(LocationInfo(
-        latitude: position.latitude,
-        longitude: position.longitude,
-        address: address,
-      ));
+      return Result.ok(
+        LocationInfo(
+          latitude: position.latitude,
+          longitude: position.longitude,
+          address: address,
+        ),
+      );
     } catch (e) {
       return Result.failure(Exception('Failed to get current location: $e'));
     }
   }
 
   @override
-  Future<Result<String>> getAddressFromCoordinates(double latitude, double longitude) async {
+  Future<Result<String>> getAddressFromCoordinates(
+    double latitude,
+    double longitude,
+  ) async {
     try {
       final placemarks = await placemarkFromCoordinates(latitude, longitude);
       if (placemarks.isNotEmpty) {
@@ -96,7 +98,7 @@ class LocationRepositoryImpl implements LocationRepository {
           placemark.locality,
           placemark.administrativeArea,
         ].where((element) => element != null && element.isNotEmpty).join(', ');
-        
+
         return Result.ok(address.isNotEmpty ? address : 'Unknown location');
       }
       return Result.failure(Exception('No address found'));

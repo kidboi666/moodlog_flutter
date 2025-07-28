@@ -33,32 +33,43 @@ class LocationSection extends StatelessWidget {
           );
         }
 
-        return Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.location_on, size: 16, color: colorScheme.primary),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  locationInfo.address ??
-                      '${locationInfo.latitude.toStringAsFixed(4)}, ${locationInfo.longitude.toStringAsFixed(4)}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
+        return Row(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(12),
               ),
-              IconButton(
-                onPressed: () => viewModel.clearLocation(),
-                icon: Icon(Icons.close, size: 16),
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints(minWidth: 24, minHeight: 24),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.location_on, size: 12, color: colorScheme.primary),
+                  SizedBox(width: 4),
+                  Text(
+                    locationInfo.address ??
+                        '${locationInfo.latitude.toStringAsFixed(2)}, ${locationInfo.longitude.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 11,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            SizedBox(width: 8),
+            TextButton.icon(
+              onPressed: () => viewModel.clearLocation(),
+              icon: Icon(Icons.close, size: 14),
+              label: Text(t.write_location_remove ?? '제거'),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                textStyle: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          ],
         );
       },
     );

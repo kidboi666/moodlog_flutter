@@ -85,6 +85,9 @@ class JournalRepositoryImpl implements JournalRepository {
             imageUri: Value(dto.imageUri),
             createdAt: Value(dto.createdAt),
             aiResponseEnabled: Value(dto.aiResponseEnabled),
+            latitude: Value(dto.latitude),
+            longitude: Value(dto.longitude),
+            address: Value(dto.address),
           ),
         );
 

@@ -271,6 +271,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get write_ai_description => '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.';
 
   @override
+  String get write_location_remove => '제거';
+
+  @override
   String get journal_delete_confirm_title => '삭제 확인';
 
   @override

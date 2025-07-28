@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/routing.dart';
+import 'package:moodlog/presentation/write/widgets/location_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -57,8 +58,9 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
               FadeIn(
                 delay: DelayMs.quick * 1.5,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    LocationCard(),
+                    SizedBox(width: 8),
                     LocationButton(),
                     TimestampButton(contentController: _contentController),
                     DateButton(),

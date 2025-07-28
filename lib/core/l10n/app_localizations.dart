@@ -608,6 +608,12 @@ abstract class AppLocalizations {
   /// **'일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.'**
   String get write_ai_description;
 
+  /// No description provided for @write_location_remove.
+  ///
+  /// In ko, this message translates to:
+  /// **'제거'**
+  String get write_location_remove;
+
   /// No description provided for @journal_delete_confirm_title.
   ///
   /// In ko, this message translates to:

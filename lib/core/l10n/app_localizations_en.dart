@@ -278,6 +278,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'After writing your diary, AI will send you comfort and encouragement messages.';
 
   @override
+  String get write_location_remove => 'Remove';
+
+  @override
   String get journal_delete_confirm_title => 'Delete Confirmation';
 
   @override

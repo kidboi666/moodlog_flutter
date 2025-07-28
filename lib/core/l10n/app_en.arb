@@ -90,6 +90,7 @@
   "write_input_hint": "Record your emotions and experiences today.",
   "write_ai_title": "AI Comfort Message",
   "write_ai_description": "After writing your diary, AI will send you comfort and encouragement messages.",
+  "write_location_remove": "Remove",
   "journal_delete_confirm_title": "Delete Confirmation",
   "journal_delete_confirm_description": "Are you sure you want to delete this entry?",
   "journal_ai_generating_response_title": "AI is writing a response.",
