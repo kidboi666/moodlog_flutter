@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/mixins/async_state_mixin.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/mixins/debounce_mixin.dart';
 import '../../../core/providers/app_state_provider.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/utils/result.dart';
@@ -11,7 +12,8 @@ import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
+class JournalViewModel extends ChangeNotifier
+    with AsyncStateMixin, DebounceMixin {
   final JournalRepository _journalRepository;
   final AiGenerationRepository _aiGenerationRepository;
   final AppStateProvider _appStateProvider;
@@ -33,12 +35,14 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
 
   final Logger _log = Logger('JournalViewModel');
   late Journal _journal;
+  SimpleTextAlign? _pendingAlign; // 로컬 상태
 
   bool get shouldReplaceOnPop => source == JournalSource.write;
 
   Journal get journal => _journal;
 
-  SimpleTextAlign get currentAlign => _appStateProvider.appState.textAlign;
+  SimpleTextAlign get currentAlign =>
+      _pendingAlign ?? _appStateProvider.appState.textAlign;
 
   bool get isGeneratingAiResponse =>
       _aiGenerationRepository.isGeneratingAiResponse;
@@ -52,9 +56,13 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void changeAlign() {
-    final nextAlign = currentAlign.next;
-    _appStateProvider.updateTextAlign(nextAlign);
+    _pendingAlign = currentAlign.next;
     notifyListeners();
+
+    debounce('text_align', Duration(milliseconds: 300), () {
+      _appStateProvider.updateTextAlign(_pendingAlign!);
+      _pendingAlign = null; // 저장 완료 후 로컬 상태 초기화
+    });
   }
 
   Future<Result<void>> delete() async {
@@ -91,6 +99,7 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
   @override
   void dispose() {
     _aiGenerationRepository.removeListener(_load);
+    disposeDebounce(); // DebounceMixin의 cleanup
     super.dispose();
   }
 }
