@@ -17,6 +17,8 @@ abstract class SettingsRepository extends ChangeNotifier {
 
   Future<FontFamily> getFontFamily();
 
+  Future<SimpleTextAlign> getTextAlign();
+
   Future<List<String>?> getOnboardedLoginTypes();
 
   Future<void> updateAiPersonality(AiPersonality aiPersonality);
@@ -32,6 +34,8 @@ abstract class SettingsRepository extends ChangeNotifier {
   Future<void> updateColorTheme(ColorTheme colorTheme);
 
   Future<void> updateFontFamily(FontFamily fontType);
+
+  Future<void> updateTextAlign(SimpleTextAlign textAlign);
 
   Future<void> updateOnboardedLoginTypes(LoginType loginType);
 

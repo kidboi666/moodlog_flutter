@@ -66,6 +66,13 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
+  Future<SimpleTextAlign> getTextAlign() async {
+    final p = await prefs;
+    final textAlignString = p.getString(PreferenceKeys.textAlign);
+    return SimpleTextAlign.fromString(textAlignString);
+  }
+
+  @override
   Future<List<String>?> getOnboardedLoginTypes() async {
     final p = await prefs;
     return p.getStringList(PreferenceKeys.onboardingCompleted);
@@ -95,6 +102,12 @@ class SettingsRepositoryImpl extends SettingsRepository {
     final p = await prefs;
     _log.info('Saving fontFamily: ${fontFamily.value}');
     await p.setString(PreferenceKeys.fontFamily, fontFamily.value);
+  }
+
+  @override
+  Future<void> updateTextAlign(SimpleTextAlign textAlign) async {
+    final p = await prefs;
+    await p.setString(PreferenceKeys.textAlign, textAlign.value);
   }
 
   @override

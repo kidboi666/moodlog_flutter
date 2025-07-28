@@ -24,6 +24,9 @@ _Settings _$SettingsFromJson(Map<String, dynamic> json) => _Settings(
   fontFamily:
       $enumDecodeNullable(_$FontFamilyEnumMap, json['fontFamily']) ??
       FontFamily.restart,
+  textAlign:
+      $enumDecodeNullable(_$SimpleTextAlignEnumMap, json['textAlign']) ??
+      SimpleTextAlign.left,
   onboardedLoginTypes: (json['onboardedLoginTypes'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
@@ -37,6 +40,7 @@ Map<String, dynamic> _$SettingsToJson(_Settings instance) => <String, dynamic>{
   'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
   'aiPersonality': _$AiPersonalityEnumMap[instance.aiPersonality]!,
   'fontFamily': _$FontFamilyEnumMap[instance.fontFamily]!,
+  'textAlign': _$SimpleTextAlignEnumMap[instance.textAlign]!,
   'onboardedLoginTypes': instance.onboardedLoginTypes,
 };
 
@@ -70,4 +74,10 @@ const _$FontFamilyEnumMap = {
   FontFamily.restart: 'restart',
   FontFamily.overcome: 'overcome',
   FontFamily.system: 'system',
+};
+
+const _$SimpleTextAlignEnumMap = {
+  SimpleTextAlign.left: 'left',
+  SimpleTextAlign.center: 'center',
+  SimpleTextAlign.right: 'right',
 };

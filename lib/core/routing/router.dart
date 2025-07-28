@@ -96,6 +96,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           create: (context) => JournalViewModel(
             journalRepository: context.read(),
             aiGenerationRepository: context.read(),
+            appStateProvider: context.read(),
             source: source,
             id: id,
           ),

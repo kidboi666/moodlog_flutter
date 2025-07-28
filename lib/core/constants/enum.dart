@@ -114,6 +114,30 @@ enum SimpleTextAlign {
     final nextIndex = (currentIndex + 1) % SimpleTextAlign.values.length;
     return SimpleTextAlign.values[nextIndex];
   }
+
+  String get value {
+    switch (this) {
+      case SimpleTextAlign.left:
+        return 'left';
+      case SimpleTextAlign.center:
+        return 'center';
+      case SimpleTextAlign.right:
+        return 'right';
+    }
+  }
+
+  static SimpleTextAlign fromString(String? value) {
+    switch (value) {
+      case 'left':
+        return SimpleTextAlign.left;
+      case 'center':
+        return SimpleTextAlign.center;
+      case 'right':
+        return SimpleTextAlign.right;
+      default:
+        return SimpleTextAlign.left;
+    }
+  }
 }
 
 enum MoodType {

@@ -37,6 +37,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         _settingsRepository.getHasAutoSyncEnabled(),
         _settingsRepository.getColorTheme(),
         _settingsRepository.getFontFamily(),
+        _settingsRepository.getTextAlign(),
         _settingsRepository.getOnboardedLoginTypes(),
       ]);
 
@@ -48,7 +49,8 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         hasAutoSyncEnabled: results[4] as bool,
         colorTheme: results[5] as ColorTheme,
         fontFamily: results[6] as FontFamily,
-        onboardedLoginTypes: results[7] as List<String>?,
+        textAlign: results[7] as SimpleTextAlign,
+        onboardedLoginTypes: results[8] as List<String>?,
       );
       _log.info(
         'Successfully loaded settings from SharedPreferences: $_appState',
@@ -107,6 +109,12 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   Future<void> updateFontFamily(FontFamily fontFamily) async {
     await _settingsRepository.updateFontFamily(fontFamily);
     _appState = _appState?.copyWith(fontFamily: fontFamily);
+    notifyListeners();
+  }
+
+  Future<void> updateTextAlign(SimpleTextAlign textAlign) async {
+    await _settingsRepository.updateTextAlign(textAlign);
+    _appState = _appState?.copyWith(textAlign: textAlign);
     notifyListeners();
   }
 

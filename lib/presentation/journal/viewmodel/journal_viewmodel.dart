@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 
 import '../../../core/constants/enum.dart';
+import '../../../core/providers/app_state_provider.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
@@ -13,29 +14,31 @@ import '../../../domain/repositories/journal_repository.dart';
 class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final AiGenerationRepository _aiGenerationRepository;
+  final AppStateProvider _appStateProvider;
   final JournalSource source;
   final int id;
 
   JournalViewModel({
     required JournalRepository journalRepository,
     required AiGenerationRepository aiGenerationRepository,
+    required AppStateProvider appStateProvider,
     required this.source,
     required this.id,
   }) : _journalRepository = journalRepository,
-       _aiGenerationRepository = aiGenerationRepository {
+       _aiGenerationRepository = aiGenerationRepository,
+       _appStateProvider = appStateProvider {
     _load();
     _aiGenerationRepository.addListener(_load);
   }
 
   final Logger _log = Logger('JournalViewModel');
   late Journal _journal;
-  SimpleTextAlign _currentAlign = SimpleTextAlign.left;
 
   bool get shouldReplaceOnPop => source == JournalSource.write;
 
   Journal get journal => _journal;
 
-  SimpleTextAlign get currentAlign => _currentAlign;
+  SimpleTextAlign get currentAlign => _appStateProvider.appState.textAlign;
 
   bool get isGeneratingAiResponse =>
       _aiGenerationRepository.isGeneratingAiResponse;
@@ -49,7 +52,8 @@ class JournalViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void changeAlign() {
-    _currentAlign = _currentAlign.next;
+    final nextAlign = currentAlign.next;
+    _appStateProvider.updateTextAlign(nextAlign);
     notifyListeners();
   }
 
