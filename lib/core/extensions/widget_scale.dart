@@ -5,7 +5,7 @@ import '../constants/common.dart';
 
 extension WidgetScaleExtension on Widget {
   Widget scale({
-    double scaleValue = 0.95,
+    double scaleValue = 0.90,
     Duration duration = DurationMs.instant,
     Curve curve = Curves.easeInOut,
   }) {

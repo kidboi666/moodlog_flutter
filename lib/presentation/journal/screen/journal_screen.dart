@@ -30,6 +30,7 @@ class JournalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
+
     return Consumer<JournalViewModel>(
       builder: (context, viewModel, _) {
         if (viewModel.isLoading) {
@@ -70,11 +71,7 @@ class JournalScreen extends StatelessWidget {
                     );
                     if (shouldPopPage) {
                       if (context.mounted) {
-                        if (viewModel.shouldReplaceOnPop) {
-                          context.replace(Routes.home);
-                        } else {
-                          context.pop();
-                        }
+                        _handleBackNavigation(context, viewModel);
                       }
                     }
                   },
