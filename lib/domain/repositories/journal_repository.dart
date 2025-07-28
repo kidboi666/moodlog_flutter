@@ -1,9 +1,12 @@
+import 'package:moodlog/data/models/request/add_journal_request.dart';
+import 'package:moodlog/data/models/request/update_journal_request.dart';
+
 import '../../core/utils/result.dart';
-import '../../data/models/request/add_journal_request.dart';
-import '../../data/models/request/update_journal_request.dart';
 import '../entities/journal.dart';
 
 abstract class JournalRepository {
+  Stream<List<Journal>> get journalStream;
+
   Future<Result<List<Journal>>> getAllJournals();
 
   Future<Result<List<Journal>>> getJournalsByMonth(DateTime date);

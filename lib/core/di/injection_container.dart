@@ -6,16 +6,19 @@ import '../../data/data_source/database.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
 import '../../data/repositories/journal_repository_impl.dart';
-import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/location_repository_impl.dart';
+import '../../data/repositories/settings_repository_impl.dart';
 import '../../domain/repositories/ai_generation_repository.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/location_repository.dart';
+import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/auth/auth_use_case.dart';
 import '../../domain/use_cases/image/pick_image_usecase.dart';
+import '../../domain/use_cases/journal/add_journal_use_case.dart';
+import '../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../domain/use_cases/location/get_current_location_use_case.dart';
 import '../providers/app_state_provider.dart';
 import '../providers/user_provider.dart';
@@ -27,7 +30,7 @@ List<SingleChildWidget> createProviders() {
       dispose: (_, db) => db.close(),
       lazy: false,
     ),
-    ChangeNotifierProvider<SettingsRepository>(
+    Provider<SettingsRepository>(
       create: (_) => SettingsRepositoryImpl(),
       lazy: false,
     ),
@@ -53,9 +56,7 @@ List<SingleChildWidget> createProviders() {
     ChangeNotifierProvider<UserProvider>(
       create: (context) => UserProvider(authRepository: context.read()),
     ),
-    Provider<LocationRepository>(
-      create: (_) => LocationRepositoryImpl(),
-    ),
+    Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
     ..._createUseCases(),
   ];
 }
@@ -73,6 +74,17 @@ List<SingleChildWidget> _createUseCases() {
     Provider<GetCurrentLocationUseCase>(
       create: (context) =>
           GetCurrentLocationUseCase(locationRepository: context.read()),
+    ),
+    Provider<AddJournalUseCase>(
+      create: (context) => AddJournalUseCase(journalRepository: context.read()),
+    ),
+    Provider<UpdateJournalUseCase>(
+      create: (context) =>
+          UpdateJournalUseCase(journalRepository: context.read()),
+    ),
+    Provider<CheckAiUsageLimitUseCase>(
+      create: (context) =>
+          CheckAiUsageLimitUseCase(settingsRepository: context.read()),
     ),
   ];
 }

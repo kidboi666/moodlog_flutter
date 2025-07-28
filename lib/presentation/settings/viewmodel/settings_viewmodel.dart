@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide ThemeMode;
-import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/providers/app_state_provider.dart';
@@ -44,9 +43,6 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateLanguage(language!);
   }
 
-  Future<void> showDialogWithWidget(BuildContext context, Widget child) async {
-    return showDialog(context: context, builder: (context) => child);
-  }
 
   void setNotificationEnabled(bool enabled) {
     _appStateProvider.updateNotificationEnabled(enabled);
@@ -72,20 +68,12 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateAiPersonality(personality);
   }
 
-  void performBackup(BuildContext context) {
+  void performBackup() {
     // TODO: 백업 기능
-    context.pop();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('백업이 완료되었습니다.')));
   }
 
-  void clearCache(BuildContext context) {
+  void clearCache() {
     _journalRepository.clearCache();
-    context.pop();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('캐시가 삭제되었습니다.')));
   }
 
   void clearSharedPreferences() {

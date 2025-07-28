@@ -10,7 +10,7 @@ abstract class AddJournalRequest with _$AddJournalRequest {
   const factory AddJournalRequest({
     String? content,
     required MoodType moodType,
-    required List<String> imageUri,
+    List<String>? imageUri,
     required bool aiResponseEnabled,
     String? aiResponse,
     required DateTime createdAt,

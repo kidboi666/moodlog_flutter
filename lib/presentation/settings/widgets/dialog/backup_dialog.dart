@@ -21,7 +21,11 @@ class BackupDialog extends StatelessWidget {
         ),
         FilledButton(
           onPressed: () {
-            viewModel.performBackup(context);
+            viewModel.performBackup();
+            context.pop();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('백업이 완료되었습니다.')),
+            );
           },
           child: Text(
             AppLocalizations.of(context)!.settings_data_backup_confirm_ok,

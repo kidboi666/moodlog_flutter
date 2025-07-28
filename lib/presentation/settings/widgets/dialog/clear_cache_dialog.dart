@@ -25,7 +25,11 @@ class ClearCacheDialog extends StatelessWidget {
         ),
         FilledButton(
           onPressed: () {
-            viewModel.clearCache(context);
+            viewModel.clearCache();
+            context.pop();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('캐시가 삭제되었습니다.')),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,

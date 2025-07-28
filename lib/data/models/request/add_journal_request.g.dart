@@ -10,8 +10,8 @@ _AddJournalRequest _$AddJournalRequestFromJson(Map<String, dynamic> json) =>
     _AddJournalRequest(
       content: json['content'] as String?,
       moodType: $enumDecode(_$MoodTypeEnumMap, json['moodType']),
-      imageUri: (json['imageUri'] as List<dynamic>)
-          .map((e) => e as String)
+      imageUri: (json['imageUri'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       aiResponseEnabled: json['aiResponseEnabled'] as bool,
       aiResponse: json['aiResponse'] as String?,

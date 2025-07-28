@@ -18,6 +18,14 @@ import '../widgets/mood_bar.dart';
 class JournalScreen extends StatelessWidget {
   const JournalScreen({super.key});
 
+  void _handleBackNavigation(BuildContext context, JournalViewModel viewModel) {
+    if (viewModel.shouldReplaceOnPop) {
+      context.replace(Routes.home);
+    } else {
+      context.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -33,14 +41,14 @@ class JournalScreen extends StatelessWidget {
           canPop: false,
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
-              viewModel.handleBackNavigation(context);
+              _handleBackNavigation(context, viewModel);
             }
           },
           child: Scaffold(
             appBar: AppBar(
               surfaceTintColor: Color(viewModel.journal.moodType.colorValue),
               leading: PopButton(
-                onTap: () => viewModel.handleBackNavigation(context),
+                onTap: () => _handleBackNavigation(context, viewModel),
               ),
               title: Text(
                 viewModel.journal.createdAt.formatted(t),

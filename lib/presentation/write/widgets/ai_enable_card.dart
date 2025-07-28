@@ -26,7 +26,12 @@ class AiEnableCard extends StatelessWidget {
               if (viewModel.canUseAiToday) {
                 viewModel.updateAiEnabled(!viewModel.aiEnabled);
               } else {
-                viewModel.showAiLimitMessage(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(t.write_ai_limit_reached),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
               }
             },
             child: Padding(

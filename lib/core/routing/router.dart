@@ -74,13 +74,15 @@ GoRouter router(UserProvider userProvider) => GoRouter(
       path: Routes.write,
       builder: (_, _) => ChangeNotifierProvider(
         create: (context) => WriteViewModel(
-          journalRepository: context.read(),
           geminiRepository: context.read(),
           appStateProvider: context.read(),
           settingsRepository: context.read(),
           aiGenerationRepository: context.read(),
           pickImageUseCase: context.read(),
           getCurrentLocationUseCase: context.read(),
+          addJournalUseCase: context.read(),
+          updateJournalUseCase: context.read(),
+          checkAiUsageLimitUseCase: context.read(),
           totalSteps: 2,
         ),
         child: const WriteScreen(),

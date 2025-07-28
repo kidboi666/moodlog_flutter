@@ -27,6 +27,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _calculateDateItems();
     _load();
     _initializeDelayedRender();
+    _subscribeToJournalChanges();
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -100,6 +101,37 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> _initializeDelayedRender() async {
     await Future.delayed(DelayMs.medium * 4);
     setIsFirstRender(false);
+  }
+
+  void _subscribeToJournalChanges() {
+    _journalSubscription = _journalRepository.journalStream.listen((journals) {
+      // 전체 일기 목록이 변경되었을 때, 현재 선택된 날짜의 일기만 필터링
+      _filterJournalsForSelectedDate(journals);
+    });
+  }
+
+  void _filterJournalsForSelectedDate(List<Journal> allJournals) {
+    final startOfDay = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+    );
+    final endOfDay = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+      23,
+      59,
+      59,
+      999,
+    );
+
+    _journal = allJournals.where((journal) {
+      return journal.createdAt.isAfter(startOfDay) &&
+          journal.createdAt.isBefore(endOfDay);
+    }).toList();
+
+    notifyListeners();
   }
 
   @override

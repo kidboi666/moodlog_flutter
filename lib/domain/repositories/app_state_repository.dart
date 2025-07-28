@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
-
 import '../../core/constants/enum.dart';
 
-abstract class SettingsRepository extends ChangeNotifier {
+abstract class SettingsRepository {
   Future<ThemeMode> getThemeMode();
 
   Future<LanguageCode> getLanguageCode();

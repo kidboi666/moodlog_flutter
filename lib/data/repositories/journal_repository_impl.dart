@@ -17,6 +17,7 @@ class JournalRepositoryImpl implements JournalRepository {
   List<Journal>? _cachedJournals;
   final _journalStreamController = StreamController<List<Journal>>.broadcast();
 
+  @override
   Stream<List<Journal>> get journalStream => _journalStreamController.stream;
 
   @override

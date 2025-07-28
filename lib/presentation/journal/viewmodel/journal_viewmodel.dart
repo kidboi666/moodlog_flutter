@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/mixins/debounce_mixin.dart';
 import '../../../core/providers/app_state_provider.dart';
-import '../../../core/routing/routes.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
@@ -47,13 +45,6 @@ class JournalViewModel extends ChangeNotifier
   bool get isGeneratingAiResponse =>
       _aiGenerationRepository.isGeneratingAiResponse;
 
-  void handleBackNavigation(BuildContext context) {
-    if (shouldReplaceOnPop) {
-      context.replace(Routes.home);
-    } else {
-      context.pop();
-    }
-  }
 
   void changeAlign() {
     _pendingAlign = currentAlign.next;
