@@ -69,12 +69,12 @@ class _WriteScreenState extends State<WriteScreen> {
                 duration: DurationMs.quick,
                 firstChild: IconButton(
                   onPressed: nextPage,
-                  icon: Icon(Icons.arrow_forward),
+                  icon: const Icon(Icons.arrow_forward),
                 ),
                 secondChild: IconButton(
                   onPressed: () =>
                       context.read<WriteViewModel>().submitJournal(),
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                 ),
               );
             },

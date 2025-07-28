@@ -59,11 +59,11 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                 delay: DelayMs.quick * 1.5,
                 child: Row(
                   children: [
-                    LocationCard(),
-                    SizedBox(width: 8),
-                    LocationButton(),
+                    const LocationCard(),
+                    const SizedBox(width: 8),
+                    const LocationButton(),
                     TimestampButton(contentController: _contentController),
-                    DateButton(),
+                    const DateButton(),
                   ],
                 ),
               ),
@@ -74,7 +74,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             ],
           ),
           const SizedBox(height: Spacing.xxl),
-          FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
+          FadeIn(delay: DelayMs.quick * 3, child: const AiEnableCard()),
         ],
       ),
     );

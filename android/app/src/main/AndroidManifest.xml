@@ -4,11 +4,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:label="moodlog"
+        android:label="무드로그"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:label="무드로그"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""

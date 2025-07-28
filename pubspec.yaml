@@ -1,7 +1,7 @@
 name: moodlog
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.2+18
+version: 1.0.3+19
 
 environment:
   sdk: ^3.8.1
@@ -36,6 +36,7 @@ dependencies:
   permission_handler: ^11.3.1
   geocoding: ^3.0.0
   path: ^1.9.0
+  dotted_border: ^3.1.0
 
 dev_dependencies:
   flutter_test:

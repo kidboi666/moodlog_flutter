@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
+import '../../widgets/spinner.dart';
 import '../viewmodel/auth_viewmodel.dart';
 
 class GoogleSigninButton extends StatelessWidget {

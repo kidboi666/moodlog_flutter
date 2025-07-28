@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/enum.dart';
 
@@ -29,40 +30,62 @@ class ContentBox extends StatelessWidget {
             padding: const EdgeInsets.only(right: Spacing.md),
             child: Column(
               spacing: Spacing.sm,
-              crossAxisAlignment: currentAlign.crossAxisAlignment,
               children: [
-                RichText(
-                  text: TextSpan(
-                    text: viewModel.journal.moodType.getDisplayName(context),
-                    style: textTheme.titleLarge,
+                Row(
+                  mainAxisAlignment: currentAlign.mainAxisAlignment,
+                  children: [
+                    Text(
+                      viewModel.journal.moodType.getDisplayName(context),
+                      style: textTheme.titleLarge,
+                    ),
+                    const SizedBox(width: Spacing.sm),
+                    Text(
+                      viewModel.journal.moodType.emoji,
+                      style: textTheme.titleLarge,
+                    ),
+                  ],
+                ),
+
+                Visibility(
+                  visible:
+                      viewModel.journal.latitude != null &&
+                      viewModel.journal.longitude != null,
+                  child: Row(
+                    mainAxisAlignment: currentAlign.mainAxisAlignment,
                     children: [
-                      TextSpan(text: ' '),
-                      TextSpan(text: viewModel.journal.moodType.emoji),
+                      DottedBorder(
+                        options: RoundedRectDottedBorderOptions(
+                          radius: Radius.circular(12),
+                          dashPattern: [10, 5],
+                          strokeWidth: 2,
+                          color: colorScheme.outlineVariant,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Spacing.md,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                size: 18,
+                                color: colorScheme.outlineVariant,
+                              ),
+                              Text(
+                                viewModel.journal.address ??
+                                    '${viewModel.journal.latitude?.toStringAsFixed(2) ?? '0.00'}, ${viewModel.journal.longitude?.toStringAsFixed(2) ?? '0.00'}',
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: colorScheme.outline,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                if (viewModel.journal.latitude != null &&
-                    viewModel.journal.longitude != null)
-                  Row(
-                    spacing: Spacing.sm,
-                    mainAxisAlignment: currentAlign.mainAxisAlignment,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 12,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      Text(
-                        viewModel.journal.address ??
-                            '${viewModel.journal.latitude!.toStringAsFixed(2)}, ${viewModel.journal.longitude!.toStringAsFixed(2)}',
-                        style: textTheme.bodySmall?.copyWith(
-                          fontSize: 11,
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
               ],
             ),
           ),
