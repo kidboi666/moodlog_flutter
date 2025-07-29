@@ -191,6 +191,23 @@ enum MoodType {
         return 0xFFF44336;
     }
   }
+
+  material.Color get color => material.Color(colorValue);
+
+  String get displayName {
+    switch (this) {
+      case MoodType.veryHappy:
+        return '매우 좋음';
+      case MoodType.happy:
+        return '좋음';
+      case MoodType.neutral:
+        return '보통';
+      case MoodType.sad:
+        return '나쁨';
+      case MoodType.verySad:
+        return '매우 나쁨';
+    }
+  }
 }
 
 enum ColorTheme {

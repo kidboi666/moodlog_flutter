@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/write_viewmodel.dart';
 
 class LocationButton extends StatelessWidget {
@@ -9,9 +9,8 @@ class LocationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Consumer<WriteViewModel>(
       builder: (context, viewModel, child) {
         final locationInfo = viewModel.locationInfo;
@@ -22,17 +21,14 @@ class LocationButton extends StatelessWidget {
               viewModel.getCurrentLocation();
             },
             icon: Icon(Icons.location_on),
-          );
+          ).scale();
         }
 
         return IconButton(
           onPressed: () => viewModel.clearLocation(),
-          icon: Icon(
-            Icons.location_on,
-            color: colorScheme.primary,
-          ),
+          icon: Icon(Icons.location_on, color: colorScheme.primary),
           style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
-        );
+        ).scale();
       },
     );
   }

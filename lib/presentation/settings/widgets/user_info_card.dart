@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/l10n/app_localizations.dart';
+
 class UserInfoCard extends StatelessWidget {
   final User? user;
 
@@ -10,6 +12,7 @@ class UserInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final t = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -17,18 +20,18 @@ class UserInfoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '로그인 정보',
+            t.settings_user_info_title,
             style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
           if (user == null)
-            Text('로그인 정보가 없습니다.', style: textTheme.bodyMedium)
+            Text(t.settings_user_info_empty, style: textTheme.bodyMedium)
           else ...[
             _buildUserInfoRow(
               context,
               icon: Icons.person_outline,
-              label: '상태',
-              value: user!.isAnonymous ? '익명 로그인' : '로그인',
+              label: t.settings_user_info_status,
+              value: user!.isAnonymous ? t.settings_user_info_anonymous : t.settings_user_info_logged_in,
             ),
             const SizedBox(height: 8),
             _buildUserInfoRow(

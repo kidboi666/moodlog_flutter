@@ -38,7 +38,6 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<HomeViewModel>();
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
@@ -51,26 +50,30 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              viewModel.now.getLocalizedMonthName(t),
+              context.read<HomeViewModel>().now.getLocalizedMonthName(t),
               style: textTheme.displayMedium?.copyWith(
                 color: colorScheme.surface,
               ),
             ),
             SizedBox(
               height: Spacing.horCalendarDateHeight,
-              child: ListView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                children: viewModel.dateItems!
-                    .map(
-                      (date) => DateAndDay(
-                        date: date,
-                        todayDate: viewModel.now,
-                        selectedDate: viewModel.selectedDate,
-                        selectDate: viewModel.selectDate,
-                      ),
-                    )
-                    .toList(),
+              child: Consumer<HomeViewModel>(
+                builder: (context, viewModel, _) {
+                  return ListView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    children: viewModel.dateItems!
+                        .map(
+                          (date) => DateAndDay(
+                            date: date,
+                            todayDate: viewModel.now,
+                            selectedDate: viewModel.selectedDate,
+                            selectDate: viewModel.selectDate,
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
               ),
             ),
           ],

@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_date_yesterday => 'Yesterday';
 
   @override
+  String get common_date_full => 'yyyy. MM. dd';
+
+  @override
   String get common_confirm_cancel => 'Cancel';
 
   @override
@@ -238,13 +241,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_empty_box => 'Waiting for your story.';
 
   @override
-  String get entries_empty_box_title => '작성된 일기가 없습니다.';
+  String get entries_empty_box_title => 'No entries yet.';
 
   @override
-  String get entries_empty_box_description => '작성한 일기가 이곳에 나타납니다.';
+  String get entries_empty_box_description => 'Your entries will appear here.';
 
   @override
-  String get entries_empty_box_button => '일기 작성하러 가기';
+  String get entries_empty_box_button => 'Start writing';
+
+  @override
+  String get entries_calendar_legend_has_journal => 'Has entry';
+
+  @override
+  String get entries_calendar_legend_today => 'Today';
 
   @override
   String get tab_home => 'Home';
@@ -501,4 +510,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get write_location_add => 'Add Location';
+
+  @override
+  String get common_language_korean => 'Korean';
+
+  @override
+  String get common_developing => 'In Development';
+
+  @override
+  String get settings_user_info_title => 'Login Information';
+
+  @override
+  String get settings_user_info_empty => 'No login information available.';
+
+  @override
+  String get settings_user_info_status => 'Status';
+
+  @override
+  String get settings_user_info_anonymous => 'Anonymous Login';
+
+  @override
+  String get settings_user_info_logged_in => 'Logged In';
+
+  @override
+  String get dialog_storage_init_title => 'Storage Initialization';
+
+  @override
+  String get dialog_storage_init_content => 'Initialize SharedPreferences.';
+
+  @override
+  String get dialog_database_init_title => 'Database Initialization';
+
+  @override
+  String get dialog_database_init_content => 'Initialize SQLite database.';
+
+  @override
+  String get dialog_init_button => 'Initialize';
+
+  @override
+  String get settings_developer_options => 'Developer Options';
+
+  @override
+  String get settings_developer_mode_only => 'Debug mode only';
+
+  @override
+  String get settings_ai_section_title => 'AI Settings';
+
+  @override
+  String get settings_ai_personality_title => 'AI Personality';
+
+  @override
+  String get snackbar_backup_completed => 'Backup completed.';
+
+  @override
+  String get snackbar_cache_cleared => 'Cache cleared.';
 }

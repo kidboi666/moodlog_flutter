@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
 import '../../core/extensions/date_time.dart';
+import '../../core/extensions/widget_scale.dart';
 import '../../core/l10n/app_localizations.dart';
 
 class JournalCard extends StatelessWidget {
@@ -45,7 +45,7 @@ class JournalCard extends StatelessWidget {
           containedInkWell: true,
           child: ListTile(
             onTap: onTap,
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: Spacing.xxl,
               vertical: Spacing.md,
             ),

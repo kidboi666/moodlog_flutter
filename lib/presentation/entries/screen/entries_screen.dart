@@ -9,8 +9,13 @@ import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
 import '../widgets/empty_entries_box.dart';
+import '../widgets/entries_calendar_view.dart';
 
-typedef EntriesSelectorType = ({bool isLoading, List<Journal> entries});
+typedef EntriesSelectorType = ({
+  bool isLoading,
+  List<Journal> entries,
+  EntriesViewMode viewMode,
+});
 
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({super.key});
@@ -33,6 +38,18 @@ class EntriesScreen extends StatelessWidget {
           ),
         ),
         actions: [
+          Selector<EntriesViewModel, EntriesViewMode>(
+            selector: (_, viewModel) => viewModel.viewMode,
+            builder: (_, viewMode, _) => IconButton(
+              icon: Icon(
+                viewMode == EntriesViewMode.list
+                    ? Icons.calendar_month
+                    : Icons.view_list,
+              ),
+              onPressed: () =>
+                  context.read<EntriesViewModel>().toggleViewMode(),
+            ),
+          ),
           Selector<EntriesViewModel, Function>(
             selector: (_, viewModel) => viewModel.setNextMonth,
             builder: (_, setNextMonth, _) => IconButton(
@@ -48,8 +65,11 @@ class EntriesScreen extends StatelessWidget {
           slivers: [
             const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
             Selector<EntriesViewModel, EntriesSelectorType>(
-              selector: (_, viewModel) =>
-                  (entries: viewModel.entries, isLoading: viewModel.isLoading),
+              selector: (_, viewModel) => (
+                entries: viewModel.entries,
+                isLoading: viewModel.isLoading,
+                viewMode: viewModel.viewMode,
+              ),
               builder: (_, viewModel, _) {
                 if (viewModel.isLoading) {
                   return SliverToBoxAdapter(
@@ -59,6 +79,11 @@ class EntriesScreen extends StatelessWidget {
                     ),
                   );
                 }
+
+                if (viewModel.viewMode == EntriesViewMode.calendar) {
+                  return const SliverToBoxAdapter(child: EntriesCalendarView());
+                }
+
                 if (viewModel.entries.isEmpty) {
                   return SliverToBoxAdapter(
                     child: FadeIn(

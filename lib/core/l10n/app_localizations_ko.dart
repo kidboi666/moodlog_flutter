@@ -18,6 +18,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_date_yesterday => '어제';
 
   @override
+  String get common_date_full => 'yyyy년 MM월 dd일';
+
+  @override
   String get common_confirm_cancel => '취소';
 
   @override
@@ -239,6 +242,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get entries_empty_box_button => '일기 작성하러 가기';
+
+  @override
+  String get entries_calendar_legend_has_journal => '일기 있음';
+
+  @override
+  String get entries_calendar_legend_today => '오늘';
 
   @override
   String get tab_home => '홈';
@@ -488,4 +497,58 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get write_location_add => '위치 추가';
+
+  @override
+  String get common_language_korean => '한국어';
+
+  @override
+  String get common_developing => '개발중';
+
+  @override
+  String get settings_user_info_title => '로그인 정보';
+
+  @override
+  String get settings_user_info_empty => '로그인 정보가 없습니다.';
+
+  @override
+  String get settings_user_info_status => '상태';
+
+  @override
+  String get settings_user_info_anonymous => '익명 로그인';
+
+  @override
+  String get settings_user_info_logged_in => '로그인';
+
+  @override
+  String get dialog_storage_init_title => '스토리지 초기화';
+
+  @override
+  String get dialog_storage_init_content => 'SharedPreferences를 초기화합니다.';
+
+  @override
+  String get dialog_database_init_title => '데이터베이스 초기화';
+
+  @override
+  String get dialog_database_init_content => 'SQLite 데이터베이스를 초기화합니다.';
+
+  @override
+  String get dialog_init_button => '초기화';
+
+  @override
+  String get settings_developer_options => '개발용 옵션';
+
+  @override
+  String get settings_developer_mode_only => '개발모드 전용 동작';
+
+  @override
+  String get settings_ai_section_title => 'AI 설정';
+
+  @override
+  String get settings_ai_personality_title => 'AI 성격';
+
+  @override
+  String get snackbar_backup_completed => '백업이 완료되었습니다.';
+
+  @override
+  String get snackbar_cache_cleared => '캐시가 삭제되었습니다.';
 }

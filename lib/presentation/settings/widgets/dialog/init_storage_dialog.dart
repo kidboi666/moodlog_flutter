@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
 class InitStorageDialog extends StatelessWidget {
@@ -10,11 +11,13 @@ class InitStorageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    
     return AlertDialog(
-      title: const Text('스토리지 초기화'),
-      content: const Text('SharedPreferences를 초기화합니다.'),
+      title: Text(t.dialog_storage_init_title),
+      content: Text(t.dialog_storage_init_content),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: const Text('취소')),
+        TextButton(onPressed: () => context.pop(), child: Text(t.common_confirm_cancel)),
         FilledButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -24,7 +27,7 @@ class InitStorageDialog extends StatelessWidget {
             viewModel.clearSharedPreferences();
             context.pop();
           },
-          child: const Text('삭제'),
+          child: Text(t.common_confirm_delete),
         ),
       ],
     );

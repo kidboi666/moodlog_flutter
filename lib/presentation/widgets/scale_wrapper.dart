@@ -11,7 +11,7 @@ class ScaleWrapper extends StatefulWidget {
   const ScaleWrapper({
     super.key,
     required this.child,
-    this.scaleValue = 0.95,
+    this.scaleValue = 0.98,
     this.duration = DurationMs.instant,
     this.curve = Curves.easeInOut,
   });

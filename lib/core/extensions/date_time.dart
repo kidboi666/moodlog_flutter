@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
+
+import '../l10n/app_localizations.dart';
 
 extension DateTimeExtension on DateTime {
   int get lastDateOfMonth => DateTime(year, month + 1, 0).day;
@@ -72,20 +73,24 @@ extension DateTimeExtension on DateTime {
     return year == otherDate.year;
   }
 
-  String formatted(AppLocalizations localizations) {
+  String formatted(AppLocalizations t) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final dateOnly = DateTime(year, month, day);
 
     if (dateOnly == today) {
-      return '${localizations.common_date_today} ${DateFormat('HH:mm').format(this)}';
+      return '${t.common_date_today} ${DateFormat('HH:mm').format(this)}';
     } else if (dateOnly == today.subtract(Duration(days: 1))) {
-      return '${localizations.common_date_yesterday} ${DateFormat('HH:mm').format(this)}';
+      return '${t.common_date_yesterday} ${DateFormat('HH:mm').format(this)}';
     } else if (now.year == year) {
       return DateFormat('MM.dd HH:mm').format(this);
     } else {
       return DateFormat('yyyy.MM.dd HH:mm').format(this);
     }
+  }
+
+  String formattedLocalizedFullDate(AppLocalizations t) {
+    return DateFormat(t.common_date_full).format(this);
   }
 
   String formattedDotNation() {

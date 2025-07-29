@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
@@ -65,7 +66,7 @@ class AiEnableCard extends StatelessWidget {
               ),
             ),
           ),
-        );
+        ).scale();
       },
     );
   }

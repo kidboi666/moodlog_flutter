@@ -3,17 +3,21 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/data/data_source/database.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
+
 class InitDatabaseDialog extends StatelessWidget {
   const InitDatabaseDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+    
     return AlertDialog(
-      title: const Text('데이터베이스 초기화'),
-      content: const Text('SQLite 데이터베이스를 초기화합니다.'),
+      title: Text(t.dialog_database_init_title),
+      content: Text(t.dialog_database_init_content),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: const Text('취소')),
+        TextButton(onPressed: () => context.pop(), child: Text(t.common_confirm_cancel)),
         FilledButton(
           onPressed: () {
             final db = context.read<MoodLogDatabase>();
@@ -28,7 +32,7 @@ class InitDatabaseDialog extends StatelessWidget {
             backgroundColor: theme.error,
             foregroundColor: theme.onError,
           ),
-          child: const Text('초기화'),
+          child: Text(t.dialog_init_button),
         ),
       ],
     );

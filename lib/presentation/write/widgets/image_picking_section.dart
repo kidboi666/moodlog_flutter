@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -67,7 +68,7 @@ class _ImagePickingSectionState extends State<ImagePickingSection> {
                     ),
                   ),
                 ),
-              ),
+              ).scale(),
             ],
           ),
         );

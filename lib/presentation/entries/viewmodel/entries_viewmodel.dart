@@ -9,6 +9,8 @@ import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
 
+enum EntriesViewMode { list, calendar }
+
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final DeleteJournalUseCase _deleteJournalUseCase;
@@ -26,20 +28,41 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   StreamSubscription? _journalSubscription;
   DateTime selectedDate = DateTime.now();
   DateTime _selectedMonth = DateTime.now();
+  DateTime? _selectedDay;
   List<Journal> _entries = [];
+  EntriesViewMode _viewMode = EntriesViewMode.list;
 
   List<Journal> get entries => _entries;
 
   DateTime get selectedMonth => _selectedMonth;
 
+  DateTime? get selectedDay => _selectedDay;
+
+  EntriesViewMode get viewMode => _viewMode;
+
+  void toggleViewMode() {
+    _viewMode = _viewMode == EntriesViewMode.list 
+        ? EntriesViewMode.calendar 
+        : EntriesViewMode.list;
+    _selectedDay = null; // 뷰 모드 변경 시 선택된 날짜 초기화
+    notifyListeners();
+  }
+
+  void selectDay(DateTime day) {
+    _selectedDay = day;
+    notifyListeners();
+  }
+
   void setPreviousMonth() {
     _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1, 1);
+    _selectedDay = null; // 월 변경 시 선택된 날짜 초기화
     notifyListeners();
     _loadMonthEntries();
   }
 
   void setNextMonth() {
     _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
+    _selectedDay = null; // 월 변경 시 선택된 날짜 초기화
     notifyListeners();
     _loadMonthEntries();
   }

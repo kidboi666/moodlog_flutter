@@ -10,12 +10,12 @@ import '../../../core/routing/routes.dart';
 import '../../widgets/avatar.dart';
 import '../viewmodel/settings_viewmodel.dart';
 import '../widgets/card_list_tile.dart';
+import '../widgets/dialog/ai_personality_dialog.dart';
 import '../widgets/dialog/app_info_dialog.dart';
 import '../widgets/dialog/backup_dialog.dart';
 import '../widgets/dialog/clear_cache_dialog.dart';
 import '../widgets/dialog/color_theme_dialog.dart';
 import '../widgets/dialog/contact_dialog.dart';
-import '../widgets/dialog/ai_personality_dialog.dart';
 import '../widgets/dialog/font_family_dialog.dart';
 import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
@@ -57,10 +57,10 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: Spacing.xl),
 
               if (kDebugMode) ...[
-                SectionHeader(title: '개발용 옵션'),
+                SectionHeader(title: t.settings_developer_options),
                 DialogTile(
-                  title: '스토리지 초기화',
-                  subtitle: '개발모드 전용 동작',
+                  title: t.dialog_storage_init_title,
+                  subtitle: t.settings_developer_mode_only,
                   icon: Icons.delete,
                   onTap: () => showDialog(
                     context: context,
@@ -68,8 +68,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 DialogTile(
-                  title: '데이터베이스 초기화',
-                  subtitle: '개발모드 전용 동작',
+                  title: t.dialog_database_init_title,
+                  subtitle: t.settings_developer_mode_only,
                   icon: Icons.delete,
                   onTap: () => showDialog(
                     context: context,
@@ -128,10 +128,10 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Spacing.xl),
-              
-              SectionHeader(title: 'AI 설정'),
+
+              SectionHeader(title: t.settings_ai_section_title),
               DialogTile(
-                title: 'AI 성격',
+                title: t.settings_ai_personality_title,
                 subtitle: viewModel.appState.aiPersonality.getTitle(context),
                 icon: Icons.psychology,
                 onTap: () => showDialog(
@@ -140,7 +140,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Spacing.xl),
-              
+
               SectionHeader(title: t.settings_data_title),
               // TODO: 데이터 자동 백업 On/Off 기능
               if (kDebugMode) ...[

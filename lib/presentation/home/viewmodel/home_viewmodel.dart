@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/use_cases/journal/delete_journal_use_case.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
@@ -11,6 +10,7 @@ import '../../../core/providers/user_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
+import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;

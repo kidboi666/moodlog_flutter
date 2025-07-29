@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
-import 'bottom_sheet/edit_display_name_dialog.dart';
+import 'bottom_sheet/edit_display_name_bottom_sheet.dart';
 
 class NicknameCard extends StatelessWidget {
   const NicknameCard({super.key});

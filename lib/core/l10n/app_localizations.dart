@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'어제'**
   String get common_date_yesterday;
 
+  /// No description provided for @common_date_full.
+  ///
+  /// In ko, this message translates to:
+  /// **'yyyy년 MM월 dd일'**
+  String get common_date_full;
+
   /// No description provided for @common_confirm_cancel.
   ///
   /// In ko, this message translates to:
@@ -547,6 +553,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'일기 작성하러 가기'**
   String get entries_empty_box_button;
+
+  /// No description provided for @entries_calendar_legend_has_journal.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기 있음'**
+  String get entries_calendar_legend_has_journal;
+
+  /// No description provided for @entries_calendar_legend_today.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘'**
+  String get entries_calendar_legend_today;
 
   /// No description provided for @tab_home.
   ///
@@ -1027,6 +1045,114 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'위치 추가'**
   String get write_location_add;
+
+  /// No description provided for @common_language_korean.
+  ///
+  /// In ko, this message translates to:
+  /// **'한국어'**
+  String get common_language_korean;
+
+  /// No description provided for @common_developing.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발중'**
+  String get common_developing;
+
+  /// No description provided for @settings_user_info_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인 정보'**
+  String get settings_user_info_title;
+
+  /// No description provided for @settings_user_info_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인 정보가 없습니다.'**
+  String get settings_user_info_empty;
+
+  /// No description provided for @settings_user_info_status.
+  ///
+  /// In ko, this message translates to:
+  /// **'상태'**
+  String get settings_user_info_status;
+
+  /// No description provided for @settings_user_info_anonymous.
+  ///
+  /// In ko, this message translates to:
+  /// **'익명 로그인'**
+  String get settings_user_info_anonymous;
+
+  /// No description provided for @settings_user_info_logged_in.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그인'**
+  String get settings_user_info_logged_in;
+
+  /// No description provided for @dialog_storage_init_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'스토리지 초기화'**
+  String get dialog_storage_init_title;
+
+  /// No description provided for @dialog_storage_init_content.
+  ///
+  /// In ko, this message translates to:
+  /// **'SharedPreferences를 초기화합니다.'**
+  String get dialog_storage_init_content;
+
+  /// No description provided for @dialog_database_init_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'데이터베이스 초기화'**
+  String get dialog_database_init_title;
+
+  /// No description provided for @dialog_database_init_content.
+  ///
+  /// In ko, this message translates to:
+  /// **'SQLite 데이터베이스를 초기화합니다.'**
+  String get dialog_database_init_content;
+
+  /// No description provided for @dialog_init_button.
+  ///
+  /// In ko, this message translates to:
+  /// **'초기화'**
+  String get dialog_init_button;
+
+  /// No description provided for @settings_developer_options.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발용 옵션'**
+  String get settings_developer_options;
+
+  /// No description provided for @settings_developer_mode_only.
+  ///
+  /// In ko, this message translates to:
+  /// **'개발모드 전용 동작'**
+  String get settings_developer_mode_only;
+
+  /// No description provided for @settings_ai_section_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI 설정'**
+  String get settings_ai_section_title;
+
+  /// No description provided for @settings_ai_personality_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'AI 성격'**
+  String get settings_ai_personality_title;
+
+  /// No description provided for @snackbar_backup_completed.
+  ///
+  /// In ko, this message translates to:
+  /// **'백업이 완료되었습니다.'**
+  String get snackbar_backup_completed;
+
+  /// No description provided for @snackbar_cache_cleared.
+  ///
+  /// In ko, this message translates to:
+  /// **'캐시가 삭제되었습니다.'**
+  String get snackbar_cache_cleared;
 }
 
 class _AppLocalizationsDelegate

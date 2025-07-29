@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../viewmodel/write_viewmodel.dart';
@@ -41,7 +42,7 @@ class DateButton extends StatelessWidget {
           },
           icon: Icon(Icons.calendar_month),
           style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
-        );
+        ).scale();
       },
     );
   }

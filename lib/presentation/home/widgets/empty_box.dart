@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/widget_scale.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 
@@ -12,13 +13,14 @@ class EmptyBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
+
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Spacing.xl),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: Spacing.xxl),
+        padding: const EdgeInsets.symmetric(vertical: Spacing.xxl),
         child: Column(
           spacing: Spacing.xxl,
           children: [
@@ -30,8 +32,8 @@ class EmptyBox extends StatelessWidget {
                 ),
               ),
               onPressed: () => context.push(Routes.write),
-              icon: Icon(Icons.add),
-            ),
+              icon: const Icon(Icons.add),
+            ).scale(),
           ],
         ),
       ),

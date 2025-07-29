@@ -11,31 +11,29 @@ class ClearCacheDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    
     return AlertDialog(
-      title: Text(
-        AppLocalizations.of(context)!.settings_data_cache_cleanup_title,
-      ),
-      content: Text(
-        AppLocalizations.of(context)!.settings_data_cache_cleanup_confirm,
-      ),
+      title: Text(t.settings_data_cache_cleanup_title),
+      content: Text(t.settings_data_cache_cleanup_confirm),
       actions: [
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(AppLocalizations.of(context)!.common_confirm_cancel),
+          child: Text(t.common_confirm_cancel),
         ),
         FilledButton(
           onPressed: () {
             viewModel.clearCache();
             context.pop();
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('캐시가 삭제되었습니다.')),
+              SnackBar(content: Text(t.snackbar_cache_cleared)),
             );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
           ),
-          child: Text(AppLocalizations.of(context)!.common_confirm_delete),
+          child: Text(t.common_confirm_delete),
         ),
       ],
     );

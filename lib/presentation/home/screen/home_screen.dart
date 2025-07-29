@@ -70,10 +70,10 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  WelcomeZone(),
-                  SizedBox(height: Spacing.xl),
-                  HorizontalCalendar(),
-                  SizedBox(height: Spacing.xl),
+                  const WelcomeZone(),
+                  const SizedBox(height: Spacing.xl),
+                  const HorizontalCalendar(),
+                  const SizedBox(height: Spacing.xl),
                 ],
               ),
             ),
