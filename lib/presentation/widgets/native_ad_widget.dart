@@ -1,61 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:moodlog/data/services/admob_service.dart';
 
-class NativeAdWidget extends StatefulWidget {
-  const NativeAdWidget({super.key});
+import '../../data/services/admob_service.dart';
+
+class BannerAdWidget extends StatefulWidget {
+  const BannerAdWidget({super.key});
 
   @override
-  State<NativeAdWidget> createState() => _NativeAdWidgetState();
+  State<BannerAdWidget> createState() => _BannerAdWidgetState();
 }
 
-class _NativeAdWidgetState extends State<NativeAdWidget> {
-  NativeAd? _nativeAd;
+class _BannerAdWidgetState extends State<BannerAdWidget> {
+  BannerAd? _bannerAd;
 
-  bool _isNativeAdReady = false;
+  bool _isBannerAdReady = false;
 
-  void _loadNativeAd() {
-    _nativeAd = NativeAd(
-      adUnitId: AdmobService.nativeAdUnitId!,
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fluid,
+      adUnitId: AdmobService.bannerAdUnitId!,
       request: const AdRequest(),
-      listener: NativeAdListener(
+      listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
-            _isNativeAdReady = true;
+            _isBannerAdReady = true;
           });
         },
         onAdFailedToLoad: (ad, error) {
           debugPrint('NativeAd failed to load: $error');
         },
       ),
-      nativeTemplateStyle: NativeTemplateStyle(
-        templateType: TemplateType.small,
-      ),
     );
 
-    _nativeAd!.load();
+    _bannerAd!.load();
   }
 
   @override
   void initState() {
     super.initState();
-    _loadNativeAd();
+    _loadBannerAd();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _isNativeAdReady
+    return _isBannerAdReady
         ? Container(
             color: Colors.grey,
             height: 100,
-            child: AdWidget(ad: _nativeAd!),
+            child: AdWidget(ad: _bannerAd!),
           )
         : const SizedBox();
   }
 
   @override
   void dispose() {
-    _nativeAd?.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 }

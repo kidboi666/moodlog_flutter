@@ -39,11 +39,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
       extendBody: true,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
-        toolbarHeight: 100,
-        flexibleSpace: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          child: NativeAdWidget(),
-        ),
+        title: BannerAdWidget(),
       ),
       body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,

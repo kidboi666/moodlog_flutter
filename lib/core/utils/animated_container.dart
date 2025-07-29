@@ -19,7 +19,7 @@ class AnimatedNavigatorContainer extends StatelessWidget {
       children: children.mapIndexed((int index, Widget navigator) {
         return AnimatedSlide(
           offset: Offset(0, index == currentIndex ? 0 : 0.01),
-          curve: Curves.easeInOutQuart,
+          curve: Curves.easeInOut,
           duration: DurationMs.medium,
           child: AnimatedOpacity(
             opacity: index == currentIndex ? 1 : 0,
