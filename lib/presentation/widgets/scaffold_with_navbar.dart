@@ -6,6 +6,7 @@ import '../../core/constants/navigation.dart';
 import '../../core/extensions/widget_scale.dart';
 import '../../core/routing/routes.dart';
 import '../../core/utils/animated_container.dart';
+import 'native_ad_widget.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final List<Widget> children;
@@ -33,9 +34,17 @@ class ScaffoldWithNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       extendBody: true,
-      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: colorScheme.surface,
+        toolbarHeight: 100,
+        flexibleSpace: Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          child: NativeAdWidget(),
+        ),
+      ),
       body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,

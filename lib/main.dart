@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_localizations/flutter_localizations.dart";
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ import 'presentation/widgets/spinner.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await MobileAds.instance.initialize();
   Logger.root.level = Level.ALL;
   runApp(
     MultiProvider(providers: createProviders(), child: const MoodLogApp()),
