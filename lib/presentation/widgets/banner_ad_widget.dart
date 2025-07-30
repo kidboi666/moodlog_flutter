@@ -17,7 +17,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   void _loadBannerAd() {
     _bannerAd = BannerAd(
-      size: AdSize.fluid,
+      size: AdSize.banner,
       adUnitId: AdmobService.bannerAdUnitId!,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -46,7 +46,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
     return _isBannerAdReady
         ? Container(
             color: Colors.grey,
-            height: 100,
+            height: 50,
             child: AdWidget(ad: _bannerAd!),
           )
         : const SizedBox();

@@ -6,7 +6,7 @@ import '../../core/constants/navigation.dart';
 import '../../core/extensions/widget_scale.dart';
 import '../../core/routing/routes.dart';
 import '../../core/utils/animated_container.dart';
-import 'native_ad_widget.dart';
+import 'banner_ad_widget.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final List<Widget> children;
@@ -37,10 +37,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: colorScheme.surface,
-        title: BannerAdWidget(),
-      ),
+      appBar: AppBar(elevation: 0, title: BannerAdWidget()),
       body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,
