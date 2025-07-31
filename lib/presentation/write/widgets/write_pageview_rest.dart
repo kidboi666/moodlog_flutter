@@ -74,7 +74,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             ],
           ),
           const SizedBox(height: Spacing.xxl),
-          FadeIn(delay: DelayMs.quick * 3, child: const AiEnableCard()),
+          FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
         ],
       ),
     );

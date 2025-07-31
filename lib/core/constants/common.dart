@@ -36,6 +36,7 @@ abstract final class DelayMs {
 }
 
 abstract final class DurationMs {
+  static const debounceMedium = Duration(milliseconds: 4000);
   static const lazy = Duration(milliseconds: 900);
   static const medium = Duration(milliseconds: 600);
   static const quick = Duration(milliseconds: 300);
@@ -62,4 +63,8 @@ abstract final class PreferenceKeys {
   static const fontFamily = 'font_family';
   static const textAlign = 'text_align';
   static const lastAiUsageDate = 'last_ai_usage_date';
+}
+
+abstract final class DebounceKeys {
+  static const aiResponse = 'ai_response';
 }

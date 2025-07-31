@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/extensions/snack_bar.dart';
+import '../../../core/extensions/widget_scale.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/write_viewmodel.dart';
 
@@ -27,7 +28,7 @@ class AiEnableCard extends StatelessWidget {
               if (viewModel.canUseAiToday) {
                 viewModel.updateAiEnabled(!viewModel.aiEnabled);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
+                context.showSnackBar(
                   SnackBar(
                     content: Text(t.write_ai_limit_reached),
                     behavior: SnackBarBehavior.floating,

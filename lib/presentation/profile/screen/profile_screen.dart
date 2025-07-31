@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/extensions/snack_bar.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../widgets/account_card.dart';
@@ -34,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _handleViewModelChanges() {
     final viewModel = context.read<ProfileViewModel>();
     if (viewModel.successMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      context.showSnackBar(
         SnackBar(
           content: Text(viewModel.successMessage!),
           behavior: SnackBarBehavior.floating,
@@ -43,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       viewModel.clearSuccessMessage();
     }
     if (viewModel.error != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      context.showSnackBar(
         SnackBar(
           content: Text('오류: ${viewModel.error!}'),
           behavior: SnackBarBehavior.floating,

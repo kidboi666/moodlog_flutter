@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/extensions/snack_bar.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
 import '../../viewmodel/settings_viewmodel.dart';
@@ -12,7 +13,7 @@ class ClearCacheDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    
+
     return AlertDialog(
       title: Text(t.settings_data_cache_cleanup_title),
       content: Text(t.settings_data_cache_cleanup_confirm),
@@ -25,7 +26,7 @@ class ClearCacheDialog extends StatelessWidget {
           onPressed: () {
             viewModel.clearCache();
             context.pop();
-            ScaffoldMessenger.of(context).showSnackBar(
+            context.showSnackBar(
               SnackBar(content: Text(t.snackbar_cache_cleared)),
             );
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/extensions/snack_bar.dart';
 import '../../../../../core/l10n/app_localizations.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
@@ -25,7 +26,7 @@ class BackupDialog extends StatelessWidget {
           onPressed: () {
             viewModel.performBackup();
             context.pop();
-            ScaffoldMessenger.of(context).showSnackBar(
+            context.showSnackBar(
               SnackBar(content: Text(t.snackbar_backup_completed)),
             );
           },

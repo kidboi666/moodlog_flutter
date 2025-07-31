@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
+import '../../../../core/extensions/snack_bar.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../onboarding/widgets/onboarding_personality_item.dart';
 import '../../viewmodel/settings_viewmodel.dart';
@@ -67,17 +69,18 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
           child: Text(t.common_confirm_cancel),
         ),
         FilledButton(
           onPressed: () {
             widget.viewModel.setAiPersonality(_selectedPersonality);
-            Navigator.of(context).pop();
-            ScaffoldMessenger.of(context).showSnackBar(
+            context.pop();
+            context.showSnackBar(
               SnackBar(
                 content: Text(t.settings_ai_personality_changed),
                 duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
               ),
             );
           },
