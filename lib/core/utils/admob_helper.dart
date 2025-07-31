@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-class AdmobService {
+class AdmobHelper {
   static String? get bannerAdUnitId {
     if (kDebugMode) {
       if (Platform.isAndroid) {

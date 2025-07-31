@@ -34,7 +34,6 @@ class ScaffoldWithNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       extendBody: true,
       appBar: AppBar(elevation: 0, title: BannerAdWidget()),

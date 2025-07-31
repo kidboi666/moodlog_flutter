@@ -1,11 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodlog/core/extensions/enum.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
+import '../../../core/extensions/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import 'base_card.dart';
@@ -81,12 +81,9 @@ class MoodTrendCard extends StatelessWidget {
                       getTitlesWidget: (value, meta) {
                         if (value.toInt() < sortedMoodTrendData.length) {
                           final date = sortedMoodTrendData[value.toInt()].key;
-                          return SideTitleWidget(
-                            axisSide: meta.axisSide,
-                            child: Text(
-                              DateFormat('MM/dd').format(date),
-                              style: TextStyle(fontSize: 10),
-                            ),
+                          return Text(
+                            DateFormat('MM/dd').format(date),
+                            style: TextStyle(fontSize: 10),
                           );
                         }
                         return const Text('');
