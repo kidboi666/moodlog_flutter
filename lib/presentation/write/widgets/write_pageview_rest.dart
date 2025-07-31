@@ -12,6 +12,7 @@ import 'date_button.dart';
 import 'image_picking_section.dart';
 import 'location_button.dart';
 import 'timestamp_button.dart';
+import 'weather_card.dart';
 
 class WritePageViewRest extends StatefulWidget {
   const WritePageViewRest({super.key});
@@ -66,6 +67,11 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                     const DateButton(),
                   ],
                 ),
+              ),
+              const SizedBox(height: 8),
+              FadeIn(
+                delay: DelayMs.quick * 1.8,
+                child: const WeatherCard(),
               ),
               FadeIn(
                 delay: DelayMs.quick * 2,

@@ -20,6 +20,9 @@ import '../../domain/use_cases/journal/add_journal_use_case.dart';
 import '../../domain/use_cases/journal/delete_journal_use_case.dart';
 import '../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../domain/repositories/weather_repository.dart';
+import '../../data/repositories/weather_repository_impl.dart';
 import '../providers/app_state_provider.dart';
 import '../providers/user_provider.dart';
 
@@ -57,6 +60,7 @@ List<SingleChildWidget> createProviders() {
       create: (context) => UserProvider(authRepository: context.read()),
     ),
     Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
+    Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
     ..._createUseCases(),
   ];
 }
@@ -85,6 +89,10 @@ List<SingleChildWidget> _createUseCases() {
     Provider<CheckAiUsageLimitUseCase>(
       create: (context) =>
           CheckAiUsageLimitUseCase(settingsRepository: context.read()),
+    ),
+    Provider<GetCurrentWeatherUseCase>(
+      create: (context) =>
+          GetCurrentWeatherUseCase(weatherRepository: context.read()),
     ),
   ];
 }

@@ -80,6 +80,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           aiGenerationRepository: context.read(),
           pickImageUseCase: context.read(),
           getCurrentLocationUseCase: context.read(),
+          getCurrentWeatherUseCase: context.read(),
           addJournalUseCase: context.read(),
           updateJournalUseCase: context.read(),
           checkAiUsageLimitUseCase: context.read(),

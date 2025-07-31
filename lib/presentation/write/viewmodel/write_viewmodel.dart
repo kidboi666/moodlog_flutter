@@ -9,6 +9,7 @@ import '../../../core/mixins/step_mixin.dart';
 import '../../../core/providers/app_state_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/location_info.dart';
+import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
@@ -17,6 +18,7 @@ import '../../../domain/use_cases/image/pick_image_usecase.dart';
 import '../../../domain/use_cases/journal/add_journal_use_case.dart';
 import '../../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -25,6 +27,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final PickImageUseCase _pickImageUseCase;
   final SettingsRepository _settingsRepository;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
+  final GetCurrentWeatherUseCase _getCurrentWeatherUseCase;
   final AddJournalUseCase _addJournalUseCase;
   final UpdateJournalUseCase _updateJournalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
@@ -36,6 +39,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required PickImageUseCase pickImageUseCase,
     required SettingsRepository settingsRepository,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
+    required GetCurrentWeatherUseCase getCurrentWeatherUseCase,
     required AddJournalUseCase addJournalUseCase,
     required UpdateJournalUseCase updateJournalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
@@ -46,12 +50,14 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _pickImageUseCase = pickImageUseCase,
        _settingsRepository = settingsRepository,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
+       _getCurrentWeatherUseCase = getCurrentWeatherUseCase,
        _addJournalUseCase = addJournalUseCase,
        _updateJournalUseCase = updateJournalUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase {
     initStep(totalSteps);
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
+    _loadCurrentWeatherOnInit();
   }
 
   @override
@@ -74,6 +80,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _canUseAiToday = true;
   LocationInfo? _locationInfo;
   bool _isLoadingLocation = false;
+  WeatherInfo? _weatherInfo;
+  bool _isLoadingWeather = false;
 
   String? get content => _content;
 
@@ -98,6 +106,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   LocationInfo? get locationInfo => _locationInfo;
 
   bool get isLoadingLocation => _isLoadingLocation;
+
+  WeatherInfo? get weatherInfo => _weatherInfo;
+
+  bool get isLoadingWeather => _isLoadingWeather;
 
   void updateAiEnabled(bool value) {
     if (_canUseAiToday) {
@@ -130,13 +142,17 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _hasVisitedContentPage = false;
     _locationInfo = null;
     _isLoadingLocation = false;
+    _weatherInfo = null;
+    _isLoadingWeather = false;
     _checkAiUsageLimit();
     clearError();
     notifyListeners();
   }
 
   bool get isFormValid {
-    return _content != null && _content!.trim().isNotEmpty && !_isLoadingLocation;
+    return _content != null &&
+        _content!.trim().isNotEmpty &&
+        !_isLoadingLocation;
   }
 
   Future<Result<void>> submitJournal() async {
@@ -252,7 +268,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   Future<void> getCurrentLocation() async {
     _isLoadingLocation = true;
     notifyListeners();
-    
+
     final result = await _getCurrentLocationUseCase.execute();
 
     switch (result) {
@@ -263,7 +279,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         _log.warning('Failed to get location: ${result.error}');
         setError(result.error);
     }
-    
+
     _isLoadingLocation = false;
     notifyListeners();
   }
@@ -271,7 +287,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   Future<void> _loadCurrentLocationOnInit() async {
     _isLoadingLocation = true;
     notifyListeners();
-    
+
     final result = await _getCurrentLocationUseCase.execute();
 
     switch (result) {
@@ -281,13 +297,70 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       case Failure<LocationInfo>():
         _log.info('Failed to get location on init: ${result.error}');
     }
-    
+
     _isLoadingLocation = false;
     notifyListeners();
   }
 
   void clearLocation() {
     _locationInfo = null;
+    notifyListeners();
+  }
+
+  Future<void> getCurrentWeather() async {
+    if (_locationInfo == null) {
+      _log.warning('Location not available for weather');
+      return;
+    }
+
+    _isLoadingWeather = true;
+    notifyListeners();
+
+    final result = await _getCurrentWeatherUseCase.execute(
+      latitude: _locationInfo!.latitude,
+      longitude: _locationInfo!.longitude,
+    );
+
+    switch (result) {
+      case Ok<WeatherInfo>():
+        _log.fine('Weather retrieved successfully');
+        _weatherInfo = result.value;
+      case Failure<WeatherInfo>():
+        _log.warning('Failed to get weather: ${result.error}');
+        setError(result.error);
+    }
+
+    _isLoadingWeather = false;
+    notifyListeners();
+  }
+
+  Future<void> _loadCurrentWeatherOnInit() async {
+    await Future.delayed(Duration(seconds: 1));
+
+    if (_locationInfo != null) {
+      _isLoadingWeather = true;
+      notifyListeners();
+
+      final result = await _getCurrentWeatherUseCase.execute(
+        latitude: _locationInfo!.latitude,
+        longitude: _locationInfo!.longitude,
+      );
+
+      switch (result) {
+        case Ok<WeatherInfo>():
+          _log.fine('Weather retrieved successfully on init');
+          _weatherInfo = result.value;
+        case Failure<WeatherInfo>():
+          _log.info('Failed to get weather on init: ${result.error}');
+      }
+
+      _isLoadingWeather = false;
+      notifyListeners();
+    }
+  }
+
+  void clearWeather() {
+    _weatherInfo = null;
     notifyListeners();
   }
 }

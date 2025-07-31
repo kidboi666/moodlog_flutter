@@ -226,20 +226,6 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                       style: textTheme.bodyMedium,
                     ),
                   ),
-                  const SizedBox(height: Spacing.md),
-                  
-                  // Action Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: _openInGoogleMaps,
-                      icon: const Icon(Icons.open_in_new, size: 18),
-                      label: Text('구글 맵에서 열기'),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: Spacing.sm),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
