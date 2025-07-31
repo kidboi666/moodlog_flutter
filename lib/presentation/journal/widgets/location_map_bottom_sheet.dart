@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/common.dart';
@@ -22,28 +21,16 @@ class LocationMapBottomSheet extends StatefulWidget {
 }
 
 class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
-  GoogleMapController? _mapController;
-  late final CameraPosition _initialPosition;
-  late final Set<Marker> _markers;
-
-  @override
-  void initState() {
-    super.initState();
-    _initialPosition = CameraPosition(
-      target: LatLng(widget.latitude, widget.longitude),
-      zoom: 16,
-    );
-    
-    _markers = {
-      Marker(
-        markerId: const MarkerId('journal_location'),
-        position: LatLng(widget.latitude, widget.longitude),
-        infoWindow: InfoWindow(
-          title: '일기 작성 위치',
-          snippet: widget.address ?? '${widget.latitude.toStringAsFixed(4)}, ${widget.longitude.toStringAsFixed(4)}',
-        ),
-      ),
-    };
+  
+  String get _staticMapUrl {
+    const apiKey = 'AIzaSyCyU0_xtUCwWi4SDlCvjcILAHIexlAWVKE'; // API 키
+    return 'https://maps.googleapis.com/maps/api/staticmap?'
+        'center=${widget.latitude},${widget.longitude}&'
+        'zoom=16&'
+        'size=640x400&'
+        'scale=2&'
+        'markers=color:red|${widget.latitude},${widget.longitude}&'
+        'key=$apiKey';
   }
 
   Future<void> _openInGoogleMaps() async {
@@ -115,17 +102,89 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                 border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
               ),
               clipBehavior: Clip.hardEdge,
-              child: GoogleMap(
-                onMapCreated: (GoogleMapController controller) {
-                  _mapController = controller;
-                },
-                initialCameraPosition: _initialPosition,
-                markers: _markers,
-                mapType: MapType.normal,
-                zoomControlsEnabled: false,
-                myLocationButtonEnabled: false,
-                compassEnabled: false,
-                mapToolbarEnabled: false,
+              child: GestureDetector(
+                onTap: _openInGoogleMaps,
+                child: Stack(
+                  children: [
+                    // Static Map Image
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Image.network(
+                        _staticMapUrl,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: colorScheme.surfaceContainer,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.map_outlined,
+                                    size: 48,
+                                    color: colorScheme.outline,
+                                  ),
+                                  const SizedBox(height: Spacing.sm),
+                                  Text(
+                                    '지도를 불러올 수 없습니다',
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      color: colorScheme.outline,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // Click overlay indicator
+                    Positioned(
+                      top: Spacing.sm,
+                      right: Spacing.sm,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Spacing.xs,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.open_in_new,
+                              size: 12,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '탭하여 열기',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -192,7 +251,6 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
 
   @override
   void dispose() {
-    _mapController?.dispose();
     super.dispose();
   }
 }
