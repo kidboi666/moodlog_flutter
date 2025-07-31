@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/painting.dart';
 
 abstract final class Spacing {
@@ -22,10 +20,6 @@ abstract final class Spacing {
   static const calendarScrollSize = 44.0;
   static const aiResponseGap = 26.0;
   static const horCalendarDateHeight = 60.0;
-
-  static get tabBarHeight => Platform.isIOS ? 60.0 : 80.0;
-
-  static get keyboardVerticalOffset => Platform.isIOS ? 140.0 : 0.0;
 }
 
 abstract final class DelayMs {

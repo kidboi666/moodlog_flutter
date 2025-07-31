@@ -17,6 +17,42 @@ class LocationCard extends StatelessWidget {
       child: Consumer<WriteViewModel>(
         builder: (context, viewModel, child) {
           final locationInfo = viewModel.locationInfo;
+          final isLoadingLocation = viewModel.isLoadingLocation;
+
+          if (isLoadingLocation) {
+            return DottedBorder(
+              options: RoundedRectDottedBorderOptions(
+                radius: Radius.circular(8),
+                dashPattern: [10, 5],
+                strokeWidth: 2,
+                color: colorScheme.outlineVariant,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Spacing.sm),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 12,
+                      height: 12,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1.5,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: Spacing.sm),
+                    Text(
+                      '위치 정보 가져오는 중...',
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.outline,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
           if (locationInfo == null) {
             return SizedBox.shrink();
           }

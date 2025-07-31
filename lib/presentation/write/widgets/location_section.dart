@@ -61,7 +61,7 @@ class LocationSection extends StatelessWidget {
             TextButton.icon(
               onPressed: () => viewModel.clearLocation(),
               icon: Icon(Icons.close, size: 14),
-              label: Text(t.write_location_remove ?? '제거'),
+              label: Text(t.write_location_remove),
               style: TextButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 minimumSize: Size.zero,

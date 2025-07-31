@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/journal/widgets/location_card.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'journal_cover_image.dart';
+import 'location_card.dart';
 
 class ContentBox extends StatelessWidget {
   final JournalViewModel viewModel;

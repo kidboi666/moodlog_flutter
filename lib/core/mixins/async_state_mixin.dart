@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 mixin AsyncStateMixin on ChangeNotifier {
   bool _isLoading = false;
   Object? _error;
-  int _operationId = 0;
 
   bool get isLoading => _isLoading;
 
@@ -12,7 +11,6 @@ mixin AsyncStateMixin on ChangeNotifier {
   bool get hasError => _error != null;
 
   void setLoading() {
-    _operationId++;
     _isLoading = true;
     _error = null;
     notifyListeners();

@@ -12,7 +12,7 @@ class OverallStatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<StatisticsViewModel>(context);
+    final viewModel = context.read<StatisticsViewModel>();
     final totalJournals = viewModel.totalJournals;
     final currentStreak = viewModel.currentStreak;
     final maxStreak = viewModel.maxStreak;

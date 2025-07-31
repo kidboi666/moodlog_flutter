@@ -71,10 +71,16 @@ class _WriteScreenState extends State<WriteScreen> {
                   onPressed: nextPage,
                   icon: const Icon(Icons.arrow_forward),
                 ),
-                secondChild: IconButton(
-                  onPressed: () =>
-                      context.read<WriteViewModel>().submitJournal(),
-                  icon: const Icon(Icons.send),
+                secondChild: Selector<WriteViewModel, bool>(
+                  selector: (context, viewModel) => viewModel.isFormValid,
+                  builder: (context, isFormValid, child) {
+                    return IconButton(
+                      onPressed: isFormValid
+                          ? () => context.read<WriteViewModel>().submitJournal()
+                          : null,
+                      icon: const Icon(Icons.send),
+                    );
+                  },
                 ),
               );
             },

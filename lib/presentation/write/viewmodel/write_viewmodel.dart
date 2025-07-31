@@ -51,6 +51,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase {
     initStep(totalSteps);
     _checkAiUsageLimit();
+    _loadCurrentLocationOnInit();
   }
 
   @override
@@ -72,6 +73,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _hasVisitedContentPage = false;
   bool _canUseAiToday = true;
   LocationInfo? _locationInfo;
+  bool _isLoadingLocation = false;
 
   String? get content => _content;
 
@@ -94,6 +96,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
 
   LocationInfo? get locationInfo => _locationInfo;
+
+  bool get isLoadingLocation => _isLoadingLocation;
 
   void updateAiEnabled(bool value) {
     if (_canUseAiToday) {
@@ -125,13 +129,14 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _aiEnabled = true;
     _hasVisitedContentPage = false;
     _locationInfo = null;
+    _isLoadingLocation = false;
     _checkAiUsageLimit();
     clearError();
     notifyListeners();
   }
 
   bool get isFormValid {
-    return _content != null && _content!.trim().isNotEmpty;
+    return _content != null && _content!.trim().isNotEmpty && !_isLoadingLocation;
   }
 
   Future<Result<void>> submitJournal() async {
@@ -245,18 +250,40 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   }
 
   Future<void> getCurrentLocation() async {
-    setLoading();
+    _isLoadingLocation = true;
+    notifyListeners();
+    
     final result = await _getCurrentLocationUseCase.execute();
 
     switch (result) {
       case Ok<LocationInfo>():
         _log.fine('Location retrieved successfully');
         _locationInfo = result.value;
-        setSuccess();
       case Failure<LocationInfo>():
         _log.warning('Failed to get location: ${result.error}');
         setError(result.error);
     }
+    
+    _isLoadingLocation = false;
+    notifyListeners();
+  }
+
+  Future<void> _loadCurrentLocationOnInit() async {
+    _isLoadingLocation = true;
+    notifyListeners();
+    
+    final result = await _getCurrentLocationUseCase.execute();
+
+    switch (result) {
+      case Ok<LocationInfo>():
+        _log.fine('Location retrieved successfully on init');
+        _locationInfo = result.value;
+      case Failure<LocationInfo>():
+        _log.info('Failed to get location on init: ${result.error}');
+    }
+    
+    _isLoadingLocation = false;
+    notifyListeners();
   }
 
   void clearLocation() {
