@@ -5,10 +5,10 @@ import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
 import '../../../core/extensions/routing.dart';
 import '../../../domain/entities/journal.dart';
+import '../../widgets/empty_entries_box.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
-import '../widgets/empty_entries_box.dart';
 import '../widgets/entries_calendar_view.dart';
 
 typedef EntriesSelectorType = ({

@@ -41,9 +41,16 @@ class JournalCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+          side: BorderSide(width: 1, color: colorScheme.surfaceContainerHigh),
+        ),
         child: InkResponse(
           containedInkWell: true,
           child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
             onTap: onTap,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: Spacing.xxl,
@@ -52,7 +59,7 @@ class JournalCard extends StatelessWidget {
             leading: Container(
               width: Spacing.sm,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Spacing.xl),
+                borderRadius: BorderRadius.circular(24),
                 color: Color(moodType.colorValue),
               ),
             ),

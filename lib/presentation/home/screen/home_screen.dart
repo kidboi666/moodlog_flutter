@@ -8,11 +8,11 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/avatar.dart';
+import '../../widgets/empty_entries_box.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../../widgets/shake_emoji.dart';
 import '../viewmodel/home_viewmodel.dart';
-import '../widgets/empty_box.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
 
@@ -104,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                     delay: viewModel.isFirstRender
                         ? DelayMs.medium * 5
                         : DelayMs.medium,
-                    child: const EmptyBox(),
+                    child: const EmptyEntriesBox(),
                   ),
                 );
               }
