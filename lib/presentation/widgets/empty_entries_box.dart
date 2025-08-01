@@ -19,29 +19,29 @@ class EmptyEntriesBox extends StatelessWidget {
     return DottedBorder(
       options: RoundedRectDottedBorderOptions(
         radius: Radius.circular(24),
-        dashPattern: [10, 5],
-        strokeWidth: 2,
+        dashPattern: [5, 5],
+        strokeWidth: 1,
         color: colorScheme.outlineVariant,
       ),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Spacing.md),
           child: Column(
-            spacing: Spacing.xxl,
+            spacing: Spacing.sm,
             children: [
               Column(
                 spacing: Spacing.sm,
                 children: [
-                  Text(
-                    t.entries_empty_box_title,
-                    style: textTheme.titleLarge?.copyWith(
-                      color: colorScheme.outlineVariant,
-                    ),
+                  Icon(
+                    Icons.book_outlined,
+                    size: 64,
+                    color: colorScheme.outlineVariant.withValues(alpha: 0.6),
                   ),
                   Text(
-                    t.entries_empty_box_description,
-                    style: textTheme.titleMedium?.copyWith(
+                    t.entries_empty_box_title,
+                    style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.outlineVariant,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -56,7 +56,10 @@ class EmptyEntriesBox extends StatelessWidget {
                 child: Row(
                   spacing: Spacing.md,
                   mainAxisSize: MainAxisSize.min,
-                  children: [const Icon(Icons.add)],
+                  children: [
+                    const Icon(Icons.add),
+                    Text(t.entries_empty_box_button),
+                  ],
                 ),
               ).scale(),
             ],

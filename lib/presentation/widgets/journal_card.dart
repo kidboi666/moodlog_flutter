@@ -39,6 +39,7 @@ class JournalCard extends StatelessWidget {
         onDismissed();
       },
       child: Card(
+        color: colorScheme.surface,
         clipBehavior: Clip.antiAlias,
         elevation: 0,
         shape: RoundedRectangleBorder(

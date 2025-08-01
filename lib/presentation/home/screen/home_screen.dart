@@ -11,7 +11,6 @@ import '../../widgets/avatar.dart';
 import '../../widgets/empty_entries_box.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
-import '../../widgets/shake_emoji.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/welcome_zone.dart';
@@ -39,10 +38,7 @@ class HomeScreen extends StatelessWidget {
           title: FadeIn(
             delay: DelayMs.medium,
             child: Row(
-              children: [
-                Text(t.home_hello, style: textTheme.displayMedium),
-                const ShakeEmoji(emoji: Emoji.shakeHand),
-              ],
+              children: [Text(t.home_hello, style: textTheme.displaySmall)],
             ),
           ),
           actionsPadding: Spacing.containerHorizontalPadding,

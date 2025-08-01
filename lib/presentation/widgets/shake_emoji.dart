@@ -7,13 +7,13 @@ enum EmojiSize { small, medium, large }
 
 class ShakeEmoji extends StatefulWidget {
   final String emoji;
-  final int duration;
+  final int? duration;
   final EmojiSize size;
 
   const ShakeEmoji({
     super.key,
     required this.emoji,
-    this.duration = 6000,
+    this.duration,
     this.size = EmojiSize.medium,
   });
 
@@ -38,10 +38,12 @@ class _ShakeEmojiState extends State<ShakeEmoji>
 
     _angleAnimation = Tween<double>(begin: 0, end: pi / 3).animate(_controller);
 
-    _stopTimer = Timer(Duration(milliseconds: widget.duration), () {
-      _controller.stop();
-      _controller.reset();
-    });
+    if (widget.duration != null) {
+      _stopTimer = Timer(Duration(milliseconds: widget.duration!), () {
+        _controller.stop();
+        _controller.reset();
+      });
+    }
   }
 
   @override
