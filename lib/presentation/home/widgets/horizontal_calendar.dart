@@ -49,10 +49,13 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           spacing: Spacing.lg,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.read<HomeViewModel>().now.getLocalizedMonthName(t),
-              style: textTheme.displayMedium?.copyWith(
-                color: colorScheme.surface,
+            Padding(
+              padding: const EdgeInsets.only(left: Spacing.md),
+              child: Text(
+                context.read<HomeViewModel>().now.getLocalizedMonthName(t),
+                style: textTheme.displayMedium?.copyWith(
+                  color: colorScheme.surface,
+                ),
               ),
             ),
             SizedBox(
@@ -62,16 +65,18 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                   return ListView(
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
-                    children: viewModel.dateItems!
-                        .map(
-                          (date) => DateAndDay(
-                            date: date,
-                            todayDate: viewModel.now,
-                            selectedDate: viewModel.selectedDate,
-                            selectDate: viewModel.selectDate,
-                          ),
-                        )
-                        .toList(),
+                    children: [
+                      const SizedBox(width: Spacing.md),
+                      ...viewModel.dateItems!.map(
+                        (date) => DateAndDay(
+                          date: date,
+                          todayDate: viewModel.now,
+                          selectedDate: viewModel.selectedDate,
+                          selectDate: viewModel.selectDate,
+                        ),
+                      ),
+                      const SizedBox(width: Spacing.md),
+                    ],
                   );
                 },
               ),
