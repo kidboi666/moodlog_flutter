@@ -31,7 +31,7 @@ class SwitchTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(Spacing.sm),
               decoration: BoxDecoration(
-                color: colorScheme.secondaryContainer,
+                color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: colorScheme.secondary),

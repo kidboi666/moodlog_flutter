@@ -30,7 +30,7 @@ class CardListTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(Spacing.sm),
               decoration: BoxDecoration(
-                color: colorScheme.secondaryContainer,
+                color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, color: colorScheme.secondary),

@@ -16,7 +16,7 @@ class SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.only(left: Spacing.xl),
       child: Text(
         title,
-        style: textTheme.titleSmall?.copyWith(color: colorTheme.primary),
+        style: textTheme.titleMedium?.copyWith(color: colorTheme.primary),
       ),
     );
   }
