@@ -36,60 +36,47 @@ class ScaffoldWithNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(elevation: 0, title: BannerAdWidget()),
       body: AnimatedNavigatorContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(Navigation.bottomNavRadius),
-          topLeft: Radius.circular(Navigation.bottomNavRadius),
-        ),
-        child: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          height: Navigation.bottomNavHeight,
-          child: NavigationBar(
-            elevation: 0,
-            animationDuration: DurationMs.lazy,
-            selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
-            onDestinationSelected: _onTap,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            destinations: [
-              const NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                selectedIcon: Icon(Icons.home_filled),
-                label: Navigation.home,
-              ).scale(scaleValue: 0.90),
-              const NavigationDestination(
-                icon: Icon(Icons.book_outlined),
-                selectedIcon: Icon(Icons.book),
-                label: Navigation.entries,
-              ).scale(scaleValue: 0.90),
-              const NavigationDestination(
-                icon: SizedBox(),
-                label: '',
-                enabled: false,
-              ),
-              const NavigationDestination(
-                icon: Icon(Icons.query_stats),
-                selectedIcon: Icon(Icons.query_stats_rounded),
-                label: Navigation.entries,
-              ).scale(scaleValue: 0.90),
-              const NavigationDestination(
-                icon: Icon(Icons.settings_outlined),
-                selectedIcon: Icon(Icons.settings),
-                label: Navigation.settings,
-              ).scale(scaleValue: 0.90),
-            ],
-          ),
-        ),
+      persistentFooterButtons: [
+        Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
+      ],
+      bottomNavigationBar: NavigationBar(
+        animationDuration: DurationMs.lazy,
+        selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
+        onDestinationSelected: _onTap,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        destinations: [
+          const NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home_filled),
+            label: Navigation.home,
+          ).scale(),
+          const NavigationDestination(
+            icon: Icon(Icons.book_outlined),
+            selectedIcon: Icon(Icons.book),
+            label: Navigation.entries,
+          ).scale(),
+          const NavigationDestination(
+            icon: Icon(Icons.query_stats_sharp),
+            selectedIcon: Icon(Icons.query_stats),
+            label: Navigation.entries,
+          ).scale(),
+          const NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: Navigation.settings,
+          ).scale(),
+        ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(Routes.write),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, size: 28),
       ).scale(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

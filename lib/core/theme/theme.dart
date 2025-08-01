@@ -11,6 +11,7 @@ abstract final class AppTheme {
       brightness: Brightness.light,
     );
     return ThemeData(
+      dividerTheme: DividerThemeData(color: Colors.transparent),
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surfaceContainerLowest,
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -32,6 +33,7 @@ abstract final class AppTheme {
       brightness: Brightness.dark,
     );
     return ThemeData(
+      dividerTheme: DividerThemeData(color: Colors.transparent),
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surfaceContainerLowest,
         systemOverlayStyle: SystemUiOverlayStyle(

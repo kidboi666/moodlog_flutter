@@ -44,12 +44,8 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   @override
   Widget build(BuildContext context) {
     return _isBannerAdReady
-        ? Container(
-            color: Colors.grey,
-            height: 50,
-            child: AdWidget(ad: _bannerAd!),
-          )
-        : const SizedBox();
+        ? SizedBox(height: 50, child: AdWidget(ad: _bannerAd!))
+        : const SizedBox(height: 50);
   }
 
   @override
