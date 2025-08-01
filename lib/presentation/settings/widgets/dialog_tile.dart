@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
+
+import '../../../core/constants/common.dart';
 
 class DialogTile extends StatelessWidget {
   final String title;
@@ -17,18 +18,47 @@ class DialogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 0,
-      child: InkResponse(
-        child: ListTile(
-          onTap: onTap,
-          title: Text(title, style: Theme.of(context).textTheme.titleMedium),
-          subtitle: Text(subtitle),
-          leading: Icon(icon),
-          trailing: const Icon(Icons.chevron_right),
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(Spacing.lg),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(Spacing.sm),
+              decoration: BoxDecoration(
+                color: colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: colorScheme.secondary),
+            ),
+            const SizedBox(width: Spacing.lg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: textTheme.bodyMedium),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: colorScheme.onSurfaceVariant,
+              size: 18,
+            ),
+          ],
         ),
       ),
-    ).scale();
+    );
   }
 }

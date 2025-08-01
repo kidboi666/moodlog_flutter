@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/common.dart';
+
 class SectionHeader extends StatelessWidget {
   final String title;
 
@@ -11,10 +13,10 @@ class SectionHeader extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      padding: const EdgeInsets.only(left: Spacing.xl),
       child: Text(
         title,
-        style: textTheme.titleMedium?.copyWith(color: colorTheme.primary),
+        style: textTheme.titleSmall?.copyWith(color: colorTheme.primary),
       ),
     );
   }
