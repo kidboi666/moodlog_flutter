@@ -502,6 +502,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_language_korean => '한국어';
 
   @override
+  String get common_language_english => 'English';
+
+  @override
+  String get common_language_japanese => '日本語';
+
+  @override
+  String get common_language_chinese => '中文';
+
+  @override
+  String get common_language_spanish => 'Español';
+
+  @override
+  String get common_language_italian => 'Italiano';
+
+  @override
+  String get common_language_french => 'Français';
+
+  @override
+  String get common_language_vietnamese => 'Tiếng Việt';
+
+  @override
+  String get common_language_thai => 'ไทย';
+
+  @override
   String get common_developing => '개발중';
 
   @override

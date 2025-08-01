@@ -55,6 +55,13 @@ class _MoodLogAppState extends State<MoodLogApp> {
           supportedLocales: [
             Locale(LanguageCode.ko.value),
             Locale(LanguageCode.en.value),
+            Locale(LanguageCode.ja.value),
+            Locale(LanguageCode.zh.value),
+            Locale(LanguageCode.es.value),
+            Locale(LanguageCode.it.value),
+            Locale(LanguageCode.fr.value),
+            Locale(LanguageCode.vi.value),
+            Locale(LanguageCode.th.value),
           ],
           locale: Locale(appState.languageCode.value),
           theme: AppTheme.lightTheme(appState.colorTheme, appState.fontFamily),

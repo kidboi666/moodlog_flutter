@@ -1,0 +1,49 @@
+MoodLog - Nhật Ký Cảm Xúc & AI
+
+Ứng dụng thông minh ghi chép cảm xúc và hỗ trợ tinh thần bằng AI
+
+MoodLog - Ứng Dụng Ghi Chép Cảm Xúc & Tư Vấn AI
+
+* Tính Năng Chính
+
+📝 Viết Nhật Ký Cảm Xúc
+- Ghi lại tâm trạng với 5 mức độ trạng thái cảm xúc (Rất Tốt, Tốt, Bình Thường, Tệ, Rất Tệ)
+- Thể hiện trải nghiệm hàng ngày và cảm xúc qua văn bản và hình ảnh
+- Viết nhật ký dễ dàng với giao diện trực quan và sạch sẽ
+
+🤖 Tư Vấn Cá Tính AI
+- Chọn từ 3 cá tính AI (Nhà Phân Tích Lý Trí, Cố Vấn Cân Bằng, Người Chữa Lành Từ Bi)
+- Lời khuyên cá nhân hóa và thông điệp an ủi dựa trên nội dung nhật ký
+- Phân tích cảm xúc thông minh dựa trên Firebase AI
+
+📊 Thống Kê & Phân Tích Cảm Xúc
+- Trực quan hóa thay đổi tâm trạng hàng tháng với lịch cảm xúc
+- Biểu đồ phân bố cảm xúc và phân tích xu hướng
+- Số ngày ghi chép liên tiếp và thống kê tổng thể
+- Theo dõi hồ sơ hoạt động gần đây
+
+⚙️ Cài Đặt Cá Nhân Hóa
+- Chủ đề tối/sáng và 6 chủ đề màu
+- Hỗ trợ 5 phông chữ Hàn Quốc (Pretendard, LeeSeoyun, Quỹ Đạo Mặt Trăng, Khởi Động Lại, Vượt Qua)
+- Hỗ trợ đa ngôn ngữ Hàn Quốc/Tiếng Anh
+- Hỗ trợ chế độ khách để bảo vệ quyền riêng tư
+
+🔐 Quản Lý Dữ Liệu An Toàn
+- Hỗ trợ đăng nhập xã hội Google/Kakao
+- Sao lưu tự động cơ sở dữ liệu cục bộ
+- Đồng bộ dữ liệu theo tài khoản
+- Quản lý bộ nhớ đệm và tính năng khởi tạo dữ liệu
+
+📱 Thiết Kế Thân Thiện Người Dùng
+- Điều hướng trực quan dựa trên tab
+- Hoạt ảnh và tương tác mượt mà
+- Bắt đầu dễ dàng với quy trình hướng dẫn
+- Thiết kế UI/UX xem xét khả năng tiếp cận
+
+Được khuyến nghị cho:
+- Những người muốn ghi chép cảm xúc hàng ngày
+- Những người muốn hỗ trợ tâm lý thông qua tư vấn AI
+- Những người muốn phân tích và cải thiện các mẫu cảm xúc
+- Những người coi trọng bảo vệ quyền riêng tư
+
+Bắt đầu bước đầu tiên hướng tới quản lý cảm xúc lành mạnh với MoodLog!

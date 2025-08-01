@@ -1,3 +1,13 @@
 arb-dir: lib/core/l10n
 template-arb-file: app_ko.arb
 output-localization-file: app_localizations.dart
+supported-locales:
+  - ko
+  - en
+  - ja
+  - zh
+  - es
+  - it
+  - fr
+  - vi
+  - th

@@ -6,7 +6,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_it.dart';
+import 'app_localizations_ja.dart';
 import 'app_localizations_ko.dart';
+import 'app_localizations_th.dart';
+import 'app_localizations_vi.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -95,7 +102,14 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('it'),
+    Locale('ja'),
     Locale('ko'),
+    Locale('th'),
+    Locale('vi'),
+    Locale('zh'),
   ];
 
   /// No description provided for @common_date_today.
@@ -1052,6 +1066,54 @@ abstract class AppLocalizations {
   /// **'한국어'**
   String get common_language_korean;
 
+  /// No description provided for @common_language_english.
+  ///
+  /// In ko, this message translates to:
+  /// **'English'**
+  String get common_language_english;
+
+  /// No description provided for @common_language_japanese.
+  ///
+  /// In ko, this message translates to:
+  /// **'日本語'**
+  String get common_language_japanese;
+
+  /// No description provided for @common_language_chinese.
+  ///
+  /// In ko, this message translates to:
+  /// **'中文'**
+  String get common_language_chinese;
+
+  /// No description provided for @common_language_spanish.
+  ///
+  /// In ko, this message translates to:
+  /// **'Español'**
+  String get common_language_spanish;
+
+  /// No description provided for @common_language_italian.
+  ///
+  /// In ko, this message translates to:
+  /// **'Italiano'**
+  String get common_language_italian;
+
+  /// No description provided for @common_language_french.
+  ///
+  /// In ko, this message translates to:
+  /// **'Français'**
+  String get common_language_french;
+
+  /// No description provided for @common_language_vietnamese.
+  ///
+  /// In ko, this message translates to:
+  /// **'Tiếng Việt'**
+  String get common_language_vietnamese;
+
+  /// No description provided for @common_language_thai.
+  ///
+  /// In ko, this message translates to:
+  /// **'ไทย'**
+  String get common_language_thai;
+
   /// No description provided for @common_developing.
   ///
   /// In ko, this message translates to:
@@ -1165,8 +1227,17 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'ko'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'en',
+    'es',
+    'fr',
+    'it',
+    'ja',
+    'ko',
+    'th',
+    'vi',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1177,8 +1248,22 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'it':
+      return AppLocalizationsIt();
+    case 'ja':
+      return AppLocalizationsJa();
     case 'ko':
       return AppLocalizationsKo();
+    case 'th':
+      return AppLocalizationsTh();
+    case 'vi':
+      return AppLocalizationsVi();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

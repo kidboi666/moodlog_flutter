@@ -4,7 +4,14 @@ import 'common.dart';
 
 enum LanguageCode {
   ko,
-  en;
+  en,
+  ja,
+  zh,
+  es,
+  it,
+  fr,
+  vi,
+  th;
 
   static LanguageCode fromString(String? value) {
     switch (value) {
@@ -12,6 +19,20 @@ enum LanguageCode {
         return LanguageCode.en;
       case 'ko':
         return LanguageCode.ko;
+      case 'ja':
+        return LanguageCode.ja;
+      case 'zh':
+        return LanguageCode.zh;
+      case 'es':
+        return LanguageCode.es;
+      case 'it':
+        return LanguageCode.it;
+      case 'fr':
+        return LanguageCode.fr;
+      case 'vi':
+        return LanguageCode.vi;
+      case 'th':
+        return LanguageCode.th;
       default:
         return LanguageCode.ko;
     }
@@ -23,6 +44,20 @@ enum LanguageCode {
         return '한국어';
       case LanguageCode.en:
         return 'English';
+      case LanguageCode.ja:
+        return '日本語';
+      case LanguageCode.zh:
+        return '中文';
+      case LanguageCode.es:
+        return 'Español';
+      case LanguageCode.it:
+        return 'Italiano';
+      case LanguageCode.fr:
+        return 'Français';
+      case LanguageCode.vi:
+        return 'Tiếng Việt';
+      case LanguageCode.th:
+        return 'ไทย';
     }
   }
 
@@ -32,6 +67,20 @@ enum LanguageCode {
         return 'ko';
       case LanguageCode.en:
         return 'en';
+      case LanguageCode.ja:
+        return 'ja';
+      case LanguageCode.zh:
+        return 'zh';
+      case LanguageCode.es:
+        return 'es';
+      case LanguageCode.it:
+        return 'it';
+      case LanguageCode.fr:
+        return 'fr';
+      case LanguageCode.vi:
+        return 'vi';
+      case LanguageCode.th:
+        return 'th';
     }
   }
 }

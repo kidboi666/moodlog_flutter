@@ -1,0 +1,49 @@
+MoodLog - Journal Émotionnel & IA
+
+App intelligente pour enregistrer les émotions et support mental IA
+
+MoodLog - Application d'Enregistrement Émotionnel et de Consultation IA
+
+* Fonctionnalités Principales
+
+📝 Écriture de Journal Émotionnel
+- Enregistrez l'humeur avec 5 niveaux d'états émotionnels (Très Bon, Bon, Neutre, Mauvais, Très Mauvais)
+- Exprimez les expériences quotidiennes et les émotions par le texte et les images
+- Écriture de journal facile avec une interface utilisateur intuitive et propre
+
+🤖 Consultation de Personnalité IA
+- Choisissez parmi 3 personnalités IA (Analyste Rationnel, Conseiller Équilibré, Guérisseur Compatissant)
+- Conseils personnalisés et messages de réconfort basés sur le contenu du journal
+- Analyse émotionnelle intelligente basée sur Firebase IA
+
+📊 Statistiques et Analyse Émotionnelles
+- Visualisez les changements d'humeur mensuels avec le calendrier émotionnel
+- Graphiques de distribution émotionnelle et analyse des tendances
+- Jours d'enregistrement consécutifs et statistiques globales
+- Suivi des enregistrements d'activité récents
+
+⚙️ Paramètres de Personnalisation
+- Thème sombre/clair et 6 thèmes de couleur
+- Support pour 5 polices coréennes (Pretendard, LeeSeoyun, Orbite de la Lune, Redémarrer, Surmonter)
+- Support multilingue coréen/anglais
+- Support mode invité pour la protection de la vie privée
+
+🔐 Gestion Sécurisée des Données
+- Support de connexion sociale Google/Kakao
+- Sauvegarde automatique de la base de données locale
+- Synchronisation des données par compte
+- Gestion du cache et fonctionnalités d'initialisation des données
+
+📱 Design Convivial
+- Navigation intuitive basée sur des onglets
+- Animations et interactions fluides
+- Démarrage facile avec processus d'intégration
+- Conception UI/UX considérant l'accessibilité
+
+Recommandé pour :
+- Ceux qui veulent enregistrer les émotions quotidiennement
+- Ceux qui veulent un soutien psychologique par consultation IA
+- Ceux qui veulent analyser et améliorer les modèles émotionnels
+- Ceux qui valorisent la protection de la vie privée
+
+Commencez votre premier pas vers une gestion émotionnelle saine avec MoodLog !

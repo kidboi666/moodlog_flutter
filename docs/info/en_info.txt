@@ -1,0 +1,49 @@
+MoodLog - Emotion Diary & AI
+
+Smart diary app for recording emotions and AI mental health support
+
+MoodLog - Emotion Recording & AI Counseling App
+
+* Key Features
+
+📝 Emotional Journal Writing
+- Record mood with 5-level emotional states (Very Good, Good, Neutral, Bad, Very Bad)
+- Express daily experiences and emotions through text and images
+- Easy journal writing with intuitive and clean UI
+
+🤖 AI Personality Counseling
+- Choose from 3 AI personalities (Rational Analyst, Balanced Advisor, Compassionate Healer)
+- Personalized advice and comfort messages based on journal content
+- Intelligent emotional analysis powered by Firebase AI
+
+📊 Emotion Statistics & Analysis
+- Visualize monthly mood changes with emotion calendar
+- Emotion distribution charts and trend analysis
+- Continuous recording days and overall statistics
+- Recent activity record tracking
+
+⚙️ Personalization Settings
+- Dark/Light theme and 6 color themes
+- Support for 5 Korean fonts (Pretendard, LeeSeoyun, Orbit of the Moon, Restart, Overcome)
+- Multi-language support (Korean/English)
+- Guest mode support for privacy protection
+
+🔐 Secure Data Management
+- Google/Kakao social login support
+- Automatic local database backup
+- Account-based data synchronization
+- Cache management and data initialization features
+
+📱 User-Friendly Design
+- Intuitive tab-based navigation
+- Smooth animations and interactions
+- Easy start with onboarding process
+- UI/UX design considering accessibility
+
+Recommended for:
+- Those who want to record emotions daily
+- Those who want psychological support through AI counseling
+- Those who want to analyze and improve emotional patterns
+- Those who value privacy protection
+
+Start your first step towards healthy emotional management with MoodLog!

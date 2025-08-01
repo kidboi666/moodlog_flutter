@@ -499,7 +499,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_button_login => 'Go to SignIn';
 
   @override
-  String get profile_button_logout => '로그아웃';
+  String get profile_button_logout => 'Logout';
 
   @override
   String get write_ai_limit_reached =>
@@ -513,6 +513,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get common_language_korean => 'Korean';
+
+  @override
+  String get common_language_english => 'English';
+
+  @override
+  String get common_language_japanese => 'Japanese';
+
+  @override
+  String get common_language_chinese => 'Chinese';
+
+  @override
+  String get common_language_spanish => 'Spanish';
+
+  @override
+  String get common_language_italian => 'Italian';
+
+  @override
+  String get common_language_french => 'French';
+
+  @override
+  String get common_language_vietnamese => 'Vietnamese';
+
+  @override
+  String get common_language_thai => 'Thai';
 
   @override
   String get common_developing => 'In Development';
