@@ -108,101 +108,22 @@ class WeatherWidget extends StatelessWidget {
         children: [
           Text(condition.icon, style: const TextStyle(fontSize: 24)),
           const SizedBox(width: Spacing.sm),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      '${weatherInfo.temperature.round()}°C',
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(width: Spacing.xs),
-                    Text(
-                      weatherInfo.description,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 2),
-                Row(
-                  children: [
-                    _buildWeatherDetail(
-                      context,
-                      Icons.water_drop_outlined,
-                      '${weatherInfo.humidity.round()}%',
-                      colorScheme,
-                      textTheme,
-                    ),
-                    const SizedBox(width: Spacing.sm),
-                    _buildWeatherDetail(
-                      context,
-                      Icons.air,
-                      '${weatherInfo.windSpeed.toStringAsFixed(1)}m/s',
-                      colorScheme,
-                      textTheme,
-                    ),
-                    if (weatherInfo.location.isNotEmpty) ...[
-                      const SizedBox(width: Spacing.sm),
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 12,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      const SizedBox(width: 2),
-                      Flexible(
-                        child: Text(
-                          weatherInfo.location,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ],
+          Text(
+            '${weatherInfo.temperature.round()}°C',
+            style: textTheme.headlineMedium?.copyWith(
+              color: colorScheme.onSurface,
             ),
           ),
+          const SizedBox(width: Spacing.md),
           GestureDetector(
             onTap: () => context.read<HomeViewModel>().clearWeather(),
             child: Icon(
               Icons.refresh,
-              size: 18,
-              color: colorScheme.onSurfaceVariant,
+              color: colorScheme.secondary.withValues(alpha: 0.6),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildWeatherDetail(
-    BuildContext context,
-    IconData icon,
-    String text,
-    ColorScheme colorScheme,
-    TextTheme textTheme,
-  ) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 12, color: colorScheme.onSurfaceVariant),
-        const SizedBox(width: 2),
-        Text(
-          text,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
-          ),
-        ),
-      ],
     );
   }
 }

@@ -33,57 +33,28 @@ class WeatherCard extends StatelessWidget {
 
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: Spacing.xs),
-          child: Row(
-            children: [
-              // Weather Icon
-              Text(condition.icon, style: const TextStyle(fontSize: 20)),
-              const SizedBox(width: Spacing.sm),
+          child: GestureDetector(
+            onTap: () => viewModel.clearWeather(),
+            child: Row(
+              children: [
+                Text(condition.icon, style: textTheme.titleLarge),
+                const SizedBox(width: Spacing.sm),
 
-              // Weather Info
-              Expanded(
-                child: Row(
+                // Weather Info
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       '${weatherInfo.temperature.round()}°C',
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
+                      style: textTheme.titleLarge?.copyWith(
+                        color: colorScheme.secondary,
                       ),
                     ),
                     const SizedBox(width: Spacing.xs),
-                    Text(
-                      weatherInfo.description,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(width: Spacing.sm),
-                    Icon(
-                      Icons.water_drop_outlined,
-                      size: 12,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 2),
-                    Text(
-                      '${weatherInfo.humidity.round()}%',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
                   ],
                 ),
-              ),
-
-              // Clear Weather Button
-              GestureDetector(
-                onTap: () => viewModel.clearWeather(),
-                child: Icon(
-                  Icons.refresh,
-                  size: 16,
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

@@ -7,7 +7,6 @@ import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
-import 'date_button.dart';
 import 'image_picking_section.dart';
 import 'location_button.dart';
 import 'location_card.dart';
@@ -54,44 +53,42 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
         padding: Spacing.containerHorizontalPadding,
         child: Column(
           children: [
-          Consumer<WriteViewModel>(
-            builder: (context, viewModel, _) {
-              if (viewModel.isSubmitted) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  context.goToJournalFromWrite(viewModel.submittedJournalId!);
-                });
-              }
+            Consumer<WriteViewModel>(
+              builder: (context, viewModel, _) {
+                if (viewModel.isSubmitted) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    context.goToJournalFromWrite(viewModel.submittedJournalId!);
+                  });
+                }
 
-              return const SizedBox.shrink();
-            },
-          ),
-          FadeIn(delay: DelayMs.quick, child: const ImagePickingSection()),
+                return const SizedBox.shrink();
+              },
+            ),
+            FadeIn(delay: DelayMs.quick, child: const ImagePickingSection()),
 
-          Column(
-            children: [
-              FadeIn(
-                delay: DelayMs.quick * 1.5,
-                child: Row(
-                  children: [
-                    const LocationCard(),
-                    const SizedBox(width: 8),
-                    const LocationButton(),
-                    TimestampButton(contentController: _contentController),
-                    const DateButton(),
-                  ],
+            Column(
+              children: [
+                FadeIn(
+                  delay: DelayMs.quick * 1.5,
+                  child: Row(
+                    children: [
+                      const WeatherCard(),
+                      const LocationCard(),
+                      const SizedBox(width: 8),
+                      const LocationButton(),
+                      TimestampButton(contentController: _contentController),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              FadeIn(delay: DelayMs.quick * 1, child: const WeatherCard()),
-              FadeIn(
-                delay: DelayMs.quick * 2,
-                child: ContentInput(
-                  contentController: _contentController,
-                  focusNode: _contentFocusNode,
+                FadeIn(
+                  delay: DelayMs.quick * 2,
+                  child: ContentInput(
+                    contentController: _contentController,
+                    focusNode: _contentFocusNode,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
             const SizedBox(height: Spacing.xxl),
             FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
           ],

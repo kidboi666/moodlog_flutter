@@ -5,6 +5,7 @@ import '../../../common/constants/common.dart';
 import '../../widgets/pagination_dot.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
+import '../widgets/date_button.dart';
 import '../widgets/write_pageview_mood.dart';
 import '../widgets/write_pageview_rest.dart';
 
@@ -78,22 +79,30 @@ class _WriteScreenState extends State<WriteScreen> {
                   onPressed: nextPage,
                   icon: const Icon(Icons.arrow_forward),
                 ),
-                secondChild: Selector<WriteViewModel, bool>(
-                  selector: (context, viewModel) => viewModel.isFormValid,
-                  builder: (context, isFormValid, child) {
-                    return IconButton(
-                      onPressed: isFormValid
-                          ? () => context.read<WriteViewModel>().submitJournal()
-                          : null,
-                      icon: const Icon(Icons.send),
-                    );
-                  },
+                secondChild: Row(
+                  children: [
+                    const DateButton(),
+                    Selector<WriteViewModel, bool>(
+                      selector: (context, viewModel) => viewModel.isFormValid,
+                      builder: (context, isFormValid, child) {
+                        return IconButton(
+                          onPressed: isFormValid
+                              ? () => context
+                                    .read<WriteViewModel>()
+                                    .submitJournal()
+                              : null,
+                          icon: const Icon(Icons.send),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               );
             },
           ),
         ],
       ),
+      persistentFooterButtons: [],
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
