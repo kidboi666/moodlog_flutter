@@ -89,6 +89,9 @@ class JournalRepositoryImpl implements JournalRepository {
             latitude: Value(dto.latitude),
             longitude: Value(dto.longitude),
             address: Value(dto.address),
+            temperature: Value(dto.temperature),
+            weatherIcon: Value(dto.weatherIcon),
+            weatherDescription: Value(dto.weatherDescription),
           ),
         );
 

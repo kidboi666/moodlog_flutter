@@ -11,6 +11,9 @@ class Journal {
   final double? latitude;
   final double? longitude;
   final String? address;
+  final double? temperature;
+  final String? weatherIcon;
+  final String? weatherDescription;
 
   Journal({
     required this.id,
@@ -23,5 +26,8 @@ class Journal {
     this.latitude,
     this.longitude,
     this.address,
+    this.temperature,
+    this.weatherIcon,
+    this.weatherDescription,
   });
 }

@@ -18,7 +18,7 @@ class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration {
@@ -36,6 +36,11 @@ class MoodLogDatabase extends _$MoodLogDatabase {
           await migrator.addColumn(journals, journals.latitude);
           await migrator.addColumn(journals, journals.longitude);
           await migrator.addColumn(journals, journals.address);
+        }
+        if (from <= 3) {
+          await migrator.addColumn(journals, journals.temperature);
+          await migrator.addColumn(journals, journals.weatherIcon);
+          await migrator.addColumn(journals, journals.weatherDescription);
         }
       },
     );

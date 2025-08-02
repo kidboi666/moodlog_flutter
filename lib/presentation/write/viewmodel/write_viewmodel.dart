@@ -175,6 +175,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       latitude: _locationInfo?.latitude,
       longitude: _locationInfo?.longitude,
       address: _locationInfo?.address,
+      temperature: _weatherInfo?.temperature,
+      weatherIcon: _weatherInfo?.icon,
+      weatherDescription: _weatherInfo?.description,
     );
     final result = await _addJournalUseCase.execute(newJournal);
 

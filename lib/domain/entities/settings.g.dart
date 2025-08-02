@@ -59,7 +59,17 @@ const _$ColorThemeEnumMap = {
   ColorTheme.orange: 'orange',
 };
 
-const _$LanguageCodeEnumMap = {LanguageCode.ko: 'ko', LanguageCode.en: 'en'};
+const _$LanguageCodeEnumMap = {
+  LanguageCode.ko: 'ko',
+  LanguageCode.en: 'en',
+  LanguageCode.ja: 'ja',
+  LanguageCode.zh: 'zh',
+  LanguageCode.es: 'es',
+  LanguageCode.it: 'it',
+  LanguageCode.fr: 'fr',
+  LanguageCode.vi: 'vi',
+  LanguageCode.th: 'th',
+};
 
 const _$AiPersonalityEnumMap = {
   AiPersonality.rational: 'rational',

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/extensions/enum.dart';
+import '../../../domain/repositories/weather_repository.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';
 
-class ContentBox extends StatelessWidget {
+class ContentBox extends StatefulWidget {
   final JournalViewModel viewModel;
   final SimpleTextAlign currentAlign;
 
@@ -18,9 +20,21 @@ class ContentBox extends StatelessWidget {
   });
 
   @override
+  State<ContentBox> createState() => _ContentBoxState();
+}
+
+class _ContentBoxState extends State<ContentBox> {
+  bool get _hasWeatherData {
+    final journal = widget.viewModel.journal;
+    return journal.temperature != null && 
+           journal.weatherIcon != null && 
+           journal.weatherDescription != null;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final isVisibleImage = viewModel.journal.imageUri?.isNotEmpty ?? false;
+    final isVisibleImage = widget.viewModel.journal.imageUri?.isNotEmpty ?? false;
 
     return Expanded(
       child: Column(
@@ -32,25 +46,29 @@ class ContentBox extends StatelessWidget {
               spacing: Spacing.sm,
               children: [
                 Row(
-                  mainAxisAlignment: currentAlign.mainAxisAlignment,
+                  mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
                   children: [
                     Text(
-                      viewModel.journal.moodType.getDisplayName(context),
+                      widget.viewModel.journal.moodType.getDisplayName(context),
                       style: textTheme.titleLarge,
                     ),
                     const SizedBox(width: Spacing.sm),
                     Text(
-                      viewModel.journal.moodType.emoji,
+                      widget.viewModel.journal.moodType.emoji,
                       style: textTheme.titleLarge,
                     ),
+                    if (_hasWeatherData) ...[
+                      const SizedBox(width: Spacing.md),
+                      _buildWeatherInfo(context, textTheme),
+                    ],
                   ],
                 ),
-                LocationCard(viewModel: viewModel, currentAlign: currentAlign),
+                LocationCard(viewModel: widget.viewModel, currentAlign: widget.currentAlign),
               ],
             ),
           ),
           JournalCoverImage(
-            viewModel: viewModel,
+            viewModel: widget.viewModel,
             isVisibleImage: isVisibleImage,
           ),
           SizedBox(
@@ -58,14 +76,35 @@ class ContentBox extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: Spacing.md),
               child: Text(
-                viewModel.journal.content ?? '',
+                widget.viewModel.journal.content ?? '',
                 style: textTheme.bodyLarge,
-                textAlign: currentAlign.textAlign,
+                textAlign: widget.currentAlign.textAlign,
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildWeatherInfo(BuildContext context, TextTheme textTheme) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final journal = widget.viewModel.journal;
+    final weatherRepository = context.read<WeatherRepository>();
+    final condition = weatherRepository.getWeatherCondition(journal.weatherIcon!);
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(condition.icon, style: textTheme.titleMedium),
+        const SizedBox(width: Spacing.xs),
+        Text(
+          '${journal.temperature!.round()}°C',
+          style: textTheme.titleMedium?.copyWith(
+            color: colorScheme.secondary,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -19,6 +19,9 @@ _AddJournalRequest _$AddJournalRequestFromJson(Map<String, dynamic> json) =>
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       address: json['address'] as String?,
+      temperature: (json['temperature'] as num?)?.toDouble(),
+      weatherIcon: json['weatherIcon'] as String?,
+      weatherDescription: json['weatherDescription'] as String?,
     );
 
 Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
@@ -32,6 +35,9 @@ Map<String, dynamic> _$AddJournalRequestToJson(_AddJournalRequest instance) =>
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'address': instance.address,
+      'temperature': instance.temperature,
+      'weatherIcon': instance.weatherIcon,
+      'weatherDescription': instance.weatherDescription,
     };
 
 const _$MoodTypeEnumMap = {

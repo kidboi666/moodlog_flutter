@@ -7,13 +7,14 @@ import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
+import 'image_preview_section.dart';
 import 'location_button.dart';
 import 'location_card.dart';
 import 'weather_card.dart';
 
 class WritePageViewRest extends StatefulWidget {
   final TextEditingController contentController;
-  
+
   const WritePageViewRest({super.key, required this.contentController});
 
   @override
@@ -62,6 +63,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                 return const SizedBox.shrink();
               },
             ),
+            FadeIn(delay: DelayMs.quick, child: const ImagePreviewSection()),
             Column(
               children: [
                 FadeIn(
@@ -69,9 +71,8 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                   child: Row(
                     children: [
                       const WeatherCard(),
-                      const LocationCard(),
-                      const SizedBox(width: 8),
                       const LocationButton(),
+                      const LocationCard(),
                     ],
                   ),
                 ),

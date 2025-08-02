@@ -120,6 +120,39 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _temperatureMeta = const VerificationMeta(
+    'temperature',
+  );
+  @override
+  late final GeneratedColumn<double> temperature = GeneratedColumn<double>(
+    'temperature',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weatherIconMeta = const VerificationMeta(
+    'weatherIcon',
+  );
+  @override
+  late final GeneratedColumn<String> weatherIcon = GeneratedColumn<String>(
+    'weather_icon',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weatherDescriptionMeta =
+      const VerificationMeta('weatherDescription');
+  @override
+  late final GeneratedColumn<String> weatherDescription =
+      GeneratedColumn<String>(
+        'weather_description',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -132,6 +165,9 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     latitude,
     longitude,
     address,
+    temperature,
+    weatherIcon,
+    weatherDescription,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -195,6 +231,33 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         address.isAcceptableOrUnknown(data['address']!, _addressMeta),
       );
     }
+    if (data.containsKey('temperature')) {
+      context.handle(
+        _temperatureMeta,
+        temperature.isAcceptableOrUnknown(
+          data['temperature']!,
+          _temperatureMeta,
+        ),
+      );
+    }
+    if (data.containsKey('weather_icon')) {
+      context.handle(
+        _weatherIconMeta,
+        weatherIcon.isAcceptableOrUnknown(
+          data['weather_icon']!,
+          _weatherIconMeta,
+        ),
+      );
+    }
+    if (data.containsKey('weather_description')) {
+      context.handle(
+        _weatherDescriptionMeta,
+        weatherDescription.isAcceptableOrUnknown(
+          data['weather_description']!,
+          _weatherDescriptionMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -248,6 +311,18 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.string,
         data['${effectivePrefix}address'],
       ),
+      temperature: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}temperature'],
+      ),
+      weatherIcon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}weather_icon'],
+      ),
+      weatherDescription: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}weather_description'],
+      ),
     );
   }
 
@@ -273,6 +348,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<double?> latitude;
   final Value<double?> longitude;
   final Value<String?> address;
+  final Value<double?> temperature;
+  final Value<String?> weatherIcon;
+  final Value<String?> weatherDescription;
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
@@ -284,6 +362,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
     this.address = const Value.absent(),
+    this.temperature = const Value.absent(),
+    this.weatherIcon = const Value.absent(),
+    this.weatherDescription = const Value.absent(),
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
@@ -296,6 +377,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
     this.address = const Value.absent(),
+    this.temperature = const Value.absent(),
+    this.weatherIcon = const Value.absent(),
+    this.weatherDescription = const Value.absent(),
   }) : moodType = Value(moodType),
        aiResponseEnabled = Value(aiResponseEnabled);
   static Insertable<Journal> custom({
@@ -309,6 +393,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Expression<double>? latitude,
     Expression<double>? longitude,
     Expression<String>? address,
+    Expression<double>? temperature,
+    Expression<String>? weatherIcon,
+    Expression<String>? weatherDescription,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -321,6 +408,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
       if (address != null) 'address': address,
+      if (temperature != null) 'temperature': temperature,
+      if (weatherIcon != null) 'weather_icon': weatherIcon,
+      if (weatherDescription != null) 'weather_description': weatherDescription,
     });
   }
 
@@ -335,6 +425,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<double?>? latitude,
     Value<double?>? longitude,
     Value<String?>? address,
+    Value<double?>? temperature,
+    Value<String?>? weatherIcon,
+    Value<String?>? weatherDescription,
   }) {
     return JournalsCompanion(
       id: id ?? this.id,
@@ -347,6 +440,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       address: address ?? this.address,
+      temperature: temperature ?? this.temperature,
+      weatherIcon: weatherIcon ?? this.weatherIcon,
+      weatherDescription: weatherDescription ?? this.weatherDescription,
     );
   }
 
@@ -387,6 +483,15 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (address.present) {
       map['address'] = Variable<String>(address.value);
     }
+    if (temperature.present) {
+      map['temperature'] = Variable<double>(temperature.value);
+    }
+    if (weatherIcon.present) {
+      map['weather_icon'] = Variable<String>(weatherIcon.value);
+    }
+    if (weatherDescription.present) {
+      map['weather_description'] = Variable<String>(weatherDescription.value);
+    }
     return map;
   }
 
@@ -402,7 +507,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('aiResponse: $aiResponse, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
-          ..write('address: $address')
+          ..write('address: $address, ')
+          ..write('temperature: $temperature, ')
+          ..write('weatherIcon: $weatherIcon, ')
+          ..write('weatherDescription: $weatherDescription')
           ..write(')'))
         .toString();
   }
@@ -651,6 +759,9 @@ typedef $$JournalsTableCreateCompanionBuilder =
       Value<double?> latitude,
       Value<double?> longitude,
       Value<String?> address,
+      Value<double?> temperature,
+      Value<String?> weatherIcon,
+      Value<String?> weatherDescription,
     });
 typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
@@ -664,6 +775,9 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<double?> latitude,
       Value<double?> longitude,
       Value<String?> address,
+      Value<double?> temperature,
+      Value<String?> weatherIcon,
+      Value<String?> weatherDescription,
     });
 
 class $$JournalsTableFilterComposer
@@ -726,6 +840,21 @@ class $$JournalsTableFilterComposer
     column: $table.address,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<double> get temperature => $composableBuilder(
+    column: $table.temperature,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weatherIcon => $composableBuilder(
+    column: $table.weatherIcon,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weatherDescription => $composableBuilder(
+    column: $table.weatherDescription,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$JournalsTableOrderingComposer
@@ -786,6 +915,21 @@ class $$JournalsTableOrderingComposer
     column: $table.address,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<double> get temperature => $composableBuilder(
+    column: $table.temperature,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weatherIcon => $composableBuilder(
+    column: $table.weatherIcon,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weatherDescription => $composableBuilder(
+    column: $table.weatherDescription,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$JournalsTableAnnotationComposer
@@ -830,6 +974,21 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<double> get temperature => $composableBuilder(
+    column: $table.temperature,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weatherIcon => $composableBuilder(
+    column: $table.weatherIcon,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weatherDescription => $composableBuilder(
+    column: $table.weatherDescription,
+    builder: (column) => column,
+  );
 }
 
 class $$JournalsTableTableManager
@@ -870,6 +1029,9 @@ class $$JournalsTableTableManager
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
                 Value<String?> address = const Value.absent(),
+                Value<double?> temperature = const Value.absent(),
+                Value<String?> weatherIcon = const Value.absent(),
+                Value<String?> weatherDescription = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
                 content: content,
@@ -881,6 +1043,9 @@ class $$JournalsTableTableManager
                 latitude: latitude,
                 longitude: longitude,
                 address: address,
+                temperature: temperature,
+                weatherIcon: weatherIcon,
+                weatherDescription: weatherDescription,
               ),
           createCompanionCallback:
               ({
@@ -894,6 +1059,9 @@ class $$JournalsTableTableManager
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
                 Value<String?> address = const Value.absent(),
+                Value<double?> temperature = const Value.absent(),
+                Value<String?> weatherIcon = const Value.absent(),
+                Value<String?> weatherDescription = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
                 content: content,
@@ -905,6 +1073,9 @@ class $$JournalsTableTableManager
                 latitude: latitude,
                 longitude: longitude,
                 address: address,
+                temperature: temperature,
+                weatherIcon: weatherIcon,
+                weatherDescription: weatherDescription,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

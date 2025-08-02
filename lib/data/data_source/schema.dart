@@ -28,6 +28,12 @@ class Journals extends Table {
   RealColumn get longitude => real().nullable()();
 
   TextColumn get address => text().nullable()();
+
+  RealColumn get temperature => real().nullable()();
+
+  TextColumn get weatherIcon => text().nullable()();
+
+  TextColumn get weatherDescription => text().nullable()();
 }
 
 @UseRowClass(Stat)

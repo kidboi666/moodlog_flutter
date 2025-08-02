@@ -17,6 +17,9 @@ abstract class AddJournalRequest with _$AddJournalRequest {
     double? latitude,
     double? longitude,
     String? address,
+    double? temperature,
+    String? weatherIcon,
+    String? weatherDescription,
   }) = _AddJournalRequest;
 
   factory AddJournalRequest.fromJson(Map<String, dynamic> json) =>
