@@ -26,10 +26,10 @@ class AppInfoDialog extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            '${AppLocalizations.of(context)!.settings_information_app_developer}: Your Name',
+            '${AppLocalizations.of(context)!.settings_information_app_developer}: ${AppLocalizations.of(context)!.app_info_developer}',
           ),
           SizedBox(height: 8),
-          Text('© 2024 All rights reserved'),
+          Text(AppLocalizations.of(context)!.app_info_copyright),
         ],
       ),
       actions: [

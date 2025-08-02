@@ -69,16 +69,7 @@
   "signin_button_google": "เริ่มต้นด้วย Google",
   "signin_button_kakao": "เริ่มต้นด้วย Kakao",
   "home_hello": "สวัสดี!",
-  "home_welcome": "{userName}",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname}",
   "home_howareyou": "วันนี้คุณรู้สึกอย่างไร?",
   "home_empty_box": "กำลังรอเรื่องราวของคุณ",
   "entries_empty_box_title": "ยังไม่มีไดอารี่ที่สร้างขึ้น",
@@ -223,5 +214,21 @@
   "settings_ai_section_title": "การตั้งค่า AI",
   "settings_ai_personality_title": "บุคลิกภาพ AI",
   "snackbar_backup_completed": "สำรองข้อมูลเสร็จสิ้น",
-  "snackbar_cache_cleared": "ล้างแคชแล้ว"
+  "snackbar_cache_cleared": "ล้างแคชแล้ว",
+  "navigation_home": "หน้าหลัก",
+  "navigation_entries": "บันทึก",
+  "navigation_write": "เขียน",
+  "navigation_statistics": "สถิติ",
+  "navigation_settings": "การตั้งค่า",
+  "auth_terms_message": "โดยการเข้าสู่ระบบด้วย {terms} และ {privacy} คุณยอมรับเงื่อนไขของเรา",
+  "auth_terms_link": "เงื่อนไขการบริการ",
+  "auth_privacy_link": "นโยบายความเป็นส่วนตัว",
+  "profile_logout_confirm_title": "ยืนยันการออกจากระบบ",
+  "profile_logout_confirm_description": "คุณแน่ใจหรือไม่ที่จะออกจากระบบ?",
+  "app_info_version": "เวอร์ชัน {version}",
+  "app_info_build": "บิลด์ {build}",
+  "journal_count_display": "{count} บันทึก",
+  "location_permission_permanent_deny_title": "สิทธิ์ตำแหน่งถูกปฏิเสธ",
+  "location_permission_permanent_deny_description": "เพื่อใช้คุณสมบัติตำแหน่ง กรุณาเปิดสิทธิ์ตำแหน่งในการตั้งค่า",
+  "location_permission_permanent_deny_settings": "ไปที่การตั้งค่า"
 }

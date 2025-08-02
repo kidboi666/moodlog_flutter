@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart' as material;
 
-import '../../common/constants/common.dart';
-
 enum LanguageCode {
   ko,
   en,
@@ -106,11 +104,11 @@ enum AiPersonality {
   String get emoji {
     switch (this) {
       case AiPersonality.rational:
-        return Emoji.rational;
+        return Emoji.rational.displayEmoji;
       case AiPersonality.balanced:
-        return Emoji.balanced;
+        return Emoji.balanced.displayEmoji;
       case AiPersonality.compassionate:
-        return Emoji.compassionate;
+        return Emoji.compassionate.displayEmoji;
     }
   }
 
@@ -468,3 +466,26 @@ enum JournalSource {
 }
 
 enum SpinnerType { button, screen, element }
+
+enum Emoji {
+  shakeHand,
+  pencil,
+  rational,
+  balanced,
+  compassionate;
+
+  String get displayEmoji {
+    switch (this) {
+      case Emoji.shakeHand:
+        return '👋';
+      case Emoji.pencil:
+        return '✏️';
+      case Emoji.rational:
+        return '🧠';
+      case Emoji.balanced:
+        return '⚖️';
+      case Emoji.compassionate:
+        return '💝';
+    }
+  }
+}

@@ -69,11 +69,11 @@
   "signin_button_google": "Start with Google",
   "signin_button_kakao": "Start with Kakao",
   "home_hello": "Hello!",
-  "home_welcome": "{userName}.",
+  "home_welcome": "{nickname}.",
   "@home_welcome": {
-    "description": "userName",
+    "description": "nickname",
     "placeholder": {
-      "userName": {
+      "nickname": {
         "type": "String",
         "example": "Bob"
       }
@@ -223,5 +223,37 @@
   "settings_ai_section_title": "AI Settings",
   "settings_ai_personality_title": "AI Personality",
   "snackbar_backup_completed": "Backup completed.",
-  "snackbar_cache_cleared": "Cache cleared."
+  "snackbar_cache_cleared": "Cache cleared.",
+  "navigation_home": "Home",
+  "navigation_entries": "Entries",
+  "navigation_write": "Write",
+  "navigation_statistics": "Statistics",
+  "navigation_settings": "Settings",
+  "auth_terms_message": "By continuing, you agree to our {terms} and {privacy}.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "Terms of Service",
+  "auth_privacy_policy": "Privacy Policy",
+  "app_info_copyright": "© 2024 All rights reserved",
+  "app_info_developer": "Your Name",
+  "profile_sign_out_title": "Sign Out",
+  "profile_sign_out_message": "Are you sure you want to sign out?",
+  "journal_count": "{count} entries",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "Current location",
+  "location_add_location": "Add location"
 }

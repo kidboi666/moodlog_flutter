@@ -58,6 +58,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                 ),
               ),
             ),
+            const SizedBox(height: Spacing.sm),
             SizedBox(
               height: Spacing.horCalendarDateHeight,
               child: Consumer<HomeViewModel>(

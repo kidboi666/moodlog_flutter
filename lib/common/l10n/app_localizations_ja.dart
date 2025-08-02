@@ -33,7 +33,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_confirm_save => '保存';
 
   @override
-  String get common_email => 'Eメール';
+  String get common_email => 'メール';
 
   @override
   String get common_phone => '電話';
@@ -132,24 +132,23 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_weekday_sun_short => '日';
 
   @override
-  String get onboarding_welcome_title => 'MoodLogへようこそ！';
+  String get onboarding_welcome_title => 'ムードログへようこそ！';
 
   @override
   String get onboarding_welcome_description1 =>
-      'MoodLogは、あなたの日常の感情を記録し、AIからの返信を受け取ることができるアプリです。';
+      'ムードログは、日々の感情を記録し、AIからの返信を受け取ることができるアプリです。';
 
   @override
-  String get onboarding_welcome_description2 =>
-      '毎日感情を記録し、AIが送ってくれる返信を読んでみましょう。';
+  String get onboarding_welcome_description2 => '毎日感情を記録し、AIからの返信を読んでみてください。';
 
   @override
-  String get onboarding_welcome_next => '一緒に準備してみませんか？';
+  String get onboarding_welcome_next => '一緒に準備しましょうか？';
 
   @override
   String get onboarding_nickname_title => 'ニックネーム設定';
 
   @override
-  String get onboarding_nickname_description => 'MoodLogで使用するニックネームを入力してください';
+  String get onboarding_nickname_description => 'ムードログで使用するニックネームを入力してください';
 
   @override
   String get onboarding_nickname_input_title => 'ニックネーム';
@@ -164,11 +163,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboarding_nickname_input_error => 'ニックネームを入力してください。';
 
   @override
-  String get onboarding_personality_title => '返信スタイルを決める';
+  String get onboarding_personality_title => '返信スタイルの決定';
 
   @override
-  String get onboarding_personality_description =>
-      'あなたの日記に返信してくれるAIの性格を選択してください。';
+  String get onboarding_personality_description => 'あなたの日記に返信するAIの性格を選択してください。';
 
   @override
   String get onboarding_personality_rational_title => '冷静な分析者';
@@ -178,7 +176,7 @@ class AppLocalizationsJa extends AppLocalizations {
       '客観的で実用的なアドバイスを提供します';
 
   @override
-  String get onboarding_personality_balanced_title => 'バランスの取れたアドバイザー';
+  String get onboarding_personality_balanced_title => 'バランスの取れた助言者';
 
   @override
   String get onboarding_personality_balanced_description =>
@@ -198,7 +196,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboarding_success_title => '始める準備ができました！';
 
   @override
-  String get onboarding_success_description => 'MoodLogを始めてみませんか？';
+  String get onboarding_success_description => 'ムードログを始めましょうか？';
 
   @override
   String get onboarding_success_next => '始める';
@@ -210,30 +208,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get signin_growth => '成長する心を記録しましょう。';
 
   @override
-  String get signin_login_title => '登録して記録を保存しましょう。';
+  String get signin_login_title => 'アカウント登録で記録を保存してください。';
 
   @override
-  String get signin_button_guest => 'ゲストで始める';
+  String get signin_button_guest => 'ゲストで開始';
 
   @override
-  String get signin_button_google => 'GoogleIDで始める';
+  String get signin_button_google => 'Googleアカウントで開始';
 
   @override
-  String get signin_button_kakao => 'KakaoIDで始める';
+  String get signin_button_kakao => 'カカオアカウントで開始';
 
   @override
   String get home_hello => 'こんにちは！';
 
   @override
-  String home_welcome(Object userName) {
-    return '$userNameさん。';
+  String home_welcome(Object nickname) {
+    return '$nicknameさん。';
   }
 
   @override
   String get home_howareyou => '今日の気分はいかがですか？';
 
   @override
-  String get home_empty_box => 'あなたの物語を待っています。';
+  String get home_empty_box => 'あなたのストーリーを待っています。';
 
   @override
   String get entries_empty_box_title => '作成された日記がありません。';
@@ -242,7 +240,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get entries_empty_box_description => '作成した日記がここに表示されます。';
 
   @override
-  String get entries_empty_box_button => '日記を書きに行く';
+  String get entries_empty_box_button => '日記作成へ行く';
 
   @override
   String get entries_calendar_legend_has_journal => '日記あり';
@@ -272,13 +270,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get write_input_title => '内容';
 
   @override
-  String get write_input_hint => '今日の感情と体験を記録してみましょう。';
+  String get write_input_hint => '今日の感情と経験を記録してみてください。';
 
   @override
   String get write_ai_title => 'AI慰めメッセージ';
 
   @override
-  String get write_ai_description => '日記を書いた後、AIが慰めと励ましのメッセージを送ってくれます。';
+  String get write_ai_description => '日記作成後、AIが慰めと励ましのメッセージを送ります。';
 
   @override
   String get write_location_remove => '削除';
@@ -290,7 +288,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get journal_delete_confirm_description => 'この項目を削除しますか？';
 
   @override
-  String get journal_ai_generating_response_title => 'AIが回答を作成中です。';
+  String get journal_ai_generating_response_title => 'AIが返答を作成中です。';
 
   @override
   String get statistics_total_title => '全体統計';
@@ -300,7 +298,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String statistics_total_record(Object count) {
-    return '$count個';
+    return '$count件';
   }
 
   @override
@@ -394,13 +392,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_common_font_family_orbitOfTheMoon => 'ナヌム手書き 月の軌道';
 
   @override
-  String get settings_common_font_family_restart => 'ナヌム手書き やり直し';
+  String get settings_common_font_family_restart => 'ナヌム手書き 再スタート';
 
   @override
   String get settings_common_font_family_overcome => 'ナヌム手書き 乗り越える';
 
   @override
-  String get settings_common_font_family_system => 'システム基本';
+  String get settings_common_font_family_system => 'システム標準';
 
   @override
   String get settings_data_title => 'データ';
@@ -409,7 +407,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_data_auto_sync_title => '自動同期';
 
   @override
-  String get settings_data_auto_sync_subtitle => 'データを自動的に同期します。';
+  String get settings_data_auto_sync_subtitle => 'データを自動で同期します。';
 
   @override
   String get settings_data_backup_title => 'データバックアップ';
@@ -424,14 +422,14 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_data_backup_confirm_ok => 'バックアップ';
 
   @override
-  String get settings_data_cache_cleanup_title => 'キャッシュ整理';
+  String get settings_data_cache_cleanup_title => 'キャッシュクリア';
 
   @override
   String get settings_data_cache_cleanup_subtitle => '一時ファイルを削除します。';
 
   @override
   String get settings_data_cache_cleanup_confirm =>
-      'キャッシュを削除しますか？\nこの作業は元に戻せません。';
+      'キャッシュを削除しますか？\\nこの操作は取り消せません。';
 
   @override
   String get settings_ai_personality_changed => 'AI性格が変更されました。';
@@ -443,7 +441,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_information_app_title => 'アプリ情報';
 
   @override
-  String get settings_information_app_subtitle => 'バージョンおよびライセンス情報';
+  String get settings_information_app_subtitle => 'バージョンとライセンス情報';
 
   @override
   String get settings_information_app_version => 'バージョン';
@@ -458,7 +456,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_information_faq_title => 'ヘルプ';
 
   @override
-  String get settings_information_faq_subtitle => '使用法およびFAQ';
+  String get settings_information_faq_subtitle => '使用方法とFAQ';
 
   @override
   String get settings_information_qna_title => 'お問い合わせ';
@@ -485,13 +483,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profile_uid_title => 'ユーザーID';
 
   @override
-  String get profile_button_login => 'ログインしに行く';
+  String get profile_button_login => 'ログインへ行く';
 
   @override
   String get profile_button_logout => 'ログアウト';
 
   @override
-  String get write_ai_limit_reached => 'AI回答は1日1回のみ可能です。明日もう一度お試しください！';
+  String get write_ai_limit_reached => 'AI返答は1日1回のみ可能です。明日再度お試しください！';
 
   @override
   String get write_timestamp_add => '時間追加';
@@ -500,7 +498,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get write_location_add => '位置追加';
 
   @override
-  String get common_language_korean => '韓国語';
+  String get common_language_korean => '한국어';
 
   @override
   String get common_language_english => 'English';
@@ -560,7 +558,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dialog_init_button => '初期化';
 
   @override
-  String get settings_developer_options => '開発用オプション';
+  String get settings_developer_options => '開発者オプション';
 
   @override
   String get settings_developer_mode_only => '開発モード専用動作';
@@ -576,4 +574,53 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get snackbar_cache_cleared => 'キャッシュが削除されました。';
+
+  @override
+  String get navigation_home => 'ホーム';
+
+  @override
+  String get navigation_entries => '記録';
+
+  @override
+  String get navigation_write => '書く';
+
+  @override
+  String get navigation_statistics => '統計';
+
+  @override
+  String get navigation_settings => '設定';
+
+  @override
+  String auth_terms_message(String terms, String privacy) {
+    return '続行することで、$termsと$privacyに同意します。';
+  }
+
+  @override
+  String get auth_terms_of_service => '利用規約';
+
+  @override
+  String get auth_privacy_policy => 'プライバシーポリシー';
+
+  @override
+  String get app_info_copyright => '© 2024 All rights reserved';
+
+  @override
+  String get app_info_developer => 'Your Name';
+
+  @override
+  String get profile_sign_out_title => 'ログアウト';
+
+  @override
+  String get profile_sign_out_message => '本当にログアウトしますか？';
+
+  @override
+  String journal_count(int count) {
+    return '$count件';
+  }
+
+  @override
+  String get location_current => '現在位置';
+
+  @override
+  String get location_add_location => '位置を追加';
 }

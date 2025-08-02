@@ -532,11 +532,11 @@ abstract class AppLocalizations {
   /// **'안녕하세요!'**
   String get home_hello;
 
-  /// userName
+  /// No description provided for @home_welcome.
   ///
   /// In ko, this message translates to:
-  /// **'{userName} 님.'**
-  String home_welcome(Object userName);
+  /// **'{nickname} 님.'**
+  String home_welcome(Object nickname);
 
   /// No description provided for @home_howareyou.
   ///
@@ -1215,6 +1215,96 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'캐시가 삭제되었습니다.'**
   String get snackbar_cache_cleared;
+
+  /// No description provided for @navigation_home.
+  ///
+  /// In ko, this message translates to:
+  /// **'홈'**
+  String get navigation_home;
+
+  /// No description provided for @navigation_entries.
+  ///
+  /// In ko, this message translates to:
+  /// **'기록'**
+  String get navigation_entries;
+
+  /// No description provided for @navigation_write.
+  ///
+  /// In ko, this message translates to:
+  /// **'글쓰기'**
+  String get navigation_write;
+
+  /// No description provided for @navigation_statistics.
+  ///
+  /// In ko, this message translates to:
+  /// **'통계'**
+  String get navigation_statistics;
+
+  /// No description provided for @navigation_settings.
+  ///
+  /// In ko, this message translates to:
+  /// **'설정'**
+  String get navigation_settings;
+
+  /// No description provided for @auth_terms_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'계속 함으로써 {terms}과 {privacy}에 동의합니다.'**
+  String auth_terms_message(String terms, String privacy);
+
+  /// No description provided for @auth_terms_of_service.
+  ///
+  /// In ko, this message translates to:
+  /// **'이용약관'**
+  String get auth_terms_of_service;
+
+  /// No description provided for @auth_privacy_policy.
+  ///
+  /// In ko, this message translates to:
+  /// **'개인정보처리방침'**
+  String get auth_privacy_policy;
+
+  /// No description provided for @app_info_copyright.
+  ///
+  /// In ko, this message translates to:
+  /// **'© 2024 All rights reserved'**
+  String get app_info_copyright;
+
+  /// No description provided for @app_info_developer.
+  ///
+  /// In ko, this message translates to:
+  /// **'Your Name'**
+  String get app_info_developer;
+
+  /// No description provided for @profile_sign_out_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'로그아웃'**
+  String get profile_sign_out_title;
+
+  /// No description provided for @profile_sign_out_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'정말로 로그아웃하시겠습니까?'**
+  String get profile_sign_out_message;
+
+  /// No description provided for @journal_count.
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}개'**
+  String journal_count(int count);
+
+  /// No description provided for @location_current.
+  ///
+  /// In ko, this message translates to:
+  /// **'현재 위치'**
+  String get location_current;
+
+  /// No description provided for @location_add_location.
+  ///
+  /// In ko, this message translates to:
+  /// **'위치 추가하기'**
+  String get location_add_location;
 }
 
 class _AppLocalizationsDelegate

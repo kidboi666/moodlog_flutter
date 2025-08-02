@@ -69,16 +69,7 @@
   "signin_button_google": "Comenzar con Google",
   "signin_button_kakao": "Comenzar con Kakao",
   "home_hello": "¡Hola!",
-  "home_welcome": "{userName}.",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname}.",
   "home_howareyou": "¿Cómo te sientes hoy?",
   "home_empty_box": "Esperando tu historia.",
   "entries_empty_box_title": "No hay diarios creados.",

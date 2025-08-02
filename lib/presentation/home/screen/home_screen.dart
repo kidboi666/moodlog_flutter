@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/extensions/routing.dart';
-import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/avatar.dart';
@@ -29,19 +28,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
-
     return CustomScrollView(
       slivers: [
         const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
         SliverAppBar(
-          title: FadeIn(
-            delay: DelayMs.medium,
-            child: Row(
-              children: [Text(t.home_hello, style: textTheme.displaySmall)],
-            ),
-          ),
+          title: FadeIn(delay: DelayMs.medium, child: const WeatherWidget()),
           actionsPadding: Spacing.containerHorizontalPadding,
           actions: [
             Selector<HomeViewModel, String?>(
@@ -68,8 +59,6 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const WelcomeZone(),
-                  const SizedBox(height: Spacing.lg),
-                  const WeatherWidget(),
                   const SizedBox(height: Spacing.xl),
                   const HorizontalCalendar(),
                   const SizedBox(height: Spacing.xl),
@@ -114,14 +103,19 @@ class HomeScreen extends StatelessWidget {
                     delay: viewModel.isFirstRender
                         ? DelayMs.medium * (5 + index)
                         : DelayMs.medium,
-                    child: JournalCard(
-                      id: e.id,
-                      content: e.content ?? '',
-                      moodType: e.moodType,
-                      createdAt: e.createdAt,
-                      onTap: () => context.pushToJournalFromHome(e.id),
-                      onDismissed: () =>
-                          context.read<HomeViewModel>().deleteJournal(e.id),
+                    child: Column(
+                      children: [
+                        JournalCard(
+                          id: e.id,
+                          content: e.content ?? '',
+                          moodType: e.moodType,
+                          createdAt: e.createdAt,
+                          onTap: () => context.pushToJournalFromHome(e.id),
+                          onDismissed: () =>
+                              context.read<HomeViewModel>().deleteJournal(e.id),
+                        ),
+                        const SizedBox(height: Spacing.xl),
+                      ],
                     ),
                   );
                 }, childCount: viewModel.journal.length),
@@ -129,7 +123,6 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ),
-
         const SliverToBoxAdapter(
           child: SizedBox(height: kBottomNavigationBarHeight * 3),
         ),

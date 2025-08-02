@@ -219,8 +219,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get home_hello => '您好！';
 
   @override
-  String home_welcome(Object userName) {
-    return '$userName。';
+  String home_welcome(Object nickname) {
+    return '$nickname。';
   }
 
   @override
@@ -569,4 +569,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get snackbar_cache_cleared => '缓存已清除。';
+
+  @override
+  String get navigation_home => '首页';
+
+  @override
+  String get navigation_entries => '记录';
+
+  @override
+  String get navigation_write => '写作';
+
+  @override
+  String get navigation_statistics => '统计';
+
+  @override
+  String get navigation_settings => '设置';
+
+  @override
+  String auth_terms_message(String terms, String privacy) {
+    return '通过使用$terms和$privacy登录，您同意我们的条款。';
+  }
+
+  @override
+  String get auth_terms_of_service => '이용약관';
+
+  @override
+  String get auth_privacy_policy => '개인정보처리방침';
+
+  @override
+  String get app_info_copyright => '© 2024 All rights reserved';
+
+  @override
+  String get app_info_developer => 'Your Name';
+
+  @override
+  String get profile_sign_out_title => '로그아웃';
+
+  @override
+  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+
+  @override
+  String journal_count(int count) {
+    return '$count개';
+  }
+
+  @override
+  String get location_current => '현재 위치';
+
+  @override
+  String get location_add_location => '위치 추가하기';
 }

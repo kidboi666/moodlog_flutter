@@ -98,15 +98,20 @@ class EntriesScreen extends StatelessWidget {
                     final e = viewModel.entries[index];
                     return FadeIn(
                       delay: DelayMs.medium,
-                      child: JournalCard(
-                        id: e.id,
-                        content: e.content ?? '',
-                        moodType: e.moodType,
-                        createdAt: e.createdAt,
-                        onTap: () => context.pushToJournalFromEntries(e.id),
-                        onDismissed: () => context
-                            .read<EntriesViewModel>()
-                            .deleteJournal(e.id),
+                      child: Column(
+                        children: [
+                          JournalCard(
+                            id: e.id,
+                            content: e.content ?? '',
+                            moodType: e.moodType,
+                            createdAt: e.createdAt,
+                            onTap: () => context.pushToJournalFromEntries(e.id),
+                            onDismissed: () => context
+                                .read<EntriesViewModel>()
+                                .deleteJournal(e.id),
+                          ),
+                          const SizedBox(height: Spacing.xl),
+                        ],
                       ),
                     );
                   }, childCount: viewModel.entries.length),

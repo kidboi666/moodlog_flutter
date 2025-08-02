@@ -69,16 +69,7 @@
   "signin_button_google": "Inizia con Google",
   "signin_button_kakao": "Inizia con Kakao",
   "home_hello": "Ciao!",
-  "home_welcome": "{userName}.",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname}.",
   "home_howareyou": "Come ti senti oggi?",
   "home_empty_box": "Aspettando la tua storia.",
   "entries_empty_box_title": "Nessun diario creato.",
@@ -223,5 +214,21 @@
   "settings_ai_section_title": "Impostazioni IA",
   "settings_ai_personality_title": "Personalità IA",
   "snackbar_backup_completed": "Backup completato.",
-  "snackbar_cache_cleared": "Cache eliminata."
+  "snackbar_cache_cleared": "Cache eliminata.",
+  "navigation_home": "Home",
+  "navigation_entries": "Registrazioni",
+  "navigation_write": "Scrivi",
+  "navigation_statistics": "Statistiche",
+  "navigation_settings": "Impostazioni",
+  "auth_terms_message": "Accedendo con {terms} e {privacy}, accetti i nostri termini.",
+  "auth_terms_link": "Termini di servizio",
+  "auth_privacy_link": "Informativa sulla privacy",
+  "profile_logout_confirm_title": "Conferma disconnessione",
+  "profile_logout_confirm_description": "Sei sicuro di voler disconnetterti?",
+  "app_info_version": "Versione {version}",
+  "app_info_build": "Build {build}",
+  "journal_count_display": "{count} registrazioni",
+  "location_permission_permanent_deny_title": "Autorizzazione posizione negata",
+  "location_permission_permanent_deny_description": "Per utilizzare la funzione di localizzazione, abilita l'autorizzazione alla posizione nelle impostazioni.",
+  "location_permission_permanent_deny_settings": "Vai alle impostazioni"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/l10n/app_localizations.dart';
 import '../../viewmodel/profile_viewmodel.dart';
 
 class SignOutDialog extends StatelessWidget {
@@ -11,11 +12,16 @@ class SignOutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      title: const Text('로그아웃'),
-      content: const Text('로그아웃 하시겠습니까?'),
+      title: Text(t.profile_sign_out_title),
+      content: Text(t.profile_sign_out_message),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: const Text('취소')),
+        TextButton(
+          onPressed: () => context.pop(),
+          child: Text(t.common_confirm_cancel),
+        ),
         FilledButton(
           onPressed: () {
             viewModel.signOut();
@@ -25,7 +31,7 @@ class SignOutDialog extends StatelessWidget {
             backgroundColor: colorTheme.error,
             foregroundColor: colorTheme.onError,
           ),
-          child: const Text('로그아웃'),
+          child: Text(t.profile_sign_out_title),
         ),
       ],
     );

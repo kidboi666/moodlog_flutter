@@ -3,18 +3,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-enum EmojiSize { small, medium, large }
+import '../../common/constants/enum.dart';
 
 class ShakeEmoji extends StatefulWidget {
-  final String emoji;
+  final Emoji emoji;
   final int? duration;
-  final EmojiSize size;
+  final double size;
 
   const ShakeEmoji({
     super.key,
     required this.emoji,
     this.duration,
-    this.size = EmojiSize.medium,
+    this.size = 40,
   });
 
   @override
@@ -61,14 +61,8 @@ class _ShakeEmojiState extends State<ShakeEmoji>
         return Transform.rotate(
           angle: _angleAnimation.value,
           child: Text(
-            widget.emoji,
-            style: TextStyle(
-              fontSize: switch (widget.size) {
-                EmojiSize.small => 20,
-                EmojiSize.medium => 40,
-                EmojiSize.large => 60,
-              },
-            ),
+            widget.emoji.displayEmoji,
+            style: TextStyle(fontSize: widget.size),
           ),
         );
       },

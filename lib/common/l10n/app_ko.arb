@@ -69,16 +69,7 @@
   "signin_button_google": "구글 아이디로 시작하기",
   "signin_button_kakao": "카카오 아이디로 시작하기",
   "home_hello": "안녕하세요!",
-  "home_welcome": "{userName} 님.",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname} 님.",
   "home_howareyou": "오늘 기분은 어떠세요?",
   "home_empty_box": "당신의 이야기를 기다리고 있어요.",
   "entries_empty_box_title": "작성된 일기가 없습니다.",
@@ -223,5 +214,37 @@
   "settings_ai_section_title": "AI 설정",
   "settings_ai_personality_title": "AI 성격",
   "snackbar_backup_completed": "백업이 완료되었습니다.",
-  "snackbar_cache_cleared": "캐시가 삭제되었습니다."
+  "snackbar_cache_cleared": "캐시가 삭제되었습니다.",
+  "navigation_home": "홈",
+  "navigation_entries": "기록",
+  "navigation_write": "글쓰기",
+  "navigation_statistics": "통계",
+  "navigation_settings": "설정",
+  "auth_terms_message": "계속 함으로써 {terms}과 {privacy}에 동의합니다.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "이용약관",
+  "auth_privacy_policy": "개인정보처리방침",
+  "app_info_copyright": "© 2024 All rights reserved",
+  "app_info_developer": "Your Name",
+  "profile_sign_out_title": "로그아웃",
+  "profile_sign_out_message": "정말로 로그아웃하시겠습니까?",
+  "journal_count": "{count}개",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "현재 위치",
+  "location_add_location": "위치 추가하기"
 }

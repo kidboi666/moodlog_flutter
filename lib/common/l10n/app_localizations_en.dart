@@ -230,8 +230,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_hello => 'Hello!';
 
   @override
-  String home_welcome(Object userName) {
-    return '$userName.';
+  String home_welcome(Object nickname) {
+    return '$nickname.';
   }
 
   @override
@@ -588,4 +588,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get snackbar_cache_cleared => 'Cache cleared.';
+
+  @override
+  String get navigation_home => 'Home';
+
+  @override
+  String get navigation_entries => 'Entries';
+
+  @override
+  String get navigation_write => 'Write';
+
+  @override
+  String get navigation_statistics => 'Statistics';
+
+  @override
+  String get navigation_settings => 'Settings';
+
+  @override
+  String auth_terms_message(String terms, String privacy) {
+    return 'By continuing, you agree to our $terms and $privacy.';
+  }
+
+  @override
+  String get auth_terms_of_service => 'Terms of Service';
+
+  @override
+  String get auth_privacy_policy => 'Privacy Policy';
+
+  @override
+  String get app_info_copyright => '© 2024 All rights reserved';
+
+  @override
+  String get app_info_developer => 'Your Name';
+
+  @override
+  String get profile_sign_out_title => 'Sign Out';
+
+  @override
+  String get profile_sign_out_message => 'Are you sure you want to sign out?';
+
+  @override
+  String journal_count(int count) {
+    return '$count entries';
+  }
+
+  @override
+  String get location_current => 'Current location';
+
+  @override
+  String get location_add_location => 'Add location';
 }

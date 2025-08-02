@@ -230,8 +230,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get home_hello => 'Ciao!';
 
   @override
-  String home_welcome(Object userName) {
-    return '$userName.';
+  String home_welcome(Object nickname) {
+    return '$nickname.';
   }
 
   @override
@@ -592,4 +592,53 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get snackbar_cache_cleared => 'Cache eliminata.';
+
+  @override
+  String get navigation_home => 'Home';
+
+  @override
+  String get navigation_entries => 'Registrazioni';
+
+  @override
+  String get navigation_write => 'Scrivi';
+
+  @override
+  String get navigation_statistics => 'Statistiche';
+
+  @override
+  String get navigation_settings => 'Impostazioni';
+
+  @override
+  String auth_terms_message(String terms, String privacy) {
+    return 'Accedendo con $terms e $privacy, accetti i nostri termini.';
+  }
+
+  @override
+  String get auth_terms_of_service => '이용약관';
+
+  @override
+  String get auth_privacy_policy => '개인정보처리방침';
+
+  @override
+  String get app_info_copyright => '© 2024 All rights reserved';
+
+  @override
+  String get app_info_developer => 'Your Name';
+
+  @override
+  String get profile_sign_out_title => '로그아웃';
+
+  @override
+  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+
+  @override
+  String journal_count(int count) {
+    return '$count개';
+  }
+
+  @override
+  String get location_current => '현재 위치';
+
+  @override
+  String get location_add_location => '위치 추가하기';
 }

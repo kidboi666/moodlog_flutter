@@ -69,16 +69,7 @@
   "signin_button_google": "用Google账户开始",
   "signin_button_kakao": "用Kakao账户开始",
   "home_hello": "您好！",
-  "home_welcome": "{userName}。",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname}。",
   "home_howareyou": "今天心情如何？",
   "home_empty_box": "等待着你的故事。",
   "entries_empty_box_title": "没有已创建的日记。",
@@ -223,5 +214,21 @@
   "settings_ai_section_title": "AI设置",
   "settings_ai_personality_title": "AI性格",
   "snackbar_backup_completed": "备份已完成。",
-  "snackbar_cache_cleared": "缓存已清除。"
+  "snackbar_cache_cleared": "缓存已清除。",
+  "navigation_home": "首页",
+  "navigation_entries": "记录",
+  "navigation_write": "写作",
+  "navigation_statistics": "统计",
+  "navigation_settings": "设置",
+  "auth_terms_message": "通过使用{terms}和{privacy}登录，您同意我们的条款。",
+  "auth_terms_link": "服务条款",
+  "auth_privacy_link": "隐私政策",
+  "profile_logout_confirm_title": "确认登出",
+  "profile_logout_confirm_description": "您确定要登出吗？",
+  "app_info_version": "版本 {version}",
+  "app_info_build": "构建 {build}",
+  "journal_count_display": "{count}个",
+  "location_permission_permanent_deny_title": "位置权限被拒绝",
+  "location_permission_permanent_deny_description": "要使用位置功能，请在设置中启用位置权限。",
+  "location_permission_permanent_deny_settings": "前往设置"
 }

@@ -230,8 +230,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get home_hello => 'Xin chào!';
 
   @override
-  String home_welcome(Object userName) {
-    return '$userName.';
+  String home_welcome(Object nickname) {
+    return '$nickname.';
   }
 
   @override
@@ -591,4 +591,53 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get snackbar_cache_cleared => 'Bộ nhớ đệm đã được xóa.';
+
+  @override
+  String get navigation_home => 'Trang chủ';
+
+  @override
+  String get navigation_entries => 'Bản ghi';
+
+  @override
+  String get navigation_write => 'Viết';
+
+  @override
+  String get navigation_statistics => 'Thống kê';
+
+  @override
+  String get navigation_settings => 'Cài đặt';
+
+  @override
+  String auth_terms_message(String terms, String privacy) {
+    return 'Bằng cách đăng nhập với $terms và $privacy, bạn đồng ý với điều khoản của chúng tôi.';
+  }
+
+  @override
+  String get auth_terms_of_service => '이용약관';
+
+  @override
+  String get auth_privacy_policy => '개인정보처리방침';
+
+  @override
+  String get app_info_copyright => '© 2024 All rights reserved';
+
+  @override
+  String get app_info_developer => 'Your Name';
+
+  @override
+  String get profile_sign_out_title => '로그아웃';
+
+  @override
+  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+
+  @override
+  String journal_count(int count) {
+    return '$count개';
+  }
+
+  @override
+  String get location_current => '현재 위치';
+
+  @override
+  String get location_add_location => '위치 추가하기';
 }

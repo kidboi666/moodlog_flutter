@@ -69,16 +69,7 @@
   "signin_button_google": "Commencer avec Google",
   "signin_button_kakao": "Commencer avec Kakao",
   "home_hello": "Bonjour !",
-  "home_welcome": "{userName}.",
-  "@home_welcome": {
-    "description": "userName",
-    "placeholder": {
-      "userName": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
+  "home_welcome": "{nickname}.",
   "home_howareyou": "Comment vous sentez-vous aujourd'hui ?",
   "home_empty_box": "En attente de votre histoire.",
   "entries_empty_box_title": "Aucun journal créé.",
@@ -223,5 +214,21 @@
   "settings_ai_section_title": "Paramètres IA",
   "settings_ai_personality_title": "Personnalité IA",
   "snackbar_backup_completed": "Sauvegarde terminée.",
-  "snackbar_cache_cleared": "Cache supprimé."
+  "snackbar_cache_cleared": "Cache supprimé.",
+  "navigation_home": "Accueil",
+  "navigation_entries": "Entrées",
+  "navigation_write": "Écrire",
+  "navigation_statistics": "Statistiques",
+  "navigation_settings": "Paramètres",
+  "auth_terms_message": "En vous connectant avec {terms} et {privacy}, vous acceptez nos conditions.",
+  "auth_terms_link": "Conditions de service",
+  "auth_privacy_link": "Politique de confidentialité",
+  "profile_logout_confirm_title": "Confirmer la déconnexion",
+  "profile_logout_confirm_description": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "app_info_version": "Version {version}",
+  "app_info_build": "Build {build}",
+  "journal_count_display": "{count} entrées",
+  "location_permission_permanent_deny_title": "Autorisation de localisation refusée",
+  "location_permission_permanent_deny_description": "Pour utiliser la fonction de localisation, veuillez activer l'autorisation de localisation dans les paramètres.",
+  "location_permission_permanent_deny_settings": "Aller aux paramètres"
 }

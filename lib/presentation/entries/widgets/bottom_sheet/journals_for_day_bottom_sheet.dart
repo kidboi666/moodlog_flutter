@@ -49,7 +49,7 @@ class JournalsForDayBottomSheet extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${journals.length}개',
+                  t.journal_count(journals.length),
                   style: textTheme.bodyMedium?.copyWith(
                     color: colorScheme.outline,
                   ),

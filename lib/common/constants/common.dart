@@ -37,14 +37,6 @@ abstract final class DurationMs {
   static const instant = Duration(milliseconds: 150);
 }
 
-abstract final class Emoji {
-  static const shakeHand = '👋';
-  static const pencil = '✏️';
-  static const rational = '🧠';
-  static const balanced = '⚖️';
-  static const compassionate = '💝';
-}
-
 abstract final class PreferenceKeys {
   static const themeMode = 'theme_mode';
   static const languageCode = 'language_code';
