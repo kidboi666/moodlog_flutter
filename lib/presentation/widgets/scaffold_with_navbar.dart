@@ -18,7 +18,12 @@ class ScaffoldWithNavbar extends StatelessWidget {
     required this.navigationShell,
   });
 
-  void _onTap(int index) {
+  void _onTap(BuildContext context, int index) {
+    if (index == Navigation.fabPlaceholderIndex) {
+      context.push(Routes.write);
+      return;
+    }
+
     final shellIndex = Navigation.shellIndexMap[index] ?? 0;
     final currentShellIndex = navigationShell.currentIndex;
 
@@ -46,7 +51,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         animationDuration: DurationMs.lazy,
         selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
-        onDestinationSelected: _onTap,
+        onDestinationSelected: (index) => _onTap(context, index),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         destinations: [
           const NavigationDestination(
@@ -59,10 +64,41 @@ class ScaffoldWithNavbar extends StatelessWidget {
             selectedIcon: Icon(Icons.book),
             label: Navigation.entries,
           ).scale(),
+          NavigationDestination(
+            icon: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                  ],
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.add, color: Colors.white, size: 28),
+            ),
+            selectedIcon: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                  ],
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.add, color: Colors.white, size: 28),
+            ),
+            label: Navigation.write,
+          ).scale(),
           const NavigationDestination(
             icon: Icon(Icons.query_stats_sharp),
             selectedIcon: Icon(Icons.query_stats),
-            label: Navigation.entries,
+            label: Navigation.statistics,
           ).scale(),
           const NavigationDestination(
             icon: Icon(Icons.settings_outlined),
@@ -71,12 +107,6 @@ class ScaffoldWithNavbar extends StatelessWidget {
           ).scale(),
         ],
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push(Routes.write),
-        child: const Icon(Icons.add, size: 28),
-      ).scale(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
