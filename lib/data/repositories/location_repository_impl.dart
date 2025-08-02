@@ -2,7 +2,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../core/utils/result.dart';
+import '../../common/utils/result.dart';
 import '../../domain/entities/location_info.dart';
 import '../../domain/repositories/location_repository.dart';
 

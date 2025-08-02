@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/utils/result.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
@@ -38,7 +38,7 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
 
   Future<void> _loadWeather() async {
     if (!mounted) return;
-    
+
     setState(() {
       _isLoading = true;
       _hasError = false;
@@ -136,11 +136,7 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.cloud_off,
-            size: 16,
-            color: colorScheme.onSurfaceVariant,
-          ),
+          Icon(Icons.cloud_off, size: 16, color: colorScheme.onSurfaceVariant),
           const SizedBox(width: Spacing.sm),
           Text(
             '날씨 정보 불러오기 실패',
@@ -151,11 +147,7 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
           const SizedBox(width: Spacing.xs),
           GestureDetector(
             onTap: _loadWeather,
-            child: Icon(
-              Icons.refresh,
-              size: 14,
-              color: colorScheme.primary,
-            ),
+            child: Icon(Icons.refresh, size: 14, color: colorScheme.primary),
           ),
         ],
       ),

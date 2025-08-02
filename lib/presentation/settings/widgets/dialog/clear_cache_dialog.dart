@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/extensions/snack_bar.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/common/extensions/snack_bar.dart';
+import 'package:moodlog/common/l10n/app_localizations.dart';
 
 import '../../viewmodel/settings_viewmodel.dart';
 

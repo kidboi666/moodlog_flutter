@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/common/constants/common.dart';
 import 'package:moodlog/presentation/widgets/fade_in.dart';
 
 void main() {

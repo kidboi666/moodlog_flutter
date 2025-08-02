@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/extensions/routing.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/date_time.dart';
+import '../../../common/extensions/routing.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/empty_entries_box.dart';
 import '../../widgets/fade_in.dart';

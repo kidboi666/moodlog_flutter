@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
+import 'package:moodlog/common/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
 import '../viewmodel/write_viewmodel.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 import '../../widgets/avatar.dart';
 import '../viewmodel/profile_viewmodel.dart';
 

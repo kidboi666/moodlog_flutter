@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide ThemeMode;
 
-import '../../../core/constants/enum.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/providers/user_provider.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/providers/app_state_provider.dart';
+import '../../../common/providers/user_provider.dart';
+import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/settings.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/journal_repository.dart';
@@ -41,8 +42,11 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setLanguage(LanguageCode? language) {
     _appStateProvider.updateLanguage(language!);
+    AnalyticsRepositoryImpl().logSettingsChange(
+      settingType: 'language',
+      value: language!.value,
+    );
   }
-
 
   void setNotificationEnabled(bool enabled) {
     _appStateProvider.updateNotificationEnabled(enabled);
@@ -54,10 +58,18 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setTheme(ThemeMode? theme) {
     _appStateProvider.updateThemeMode(theme!);
+    AnalyticsRepositoryImpl().logSettingsChange(
+      settingType: 'theme',
+      value: theme!.name,
+    );
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
     _appStateProvider.updateColorTheme(colorTheme!);
+    AnalyticsRepositoryImpl().logSettingsChange(
+      settingType: 'color_theme',
+      value: colorTheme!.name,
+    );
   }
 
   void setFontFamily(FontFamily? fontType) {

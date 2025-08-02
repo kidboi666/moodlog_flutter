@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../core/utils/admob_helper.dart';
+import '../../common/utils/admob_helper.dart';
 
 class NativeAdWidget extends StatefulWidget {
   const NativeAdWidget({super.key});

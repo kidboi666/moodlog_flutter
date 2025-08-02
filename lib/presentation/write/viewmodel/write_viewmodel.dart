@@ -3,11 +3,12 @@ import 'package:logging/logging.dart';
 import 'package:moodlog/data/models/request/add_journal_request.dart';
 import 'package:moodlog/data/models/request/update_journal_request.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/mixins/step_mixin.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/mixins/async_state_mixin.dart';
+import '../../../common/mixins/step_mixin.dart';
+import '../../../common/providers/app_state_provider.dart';
+import '../../../common/utils/result.dart';
+import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/location_info.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
@@ -183,6 +184,14 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         _isSubmitted = true;
         _submittedJournalId = result.value['id'];
         final aiResponseEnabled = result.value['aiResponseEnabled'];
+
+        AnalyticsRepositoryImpl().logMoodEntry(
+          moodType: _selectedMood?.name ?? 'unknown',
+          entryType: 'manual',
+          hasImage: _imageFileList != null && _imageFileList!.isNotEmpty,
+          hasTag: false,
+        );
+
         if (aiResponseEnabled == true) {
           _generateAiResponse();
         }

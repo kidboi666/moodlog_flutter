@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/routing.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/routing.dart';
+import '../../../common/l10n/app_localizations.dart';
+import '../../../common/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
 import '../../widgets/avatar.dart';
 import '../../widgets/empty_entries_box.dart';

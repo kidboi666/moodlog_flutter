@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/constants/enum.dart';
+import '../../common/providers/user_provider.dart';
+import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
 import '../../presentation/auth/screen/sign_in_screen.dart';
@@ -23,14 +26,13 @@ import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
 import '../../presentation/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/screen/write_screen.dart';
 import '../../presentation/write/viewmodel/write_viewmodel.dart';
-import '../constants/enum.dart';
-import '../providers/user_provider.dart';
 import 'routes.dart';
 
 GoRouter router(UserProvider userProvider) => GoRouter(
   initialLocation: Routes.home,
   redirect: _redirect,
   refreshListenable: userProvider,
+  observers: [AnalyticsRepositoryImpl().observer],
   routes: [
     GoRoute(
       path: Routes.signIn,

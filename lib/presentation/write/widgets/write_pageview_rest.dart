@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/routing.dart';
-import 'package:moodlog/presentation/write/widgets/location_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/routing.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
@@ -11,6 +10,7 @@ import 'content_input.dart';
 import 'date_button.dart';
 import 'image_picking_section.dart';
 import 'location_button.dart';
+import 'location_card.dart';
 import 'timestamp_button.dart';
 import 'weather_card.dart';
 

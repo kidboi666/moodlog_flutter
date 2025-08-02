@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/snack_bar.dart';
-import '../../core/extensions/widget_scale.dart';
-import '../../core/l10n/app_localizations.dart';
+import '../../common/extensions/snack_bar.dart';
+import '../../common/extensions/widget_scale.dart';
+import '../../common/l10n/app_localizations.dart';
 
 class ImageScreenWithButton extends StatelessWidget {
   final String? image;

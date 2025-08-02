@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 import '../../../domain/entities/journal.dart';
 import '../viewmodel/entries_viewmodel.dart';
 import 'bottom_sheet/journals_for_day_bottom_sheet.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/l10n/app_localizations.dart';
 
 class LocationMapBottomSheet extends StatefulWidget {
   final double latitude;
@@ -21,7 +21,6 @@ class LocationMapBottomSheet extends StatefulWidget {
 }
 
 class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
-  
   String get _staticMapUrl {
     const apiKey = 'AIzaSyCyU0_xtUCwWi4SDlCvjcILAHIexlAWVKE'; // API 키
     return 'https://maps.googleapis.com/maps/api/staticmap?'
@@ -34,7 +33,8 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
   }
 
   Future<void> _openInGoogleMaps() async {
-    final url = 'https://www.google.com/maps/search/?api=1&query=${widget.latitude},${widget.longitude}';
+    final url =
+        'https://www.google.com/maps/search/?api=1&query=${widget.latitude},${widget.longitude}';
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
     }
@@ -64,17 +64,13 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          
+
           // Header
           Padding(
             padding: const EdgeInsets.all(Spacing.md),
             child: Row(
               children: [
-                Icon(
-                  Icons.location_on,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
+                Icon(Icons.location_on, color: colorScheme.primary, size: 20),
                 const SizedBox(width: Spacing.sm),
                 Text(
                   '일기 작성 위치',
@@ -91,7 +87,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
               ],
             ),
           ),
-          
+
           // Map
           Expanded(
             flex: 3,
@@ -119,7 +115,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                             child: CircularProgressIndicator(
                               value: loadingProgress.expectedTotalBytes != null
                                   ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
+                                        loadingProgress.expectedTotalBytes!
                                   : null,
                             ),
                           );
@@ -188,7 +184,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
               ),
             ),
           ),
-          
+
           // Address Info
           Expanded(
             flex: 1,
@@ -222,7 +218,8 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      widget.address ?? '${widget.latitude.toStringAsFixed(6)}, ${widget.longitude.toStringAsFixed(6)}',
+                      widget.address ??
+                          '${widget.latitude.toStringAsFixed(6)}, ${widget.longitude.toStringAsFixed(6)}',
                       style: textTheme.bodyMedium,
                     ),
                   ),

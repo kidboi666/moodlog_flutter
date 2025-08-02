@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import 'base_card.dart';
 

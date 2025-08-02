@@ -1,6 +1,6 @@
 import 'package:moodlog/data/models/request/add_journal_request.dart';
 
-import '../../../core/utils/result.dart';
+import '../../../common/utils/result.dart';
 import '../../repositories/journal_repository.dart';
 
 class AddJournalUseCase {

@@ -1,7 +1,7 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/utils/result.dart';
+import '../../../common/utils/result.dart';
 
 class PickImageUseCase {
   final Logger _log = Logger('PickImageUseCase');

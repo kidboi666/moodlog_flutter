@@ -1,11 +1,11 @@
+import '../../../common/utils/result.dart';
 import '../../repositories/app_state_repository.dart';
-import '../../../core/utils/result.dart';
 
 class CheckAiUsageLimitUseCase {
   final SettingsRepository _settingsRepository;
 
   CheckAiUsageLimitUseCase({required SettingsRepository settingsRepository})
-      : _settingsRepository = settingsRepository;
+    : _settingsRepository = settingsRepository;
 
   Future<Result<bool>> execute() async {
     try {
@@ -16,7 +16,8 @@ class CheckAiUsageLimitUseCase {
         return Result.ok(true);
       }
 
-      final isSameDay = lastUsageDate.year == now.year &&
+      final isSameDay =
+          lastUsageDate.year == now.year &&
           lastUsageDate.month == now.month &&
           lastUsageDate.day == now.day;
 

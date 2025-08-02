@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 
 class CoverImageButton extends StatelessWidget {
   final String image;

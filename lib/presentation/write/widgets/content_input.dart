@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/l10n/app_localizations.dart';
 
 class ContentInput extends StatelessWidget {
   final TextEditingController contentController;

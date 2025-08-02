@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/user_provider.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/date_time.dart';
+import '../../../common/mixins/async_state_mixin.dart';
+import '../../../common/providers/user_provider.dart';
+import '../../../common/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/location_info.dart';
 import '../../../domain/entities/weather_info.dart';
@@ -164,7 +164,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     if (_locationInfo == null) {
       await _getCurrentLocation();
     }
-    
+
     // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
     if (_locationInfo != null) {
       latitude = _locationInfo!.latitude;

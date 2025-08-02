@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/domain/entities/settings.dart';
+import "package:moodlog/common/constants/enum.dart";
+import "package:moodlog/domain/entities/settings.dart";
 
 void main() {
   group('AppState', () {

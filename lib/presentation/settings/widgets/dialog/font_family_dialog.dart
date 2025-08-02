@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/enum.dart';
-import '../../../../core/extensions/enum.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import '../../../../common/constants/enum.dart';
+import '../../../../common/extensions/enum.dart';
+import '../../../../common/l10n/app_localizations.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
 class FontFamilyDialog extends StatelessWidget {

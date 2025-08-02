@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/mixins/async_state_mixin.dart';
+import '../../../common/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
@@ -41,8 +41,8 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   EntriesViewMode get viewMode => _viewMode;
 
   void toggleViewMode() {
-    _viewMode = _viewMode == EntriesViewMode.list 
-        ? EntriesViewMode.calendar 
+    _viewMode = _viewMode == EntriesViewMode.list
+        ? EntriesViewMode.calendar
         : EntriesViewMode.list;
     _selectedDay = null; // 뷰 모드 변경 시 선택된 날짜 초기화
     notifyListeners();

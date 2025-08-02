@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/mixins/async_state_mixin.dart';
+import '../../../common/providers/app_state_provider.dart';
+import '../../../common/utils/result.dart';
+import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
 class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
@@ -42,6 +43,11 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _authRepository.signInAnonymously();
     switch (result) {
       case Ok<User?>():
+        AnalyticsRepositoryImpl().setUserId(result.value?.uid);
+        AnalyticsRepositoryImpl().setUserProperty(
+          name: 'login_method',
+          value: 'anonymous',
+        );
         setSuccess();
         return Result.ok(null);
       case Failure<User?>():
@@ -57,6 +63,11 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _authRepository.signInWithGoogle();
     switch (result) {
       case Ok<User?>():
+        AnalyticsRepositoryImpl().setUserId(result.value?.uid);
+        AnalyticsRepositoryImpl().setUserProperty(
+          name: 'login_method',
+          value: 'google',
+        );
         setSuccess();
         return Result.ok(null);
       case Failure<User?>():

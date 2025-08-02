@@ -1,4 +1,4 @@
-import '../../core/constants/enum.dart';
+import '../../common/constants/enum.dart';
 
 class Journal {
   final int id;

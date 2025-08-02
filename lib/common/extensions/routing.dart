@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/constants/enum.dart';
 
+import '../constants/enum.dart';
 import '../routing/routes.dart';
 
 extension RoutingExtension on BuildContext {

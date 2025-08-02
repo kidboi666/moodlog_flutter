@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/constants/common.dart';
-import '../../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
+import '../../../../common/constants/common.dart';
+import '../../../common/l10n/app_localizations.dart';
+import '../../../common/routing/routes.dart';
 import '../../widgets/fade_in.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 

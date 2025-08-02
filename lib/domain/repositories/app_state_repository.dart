@@ -1,4 +1,4 @@
-import '../../core/constants/enum.dart';
+import '../../common/constants/enum.dart';
 
 abstract class SettingsRepository {
   Future<ThemeMode> getThemeMode();

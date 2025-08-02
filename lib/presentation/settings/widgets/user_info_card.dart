@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/l10n/app_localizations.dart';
 
 class UserInfoCard extends StatelessWidget {
   final User? user;
@@ -31,7 +31,9 @@ class UserInfoCard extends StatelessWidget {
               context,
               icon: Icons.person_outline,
               label: t.settings_user_info_status,
-              value: user!.isAnonymous ? t.settings_user_info_anonymous : t.settings_user_info_logged_in,
+              value: user!.isAnonymous
+                  ? t.settings_user_info_anonymous
+                  : t.settings_user_info_logged_in,
             ),
             const SizedBox(height: 8),
             _buildUserInfoRow(

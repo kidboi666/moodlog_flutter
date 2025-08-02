@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 
 class GoogleAccountCard extends StatelessWidget {
   final String email;

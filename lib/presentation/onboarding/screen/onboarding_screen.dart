@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 import '../../widgets/pagination_dot.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 import '../widgets/onboarding_pageview_nickname.dart';

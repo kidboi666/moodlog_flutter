@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/write_viewmodel.dart';
 
 class LocationSection extends StatelessWidget {

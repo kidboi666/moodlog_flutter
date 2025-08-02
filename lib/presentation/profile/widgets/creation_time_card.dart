@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/extensions/date_time.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/extensions/date_time.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
 
 class CreationTimeCard extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/enum.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/extensions/enum.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';

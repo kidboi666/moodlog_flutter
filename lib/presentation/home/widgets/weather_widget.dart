@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
+import '../../../common/constants/common.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../viewmodel/home_viewmodel.dart';
@@ -24,7 +24,12 @@ class WeatherWidget extends StatelessWidget {
         }
 
         if (weatherInfo == null) {
-          return _buildGetWeatherButton(context, viewModel, colorScheme, textTheme);
+          return _buildGetWeatherButton(
+            context,
+            viewModel,
+            colorScheme,
+            textTheme,
+          );
         }
 
         return _buildWeatherInfo(context, weatherInfo, colorScheme, textTheme);
@@ -73,11 +78,7 @@ class WeatherWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: Spacing.xs),
         child: Row(
           children: [
-            Icon(
-              Icons.wb_sunny_outlined,
-              color: colorScheme.primary,
-              size: 20,
-            ),
+            Icon(Icons.wb_sunny_outlined, color: colorScheme.primary, size: 20),
             const SizedBox(width: Spacing.sm),
             Text(
               '날씨 정보 새로고침',
@@ -105,10 +106,7 @@ class WeatherWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: Spacing.xs),
       child: Row(
         children: [
-          Text(
-            condition.icon,
-            style: const TextStyle(fontSize: 24),
-          ),
+          Text(condition.icon, style: const TextStyle(fontSize: 24)),
           const SizedBox(width: Spacing.sm),
           Expanded(
             child: Column(
@@ -196,11 +194,7 @@ class WeatherWidget extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          size: 12,
-          color: colorScheme.onSurfaceVariant,
-        ),
+        Icon(icon, size: 12, color: colorScheme.onSurfaceVariant),
         const SizedBox(width: 2),
         Text(
           text,

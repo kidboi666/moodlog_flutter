@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/common/mixins/async_state_mixin.dart';
 
 class AiGenerationRepository extends ChangeNotifier with AsyncStateMixin {
   bool get isGeneratingAiResponse => isLoading;

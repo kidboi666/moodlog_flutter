@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' as material;
 
-import 'common.dart';
+import '../../common/constants/common.dart';
 
 enum LanguageCode {
   ko,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/common.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import '../../../../common/constants/common.dart';
+import '../../../../common/l10n/app_localizations.dart';
 
 class EditDisplayNameBottomSheet extends StatefulWidget {
   final String? initialName;

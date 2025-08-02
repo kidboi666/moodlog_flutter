@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/routing.dart';
-import '../../../core/extensions/widget_scale.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/routing.dart';
+import '../../../common/extensions/widget_scale.dart';
 import '../../../domain/entities/journal.dart';
 
 class JournalTile extends StatelessWidget {

@@ -1,7 +1,6 @@
-import 'package:moodlog/data/models/request/add_journal_request.dart';
-import 'package:moodlog/data/models/request/update_journal_request.dart';
-
-import '../../core/utils/result.dart';
+import '../../common/utils/result.dart';
+import '../../data/models/request/add_journal_request.dart';
+import '../../data/models/request/update_journal_request.dart';
 import '../entities/journal.dart';
 
 abstract class JournalRepository {

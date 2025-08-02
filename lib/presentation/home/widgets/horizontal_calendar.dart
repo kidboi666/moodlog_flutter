@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/extensions/date_time.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../../widgets/fade_in.dart';
 import '../../widgets/gradient_box.dart';
 import '../viewmodel/home_viewmodel.dart';

@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
+import '../../common/mixins/async_state_mixin.dart';
 import '../../domain/repositories/auth_repository.dart';
-import '../mixins/async_state_mixin.dart';
 
 class UserProvider extends ChangeNotifier with AsyncStateMixin {
   final AuthRepository _authRepository;

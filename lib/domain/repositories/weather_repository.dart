@@ -1,4 +1,4 @@
-import '../../core/utils/result.dart';
+import '../../common/utils/result.dart';
 import '../entities/weather_info.dart';
 
 abstract class WeatherRepository {

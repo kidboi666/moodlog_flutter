@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/utils/result.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
@@ -154,9 +154,7 @@ class _MoodWeatherBarState extends State<MoodWeatherBar> {
                       ],
                     )
                   else if (_weatherInfo != null) ...[
-                    Expanded(
-                      child: _buildWeatherInfo(colorScheme, textTheme),
-                    ),
+                    Expanded(child: _buildWeatherInfo(colorScheme, textTheme)),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: _loadWeather,

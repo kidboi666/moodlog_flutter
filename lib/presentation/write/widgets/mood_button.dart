@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/enum.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/extensions/enum.dart';
+import '../../../common/extensions/widget_scale.dart';
 import '../viewmodel/write_viewmodel.dart';
 
 class MoodButton extends StatelessWidget {

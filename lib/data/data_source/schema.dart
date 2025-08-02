@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:moodlog/core/utils/converter.dart';
 
-import '../../core/constants/enum.dart';
+import '../../common/constants/enum.dart';
+import '../../common/utils/converter.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/stat.dart';
 

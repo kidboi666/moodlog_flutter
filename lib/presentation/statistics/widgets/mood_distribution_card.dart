@@ -1,11 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/extensions/enum.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/extensions/enum.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import 'base_card.dart';
 import 'mood_distribution_item.dart';

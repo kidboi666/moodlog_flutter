@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/user_provider.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/mixins/async_state_mixin.dart';
+import '../../../common/providers/user_provider.dart';
+import '../../../common/utils/result.dart';
 import '../../../domain/use_cases/auth/auth_use_case.dart';
 import '../../../domain/use_cases/image/pick_image_usecase.dart';
 

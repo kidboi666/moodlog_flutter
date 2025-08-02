@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/providers/user_provider.dart';
-import '../../../core/utils/result.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/providers/user_provider.dart';
+import '../../../common/utils/result.dart';
+import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
@@ -59,6 +60,12 @@ class StatisticsViewModel extends ChangeNotifier {
           .sorted((a, b) => b.createdAt.compareTo(a.createdAt))
           .take(5)
           .toList();
+
+      AnalyticsRepositoryImpl().logMoodView(
+        viewType: 'statistics',
+        period: 'all_time',
+      );
+
       notifyListeners();
     } else if (result is Failure<List<Journal>>) {
       debugPrint('Error loading journals: ${result.error}');

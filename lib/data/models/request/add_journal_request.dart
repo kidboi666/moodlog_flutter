@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../core/constants/enum.dart';
+import '../../../common/constants/enum.dart';
 
 part 'add_journal_request.freezed.dart';
 part 'add_journal_request.g.dart';

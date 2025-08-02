@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodlog/core/extensions/widget_scale.dart';
+import 'package:moodlog/common/extensions/widget_scale.dart';
 
 class TimestampButton extends StatelessWidget {
   final TextEditingController contentController;

@@ -1,8 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'location_map_bottom_sheet.dart';
 
@@ -17,7 +17,8 @@ class LocationCard extends StatelessWidget {
   });
 
   void _showLocationMap(BuildContext context) {
-    if (viewModel.journal.latitude == null || viewModel.journal.longitude == null) {
+    if (viewModel.journal.latitude == null ||
+        viewModel.journal.longitude == null) {
       return;
     }
 

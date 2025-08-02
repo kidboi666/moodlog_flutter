@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/l10n/app_localizations.dart';
 
 class LocationSimpleBottomSheet extends StatelessWidget {
   final double latitude;
@@ -17,7 +17,8 @@ class LocationSimpleBottomSheet extends StatelessWidget {
   });
 
   Future<void> _openInGoogleMaps() async {
-    final url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    final url =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
     }
@@ -48,15 +49,11 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          
+
           // Header
           Row(
             children: [
-              Icon(
-                Icons.location_on,
-                color: colorScheme.primary,
-                size: 24,
-              ),
+              Icon(Icons.location_on, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
                 '일기 작성 위치',
@@ -71,9 +68,9 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: Spacing.lg),
-          
+
           // Address Info
           Container(
             width: double.infinity,
@@ -103,10 +100,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: Spacing.sm),
-                Text(
-                  address ?? '주소 정보 없음',
-                  style: textTheme.bodyLarge,
-                ),
+                Text(address ?? '주소 정보 없음', style: textTheme.bodyLarge),
                 if (address != null) ...[
                   const SizedBox(height: Spacing.sm),
                   Row(
@@ -137,9 +131,9 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               ],
             ),
           ),
-          
+
           const SizedBox(height: Spacing.lg),
-          
+
           // Action Buttons
           Row(
             children: [
@@ -155,7 +149,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          
+
           // Bottom spacing for safe area
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
