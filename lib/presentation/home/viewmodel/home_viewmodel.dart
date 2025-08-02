@@ -9,25 +9,36 @@ import '../../../core/mixins/async_state_mixin.dart';
 import '../../../core/providers/user_provider.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
+import '../../../domain/entities/location_info.dart';
+import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
+import '../../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
   final DeleteJournalUseCase _deleteJournalUseCase;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
+  final GetCurrentWeatherUseCase _getCurrentWeatherUseCase;
 
   HomeViewModel({
     required JournalRepository journalRepository,
     required UserProvider userProvider,
     required DeleteJournalUseCase deleteJournalUseCase,
+    required GetCurrentLocationUseCase getCurrentLocationUseCase,
+    required GetCurrentWeatherUseCase getCurrentWeatherUseCase,
   }) : _journalRepository = journalRepository,
        _userProvider = userProvider,
-       _deleteJournalUseCase = deleteJournalUseCase {
+       _deleteJournalUseCase = deleteJournalUseCase,
+       _getCurrentLocationUseCase = getCurrentLocationUseCase,
+       _getCurrentWeatherUseCase = getCurrentWeatherUseCase {
     _calculateDateItems();
     _load();
     _initializeDelayedRender();
     _subscribeToJournalChanges();
+    _loadCurrentLocationAndWeather();
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -37,6 +48,10 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   DateTime _selectedDate = DateTime.now();
   List<DateTime>? _dateItems;
   bool _isFirstRender = true;
+  LocationInfo? _locationInfo;
+  bool _isLoadingLocation = false;
+  WeatherInfo? _weatherInfo;
+  bool _isLoadingWeather = false;
 
   String? get profileImage => _userProvider.user?.photoURL;
 
@@ -53,6 +68,14 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   bool get isFirstRender => _isFirstRender;
 
   List<Journal> get journal => _journal;
+
+  LocationInfo? get locationInfo => _locationInfo;
+
+  bool get isLoadingLocation => _isLoadingLocation;
+
+  WeatherInfo? get weatherInfo => _weatherInfo;
+
+  bool get isLoadingWeather => _isLoadingWeather;
 
   void selectDate(DateTime date) {
     _selectedDate = date;
@@ -132,6 +155,73 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     }).toList();
 
     notifyListeners();
+  }
+
+  Future<void> getCurrentWeather() async {
+    double latitude = 37.5665; // 서울 기본 위치
+    double longitude = 126.9780;
+
+    if (_locationInfo == null) {
+      await _getCurrentLocation();
+    }
+    
+    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
+    if (_locationInfo != null) {
+      latitude = _locationInfo!.latitude;
+      longitude = _locationInfo!.longitude;
+      _log.info('Using actual location: $latitude, $longitude');
+    } else {
+      _log.info('Using default location (Seoul): $latitude, $longitude');
+    }
+
+    _isLoadingWeather = true;
+    notifyListeners();
+
+    final result = await _getCurrentWeatherUseCase.execute(
+      latitude: latitude,
+      longitude: longitude,
+    );
+
+    switch (result) {
+      case Ok<WeatherInfo>():
+        _log.fine('Weather retrieved successfully');
+        _weatherInfo = result.value;
+      case Failure<WeatherInfo>():
+        _log.warning('Failed to get weather: ${result.error}');
+    }
+
+    _isLoadingWeather = false;
+    notifyListeners();
+  }
+
+  Future<void> _getCurrentLocation() async {
+    _isLoadingLocation = true;
+    notifyListeners();
+
+    final result = await _getCurrentLocationUseCase.execute();
+
+    switch (result) {
+      case Ok<LocationInfo>():
+        _log.fine('Location retrieved successfully');
+        _locationInfo = result.value;
+      case Failure<LocationInfo>():
+        _log.warning('Failed to get location: ${result.error}');
+    }
+
+    _isLoadingLocation = false;
+    notifyListeners();
+  }
+
+  Future<void> _loadCurrentLocationAndWeather() async {
+    await _getCurrentLocation();
+    // 위치 정보가 있든 없든 날씨 정보를 로드 (기본 위치 사용)
+    await getCurrentWeather();
+  }
+
+  void clearWeather() {
+    _weatherInfo = null;
+    notifyListeners();
+    getCurrentWeather();
   }
 
   @override

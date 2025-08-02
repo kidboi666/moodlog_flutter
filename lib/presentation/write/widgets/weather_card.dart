@@ -31,87 +31,59 @@ class WeatherCard extends StatelessWidget {
           weatherInfo.icon,
         );
 
-        return Card(
-          elevation: 0,
-          color: colorScheme.surfaceContainer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(Spacing.sm),
-            child: Row(
-              children: [
-                // Weather Icon
-                Text(condition.icon, style: const TextStyle(fontSize: 32)),
-                const SizedBox(width: Spacing.sm),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: Spacing.xs),
+          child: Row(
+            children: [
+              // Weather Icon
+              Text(condition.icon, style: const TextStyle(fontSize: 20)),
+              const SizedBox(width: Spacing.sm),
 
-                // Weather Info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            '${weatherInfo.temperature.round()}°C',
-                            style: textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: Spacing.xs),
-                          Text(
-                            weatherInfo.description,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
+              // Weather Info
+              Expanded(
+                child: Row(
+                  children: [
+                    Text(
+                      '${weatherInfo.temperature.round()}°C',
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface,
                       ),
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.water_drop_outlined,
-                            size: 12,
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            '${weatherInfo.humidity.round()}%',
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(width: Spacing.sm),
-                          Icon(
-                            Icons.air,
-                            size: 12,
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            '${weatherInfo.windSpeed.toStringAsFixed(1)}m/s',
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
+                    ),
+                    const SizedBox(width: Spacing.xs),
+                    Text(
+                      weatherInfo.description,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: Spacing.sm),
+                    Icon(
+                      Icons.water_drop_outlined,
+                      size: 12,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 2),
+                    Text(
+                      '${weatherInfo.humidity.round()}%',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
 
-                // Clear Weather Button
-                GestureDetector(
-                  onTap: () => viewModel.clearWeather(),
-                  child: Icon(
-                    Icons.close,
-                    size: 16,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
+              // Clear Weather Button
+              GestureDetector(
+                onTap: () => viewModel.clearWeather(),
+                child: Icon(
+                  Icons.refresh,
+                  size: 16,
+                  color: colorScheme.onSurfaceVariant,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -123,31 +95,26 @@ class WeatherCard extends StatelessWidget {
     ColorScheme colorScheme,
     TextTheme textTheme,
   ) {
-    return Card(
-      elevation: 0,
-      color: colorScheme.surfaceContainer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.sm),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: colorScheme.primary,
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: Spacing.xs),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: colorScheme.primary,
             ),
-            const SizedBox(width: Spacing.sm),
-            Text(
-              '날씨 정보 가져오는 중...',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
+          ),
+          const SizedBox(width: Spacing.sm),
+          Text(
+            '날씨 정보 로딩중...',
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

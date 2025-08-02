@@ -294,6 +294,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       case Ok<LocationInfo>():
         _log.fine('Location retrieved successfully on init');
         _locationInfo = result.value;
+        // 위치 정보가 로드되면 자동으로 날씨 정보도 로드
+        _loadWeatherAfterLocation();
       case Failure<LocationInfo>():
         _log.info('Failed to get location on init: ${result.error}');
     }
@@ -302,23 +304,35 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     notifyListeners();
   }
 
+  Future<void> _loadWeatherAfterLocation() async {
+    // getCurrentWeather 메서드가 기본 위치 처리를 포함하므로 직접 호출
+    await getCurrentWeather();
+  }
+
   void clearLocation() {
     _locationInfo = null;
     notifyListeners();
   }
 
   Future<void> getCurrentWeather() async {
-    if (_locationInfo == null) {
-      _log.warning('Location not available for weather');
-      return;
+    double latitude = 37.5665; // 서울 기본 위치
+    double longitude = 126.9780;
+
+    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
+    if (_locationInfo != null) {
+      latitude = _locationInfo!.latitude;
+      longitude = _locationInfo!.longitude;
+      _log.info('Using actual location: $latitude, $longitude');
+    } else {
+      _log.info('Using default location (Seoul): $latitude, $longitude');
     }
 
     _isLoadingWeather = true;
     notifyListeners();
 
     final result = await _getCurrentWeatherUseCase.execute(
-      latitude: _locationInfo!.latitude,
-      longitude: _locationInfo!.longitude,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     switch (result) {
@@ -335,32 +349,14 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   }
 
   Future<void> _loadCurrentWeatherOnInit() async {
-    await Future.delayed(Duration(seconds: 1));
-
-    if (_locationInfo != null) {
-      _isLoadingWeather = true;
-      notifyListeners();
-
-      final result = await _getCurrentWeatherUseCase.execute(
-        latitude: _locationInfo!.latitude,
-        longitude: _locationInfo!.longitude,
-      );
-
-      switch (result) {
-        case Ok<WeatherInfo>():
-          _log.fine('Weather retrieved successfully on init');
-          _weatherInfo = result.value;
-        case Failure<WeatherInfo>():
-          _log.info('Failed to get weather on init: ${result.error}');
-      }
-
-      _isLoadingWeather = false;
-      notifyListeners();
-    }
+    // 위치 정보 로드를 잠시 기다렸다가 날씨 정보 로드 (기본 위치 사용)
+    await Future.delayed(Duration(milliseconds: 500));
+    await getCurrentWeather();
   }
 
   void clearWeather() {
     _weatherInfo = null;
     notifyListeners();
+    getCurrentWeather();
   }
 }

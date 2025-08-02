@@ -69,10 +69,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                 ),
               ),
               const SizedBox(height: 8),
-              FadeIn(
-                delay: DelayMs.quick * 1.8,
-                child: const WeatherCard(),
-              ),
+              FadeIn(delay: DelayMs.quick * 1, child: const WeatherCard()),
               FadeIn(
                 delay: DelayMs.quick * 2,
                 child: ContentInput(contentController: _contentController),
