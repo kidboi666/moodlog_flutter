@@ -15,8 +15,8 @@
 - 자동 생성되는 `.dart` 파일은 수정하지 않음
 - 지원 언어: ko, en, ja, zh, es, it, fr, vi, th (총 9개 언어)
 - 새로운 언어 추가 시 순서:
-    1. `lib/core/l10n/app_{language_code}.arb` 파일 생성
-    2. `lib/core/constants/enum.dart`의 `LanguageCode` enum에 추가
+    1. `lib/common/l10n/app_{language_code}.arb` 파일 생성
+    2. `lib/common/constants/enum.dart`의 `LanguageCode` enum에 추가
     3. `lib/presentation/settings/widgets/dialog/language_dialog.dart`에 UI 추가
     4. `lib/main.dart`의 `supportedLocales`에 추가
     5. `l10n.yaml`의 `supported-locales`에 추가
@@ -31,7 +31,7 @@
 ### Architecture
 
 - MVVM + Clean Architecture
-    - Common: `lib/core`
+    - Common: `lib/common`
     - Data: `lib/data`
     - Domain: `lib/domain`
     - Presentation: `lib/presentation`

@@ -40,12 +40,12 @@ class DialogTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: textTheme.bodyMedium),
+                  Text(title, style: textTheme.bodyLarge),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.secondary,
                     ),
                   ),
                 ],
