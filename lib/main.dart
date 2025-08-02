@@ -12,6 +12,7 @@ import 'common/l10n/app_localizations.dart';
 import 'common/providers/app_state_provider.dart';
 import 'common/routing/router.dart';
 import 'common/theme/theme.dart';
+import 'common/utils/keyboard_utils.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 import 'firebase_options.dart';
 import 'presentation/widgets/spinner.dart';
@@ -47,32 +48,34 @@ class _MoodLogAppState extends State<MoodLogApp> {
         }
         _router ??= router(context.read());
 
-        return MaterialApp.router(
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: [
-            Locale(LanguageCode.ko.value),
-            Locale(LanguageCode.en.value),
-            Locale(LanguageCode.ja.value),
-            Locale(LanguageCode.zh.value),
-            Locale(LanguageCode.es.value),
-            Locale(LanguageCode.it.value),
-            Locale(LanguageCode.fr.value),
-            Locale(LanguageCode.vi.value),
-            Locale(LanguageCode.th.value),
-          ],
-          locale: Locale(appState.languageCode.value),
-          theme: AppTheme.lightTheme(appState.colorTheme, appState.fontFamily),
-          darkTheme: AppTheme.darkTheme(
-            appState.colorTheme,
-            appState.fontFamily,
+        return KeyboardDismissOnTapOutside(
+          child: MaterialApp.router(
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale(LanguageCode.ko.value),
+              Locale(LanguageCode.en.value),
+              Locale(LanguageCode.ja.value),
+              Locale(LanguageCode.zh.value),
+              Locale(LanguageCode.es.value),
+              Locale(LanguageCode.it.value),
+              Locale(LanguageCode.fr.value),
+              Locale(LanguageCode.vi.value),
+              Locale(LanguageCode.th.value),
+            ],
+            locale: Locale(appState.languageCode.value),
+            theme: AppTheme.lightTheme(appState.colorTheme, appState.fontFamily),
+            darkTheme: AppTheme.darkTheme(
+              appState.colorTheme,
+              appState.fontFamily,
+            ),
+            themeMode: appState.themeMode.materialThemeMode,
+            routerConfig: _router!,
           ),
-          themeMode: appState.themeMode.materialThemeMode,
-          routerConfig: _router!,
         );
       },
     );

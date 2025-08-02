@@ -4,8 +4,13 @@ import '../../../common/l10n/app_localizations.dart';
 
 class ContentInput extends StatelessWidget {
   final TextEditingController contentController;
+  final FocusNode? focusNode;
 
-  const ContentInput({super.key, required this.contentController});
+  const ContentInput({
+    super.key,
+    required this.contentController,
+    this.focusNode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,7 @@ class ContentInput extends StatelessWidget {
 
     return TextFormField(
       controller: contentController,
+      focusNode: focusNode,
       minLines: 8,
       maxLines: 8,
       decoration: InputDecoration(

@@ -19,6 +19,7 @@ class _WriteScreenState extends State<WriteScreen> {
   late PageController _pageController;
 
   void nextPage() {
+    FocusScope.of(context).unfocus();
     _pageController.nextPage(
       duration: DurationMs.medium,
       curve: Curves.easeInOut,
@@ -26,10 +27,16 @@ class _WriteScreenState extends State<WriteScreen> {
   }
 
   void previousPage() {
+    FocusScope.of(context).unfocus();
     _pageController.previousPage(
       duration: DurationMs.medium,
       curve: Curves.easeInOut,
     );
+  }
+
+  void _onPageChanged(int page) {
+    FocusScope.of(context).unfocus();
+    context.read<WriteViewModel>().setStep(page);
   }
 
   @override
@@ -89,7 +96,7 @@ class _WriteScreenState extends State<WriteScreen> {
       ),
       body: PageView(
         controller: _pageController,
-        onPageChanged: context.read<WriteViewModel>().setStep,
+        onPageChanged: _onPageChanged,
         children: [
           WritePageViewMood(nextPage: nextPage),
           const WritePageViewRest(),

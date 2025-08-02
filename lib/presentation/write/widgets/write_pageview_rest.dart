@@ -23,24 +23,37 @@ class WritePageViewRest extends StatefulWidget {
 
 class _WritePageViewRestState extends State<WritePageViewRest> {
   late TextEditingController _contentController;
+  late FocusNode _contentFocusNode;
 
   void _onContentChanged() {
     context.read<WriteViewModel>().updateContent(_contentController.text);
+  }
+
+  void _dismissKeyboard() {
+    _contentFocusNode.unfocus();
+    FocusScope.of(context).unfocus();
   }
 
   @override
   void initState() {
     super.initState();
     _contentController = TextEditingController();
+    _contentFocusNode = FocusNode();
     _contentController.addListener(_onContentChanged);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Spacing.containerHorizontalPadding,
-      child: Column(
-        children: [
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          _dismissKeyboard();
+        }
+      },
+      child: Padding(
+        padding: Spacing.containerHorizontalPadding,
+        child: Column(
+          children: [
           Consumer<WriteViewModel>(
             builder: (context, viewModel, _) {
               if (viewModel.isSubmitted) {
@@ -72,13 +85,17 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
               FadeIn(delay: DelayMs.quick * 1, child: const WeatherCard()),
               FadeIn(
                 delay: DelayMs.quick * 2,
-                child: ContentInput(contentController: _contentController),
+                child: ContentInput(
+                  contentController: _contentController,
+                  focusNode: _contentFocusNode,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: Spacing.xxl),
-          FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
-        ],
+            const SizedBox(height: Spacing.xxl),
+            FadeIn(delay: DelayMs.quick * 3, child: AiEnableCard()),
+          ],
+        ),
       ),
     );
   }
@@ -87,6 +104,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
   void dispose() {
     _contentController.removeListener(_onContentChanged);
     _contentController.dispose();
+    _contentFocusNode.dispose();
     super.dispose();
   }
 }
