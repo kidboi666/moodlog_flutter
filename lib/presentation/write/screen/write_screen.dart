@@ -6,6 +6,8 @@ import '../../widgets/pagination_dot.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
 import '../widgets/date_button.dart';
+import '../widgets/image_picker_button.dart';
+import '../widgets/timestamp_button.dart';
 import '../widgets/write_pageview_mood.dart';
 import '../widgets/write_pageview_rest.dart';
 
@@ -18,6 +20,7 @@ class WriteScreen extends StatefulWidget {
 
 class _WriteScreenState extends State<WriteScreen> {
   late PageController _pageController;
+  late TextEditingController _contentController;
 
   void nextPage() {
     FocusScope.of(context).unfocus();
@@ -44,6 +47,7 @@ class _WriteScreenState extends State<WriteScreen> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    _contentController = TextEditingController();
   }
 
   @override
@@ -102,13 +106,16 @@ class _WriteScreenState extends State<WriteScreen> {
           ),
         ],
       ),
-      persistentFooterButtons: [],
+      persistentFooterButtons: [
+        const ImagePickerButton(),
+        TimestampButton(contentController: _contentController),
+      ],
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children: [
           WritePageViewMood(nextPage: nextPage),
-          const WritePageViewRest(),
+          WritePageViewRest(contentController: _contentController),
         ],
       ),
     );
@@ -117,6 +124,7 @@ class _WriteScreenState extends State<WriteScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    _contentController.dispose();
     super.dispose();
   }
 }

@@ -7,25 +7,24 @@ import '../../widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';
-import 'image_picking_section.dart';
 import 'location_button.dart';
 import 'location_card.dart';
-import 'timestamp_button.dart';
 import 'weather_card.dart';
 
 class WritePageViewRest extends StatefulWidget {
-  const WritePageViewRest({super.key});
+  final TextEditingController contentController;
+  
+  const WritePageViewRest({super.key, required this.contentController});
 
   @override
   State<WritePageViewRest> createState() => _WritePageViewRestState();
 }
 
 class _WritePageViewRestState extends State<WritePageViewRest> {
-  late TextEditingController _contentController;
   late FocusNode _contentFocusNode;
 
   void _onContentChanged() {
-    context.read<WriteViewModel>().updateContent(_contentController.text);
+    context.read<WriteViewModel>().updateContent(widget.contentController.text);
   }
 
   void _dismissKeyboard() {
@@ -36,9 +35,8 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
   @override
   void initState() {
     super.initState();
-    _contentController = TextEditingController();
     _contentFocusNode = FocusNode();
-    _contentController.addListener(_onContentChanged);
+    widget.contentController.addListener(_onContentChanged);
   }
 
   @override
@@ -64,8 +62,6 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                 return const SizedBox.shrink();
               },
             ),
-            FadeIn(delay: DelayMs.quick, child: const ImagePickingSection()),
-
             Column(
               children: [
                 FadeIn(
@@ -76,14 +72,13 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
                       const LocationCard(),
                       const SizedBox(width: 8),
                       const LocationButton(),
-                      TimestampButton(contentController: _contentController),
                     ],
                   ),
                 ),
                 FadeIn(
                   delay: DelayMs.quick * 2,
                   child: ContentInput(
-                    contentController: _contentController,
+                    contentController: widget.contentController,
                     focusNode: _contentFocusNode,
                   ),
                 ),
@@ -99,8 +94,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
 
   @override
   void dispose() {
-    _contentController.removeListener(_onContentChanged);
-    _contentController.dispose();
+    widget.contentController.removeListener(_onContentChanged);
     _contentFocusNode.dispose();
     super.dispose();
   }
