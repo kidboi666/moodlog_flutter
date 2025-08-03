@@ -55,7 +55,7 @@
 ### Patch Notes
 
 - 패치노트는 `docs/patch/{version}` 형식으로 저장
-- 모든 지원 언어로 작성 (en-US, ko-KR, ja-JP, zh-CN, es-ES, it-IT, fr-FR, vi-VN, th-TH)
+- 모든 지원 언어로 작성 (en-US, ko-KR, ja-JP, zh-CN, es-ES, it-IT, fr-FR, vi-VN, th-TH) 하고, 구글 플레이 콘솔에 새로운 버전 작성틀에 맞춰 한 파일안에 작성.
 - 형식: 새로운 기능(🌍), 개선사항(🎨), 버그 수정(🔧)
 - 길이: 각 지원 언어당 30자를 넘지 않음
 
