@@ -5,6 +5,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/extensions/enum.dart';
 import '../../../domain/repositories/weather_repository.dart';
+import '../../widgets/tag_section.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';
@@ -80,7 +81,7 @@ class _ContentBoxState extends State<ContentBox> {
             child: Padding(
               padding: const EdgeInsets.only(right: Spacing.md),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: widget.currentAlign.crossAxisAlignment,
                 children: [
                   Text(
                     widget.viewModel.journal.content ?? '',
@@ -90,7 +91,10 @@ class _ContentBoxState extends State<ContentBox> {
                   if (widget.viewModel.journal.tags != null &&
                       widget.viewModel.journal.tags!.isNotEmpty) ...[
                     const SizedBox(height: Spacing.lg),
-                    _buildTagsSection(context, textTheme),
+                    TagSection(
+                      tags: widget.viewModel.journal.tags!,
+                      textAlign: widget.currentAlign,
+                    ),
                   ],
                 ],
               ),
@@ -117,54 +121,6 @@ class _ContentBoxState extends State<ContentBox> {
         Text(
           '${journal.temperature!.round()}°C',
           style: textTheme.titleMedium?.copyWith(color: colorScheme.secondary),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTagsSection(BuildContext context, TextTheme textTheme) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final tags = widget.viewModel.journal.tags!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Tags',
-          style: textTheme.titleSmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
-          ),
-        ),
-        const SizedBox(height: Spacing.sm),
-        Wrap(
-          spacing: Spacing.sm,
-          runSpacing: Spacing.sm,
-          children: tags.map((tag) {
-            return Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Spacing.sm,
-                vertical: Spacing.xs,
-              ),
-              decoration: BoxDecoration(
-                color: tag.color != null
-                    ? Color(int.parse(tag.color!.replaceFirst('#', '0x')))
-                    : colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: colorScheme.outline.withValues(alpha: 0.2),
-                ),
-              ),
-              child: Text(
-                tag.name,
-                style: textTheme.bodySmall?.copyWith(
-                  color: tag.color != null
-                      ? Colors.white
-                      : colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            );
-          }).toList(),
         ),
       ],
     );

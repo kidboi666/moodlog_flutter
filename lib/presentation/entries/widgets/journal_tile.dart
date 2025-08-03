@@ -4,6 +4,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/extensions/routing.dart';
 import '../../../common/extensions/widget_scale.dart';
 import '../../../domain/entities/journal.dart';
+import '../../widgets/tag_section.dart';
 
 class JournalTile extends StatelessWidget {
   final Journal journal;
@@ -68,32 +69,17 @@ class JournalTile extends StatelessWidget {
               ],
               if (journal.tags != null && journal.tags!.isNotEmpty) ...[
                 const SizedBox(height: Spacing.sm),
-                Wrap(
+                TagSection(
+                  tags: journal.tags!,
+                  maxTags: 3,
                   spacing: Spacing.xs,
                   runSpacing: Spacing.xs,
-                  children: journal.tags!.take(3).map((tag) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: Spacing.xs,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: tag.color != null 
-                            ? Color(int.parse(tag.color!.replaceFirst('#', '0x')))
-                            : colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        tag.name,
-                        style: textTheme.bodySmall?.copyWith(
-                          fontSize: 10,
-                          color: tag.color != null 
-                              ? Colors.white
-                              : colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    );
-                  }).toList(),
+                  chipFontSize: 10,
+                  chipPadding: const EdgeInsets.symmetric(
+                    horizontal: Spacing.xs,
+                    vertical: 2,
+                  ),
+                  chipBorderRadius: 4,
                 ),
               ],
             ],

@@ -50,6 +50,10 @@
 - Charts: fl_chart
 - Ads: google_mobile_ads
 
+### New Feature
+
+- 위젯을 프라이빗 메서드로 구현하지 말고 새로운 파일로 된 위젯으로 분리할것
+
 ## Release Management
 
 ### Patch Notes

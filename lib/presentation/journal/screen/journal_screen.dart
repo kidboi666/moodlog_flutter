@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/journal/widgets/mood_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
@@ -14,6 +13,7 @@ import '../viewmodel/journal_viewmodel.dart';
 import '../widgets/ai_response_box.dart';
 import '../widgets/content_box.dart';
 import '../widgets/dialog/delete_confirm_dialog.dart';
+import '../widgets/mood_bar.dart';
 
 class JournalScreen extends StatelessWidget {
   const JournalScreen({super.key});
