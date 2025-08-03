@@ -609,35 +609,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return 'Bằng cách đăng nhập với $terms và $privacy, bạn đồng ý với điều khoản của chúng tôi.';
+    return 'Bằng cách tiếp tục, bạn đồng ý với $terms và $privacy của chúng tôi.';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => 'Điều Khoản Dịch Vụ';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => 'Chính Sách Bảo Mật';
 
   @override
-  String get app_info_copyright => '© 2024 All rights reserved';
+  String get app_info_copyright => '© 2024 Bảo lưu mọi quyền';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => 'Tên Của Bạn';
 
   @override
-  String get profile_sign_out_title => '로그아웃';
+  String get profile_sign_out_title => 'Đăng Xuất';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message =>
+      'Bạn có chắc chắn muốn đăng xuất không?';
 
   @override
   String journal_count(int count) {
-    return '$count개';
+    return '$count bản ghi';
   }
 
   @override
-  String get location_current => '현재 위치';
+  String get location_current => 'Vị trí hiện tại';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => 'Thêm vị trí';
 }

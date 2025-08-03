@@ -602,35 +602,35 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return 'โดยการเข้าสู่ระบบด้วย $terms และ $privacy คุณยอมรับเงื่อนไขของเรา';
+    return 'เมื่อดำเนินการต่อ คุณยอมรับ $terms และ $privacy ของเรา';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => 'เงื่อนไขการบริการ';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => 'นโยบายความเป็นส่วนตัว';
 
   @override
-  String get app_info_copyright => '© 2024 All rights reserved';
+  String get app_info_copyright => '© 2024 สงวนลิขสิทธิ์';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => 'ชื่อของคุณ';
 
   @override
-  String get profile_sign_out_title => '로그아웃';
+  String get profile_sign_out_title => 'ออกจากระบบ';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message => 'คุณแน่ใจหรือไม่ที่จะออกจากระบบ?';
 
   @override
   String journal_count(int count) {
-    return '$count개';
+    return '$count บันทึก';
   }
 
   @override
-  String get location_current => '현재 위치';
+  String get location_current => 'ตำแหน่งปัจจุบัน';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => 'เพิ่มตำแหน่ง';
 }

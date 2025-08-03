@@ -587,35 +587,35 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return '通过使用$terms和$privacy登录，您同意我们的条款。';
+    return '继续即表示您同意我们的$terms和$privacy。';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => '服务条款';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => '隐私政策';
 
   @override
-  String get app_info_copyright => '© 2024 All rights reserved';
+  String get app_info_copyright => '© 2024 保留所有权利';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => '您的姓名';
 
   @override
-  String get profile_sign_out_title => '로그아웃';
+  String get profile_sign_out_title => '登出';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message => '您确定要登出吗？';
 
   @override
   String journal_count(int count) {
-    return '$count개';
+    return '$count个记录';
   }
 
   @override
-  String get location_current => '현재 위치';
+  String get location_current => '当前位置';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => '添加位置';
 }

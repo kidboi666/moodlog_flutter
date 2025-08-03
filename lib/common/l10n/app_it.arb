@@ -220,15 +220,31 @@
   "navigation_write": "Scrivi",
   "navigation_statistics": "Statistiche",
   "navigation_settings": "Impostazioni",
-  "auth_terms_message": "Accedendo con {terms} e {privacy}, accetti i nostri termini.",
-  "auth_terms_link": "Termini di servizio",
-  "auth_privacy_link": "Informativa sulla privacy",
-  "profile_logout_confirm_title": "Conferma disconnessione",
-  "profile_logout_confirm_description": "Sei sicuro di voler disconnetterti?",
-  "app_info_version": "Versione {version}",
-  "app_info_build": "Build {build}",
-  "journal_count_display": "{count} registrazioni",
-  "location_permission_permanent_deny_title": "Autorizzazione posizione negata",
-  "location_permission_permanent_deny_description": "Per utilizzare la funzione di localizzazione, abilita l'autorizzazione alla posizione nelle impostazioni.",
-  "location_permission_permanent_deny_settings": "Vai alle impostazioni"
+  "auth_terms_message": "Continuando, accetti i nostri {terms} e {privacy}.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "Termini di Servizio",
+  "auth_privacy_policy": "Politica sulla Privacy",
+  "app_info_copyright": "© 2024 Tutti i diritti riservati",
+  "app_info_developer": "Il Tuo Nome",
+  "profile_sign_out_title": "Disconnetti",
+  "profile_sign_out_message": "Sei sicuro di voler disconnetterti?",
+  "journal_count": "{count} registrazioni",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "Posizione attuale",
+  "location_add_location": "Aggiungi posizione"
 }

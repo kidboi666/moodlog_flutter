@@ -214,5 +214,37 @@
   "settings_ai_section_title": "Configuración de IA",
   "settings_ai_personality_title": "Personalidad de IA",
   "snackbar_backup_completed": "Copia de seguridad completada.",
-  "snackbar_cache_cleared": "Caché eliminado."
+  "snackbar_cache_cleared": "Caché eliminado.",
+  "navigation_home": "Inicio",
+  "navigation_entries": "Registros", 
+  "navigation_write": "Escribir",
+  "navigation_statistics": "Estadísticas",
+  "navigation_settings": "Configuración",
+  "auth_terms_message": "Al continuar, aceptas nuestros {terms} y {privacy}.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "Términos de Servicio",
+  "auth_privacy_policy": "Política de Privacidad",
+  "app_info_copyright": "© 2024 Todos los derechos reservados",
+  "app_info_developer": "Tu Nombre",
+  "profile_sign_out_title": "Cerrar Sesión",
+  "profile_sign_out_message": "¿Estás seguro de que quieres cerrar sesión?",
+  "journal_count": "{count} registros",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "Ubicación actual",
+  "location_add_location": "Agregar ubicación"
 }

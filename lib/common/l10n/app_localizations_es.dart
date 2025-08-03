@@ -603,51 +603,52 @@ class AppLocalizationsEs extends AppLocalizations {
   String get snackbar_cache_cleared => 'Caché eliminado.';
 
   @override
-  String get navigation_home => '홈';
+  String get navigation_home => 'Inicio';
 
   @override
-  String get navigation_entries => '기록';
+  String get navigation_entries => 'Registros';
 
   @override
-  String get navigation_write => '글쓰기';
+  String get navigation_write => 'Escribir';
 
   @override
-  String get navigation_statistics => '통계';
+  String get navigation_statistics => 'Estadísticas';
 
   @override
-  String get navigation_settings => '설정';
+  String get navigation_settings => 'Configuración';
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return '계속 함으로써 $terms과 $privacy에 동의합니다.';
+    return 'Al continuar, aceptas nuestros $terms y $privacy.';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => 'Términos de Servicio';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => 'Política de Privacidad';
 
   @override
-  String get app_info_copyright => '© 2024 All rights reserved';
+  String get app_info_copyright => '© 2024 Todos los derechos reservados';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => 'Tu Nombre';
 
   @override
-  String get profile_sign_out_title => '로그아웃';
+  String get profile_sign_out_title => 'Cerrar Sesión';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message =>
+      '¿Estás seguro de que quieres cerrar sesión?';
 
   @override
   String journal_count(int count) {
-    return '$count개';
+    return '$count registros';
   }
 
   @override
-  String get location_current => '현재 위치';
+  String get location_current => 'Ubicación actual';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => 'Agregar ubicación';
 }

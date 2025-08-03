@@ -4,8 +4,15 @@ import '../../common/constants/common.dart';
 
 class GradientBox extends StatelessWidget {
   final Widget child;
+  final Color? firstColor;
+  final Color? secondColor;
 
-  const GradientBox({super.key, required this.child});
+  const GradientBox({
+    super.key,
+    required this.child,
+    this.firstColor,
+    this.secondColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +23,8 @@ class GradientBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).colorScheme.onSurfaceVariant,
-            Theme.of(context).colorScheme.onSurface,
+            firstColor ?? Theme.of(context).colorScheme.secondary,
+            secondColor ?? Theme.of(context).colorScheme.onSecondaryContainer,
           ],
           begin: const Alignment(-1.0, -0.8),
           end: const Alignment(0.8, 1.0),

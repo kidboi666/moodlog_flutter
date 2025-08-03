@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/widgets/gradient_box.dart';
 
 import '../../common/constants/common.dart';
 import '../../common/constants/navigation.dart';
@@ -41,7 +42,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       extendBody: true,
       body: AnimatedNavigatorContainer(
@@ -68,34 +69,14 @@ class ScaffoldWithNavbar extends StatelessWidget {
             label: t.navigation_entries,
           ).scale(),
           NavigationDestination(
-            icon: Container(
+            icon: SizedBox(
               width: 56,
               height: 56,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.secondary,
-                  ],
-                ),
-                shape: BoxShape.circle,
+              child: GradientBox(
+                child: const Icon(Icons.add, color: Colors.white, size: 28),
               ),
-              child: const Icon(Icons.add, color: Colors.white, size: 28),
             ),
-            selectedIcon: Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.secondary,
-                  ],
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.add, color: Colors.white, size: 28),
-            ),
+
             label: t.navigation_write,
           ).scale(),
           NavigationDestination(

@@ -220,15 +220,31 @@
   "navigation_write": "เขียน",
   "navigation_statistics": "สถิติ",
   "navigation_settings": "การตั้งค่า",
-  "auth_terms_message": "โดยการเข้าสู่ระบบด้วย {terms} และ {privacy} คุณยอมรับเงื่อนไขของเรา",
-  "auth_terms_link": "เงื่อนไขการบริการ",
-  "auth_privacy_link": "นโยบายความเป็นส่วนตัว",
-  "profile_logout_confirm_title": "ยืนยันการออกจากระบบ",
-  "profile_logout_confirm_description": "คุณแน่ใจหรือไม่ที่จะออกจากระบบ?",
-  "app_info_version": "เวอร์ชัน {version}",
-  "app_info_build": "บิลด์ {build}",
-  "journal_count_display": "{count} บันทึก",
-  "location_permission_permanent_deny_title": "สิทธิ์ตำแหน่งถูกปฏิเสธ",
-  "location_permission_permanent_deny_description": "เพื่อใช้คุณสมบัติตำแหน่ง กรุณาเปิดสิทธิ์ตำแหน่งในการตั้งค่า",
-  "location_permission_permanent_deny_settings": "ไปที่การตั้งค่า"
+  "auth_terms_message": "เมื่อดำเนินการต่อ คุณยอมรับ {terms} และ {privacy} ของเรา",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "เงื่อนไขการบริการ",
+  "auth_privacy_policy": "นโยบายความเป็นส่วนตัว",
+  "app_info_copyright": "© 2024 สงวนลิขสิทธิ์",
+  "app_info_developer": "ชื่อของคุณ",
+  "profile_sign_out_title": "ออกจากระบบ",
+  "profile_sign_out_message": "คุณแน่ใจหรือไม่ที่จะออกจากระบบ?",
+  "journal_count": "{count} บันทึก",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "ตำแหน่งปัจจุบัน",
+  "location_add_location": "เพิ่มตำแหน่ง"
 }

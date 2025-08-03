@@ -220,15 +220,31 @@
   "navigation_write": "Viết",
   "navigation_statistics": "Thống kê",
   "navigation_settings": "Cài đặt",
-  "auth_terms_message": "Bằng cách đăng nhập với {terms} và {privacy}, bạn đồng ý với điều khoản của chúng tôi.",
-  "auth_terms_link": "Điều khoản dịch vụ",
-  "auth_privacy_link": "Chính sách bảo mật",
-  "profile_logout_confirm_title": "Xác nhận đăng xuất",
-  "profile_logout_confirm_description": "Bạn có chắc chắn muốn đăng xuất không?",
-  "app_info_version": "Phiên bản {version}",
-  "app_info_build": "Bản dựng {build}",
-  "journal_count_display": "{count} bản ghi",
-  "location_permission_permanent_deny_title": "Quyền vị trí bị từ chối",
-  "location_permission_permanent_deny_description": "Để sử dụng tính năng vị trí, vui lòng bật quyền vị trí trong cài đặt.",
-  "location_permission_permanent_deny_settings": "Đi đến cài đặt"
+  "auth_terms_message": "Bằng cách tiếp tục, bạn đồng ý với {terms} và {privacy} của chúng tôi.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "Điều Khoản Dịch Vụ",
+  "auth_privacy_policy": "Chính Sách Bảo Mật",
+  "app_info_copyright": "© 2024 Bảo lưu mọi quyền",
+  "app_info_developer": "Tên Của Bạn",
+  "profile_sign_out_title": "Đăng Xuất",
+  "profile_sign_out_message": "Bạn có chắc chắn muốn đăng xuất không?",
+  "journal_count": "{count} bản ghi",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "Vị trí hiện tại",
+  "location_add_location": "Thêm vị trí"
 }

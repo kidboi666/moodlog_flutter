@@ -220,15 +220,31 @@
   "navigation_write": "Écrire",
   "navigation_statistics": "Statistiques",
   "navigation_settings": "Paramètres",
-  "auth_terms_message": "En vous connectant avec {terms} et {privacy}, vous acceptez nos conditions.",
-  "auth_terms_link": "Conditions de service",
-  "auth_privacy_link": "Politique de confidentialité",
-  "profile_logout_confirm_title": "Confirmer la déconnexion",
-  "profile_logout_confirm_description": "Êtes-vous sûr de vouloir vous déconnecter ?",
-  "app_info_version": "Version {version}",
-  "app_info_build": "Build {build}",
-  "journal_count_display": "{count} entrées",
-  "location_permission_permanent_deny_title": "Autorisation de localisation refusée",
-  "location_permission_permanent_deny_description": "Pour utiliser la fonction de localisation, veuillez activer l'autorisation de localisation dans les paramètres.",
-  "location_permission_permanent_deny_settings": "Aller aux paramètres"
+  "auth_terms_message": "En continuant, vous acceptez nos {terms} et {privacy}.",
+  "@auth_terms_message": {
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_terms_of_service": "Conditions de Service",
+  "auth_privacy_policy": "Politique de Confidentialité",
+  "app_info_copyright": "© 2024 Tous droits réservés",
+  "app_info_developer": "Votre Nom",
+  "profile_sign_out_title": "Se Déconnecter",
+  "profile_sign_out_message": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "journal_count": "{count} entrées",
+  "@journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "location_current": "Position actuelle",
+  "location_add_location": "Ajouter une position"
 }

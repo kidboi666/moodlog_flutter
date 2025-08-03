@@ -610,35 +610,35 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return 'Accedendo con $terms e $privacy, accetti i nostri termini.';
+    return 'Continuando, accetti i nostri $terms e $privacy.';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => 'Termini di Servizio';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => 'Politica sulla Privacy';
 
   @override
-  String get app_info_copyright => '© 2024 All rights reserved';
+  String get app_info_copyright => '© 2024 Tutti i diritti riservati';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => 'Il Tuo Nome';
 
   @override
-  String get profile_sign_out_title => '로그아웃';
+  String get profile_sign_out_title => 'Disconnetti';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message => 'Sei sicuro di voler disconnetterti?';
 
   @override
   String journal_count(int count) {
-    return '$count개';
+    return '$count registrazioni';
   }
 
   @override
-  String get location_current => '현재 위치';
+  String get location_current => 'Posizione attuale';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => 'Aggiungi posizione';
 }
