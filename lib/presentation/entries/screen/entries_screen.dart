@@ -128,7 +128,7 @@ class EntriesScreen extends StatelessWidget {
             },
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(height: kBottomNavigationBarHeight),
+            child: SizedBox(height: kBottomNavigationBarHeight * 3),
           ),
         ],
       ),
