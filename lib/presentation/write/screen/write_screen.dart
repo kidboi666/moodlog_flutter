@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/write/widgets/editor_bottom_panel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
@@ -7,6 +6,7 @@ import '../../widgets/pagination_dot.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
 import '../widgets/date_button.dart';
+import '../widgets/editor_bottom_panel.dart';
 import '../widgets/write_pageview_mood.dart';
 import '../widgets/write_pageview_rest.dart';
 
@@ -51,7 +51,6 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(

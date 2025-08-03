@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/constants/common.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'image_picker_button.dart';
 import 'timestamp_button.dart';
@@ -17,8 +18,9 @@ class EditorBottomPanel extends StatelessWidget {
     return Selector<WriteViewModel, bool>(
       selector: (context, viewModel) => viewModel.isLastStep,
       builder: (context, isLastStep, child) {
-        return Visibility(
-          visible: isLastStep,
+        return AnimatedOpacity(
+          duration: DurationMs.quick,
+          opacity: isLastStep ? 1 : 0,
           child: SafeArea(
             child: Container(
               decoration: keyboardHeight > 0
@@ -26,7 +28,7 @@ class EditorBottomPanel extends StatelessWidget {
                       color: colorScheme.surface,
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.shadow.withValues(alpha: 0.1),
+                          color: colorScheme.shadow.withValues(alpha: 0.2),
                           blurRadius: 20,
                           offset: Offset(0, -4),
                         ),
@@ -38,6 +40,7 @@ class EditorBottomPanel extends StatelessWidget {
                 children: [
                   const ImagePickerButton(),
                   TimestampButton(contentController: contentController),
+                  const SizedBox(width: Spacing.lg),
                 ],
               ),
             ),
