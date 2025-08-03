@@ -16,6 +16,8 @@ class OverallStatsCard extends StatelessWidget {
     final totalJournals = viewModel.totalJournals;
     final currentStreak = viewModel.currentStreak;
     final maxStreak = viewModel.maxStreak;
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
 
     return BaseCard(
       child: Column(
@@ -23,39 +25,25 @@ class OverallStatsCard extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.statistics_total_title,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: Spacing.lg),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               StatItem(
-                label: AppLocalizations.of(
-                  context,
-                )!.statistics_total_record_description,
-                value: AppLocalizations.of(
-                  context,
-                )!.statistics_total_record(totalJournals),
+                label: t.statistics_total_record_description,
+                value: t.statistics_total_record(totalJournals),
                 icon: Icons.edit_note,
               ),
               StatItem(
-                label: AppLocalizations.of(
-                  context,
-                )!.statistics_total_streak_description,
-                value: AppLocalizations.of(
-                  context,
-                )!.statistics_total_streak(currentStreak),
+                label: t.statistics_total_streak_description,
+                value: t.statistics_total_streak(currentStreak),
                 icon: Icons.local_fire_department,
               ),
               StatItem(
-                label: AppLocalizations.of(
-                  context,
-                )!.statistics_total_streak_max_description,
-                value: AppLocalizations.of(
-                  context,
-                )!.statistics_total_streak_max(maxStreak),
+                label: t.statistics_total_streak_max_description,
+                value: t.statistics_total_streak_max(maxStreak),
                 icon: Icons.emoji_events,
               ),
             ],

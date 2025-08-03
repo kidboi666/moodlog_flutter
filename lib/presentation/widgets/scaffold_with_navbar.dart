@@ -42,6 +42,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       extendBody: true,
@@ -73,7 +74,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
               width: 56,
               height: 56,
               child: GradientBox(
-                child: const Icon(Icons.add, color: Colors.white, size: 28),
+                child: Icon(Icons.add, color: colorScheme.surface, size: 28),
               ),
             ),
 

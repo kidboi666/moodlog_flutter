@@ -16,17 +16,17 @@ class StatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
-        Icon(icon, size: 32, color: Theme.of(context).colorScheme.primary),
+        Icon(icon, size: 32, color: colorScheme.primary),
         const SizedBox(height: Spacing.sm),
         Text(
           value,
-          style: Theme.of(
-            context,
-          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
+        Text(label, style: textTheme.bodyMedium),
       ],
     );
   }
