@@ -60,46 +60,51 @@ class EntriesScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        padding: Spacing.containerHorizontalPadding,
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
-            const SliverToBoxAdapter(child: TagFilterSection()),
-            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
-            Selector<EntriesViewModel, EntriesSelectorType>(
-              selector: (_, viewModel) => (
-                entries: viewModel.entries,
-                isLoading: viewModel.isLoading,
-                viewMode: viewModel.viewMode,
-              ),
-              builder: (_, viewModel, _) {
-                if (viewModel.isLoading) {
-                  return SliverToBoxAdapter(
-                    child: FadeIn(
-                      delay: DelayMs.medium,
-                      child: const CircularProgressIndicator(),
-                    ),
-                  );
-                }
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+          const SliverToBoxAdapter(child: TagFilterSection()),
+          const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+          Selector<EntriesViewModel, EntriesSelectorType>(
+            selector: (_, viewModel) => (
+              entries: viewModel.entries,
+              isLoading: viewModel.isLoading,
+              viewMode: viewModel.viewMode,
+            ),
+            builder: (_, viewModel, _) {
+              if (viewModel.isLoading) {
+                return SliverToBoxAdapter(
+                  child: const CircularProgressIndicator(),
+                );
+              }
 
-                if (viewModel.viewMode == EntriesViewMode.calendar) {
-                  return const SliverToBoxAdapter(child: EntriesCalendarView());
-                }
+              if (viewModel.viewMode == EntriesViewMode.calendar) {
+                return const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: Spacing.containerHorizontalPadding,
+                    child: EntriesCalendarView(),
+                  ),
+                );
+              }
 
-                if (viewModel.entries.isEmpty) {
-                  return SliverToBoxAdapter(
-                    child: FadeIn(
-                      delay: DelayMs.medium,
+              if (viewModel.entries.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: FadeIn(
+                    delay: DelayMs.medium,
+                    child: Padding(
+                      padding: Spacing.containerHorizontalPadding,
                       child: EmptyEntriesBox(),
                     ),
-                  );
-                }
+                  ),
+                );
+              }
 
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    final e = viewModel.entries[index];
-                    return FadeIn(
+              return SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final e = viewModel.entries[index];
+                  return Padding(
+                    padding: Spacing.containerHorizontalPadding,
+                    child: FadeIn(
                       delay: DelayMs.medium,
                       child: Column(
                         children: [
@@ -116,16 +121,16 @@ class EntriesScreen extends StatelessWidget {
                           const SizedBox(height: Spacing.xl),
                         ],
                       ),
-                    );
-                  }, childCount: viewModel.entries.length),
-                );
-              },
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: kBottomNavigationBarHeight),
-            ),
-          ],
-        ),
+                    ),
+                  );
+                }, childCount: viewModel.entries.length),
+              );
+            },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: kBottomNavigationBarHeight),
+          ),
+        ],
       ),
     );
   }

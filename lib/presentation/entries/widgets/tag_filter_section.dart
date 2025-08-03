@@ -17,43 +17,46 @@ class TagFilterSection extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: Spacing.lg),
+              child: Text(
                 t.tags_filter_title,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              const SizedBox(height: Spacing.sm),
-              SizedBox(
-                height: 40,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    _FilterChip(
-                      label: t.tags_filter_all,
-                      isSelected: viewModel.selectedTagFilter == null,
-                      onTap: () => viewModel.clearTagFilter(),
+            ),
+            const SizedBox(height: Spacing.sm),
+            SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(width: Spacing.lg),
+                  _FilterChip(
+                    label: t.tags_filter_all,
+                    isSelected: viewModel.selectedTagFilter == null,
+                    onTap: () => viewModel.clearTagFilter(),
+                  ),
+                  const SizedBox(width: Spacing.xs),
+                  ...viewModel.availableTags.map(
+                    (tag) => Padding(
+                      padding: const EdgeInsets.only(right: Spacing.xs),
+                      child: _FilterChip(
+                        label: tag.name,
+                        isSelected: viewModel.selectedTagFilter?.id == tag.id,
+                        onTap: () => viewModel.setTagFilter(tag),
+                        color: tag.color != null
+                            ? Color(int.parse(tag.color!, radix: 16))
+                            : null,
+                      ),
                     ),
-                    const SizedBox(width: Spacing.xs),
-                    ...viewModel.availableTags.map((tag) => Padding(
-                          padding: const EdgeInsets.only(right: Spacing.xs),
-                          child: _FilterChip(
-                            label: tag.name,
-                            isSelected: viewModel.selectedTagFilter?.id == tag.id,
-                            onTap: () => viewModel.setTagFilter(tag),
-                            color: tag.color != null
-                                ? Color(int.parse(tag.color!, radix: 16))
-                                : null,
-                          ),
-                        )),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
@@ -75,15 +78,16 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FilterChip(
       label: Text(label),
       selected: isSelected,
       onSelected: (_) => onTap(),
-      backgroundColor: color ?? Theme.of(context).colorScheme.surfaceContainerHighest,
-      selectedColor: color ?? Theme.of(context).colorScheme.primary,
-      checkmarkColor: isSelected 
-          ? Theme.of(context).colorScheme.onPrimary 
-          : Theme.of(context).colorScheme.onSurface,
+      backgroundColor: color ?? colorScheme.surfaceContainer,
+      selectedColor: color ?? colorScheme.primaryContainer,
+      checkmarkColor: isSelected
+          ? colorScheme.onPrimaryContainer
+          : colorScheme.onSurface,
     );
   }
 }
