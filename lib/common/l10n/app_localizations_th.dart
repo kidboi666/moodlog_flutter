@@ -350,6 +350,205 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statistics_recent_empty => 'ไม่มีไดอารี่ล่าสุด';
 
   @override
+  String get statistics_total_records_count_unit => '개의 기록';
+
+  @override
+  String get statistics_total_records_first_record => '첫 기록';
+
+  @override
+  String get statistics_total_records_period => '기록 기간';
+
+  @override
+  String statistics_total_records_period_days(int days) {
+    return '$days일';
+  }
+
+  @override
+  String get statistics_total_records_avg_frequency => '평균 빈도';
+
+  @override
+  String statistics_total_records_weekly_frequency(String frequency) {
+    return '$frequency회/주';
+  }
+
+  @override
+  String get statistics_streak_status_active => '진행 중';
+
+  @override
+  String get statistics_streak_status_inactive => '중단됨';
+
+  @override
+  String get statistics_streak_last_record => '마지막 기록';
+
+  @override
+  String get statistics_streak_today => '오늘';
+
+  @override
+  String get statistics_streak_yesterday => '어제';
+
+  @override
+  String statistics_streak_days_ago(int days) {
+    return '$days일 전';
+  }
+
+  @override
+  String get statistics_streak_stopped => '연속 기록 중단';
+
+  @override
+  String statistics_streak_stopped_days(int days) {
+    return '$days일 전';
+  }
+
+  @override
+  String get statistics_streak_encouragement => '훌륭해요! 연속 기록을 이어가고 있어요';
+
+  @override
+  String get statistics_max_streak_new_record => '신기록!';
+
+  @override
+  String get statistics_max_streak_progress => '현재 진행률';
+
+  @override
+  String get statistics_max_streak_remaining => '최고 기록까지';
+
+  @override
+  String statistics_max_streak_remaining_days(int days) {
+    return '$days일 남음';
+  }
+
+  @override
+  String get statistics_max_streak_achievement_week => '일주일 연속 기록 달성! 잘하고 있어요!';
+
+  @override
+  String get statistics_max_streak_achievement_two_weeks =>
+      '2주 연속 기록 달성! 훌륭해요!';
+
+  @override
+  String get statistics_max_streak_achievement_month =>
+      '한 달 연속 기록 달성! 정말 대단해요!';
+
+  @override
+  String get statistics_average_mood_title => '평균 기분';
+
+  @override
+  String statistics_average_mood_score(String score) {
+    return '평균 $score점';
+  }
+
+  @override
+  String get statistics_average_mood_most_frequent => '가장 자주 느낀 기분';
+
+  @override
+  String get statistics_average_mood_recent_trend => '최근 7일 추이';
+
+  @override
+  String get statistics_trend_rising => '상승';
+
+  @override
+  String get statistics_trend_falling => '하락';
+
+  @override
+  String get statistics_trend_stable => '안정';
+
+  @override
+  String get statistics_mood_positive_message => '전반적으로 긍정적인 기분을 유지하고 있어요!';
+
+  @override
+  String get statistics_mood_negative_message =>
+      '힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.';
+
+  @override
+  String get statistics_writing_frequency_title => '작성 빈도';
+
+  @override
+  String get statistics_writing_frequency_this_week => '이번 주';
+
+  @override
+  String get statistics_writing_frequency_count_unit => '회';
+
+  @override
+  String get statistics_writing_frequency_daily => '매일 기록!';
+
+  @override
+  String get statistics_writing_frequency_often => '자주 기록';
+
+  @override
+  String get statistics_writing_frequency_normal => '보통';
+
+  @override
+  String get statistics_writing_frequency_sometimes => '가끔';
+
+  @override
+  String get statistics_writing_frequency_none => '기록 없음';
+
+  @override
+  String get statistics_writing_frequency_weekly_avg => '주평균';
+
+  @override
+  String get statistics_writing_frequency_monthly_avg => '월평균';
+
+  @override
+  String statistics_writing_frequency_weekly_count(String count) {
+    return '$count회';
+  }
+
+  @override
+  String statistics_writing_frequency_monthly_count(String count) {
+    return '$count회';
+  }
+
+  @override
+  String get statistics_writing_frequency_most_active_time => '가장 자주 쓰는 시간';
+
+  @override
+  String get statistics_writing_frequency_most_active_day => '가장 자주 쓰는 요일';
+
+  @override
+  String get statistics_time_morning => '오전';
+
+  @override
+  String get statistics_time_afternoon => '오후';
+
+  @override
+  String get statistics_time_evening => '저녁';
+
+  @override
+  String get statistics_time_night => '밤';
+
+  @override
+  String statistics_time_with_hour(String timeOfDay, int hour) {
+    return '$timeOfDay ($hour시)';
+  }
+
+  @override
+  String get statistics_weekday_monday => '월요일';
+
+  @override
+  String get statistics_weekday_tuesday => '화요일';
+
+  @override
+  String get statistics_weekday_wednesday => '수요일';
+
+  @override
+  String get statistics_weekday_thursday => '목요일';
+
+  @override
+  String get statistics_weekday_friday => '금요일';
+
+  @override
+  String get statistics_weekday_saturday => '토요일';
+
+  @override
+  String get statistics_weekday_sunday => '일요일';
+
+  @override
+  String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 계시는군요! 훌륭해요!';
+
+  @override
+  String get statistics_writing_frequency_encouragement =>
+      '조금 더 자주 기록해보세요. 작은 순간들도 소중해요!';
+
+  @override
   String get settings_title => 'การตั้งค่า';
 
   @override

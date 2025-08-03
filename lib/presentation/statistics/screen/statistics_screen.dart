@@ -7,11 +7,15 @@ import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
 import '../../widgets/avatar.dart';
 import '../viewmodel/statistics_viewmodel.dart';
+import '../widgets/average_mood_card.dart';
+import '../widgets/current_streak_card.dart';
+import '../widgets/max_streak_card.dart';
 import '../widgets/mood_calendar_card.dart';
 import '../widgets/mood_distribution_card.dart';
 import '../widgets/mood_trend_card.dart';
-import '../widgets/overall_stats_card.dart';
 import '../widgets/recent_activity_card.dart';
+import '../widgets/total_records_card.dart';
+import '../widgets/writing_frequency_card.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});
@@ -39,7 +43,15 @@ class StatisticsScreen extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 const SizedBox(height: Spacing.xl),
-                const OverallStatsCard(),
+                const TotalRecordsCard(),
+                const SizedBox(height: Spacing.xl),
+                const CurrentStreakCard(),
+                const SizedBox(height: Spacing.xl),
+                const MaxStreakCard(),
+                const SizedBox(height: Spacing.xl),
+                const AverageMoodCard(),
+                const SizedBox(height: Spacing.xl),
+                const WritingFrequencyCard(),
                 const SizedBox(height: Spacing.xl),
                 const MoodCalendarCard(),
                 const SizedBox(height: Spacing.xl),

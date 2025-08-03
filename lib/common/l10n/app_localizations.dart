@@ -748,6 +748,360 @@ abstract class AppLocalizations {
   /// **'최근 일기가 없습니다.'**
   String get statistics_recent_empty;
 
+  /// No description provided for @statistics_total_records_count_unit.
+  ///
+  /// In ko, this message translates to:
+  /// **'개의 기록'**
+  String get statistics_total_records_count_unit;
+
+  /// No description provided for @statistics_total_records_first_record.
+  ///
+  /// In ko, this message translates to:
+  /// **'첫 기록'**
+  String get statistics_total_records_first_record;
+
+  /// No description provided for @statistics_total_records_period.
+  ///
+  /// In ko, this message translates to:
+  /// **'기록 기간'**
+  String get statistics_total_records_period;
+
+  /// No description provided for @statistics_total_records_period_days.
+  ///
+  /// In ko, this message translates to:
+  /// **'{days}일'**
+  String statistics_total_records_period_days(int days);
+
+  /// No description provided for @statistics_total_records_avg_frequency.
+  ///
+  /// In ko, this message translates to:
+  /// **'평균 빈도'**
+  String get statistics_total_records_avg_frequency;
+
+  /// No description provided for @statistics_total_records_weekly_frequency.
+  ///
+  /// In ko, this message translates to:
+  /// **'{frequency}회/주'**
+  String statistics_total_records_weekly_frequency(String frequency);
+
+  /// No description provided for @statistics_streak_status_active.
+  ///
+  /// In ko, this message translates to:
+  /// **'진행 중'**
+  String get statistics_streak_status_active;
+
+  /// No description provided for @statistics_streak_status_inactive.
+  ///
+  /// In ko, this message translates to:
+  /// **'중단됨'**
+  String get statistics_streak_status_inactive;
+
+  /// No description provided for @statistics_streak_last_record.
+  ///
+  /// In ko, this message translates to:
+  /// **'마지막 기록'**
+  String get statistics_streak_last_record;
+
+  /// No description provided for @statistics_streak_today.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘'**
+  String get statistics_streak_today;
+
+  /// No description provided for @statistics_streak_yesterday.
+  ///
+  /// In ko, this message translates to:
+  /// **'어제'**
+  String get statistics_streak_yesterday;
+
+  /// No description provided for @statistics_streak_days_ago.
+  ///
+  /// In ko, this message translates to:
+  /// **'{days}일 전'**
+  String statistics_streak_days_ago(int days);
+
+  /// No description provided for @statistics_streak_stopped.
+  ///
+  /// In ko, this message translates to:
+  /// **'연속 기록 중단'**
+  String get statistics_streak_stopped;
+
+  /// No description provided for @statistics_streak_stopped_days.
+  ///
+  /// In ko, this message translates to:
+  /// **'{days}일 전'**
+  String statistics_streak_stopped_days(int days);
+
+  /// No description provided for @statistics_streak_encouragement.
+  ///
+  /// In ko, this message translates to:
+  /// **'훌륭해요! 연속 기록을 이어가고 있어요'**
+  String get statistics_streak_encouragement;
+
+  /// No description provided for @statistics_max_streak_new_record.
+  ///
+  /// In ko, this message translates to:
+  /// **'신기록!'**
+  String get statistics_max_streak_new_record;
+
+  /// No description provided for @statistics_max_streak_progress.
+  ///
+  /// In ko, this message translates to:
+  /// **'현재 진행률'**
+  String get statistics_max_streak_progress;
+
+  /// No description provided for @statistics_max_streak_remaining.
+  ///
+  /// In ko, this message translates to:
+  /// **'최고 기록까지'**
+  String get statistics_max_streak_remaining;
+
+  /// No description provided for @statistics_max_streak_remaining_days.
+  ///
+  /// In ko, this message translates to:
+  /// **'{days}일 남음'**
+  String statistics_max_streak_remaining_days(int days);
+
+  /// No description provided for @statistics_max_streak_achievement_week.
+  ///
+  /// In ko, this message translates to:
+  /// **'일주일 연속 기록 달성! 잘하고 있어요!'**
+  String get statistics_max_streak_achievement_week;
+
+  /// No description provided for @statistics_max_streak_achievement_two_weeks.
+  ///
+  /// In ko, this message translates to:
+  /// **'2주 연속 기록 달성! 훌륭해요!'**
+  String get statistics_max_streak_achievement_two_weeks;
+
+  /// No description provided for @statistics_max_streak_achievement_month.
+  ///
+  /// In ko, this message translates to:
+  /// **'한 달 연속 기록 달성! 정말 대단해요!'**
+  String get statistics_max_streak_achievement_month;
+
+  /// No description provided for @statistics_average_mood_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'평균 기분'**
+  String get statistics_average_mood_title;
+
+  /// No description provided for @statistics_average_mood_score.
+  ///
+  /// In ko, this message translates to:
+  /// **'평균 {score}점'**
+  String statistics_average_mood_score(String score);
+
+  /// No description provided for @statistics_average_mood_most_frequent.
+  ///
+  /// In ko, this message translates to:
+  /// **'가장 자주 느낀 기분'**
+  String get statistics_average_mood_most_frequent;
+
+  /// No description provided for @statistics_average_mood_recent_trend.
+  ///
+  /// In ko, this message translates to:
+  /// **'최근 7일 추이'**
+  String get statistics_average_mood_recent_trend;
+
+  /// No description provided for @statistics_trend_rising.
+  ///
+  /// In ko, this message translates to:
+  /// **'상승'**
+  String get statistics_trend_rising;
+
+  /// No description provided for @statistics_trend_falling.
+  ///
+  /// In ko, this message translates to:
+  /// **'하락'**
+  String get statistics_trend_falling;
+
+  /// No description provided for @statistics_trend_stable.
+  ///
+  /// In ko, this message translates to:
+  /// **'안정'**
+  String get statistics_trend_stable;
+
+  /// No description provided for @statistics_mood_positive_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'전반적으로 긍정적인 기분을 유지하고 있어요!'**
+  String get statistics_mood_positive_message;
+
+  /// No description provided for @statistics_mood_negative_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.'**
+  String get statistics_mood_negative_message;
+
+  /// No description provided for @statistics_writing_frequency_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'작성 빈도'**
+  String get statistics_writing_frequency_title;
+
+  /// No description provided for @statistics_writing_frequency_this_week.
+  ///
+  /// In ko, this message translates to:
+  /// **'이번 주'**
+  String get statistics_writing_frequency_this_week;
+
+  /// No description provided for @statistics_writing_frequency_count_unit.
+  ///
+  /// In ko, this message translates to:
+  /// **'회'**
+  String get statistics_writing_frequency_count_unit;
+
+  /// No description provided for @statistics_writing_frequency_daily.
+  ///
+  /// In ko, this message translates to:
+  /// **'매일 기록!'**
+  String get statistics_writing_frequency_daily;
+
+  /// No description provided for @statistics_writing_frequency_often.
+  ///
+  /// In ko, this message translates to:
+  /// **'자주 기록'**
+  String get statistics_writing_frequency_often;
+
+  /// No description provided for @statistics_writing_frequency_normal.
+  ///
+  /// In ko, this message translates to:
+  /// **'보통'**
+  String get statistics_writing_frequency_normal;
+
+  /// No description provided for @statistics_writing_frequency_sometimes.
+  ///
+  /// In ko, this message translates to:
+  /// **'가끔'**
+  String get statistics_writing_frequency_sometimes;
+
+  /// No description provided for @statistics_writing_frequency_none.
+  ///
+  /// In ko, this message translates to:
+  /// **'기록 없음'**
+  String get statistics_writing_frequency_none;
+
+  /// No description provided for @statistics_writing_frequency_weekly_avg.
+  ///
+  /// In ko, this message translates to:
+  /// **'주평균'**
+  String get statistics_writing_frequency_weekly_avg;
+
+  /// No description provided for @statistics_writing_frequency_monthly_avg.
+  ///
+  /// In ko, this message translates to:
+  /// **'월평균'**
+  String get statistics_writing_frequency_monthly_avg;
+
+  /// No description provided for @statistics_writing_frequency_weekly_count.
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}회'**
+  String statistics_writing_frequency_weekly_count(String count);
+
+  /// No description provided for @statistics_writing_frequency_monthly_count.
+  ///
+  /// In ko, this message translates to:
+  /// **'{count}회'**
+  String statistics_writing_frequency_monthly_count(String count);
+
+  /// No description provided for @statistics_writing_frequency_most_active_time.
+  ///
+  /// In ko, this message translates to:
+  /// **'가장 자주 쓰는 시간'**
+  String get statistics_writing_frequency_most_active_time;
+
+  /// No description provided for @statistics_writing_frequency_most_active_day.
+  ///
+  /// In ko, this message translates to:
+  /// **'가장 자주 쓰는 요일'**
+  String get statistics_writing_frequency_most_active_day;
+
+  /// No description provided for @statistics_time_morning.
+  ///
+  /// In ko, this message translates to:
+  /// **'오전'**
+  String get statistics_time_morning;
+
+  /// No description provided for @statistics_time_afternoon.
+  ///
+  /// In ko, this message translates to:
+  /// **'오후'**
+  String get statistics_time_afternoon;
+
+  /// No description provided for @statistics_time_evening.
+  ///
+  /// In ko, this message translates to:
+  /// **'저녁'**
+  String get statistics_time_evening;
+
+  /// No description provided for @statistics_time_night.
+  ///
+  /// In ko, this message translates to:
+  /// **'밤'**
+  String get statistics_time_night;
+
+  /// No description provided for @statistics_time_with_hour.
+  ///
+  /// In ko, this message translates to:
+  /// **'{timeOfDay} ({hour}시)'**
+  String statistics_time_with_hour(String timeOfDay, int hour);
+
+  /// No description provided for @statistics_weekday_monday.
+  ///
+  /// In ko, this message translates to:
+  /// **'월요일'**
+  String get statistics_weekday_monday;
+
+  /// No description provided for @statistics_weekday_tuesday.
+  ///
+  /// In ko, this message translates to:
+  /// **'화요일'**
+  String get statistics_weekday_tuesday;
+
+  /// No description provided for @statistics_weekday_wednesday.
+  ///
+  /// In ko, this message translates to:
+  /// **'수요일'**
+  String get statistics_weekday_wednesday;
+
+  /// No description provided for @statistics_weekday_thursday.
+  ///
+  /// In ko, this message translates to:
+  /// **'목요일'**
+  String get statistics_weekday_thursday;
+
+  /// No description provided for @statistics_weekday_friday.
+  ///
+  /// In ko, this message translates to:
+  /// **'금요일'**
+  String get statistics_weekday_friday;
+
+  /// No description provided for @statistics_weekday_saturday.
+  ///
+  /// In ko, this message translates to:
+  /// **'토요일'**
+  String get statistics_weekday_saturday;
+
+  /// No description provided for @statistics_weekday_sunday.
+  ///
+  /// In ko, this message translates to:
+  /// **'일요일'**
+  String get statistics_weekday_sunday;
+
+  /// No description provided for @statistics_writing_frequency_good_habit.
+  ///
+  /// In ko, this message translates to:
+  /// **'꾸준히 기록하고 계시는군요! 훌륭해요!'**
+  String get statistics_writing_frequency_good_habit;
+
+  /// No description provided for @statistics_writing_frequency_encouragement.
+  ///
+  /// In ko, this message translates to:
+  /// **'조금 더 자주 기록해보세요. 작은 순간들도 소중해요!'**
+  String get statistics_writing_frequency_encouragement;
+
   /// No description provided for @settings_title.
   ///
   /// In ko, this message translates to:

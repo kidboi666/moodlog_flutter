@@ -137,6 +137,131 @@
   "statistics_mood_trend_empty": "기분 추이 데이터가 없습니다.",
   "statistics_recent_title": "최근 일기",
   "statistics_recent_empty": "최근 일기가 없습니다.",
+  "statistics_total_records_count_unit": "개의 기록",
+  "statistics_total_records_first_record": "첫 기록",
+  "statistics_total_records_period": "기록 기간",
+  "statistics_total_records_period_days": "{days}일",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "평균 빈도",
+  "statistics_total_records_weekly_frequency": "{frequency}회/주",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "진행 중",
+  "statistics_streak_status_inactive": "중단됨",
+  "statistics_streak_last_record": "마지막 기록",
+  "statistics_streak_today": "오늘",
+  "statistics_streak_yesterday": "어제",
+  "statistics_streak_days_ago": "{days}일 전",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "연속 기록 중단",
+  "statistics_streak_stopped_days": "{days}일 전",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "훌륭해요! 연속 기록을 이어가고 있어요",
+  "statistics_max_streak_new_record": "신기록!",
+  "statistics_max_streak_progress": "현재 진행률",
+  "statistics_max_streak_remaining": "최고 기록까지",
+  "statistics_max_streak_remaining_days": "{days}일 남음",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "일주일 연속 기록 달성! 잘하고 있어요!",
+  "statistics_max_streak_achievement_two_weeks": "2주 연속 기록 달성! 훌륭해요!",
+  "statistics_max_streak_achievement_month": "한 달 연속 기록 달성! 정말 대단해요!",
+  "statistics_average_mood_title": "평균 기분",
+  "statistics_average_mood_score": "평균 {score}점",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "가장 자주 느낀 기분",
+  "statistics_average_mood_recent_trend": "최근 7일 추이",
+  "statistics_trend_rising": "상승",
+  "statistics_trend_falling": "하락",
+  "statistics_trend_stable": "안정",
+  "statistics_mood_positive_message": "전반적으로 긍정적인 기분을 유지하고 있어요!",
+  "statistics_mood_negative_message": "힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.",
+  "statistics_writing_frequency_title": "작성 빈도",
+  "statistics_writing_frequency_this_week": "이번 주",
+  "statistics_writing_frequency_count_unit": "회",
+  "statistics_writing_frequency_daily": "매일 기록!",
+  "statistics_writing_frequency_often": "자주 기록",
+  "statistics_writing_frequency_normal": "보통",
+  "statistics_writing_frequency_sometimes": "가끔",
+  "statistics_writing_frequency_none": "기록 없음",
+  "statistics_writing_frequency_weekly_avg": "주평균",
+  "statistics_writing_frequency_monthly_avg": "월평균",
+  "statistics_writing_frequency_weekly_count": "{count}회",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count}회",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "가장 자주 쓰는 시간",
+  "statistics_writing_frequency_most_active_day": "가장 자주 쓰는 요일",
+  "statistics_time_morning": "오전",
+  "statistics_time_afternoon": "오후",
+  "statistics_time_evening": "저녁",
+  "statistics_time_night": "밤",
+  "statistics_time_with_hour": "{timeOfDay} ({hour}시)",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_weekday_monday": "월요일",
+  "statistics_weekday_tuesday": "화요일",
+  "statistics_weekday_wednesday": "수요일",
+  "statistics_weekday_thursday": "목요일",
+  "statistics_weekday_friday": "금요일",
+  "statistics_weekday_saturday": "토요일",
+  "statistics_weekday_sunday": "일요일",
+  "statistics_writing_frequency_good_habit": "꾸준히 기록하고 계시는군요! 훌륭해요!",
+  "statistics_writing_frequency_encouragement": "조금 더 자주 기록해보세요. 작은 순간들도 소중해요!",
   "settings_title": "설정",
   "settings_common_title": "일반",
   "settings_common_notification_title": "알림",
