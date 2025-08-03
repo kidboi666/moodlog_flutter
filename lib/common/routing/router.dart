@@ -88,6 +88,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           addJournalUseCase: context.read(),
           updateJournalUseCase: context.read(),
           checkAiUsageLimitUseCase: context.read(),
+          addTagUseCase: context.read(),
+          getAllTagsUseCase: context.read(),
+          updateJournalTagsUseCase: context.read(),
           totalSteps: 2,
         ),
         child: const WriteScreen(),
@@ -151,6 +154,8 @@ GoRouter router(UserProvider userProvider) => GoRouter(
                 create: (context) => EntriesViewModel(
                   journalRepository: context.read(),
                   deleteJournalUseCase: context.read(),
+                  getAllTagsUseCase: context.read(),
+                  getTagsByJournalUseCase: context.read(),
                 ),
                 child: const EntriesScreen(),
               ),

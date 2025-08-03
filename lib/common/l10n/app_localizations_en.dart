@@ -637,4 +637,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get location_add_location => 'Add location';
+
+  @override
+  String get tags_manage_title => 'Manage Tags';
+
+  @override
+  String get tags_manage_subtitle => 'View and manage your tags';
+
+  @override
+  String get tags_filter_all => 'All';
+
+  @override
+  String get tags_filter_title => 'Filter by tags';
+
+  @override
+  String get tags_suggested_title => 'Suggested Tags';
+
+  @override
+  String get tags_add_new => 'Add new tag';
+
+  @override
+  String get tags_input_hint => 'Tag name';
+
+  @override
+  String get tags_delete_title => 'Delete Tag';
+
+  @override
+  String tags_delete_message(String tagName) {
+    return 'Are you sure you want to delete \"$tagName\"? This will remove the tag from all journals.';
+  }
+
+  @override
+  String tags_delete_success(String tagName) {
+    return 'Tag \"$tagName\" deleted';
+  }
+
+  @override
+  String get tags_no_tags => 'No tags found';
+
+  @override
+  String get tags_load_failed => 'Failed to load tags';
+
+  @override
+  String get tags_delete_failed => 'Failed to delete tag';
 }

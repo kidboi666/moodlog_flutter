@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'image_picker_button.dart';
+import 'tag_input_button.dart';
 import 'timestamp_button.dart';
 
 class EditorBottomPanel extends StatelessWidget {
@@ -38,6 +39,7 @@ class EditorBottomPanel extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  const TagInputButton(),
                   const ImagePickerButton(),
                   TimestampButton(contentController: contentController),
                   const SizedBox(width: Spacing.lg),

@@ -8,6 +8,7 @@ import '../../data/repositories/gemini_repository_impl.dart';
 import '../../data/repositories/journal_repository_impl.dart';
 import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
+import '../../data/repositories/tag_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
 import '../../domain/repositories/ai_generation_repository.dart';
 import '../../domain/repositories/app_state_repository.dart';
@@ -15,6 +16,7 @@ import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/location_repository.dart';
+import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/auth/auth_use_case.dart';
@@ -23,6 +25,12 @@ import '../../domain/use_cases/journal/add_journal_use_case.dart';
 import '../../domain/use_cases/journal/delete_journal_use_case.dart';
 import '../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../domain/use_cases/tag/add_tag_use_case.dart';
+import '../../domain/use_cases/tag/delete_tag_use_case.dart';
+import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
+import '../../domain/use_cases/tag/update_journal_tags_use_case.dart';
+import '../../domain/use_cases/tag/update_tag_use_case.dart';
 import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
 import '../providers/app_state_provider.dart';
 
@@ -51,6 +59,10 @@ List<SingleChildWidget> createProviders() {
     ),
     ProxyProvider<MoodLogDatabase, JournalRepository>(
       update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
+      lazy: false,
+    ),
+    ProxyProvider<MoodLogDatabase, TagRepository>(
+      update: (_, db, previous) => previous ?? TagRepositoryImpl(db),
       lazy: false,
     ),
     ChangeNotifierProvider<AiGenerationRepository>(
@@ -93,6 +105,24 @@ List<SingleChildWidget> _createUseCases() {
     Provider<GetCurrentWeatherUseCase>(
       create: (context) =>
           GetCurrentWeatherUseCase(weatherRepository: context.read()),
+    ),
+    Provider<AddTagUseCase>(
+      create: (context) => AddTagUseCase(context.read()),
+    ),
+    Provider<GetAllTagsUseCase>(
+      create: (context) => GetAllTagsUseCase(context.read()),
+    ),
+    Provider<GetTagsByJournalUseCase>(
+      create: (context) => GetTagsByJournalUseCase(context.read()),
+    ),
+    Provider<UpdateJournalTagsUseCase>(
+      create: (context) => UpdateJournalTagsUseCase(context.read()),
+    ),
+    Provider<DeleteTagUseCase>(
+      create: (context) => DeleteTagUseCase(context.read()),
+    ),
+    Provider<UpdateTagUseCase>(
+      create: (context) => UpdateTagUseCase(context.read()),
     ),
   ];
 }

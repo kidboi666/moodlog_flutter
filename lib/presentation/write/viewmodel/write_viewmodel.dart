@@ -20,6 +20,10 @@ import '../../../domain/use_cases/journal/add_journal_use_case.dart';
 import '../../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../../domain/use_cases/location/get_current_location_use_case.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../../domain/use_cases/tag/add_tag_use_case.dart';
+import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../../domain/use_cases/tag/update_journal_tags_use_case.dart';
+import '../../../domain/entities/tag.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -32,6 +36,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final AddJournalUseCase _addJournalUseCase;
   final UpdateJournalUseCase _updateJournalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
+  final AddTagUseCase _addTagUseCase;
+  final GetAllTagsUseCase _getAllTagsUseCase;
+  final UpdateJournalTagsUseCase _updateJournalTagsUseCase;
 
   WriteViewModel({
     required GeminiRepository geminiRepository,
@@ -44,6 +51,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required AddJournalUseCase addJournalUseCase,
     required UpdateJournalUseCase updateJournalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
+    required AddTagUseCase addTagUseCase,
+    required GetAllTagsUseCase getAllTagsUseCase,
+    required UpdateJournalTagsUseCase updateJournalTagsUseCase,
     required int totalSteps,
   }) : _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
@@ -54,11 +64,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _getCurrentWeatherUseCase = getCurrentWeatherUseCase,
        _addJournalUseCase = addJournalUseCase,
        _updateJournalUseCase = updateJournalUseCase,
-       _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase {
+       _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
+       _addTagUseCase = addTagUseCase,
+       _getAllTagsUseCase = getAllTagsUseCase,
+       _updateJournalTagsUseCase = updateJournalTagsUseCase {
     initStep(totalSteps);
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
+    _loadAllTags();
   }
 
   @override
@@ -83,6 +97,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _isLoadingLocation = false;
   WeatherInfo? _weatherInfo;
   bool _isLoadingWeather = false;
+  List<Tag> _availableTags = [];
+  List<Tag> _selectedTags = [];
 
   String? get content => _content;
 
@@ -111,6 +127,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   WeatherInfo? get weatherInfo => _weatherInfo;
 
   bool get isLoadingWeather => _isLoadingWeather;
+
+  List<Tag> get availableTags => _availableTags;
+
+  List<Tag> get selectedTags => _selectedTags;
 
   void updateAiEnabled(bool value) {
     if (_canUseAiToday) {
@@ -145,6 +165,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _isLoadingLocation = false;
     _weatherInfo = null;
     _isLoadingWeather = false;
+    _selectedTags.clear();
     _checkAiUsageLimit();
     clearError();
     notifyListeners();
@@ -188,11 +209,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         _submittedJournalId = result.value['id'];
         final aiResponseEnabled = result.value['aiResponseEnabled'];
 
+        if (_selectedTags.isNotEmpty) {
+          await _updateJournalTagsUseCase.call(result.value['id'], _selectedTags.map((tag) => tag.id).toList());
+        }
+
         AnalyticsRepositoryImpl().logMoodEntry(
           moodType: _selectedMood.name,
           entryType: 'manual',
           hasImage: _imageFileList.isNotEmpty,
-          hasTag: false,
+          hasTag: _selectedTags.isNotEmpty,
         );
 
         if (aiResponseEnabled == true) {
@@ -370,5 +395,58 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _weatherInfo = null;
     notifyListeners();
     getCurrentWeather();
+  }
+
+  Future<void> _loadAllTags() async {
+    final result = await _getAllTagsUseCase.call();
+    switch (result) {
+      case Ok<List<Tag>>():
+        _availableTags = result.value;
+        notifyListeners();
+      case Failure<List<Tag>>():
+        _log.warning('Failed to load tags: ${result.error}');
+    }
+  }
+
+  void addExistingTag(Tag tag) {
+    if (!_selectedTags.contains(tag)) {
+      _selectedTags.add(tag);
+      notifyListeners();
+    }
+  }
+
+  void removeTag(Tag tag) {
+    _selectedTags.remove(tag);
+    notifyListeners();
+  }
+
+  Future<void> addNewTag(String tagName) async {
+    final trimmedName = tagName.trim();
+    if (trimmedName.isEmpty) return;
+
+    final existingTag = _availableTags.firstWhere(
+      (tag) => tag.name.toLowerCase() == trimmedName.toLowerCase(),
+      orElse: () => Tag(id: -1, name: '', createdAt: DateTime.now()),
+    );
+
+    if (existingTag.id != -1) {
+      addExistingTag(existingTag);
+      return;
+    }
+
+    final result = await _addTagUseCase.call(trimmedName, null);
+    switch (result) {
+      case Ok<int>():
+        final newTag = Tag(
+          id: result.value,
+          name: trimmedName,
+          createdAt: DateTime.now(),
+        );
+        _availableTags.add(newTag);
+        addExistingTag(newTag);
+      case Failure<int>():
+        _log.warning('Failed to add tag: ${result.error}');
+        setError(result.error);
+    }
   }
 }

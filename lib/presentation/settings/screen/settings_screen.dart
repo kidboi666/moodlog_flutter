@@ -20,6 +20,7 @@ import '../widgets/dialog/font_family_dialog.dart';
 import '../widgets/dialog/init_db_dialog.dart';
 import '../widgets/dialog/init_storage_dialog.dart';
 import '../widgets/dialog/language_dialog.dart';
+import '../widgets/dialog/tag_management_dialog.dart';
 import '../widgets/dialog/theme_dialog.dart';
 import '../widgets/dialog_tile.dart';
 import '../widgets/section_header.dart';
@@ -160,6 +161,15 @@ class SettingsScreen extends StatelessWidget {
               ),
             ],
 
+            CardListTile(
+              title: t.tags_manage_title,
+              subtitle: t.tags_manage_subtitle,
+              icon: Icons.label,
+              onTap: () => showDialog(
+                context: context,
+                builder: (_) => const TagManagementDialog(),
+              ),
+            ),
             CardListTile(
               title: t.settings_data_cache_cleanup_title,
               subtitle: t.settings_data_cache_cleanup_subtitle,

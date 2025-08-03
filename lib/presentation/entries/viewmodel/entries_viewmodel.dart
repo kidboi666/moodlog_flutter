@@ -6,22 +6,32 @@ import 'package:logging/logging.dart';
 import '../../../common/mixins/async_state_mixin.dart';
 import '../../../common/utils/result.dart';
 import '../../../domain/entities/journal.dart';
+import '../../../domain/entities/tag.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
+import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
 
 enum EntriesViewMode { list, calendar }
 
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final DeleteJournalUseCase _deleteJournalUseCase;
+  final GetAllTagsUseCase _getAllTagsUseCase;
+  final GetTagsByJournalUseCase _getTagsByJournalUseCase;
 
   EntriesViewModel({
     required JournalRepository journalRepository,
     required DeleteJournalUseCase deleteJournalUseCase,
+    required GetAllTagsUseCase getAllTagsUseCase,
+    required GetTagsByJournalUseCase getTagsByJournalUseCase,
   }) : _journalRepository = journalRepository,
-       _deleteJournalUseCase = deleteJournalUseCase {
+       _deleteJournalUseCase = deleteJournalUseCase,
+       _getAllTagsUseCase = getAllTagsUseCase,
+       _getTagsByJournalUseCase = getTagsByJournalUseCase {
     _loadMonthEntries();
     _subscribeToJournalChanges();
+    _loadAllTags();
   }
 
   final Logger _log = Logger('EntriesViewModel');
@@ -30,7 +40,10 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   DateTime _selectedMonth = DateTime.now();
   DateTime? _selectedDay;
   List<Journal> _entries = [];
+  List<Journal> _allMonthEntries = [];
   EntriesViewMode _viewMode = EntriesViewMode.list;
+  List<Tag> _availableTags = [];
+  Tag? _selectedTagFilter;
 
   List<Journal> get entries => _entries;
 
@@ -39,6 +52,10 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   DateTime? get selectedDay => _selectedDay;
 
   EntriesViewMode get viewMode => _viewMode;
+
+  List<Tag> get availableTags => _availableTags;
+
+  Tag? get selectedTagFilter => _selectedTagFilter;
 
   void toggleViewMode() {
     _viewMode = _viewMode == EntriesViewMode.list
@@ -78,9 +95,11 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _journalRepository.getJournalsByMonth(_selectedMonth);
     switch (result) {
       case Ok<List<Journal>>():
-        _entries = result.value;
+        _allMonthEntries = result.value;
+        _applyTagFilter();
         _log.fine('Loaded journals');
       case Failure<List<Journal>>():
+        _allMonthEntries = [];
         _entries = [];
         setError(result.error);
         _log.warning('Failed to load journals', result.error);
@@ -107,12 +126,57 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
       999,
     );
 
-    _entries = allJournals.where((journal) {
+    _allMonthEntries = allJournals.where((journal) {
       return journal.createdAt.isAfter(startOfMonth) &&
           journal.createdAt.isBefore(endOfMonth);
     }).toList();
 
+    _applyTagFilter();
     notifyListeners();
+  }
+
+  Future<void> _loadAllTags() async {
+    final result = await _getAllTagsUseCase.call();
+    switch (result) {
+      case Ok<List<Tag>>():
+        _availableTags = result.value;
+        notifyListeners();
+      case Failure<List<Tag>>():
+        _log.warning('Failed to load tags: ${result.error}');
+    }
+  }
+
+  void setTagFilter(Tag? tag) {
+    _selectedTagFilter = tag;
+    _applyTagFilter();
+    notifyListeners();
+  }
+
+  void clearTagFilter() {
+    _selectedTagFilter = null;
+    _applyTagFilter();
+    notifyListeners();
+  }
+
+  Future<void> _applyTagFilter() async {
+    if (_selectedTagFilter == null) {
+      _entries = _allMonthEntries;
+      return;
+    }
+
+    final filteredEntries = <Journal>[];
+    for (final journal in _allMonthEntries) {
+      final tagsResult = await _getTagsByJournalUseCase.call(journal.id);
+      switch (tagsResult) {
+        case Ok<List<Tag>>():
+          if (tagsResult.value.any((tag) => tag.id == _selectedTagFilter!.id)) {
+            filteredEntries.add(journal);
+          }
+        case Failure<List<Tag>>():
+          _log.warning('Failed to get tags for journal ${journal.id}');
+      }
+    }
+    _entries = filteredEntries;
   }
 
   @override

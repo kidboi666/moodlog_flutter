@@ -1305,6 +1305,84 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'위치 추가하기'**
   String get location_add_location;
+
+  /// No description provided for @tags_manage_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 관리'**
+  String get tags_manage_title;
+
+  /// No description provided for @tags_manage_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그를 보고 관리하세요'**
+  String get tags_manage_subtitle;
+
+  /// No description provided for @tags_filter_all.
+  ///
+  /// In ko, this message translates to:
+  /// **'전체'**
+  String get tags_filter_all;
+
+  /// No description provided for @tags_filter_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그로 필터링'**
+  String get tags_filter_title;
+
+  /// No description provided for @tags_suggested_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'추천 태그'**
+  String get tags_suggested_title;
+
+  /// No description provided for @tags_add_new.
+  ///
+  /// In ko, this message translates to:
+  /// **'새 태그 추가'**
+  String get tags_add_new;
+
+  /// No description provided for @tags_input_hint.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 이름'**
+  String get tags_input_hint;
+
+  /// No description provided for @tags_delete_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 삭제'**
+  String get tags_delete_title;
+
+  /// No description provided for @tags_delete_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'\"{tagName}\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.'**
+  String tags_delete_message(String tagName);
+
+  /// No description provided for @tags_delete_success.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 \"{tagName}\"이(가) 삭제되었습니다'**
+  String tags_delete_success(String tagName);
+
+  /// No description provided for @tags_no_tags.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그가 없습니다'**
+  String get tags_no_tags;
+
+  /// No description provided for @tags_load_failed.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그를 불러오지 못했습니다'**
+  String get tags_load_failed;
+
+  /// No description provided for @tags_delete_failed.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 삭제에 실패했습니다'**
+  String get tags_delete_failed;
 }
 
 class _AppLocalizationsDelegate

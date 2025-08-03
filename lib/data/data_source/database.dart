@@ -8,17 +8,19 @@ import 'package:path_provider/path_provider.dart';
 import '../../common/constants/enum.dart';
 import '../../common/utils/converter.dart';
 import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal_tag.dart';
 import '../../domain/entities/stat.dart';
+import '../../domain/entities/tag.dart';
 import 'schema.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [Journals, Stats])
+@DriftDatabase(tables: [Journals, Stats, Tags, JournalTags])
 class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -41,6 +43,10 @@ class MoodLogDatabase extends _$MoodLogDatabase {
           await migrator.addColumn(journals, journals.temperature);
           await migrator.addColumn(journals, journals.weatherIcon);
           await migrator.addColumn(journals, journals.weatherDescription);
+        }
+        if (from <= 4) {
+          await migrator.createTable(tags);
+          await migrator.createTable(journalTags);
         }
       },
     );

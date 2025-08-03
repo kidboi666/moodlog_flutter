@@ -255,5 +255,32 @@
     }
   },
   "location_current": "Current location",
-  "location_add_location": "Add location"
+  "location_add_location": "Add location",
+  "tags_manage_title": "Manage Tags",
+  "tags_manage_subtitle": "View and manage your tags",
+  "tags_filter_all": "All",
+  "tags_filter_title": "Filter by tags",
+  "tags_suggested_title": "Suggested Tags",
+  "tags_add_new": "Add new tag",
+  "tags_input_hint": "Tag name",
+  "tags_delete_title": "Delete Tag",
+  "tags_delete_message": "Are you sure you want to delete \"{tagName}\"? This will remove the tag from all journals.",
+  "@tags_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_delete_success": "Tag \"{tagName}\" deleted",
+  "@tags_delete_success": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_no_tags": "No tags found",
+  "tags_load_failed": "Failed to load tags",
+  "tags_delete_failed": "Failed to delete tag"
 }

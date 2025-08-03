@@ -10,6 +10,7 @@ import '../../widgets/fade_in.dart';
 import '../../widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
 import '../widgets/entries_calendar_view.dart';
+import '../widgets/tag_filter_section.dart';
 
 typedef EntriesSelectorType = ({
   bool isLoading,
@@ -63,7 +64,9 @@ class EntriesScreen extends StatelessWidget {
         padding: Spacing.containerHorizontalPadding,
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+            const SliverToBoxAdapter(child: TagFilterSection()),
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
             Selector<EntriesViewModel, EntriesSelectorType>(
               selector: (_, viewModel) => (
                 entries: viewModel.entries,

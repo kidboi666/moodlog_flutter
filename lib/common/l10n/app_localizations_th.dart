@@ -633,4 +633,47 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get location_add_location => 'เพิ่มตำแหน่ง';
+
+  @override
+  String get tags_manage_title => '태그 관리';
+
+  @override
+  String get tags_manage_subtitle => '태그를 보고 관리하세요';
+
+  @override
+  String get tags_filter_all => '전체';
+
+  @override
+  String get tags_filter_title => '태그로 필터링';
+
+  @override
+  String get tags_suggested_title => '추천 태그';
+
+  @override
+  String get tags_add_new => '새 태그 추가';
+
+  @override
+  String get tags_input_hint => '태그 이름';
+
+  @override
+  String get tags_delete_title => '태그 삭제';
+
+  @override
+  String tags_delete_message(String tagName) {
+    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+  }
+
+  @override
+  String tags_delete_success(String tagName) {
+    return '태그 \"$tagName\"이(가) 삭제되었습니다';
+  }
+
+  @override
+  String get tags_no_tags => '태그가 없습니다';
+
+  @override
+  String get tags_load_failed => '태그를 불러오지 못했습니다';
+
+  @override
+  String get tags_delete_failed => '태그 삭제에 실패했습니다';
 }
