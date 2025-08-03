@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../../../../common/constants/common.dart';
+import '../../../../common/l10n/app_localizations.dart';
+import '../../viewmodel/write_viewmodel.dart';
 
 class TagInputDialog extends StatefulWidget {
   const TagInputDialog({super.key});
@@ -19,9 +20,11 @@ class _TagInputDialogState extends State<TagInputDialog> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Consumer<WriteViewModel>(
-      builder: (context, viewModel, child) {
+      builder: (context, viewModel, _) {
         return AlertDialog(
           title: Text(t.tags_add_new),
           content: SizedBox(
@@ -32,26 +35,29 @@ class _TagInputDialogState extends State<TagInputDialog> {
               children: [
                 // Selected tags
                 if (viewModel.selectedTags.isNotEmpty) ...[
-                  Text(
-                    'Selected Tags',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text('Selected Tags', style: textTheme.titleSmall),
                   const SizedBox(height: Spacing.sm),
                   Wrap(
                     spacing: Spacing.xs,
                     runSpacing: Spacing.xs,
-                    children: viewModel.selectedTags.map((tag) => Chip(
-                      label: Text(tag.name),
-                      onDeleted: () => viewModel.removeTag(tag),
-                      backgroundColor: tag.color != null
-                          ? Color(int.parse(tag.color!, radix: 16))
-                          : Theme.of(context).colorScheme.surfaceContainerHighest,
-                      deleteIcon: const Icon(Icons.close, size: 16),
-                    )).toList(),
+                    children: viewModel.selectedTags
+                        .map(
+                          (tag) => Chip(
+                            label: Text(tag.name),
+                            onDeleted: () {
+                              viewModel.removeTag(tag);
+                            },
+                            backgroundColor: tag.color != null
+                                ? Color(int.parse(tag.color!, radix: 16))
+                                : colorScheme.surfaceContainerHighest,
+                            deleteIcon: const Icon(Icons.close, size: 16),
+                          ),
+                        )
+                        .toList(),
                   ),
                   const SizedBox(height: Spacing.md),
                 ],
-                
+
                 // Add new tag
                 TextField(
                   controller: _tagController,
@@ -60,20 +66,17 @@ class _TagInputDialogState extends State<TagInputDialog> {
                     labelText: t.tags_input_hint,
                     border: const OutlineInputBorder(),
                     suffixIcon: IconButton(
-                      onPressed: _addNewTag,
+                      onPressed: () => _addNewTag(viewModel.addNewTag),
                       icon: const Icon(Icons.add),
                     ),
                   ),
-                  onSubmitted: (_) => _addNewTag(),
+                  onSubmitted: (_) => _addNewTag(viewModel.addNewTag),
                 ),
-                
+
                 // Available tags
                 if (viewModel.availableTags.isNotEmpty) ...[
                   const SizedBox(height: Spacing.md),
-                  Text(
-                    t.tags_suggested_title,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text(t.tags_suggested_title, style: textTheme.titleSmall),
                   const SizedBox(height: Spacing.sm),
                   SizedBox(
                     height: 120,
@@ -82,14 +85,20 @@ class _TagInputDialogState extends State<TagInputDialog> {
                         spacing: Spacing.xs,
                         runSpacing: Spacing.xs,
                         children: viewModel.availableTags
-                            .where((tag) => !viewModel.selectedTags.contains(tag))
-                            .map((tag) => ActionChip(
-                                  label: Text(tag.name),
-                                  onPressed: () => viewModel.addExistingTag(tag),
-                                  backgroundColor: tag.color != null
-                                      ? Color(int.parse(tag.color!, radix: 16))
-                                      : Theme.of(context).colorScheme.surfaceContainerHighest,
-                                ))
+                            .where(
+                              (tag) => !viewModel.selectedTags.contains(tag),
+                            )
+                            .map(
+                              (tag) => ActionChip(
+                                label: Text(tag.name),
+                                onPressed: () {
+                                  viewModel.addExistingTag(tag);
+                                },
+                                backgroundColor: tag.color != null
+                                    ? Color(int.parse(tag.color!, radix: 16))
+                                    : colorScheme.surfaceContainerHighest,
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -100,7 +109,7 @@ class _TagInputDialogState extends State<TagInputDialog> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
               child: Text(t.common_confirm_ok),
             ),
           ],
@@ -109,10 +118,10 @@ class _TagInputDialogState extends State<TagInputDialog> {
     );
   }
 
-  void _addNewTag() {
+  void _addNewTag(Function(String) addNewTag) {
     final tagName = _tagController.text.trim();
     if (tagName.isNotEmpty) {
-      context.read<WriteViewModel>().addNewTag(tagName);
+      addNewTag(tagName);
       _tagController.clear();
     }
   }

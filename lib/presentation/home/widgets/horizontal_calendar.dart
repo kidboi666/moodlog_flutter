@@ -28,7 +28,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     Future.delayed(DelayMs.lazy * 3, () {
       if (context.mounted) {
         _scrollController.animateTo(
-          40.0 * selectedDateDay,
+          40.0 * (selectedDateDay - 1),
           duration: DurationMs.medium,
           curve: Curves.easeInQuart,
         );
@@ -46,16 +46,20 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
       delay: DelayMs.medium * 4,
       child: GradientBox(
         child: Column(
-          spacing: Spacing.lg,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: Spacing.md),
-              child: Text(
-                context.read<HomeViewModel>().now.getLocalizedMonthName(t),
-                style: textTheme.displayMedium?.copyWith(
-                  color: colorScheme.surface,
-                ),
+              child: Selector<HomeViewModel, DateTime>(
+                selector: (context, viewModel) => viewModel.now,
+                builder: (context, now, _) {
+                  return Text(
+                    now.getLocalizedMonthName(t),
+                    style: textTheme.displayMedium?.copyWith(
+                      color: colorScheme.surface,
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: Spacing.sm),
