@@ -66,6 +66,36 @@ class JournalTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
+              if (journal.tags != null && journal.tags!.isNotEmpty) ...[
+                const SizedBox(height: Spacing.sm),
+                Wrap(
+                  spacing: Spacing.xs,
+                  runSpacing: Spacing.xs,
+                  children: journal.tags!.take(3).map((tag) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Spacing.xs,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: tag.color != null 
+                            ? Color(int.parse(tag.color!.replaceFirst('#', '0x')))
+                            : colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        tag.name,
+                        style: textTheme.bodySmall?.copyWith(
+                          fontSize: 10,
+                          color: tag.color != null 
+                              ? Colors.white
+                              : colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
             ],
           ),
         ),

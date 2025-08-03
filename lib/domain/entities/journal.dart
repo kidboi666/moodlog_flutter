@@ -1,4 +1,5 @@
 import '../../common/constants/enum.dart';
+import 'tag.dart';
 
 class Journal {
   final int id;
@@ -14,6 +15,7 @@ class Journal {
   final double? temperature;
   final String? weatherIcon;
   final String? weatherDescription;
+  final List<Tag>? tags;
 
   Journal({
     required this.id,
@@ -29,5 +31,6 @@ class Journal {
     this.temperature,
     this.weatherIcon,
     this.weatherDescription,
+    this.tags,
   });
 }

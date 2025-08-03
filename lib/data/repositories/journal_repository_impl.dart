@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 
 import '../../common/utils/result.dart';
 import '../../domain/entities/journal.dart';
+import '../../domain/entities/tag.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/database.dart';
 import '../models/request/add_journal_request.dart';
@@ -26,8 +27,9 @@ class JournalRepositoryImpl implements JournalRepository {
       return Result.ok(_cachedJournals!);
     }
     final journals = await _db.select(_db.journals).get();
-    _cachedJournals = journals;
-    return Result.ok(journals);
+    final journalsWithTags = await _attachTagsToJournals(journals);
+    _cachedJournals = journalsWithTags;
+    return Result.ok(journalsWithTags);
   }
 
   @override
@@ -44,7 +46,8 @@ class JournalRepositoryImpl implements JournalRepository {
             ))
             .get();
 
-    return Result.ok(journals);
+    final journalsWithTags = await _attachTagsToJournals(journals);
+    return Result.ok(journalsWithTags);
   }
 
   @override
@@ -59,7 +62,8 @@ class JournalRepositoryImpl implements JournalRepository {
               ),
             ))
             .get();
-    return Result.ok(journals);
+    final journalsWithTags = await _attachTagsToJournals(journals);
+    return Result.ok(journalsWithTags);
   }
 
   @override
@@ -71,7 +75,8 @@ class JournalRepositoryImpl implements JournalRepository {
     if (journal == null) {
       return Result.failure(Exception('Journal with ID $id not found.'));
     } else {
-      return Result.ok(journal);
+      final journalsWithTags = await _attachTagsToJournals([journal]);
+      return Result.ok(journalsWithTags.first);
     }
   }
 
@@ -158,6 +163,49 @@ class JournalRepositoryImpl implements JournalRepository {
         _journalStreamController.add(result.value);
       }
     }
+  }
+
+  Future<List<Journal>> _attachTagsToJournals(List<Journal> journals) async {
+    if (journals.isEmpty) return journals;
+
+    final journalIds = journals.map((j) => j.id).toList();
+    
+    final query = _db.select(_db.journalTags).join([
+      leftOuterJoin(_db.tags, _db.tags.id.equalsExp(_db.journalTags.tagId))
+    ])..where(_db.journalTags.journalId.isIn(journalIds));
+
+    final results = await query.get();
+    
+    final journalTagMap = <int, List<Tag>>{};
+    
+    for (final row in results) {
+      final journalTag = row.readTable(_db.journalTags);
+      final tag = row.readTableOrNull(_db.tags);
+      
+      if (tag != null) {
+        journalTagMap.putIfAbsent(journalTag.journalId, () => []).add(tag);
+      }
+    }
+    
+    return journals.map((journal) {
+      final tags = journalTagMap[journal.id] ?? [];
+      return Journal(
+        id: journal.id,
+        content: journal.content,
+        moodType: journal.moodType,
+        imageUri: journal.imageUri,
+        createdAt: journal.createdAt,
+        aiResponseEnabled: journal.aiResponseEnabled,
+        aiResponse: journal.aiResponse,
+        latitude: journal.latitude,
+        longitude: journal.longitude,
+        address: journal.address,
+        temperature: journal.temperature,
+        weatherIcon: journal.weatherIcon,
+        weatherDescription: journal.weatherDescription,
+        tags: tags,
+      );
+    }).toList();
   }
 
   void dispose() {
