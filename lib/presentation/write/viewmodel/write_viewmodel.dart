@@ -189,9 +189,9 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         final aiResponseEnabled = result.value['aiResponseEnabled'];
 
         AnalyticsRepositoryImpl().logMoodEntry(
-          moodType: _selectedMood?.name ?? 'unknown',
+          moodType: _selectedMood.name,
           entryType: 'manual',
-          hasImage: _imageFileList != null && _imageFileList!.isNotEmpty,
+          hasImage: _imageFileList.isNotEmpty,
           hasTag: false,
         );
 

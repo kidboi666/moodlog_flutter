@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/write/widgets/editor_bottom_panel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
@@ -6,8 +7,6 @@ import '../../widgets/pagination_dot.dart';
 import '../../widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
 import '../widgets/date_button.dart';
-import '../widgets/image_picker_button.dart';
-import '../widgets/timestamp_button.dart';
 import '../widgets/write_pageview_mood.dart';
 import '../widgets/write_pageview_rest.dart';
 
@@ -52,7 +51,9 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: Selector<WriteViewModel, bool>(
           selector: (context, viewModel) => viewModel.isLastStep,
@@ -106,16 +107,19 @@ class _WriteScreenState extends State<WriteScreen> {
           ),
         ],
       ),
-      persistentFooterButtons: [
-        const ImagePickerButton(),
-        TimestampButton(contentController: _contentController),
-      ],
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: _onPageChanged,
+      body: Column(
         children: [
-          WritePageViewMood(nextPage: nextPage),
-          WritePageViewRest(contentController: _contentController),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: _onPageChanged,
+              children: [
+                WritePageViewMood(nextPage: nextPage),
+                WritePageViewRest(contentController: _contentController),
+              ],
+            ),
+          ),
+          EditorBottomPanel(contentController: _contentController),
         ],
       ),
     );

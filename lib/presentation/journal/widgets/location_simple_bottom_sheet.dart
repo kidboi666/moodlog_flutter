@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/constants/common.dart';
-import '../../../common/l10n/app_localizations.dart';
 
 class LocationSimpleBottomSheet extends StatelessWidget {
   final double latitude;
@@ -26,7 +25,6 @@ class LocationSimpleBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -78,7 +76,9 @@ class LocationSimpleBottomSheet extends StatelessWidget {
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+              border: Border.all(
+                color: colorScheme.outline.withValues(alpha: 0.2),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

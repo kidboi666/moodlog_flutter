@@ -44,7 +44,7 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateLanguage(language!);
     AnalyticsRepositoryImpl().logSettingsChange(
       settingType: 'language',
-      value: language!.value,
+      value: language.value,
     );
   }
 
@@ -60,7 +60,7 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateThemeMode(theme!);
     AnalyticsRepositoryImpl().logSettingsChange(
       settingType: 'theme',
-      value: theme!.name,
+      value: theme.name,
     );
   }
 
@@ -68,7 +68,7 @@ class SettingsViewModel extends ChangeNotifier {
     _appStateProvider.updateColorTheme(colorTheme!);
     AnalyticsRepositoryImpl().logSettingsChange(
       settingType: 'color_theme',
-      value: colorTheme!.name,
+      value: colorTheme.name,
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/presentation/widgets/gradient_box.dart';
 
 import '../../common/constants/common.dart';
 import '../../common/constants/navigation.dart';
@@ -9,6 +8,7 @@ import '../../common/l10n/app_localizations.dart';
 import '../../common/routing/routes.dart';
 import '../../common/utils/animated_container.dart';
 import 'banner_ad_widget.dart';
+import 'gradient_box.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final List<Widget> children;

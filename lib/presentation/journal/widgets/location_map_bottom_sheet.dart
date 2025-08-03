@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/constants/common.dart';
-import '../../../common/l10n/app_localizations.dart';
 
 class LocationMapBottomSheet extends StatefulWidget {
   final double latitude;
@@ -42,7 +41,6 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -95,7 +93,9 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
               margin: const EdgeInsets.symmetric(horizontal: Spacing.md),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+                border: Border.all(
+                  color: colorScheme.outline.withValues(alpha: 0.2),
+                ),
               ),
               clipBehavior: Clip.hardEdge,
               child: GestureDetector(
@@ -103,7 +103,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                 child: Stack(
                   children: [
                     // Static Map Image
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: double.infinity,
                       child: Image.network(
@@ -156,7 +156,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: Colors.black.withValues(alpha: 0.7),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
