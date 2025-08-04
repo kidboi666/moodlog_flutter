@@ -14,20 +14,27 @@ class UserIdCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return SafeArea(
       bottom: true,
-      child: ListTile(
-        leading: Text(
-          t.profile_uid_title,
-          style: textTheme.titleSmall?.copyWith(
-            color: colorScheme.secondaryFixedDim,
-          ),
-        ),
-        title: Row(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(child: SizedBox()),
+            Text(
+              t.profile_uid_title,
+              style: textTheme.titleSmall?.copyWith(
+                color: colorScheme.secondaryFixedDim,
+              ),
+            ),
+            const SizedBox(height: 8.0),
             Selector<ProfileViewModel, String>(
               selector: (context, viewModel) => viewModel.user?.uid ?? '',
               builder: (context, uid, _) {
-                return Text(uid, style: textTheme.bodyMedium);
+                return Text(
+                  uid,
+                  style: textTheme.bodyMedium,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                );
               },
             ),
           ],

@@ -75,6 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             spacing: Spacing.sm,
             children: [
               const ProfileAvatar(),

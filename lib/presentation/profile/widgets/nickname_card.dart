@@ -15,15 +15,7 @@ class NicknameCard extends StatelessWidget {
     return Selector<ProfileViewModel, String>(
       selector: (context, viewModel) => viewModel.user?.displayName ?? '',
       builder: (context, nickname, _) {
-        return ListTile(
-          leading: Text(t.profile_nickname_title, style: textTheme.titleSmall),
-          title: Row(
-            children: [
-              const Expanded(child: SizedBox()),
-              Text(nickname, style: textTheme.bodyMedium),
-            ],
-          ),
-          trailing: Icon(Icons.edit),
+        return InkWell(
           onTap: () async {
             final newName = await showModalBottomSheet<String?>(
               isScrollControlled: true,
@@ -37,6 +29,23 @@ class NicknameCard extends StatelessWidget {
               await context.read<ProfileViewModel>().updateDisplayName(newName);
             }
           },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(t.profile_nickname_title, style: textTheme.titleSmall),
+                    const Spacer(),
+                    Icon(Icons.edit, size: 16),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Text(nickname, style: textTheme.bodyMedium),
+              ],
+            ),
+          ),
         );
       },
     );

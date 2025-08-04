@@ -28,27 +28,28 @@ class AccountCard extends StatelessWidget {
         isAnonymousUser: viewModel.isAnonymousUser,
       ),
       builder: (context, viewModel, _) {
-        return ListTile(
-          leading: Text(t.profile_account_title, style: textTheme.titleSmall),
-          title: Row(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(child: SizedBox()),
-              Column(
-                children: [
-                  if (viewModel.isGoogleUser)
-                    GoogleAccountCard(email: viewModel.email ?? ''),
-                  if (viewModel.isAnonymousUser)
-                    FilledButton(
-                      onPressed: () {
-                        context.push(
-                          Routes.signIn,
-                          extra: {'source': SignInSource.profile},
-                        );
-                      },
-                      child: Text(t.profile_button_login),
-                    ),
-                ],
-              ),
+              Text(t.profile_account_title, style: textTheme.titleSmall),
+              const SizedBox(height: 8.0),
+              if (viewModel.isGoogleUser)
+                GoogleAccountCard(email: viewModel.email ?? ''),
+              if (viewModel.isAnonymousUser)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: FilledButton(
+                    onPressed: () {
+                      context.push(
+                        Routes.signIn,
+                        extra: {'source': SignInSource.profile},
+                      );
+                    },
+                    child: Text(t.profile_button_login),
+                  ),
+                ),
             ],
           ),
         );

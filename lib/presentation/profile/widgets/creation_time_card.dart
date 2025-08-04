@@ -17,14 +17,13 @@ class CreationTimeCard extends StatelessWidget {
           viewModel.user?.metadata.creationTime?.formattedDotNationWithTime() ??
           '',
       builder: (context, creationTime, _) {
-        return ListTile(
-          leading: Text(
-            t.profile_creation_time_title,
-            style: textTheme.titleSmall,
-          ),
-          title: Row(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(child: SizedBox()),
+              Text(t.profile_creation_time_title, style: textTheme.titleSmall),
+              const SizedBox(height: 8.0),
               Text(creationTime, style: textTheme.bodyMedium),
             ],
           ),
