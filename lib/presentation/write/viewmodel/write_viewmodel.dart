@@ -413,11 +413,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     }
   }
 
-  void _initDate() {
-    _selectedDate = selectedDate;
-    notifyListeners();
-  }
-
   void addExistingTag(Tag tag) {
     if (!_selectedTags.contains(tag)) {
       _selectedTags.add(tag);

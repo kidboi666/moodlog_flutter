@@ -26,7 +26,11 @@ class WelcomeZone extends StatelessWidget {
             spacing: Spacing.sm,
             children: [
               Text(t.home_hello, style: textTheme.displaySmall),
-              const ShakeEmoji(emoji: Emoji.shakeHand, size: 36),
+              const ShakeEmoji(
+                emoji: Emoji.shakeHand,
+                size: 36,
+                repeatCount: 5,
+              ),
             ],
           ),
         ),

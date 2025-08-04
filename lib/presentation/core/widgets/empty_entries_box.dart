@@ -9,8 +9,13 @@ import '../../../common/routing/routes.dart';
 
 class EmptyEntriesBox extends StatelessWidget {
   final void Function()? onPressed;
+  final bool isDisabled;
 
-  const EmptyEntriesBox({super.key, this.onPressed});
+  const EmptyEntriesBox({
+    super.key, 
+    this.onPressed,
+    this.isDisabled = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +54,14 @@ class EmptyEntriesBox extends StatelessWidget {
                 ],
               ),
               FilledButton.tonal(
-                onPressed: onPressed ?? () => context.push(Routes.write),
+                onPressed: isDisabled ? null : (onPressed ?? () => context.push(Routes.write)),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    colorScheme.surfaceContainer,
-                  ),
+                  backgroundColor: WidgetStateProperty.resolveWith((states) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return colorScheme.surfaceContainer.withValues(alpha: 0.5);
+                    }
+                    return colorScheme.surfaceContainer;
+                  }),
                 ),
                 child: Row(
                   spacing: Spacing.md,

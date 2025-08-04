@@ -77,6 +77,13 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   bool get isLoadingWeather => _isLoadingWeather;
 
+  bool get isSelectedDateInFuture {
+    final today = DateTime.now();
+    final selectedDateOnly = DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day);
+    final todayOnly = DateTime(today.year, today.month, today.day);
+    return selectedDateOnly.isAfter(todayOnly);
+  }
+
   void selectDate(DateTime date) {
     _selectedDate = date;
     notifyListeners();

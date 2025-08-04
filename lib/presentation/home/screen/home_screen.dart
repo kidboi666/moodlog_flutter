@@ -20,6 +20,7 @@ typedef HomeFeedState = ({
   List<Journal> journal,
   bool isLoading,
   DateTime selectedDate,
+  bool isSelectedDateInFuture,
 });
 
 typedef HomeCalendarState = ({DateTime selectedDate, String? nickname});
@@ -76,6 +77,7 @@ class HomeScreen extends StatelessWidget {
               journal: viewModel.journal,
               isLoading: viewModel.isLoading,
               selectedDate: viewModel.selectedDate,
+              isSelectedDateInFuture: viewModel.isSelectedDateInFuture,
             ),
             builder: (_, viewModel, _) {
               if (viewModel.isLoading) {
@@ -95,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                         ? DelayMs.medium * 5
                         : DelayMs.medium,
                     child: EmptyEntriesBox(
+                      isDisabled: viewModel.isSelectedDateInFuture,
                       onPressed: () => context.pushToWriteFromSelectedDate(
                         viewModel.selectedDate,
                       ),
