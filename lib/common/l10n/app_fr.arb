@@ -246,5 +246,157 @@
     }
   },
   "location_current": "Position actuelle",
-  "location_add_location": "Ajouter une position"
+  "location_add_location": "Ajouter une position",
+  "statistics_total_records_count_unit": "enregistrements",
+  "statistics_total_records_first_record": "Premier enregistrement",
+  "statistics_total_records_period": "Période d'enregistrement",
+  "statistics_total_records_period_days": "{days} jours",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "Fréquence moyenne",
+  "statistics_total_records_weekly_frequency": "{frequency} fois/semaine",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "En cours",
+  "statistics_streak_status_inactive": "Interrompu",
+  "statistics_streak_last_record": "Dernier enregistrement",
+  "statistics_streak_today": "Aujourd'hui",
+  "statistics_streak_yesterday": "Hier",
+  "statistics_streak_days_ago": "Il y a {days} jours",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "Série consécutive interrompue",
+  "statistics_streak_stopped_days": "Il y a {days} jours",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "Excellent ! Vous maintenez une série consécutive",
+  "statistics_max_streak_new_record": "Nouveau record !",
+  "statistics_max_streak_progress": "Progrès actuel",
+  "statistics_max_streak_remaining": "Jusqu'au record maximum",
+  "statistics_max_streak_remaining_days": "Il reste {days} jours",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "Série d'une semaine atteinte ! Vous vous en sortez bien !",
+  "statistics_max_streak_achievement_two_weeks": "Série de deux semaines atteinte ! Fantastique !",
+  "statistics_max_streak_achievement_month": "Série d'un mois atteinte ! Vraiment impressionnant !",
+  "statistics_average_mood_title": "Humeur moyenne",
+  "statistics_average_mood_score": "Moyenne {score} points",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "Humeur la plus fréquente",
+  "statistics_average_mood_recent_trend": "Tendance des 7 derniers jours",
+  "statistics_trend_rising": "En hausse",
+  "statistics_trend_falling": "En baisse",
+  "statistics_trend_stable": "Stable",
+  "statistics_mood_positive_message": "Vous maintenez généralement une humeur positive !",
+  "statistics_mood_negative_message": "Il semble que vous traversiez des moments difficiles. Prenez le temps de prendre soin de vous.",
+  "statistics_writing_frequency_title": "Fréquence d'écriture",
+  "statistics_writing_frequency_this_week": "Cette semaine",
+  "statistics_writing_frequency_count_unit": "fois",
+  "statistics_writing_frequency_daily": "Enregistrement quotidien !",
+  "statistics_writing_frequency_often": "Enregistrement fréquent",
+  "statistics_writing_frequency_normal": "Normal",
+  "statistics_writing_frequency_sometimes": "Parfois",
+  "statistics_writing_frequency_none": "Aucun enregistrement",
+  "statistics_writing_frequency_weekly_avg": "Moyenne hebdomadaire",
+  "statistics_writing_frequency_monthly_avg": "Moyenne mensuelle",
+  "statistics_writing_frequency_weekly_count": "{count} fois",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count} fois",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "Heure la plus active",
+  "statistics_writing_frequency_most_active_day": "Jour le plus actif",
+  "statistics_time_morning": "Matin",
+  "statistics_time_afternoon": "Après-midi",
+  "statistics_time_evening": "Soir",
+  "statistics_time_night": "Nuit",
+  "statistics_time_with_hour": "{timeOfDay} ({hour}h)",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_weekday_monday": "Lundi",
+  "statistics_weekday_tuesday": "Mardi",
+  "statistics_weekday_wednesday": "Mercredi",
+  "statistics_weekday_thursday": "Jeudi",
+  "statistics_weekday_friday": "Vendredi",
+  "statistics_weekday_saturday": "Samedi",
+  "statistics_weekday_sunday": "Dimanche",
+  "statistics_writing_frequency_good_habit": "Vous enregistrez constamment ! Excellent !",
+  "statistics_writing_frequency_encouragement": "Essayez d'enregistrer plus fréquemment. Les petits moments sont aussi précieux !",
+  "tags_manage_title": "Gérer les étiquettes",
+  "tags_manage_subtitle": "Voir et gérer vos étiquettes",
+  "tags_filter_all": "Toutes",
+  "tags_filter_title": "Filtrer par étiquettes",
+  "tags_suggested_title": "Étiquettes suggérées",
+  "tags_add_new": "Ajouter une nouvelle étiquette",
+  "tags_input_hint": "Nom de l'étiquette",
+  "tags_delete_title": "Supprimer l'étiquette",
+  "tags_delete_message": "Êtes-vous sûr de vouloir supprimer \"{tagName}\" ? Cela supprimera l'étiquette de tous les journaux.",
+  "@tags_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_delete_success": "Étiquette \"{tagName}\" supprimée",
+  "@tags_delete_success": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_no_tags": "Aucune étiquette trouvée",
+  "tags_load_failed": "Impossible de charger les étiquettes",
+  "tags_delete_failed": "Impossible de supprimer l'étiquette"
 }

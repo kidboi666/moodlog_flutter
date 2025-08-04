@@ -246,5 +246,157 @@
     }
   },
   "location_current": "ตำแหน่งปัจจุบัน",
-  "location_add_location": "เพิ่มตำแหน่ง"
+  "location_add_location": "เพิ่มตำแหน่ง",
+  "statistics_total_records_count_unit": "บันทึก",
+  "statistics_total_records_first_record": "บันทึกแรก",
+  "statistics_total_records_period": "ช่วงเวลาบันทึก",
+  "statistics_total_records_period_days": "{days} วัน",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "ความถี่เฉลี่ย",
+  "statistics_total_records_weekly_frequency": "{frequency} ครั้ง/สัปดาห์",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "กำลังดำเนินการ",
+  "statistics_streak_status_inactive": "หยุดชะงัก",
+  "statistics_streak_last_record": "บันทึกล่าสุด",
+  "statistics_streak_today": "วันนี้",
+  "statistics_streak_yesterday": "เมื่อวาน",
+  "statistics_streak_days_ago": "{days} วันที่แล้ว",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "ลำดับต่อเนื่องหยุดชะงัก",
+  "statistics_streak_stopped_days": "{days} วันที่แล้ว",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "ยอดเยี่ยม! คุณกำลังรักษาลำดับต่อเนื่อง",
+  "statistics_max_streak_new_record": "สถิติใหม่!",
+  "statistics_max_streak_progress": "ความคืบหน้าปัจจุบัน",
+  "statistics_max_streak_remaining": "ถึงสถิติสูงสุด",
+  "statistics_max_streak_remaining_days": "เหลืออีก {days} วัน",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "ลำดับหนึ่งสัปดาห์บรรลุแล้ว! คุณทำได้ดี!",
+  "statistics_max_streak_achievement_two_weeks": "ลำดับสองสัปดาห์บรรลุแล้ว! ยอดเยี่ยม!",
+  "statistics_max_streak_achievement_month": "ลำดับหนึ่งเดือนบรรลุแล้ว! น่าประทับใจมาก!",
+  "statistics_average_mood_title": "อารมณ์เฉลี่ย",
+  "statistics_average_mood_score": "เฉลี่ย {score} คะแนน",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "อารมณ์ที่รู้สึกบ่อยที่สุด",
+  "statistics_average_mood_recent_trend": "แนวโน้ม 7 วันล่าสุด",
+  "statistics_trend_rising": "เพิ่มขึ้น",
+  "statistics_trend_falling": "ลดลง",
+  "statistics_trend_stable": "คงที่",
+  "statistics_mood_positive_message": "คุณรักษาอารมณ์เชิงบวกโดยรวม!",
+  "statistics_mood_negative_message": "ดูเหมือนคุณกำลังผ่านช่วงเวลาที่ยากลำบาก ใช้เวลาดูแลตัวเอง",
+  "statistics_writing_frequency_title": "ความถี่การเขียน",
+  "statistics_writing_frequency_this_week": "สัปดาห์นี้",
+  "statistics_writing_frequency_count_unit": "ครั้ง",
+  "statistics_writing_frequency_daily": "บันทึกทุกวัน!",
+  "statistics_writing_frequency_often": "บันทึกบ่อย",
+  "statistics_writing_frequency_normal": "ปกติ",
+  "statistics_writing_frequency_sometimes": "บางครั้ง",
+  "statistics_writing_frequency_none": "ไม่มีบันทึก",
+  "statistics_writing_frequency_weekly_avg": "เฉลี่ยรายสัปดาห์",
+  "statistics_writing_frequency_monthly_avg": "เฉลี่ยรายเดือน",
+  "statistics_writing_frequency_weekly_count": "{count} ครั้ง",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count} ครั้ง",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "เวลาที่ใช้งานมากที่สุด",
+  "statistics_writing_frequency_most_active_day": "วันที่ใช้งานมากที่สุด",
+  "statistics_time_morning": "เช้า",
+  "statistics_time_afternoon": "บ่าย",
+  "statistics_time_evening": "เย็น",
+  "statistics_time_night": "กลางคืน",
+  "statistics_time_with_hour": "{timeOfDay} ({hour} น.)",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_weekday_monday": "วันจันทร์",
+  "statistics_weekday_tuesday": "วันอังคาร",
+  "statistics_weekday_wednesday": "วันพุธ",
+  "statistics_weekday_thursday": "วันพฤหัสบดี",
+  "statistics_weekday_friday": "วันศุกร์",
+  "statistics_weekday_saturday": "วันเสาร์",
+  "statistics_weekday_sunday": "วันอาทิตย์",
+  "statistics_writing_frequency_good_habit": "คุณบันทึกอย่างสม่ำเสมอ! ยอดเยี่ยม!",
+  "statistics_writing_frequency_encouragement": "ลองบันทึกบ่อยขึ้น ช่วงเวลาเล็กๆ ก็มีค่า!",
+  "tags_manage_title": "จัดการแท็ก",
+  "tags_manage_subtitle": "ดูและจัดการแท็กของคุณ",
+  "tags_filter_all": "ทั้งหมด",
+  "tags_filter_title": "กรองตามแท็ก",
+  "tags_suggested_title": "แท็กที่แนะนำ",
+  "tags_add_new": "เพิ่มแท็กใหม่",
+  "tags_input_hint": "ชื่อแท็ก",
+  "tags_delete_title": "ลบแท็ก",
+  "tags_delete_message": "คุณแน่ใจหรือไม่ที่จะลบ \"{tagName}\"? การกระทำนี้จะลบแท็กออกจากไดอารี่ทั้งหมด",
+  "@tags_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_delete_success": "แท็ก \"{tagName}\" ถูกลบแล้ว",
+  "@tags_delete_success": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_no_tags": "ไม่พบแท็ก",
+  "tags_load_failed": "โหลดแท็กไม่สำเร็จ",
+  "tags_delete_failed": "ลบแท็กไม่สำเร็จ"
 }

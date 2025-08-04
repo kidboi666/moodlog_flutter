@@ -246,5 +246,157 @@
     }
   },
   "location_current": "現在位置",
-  "location_add_location": "位置を追加"
+  "location_add_location": "位置を追加",
+  "statistics_total_records_count_unit": "個の記録",
+  "statistics_total_records_first_record": "最初の記録",
+  "statistics_total_records_period": "記録期間",
+  "statistics_total_records_period_days": "{days}日",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "平均頻度",
+  "statistics_total_records_weekly_frequency": "{frequency}回/週",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "進行中",
+  "statistics_streak_status_inactive": "中断",
+  "statistics_streak_last_record": "最後の記録",
+  "statistics_streak_today": "今日",
+  "statistics_streak_yesterday": "昨日",
+  "statistics_streak_days_ago": "{days}日前",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "連続記録中断",
+  "statistics_streak_stopped_days": "{days}日前",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "素晴らしい！連続記録を続けていますね",
+  "statistics_max_streak_new_record": "新記録！",
+  "statistics_max_streak_progress": "現在の進捗",
+  "statistics_max_streak_remaining": "最高記録まで",
+  "statistics_max_streak_remaining_days": "あと{days}日",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "1週間連続記録達成！よくやっています！",
+  "statistics_max_streak_achievement_two_weeks": "2週間連続記録達成！素晴らしいです！",
+  "statistics_max_streak_achievement_month": "1ヶ月連続記録達成！本当に素晴らしいです！",
+  "statistics_average_mood_title": "平均気分",
+  "statistics_average_mood_score": "平均{score}点",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "最も多く感じた気分",
+  "statistics_average_mood_recent_trend": "最近7日の推移",
+  "statistics_trend_rising": "上昇",
+  "statistics_trend_falling": "下降",
+  "statistics_trend_stable": "安定",
+  "statistics_mood_positive_message": "全体的にポジティブな気分を維持していますね！",
+  "statistics_mood_negative_message": "大変な時期を過ごしていらっしゃいますね。自分を労わる時間を持ってみてください。",
+  "statistics_writing_frequency_title": "作成頻度",
+  "statistics_writing_frequency_this_week": "今週",
+  "statistics_writing_frequency_count_unit": "回",
+  "statistics_writing_frequency_daily": "毎日記録！",
+  "statistics_writing_frequency_often": "よく記録",
+  "statistics_writing_frequency_normal": "普通",
+  "statistics_writing_frequency_sometimes": "時々",
+  "statistics_writing_frequency_none": "記録なし",
+  "statistics_writing_frequency_weekly_avg": "週平均",
+  "statistics_writing_frequency_monthly_avg": "月平均",
+  "statistics_writing_frequency_weekly_count": "{count}回",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count}回",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "最も書く時間",
+  "statistics_writing_frequency_most_active_day": "最も書く曜日",
+  "statistics_time_morning": "午前",
+  "statistics_time_afternoon": "午後",
+  "statistics_time_evening": "夕方",
+  "statistics_time_night": "夜",
+  "statistics_time_with_hour": "{timeOfDay} ({hour}時)",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_weekday_monday": "月曜日",
+  "statistics_weekday_tuesday": "火曜日",
+  "statistics_weekday_wednesday": "水曜日",
+  "statistics_weekday_thursday": "木曜日",
+  "statistics_weekday_friday": "金曜日",
+  "statistics_weekday_saturday": "土曜日",
+  "statistics_weekday_sunday": "日曜日",
+  "statistics_writing_frequency_good_habit": "着実に記録していますね！素晴らしいです！",
+  "statistics_writing_frequency_encouragement": "もう少し頻繁に記録してみてください。小さな瞬間も大切です！",
+  "tags_manage_title": "タグ管理",
+  "tags_manage_subtitle": "タグを見て管理しましょう",
+  "tags_filter_all": "全て",
+  "tags_filter_title": "タグでフィルタリング",
+  "tags_suggested_title": "おすすめタグ",
+  "tags_add_new": "新しいタグを追加",
+  "tags_input_hint": "タグ名",
+  "tags_delete_title": "タグ削除",
+  "tags_delete_message": "\"{tagName}\"を削除しますか？すべての日記からこのタグが削除されます。",
+  "@tags_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_delete_success": "タグ\"{tagName}\"が削除されました",
+  "@tags_delete_success": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_no_tags": "タグがありません",
+  "tags_load_failed": "タグを読み込めませんでした",
+  "tags_delete_failed": "タグの削除に失敗しました"
 }

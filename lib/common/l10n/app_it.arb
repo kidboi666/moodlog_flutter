@@ -246,5 +246,157 @@
     }
   },
   "location_current": "Posizione attuale",
-  "location_add_location": "Aggiungi posizione"
+  "location_add_location": "Aggiungi posizione",
+  "statistics_total_records_count_unit": "registrazioni",
+  "statistics_total_records_first_record": "Prima registrazione",
+  "statistics_total_records_period": "Periodo di registrazione",
+  "statistics_total_records_period_days": "{days} giorni",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "Frequenza media",
+  "statistics_total_records_weekly_frequency": "{frequency} volte/settimana",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "In corso",
+  "statistics_streak_status_inactive": "Interrotto",
+  "statistics_streak_last_record": "Ultima registrazione",
+  "statistics_streak_today": "Oggi",
+  "statistics_streak_yesterday": "Ieri",
+  "statistics_streak_days_ago": "{days} giorni fa",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "Serie consecutiva interrotta",
+  "statistics_streak_stopped_days": "{days} giorni fa",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "Ottimo! Stai mantenendo una serie consecutiva",
+  "statistics_max_streak_new_record": "Nuovo record!",
+  "statistics_max_streak_progress": "Progresso attuale",
+  "statistics_max_streak_remaining": "Al record massimo",
+  "statistics_max_streak_remaining_days": "Mancano {days} giorni",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "Serie di una settimana raggiunta! Stai andando bene!",
+  "statistics_max_streak_achievement_two_weeks": "Serie di due settimane raggiunta! Fantastico!",
+  "statistics_max_streak_achievement_month": "Serie di un mese raggiunta! Davvero impressionante!",
+  "statistics_average_mood_title": "Umore medio",
+  "statistics_average_mood_score": "Media {score} punti",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "Umore più frequente",
+  "statistics_average_mood_recent_trend": "Tendenza degli ultimi 7 giorni",
+  "statistics_trend_rising": "In salita",
+  "statistics_trend_falling": "In discesa",
+  "statistics_trend_stable": "Stabile",
+  "statistics_mood_positive_message": "Stai mantenendo generalmente un umore positivo!",
+  "statistics_mood_negative_message": "Sembra che tu stia attraversando momenti difficili. Prenditi del tempo per prenderti cura di te stesso.",
+  "statistics_writing_frequency_title": "Frequenza di scrittura",
+  "statistics_writing_frequency_this_week": "Questa settimana",
+  "statistics_writing_frequency_count_unit": "volte",
+  "statistics_writing_frequency_daily": "Registrazione quotidiana!",
+  "statistics_writing_frequency_often": "Registrazione frequente",
+  "statistics_writing_frequency_normal": "Normale",
+  "statistics_writing_frequency_sometimes": "A volte",
+  "statistics_writing_frequency_none": "Nessuna registrazione",
+  "statistics_writing_frequency_weekly_avg": "Media settimanale",
+  "statistics_writing_frequency_monthly_avg": "Media mensile",
+  "statistics_writing_frequency_weekly_count": "{count} volte",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count} volte",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "Ora più attiva",
+  "statistics_writing_frequency_most_active_day": "Giorno più attivo",
+  "statistics_time_morning": "Mattina",
+  "statistics_time_afternoon": "Pomeriggio",
+  "statistics_time_evening": "Sera",
+  "statistics_time_night": "Notte",
+  "statistics_time_with_hour": "{timeOfDay} (ore {hour})",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_weekday_monday": "Lunedì",
+  "statistics_weekday_tuesday": "Martedì",
+  "statistics_weekday_wednesday": "Mercoledì",
+  "statistics_weekday_thursday": "Giovedì",
+  "statistics_weekday_friday": "Venerdì",
+  "statistics_weekday_saturday": "Sabato",
+  "statistics_weekday_sunday": "Domenica",
+  "statistics_writing_frequency_good_habit": "Stai registrando costantemente! Ottimo!",
+  "statistics_writing_frequency_encouragement": "Prova a registrare più spesso. Anche i piccoli momenti sono preziosi!",
+  "tags_manage_title": "Gestisci tag",
+  "tags_manage_subtitle": "Visualizza e gestisci i tuoi tag",
+  "tags_filter_all": "Tutti",
+  "tags_filter_title": "Filtra per tag",
+  "tags_suggested_title": "Tag suggeriti",
+  "tags_add_new": "Aggiungi nuovo tag",
+  "tags_input_hint": "Nome del tag",
+  "tags_delete_title": "Elimina tag",
+  "tags_delete_message": "Sei sicuro di voler eliminare \"{tagName}\"? Questo rimuoverà il tag da tutti i diari.",
+  "@tags_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_delete_success": "Tag \"{tagName}\" eliminato",
+  "@tags_delete_success": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_no_tags": "Nessun tag trovato",
+  "tags_load_failed": "Impossibile caricare i tag",
+  "tags_delete_failed": "Impossibile eliminare il tag"
 }

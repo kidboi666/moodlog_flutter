@@ -355,203 +355,211 @@ class AppLocalizationsFr extends AppLocalizations {
   String get statistics_recent_empty => 'Aucun journal récent.';
 
   @override
-  String get statistics_total_records_count_unit => '개의 기록';
+  String get statistics_total_records_count_unit => 'enregistrements';
 
   @override
-  String get statistics_total_records_first_record => '첫 기록';
+  String get statistics_total_records_first_record => 'Premier enregistrement';
 
   @override
-  String get statistics_total_records_period => '기록 기간';
+  String get statistics_total_records_period => 'Période d\'enregistrement';
 
   @override
   String statistics_total_records_period_days(int days) {
-    return '$days일';
+    return '$days jours';
   }
 
   @override
-  String get statistics_total_records_avg_frequency => '평균 빈도';
+  String get statistics_total_records_avg_frequency => 'Fréquence moyenne';
 
   @override
   String statistics_total_records_weekly_frequency(String frequency) {
-    return '$frequency회/주';
+    return '$frequency fois/semaine';
   }
 
   @override
-  String get statistics_streak_status_active => '진행 중';
+  String get statistics_streak_status_active => 'En cours';
 
   @override
-  String get statistics_streak_status_inactive => '중단됨';
+  String get statistics_streak_status_inactive => 'Interrompu';
 
   @override
-  String get statistics_streak_last_record => '마지막 기록';
+  String get statistics_streak_last_record => 'Dernier enregistrement';
 
   @override
-  String get statistics_streak_today => '오늘';
+  String get statistics_streak_today => 'Aujourd\'hui';
 
   @override
-  String get statistics_streak_yesterday => '어제';
+  String get statistics_streak_yesterday => 'Hier';
 
   @override
   String statistics_streak_days_ago(int days) {
-    return '$days일 전';
+    return 'Il y a $days jours';
   }
 
   @override
-  String get statistics_streak_stopped => '연속 기록 중단';
+  String get statistics_streak_stopped => 'Série consécutive interrompue';
 
   @override
   String statistics_streak_stopped_days(int days) {
-    return '$days일 전';
+    return 'Il y a $days jours';
   }
 
   @override
-  String get statistics_streak_encouragement => '훌륭해요! 연속 기록을 이어가고 있어요';
+  String get statistics_streak_encouragement =>
+      'Excellent ! Vous maintenez une série consécutive';
 
   @override
-  String get statistics_max_streak_new_record => '신기록!';
+  String get statistics_max_streak_new_record => 'Nouveau record !';
 
   @override
-  String get statistics_max_streak_progress => '현재 진행률';
+  String get statistics_max_streak_progress => 'Progrès actuel';
 
   @override
-  String get statistics_max_streak_remaining => '최고 기록까지';
+  String get statistics_max_streak_remaining => 'Jusqu\'au record maximum';
 
   @override
   String statistics_max_streak_remaining_days(int days) {
-    return '$days일 남음';
+    return 'Il reste $days jours';
   }
 
   @override
-  String get statistics_max_streak_achievement_week => '일주일 연속 기록 달성! 잘하고 있어요!';
+  String get statistics_max_streak_achievement_week =>
+      'Série d\'une semaine atteinte ! Vous vous en sortez bien !';
 
   @override
   String get statistics_max_streak_achievement_two_weeks =>
-      '2주 연속 기록 달성! 훌륭해요!';
+      'Série de deux semaines atteinte ! Fantastique !';
 
   @override
   String get statistics_max_streak_achievement_month =>
-      '한 달 연속 기록 달성! 정말 대단해요!';
+      'Série d\'un mois atteinte ! Vraiment impressionnant !';
 
   @override
-  String get statistics_average_mood_title => '평균 기분';
+  String get statistics_average_mood_title => 'Humeur moyenne';
 
   @override
   String statistics_average_mood_score(String score) {
-    return '평균 $score점';
+    return 'Moyenne $score points';
   }
 
   @override
-  String get statistics_average_mood_most_frequent => '가장 자주 느낀 기분';
+  String get statistics_average_mood_most_frequent =>
+      'Humeur la plus fréquente';
 
   @override
-  String get statistics_average_mood_recent_trend => '최근 7일 추이';
+  String get statistics_average_mood_recent_trend =>
+      'Tendance des 7 derniers jours';
 
   @override
-  String get statistics_trend_rising => '상승';
+  String get statistics_trend_rising => 'En hausse';
 
   @override
-  String get statistics_trend_falling => '하락';
+  String get statistics_trend_falling => 'En baisse';
 
   @override
-  String get statistics_trend_stable => '안정';
+  String get statistics_trend_stable => 'Stable';
 
   @override
-  String get statistics_mood_positive_message => '전반적으로 긍정적인 기분을 유지하고 있어요!';
+  String get statistics_mood_positive_message =>
+      'Vous maintenez généralement une humeur positive !';
 
   @override
   String get statistics_mood_negative_message =>
-      '힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.';
+      'Il semble que vous traversiez des moments difficiles. Prenez le temps de prendre soin de vous.';
 
   @override
-  String get statistics_writing_frequency_title => '작성 빈도';
+  String get statistics_writing_frequency_title => 'Fréquence d\'écriture';
 
   @override
-  String get statistics_writing_frequency_this_week => '이번 주';
+  String get statistics_writing_frequency_this_week => 'Cette semaine';
 
   @override
-  String get statistics_writing_frequency_count_unit => '회';
+  String get statistics_writing_frequency_count_unit => 'fois';
 
   @override
-  String get statistics_writing_frequency_daily => '매일 기록!';
+  String get statistics_writing_frequency_daily => 'Enregistrement quotidien !';
 
   @override
-  String get statistics_writing_frequency_often => '자주 기록';
+  String get statistics_writing_frequency_often => 'Enregistrement fréquent';
 
   @override
-  String get statistics_writing_frequency_normal => '보통';
+  String get statistics_writing_frequency_normal => 'Normal';
 
   @override
-  String get statistics_writing_frequency_sometimes => '가끔';
+  String get statistics_writing_frequency_sometimes => 'Parfois';
 
   @override
-  String get statistics_writing_frequency_none => '기록 없음';
+  String get statistics_writing_frequency_none => 'Aucun enregistrement';
 
   @override
-  String get statistics_writing_frequency_weekly_avg => '주평균';
+  String get statistics_writing_frequency_weekly_avg => 'Moyenne hebdomadaire';
 
   @override
-  String get statistics_writing_frequency_monthly_avg => '월평균';
+  String get statistics_writing_frequency_monthly_avg => 'Moyenne mensuelle';
 
   @override
   String statistics_writing_frequency_weekly_count(String count) {
-    return '$count회';
+    return '$count fois';
   }
 
   @override
   String statistics_writing_frequency_monthly_count(String count) {
-    return '$count회';
+    return '$count fois';
   }
 
   @override
-  String get statistics_writing_frequency_most_active_time => '가장 자주 쓰는 시간';
+  String get statistics_writing_frequency_most_active_time =>
+      'Heure la plus active';
 
   @override
-  String get statistics_writing_frequency_most_active_day => '가장 자주 쓰는 요일';
+  String get statistics_writing_frequency_most_active_day =>
+      'Jour le plus actif';
 
   @override
-  String get statistics_time_morning => '오전';
+  String get statistics_time_morning => 'Matin';
 
   @override
-  String get statistics_time_afternoon => '오후';
+  String get statistics_time_afternoon => 'Après-midi';
 
   @override
-  String get statistics_time_evening => '저녁';
+  String get statistics_time_evening => 'Soir';
 
   @override
-  String get statistics_time_night => '밤';
+  String get statistics_time_night => 'Nuit';
 
   @override
   String statistics_time_with_hour(String timeOfDay, int hour) {
-    return '$timeOfDay ($hour시)';
+    return '$timeOfDay (${hour}h)';
   }
 
   @override
-  String get statistics_weekday_monday => '월요일';
+  String get statistics_weekday_monday => 'Lundi';
 
   @override
-  String get statistics_weekday_tuesday => '화요일';
+  String get statistics_weekday_tuesday => 'Mardi';
 
   @override
-  String get statistics_weekday_wednesday => '수요일';
+  String get statistics_weekday_wednesday => 'Mercredi';
 
   @override
-  String get statistics_weekday_thursday => '목요일';
+  String get statistics_weekday_thursday => 'Jeudi';
 
   @override
-  String get statistics_weekday_friday => '금요일';
+  String get statistics_weekday_friday => 'Vendredi';
 
   @override
-  String get statistics_weekday_saturday => '토요일';
+  String get statistics_weekday_saturday => 'Samedi';
 
   @override
-  String get statistics_weekday_sunday => '일요일';
+  String get statistics_weekday_sunday => 'Dimanche';
 
   @override
-  String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 계시는군요! 훌륭해요!';
+  String get statistics_writing_frequency_good_habit =>
+      'Vous enregistrez constamment ! Excellent !';
 
   @override
   String get statistics_writing_frequency_encouragement =>
-      '조금 더 자주 기록해보세요. 작은 순간들도 소중해요!';
+      'Essayez d\'enregistrer plus fréquemment. Les petits moments sont aussi précieux !';
 
   @override
   String get settings_title => 'Paramètres';
@@ -850,45 +858,45 @@ class AppLocalizationsFr extends AppLocalizations {
   String get location_add_location => 'Ajouter une position';
 
   @override
-  String get tags_manage_title => '태그 관리';
+  String get tags_manage_title => 'Gérer les étiquettes';
 
   @override
-  String get tags_manage_subtitle => '태그를 보고 관리하세요';
+  String get tags_manage_subtitle => 'Voir et gérer vos étiquettes';
 
   @override
-  String get tags_filter_all => '전체';
+  String get tags_filter_all => 'Toutes';
 
   @override
-  String get tags_filter_title => '태그로 필터링';
+  String get tags_filter_title => 'Filtrer par étiquettes';
 
   @override
-  String get tags_suggested_title => '추천 태그';
+  String get tags_suggested_title => 'Étiquettes suggérées';
 
   @override
-  String get tags_add_new => '새 태그 추가';
+  String get tags_add_new => 'Ajouter une nouvelle étiquette';
 
   @override
-  String get tags_input_hint => '태그 이름';
+  String get tags_input_hint => 'Nom de l\'étiquette';
 
   @override
-  String get tags_delete_title => '태그 삭제';
+  String get tags_delete_title => 'Supprimer l\'étiquette';
 
   @override
   String tags_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+    return 'Êtes-vous sûr de vouloir supprimer \"$tagName\" ? Cela supprimera l\'étiquette de tous les journaux.';
   }
 
   @override
   String tags_delete_success(String tagName) {
-    return '태그 \"$tagName\"이(가) 삭제되었습니다';
+    return 'Étiquette \"$tagName\" supprimée';
   }
 
   @override
-  String get tags_no_tags => '태그가 없습니다';
+  String get tags_no_tags => 'Aucune étiquette trouvée';
 
   @override
-  String get tags_load_failed => '태그를 불러오지 못했습니다';
+  String get tags_load_failed => 'Impossible de charger les étiquettes';
 
   @override
-  String get tags_delete_failed => '태그 삭제에 실패했습니다';
+  String get tags_delete_failed => 'Impossible de supprimer l\'étiquette';
 }

@@ -354,203 +354,210 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statistics_recent_empty => 'Không có nhật ký gần đây.';
 
   @override
-  String get statistics_total_records_count_unit => '개의 기록';
+  String get statistics_total_records_count_unit => 'bản ghi';
 
   @override
-  String get statistics_total_records_first_record => '첫 기록';
+  String get statistics_total_records_first_record => 'Bản ghi đầu tiên';
 
   @override
-  String get statistics_total_records_period => '기록 기간';
+  String get statistics_total_records_period => 'Thời gian ghi chép';
 
   @override
   String statistics_total_records_period_days(int days) {
-    return '$days일';
+    return '$days ngày';
   }
 
   @override
-  String get statistics_total_records_avg_frequency => '평균 빈도';
+  String get statistics_total_records_avg_frequency => 'Tần suất trung bình';
 
   @override
   String statistics_total_records_weekly_frequency(String frequency) {
-    return '$frequency회/주';
+    return '$frequency lần/tuần';
   }
 
   @override
-  String get statistics_streak_status_active => '진행 중';
+  String get statistics_streak_status_active => 'Đang tiến hành';
 
   @override
-  String get statistics_streak_status_inactive => '중단됨';
+  String get statistics_streak_status_inactive => 'Đã ngừng';
 
   @override
-  String get statistics_streak_last_record => '마지막 기록';
+  String get statistics_streak_last_record => 'Bản ghi cuối cùng';
 
   @override
-  String get statistics_streak_today => '오늘';
+  String get statistics_streak_today => 'Hôm nay';
 
   @override
-  String get statistics_streak_yesterday => '어제';
+  String get statistics_streak_yesterday => 'Hôm qua';
 
   @override
   String statistics_streak_days_ago(int days) {
-    return '$days일 전';
+    return '$days ngày trước';
   }
 
   @override
-  String get statistics_streak_stopped => '연속 기록 중단';
+  String get statistics_streak_stopped => 'Chuỗi liên tiếp đã ngừng';
 
   @override
   String statistics_streak_stopped_days(int days) {
-    return '$days일 전';
+    return '$days ngày trước';
   }
 
   @override
-  String get statistics_streak_encouragement => '훌륭해요! 연속 기록을 이어가고 있어요';
+  String get statistics_streak_encouragement =>
+      'Tuyệt vời! Bạn đang duy trì chuỗi liên tiếp';
 
   @override
-  String get statistics_max_streak_new_record => '신기록!';
+  String get statistics_max_streak_new_record => 'Kỷ lục mới!';
 
   @override
-  String get statistics_max_streak_progress => '현재 진행률';
+  String get statistics_max_streak_progress => 'Tiến độ hiện tại';
 
   @override
-  String get statistics_max_streak_remaining => '최고 기록까지';
+  String get statistics_max_streak_remaining => 'Đến kỷ lục tối đa';
 
   @override
   String statistics_max_streak_remaining_days(int days) {
-    return '$days일 남음';
+    return 'Còn $days ngày';
   }
 
   @override
-  String get statistics_max_streak_achievement_week => '일주일 연속 기록 달성! 잘하고 있어요!';
+  String get statistics_max_streak_achievement_week =>
+      'Chuỗi một tuần đã đạt được! Bạn làm rất tốt!';
 
   @override
   String get statistics_max_streak_achievement_two_weeks =>
-      '2주 연속 기록 달성! 훌륭해요!';
+      'Chuỗi hai tuần đã đạt được! Tuyệt vời!';
 
   @override
   String get statistics_max_streak_achievement_month =>
-      '한 달 연속 기록 달성! 정말 대단해요!';
+      'Chuỗi một tháng đã đạt được! Thực sự ấn tượng!';
 
   @override
-  String get statistics_average_mood_title => '평균 기분';
+  String get statistics_average_mood_title => 'Tâm trạng trung bình';
 
   @override
   String statistics_average_mood_score(String score) {
-    return '평균 $score점';
+    return 'Trung bình $score điểm';
   }
 
   @override
-  String get statistics_average_mood_most_frequent => '가장 자주 느낀 기분';
+  String get statistics_average_mood_most_frequent =>
+      'Tâm trạng thường xuyên nhất';
 
   @override
-  String get statistics_average_mood_recent_trend => '최근 7일 추이';
+  String get statistics_average_mood_recent_trend => 'Xu hướng 7 ngày gần đây';
 
   @override
-  String get statistics_trend_rising => '상승';
+  String get statistics_trend_rising => 'Tăng';
 
   @override
-  String get statistics_trend_falling => '하락';
+  String get statistics_trend_falling => 'Giảm';
 
   @override
-  String get statistics_trend_stable => '안정';
+  String get statistics_trend_stable => 'Ổn định';
 
   @override
-  String get statistics_mood_positive_message => '전반적으로 긍정적인 기분을 유지하고 있어요!';
+  String get statistics_mood_positive_message =>
+      'Bạn đang duy trì tâm trạng tích cực nói chung!';
 
   @override
   String get statistics_mood_negative_message =>
-      '힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.';
+      'Có vẻ như bạn đang trải qua thời gian khó khăn. Hãy dành thời gian chăm sóc bản thân.';
 
   @override
-  String get statistics_writing_frequency_title => '작성 빈도';
+  String get statistics_writing_frequency_title => 'Tần suất viết';
 
   @override
-  String get statistics_writing_frequency_this_week => '이번 주';
+  String get statistics_writing_frequency_this_week => 'Tuần này';
 
   @override
-  String get statistics_writing_frequency_count_unit => '회';
+  String get statistics_writing_frequency_count_unit => 'lần';
 
   @override
-  String get statistics_writing_frequency_daily => '매일 기록!';
+  String get statistics_writing_frequency_daily => 'Ghi chép hàng ngày!';
 
   @override
-  String get statistics_writing_frequency_often => '자주 기록';
+  String get statistics_writing_frequency_often => 'Ghi chép thường xuyên';
 
   @override
-  String get statistics_writing_frequency_normal => '보통';
+  String get statistics_writing_frequency_normal => 'Bình thường';
 
   @override
-  String get statistics_writing_frequency_sometimes => '가끔';
+  String get statistics_writing_frequency_sometimes => 'Thỉnh thoảng';
 
   @override
-  String get statistics_writing_frequency_none => '기록 없음';
+  String get statistics_writing_frequency_none => 'Không có ghi chép';
 
   @override
-  String get statistics_writing_frequency_weekly_avg => '주평균';
+  String get statistics_writing_frequency_weekly_avg => 'Trung bình tuần';
 
   @override
-  String get statistics_writing_frequency_monthly_avg => '월평균';
+  String get statistics_writing_frequency_monthly_avg => 'Trung bình tháng';
 
   @override
   String statistics_writing_frequency_weekly_count(String count) {
-    return '$count회';
+    return '$count lần';
   }
 
   @override
   String statistics_writing_frequency_monthly_count(String count) {
-    return '$count회';
+    return '$count lần';
   }
 
   @override
-  String get statistics_writing_frequency_most_active_time => '가장 자주 쓰는 시간';
+  String get statistics_writing_frequency_most_active_time =>
+      'Thời gian hoạt động nhất';
 
   @override
-  String get statistics_writing_frequency_most_active_day => '가장 자주 쓰는 요일';
+  String get statistics_writing_frequency_most_active_day =>
+      'Ngày hoạt động nhất';
 
   @override
-  String get statistics_time_morning => '오전';
+  String get statistics_time_morning => 'Sáng';
 
   @override
-  String get statistics_time_afternoon => '오후';
+  String get statistics_time_afternoon => 'Chiều';
 
   @override
-  String get statistics_time_evening => '저녁';
+  String get statistics_time_evening => 'Tối';
 
   @override
-  String get statistics_time_night => '밤';
+  String get statistics_time_night => 'Đêm';
 
   @override
   String statistics_time_with_hour(String timeOfDay, int hour) {
-    return '$timeOfDay ($hour시)';
+    return '$timeOfDay (${hour}h)';
   }
 
   @override
-  String get statistics_weekday_monday => '월요일';
+  String get statistics_weekday_monday => 'Thứ Hai';
 
   @override
-  String get statistics_weekday_tuesday => '화요일';
+  String get statistics_weekday_tuesday => 'Thứ Ba';
 
   @override
-  String get statistics_weekday_wednesday => '수요일';
+  String get statistics_weekday_wednesday => 'Thứ Tư';
 
   @override
-  String get statistics_weekday_thursday => '목요일';
+  String get statistics_weekday_thursday => 'Thứ Năm';
 
   @override
-  String get statistics_weekday_friday => '금요일';
+  String get statistics_weekday_friday => 'Thứ Sáu';
 
   @override
-  String get statistics_weekday_saturday => '토요일';
+  String get statistics_weekday_saturday => 'Thứ Bảy';
 
   @override
-  String get statistics_weekday_sunday => '일요일';
+  String get statistics_weekday_sunday => 'Chủ Nhật';
 
   @override
-  String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 계시는군요! 훌륭해요!';
+  String get statistics_writing_frequency_good_habit =>
+      'Bạn đang ghi chép đều đặn! Tuyệt vời!';
 
   @override
   String get statistics_writing_frequency_encouragement =>
-      '조금 더 자주 기록해보세요. 작은 순간들도 소중해요!';
+      'Hãy thử ghi chép thường xuyên hơn. Những khoảnh khắc nhỏ cũng rất quý giá!';
 
   @override
   String get settings_title => 'Cài đặt';
@@ -842,45 +849,45 @@ class AppLocalizationsVi extends AppLocalizations {
   String get location_add_location => 'Thêm vị trí';
 
   @override
-  String get tags_manage_title => '태그 관리';
+  String get tags_manage_title => 'Quản lý thẻ';
 
   @override
-  String get tags_manage_subtitle => '태그를 보고 관리하세요';
+  String get tags_manage_subtitle => 'Xem và quản lý thẻ của bạn';
 
   @override
-  String get tags_filter_all => '전체';
+  String get tags_filter_all => 'Tất cả';
 
   @override
-  String get tags_filter_title => '태그로 필터링';
+  String get tags_filter_title => 'Lọc theo thẻ';
 
   @override
-  String get tags_suggested_title => '추천 태그';
+  String get tags_suggested_title => 'Thẻ gợi ý';
 
   @override
-  String get tags_add_new => '새 태그 추가';
+  String get tags_add_new => 'Thêm thẻ mới';
 
   @override
-  String get tags_input_hint => '태그 이름';
+  String get tags_input_hint => 'Tên thẻ';
 
   @override
-  String get tags_delete_title => '태그 삭제';
+  String get tags_delete_title => 'Xóa thẻ';
 
   @override
   String tags_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+    return 'Bạn có chắc chắn muốn xóa \"$tagName\"? Điều này sẽ xóa thẻ khỏi tất cả nhật ký.';
   }
 
   @override
   String tags_delete_success(String tagName) {
-    return '태그 \"$tagName\"이(가) 삭제되었습니다';
+    return 'Thẻ \"$tagName\" đã được xóa';
   }
 
   @override
-  String get tags_no_tags => '태그가 없습니다';
+  String get tags_no_tags => 'Không tìm thấy thẻ nào';
 
   @override
-  String get tags_load_failed => '태그를 불러오지 못했습니다';
+  String get tags_load_failed => 'Không thể tải thẻ';
 
   @override
-  String get tags_delete_failed => '태그 삭제에 실패했습니다';
+  String get tags_delete_failed => 'Không thể xóa thẻ';
 }
