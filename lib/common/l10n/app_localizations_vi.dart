@@ -385,12 +385,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statistics_streak_last_record => 'Bản ghi cuối cùng';
 
   @override
-  String get statistics_streak_today => 'Hôm nay';
-
-  @override
-  String get statistics_streak_yesterday => 'Hôm qua';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days ngày trước';
   }
@@ -529,27 +523,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay (${hour}h)';
   }
-
-  @override
-  String get statistics_weekday_monday => 'Thứ Hai';
-
-  @override
-  String get statistics_weekday_tuesday => 'Thứ Ba';
-
-  @override
-  String get statistics_weekday_wednesday => 'Thứ Tư';
-
-  @override
-  String get statistics_weekday_thursday => 'Thứ Năm';
-
-  @override
-  String get statistics_weekday_friday => 'Thứ Sáu';
-
-  @override
-  String get statistics_weekday_saturday => 'Thứ Bảy';
-
-  @override
-  String get statistics_weekday_sunday => 'Chủ Nhật';
 
   @override
   String get statistics_writing_frequency_good_habit =>
@@ -799,21 +772,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get snackbar_cache_cleared => 'Bộ nhớ đệm đã được xóa.';
 
   @override
-  String get navigation_home => 'Trang chủ';
-
-  @override
-  String get navigation_entries => 'Bản ghi';
-
-  @override
-  String get navigation_write => 'Viết';
-
-  @override
-  String get navigation_statistics => 'Thống kê';
-
-  @override
-  String get navigation_settings => 'Cài đặt';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return 'Bằng cách tiếp tục, bạn đồng ý với $terms và $privacy của chúng tôi.';
   }
@@ -890,4 +848,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get tags_delete_failed => 'Không thể xóa thẻ';
+
+  @override
+  String get common_unit_day => 'ngày';
 }

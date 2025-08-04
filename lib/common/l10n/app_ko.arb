@@ -160,8 +160,6 @@
   "statistics_streak_status_active": "진행 중",
   "statistics_streak_status_inactive": "중단됨",
   "statistics_streak_last_record": "마지막 기록",
-  "statistics_streak_today": "오늘",
-  "statistics_streak_yesterday": "어제",
   "statistics_streak_days_ago": "{days}일 전",
   "@statistics_streak_days_ago": {
     "placeholders": {
@@ -253,13 +251,6 @@
       }
     }
   },
-  "statistics_weekday_monday": "월요일",
-  "statistics_weekday_tuesday": "화요일",
-  "statistics_weekday_wednesday": "수요일",
-  "statistics_weekday_thursday": "목요일",
-  "statistics_weekday_friday": "금요일",
-  "statistics_weekday_saturday": "토요일",
-  "statistics_weekday_sunday": "일요일",
   "statistics_writing_frequency_good_habit": "꾸준히 기록하고 계시는군요! 훌륭해요!",
   "statistics_writing_frequency_encouragement": "조금 더 자주 기록해보세요. 작은 순간들도 소중해요!",
   "settings_title": "설정",
@@ -340,11 +331,6 @@
   "settings_ai_personality_title": "AI 성격",
   "snackbar_backup_completed": "백업이 완료되었습니다.",
   "snackbar_cache_cleared": "캐시가 삭제되었습니다.",
-  "navigation_home": "홈",
-  "navigation_entries": "기록",
-  "navigation_write": "글쓰기",
-  "navigation_statistics": "통계",
-  "navigation_settings": "설정",
   "auth_terms_message": "계속 함으로써 {terms}과 {privacy}에 동의합니다.",
   "@auth_terms_message": {
     "placeholders": {
@@ -398,5 +384,6 @@
   },
   "tags_no_tags": "태그가 없습니다",
   "tags_load_failed": "태그를 불러오지 못했습니다",
-  "tags_delete_failed": "태그 삭제에 실패했습니다"
+  "tags_delete_failed": "태그 삭제에 실패했습니다",
+  "common_unit_day": "일"
 }

@@ -35,33 +35,37 @@ class WritingFrequencyCard extends StatelessWidget {
 
     final firstEntry = allJournals.isNotEmpty
         ? allJournals
-            .map((j) => j.createdAt)
-            .reduce((a, b) => a.isBefore(b) ? a : b)
+              .map((j) => j.createdAt)
+              .reduce((a, b) => a.isBefore(b) ? a : b)
         : now;
 
     final totalDays = now.difference(firstEntry).inDays + 1;
-    final weeklyAverage = totalDays >= 7 ? (allJournals.length / totalDays * 7) : weeklyEntries.toDouble();
-    final monthlyAverage = totalDays >= 30 ? (allJournals.length / totalDays * 30) : monthlyEntries.toDouble();
+    final weeklyAverage = totalDays >= 7
+        ? (allJournals.length / totalDays * 7)
+        : weeklyEntries.toDouble();
+    final monthlyAverage = totalDays >= 30
+        ? (allJournals.length / totalDays * 30)
+        : monthlyEntries.toDouble();
 
     final weeklyFrequencyText = weeklyEntries >= 7
         ? t.statistics_writing_frequency_daily
         : weeklyEntries >= 5
-            ? t.statistics_writing_frequency_often
-            : weeklyEntries >= 3
-                ? t.statistics_writing_frequency_normal
-                : weeklyEntries >= 1
-                    ? t.statistics_writing_frequency_sometimes
-                    : t.statistics_writing_frequency_none;
+        ? t.statistics_writing_frequency_often
+        : weeklyEntries >= 3
+        ? t.statistics_writing_frequency_normal
+        : weeklyEntries >= 1
+        ? t.statistics_writing_frequency_sometimes
+        : t.statistics_writing_frequency_none;
 
     final weeklyFrequencyColor = weeklyEntries >= 7
         ? Colors.green
         : weeklyEntries >= 5
-            ? Colors.blue
-            : weeklyEntries >= 3
-                ? colorScheme.primary
-                : weeklyEntries >= 1
-                    ? Colors.orange
-                    : Colors.red;
+        ? Colors.blue
+        : weeklyEntries >= 3
+        ? colorScheme.primary
+        : weeklyEntries >= 1
+        ? Colors.orange
+        : Colors.red;
 
     final Map<int, int> hourlyDistribution = {};
     for (var journal in allJournals) {
@@ -71,8 +75,8 @@ class WritingFrequencyCard extends StatelessWidget {
 
     final mostActiveHour = hourlyDistribution.isNotEmpty
         ? hourlyDistribution.entries
-            .reduce((a, b) => a.value > b.value ? a : b)
-            .key
+              .reduce((a, b) => a.value > b.value ? a : b)
+              .key
         : 12;
 
     String getTimeOfDayText(int hour) {
@@ -95,18 +99,18 @@ class WritingFrequencyCard extends StatelessWidget {
 
     final mostActiveWeekday = weekdayDistribution.isNotEmpty
         ? weekdayDistribution.entries
-            .reduce((a, b) => a.value > b.value ? a : b)
-            .key
+              .reduce((a, b) => a.value > b.value ? a : b)
+              .key
         : 1;
 
     final weekdayNames = [
-      t.statistics_weekday_monday, 
-      t.statistics_weekday_tuesday, 
-      t.statistics_weekday_wednesday, 
-      t.statistics_weekday_thursday, 
-      t.statistics_weekday_friday, 
-      t.statistics_weekday_saturday, 
-      t.statistics_weekday_sunday
+      t.common_weekday_mon,
+      t.common_weekday_tue,
+      t.common_weekday_wed,
+      t.common_weekday_thu,
+      t.common_weekday_fri,
+      t.common_weekday_sat,
+      t.common_weekday_sun,
     ];
 
     return BaseCard(
@@ -115,11 +119,7 @@ class WritingFrequencyCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.schedule,
-                color: colorScheme.secondary,
-                size: 24,
-              ),
+              Icon(Icons.schedule, color: colorScheme.secondary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
                 t.statistics_writing_frequency_title,
@@ -135,9 +135,7 @@ class WritingFrequencyCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: weeklyFrequencyColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: weeklyFrequencyColor.withOpacity(0.3),
-              ),
+              border: Border.all(color: weeklyFrequencyColor.withOpacity(0.3)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,7 +208,9 @@ class WritingFrequencyCard extends StatelessWidget {
                       ),
                       const SizedBox(height: Spacing.xs),
                       Text(
-                        t.statistics_writing_frequency_weekly_count(weeklyAverage.toStringAsFixed(1)),
+                        t.statistics_writing_frequency_weekly_count(
+                          weeklyAverage.toStringAsFixed(1),
+                        ),
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -237,7 +237,9 @@ class WritingFrequencyCard extends StatelessWidget {
                       ),
                       const SizedBox(height: Spacing.xs),
                       Text(
-                        t.statistics_writing_frequency_monthly_count(monthlyAverage.toStringAsFixed(1)),
+                        t.statistics_writing_frequency_monthly_count(
+                          monthlyAverage.toStringAsFixed(1),
+                        ),
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -303,17 +305,11 @@ class WritingFrequencyCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.green.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.green.withOpacity(0.3),
-                ),
+                border: Border.all(color: Colors.green.withOpacity(0.3)),
               ),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.green,
-                    size: 20,
-                  ),
+                  const Icon(Icons.star, color: Colors.green, size: 20),
                   const SizedBox(width: Spacing.sm),
                   Expanded(
                     child: Text(
@@ -335,9 +331,7 @@ class WritingFrequencyCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.blue.withOpacity(0.3),
-                ),
+                border: Border.all(color: Colors.blue.withOpacity(0.3)),
               ),
               child: Row(
                 children: [

@@ -368,12 +368,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get statistics_streak_last_record => '最后记录';
 
   @override
-  String get statistics_streak_today => '今天';
-
-  @override
-  String get statistics_streak_yesterday => '昨天';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days天前';
   }
@@ -503,27 +497,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay ($hour点)';
   }
-
-  @override
-  String get statistics_weekday_monday => '星期一';
-
-  @override
-  String get statistics_weekday_tuesday => '星期二';
-
-  @override
-  String get statistics_weekday_wednesday => '星期三';
-
-  @override
-  String get statistics_weekday_thursday => '星期四';
-
-  @override
-  String get statistics_weekday_friday => '星期五';
-
-  @override
-  String get statistics_weekday_saturday => '星期六';
-
-  @override
-  String get statistics_weekday_sunday => '星期日';
 
   @override
   String get statistics_writing_frequency_good_habit => '你在稳定地记录！太棒了！';
@@ -767,21 +740,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snackbar_cache_cleared => '缓存已清除。';
 
   @override
-  String get navigation_home => '首页';
-
-  @override
-  String get navigation_entries => '记录';
-
-  @override
-  String get navigation_write => '写作';
-
-  @override
-  String get navigation_statistics => '统计';
-
-  @override
-  String get navigation_settings => '设置';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return '继续即表示您同意我们的$terms和$privacy。';
   }
@@ -857,4 +815,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get tags_delete_failed => '删除标签失败';
+
+  @override
+  String get common_unit_day => '天';
 }

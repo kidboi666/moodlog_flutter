@@ -14,6 +14,7 @@
 - `.arb` 파일에만 번역 텍스트 추가
 - 자동 생성되는 `.dart` 파일은 수정하지 않음
 - 지원 언어: ko, en, ja, zh, es, it, fr, vi, th (총 9개 언어)
+- 기준 언어: ko (모든 다국어는 한국어를 우선 기준으로 두고 다른 언어를 번역해야함)
 - 새로운 언어 추가 시 순서:
     1. `lib/common/l10n/app_{language_code}.arb` 파일 생성
     2. `lib/common/constants/enum.dart`의 `LanguageCode` enum에 추가

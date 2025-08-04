@@ -372,12 +372,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_streak_last_record => '最後の記録';
 
   @override
-  String get statistics_streak_today => '今日';
-
-  @override
-  String get statistics_streak_yesterday => '昨日';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days日前';
   }
@@ -509,27 +503,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay ($hour時)';
   }
-
-  @override
-  String get statistics_weekday_monday => '月曜日';
-
-  @override
-  String get statistics_weekday_tuesday => '火曜日';
-
-  @override
-  String get statistics_weekday_wednesday => '水曜日';
-
-  @override
-  String get statistics_weekday_thursday => '木曜日';
-
-  @override
-  String get statistics_weekday_friday => '金曜日';
-
-  @override
-  String get statistics_weekday_saturday => '土曜日';
-
-  @override
-  String get statistics_weekday_sunday => '日曜日';
 
   @override
   String get statistics_writing_frequency_good_habit => '着実に記録していますね！素晴らしいです！';
@@ -774,21 +747,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snackbar_cache_cleared => 'キャッシュが削除されました。';
 
   @override
-  String get navigation_home => 'ホーム';
-
-  @override
-  String get navigation_entries => '記録';
-
-  @override
-  String get navigation_write => '書く';
-
-  @override
-  String get navigation_statistics => '統計';
-
-  @override
-  String get navigation_settings => '設定';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return '続行することで、$termsと$privacyに同意します。';
   }
@@ -864,4 +822,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get tags_delete_failed => 'タグの削除に失敗しました';
+
+  @override
+  String get common_unit_day => '日';
 }

@@ -385,12 +385,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get statistics_streak_last_record => 'Ultima registrazione';
 
   @override
-  String get statistics_streak_today => 'Oggi';
-
-  @override
-  String get statistics_streak_yesterday => 'Ieri';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days giorni fa';
   }
@@ -528,27 +522,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay (ore $hour)';
   }
-
-  @override
-  String get statistics_weekday_monday => 'Lunedì';
-
-  @override
-  String get statistics_weekday_tuesday => 'Martedì';
-
-  @override
-  String get statistics_weekday_wednesday => 'Mercoledì';
-
-  @override
-  String get statistics_weekday_thursday => 'Giovedì';
-
-  @override
-  String get statistics_weekday_friday => 'Venerdì';
-
-  @override
-  String get statistics_weekday_saturday => 'Sabato';
-
-  @override
-  String get statistics_weekday_sunday => 'Domenica';
 
   @override
   String get statistics_writing_frequency_good_habit =>
@@ -799,21 +772,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get snackbar_cache_cleared => 'Cache eliminata.';
 
   @override
-  String get navigation_home => 'Home';
-
-  @override
-  String get navigation_entries => 'Registrazioni';
-
-  @override
-  String get navigation_write => 'Scrivi';
-
-  @override
-  String get navigation_statistics => 'Statistiche';
-
-  @override
-  String get navigation_settings => 'Impostazioni';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return 'Continuando, accetti i nostri $terms e $privacy.';
   }
@@ -889,4 +847,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tags_delete_failed => 'Impossibile eliminare il tag';
+
+  @override
+  String get common_unit_day => 'giorno';
 }

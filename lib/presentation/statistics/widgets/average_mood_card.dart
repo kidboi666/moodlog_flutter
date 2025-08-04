@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
+import '../../../common/extensions/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import 'base_card.dart';
@@ -35,23 +36,23 @@ class AverageMoodCard extends StatelessWidget {
 
     if (averageScore >= 4.5) {
       dominantMood = MoodType.veryHappy;
-      averageMoodText = '매우 좋음';
+      averageMoodText = MoodType.veryHappy.getDisplayName(context);
       averageMoodColor = MoodType.veryHappy.color;
     } else if (averageScore >= 3.5) {
       dominantMood = MoodType.happy;
-      averageMoodText = '좋음';
+      averageMoodText = MoodType.happy.getDisplayName(context);
       averageMoodColor = MoodType.happy.color;
     } else if (averageScore >= 2.5) {
       dominantMood = MoodType.neutral;
-      averageMoodText = '보통';
+      averageMoodText = MoodType.neutral.getDisplayName(context);
       averageMoodColor = MoodType.neutral.color;
     } else if (averageScore >= 1.5) {
       dominantMood = MoodType.sad;
-      averageMoodText = '나쁨';
+      averageMoodText = MoodType.sad.getDisplayName(context);
       averageMoodColor = MoodType.sad.color;
     } else {
       dominantMood = MoodType.verySad;
-      averageMoodText = '매우 나쁨';
+      averageMoodText = MoodType.verySad.getDisplayName(context);
       averageMoodColor = MoodType.verySad.color;
     }
 
@@ -154,7 +155,7 @@ class AverageMoodCard extends StatelessWidget {
                         ),
                         const SizedBox(width: Spacing.xs),
                         Text(
-                          mostFrequentMood.displayName,
+                          mostFrequentMood.getDisplayName(context),
                           style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w500,
                           ),

@@ -802,18 +802,6 @@ abstract class AppLocalizations {
   /// **'마지막 기록'**
   String get statistics_streak_last_record;
 
-  /// No description provided for @statistics_streak_today.
-  ///
-  /// In ko, this message translates to:
-  /// **'오늘'**
-  String get statistics_streak_today;
-
-  /// No description provided for @statistics_streak_yesterday.
-  ///
-  /// In ko, this message translates to:
-  /// **'어제'**
-  String get statistics_streak_yesterday;
-
   /// No description provided for @statistics_streak_days_ago.
   ///
   /// In ko, this message translates to:
@@ -1047,48 +1035,6 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'{timeOfDay} ({hour}시)'**
   String statistics_time_with_hour(String timeOfDay, int hour);
-
-  /// No description provided for @statistics_weekday_monday.
-  ///
-  /// In ko, this message translates to:
-  /// **'월요일'**
-  String get statistics_weekday_monday;
-
-  /// No description provided for @statistics_weekday_tuesday.
-  ///
-  /// In ko, this message translates to:
-  /// **'화요일'**
-  String get statistics_weekday_tuesday;
-
-  /// No description provided for @statistics_weekday_wednesday.
-  ///
-  /// In ko, this message translates to:
-  /// **'수요일'**
-  String get statistics_weekday_wednesday;
-
-  /// No description provided for @statistics_weekday_thursday.
-  ///
-  /// In ko, this message translates to:
-  /// **'목요일'**
-  String get statistics_weekday_thursday;
-
-  /// No description provided for @statistics_weekday_friday.
-  ///
-  /// In ko, this message translates to:
-  /// **'금요일'**
-  String get statistics_weekday_friday;
-
-  /// No description provided for @statistics_weekday_saturday.
-  ///
-  /// In ko, this message translates to:
-  /// **'토요일'**
-  String get statistics_weekday_saturday;
-
-  /// No description provided for @statistics_weekday_sunday.
-  ///
-  /// In ko, this message translates to:
-  /// **'일요일'**
-  String get statistics_weekday_sunday;
 
   /// No description provided for @statistics_writing_frequency_good_habit.
   ///
@@ -1570,36 +1516,6 @@ abstract class AppLocalizations {
   /// **'캐시가 삭제되었습니다.'**
   String get snackbar_cache_cleared;
 
-  /// No description provided for @navigation_home.
-  ///
-  /// In ko, this message translates to:
-  /// **'홈'**
-  String get navigation_home;
-
-  /// No description provided for @navigation_entries.
-  ///
-  /// In ko, this message translates to:
-  /// **'기록'**
-  String get navigation_entries;
-
-  /// No description provided for @navigation_write.
-  ///
-  /// In ko, this message translates to:
-  /// **'글쓰기'**
-  String get navigation_write;
-
-  /// No description provided for @navigation_statistics.
-  ///
-  /// In ko, this message translates to:
-  /// **'통계'**
-  String get navigation_statistics;
-
-  /// No description provided for @navigation_settings.
-  ///
-  /// In ko, this message translates to:
-  /// **'설정'**
-  String get navigation_settings;
-
   /// No description provided for @auth_terms_message.
   ///
   /// In ko, this message translates to:
@@ -1737,6 +1653,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'태그 삭제에 실패했습니다'**
   String get tags_delete_failed;
+
+  /// No description provided for @common_unit_day.
+  ///
+  /// In ko, this message translates to:
+  /// **'일'**
+  String get common_unit_day;
 }
 
 class _AppLocalizationsDelegate

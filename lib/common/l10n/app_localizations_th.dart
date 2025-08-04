@@ -381,12 +381,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statistics_streak_last_record => 'บันทึกล่าสุด';
 
   @override
-  String get statistics_streak_today => 'วันนี้';
-
-  @override
-  String get statistics_streak_yesterday => 'เมื่อวาน';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days วันที่แล้ว';
   }
@@ -524,27 +518,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay ($hour น.)';
   }
-
-  @override
-  String get statistics_weekday_monday => 'วันจันทร์';
-
-  @override
-  String get statistics_weekday_tuesday => 'วันอังคาร';
-
-  @override
-  String get statistics_weekday_wednesday => 'วันพุธ';
-
-  @override
-  String get statistics_weekday_thursday => 'วันพฤหัสบดี';
-
-  @override
-  String get statistics_weekday_friday => 'วันศุกร์';
-
-  @override
-  String get statistics_weekday_saturday => 'วันเสาร์';
-
-  @override
-  String get statistics_weekday_sunday => 'วันอาทิตย์';
 
   @override
   String get statistics_writing_frequency_good_habit =>
@@ -791,21 +764,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get snackbar_cache_cleared => 'ล้างแคชแล้ว';
 
   @override
-  String get navigation_home => 'หน้าหลัก';
-
-  @override
-  String get navigation_entries => 'บันทึก';
-
-  @override
-  String get navigation_write => 'เขียน';
-
-  @override
-  String get navigation_statistics => 'สถิติ';
-
-  @override
-  String get navigation_settings => 'การตั้งค่า';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return 'เมื่อดำเนินการต่อ คุณยอมรับ $terms และ $privacy ของเรา';
   }
@@ -881,4 +839,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get tags_delete_failed => 'ลบแท็กไม่สำเร็จ';
+
+  @override
+  String get common_unit_day => 'วัน';
 }

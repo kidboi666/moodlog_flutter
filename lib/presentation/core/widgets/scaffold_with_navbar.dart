@@ -62,12 +62,12 @@ class ScaffoldWithNavbar extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),
             selectedIcon: const Icon(Icons.home_filled),
-            label: t.navigation_home,
+            label: t.tab_home,
           ).scale(),
           NavigationDestination(
             icon: const Icon(Icons.book_outlined),
             selectedIcon: const Icon(Icons.book),
-            label: t.navigation_entries,
+            label: t.tab_entries,
           ).scale(),
           NavigationDestination(
             icon: SizedBox(
@@ -78,17 +78,17 @@ class ScaffoldWithNavbar extends StatelessWidget {
               ),
             ),
 
-            label: t.navigation_write,
+            label: t.tab_write,
           ).scale(),
           NavigationDestination(
             icon: const Icon(Icons.query_stats_sharp),
             selectedIcon: const Icon(Icons.query_stats),
-            label: t.navigation_statistics,
+            label: t.tab_statistics,
           ).scale(),
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
-            label: t.navigation_settings,
+            label: t.tab_settings,
           ).scale(),
         ],
       ),

@@ -146,6 +146,122 @@
   "statistics_mood_trend_empty": "No mood trend data available.",
   "statistics_recent_title": "Recent Entries",
   "statistics_recent_empty": "No recent entries.",
+  "statistics_total_records_count_unit": "records",
+  "statistics_total_records_first_record": "First record",
+  "statistics_total_records_period": "Recording period",
+  "statistics_total_records_period_days": "{days} days",
+  "@statistics_total_records_period_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_total_records_avg_frequency": "Average frequency",
+  "statistics_total_records_weekly_frequency": "{frequency} times/week",
+  "@statistics_total_records_weekly_frequency": {
+    "placeholders": {
+      "frequency": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_streak_status_active": "Active",
+  "statistics_streak_status_inactive": "Inactive",
+  "statistics_streak_last_record": "Last record",
+  "statistics_streak_days_ago": "{days} days ago",
+  "@statistics_streak_days_ago": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_stopped": "Consecutive record stopped",
+  "statistics_streak_stopped_days": "{days} days ago",
+  "@statistics_streak_stopped_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_streak_encouragement": "Great! You're maintaining a consecutive record",
+  "statistics_max_streak_new_record": "New record!",
+  "statistics_max_streak_progress": "Current progress",
+  "statistics_max_streak_remaining": "Until maximum record",
+  "statistics_max_streak_remaining_days": "{days} days remaining",
+  "@statistics_max_streak_remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_max_streak_achievement_week": "One week consecutive record achieved! You're doing great!",
+  "statistics_max_streak_achievement_two_weeks": "Two weeks consecutive record achieved! Fantastic!",
+  "statistics_max_streak_achievement_month": "One month consecutive record achieved! Really impressive!",
+  "statistics_average_mood_title": "Average mood",
+  "statistics_average_mood_score": "Average {score} points",
+  "@statistics_average_mood_score": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_average_mood_most_frequent": "Most frequently felt mood",
+  "statistics_average_mood_recent_trend": "Recent 7-day trend",
+  "statistics_trend_rising": "Rising",
+  "statistics_trend_falling": "Falling",
+  "statistics_trend_stable": "Stable",
+  "statistics_mood_positive_message": "You're maintaining a generally positive mood!",
+  "statistics_mood_negative_message": "It seems you're going through difficult times. Take time to take care of yourself.",
+  "statistics_writing_frequency_title": "Writing frequency",
+  "statistics_writing_frequency_this_week": "This week",
+  "statistics_writing_frequency_count_unit": "times",
+  "statistics_writing_frequency_daily": "Daily recording!",
+  "statistics_writing_frequency_often": "Frequent recording",
+  "statistics_writing_frequency_normal": "Normal",
+  "statistics_writing_frequency_sometimes": "Sometimes",
+  "statistics_writing_frequency_none": "No records",
+  "statistics_writing_frequency_weekly_avg": "Weekly average",
+  "statistics_writing_frequency_monthly_avg": "Monthly average",
+  "statistics_writing_frequency_weekly_count": "{count} times",
+  "@statistics_writing_frequency_weekly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_monthly_count": "{count} times",
+  "@statistics_writing_frequency_monthly_count": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "statistics_writing_frequency_most_active_time": "Most active time",
+  "statistics_writing_frequency_most_active_day": "Most active day",
+  "statistics_time_morning": "Morning",
+  "statistics_time_afternoon": "Afternoon",
+  "statistics_time_evening": "Evening",
+  "statistics_time_night": "Night",
+  "statistics_time_with_hour": "{timeOfDay} ({hour}h)",
+  "@statistics_time_with_hour": {
+    "placeholders": {
+      "timeOfDay": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "statistics_writing_frequency_good_habit": "You're recording consistently! Excellent!",
+  "statistics_writing_frequency_encouragement": "Try recording more frequently. Small moments are precious too!",
   "settings_title": "Settings",
   "settings_common_title": "General",
   "settings_common_notification_title": "Notifications",
@@ -224,11 +340,6 @@
   "settings_ai_personality_title": "AI Personality",
   "snackbar_backup_completed": "Backup completed.",
   "snackbar_cache_cleared": "Cache cleared.",
-  "navigation_home": "Home",
-  "navigation_entries": "Entries",
-  "navigation_write": "Write",
-  "navigation_statistics": "Statistics",
-  "navigation_settings": "Settings",
   "auth_terms_message": "By continuing, you agree to our {terms} and {privacy}.",
   "@auth_terms_message": {
     "placeholders": {
@@ -282,5 +393,6 @@
   },
   "tags_no_tags": "No tags found",
   "tags_load_failed": "Failed to load tags",
-  "tags_delete_failed": "Failed to delete tag"
+  "tags_delete_failed": "Failed to delete tag",
+  "common_unit_day": "day"
 }

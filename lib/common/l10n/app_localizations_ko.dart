@@ -373,12 +373,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_streak_last_record => '마지막 기록';
 
   @override
-  String get statistics_streak_today => '오늘';
-
-  @override
-  String get statistics_streak_yesterday => '어제';
-
-  @override
   String statistics_streak_days_ago(int days) {
     return '$days일 전';
   }
@@ -511,27 +505,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String statistics_time_with_hour(String timeOfDay, int hour) {
     return '$timeOfDay ($hour시)';
   }
-
-  @override
-  String get statistics_weekday_monday => '월요일';
-
-  @override
-  String get statistics_weekday_tuesday => '화요일';
-
-  @override
-  String get statistics_weekday_wednesday => '수요일';
-
-  @override
-  String get statistics_weekday_thursday => '목요일';
-
-  @override
-  String get statistics_weekday_friday => '금요일';
-
-  @override
-  String get statistics_weekday_saturday => '토요일';
-
-  @override
-  String get statistics_weekday_sunday => '일요일';
 
   @override
   String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 계시는군요! 훌륭해요!';
@@ -776,21 +749,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snackbar_cache_cleared => '캐시가 삭제되었습니다.';
 
   @override
-  String get navigation_home => '홈';
-
-  @override
-  String get navigation_entries => '기록';
-
-  @override
-  String get navigation_write => '글쓰기';
-
-  @override
-  String get navigation_statistics => '통계';
-
-  @override
-  String get navigation_settings => '설정';
-
-  @override
   String auth_terms_message(String terms, String privacy) {
     return '계속 함으로써 $terms과 $privacy에 동의합니다.';
   }
@@ -866,4 +824,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get tags_delete_failed => '태그 삭제에 실패했습니다';
+
+  @override
+  String get common_unit_day => '일';
 }

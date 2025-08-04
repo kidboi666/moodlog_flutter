@@ -24,7 +24,7 @@ class CurrentStreakCard extends StatelessWidget {
         currentStreak: viewModel.currentStreak,
         allJournals: viewModel.allJournals,
       ),
-      builder: (_, data, __) {
+      builder: (_, data, _) {
         final currentStreak = data.currentStreak;
         final allJournals = data.allJournals;
 
@@ -84,7 +84,7 @@ class CurrentStreakCard extends StatelessWidget {
                         ),
                         const SizedBox(width: Spacing.xs),
                         Text(
-                          '일',
+                          t.common_unit_day,
                           style: textTheme.titleLarge?.copyWith(
                             color: streakColor,
                             fontWeight: FontWeight.w500,
@@ -118,7 +118,9 @@ class CurrentStreakCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceVariant.withValues(alpha: 0.3),
+                    color: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -134,9 +136,9 @@ class CurrentStreakCard extends StatelessWidget {
                           ),
                           Text(
                             daysSinceLastRecord == 0
-                                ? t.statistics_streak_today
+                                ? t.common_date_today
                                 : daysSinceLastRecord == 1
-                                ? t.statistics_streak_yesterday
+                                ? t.common_date_yesterday
                                 : t.statistics_streak_days_ago(
                                     daysSinceLastRecord,
                                   ),

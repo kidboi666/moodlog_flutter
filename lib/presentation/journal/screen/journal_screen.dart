@@ -13,7 +13,6 @@ import '../viewmodel/journal_viewmodel.dart';
 import '../widgets/ai_response_box.dart';
 import '../widgets/content_box.dart';
 import '../widgets/dialog/delete_confirm_dialog.dart';
-import '../widgets/mood_bar.dart';
 
 class JournalScreen extends StatelessWidget {
   const JournalScreen({super.key});
@@ -87,7 +86,7 @@ class JournalScreen extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        MoodBar(moodType: viewModel.journal.moodType),
+                        // MoodBar(moodType: viewModel.journal.moodType),
                         ContentBox(
                           viewModel: viewModel,
                           currentAlign: viewModel.currentAlign,
