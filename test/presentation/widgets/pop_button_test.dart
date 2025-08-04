@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodlog/presentation/widgets/pop_button.dart';
+import 'package:moodlog/presentation/core/widgets/pop_button.dart';
 
 void main() {
   testWidgets('PopButton has callback', (tester) async {

@@ -1,11 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/constants/common.dart';
-import '../../common/constants/enum.dart';
-import '../../common/extensions/date_time.dart';
-import '../../common/extensions/widget_scale.dart';
-import '../../common/l10n/app_localizations.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/extensions/date_time.dart';
+import '../../../common/extensions/widget_scale.dart';
+import '../../../common/l10n/app_localizations.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;

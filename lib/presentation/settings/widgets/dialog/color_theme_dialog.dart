@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/constants/common.dart';
 import '../../../../common/constants/enum.dart';
 import '../../../../common/l10n/app_localizations.dart';
-import '../../../../common/theme/colors.dart';
+import '../../../core/theme/colors.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
 class ColorThemeDialog extends StatelessWidget {

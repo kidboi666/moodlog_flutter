@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moodlog/common/constants/common.dart';
-import 'package:moodlog/presentation/widgets/fade_in.dart';
+import 'package:moodlog/presentation/core/widgets/fade_in.dart';
 
 void main() {
   group('FadeIn 위젯 테스트', () {

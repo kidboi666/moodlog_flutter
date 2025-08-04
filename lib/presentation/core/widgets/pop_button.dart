@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/extensions/widget_scale.dart';
+import '../../../common/extensions/widget_scale.dart';
 
 class PopButton extends StatelessWidget {
   final GestureTapCallback? onTap;

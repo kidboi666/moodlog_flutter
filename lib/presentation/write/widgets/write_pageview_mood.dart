@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
-import '../../widgets/fade_in.dart';
+import '../../core/widgets/fade_in.dart';
 import 'mood_button.dart';
 
 class WritePageViewMood extends StatelessWidget {

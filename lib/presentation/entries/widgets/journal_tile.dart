@@ -4,7 +4,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/extensions/routing.dart';
 import '../../../common/extensions/widget_scale.dart';
 import '../../../domain/entities/journal.dart';
-import '../../widgets/tag_section.dart';
+import '../../core/widgets/tag_section.dart';
 
 class JournalTile extends StatelessWidget {
   final Journal journal;

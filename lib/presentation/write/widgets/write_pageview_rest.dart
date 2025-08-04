@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/extensions/routing.dart';
-import '../../widgets/fade_in.dart';
+import '../../core/widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'content_input.dart';

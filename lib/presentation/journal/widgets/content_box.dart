@@ -5,7 +5,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/extensions/enum.dart';
 import '../../../domain/repositories/weather_repository.dart';
-import '../../widgets/tag_section.dart';
+import '../../core/widgets/tag_section.dart';
 import '../viewmodel/journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';

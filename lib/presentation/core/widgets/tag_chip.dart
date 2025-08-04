@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/constants/common.dart';
-import '../../domain/entities/tag.dart';
+import '../../../common/constants/common.dart';
+import '../../../domain/entities/tag.dart';
 
 class TagChip extends StatelessWidget {
   final Tag tag;

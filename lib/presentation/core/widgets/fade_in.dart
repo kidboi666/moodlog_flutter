@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common/constants/common.dart';
+import '../../../common/constants/common.dart';
 
 class FadeIn extends StatefulWidget {
   final Duration delay;

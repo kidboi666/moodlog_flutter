@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
-import '../../widgets/fade_in.dart';
-import '../../widgets/shake_emoji.dart';
+import '../../core/widgets/fade_in.dart';
+import '../../core/widgets/shake_emoji.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 class WelcomeZone extends StatelessWidget {

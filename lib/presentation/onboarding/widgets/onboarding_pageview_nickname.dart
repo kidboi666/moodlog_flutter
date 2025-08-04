@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/l10n/app_localizations.dart';
-import '../../widgets/fade_in.dart';
+import '../../core/widgets/fade_in.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 
 class OnboardingPageViewNickName extends StatefulWidget {

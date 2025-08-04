@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../common/constants/common.dart';
-import '../../common/constants/enum.dart';
-import '../../domain/entities/tag.dart';
+import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../domain/entities/tag.dart';
 import 'tag_chip.dart';
 
 class TagSection extends StatelessWidget {

@@ -7,7 +7,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
-import '../../widgets/spinner.dart';
+import '../../core/widgets/spinner.dart';
 import '../viewmodel/auth_viewmodel.dart';
 
 class GoogleSigninButton extends StatelessWidget {
