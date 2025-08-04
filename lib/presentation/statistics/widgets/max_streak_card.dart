@@ -11,19 +11,25 @@ class MaxStreakCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<StatisticsViewModel>();
-    final maxStreak = viewModel.maxStreak;
-    final currentStreak = viewModel.currentStreak;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
-    final isPersonalRecord = currentStreak == maxStreak && maxStreak > 0;
-    final progressPercentage = maxStreak > 0
-        ? (currentStreak / maxStreak)
-        : 0.0;
+    return Selector<StatisticsViewModel, ({int maxStreak, int currentStreak})>(
+      selector: (_, viewModel) => (
+        maxStreak: viewModel.maxStreak,
+        currentStreak: viewModel.currentStreak,
+      ),
+      builder: (_, data, __) {
+        final maxStreak = data.maxStreak;
+        final currentStreak = data.currentStreak;
 
-    return BaseCard(
+        final isPersonalRecord = currentStreak == maxStreak && maxStreak > 0;
+        final progressPercentage = maxStreak > 0
+            ? (currentStreak / maxStreak)
+            : 0.0;
+
+        return BaseCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -196,6 +202,8 @@ class MaxStreakCard extends StatelessWidget {
           ],
         ],
       ),
+        );
+      },
     );
   }
 }

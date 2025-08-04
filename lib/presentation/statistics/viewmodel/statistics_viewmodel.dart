@@ -2,13 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../common/constants/enum.dart';
+import '../../../common/mixins/async_state_mixin.dart';
 import '../../../common/providers/user_provider.dart';
 import '../../../common/utils/result.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class StatisticsViewModel extends ChangeNotifier {
+class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
 
@@ -48,27 +49,31 @@ class StatisticsViewModel extends ChangeNotifier {
   Map<DateTime, double> get moodTrendData => _moodTrendData;
 
   Future<void> _loadStatistics() async {
+    setLoading();
+    
     final result = await _journalRepository.getAllJournals();
-    if (result is Ok<List<Journal>>) {
-      _allJournals = result.value;
-      _totalJournals = _allJournals.length;
-      _calculateMoodCounts();
-      _calculateStreak();
-      _calculateMoodCalendar();
-      _calculateMoodTrend();
-      _recentJournals = _allJournals
-          .sorted((a, b) => b.createdAt.compareTo(a.createdAt))
-          .take(5)
-          .toList();
+    switch (result) {
+      case Ok<List<Journal>>():
+        _allJournals = result.value;
+        _totalJournals = _allJournals.length;
+        _calculateMoodCounts();
+        _calculateStreak();
+        _calculateMoodCalendar();
+        _calculateMoodTrend();
+        _recentJournals = _allJournals
+            .sorted((a, b) => b.createdAt.compareTo(a.createdAt))
+            .take(5)
+            .toList();
 
-      AnalyticsRepositoryImpl().logMoodView(
-        viewType: 'statistics',
-        period: 'all_time',
-      );
+        AnalyticsRepositoryImpl().logMoodView(
+          viewType: 'statistics',
+          period: 'all_time',
+        );
 
-      notifyListeners();
-    } else if (result is Failure<List<Journal>>) {
-      debugPrint('Error loading journals: ${result.error}');
+        setSuccess();
+      case Failure<List<Journal>>():
+        debugPrint('Error loading journals: ${result.error}');
+        setError(result.error);
     }
   }
 

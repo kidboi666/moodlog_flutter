@@ -10,10 +10,8 @@ import '../viewmodel/statistics_viewmodel.dart';
 import '../widgets/average_mood_card.dart';
 import '../widgets/current_streak_card.dart';
 import '../widgets/max_streak_card.dart';
-import '../widgets/mood_calendar_card.dart';
 import '../widgets/mood_distribution_card.dart';
 import '../widgets/mood_trend_card.dart';
-import '../widgets/recent_activity_card.dart';
 import '../widgets/total_records_card.dart';
 import '../widgets/writing_frequency_card.dart';
 
@@ -38,31 +36,41 @@ class StatisticsScreen extends StatelessWidget {
               ],
             ),
           ),
-          SliverPadding(
-            padding: Spacing.containerHorizontalPadding,
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                const SizedBox(height: Spacing.xl),
-                const TotalRecordsCard(),
-                const SizedBox(height: Spacing.xl),
-                const CurrentStreakCard(),
-                const SizedBox(height: Spacing.xl),
-                const MaxStreakCard(),
-                const SizedBox(height: Spacing.xl),
-                const AverageMoodCard(),
-                const SizedBox(height: Spacing.xl),
-                const WritingFrequencyCard(),
-                const SizedBox(height: Spacing.xl),
-                const MoodCalendarCard(),
-                const SizedBox(height: Spacing.xl),
-                const MoodDistributionCard(),
-                const SizedBox(height: Spacing.xl),
-                const MoodTrendCard(),
-                const SizedBox(height: Spacing.xl),
-                const RecentActivityCard(),
-                const SizedBox(height: kBottomNavigationBarHeight * 3),
-              ]),
-            ),
+          Selector<StatisticsViewModel, bool>(
+            selector: (_, viewModel) => viewModel.isLoading,
+            builder: (_, isLoading, __) {
+              if (isLoading) {
+                return SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              return SliverPadding(
+                padding: Spacing.containerHorizontalPadding,
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    const SizedBox(height: Spacing.xl),
+                    const TotalRecordsCard(),
+                    const SizedBox(height: Spacing.xl),
+                    const CurrentStreakCard(),
+                    const SizedBox(height: Spacing.xl),
+                    const MaxStreakCard(),
+                    const SizedBox(height: Spacing.xl),
+                    const AverageMoodCard(),
+                    const SizedBox(height: Spacing.xl),
+                    const WritingFrequencyCard(),
+                    const SizedBox(height: Spacing.xl),
+                    // const MoodCalendarCard(),
+                    // const SizedBox(height: Spacing.xl),
+                    const MoodDistributionCard(),
+                    const SizedBox(height: Spacing.xl),
+                    const MoodTrendCard(),
+                    // const RecentActivityCard(),
+                    const SizedBox(height: kBottomNavigationBarHeight * 3),
+                  ]),
+                ),
+              );
+            },
           ),
         ],
       ),
