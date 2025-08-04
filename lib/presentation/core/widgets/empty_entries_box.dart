@@ -8,7 +8,9 @@ import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
 
 class EmptyEntriesBox extends StatelessWidget {
-  const EmptyEntriesBox({super.key});
+  final void Function()? onPressed;
+
+  const EmptyEntriesBox({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class EmptyEntriesBox extends StatelessWidget {
                 ],
               ),
               FilledButton.tonal(
-                onPressed: () => context.push(Routes.write),
+                onPressed: onPressed ?? () => context.push(Routes.write),
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(
                     colorScheme.surfaceContainer,

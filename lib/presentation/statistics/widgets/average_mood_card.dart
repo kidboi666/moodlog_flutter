@@ -73,20 +73,20 @@ class AverageMoodCard extends StatelessWidget {
     final trendIndicator = recentAverage > averageScore
         ? t.statistics_trend_rising
         : recentAverage < averageScore
-            ? t.statistics_trend_falling
-            : t.statistics_trend_stable;
+        ? t.statistics_trend_falling
+        : t.statistics_trend_stable;
 
     final trendIcon = recentAverage > averageScore
         ? Icons.trending_up
         : recentAverage < averageScore
-            ? Icons.trending_down
-            : Icons.trending_flat;
+        ? Icons.trending_down
+        : Icons.trending_flat;
 
     final trendColor = recentAverage > averageScore
         ? Colors.green
         : recentAverage < averageScore
-            ? Colors.red
-            : colorScheme.onSurfaceVariant;
+        ? Colors.red
+        : colorScheme.onSurfaceVariant;
 
     return BaseCard(
       child: Column(
@@ -94,11 +94,7 @@ class AverageMoodCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.mood,
-                color: averageMoodColor,
-                size: 24,
-              ),
+              Icon(Icons.mood, color: averageMoodColor, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
                 t.statistics_average_mood_title,
@@ -112,10 +108,7 @@ class AverageMoodCard extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                Text(
-                  dominantMood.emoji,
-                  style: const TextStyle(fontSize: 48),
-                ),
+                Text(dominantMood.emoji, style: const TextStyle(fontSize: 48)),
                 const SizedBox(height: Spacing.sm),
                 Text(
                   averageMoodText,
@@ -125,7 +118,9 @@ class AverageMoodCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  t.statistics_average_mood_score(averageScore.toStringAsFixed(1)),
+                  t.statistics_average_mood_score(
+                    averageScore.toStringAsFixed(1),
+                  ),
                   style: textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -137,7 +132,7 @@ class AverageMoodCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(Spacing.md),
             decoration: BoxDecoration(
-              color: colorScheme.surfaceVariant.withOpacity(0.3),
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -180,11 +175,7 @@ class AverageMoodCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(
-                          trendIcon,
-                          color: trendColor,
-                          size: 16,
-                        ),
+                        Icon(trendIcon, color: trendColor, size: 16),
                         const SizedBox(width: Spacing.xs),
                         Text(
                           trendIndicator,
@@ -206,11 +197,9 @@ class AverageMoodCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(Spacing.md),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.green.withOpacity(0.3),
-                ),
+                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -238,11 +227,9 @@ class AverageMoodCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(Spacing.md),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.orange.withOpacity(0.3),
-                ),
+                border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [

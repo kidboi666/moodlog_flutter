@@ -87,6 +87,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> deleteJournal(int id) async {
     setLoading();
     await _deleteJournalUseCase.deleteJournal(id);
+    setSuccess();
   }
 
   Future<void> _loadMonthEntries() async {

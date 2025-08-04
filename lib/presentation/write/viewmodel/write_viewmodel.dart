@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/data/models/request/add_journal_request.dart';
-import 'package:moodlog/data/models/request/update_journal_request.dart';
 
 import '../../../common/constants/enum.dart';
 import '../../../common/mixins/async_state_mixin.dart';
 import '../../../common/mixins/step_mixin.dart';
 import '../../../common/providers/app_state_provider.dart';
 import '../../../common/utils/result.dart';
+import '../../../data/models/request/add_journal_request.dart';
+import '../../../data/models/request/update_journal_request.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/location_info.dart';
+import '../../../domain/entities/tag.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/app_state_repository.dart';
@@ -19,11 +20,10 @@ import '../../../domain/use_cases/image/pick_image_usecase.dart';
 import '../../../domain/use_cases/journal/add_journal_use_case.dart';
 import '../../../domain/use_cases/journal/update_journal_use_case.dart';
 import '../../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
 import '../../../domain/use_cases/tag/add_tag_use_case.dart';
 import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
 import '../../../domain/use_cases/tag/update_journal_tags_use_case.dart';
-import '../../../domain/entities/tag.dart';
+import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -55,6 +55,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required GetAllTagsUseCase getAllTagsUseCase,
     required UpdateJournalTagsUseCase updateJournalTagsUseCase,
     required int totalSteps,
+    required DateTime selectedDate,
   }) : _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository,
@@ -73,6 +74,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
     _loadAllTags();
+    _selectedDate = selectedDate;
   }
 
   @override
@@ -90,7 +92,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _isSubmitted = false;
   int? _submittedJournalId;
   bool _aiEnabled = true;
-  DateTime _selectedDate = DateTime.now();
+  late DateTime _selectedDate;
   bool _hasVisitedContentPage = false;
   bool _canUseAiToday = true;
   LocationInfo? _locationInfo;
@@ -210,7 +212,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         final aiResponseEnabled = result.value['aiResponseEnabled'];
 
         if (_selectedTags.isNotEmpty) {
-          await _updateJournalTagsUseCase.call(result.value['id'], _selectedTags.map((tag) => tag.id).toList());
+          await _updateJournalTagsUseCase.call(
+            result.value['id'],
+            _selectedTags.map((tag) => tag.id).toList(),
+          );
         }
 
         AnalyticsRepositoryImpl().logMoodEntry(
@@ -406,6 +411,11 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
       case Failure<List<Tag>>():
         _log.warning('Failed to load tags: ${result.error}');
     }
+  }
+
+  void _initDate() {
+    _selectedDate = selectedDate;
+    notifyListeners();
   }
 
   void addExistingTag(Tag tag) {

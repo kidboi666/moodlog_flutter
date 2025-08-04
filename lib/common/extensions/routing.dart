@@ -17,7 +17,7 @@ extension RoutingExtension on BuildContext {
     go(Routes.journal(id), extra: {'source': JournalSource.write});
   }
 
-  void goToHome() {
-    go(Routes.home);
+  void pushToWriteFromSelectedDate(DateTime date) {
+    push(Routes.write, extra: {'date': date});
   }
 }

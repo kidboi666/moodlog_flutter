@@ -76,25 +76,31 @@ GoRouter router(UserProvider userProvider) => GoRouter(
     ),
     GoRoute(
       path: Routes.write,
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (context) => WriteViewModel(
-          geminiRepository: context.read(),
-          appStateProvider: context.read(),
-          settingsRepository: context.read(),
-          aiGenerationRepository: context.read(),
-          pickImageUseCase: context.read(),
-          getCurrentLocationUseCase: context.read(),
-          getCurrentWeatherUseCase: context.read(),
-          addJournalUseCase: context.read(),
-          updateJournalUseCase: context.read(),
-          checkAiUsageLimitUseCase: context.read(),
-          addTagUseCase: context.read(),
-          getAllTagsUseCase: context.read(),
-          updateJournalTagsUseCase: context.read(),
-          totalSteps: 2,
-        ),
-        child: const WriteScreen(),
-      ),
+      builder: (_, state) {
+        final extra = state.extra as Map<String, DateTime>?;
+        final date = extra?['date'] ?? DateTime.now();
+        print(date);
+        return ChangeNotifierProvider(
+          create: (context) => WriteViewModel(
+            geminiRepository: context.read(),
+            appStateProvider: context.read(),
+            settingsRepository: context.read(),
+            aiGenerationRepository: context.read(),
+            pickImageUseCase: context.read(),
+            getCurrentLocationUseCase: context.read(),
+            getCurrentWeatherUseCase: context.read(),
+            addJournalUseCase: context.read(),
+            updateJournalUseCase: context.read(),
+            checkAiUsageLimitUseCase: context.read(),
+            addTagUseCase: context.read(),
+            getAllTagsUseCase: context.read(),
+            updateJournalTagsUseCase: context.read(),
+            totalSteps: 2,
+            selectedDate: date,
+          ),
+          child: const WriteScreen(),
+        );
+      },
     ),
     GoRoute(
       path: Routes.journalPage,
