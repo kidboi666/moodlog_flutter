@@ -798,6 +798,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tags_suggested_title => '推荐标签';
 
   @override
+  String get tags_selected_title => '已选择的标签';
+
+  @override
   String get tags_add_new => '添加新标签';
 
   @override

@@ -363,6 +363,7 @@
   "tags_filter_all": "Tất cả",
   "tags_filter_title": "Lọc theo thẻ",
   "tags_suggested_title": "Thẻ gợi ý",
+  "tags_selected_title": "Thẻ đã chọn",
   "tags_add_new": "Thêm thẻ mới",
   "tags_input_hint": "Tên thẻ",
   "tags_delete_title": "Xóa thẻ",

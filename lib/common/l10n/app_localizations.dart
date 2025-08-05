@@ -1624,6 +1624,12 @@ abstract class AppLocalizations {
   /// **'추천 태그'**
   String get tags_suggested_title;
 
+  /// No description provided for @tags_selected_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'선택된 태그'**
+  String get tags_selected_title;
+
   /// No description provided for @tags_add_new.
   ///
   /// In ko, this message translates to:

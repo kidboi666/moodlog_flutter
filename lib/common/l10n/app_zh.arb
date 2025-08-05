@@ -363,6 +363,7 @@
   "tags_filter_all": "全部",
   "tags_filter_title": "按标签筛选",
   "tags_suggested_title": "推荐标签",
+  "tags_selected_title": "已选择的标签",
   "tags_add_new": "添加新标签",
   "tags_input_hint": "标签名称",
   "tags_delete_title": "删除标签",

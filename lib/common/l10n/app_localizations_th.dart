@@ -822,6 +822,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get tags_suggested_title => 'แท็กที่แนะนำ';
 
   @override
+  String get tags_selected_title => 'แท็กที่เลือก';
+
+  @override
   String get tags_add_new => 'เพิ่มแท็กใหม่';
 
   @override

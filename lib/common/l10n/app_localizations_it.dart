@@ -830,6 +830,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get tags_suggested_title => 'Tag suggeriti';
 
   @override
+  String get tags_selected_title => 'Tag selezionati';
+
+  @override
   String get tags_add_new => 'Aggiungi nuovo tag';
 
   @override

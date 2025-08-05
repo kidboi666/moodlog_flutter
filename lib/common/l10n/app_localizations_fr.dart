@@ -840,6 +840,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tags_suggested_title => 'Étiquettes suggérées';
 
   @override
+  String get tags_selected_title => 'Étiquettes sélectionnées';
+
+  @override
   String get tags_add_new => 'Ajouter une nouvelle étiquette';
 
   @override

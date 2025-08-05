@@ -363,6 +363,7 @@
   "tags_filter_all": "Toutes",
   "tags_filter_title": "Filtrer par étiquettes",
   "tags_suggested_title": "Étiquettes suggérées",
+  "tags_selected_title": "Étiquettes sélectionnées",
   "tags_add_new": "Ajouter une nouvelle étiquette",
   "tags_input_hint": "Nom de l'étiquette",
   "tags_delete_title": "Supprimer l'étiquette",

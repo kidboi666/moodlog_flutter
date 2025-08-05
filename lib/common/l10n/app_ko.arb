@@ -366,6 +366,7 @@
   "tags_filter_all": "전체",
   "tags_filter_title": "태그로 필터링",
   "tags_suggested_title": "추천 태그",
+  "tags_selected_title": "선택된 태그",
   "tags_add_new": "새 태그 추가",
   "tags_input_hint": "태그 이름",
   "tags_delete_title": "태그 삭제",

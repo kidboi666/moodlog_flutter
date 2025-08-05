@@ -805,6 +805,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tags_suggested_title => 'おすすめタグ';
 
   @override
+  String get tags_selected_title => '選択されたタグ';
+
+  @override
   String get tags_add_new => '新しいタグを追加';
 
   @override

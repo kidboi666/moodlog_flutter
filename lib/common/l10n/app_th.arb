@@ -363,6 +363,7 @@
   "tags_filter_all": "ทั้งหมด",
   "tags_filter_title": "กรองตามแท็ก",
   "tags_suggested_title": "แท็กที่แนะนำ",
+  "tags_selected_title": "แท็กที่เลือก",
   "tags_add_new": "เพิ่มแท็กใหม่",
   "tags_input_hint": "ชื่อแท็ก",
   "tags_delete_title": "ลบแท็ก",

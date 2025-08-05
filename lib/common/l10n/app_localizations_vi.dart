@@ -831,6 +831,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tags_suggested_title => 'Thẻ gợi ý';
 
   @override
+  String get tags_selected_title => 'Thẻ đã chọn';
+
+  @override
   String get tags_add_new => 'Thêm thẻ mới';
 
   @override

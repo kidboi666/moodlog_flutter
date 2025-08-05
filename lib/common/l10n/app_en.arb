@@ -375,6 +375,7 @@
   "tags_filter_all": "All",
   "tags_filter_title": "Filter by tags",
   "tags_suggested_title": "Suggested Tags",
+  "tags_selected_title": "Selected Tags",
   "tags_add_new": "Add new tag",
   "tags_input_hint": "Tag name",
   "tags_delete_title": "Delete Tag",

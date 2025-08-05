@@ -807,6 +807,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tags_suggested_title => '추천 태그';
 
   @override
+  String get tags_selected_title => '선택된 태그';
+
+  @override
   String get tags_add_new => '새 태그 추가';
 
   @override

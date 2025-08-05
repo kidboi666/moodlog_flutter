@@ -363,6 +363,7 @@
   "tags_filter_all": "全て",
   "tags_filter_title": "タグでフィルタリング",
   "tags_suggested_title": "おすすめタグ",
+  "tags_selected_title": "選択されたタグ",
   "tags_add_new": "新しいタグを追加",
   "tags_input_hint": "タグ名",
   "tags_delete_title": "タグ削除",
