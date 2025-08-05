@@ -12,6 +12,7 @@ class TagInputButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Consumer<WriteViewModel>(
       builder: (context, viewModel, _) {
@@ -24,7 +25,7 @@ class TagInputButton extends StatelessWidget {
               value: viewModel,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(bottomSheetContext).colorScheme.surface,
+                  color: colorScheme.surface,
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20),
                   ),

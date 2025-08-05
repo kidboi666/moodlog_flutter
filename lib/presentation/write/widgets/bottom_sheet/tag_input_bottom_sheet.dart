@@ -46,7 +46,7 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Title
               Text(t.tags_add_new, style: textTheme.headlineSmall),
               const SizedBox(height: 20),
@@ -84,7 +84,7 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                 focusNode: _tagFocusNode,
                 decoration: InputDecoration(
                   labelText: t.tags_input_hint,
-                  border: const OutlineInputBorder(),
+                  border: UnderlineInputBorder(),
                   suffixIcon: IconButton(
                     onPressed: () => _addNewTag(viewModel.addNewTag),
                     icon: const Icon(Icons.add),
@@ -107,9 +107,7 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                       alignment: WrapAlignment.start,
                       runAlignment: WrapAlignment.start,
                       children: viewModel.availableTags
-                          .where(
-                            (tag) => !viewModel.selectedTags.contains(tag),
-                          )
+                          .where((tag) => !viewModel.selectedTags.contains(tag))
                           .map(
                             (tag) => ActionChip(
                               label: Text(tag.name),
@@ -126,9 +124,9 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                   ),
                 ),
               ],
-              
+
               const SizedBox(height: 20),
-              
+
               // Close button
               SizedBox(
                 width: double.infinity,
@@ -137,7 +135,7 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                   child: Text(t.common_confirm_ok),
                 ),
               ),
-              
+
               // Bottom padding for safe area
               SizedBox(height: MediaQuery.of(context).viewPadding.bottom),
             ],

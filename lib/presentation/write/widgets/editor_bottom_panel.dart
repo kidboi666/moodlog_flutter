@@ -31,8 +31,8 @@ class EditorBottomPanel extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ImagePickerButton(),
-            TagInputButton(),
+            const ImagePickerButton(),
+            const TagInputButton(),
             TimestampButton(contentController: contentController),
           ],
         ),

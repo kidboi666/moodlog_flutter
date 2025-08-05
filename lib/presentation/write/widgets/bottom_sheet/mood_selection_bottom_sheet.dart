@@ -12,6 +12,7 @@ class MoodSelectionBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -27,7 +28,7 @@ class MoodSelectionBottomSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.outline,
+                color: colorScheme.outline,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

@@ -12,25 +12,31 @@ class NicknameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    return Selector<ProfileViewModel, String>(
-      selector: (context, viewModel) => viewModel.user?.displayName ?? '',
-      builder: (context, nickname, _) {
+    final updateDisplayName = context
+        .read<ProfileViewModel>()
+        .updateDisplayName;
+    final nickname = context.select<ProfileViewModel, String>(
+      (vm) => vm.user?.displayName ?? '',
+    );
+
+    return Builder(
+      builder: (context) {
         return InkWell(
           onTap: () async {
             final newName = await showModalBottomSheet<String?>(
               isScrollControlled: true,
               context: context,
-              builder: (_) {
-                return EditDisplayNameBottomSheet(initialName: nickname);
-              },
+              builder: (_) => EditDisplayNameBottomSheet(initialName: nickname),
             );
-
             if (newName != null && newName.isNotEmpty && context.mounted) {
-              await context.read<ProfileViewModel>().updateDisplayName(newName);
+              await updateDisplayName(newName);
             }
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

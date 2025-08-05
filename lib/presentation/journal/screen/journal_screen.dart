@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/extensions/date_time.dart';
 import '../../../common/extensions/widget_scale.dart';
-import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
 import '../../core/widgets/fade_in.dart';
 import '../../core/widgets/pop_button.dart';
@@ -28,7 +27,6 @@ class JournalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Consumer<JournalViewModel>(
@@ -52,8 +50,8 @@ class JournalScreen extends StatelessWidget {
                 onTap: () => _handleBackNavigation(context, viewModel),
               ),
               title: Text(
-                viewModel.journal.createdAt.formatted(t),
-                style: textTheme.titleMedium,
+                viewModel.journal.createdAt.formattedDotNation(),
+                style: textTheme.titleLarge,
               ),
               actions: [
                 IconButton(

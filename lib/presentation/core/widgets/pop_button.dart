@@ -5,20 +5,25 @@ import '../../../common/extensions/widget_scale.dart';
 
 class PopButton extends StatelessWidget {
   final GestureTapCallback? onTap;
+  final IconData? icon;
 
-  const PopButton({super.key, this.onTap});
+  const PopButton({super.key, this.onTap, this.icon = Icons.arrow_back});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        if (onTap != null) {
-          onTap!();
-        } else {
-          context.pop();
-        }
-      },
-      icon: Icon(Icons.arrow_back),
-    ).scale();
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {
+            if (onTap != null) {
+              onTap!();
+            } else {
+              context.pop();
+            }
+          },
+          icon: Icon(icon),
+        ).scale(),
+      ],
+    );
   }
 }

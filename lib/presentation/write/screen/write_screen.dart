@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/l10n/app_localizations.dart';
+import '../../../common/extensions/date_time.dart';
 import '../../core/widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
-import '../widgets/date_button.dart';
 import '../widgets/editor_bottom_panel.dart';
 import '../widgets/write_pageview_rest.dart';
 
@@ -18,21 +17,13 @@ class WriteScreen extends StatefulWidget {
 class _WriteScreenState extends State<WriteScreen> {
   late TextEditingController _contentController;
   late FocusNode _contentFocusNode;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _contentController = TextEditingController();
     _contentFocusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final viewModel = context.read<WriteViewModel>();
-      // 수정 모드일 때는 기존 내용 로드
-      if (viewModel.content != null && _contentController.text.isEmpty) {
-        _contentController.text = viewModel.content!;
-      }
-    });
-
     _contentController.addListener(_onContentChanged);
   }
 
@@ -42,33 +33,76 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
+    final isEditMode = context.select<WriteViewModel, bool>(
+      (vm) => vm.isEditMode,
+    );
+    final submitJournal = context.read<WriteViewModel>().submitJournal;
+    final updateSelectedDate = context
+        .read<WriteViewModel>()
+        .updateSelectedDate;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: const PopButton(),
+        leading: const PopButton(icon: Icons.close),
         title: Builder(
           builder: (context) {
-            final isEditMode = context.select<WriteViewModel, bool>(
-              (vm) => vm.isEditMode,
+            final selectedDate = context.select<WriteViewModel, DateTime>(
+              (vm) => vm.selectedDate,
             );
-            return Text(isEditMode ? t.write_edit_title : t.write_title);
+
+            return TextButton(
+              onPressed: () async {
+                final DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(DateTime.now().year - 5),
+                  lastDate: DateTime.now(),
+                  initialDate: selectedDate,
+                );
+
+                if (pickedDate != null && context.mounted) {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(selectedDate),
+                  );
+
+                  if (pickedTime != null) {
+                    final newDate = DateTime(
+                      pickedDate.year,
+                      pickedDate.month,
+                      pickedDate.day,
+                      pickedTime.hour,
+                      pickedTime.minute,
+                    );
+                    if (context.mounted) {
+                      updateSelectedDate(newDate);
+                    }
+                  }
+                }
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    selectedDate.formattedDotNation(),
+                    style: textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                  Icon(Icons.keyboard_arrow_down),
+                ],
+              ),
+            );
           },
         ),
         actions: [
-          const DateButton(),
           Builder(
             builder: (context) {
-              final isEditMode = context.select<WriteViewModel, bool>(
-                (vm) => vm.isEditMode,
-              );
               final isFormValid = context.select<WriteViewModel, bool>(
                 (vm) => vm.isFormValid,
               );
-              final submitJournal = context
-                  .read<WriteViewModel>()
-                  .submitJournal;
 
               return IconButton(
                 onPressed: isFormValid ? submitJournal : null,
@@ -78,11 +112,32 @@ class _WriteScreenState extends State<WriteScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          WritePageViewRest(contentController: _contentController),
-          EditorBottomPanel(contentController: _contentController),
-        ],
+      body: Builder(
+        builder: (context) {
+          final content = context.select<WriteViewModel, String?>(
+            (vm) => vm.content,
+          );
+          final isEditMode = context.select<WriteViewModel, bool>(
+            (vm) => vm.isEditMode,
+          );
+
+          if (!_isInitialized && content != null && isEditMode) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (_contentController.text.isEmpty) {
+                _contentController.text = content;
+                _isInitialized = true;
+              }
+            });
+          }
+
+          return Column(
+            children: [
+              WritePageViewRest(contentController: _contentController),
+              const Spacer(),
+              EditorBottomPanel(contentController: _contentController),
+            ],
+          );
+        },
       ),
     );
   }
