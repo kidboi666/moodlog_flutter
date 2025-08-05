@@ -61,6 +61,12 @@ class JournalScreen extends StatelessWidget {
                   icon: Icon(viewModel.currentAlign.icon),
                 ).scale(),
                 IconButton(
+                  onPressed: () {
+                    context.push('${Routes.write}?editJournalId=${viewModel.id}');
+                  },
+                  icon: const Icon(Icons.edit),
+                ).scale(),
+                IconButton(
                   onPressed: () async {
                     final shouldPopPage = await showDialog(
                       context: context,

@@ -86,16 +86,19 @@ class _WriteScreenState extends State<WriteScreen> {
                 secondChild: Row(
                   children: [
                     const DateButton(),
-                    Selector<WriteViewModel, bool>(
-                      selector: (context, viewModel) => viewModel.isFormValid,
-                      builder: (context, isFormValid, child) {
+                    Selector<WriteViewModel, ({bool isFormValid, bool isEditMode})>(
+                      selector: (context, viewModel) => (
+                        isFormValid: viewModel.isFormValid,
+                        isEditMode: viewModel.isEditMode,
+                      ),
+                      builder: (context, data, child) {
                         return IconButton(
-                          onPressed: isFormValid
+                          onPressed: data.isFormValid
                               ? () => context
                                     .read<WriteViewModel>()
                                     .submitJournal()
                               : null,
-                          icon: const Icon(Icons.send),
+                          icon: Icon(data.isEditMode ? Icons.check : Icons.send),
                         );
                       },
                     ),

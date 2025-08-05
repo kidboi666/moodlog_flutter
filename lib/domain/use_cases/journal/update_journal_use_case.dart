@@ -1,6 +1,5 @@
-import 'package:moodlog/data/models/request/update_journal_request.dart';
-
 import '../../../common/utils/result.dart';
+import '../../entities/update_journal_dto.dart';
 import '../../repositories/journal_repository.dart';
 
 class UpdateJournalUseCase {
@@ -9,7 +8,7 @@ class UpdateJournalUseCase {
   UpdateJournalUseCase({required JournalRepository journalRepository})
     : _journalRepository = journalRepository;
 
-  Future<Result<int>> execute(UpdateJournalRequest dto) async {
+  Future<Result<int>> execute(UpdateJournalDto dto) async {
     return await _journalRepository.updateJournal(dto);
   }
 }

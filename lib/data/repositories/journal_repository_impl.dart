@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:drift/drift.dart';
 
 import '../../common/utils/result.dart';
+import '../../domain/entities/create_journal_dto.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/tag.dart';
+import '../../domain/entities/update_journal_dto.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/database.dart';
 import '../models/request/add_journal_request.dart';
@@ -81,22 +83,36 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<Map<String, dynamic>>> addJournal(AddJournalRequest dto) async {
+  Future<Result<Map<String, dynamic>>> addJournal(CreateJournalDto dto) async {
+    final request = AddJournalRequest(
+      content: dto.content,
+      moodType: dto.moodType,
+      imageUri: dto.imageUri,
+      aiResponseEnabled: dto.aiResponseEnabled,
+      aiResponse: dto.aiResponse,
+      createdAt: dto.createdAt,
+      latitude: dto.latitude,
+      longitude: dto.longitude,
+      address: dto.address,
+      temperature: dto.temperature,
+      weatherIcon: dto.weatherIcon,
+      weatherDescription: dto.weatherDescription,
+    );
     final journal = await _db
         .into(_db.journals)
         .insertReturningOrNull(
           JournalsCompanion(
-            content: Value(dto.content),
-            moodType: Value(dto.moodType),
-            imageUri: Value(dto.imageUri),
-            createdAt: Value(dto.createdAt),
-            aiResponseEnabled: Value(dto.aiResponseEnabled),
-            latitude: Value(dto.latitude),
-            longitude: Value(dto.longitude),
-            address: Value(dto.address),
-            temperature: Value(dto.temperature),
-            weatherIcon: Value(dto.weatherIcon),
-            weatherDescription: Value(dto.weatherDescription),
+            content: Value(request.content),
+            moodType: Value(request.moodType),
+            imageUri: Value(request.imageUri),
+            createdAt: Value(request.createdAt),
+            aiResponseEnabled: Value(request.aiResponseEnabled),
+            latitude: Value(request.latitude),
+            longitude: Value(request.longitude),
+            address: Value(request.address),
+            temperature: Value(request.temperature),
+            weatherIcon: Value(request.weatherIcon),
+            weatherDescription: Value(request.weatherDescription),
           ),
         );
 
@@ -113,19 +129,30 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
+  Future<Result<int>> updateJournal(UpdateJournalDto dto) async {
+    final request = UpdateJournalRequest(
+      id: dto.id,
+      content: dto.content,
+      imageUri: dto.imageUri,
+      aiResponse: dto.aiResponse,
+      latitude: dto.latitude,
+      longitude: dto.longitude,
+      address: dto.address,
+    );
     final updatedRows =
         await (_db.update(
           _db.journals,
-        )..where((t) => t.id.equals(dto.id))).write(
+        )..where((t) => t.id.equals(request.id))).write(
           JournalsCompanion(
-            content: dto.content == null ? Value.absent() : Value(dto.content),
-            imageUri: dto.imageUri == null
+            content: request.content == null
                 ? Value.absent()
-                : Value(dto.imageUri),
-            aiResponse: dto.aiResponse == null
+                : Value(request.content),
+            imageUri: request.imageUri == null
                 ? Value.absent()
-                : Value(dto.aiResponse),
+                : Value(request.imageUri),
+            aiResponse: request.aiResponse == null
+                ? Value.absent()
+                : Value(request.aiResponse),
           ),
         );
     if (updatedRows == 0) {
@@ -169,24 +196,24 @@ class JournalRepositoryImpl implements JournalRepository {
     if (journals.isEmpty) return journals;
 
     final journalIds = journals.map((j) => j.id).toList();
-    
+
     final query = _db.select(_db.journalTags).join([
-      leftOuterJoin(_db.tags, _db.tags.id.equalsExp(_db.journalTags.tagId))
+      leftOuterJoin(_db.tags, _db.tags.id.equalsExp(_db.journalTags.tagId)),
     ])..where(_db.journalTags.journalId.isIn(journalIds));
 
     final results = await query.get();
-    
+
     final journalTagMap = <int, List<Tag>>{};
-    
+
     for (final row in results) {
       final journalTag = row.readTable(_db.journalTags);
       final tag = row.readTableOrNull(_db.tags);
-      
+
       if (tag != null) {
         journalTagMap.putIfAbsent(journalTag.journalId, () => []).add(tag);
       }
     }
-    
+
     return journals.map((journal) {
       final tags = journalTagMap[journal.id] ?? [];
       return Journal(

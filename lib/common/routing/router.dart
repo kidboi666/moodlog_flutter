@@ -79,6 +79,8 @@ GoRouter router(UserProvider userProvider) => GoRouter(
       builder: (_, state) {
         final extra = state.extra as Map<String, DateTime>?;
         final date = extra?['date'] ?? DateTime.now();
+        final editJournalIdStr = state.uri.queryParameters['editJournalId'];
+        final editJournalId = editJournalIdStr != null ? int.tryParse(editJournalIdStr) : null;
         print(date);
         return ChangeNotifierProvider(
           create: (context) => WriteViewModel(
@@ -95,8 +97,10 @@ GoRouter router(UserProvider userProvider) => GoRouter(
             addTagUseCase: context.read(),
             getAllTagsUseCase: context.read(),
             updateJournalTagsUseCase: context.read(),
+            journalRepository: context.read(),
             totalSteps: 2,
             selectedDate: date,
+            editJournalId: editJournalId,
           ),
           child: const WriteScreen(),
         );

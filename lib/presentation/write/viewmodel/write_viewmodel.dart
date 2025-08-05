@@ -6,11 +6,11 @@ import '../../../common/mixins/async_state_mixin.dart';
 import '../../../common/mixins/step_mixin.dart';
 import '../../../common/providers/app_state_provider.dart';
 import '../../../common/utils/result.dart';
-import '../../../data/models/request/add_journal_request.dart';
-import '../../../data/models/request/update_journal_request.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
+import '../../../domain/entities/create_journal_dto.dart';
 import '../../../domain/entities/location_info.dart';
 import '../../../domain/entities/tag.dart';
+import '../../../domain/entities/update_journal_dto.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/app_state_repository.dart';
@@ -24,6 +24,8 @@ import '../../../domain/use_cases/tag/add_tag_use_case.dart';
 import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
 import '../../../domain/use_cases/tag/update_journal_tags_use_case.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../../domain/entities/journal.dart';
+import '../../../domain/repositories/journal_repository.dart';
 
 class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -39,6 +41,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   final AddTagUseCase _addTagUseCase;
   final GetAllTagsUseCase _getAllTagsUseCase;
   final UpdateJournalTagsUseCase _updateJournalTagsUseCase;
+  final JournalRepository _journalRepository;
 
   WriteViewModel({
     required GeminiRepository geminiRepository,
@@ -54,8 +57,10 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required AddTagUseCase addTagUseCase,
     required GetAllTagsUseCase getAllTagsUseCase,
     required UpdateJournalTagsUseCase updateJournalTagsUseCase,
+    required JournalRepository journalRepository,
     required int totalSteps,
     required DateTime selectedDate,
+    int? editJournalId,
   }) : _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
        _aiGenerationRepository = aiGenerationRepository,
@@ -68,13 +73,19 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
        _addTagUseCase = addTagUseCase,
        _getAllTagsUseCase = getAllTagsUseCase,
-       _updateJournalTagsUseCase = updateJournalTagsUseCase {
+       _updateJournalTagsUseCase = updateJournalTagsUseCase,
+       _journalRepository = journalRepository {
     initStep(totalSteps);
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
     _loadAllTags();
     _selectedDate = selectedDate;
+    if (editJournalId != null) {
+      _editJournalId = editJournalId;
+      _isEditMode = true;
+      _loadJournalForEdit(editJournalId);
+    }
   }
 
   @override
@@ -101,6 +112,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool _isLoadingWeather = false;
   List<Tag> _availableTags = [];
   List<Tag> _selectedTags = [];
+  bool _isEditMode = false;
+  int? _editJournalId;
 
   String? get content => _content;
 
@@ -131,6 +144,8 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   bool get isLoadingWeather => _isLoadingWeather;
 
   List<Tag> get availableTags => _availableTags;
+
+  bool get isEditMode => _isEditMode;
 
   List<Tag> get selectedTags => _selectedTags;
 
@@ -179,6 +194,49 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         !_isLoadingLocation;
   }
 
+  Future<void> _loadJournalForEdit(int journalId) async {
+    try {
+      final result = await _journalRepository.getJournalById(journalId);
+      switch (result) {
+        case Ok<Journal>():
+          final journal = result.value;
+          _content = journal.content;
+          _selectedMood = journal.moodType;
+          _imageFileList = journal.imageUri ?? [];
+          _aiEnabled = journal.aiResponseEnabled;
+          _selectedDate = journal.createdAt;
+          
+          if (journal.latitude != null && journal.longitude != null) {
+            _locationInfo = LocationInfo(
+              latitude: journal.latitude!,
+              longitude: journal.longitude!,
+              address: journal.address,
+            );
+          }
+          
+          if (journal.temperature != null) {
+            _weatherInfo = WeatherInfo(
+              temperature: journal.temperature!,
+              icon: journal.weatherIcon ?? '',
+              description: journal.weatherDescription ?? '',
+              humidity: 0.0,
+              pressure: 0.0,
+              windSpeed: 0.0,
+              location: journal.address ?? '',
+              timestamp: journal.createdAt,
+            );
+          }
+          
+          _selectedTags = journal.tags ?? [];
+          notifyListeners();
+        case Failure<Journal>():
+          _log.warning('Failed to load journal for edit: ${result.error}');
+      }
+    } catch (e) {
+      _log.warning('Error loading journal for edit: $e');
+    }
+  }
+
   Future<Result<void>> submitJournal() async {
     if (!isFormValid) {
       _log.warning('Content is required');
@@ -189,7 +247,15 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _isSubmitted = false;
     _submittedJournalId = null;
 
-    final newJournal = AddJournalRequest(
+    if (_isEditMode && _editJournalId != null) {
+      return _updateExistingJournal();
+    } else {
+      return _createNewJournal();
+    }
+  }
+
+  Future<Result<void>> _createNewJournal() async {
+    final newJournal = CreateJournalDto(
       content: _content,
       moodType: _selectedMood,
       imageUri: _imageFileList,
@@ -232,6 +298,47 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
         return Result.ok(null);
       case Failure<Map<String, dynamic>>():
         _log.warning('Failed to add journal: ${result.error}');
+        setError(result.error);
+        return Result.failure(result.error);
+    }
+  }
+
+  Future<Result<void>> _updateExistingJournal() async {
+    final updateJournal = UpdateJournalDto(
+      id: _editJournalId!,
+      content: _content,
+      imageUri: _imageFileList,
+      latitude: _locationInfo?.latitude,
+      longitude: _locationInfo?.longitude,
+      address: _locationInfo?.address,
+    );
+    
+    final result = await _updateJournalUseCase.execute(updateJournal);
+    
+    switch (result) {
+      case Ok<int>():
+        _log.fine('Journal updated successfully');
+        _isSubmitted = true;
+        _submittedJournalId = _editJournalId;
+        
+        if (_selectedTags.isNotEmpty) {
+          await _updateJournalTagsUseCase.call(
+            _editJournalId!,
+            _selectedTags.map((tag) => tag.id).toList(),
+          );
+        }
+        
+        AnalyticsRepositoryImpl().logMoodEntry(
+          moodType: _selectedMood.name,
+          entryType: 'edit',
+          hasImage: _imageFileList.isNotEmpty,
+          hasTag: _selectedTags.isNotEmpty,
+        );
+        
+        setSuccess();
+        return Result.ok(null);
+      case Failure<int>():
+        _log.warning('Failed to update journal: ${result.error}');
         setError(result.error);
         return Result.failure(result.error);
     }
@@ -295,7 +402,7 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     switch (aiResponse) {
       case Ok<String>():
         _log.fine('AI response generated successfully');
-        final newJournal = UpdateJournalRequest(
+        final newJournal = UpdateJournalDto(
           id: _submittedJournalId!,
           aiResponse: aiResponse.value,
         );
