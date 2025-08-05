@@ -38,6 +38,13 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
     super.initState();
     _contentFocusNode = FocusNode();
     widget.contentController.addListener(_onContentChanged);
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<WriteViewModel>();
+      if (viewModel.content != null && widget.contentController.text.isEmpty) {
+        widget.contentController.text = viewModel.content!;
+      }
+    });
   }
 
   @override

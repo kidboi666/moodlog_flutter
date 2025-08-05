@@ -196,10 +196,12 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
 
   Future<void> _loadJournalForEdit(int journalId) async {
     try {
+      _log.info('Loading journal for edit: $journalId');
       final result = await _journalRepository.getJournalById(journalId);
       switch (result) {
         case Ok<Journal>():
           final journal = result.value;
+          _log.info('Journal loaded successfully: ${journal.content}');
           _content = journal.content;
           _selectedMood = journal.moodType;
           _imageFileList = journal.imageUri ?? [];

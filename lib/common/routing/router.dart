@@ -80,8 +80,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
         final extra = state.extra as Map<String, DateTime>?;
         final date = extra?['date'] ?? DateTime.now();
         final editJournalIdStr = state.uri.queryParameters['editJournalId'];
-        final editJournalId = editJournalIdStr != null ? int.tryParse(editJournalIdStr) : null;
-        print(date);
+        final editJournalId = editJournalIdStr != null
+            ? int.tryParse(editJournalIdStr)
+            : null;
         return ChangeNotifierProvider(
           create: (context) => WriteViewModel(
             geminiRepository: context.read(),
