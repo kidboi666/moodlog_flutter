@@ -272,7 +272,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tab_statistics => 'Thống kê';
 
   @override
+  String get write_title => '일기 작성';
+
+  @override
+  String get write_edit_title => '일기 수정';
+
+  @override
   String get write_mood_title => 'Hôm nay bạn cảm thấy thế nào?';
+
+  @override
+  String get write_mood_subtitle => '기분을 선택해주세요';
 
   @override
   String get write_input_title => 'Nội dung';

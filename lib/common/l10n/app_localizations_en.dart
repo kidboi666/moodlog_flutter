@@ -271,7 +271,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tab_statistics => 'Statistics';
 
   @override
+  String get write_title => 'Write Entry';
+
+  @override
+  String get write_edit_title => 'Edit Entry';
+
+  @override
   String get write_mood_title => 'How are you feeling today?';
+
+  @override
+  String get write_mood_subtitle => 'Please select your mood';
 
   @override
   String get write_input_title => 'Content';

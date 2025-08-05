@@ -264,7 +264,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tab_statistics => '統計';
 
   @override
+  String get write_title => '일기 작성';
+
+  @override
+  String get write_edit_title => '일기 수정';
+
+  @override
   String get write_mood_title => '今日の気分はいかがですか？';
+
+  @override
+  String get write_mood_subtitle => '기분을 선택해주세요';
 
   @override
   String get write_input_title => '内容';

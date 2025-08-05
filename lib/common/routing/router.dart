@@ -99,7 +99,6 @@ GoRouter router(UserProvider userProvider) => GoRouter(
             getAllTagsUseCase: context.read(),
             updateJournalTagsUseCase: context.read(),
             journalRepository: context.read(),
-            totalSteps: 2,
             selectedDate: date,
             editJournalId: editJournalId,
           ),

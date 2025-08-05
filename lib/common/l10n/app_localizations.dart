@@ -610,11 +610,29 @@ abstract class AppLocalizations {
   /// **'통계'**
   String get tab_statistics;
 
+  /// No description provided for @write_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기 작성'**
+  String get write_title;
+
+  /// No description provided for @write_edit_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기 수정'**
+  String get write_edit_title;
+
   /// No description provided for @write_mood_title.
   ///
   /// In ko, this message translates to:
   /// **'오늘의 기분은 어떠신가요?'**
   String get write_mood_title;
+
+  /// No description provided for @write_mood_subtitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분을 선택해주세요'**
+  String get write_mood_subtitle;
 
   /// No description provided for @write_input_title.
   ///

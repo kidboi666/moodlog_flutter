@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../core/widgets/pagination_dot.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../../core/widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
 import '../widgets/date_button.dart';
 import '../widgets/editor_bottom_panel.dart';
-import '../widgets/write_pageview_mood.dart';
 import '../widgets/write_pageview_rest.dart';
 
 class WriteScreen extends StatefulWidget {
@@ -18,92 +16,63 @@ class WriteScreen extends StatefulWidget {
 }
 
 class _WriteScreenState extends State<WriteScreen> {
-  late PageController _pageController;
   late TextEditingController _contentController;
-
-  void nextPage() {
-    FocusScope.of(context).unfocus();
-    _pageController.nextPage(
-      duration: DurationMs.medium,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void previousPage() {
-    FocusScope.of(context).unfocus();
-    _pageController.previousPage(
-      duration: DurationMs.medium,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _onPageChanged(int page) {
-    FocusScope.of(context).unfocus();
-    context.read<WriteViewModel>().setStep(page);
-  }
+  late FocusNode _contentFocusNode;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 0);
     _contentController = TextEditingController();
+    _contentFocusNode = FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<WriteViewModel>();
+      // 수정 모드일 때는 기존 내용 로드
+      if (viewModel.content != null && _contentController.text.isEmpty) {
+        _contentController.text = viewModel.content!;
+      }
+    });
+
+    _contentController.addListener(_onContentChanged);
+  }
+
+  void _onContentChanged() {
+    context.read<WriteViewModel>().updateContent(_contentController.text);
   }
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: Selector<WriteViewModel, bool>(
-          selector: (context, viewModel) => viewModel.isLastStep,
-          builder: (context, isLastStep, child) {
-            return PopButton(onTap: isLastStep ? previousPage : null);
-          },
-        ),
-        title: Selector<WriteViewModel, ({int current, int total})>(
-          selector: (context, viewModel) =>
-              (current: viewModel.currentStep, total: viewModel.totalSteps),
-          builder: (context, stepData, child) {
-            return PaginationDot(
-              current: stepData.current,
-              total: stepData.total,
+        leading: const PopButton(),
+        title: Builder(
+          builder: (context) {
+            final isEditMode = context.select<WriteViewModel, bool>(
+              (vm) => vm.isEditMode,
             );
+            return Text(isEditMode ? t.write_edit_title : t.write_title);
           },
         ),
         actions: [
-          Selector<WriteViewModel, bool>(
-            selector: (context, viewModel) => viewModel.isLastStep,
-            builder: (context, isLastStep, child) {
-              return AnimatedCrossFade(
-                crossFadeState: isLastStep
-                    ? CrossFadeState.showSecond
-                    : CrossFadeState.showFirst,
-                duration: DurationMs.quick,
-                firstChild: IconButton(
-                  onPressed: nextPage,
-                  icon: const Icon(Icons.arrow_forward),
-                ),
-                secondChild: Row(
-                  children: [
-                    const DateButton(),
-                    Selector<WriteViewModel, ({bool isFormValid, bool isEditMode})>(
-                      selector: (context, viewModel) => (
-                        isFormValid: viewModel.isFormValid,
-                        isEditMode: viewModel.isEditMode,
-                      ),
-                      builder: (context, data, child) {
-                        return IconButton(
-                          onPressed: data.isFormValid
-                              ? () => context
-                                    .read<WriteViewModel>()
-                                    .submitJournal()
-                              : null,
-                          icon: Icon(data.isEditMode ? Icons.check : Icons.send),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+          const DateButton(),
+          Builder(
+            builder: (context) {
+              final isEditMode = context.select<WriteViewModel, bool>(
+                (vm) => vm.isEditMode,
+              );
+              final isFormValid = context.select<WriteViewModel, bool>(
+                (vm) => vm.isFormValid,
+              );
+              final submitJournal = context
+                  .read<WriteViewModel>()
+                  .submitJournal;
+
+              return IconButton(
+                onPressed: isFormValid ? submitJournal : null,
+                icon: Icon(isEditMode ? Icons.check : Icons.send),
               );
             },
           ),
@@ -111,16 +80,7 @@ class _WriteScreenState extends State<WriteScreen> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: _onPageChanged,
-              children: [
-                WritePageViewMood(nextPage: nextPage),
-                WritePageViewRest(contentController: _contentController),
-              ],
-            ),
-          ),
+          WritePageViewRest(contentController: _contentController),
           EditorBottomPanel(contentController: _contentController),
         ],
       ),
@@ -129,8 +89,9 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _contentController.removeListener(_onContentChanged);
     _contentController.dispose();
+    _contentFocusNode.dispose();
     super.dispose();
   }
 }

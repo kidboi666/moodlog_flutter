@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../viewmodel/write_viewmodel.dart';
 import 'image_picker_button.dart';
 import 'tag_input_button.dart';
 import 'timestamp_button.dart';
@@ -16,39 +13,30 @@ class EditorBottomPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     final colorScheme = Theme.of(context).colorScheme;
-    return Selector<WriteViewModel, bool>(
-      selector: (context, viewModel) => viewModel.isLastStep,
-      builder: (context, isLastStep, child) {
-        return AnimatedOpacity(
-          duration: DurationMs.quick,
-          opacity: isLastStep ? 1 : 0,
-          child: SafeArea(
-            child: Container(
-              decoration: keyboardHeight > 0
-                  ? BoxDecoration(
-                      color: colorScheme.surface,
-                      boxShadow: [
-                        BoxShadow(
-                          color: colorScheme.shadow.withValues(alpha: 0.2),
-                          blurRadius: 20,
-                          offset: Offset(0, -4),
-                        ),
-                      ],
-                    )
-                  : null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const TagInputButton(),
-                  const ImagePickerButton(),
-                  TimestampButton(contentController: contentController),
-                  const SizedBox(width: Spacing.lg),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerLowest,
+          boxShadow: keyboardHeight > 0
+              ? [
+                  BoxShadow(
+                    color: colorScheme.shadow.withValues(alpha: 0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, -4),
+                  ),
+                ]
+              : null,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ImagePickerButton(),
+            TagInputButton(),
+            TimestampButton(contentController: contentController),
+          ],
+        ),
+      ),
     );
   }
 }

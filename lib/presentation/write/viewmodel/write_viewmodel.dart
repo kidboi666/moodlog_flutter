@@ -3,7 +3,6 @@ import 'package:logging/logging.dart';
 
 import '../../../common/constants/enum.dart';
 import '../../../common/mixins/async_state_mixin.dart';
-import '../../../common/mixins/step_mixin.dart';
 import '../../../common/providers/app_state_provider.dart';
 import '../../../common/utils/result.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
@@ -27,7 +26,7 @@ import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';
 
-class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
+class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiRepository _geminiRepository;
   final AppStateProvider _appStateProvider;
   final AiGenerationRepository _aiGenerationRepository;
@@ -58,7 +57,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     required GetAllTagsUseCase getAllTagsUseCase,
     required UpdateJournalTagsUseCase updateJournalTagsUseCase,
     required JournalRepository journalRepository,
-    required int totalSteps,
     required DateTime selectedDate,
     int? editJournalId,
   }) : _geminiRepository = geminiRepository,
@@ -75,7 +73,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
        _getAllTagsUseCase = getAllTagsUseCase,
        _updateJournalTagsUseCase = updateJournalTagsUseCase,
        _journalRepository = journalRepository {
-    initStep(totalSteps);
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
@@ -88,13 +85,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     }
   }
 
-  @override
-  void setStep(int step) {
-    super.setStep(step);
-    if (step > 0) {
-      _hasVisitedContentPage = true;
-    }
-  }
 
   final Logger _log = Logger('WriteViewModel');
   String? _content;
@@ -104,7 +94,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
   int? _submittedJournalId;
   bool _aiEnabled = true;
   late DateTime _selectedDate;
-  bool _hasVisitedContentPage = false;
   bool _canUseAiToday = true;
   LocationInfo? _locationInfo;
   bool _isLoadingLocation = false;
@@ -129,7 +118,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
 
   int? get submittedJournalId => _submittedJournalId;
 
-  bool get shouldAutoNavigateOnMoodSelect => !_hasVisitedContentPage;
 
   bool get canUseAiToday => _canUseAiToday;
 
@@ -177,7 +165,6 @@ class WriteViewModel extends ChangeNotifier with StepMixin, AsyncStateMixin {
     _isSubmitted = false;
     _submittedJournalId = null;
     _aiEnabled = true;
-    _hasVisitedContentPage = false;
     _locationInfo = null;
     _isLoadingLocation = false;
     _weatherInfo = null;
