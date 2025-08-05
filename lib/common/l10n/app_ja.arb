@@ -385,5 +385,6 @@
   "tags_no_tags": "タグがありません",
   "tags_load_failed": "タグを読み込めませんでした",
   "tags_delete_failed": "タグの削除に失敗しました",
-  "common_unit_day": "日"
+  "common_unit_day": "日",
+  "entries_mood_filter_title": "気分でフィルタリング"
 }

@@ -388,5 +388,6 @@
   "tags_no_tags": "태그가 없습니다",
   "tags_load_failed": "태그를 불러오지 못했습니다",
   "tags_delete_failed": "태그 삭제에 실패했습니다",
-  "common_unit_day": "일"
+  "common_unit_day": "일",
+  "entries_mood_filter_title": "감정으로 필터링"
 }

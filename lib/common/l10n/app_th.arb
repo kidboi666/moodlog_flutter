@@ -385,5 +385,6 @@
   "tags_no_tags": "ไม่พบแท็ก",
   "tags_load_failed": "โหลดแท็กไม่สำเร็จ",
   "tags_delete_failed": "ลบแท็กไม่สำเร็จ",
-  "common_unit_day": "วัน"
+  "common_unit_day": "วัน",
+  "entries_mood_filter_title": "กรองตามอารมณ์"
 }

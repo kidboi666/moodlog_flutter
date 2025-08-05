@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
+import '../../../common/constants/enum.dart';
+import '../../../common/extensions/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/entries_viewmodel.dart';
 
@@ -13,13 +15,52 @@ class TagFilterSection extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     return Consumer<EntriesViewModel>(
       builder: (context, viewModel, child) {
-        if (viewModel.availableTags.isEmpty) {
+        final bool hasFilters = viewModel.availableTags.isNotEmpty;
+        
+        if (!hasFilters) {
           return const SizedBox.shrink();
         }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // 감정 필터 섹션
+            Padding(
+              padding: const EdgeInsets.only(left: Spacing.lg),
+              child: Text(
+                t.entries_mood_filter_title,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            const SizedBox(height: Spacing.sm),
+            SizedBox(
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(width: Spacing.lg),
+                  _FilterChip(
+                    label: t.tags_filter_all,
+                    isSelected: viewModel.selectedMoodFilter == null,
+                    onTap: () => viewModel.clearMoodFilter(),
+                  ),
+                  const SizedBox(width: Spacing.xs),
+                  ...MoodType.values.map(
+                    (mood) => Padding(
+                      padding: const EdgeInsets.only(right: Spacing.xs),
+                      child: _MoodFilterChip(
+                        mood: mood,
+                        isSelected: viewModel.selectedMoodFilter == mood,
+                        onTap: () => viewModel.setMoodFilter(mood),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Spacing.md),
+            
+            // 태그 필터 섹션
             Padding(
               padding: const EdgeInsets.only(left: Spacing.lg),
               child: Text(
@@ -85,6 +126,40 @@ class _FilterChip extends StatelessWidget {
       onSelected: (_) => onTap(),
       backgroundColor: color ?? colorScheme.surfaceContainer,
       selectedColor: color ?? colorScheme.primaryContainer,
+      checkmarkColor: isSelected
+          ? colorScheme.onPrimaryContainer
+          : colorScheme.onSurface,
+    );
+  }
+}
+
+class _MoodFilterChip extends StatelessWidget {
+  final MoodType mood;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _MoodFilterChip({
+    required this.mood,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return FilterChip(
+      label: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(mood.emoji, style: const TextStyle(fontSize: 16)),
+          const SizedBox(width: 4),
+          Text(mood.getDisplayName(context)),
+        ],
+      ),
+      selected: isSelected,
+      onSelected: (_) => onTap(),
+      backgroundColor: colorScheme.surfaceContainer,
+      selectedColor: colorScheme.primaryContainer,
       checkmarkColor: isSelected
           ? colorScheme.onPrimaryContainer
           : colorScheme.onSurface,

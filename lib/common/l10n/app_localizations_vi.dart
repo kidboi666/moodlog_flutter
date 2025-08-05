@@ -860,4 +860,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get common_unit_day => 'ngày';
+
+  @override
+  String get entries_mood_filter_title => 'Lọc theo tâm trạng';
 }

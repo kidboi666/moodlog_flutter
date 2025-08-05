@@ -834,4 +834,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get common_unit_day => '日';
+
+  @override
+  String get entries_mood_filter_title => '気分でフィルタリング';
 }

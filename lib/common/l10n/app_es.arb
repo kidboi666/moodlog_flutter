@@ -385,5 +385,6 @@
   "tags_no_tags": "No se encontraron etiquetas",
   "tags_load_failed": "Error al cargar etiquetas",
   "tags_delete_failed": "Error al eliminar etiqueta",
-  "common_unit_day": "día"
+  "common_unit_day": "día",
+  "entries_mood_filter_title": "Filtrar por estado de ánimo"
 }

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/l10n/app_localizations.dart';
 import '../viewmodel/write_viewmodel.dart';
-import 'dialog/tag_input_dialog.dart';
+import 'bottom_sheet/tag_input_bottom_sheet.dart';
 
 class TagInputButton extends StatelessWidget {
   const TagInputButton({super.key});
@@ -16,11 +16,21 @@ class TagInputButton extends StatelessWidget {
     return Consumer<WriteViewModel>(
       builder: (context, viewModel, _) {
         return IconButton(
-          onPressed: () => showDialog(
+          onPressed: () => showModalBottomSheet(
             context: context,
-            builder: (dialogContext) => ChangeNotifierProvider.value(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (bottomSheetContext) => ChangeNotifierProvider.value(
               value: viewModel,
-              child: TagInputDialog(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(bottomSheetContext).colorScheme.surface,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                child: const TagInputBottomSheet(),
+              ),
             ),
           ),
           icon: Badge(

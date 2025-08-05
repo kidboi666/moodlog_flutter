@@ -869,4 +869,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get common_unit_day => 'jour';
+
+  @override
+  String get entries_mood_filter_title => 'Filtrer par humeur';
 }

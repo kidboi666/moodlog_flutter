@@ -385,5 +385,6 @@
   "tags_no_tags": "Aucune étiquette trouvée",
   "tags_load_failed": "Impossible de charger les étiquettes",
   "tags_delete_failed": "Impossible de supprimer l'étiquette",
-  "common_unit_day": "jour"
+  "common_unit_day": "jour",
+  "entries_mood_filter_title": "Filtrer par humeur"
 }

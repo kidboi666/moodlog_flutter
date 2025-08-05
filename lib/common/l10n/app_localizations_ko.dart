@@ -836,4 +836,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get common_unit_day => '일';
+
+  @override
+  String get entries_mood_filter_title => '감정으로 필터링';
 }

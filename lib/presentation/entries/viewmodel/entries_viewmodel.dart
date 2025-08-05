@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 
 import '../../../common/mixins/async_state_mixin.dart';
 import '../../../common/utils/result.dart';
+import '../../../common/constants/enum.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/tag.dart';
 import '../../../domain/repositories/journal_repository.dart';
@@ -44,6 +45,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   EntriesViewMode _viewMode = EntriesViewMode.list;
   List<Tag> _availableTags = [];
   Tag? _selectedTagFilter;
+  MoodType? _selectedMoodFilter;
 
   List<Journal> get entries => _entries;
 
@@ -56,6 +58,8 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   List<Tag> get availableTags => _availableTags;
 
   Tag? get selectedTagFilter => _selectedTagFilter;
+
+  MoodType? get selectedMoodFilter => _selectedMoodFilter;
 
   void toggleViewMode() {
     _viewMode = _viewMode == EntriesViewMode.list
@@ -97,7 +101,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     switch (result) {
       case Ok<List<Journal>>():
         _allMonthEntries = result.value;
-        _applyTagFilter();
+        _applyFilters();
         _log.fine('Loaded journals');
       case Failure<List<Journal>>():
         _allMonthEntries = [];
@@ -132,7 +136,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
           journal.createdAt.isBefore(endOfMonth);
     }).toList();
 
-    _applyTagFilter();
+    _applyFilters();
     notifyListeners();
   }
 
@@ -149,34 +153,62 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void setTagFilter(Tag? tag) {
     _selectedTagFilter = tag;
-    _applyTagFilter();
+    _applyFilters();
     notifyListeners();
   }
 
   void clearTagFilter() {
     _selectedTagFilter = null;
-    _applyTagFilter();
+    _applyFilters();
     notifyListeners();
   }
 
-  Future<void> _applyTagFilter() async {
-    if (_selectedTagFilter == null) {
-      _entries = _allMonthEntries;
-      return;
+  void setMoodFilter(MoodType? mood) {
+    _selectedMoodFilter = mood;
+    _applyFilters();
+    notifyListeners();
+  }
+
+  void clearMoodFilter() {
+    _selectedMoodFilter = null;
+    _applyFilters();
+    notifyListeners();
+  }
+
+  void clearAllFilters() {
+    _selectedTagFilter = null;
+    _selectedMoodFilter = null;
+    _applyFilters();
+    notifyListeners();
+  }
+
+  Future<void> _applyFilters() async {
+    List<Journal> filteredEntries = _allMonthEntries;
+
+    // 감정 필터 적용
+    if (_selectedMoodFilter != null) {
+      filteredEntries = filteredEntries
+          .where((journal) => journal.moodType == _selectedMoodFilter)
+          .toList();
     }
 
-    final filteredEntries = <Journal>[];
-    for (final journal in _allMonthEntries) {
-      final tagsResult = await _getTagsByJournalUseCase.call(journal.id);
-      switch (tagsResult) {
-        case Ok<List<Tag>>():
-          if (tagsResult.value.any((tag) => tag.id == _selectedTagFilter!.id)) {
-            filteredEntries.add(journal);
-          }
-        case Failure<List<Tag>>():
-          _log.warning('Failed to get tags for journal ${journal.id}');
+    // 태그 필터 적용
+    if (_selectedTagFilter != null) {
+      final tagFilteredEntries = <Journal>[];
+      for (final journal in filteredEntries) {
+        final tagsResult = await _getTagsByJournalUseCase.call(journal.id);
+        switch (tagsResult) {
+          case Ok<List<Tag>>():
+            if (tagsResult.value.any((tag) => tag.id == _selectedTagFilter!.id)) {
+              tagFilteredEntries.add(journal);
+            }
+          case Failure<List<Tag>>():
+            _log.warning('Failed to get tags for journal ${journal.id}');
+        }
       }
+      filteredEntries = tagFilteredEntries;
     }
+
     _entries = filteredEntries;
   }
 

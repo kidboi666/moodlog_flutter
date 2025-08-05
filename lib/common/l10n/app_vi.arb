@@ -385,5 +385,6 @@
   "tags_no_tags": "Không tìm thấy thẻ nào",
   "tags_load_failed": "Không thể tải thẻ",
   "tags_delete_failed": "Không thể xóa thẻ",
-  "common_unit_day": "ngày"
+  "common_unit_day": "ngày",
+  "entries_mood_filter_title": "Lọc theo tâm trạng"
 }

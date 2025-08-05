@@ -1677,6 +1677,12 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'일'**
   String get common_unit_day;
+
+  /// No description provided for @entries_mood_filter_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'감정으로 필터링'**
+  String get entries_mood_filter_title;
 }
 
 class _AppLocalizationsDelegate

@@ -385,5 +385,6 @@
   "tags_no_tags": "Nessun tag trovato",
   "tags_load_failed": "Impossibile caricare i tag",
   "tags_delete_failed": "Impossibile eliminare il tag",
-  "common_unit_day": "giorno"
+  "common_unit_day": "giorno",
+  "entries_mood_filter_title": "Filtra per umore"
 }

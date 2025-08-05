@@ -827,4 +827,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get common_unit_day => '天';
+
+  @override
+  String get entries_mood_filter_title => '按心情筛选';
 }

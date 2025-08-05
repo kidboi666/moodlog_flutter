@@ -397,5 +397,6 @@
   "tags_no_tags": "No tags found",
   "tags_load_failed": "Failed to load tags",
   "tags_delete_failed": "Failed to delete tag",
-  "common_unit_day": "day"
+  "common_unit_day": "day",
+  "entries_mood_filter_title": "Filter by mood"
 }
