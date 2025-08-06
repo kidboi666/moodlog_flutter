@@ -20,7 +20,7 @@ class MaxStreakCard extends StatelessWidget {
         maxStreak: viewModel.maxStreak,
         currentStreak: viewModel.currentStreak,
       ),
-      builder: (_, data, __) {
+      builder: (_, data, _) {
         final maxStreak = data.maxStreak;
         final currentStreak = data.currentStreak;
 
@@ -83,7 +83,7 @@ class MaxStreakCard extends StatelessWidget {
                           vertical: Spacing.xs,
                         ),
                         decoration: BoxDecoration(
-                          color: colorScheme.tertiary.withValues(alpha:0.1),
+                          color: colorScheme.tertiary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(
@@ -114,7 +114,9 @@ class MaxStreakCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest.withValues(alpha:0.3),
+                    color: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -177,10 +179,10 @@ class MaxStreakCard extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.tertiary.withValues(alpha:0.1),
+                    color: colorScheme.tertiary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: colorScheme.tertiary.withValues(alpha:0.3),
+                      color: colorScheme.tertiary.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(

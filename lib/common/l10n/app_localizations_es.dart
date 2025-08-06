@@ -871,8 +871,51 @@ class AppLocalizationsEs extends AppLocalizations {
   String get tags_delete_failed => 'Error al eliminar etiqueta';
 
   @override
+  String get home_monthly_tracker_title => 'Registro mensual de diario';
+
+  @override
+  String get home_yearly_tracker_title => 'Registro anual de diario';
+
+  @override
+  String get home_monthly_tracker_legend_less => 'Menos';
+
+  @override
+  String get home_monthly_tracker_legend_more => 'Más';
+
+  @override
   String get common_unit_day => 'día';
 
   @override
   String get entries_mood_filter_title => 'Filtrar por estado de ánimo';
+
+  @override
+  String get statistics_mood_distribution_empty =>
+      'No hay datos de distribución del estado de ánimo para mostrar.';
+
+  @override
+  String get statistics_mood_distribution_description =>
+      'Distribución del Estado de Ánimo';
+
+  @override
+  String get statistics_mood_trend_description =>
+      'Tendencia del Estado de Ánimo';
+
+  @override
+  String get statistics_mood_trend_daily_records =>
+      'Registros diarios del estado de ánimo';
+
+  @override
+  String get statistics_mood_trend_overall_average =>
+      'Puntuación promedio general';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average =>
+      'Promedio de los últimos 7 días';
+
+  @override
+  String get home_representative_mood_title => 'Mi Estado de Ánimo Actual';
+
+  @override
+  String get home_representative_mood_description =>
+      'Basado en análisis de 30 días';
 }

@@ -16,19 +16,22 @@ class TotalRecordsCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
-    return Selector<StatisticsViewModel, ({int totalJournals, List<Journal> allJournals})>(
+    return Selector<
+      StatisticsViewModel,
+      ({int totalJournals, List<Journal> allJournals})
+    >(
       selector: (_, viewModel) => (
         totalJournals: viewModel.totalJournals,
         allJournals: viewModel.allJournals,
       ),
-      builder: (_, data, __) {
+      builder: (_, data, _) {
         final totalJournals = data.totalJournals;
         final allJournals = data.allJournals;
 
         final firstRecordDate = allJournals.isNotEmpty
             ? allJournals
-                .map((j) => j.createdAt)
-                .reduce((a, b) => a.isBefore(b) ? a : b)
+                  .map((j) => j.createdAt)
+                  .reduce((a, b) => a.isBefore(b) ? a : b)
             : null;
 
         final daysSinceFirstRecord = firstRecordDate != null
@@ -41,11 +44,7 @@ class TotalRecordsCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.edit_note,
-                    color: colorScheme.primary,
-                    size: 24,
-                  ),
+                  Icon(Icons.edit_note, color: colorScheme.primary, size: 24),
                   const SizedBox(width: Spacing.sm),
                   Text(
                     t.statistics_total_record_description,
@@ -80,7 +79,9 @@ class TotalRecordsCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                    color: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -113,7 +114,9 @@ class TotalRecordsCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            t.statistics_total_records_period_days(daysSinceFirstRecord),
+                            t.statistics_total_records_period_days(
+                              daysSinceFirstRecord,
+                            ),
                             style: textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -132,7 +135,10 @@ class TotalRecordsCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              t.statistics_total_records_weekly_frequency((totalJournals / daysSinceFirstRecord * 7).toStringAsFixed(1)),
+                              t.statistics_total_records_weekly_frequency(
+                                (totalJournals / daysSinceFirstRecord * 7)
+                                    .toStringAsFixed(1),
+                              ),
                               style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w500,
                               ),

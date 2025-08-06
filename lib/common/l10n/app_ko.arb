@@ -389,6 +389,18 @@
   "tags_no_tags": "태그가 없습니다",
   "tags_load_failed": "태그를 불러오지 못했습니다",
   "tags_delete_failed": "태그 삭제에 실패했습니다",
+  "home_monthly_tracker_title": "이번 달 일기 작성",
+  "home_yearly_tracker_title": "올해 일기 작성",
+  "home_monthly_tracker_legend_less": "적음",
+  "home_monthly_tracker_legend_more": "많음",
   "common_unit_day": "일",
-  "entries_mood_filter_title": "감정으로 필터링"
+  "entries_mood_filter_title": "감정으로 필터링",
+  "statistics_mood_distribution_empty": "표시할 기분 분포 데이터가 없습니다.",
+  "statistics_mood_distribution_description": "기분 분포",
+  "statistics_mood_trend_description": "기분 변화",
+  "statistics_mood_trend_daily_records": "일간 기분 기록",
+  "statistics_mood_trend_overall_average": "전체 평균 점수",
+  "statistics_mood_trend_recent_7days_average": "최근 7일 평균",
+  "home_representative_mood_title": "나의 현재 감정",
+  "home_representative_mood_description": "최근 30일 감정 분석 결과"
 }

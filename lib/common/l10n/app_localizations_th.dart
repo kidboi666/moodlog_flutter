@@ -853,8 +853,46 @@ class AppLocalizationsTh extends AppLocalizations {
   String get tags_delete_failed => 'ลบแท็กไม่สำเร็จ';
 
   @override
+  String get home_monthly_tracker_title => 'ติดตามไดอารี่รายเดือน';
+
+  @override
+  String get home_yearly_tracker_title => 'ติดตามไดอารี่รายปี';
+
+  @override
+  String get home_monthly_tracker_legend_less => 'น้อย';
+
+  @override
+  String get home_monthly_tracker_legend_more => 'มาก';
+
+  @override
   String get common_unit_day => 'วัน';
 
   @override
   String get entries_mood_filter_title => 'กรองตามอารมณ์';
+
+  @override
+  String get statistics_mood_distribution_empty =>
+      'ไม่มีข้อมูลการกระจายอารมณ์ที่จะแสดง';
+
+  @override
+  String get statistics_mood_distribution_description => 'การกระจายอารมณ์';
+
+  @override
+  String get statistics_mood_trend_description => 'แนวโน้มอารมณ์';
+
+  @override
+  String get statistics_mood_trend_daily_records => 'บันทึกอารมณ์รายวัน';
+
+  @override
+  String get statistics_mood_trend_overall_average => 'คะแนนเฉลี่ยโดยรวม';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average =>
+      'ค่าเฉลี่ย 7 วันล่าสุด';
+
+  @override
+  String get home_representative_mood_title => 'อารมณ์ปัจจุบันของฉัน';
+
+  @override
+  String get home_representative_mood_description => 'จากการวิเคราะห์ 30 วัน';
 }

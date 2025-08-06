@@ -133,9 +133,11 @@ class WritingFrequencyCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(Spacing.md),
             decoration: BoxDecoration(
-              color: weeklyFrequencyColor.withOpacity(0.1),
+              color: weeklyFrequencyColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: weeklyFrequencyColor.withOpacity(0.3)),
+              border: Border.all(
+                color: weeklyFrequencyColor.withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,7 +176,7 @@ class WritingFrequencyCard extends StatelessWidget {
                     vertical: Spacing.xs,
                   ),
                   decoration: BoxDecoration(
-                    color: weeklyFrequencyColor.withOpacity(0.2),
+                    color: weeklyFrequencyColor.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -195,7 +197,9 @@ class WritingFrequencyCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -224,7 +228,9 @@ class WritingFrequencyCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(Spacing.md),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -254,7 +260,7 @@ class WritingFrequencyCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(Spacing.md),
             decoration: BoxDecoration(
-              color: colorScheme.surfaceVariant.withOpacity(0.3),
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -303,9 +309,9 @@ class WritingFrequencyCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(Spacing.md),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.green.withOpacity(0.3)),
+                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -329,9 +335,9 @@ class WritingFrequencyCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(Spacing.md),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [

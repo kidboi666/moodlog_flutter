@@ -16,6 +16,10 @@ class MoodTrendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<StatisticsViewModel>(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
     final sortedMoodTrendData = viewModel.moodTrendData.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
 
@@ -24,14 +28,38 @@ class MoodTrendCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppLocalizations.of(context)!.statistics_mood_trend_title,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Icon(Icons.trending_up, color: colorScheme.primary, size: 24),
+                const SizedBox(width: Spacing.sm),
+                Text(
+                  t.statistics_mood_trend_description,
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: Spacing.lg),
-            Text(AppLocalizations.of(context)!.statistics_mood_trend_empty),
+            Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.trending_up,
+                    size: 64,
+                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                  ),
+                  const SizedBox(height: Spacing.md),
+                  Text(
+                    t.statistics_mood_trend_empty,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       );
@@ -57,15 +85,57 @@ class MoodTrendCard extends StatelessWidget {
       return FlSpot(index, value);
     }).toList();
 
+    // 평균 점수 계산
+    final averageScore = sortedMoodTrendData.isNotEmpty
+        ? sortedMoodTrendData.map((e) => e.value).reduce((a, b) => a + b) /
+              sortedMoodTrendData.length
+        : 0.0;
+
+    // 최근 7일 데이터 분석
+    final recent7Days = sortedMoodTrendData.length > 7
+        ? sortedMoodTrendData.sublist(sortedMoodTrendData.length - 7)
+        : sortedMoodTrendData;
+
+    final recent7DaysAvg = recent7Days.isNotEmpty
+        ? recent7Days.map((e) => e.value).reduce((a, b) => a + b) /
+              recent7Days.length
+        : 0.0;
+
     return BaseCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context)!.statistics_mood_trend_title,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Icon(Icons.trending_up, color: colorScheme.primary, size: 24),
+              const SizedBox(width: Spacing.sm),
+              Text(
+                t.statistics_mood_trend_description,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: Spacing.lg),
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  '${sortedMoodTrendData.length}',
+                  style: textTheme.displayMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.primary,
+                  ),
+                ),
+                Text(
+                  t.statistics_mood_trend_daily_records,
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: Spacing.lg),
           SizedBox(
@@ -95,7 +165,6 @@ class MoodTrendCard extends StatelessWidget {
                       showTitles: true,
                       reservedSize: 40,
                       getTitlesWidget: (value, meta) {
-                        // Map score back to mood text for Y-axis labels
                         String text = '';
                         if (value == MoodType.verySad.score.toDouble()) {
                           text = MoodType.verySad.getDisplayName(context);
@@ -125,7 +194,10 @@ class MoodTrendCard extends StatelessWidget {
                 ),
                 borderData: FlBorderData(
                   show: true,
-                  border: Border.all(color: const Color(0xff37434d), width: 1),
+                  border: Border.all(
+                    color: colorScheme.outline.withValues(alpha: 0.5),
+                    width: 1,
+                  ),
                 ),
                 minX: 0,
                 maxX: (sortedMoodTrendData.length - 1).toDouble(),
@@ -136,10 +208,7 @@ class MoodTrendCard extends StatelessWidget {
                     spots: spots,
                     isCurved: true,
                     gradient: LinearGradient(
-                      colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.secondary,
-                      ],
+                      colors: [colorScheme.primary, colorScheme.secondary],
                     ),
                     barWidth: 3,
                     isStrokeCapRound: true,
@@ -148,18 +217,68 @@ class MoodTrendCard extends StatelessWidget {
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          Theme.of(
-                            context,
-                          ).colorScheme.primary.withValues(alpha: 0.3),
-                          Theme.of(
-                            context,
-                          ).colorScheme.secondary.withValues(alpha: 0.3),
+                          colorScheme.primary.withValues(alpha: 0.3),
+                          colorScheme.secondary.withValues(alpha: 0.3),
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
+          ),
+          const SizedBox(height: Spacing.lg),
+          Container(
+            padding: const EdgeInsets.all(Spacing.md),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      t.statistics_mood_trend_overall_average,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    Text(
+                      '${averageScore.toStringAsFixed(1)}점',
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                if (recent7Days.isNotEmpty) ...[
+                  const SizedBox(height: Spacing.sm),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        t.statistics_mood_trend_recent_7days_average,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      Text(
+                        '${recent7DaysAvg.toStringAsFixed(1)}점',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: recent7DaysAvg > averageScore
+                              ? colorScheme.primary
+                              : recent7DaysAvg < averageScore
+                              ? colorScheme.error
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ],
             ),
           ),
         ],

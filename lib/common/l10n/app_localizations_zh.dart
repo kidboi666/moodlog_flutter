@@ -829,8 +829,44 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tags_delete_failed => '删除标签失败';
 
   @override
+  String get home_monthly_tracker_title => '本月日记记录';
+
+  @override
+  String get home_yearly_tracker_title => '今年日记记录';
+
+  @override
+  String get home_monthly_tracker_legend_less => '较少';
+
+  @override
+  String get home_monthly_tracker_legend_more => '较多';
+
+  @override
   String get common_unit_day => '天';
 
   @override
   String get entries_mood_filter_title => '按心情筛选';
+
+  @override
+  String get statistics_mood_distribution_empty => '표시할 기분 분포 데이터가 없습니다.';
+
+  @override
+  String get statistics_mood_distribution_description => '기분 분포';
+
+  @override
+  String get statistics_mood_trend_description => '기분 변화';
+
+  @override
+  String get statistics_mood_trend_daily_records => '일간 기분 기록';
+
+  @override
+  String get statistics_mood_trend_overall_average => '전체 평균 점수';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average => '최근 7일 평균';
+
+  @override
+  String get home_representative_mood_title => '나의 현재 감정';
+
+  @override
+  String get home_representative_mood_description => '최근 30일 감정 분석 결과';
 }

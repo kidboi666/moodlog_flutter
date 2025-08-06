@@ -1678,6 +1678,30 @@ abstract class AppLocalizations {
   /// **'태그 삭제에 실패했습니다'**
   String get tags_delete_failed;
 
+  /// No description provided for @home_monthly_tracker_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'이번 달 일기 작성'**
+  String get home_monthly_tracker_title;
+
+  /// No description provided for @home_yearly_tracker_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'올해 일기 작성'**
+  String get home_yearly_tracker_title;
+
+  /// No description provided for @home_monthly_tracker_legend_less.
+  ///
+  /// In ko, this message translates to:
+  /// **'적음'**
+  String get home_monthly_tracker_legend_less;
+
+  /// No description provided for @home_monthly_tracker_legend_more.
+  ///
+  /// In ko, this message translates to:
+  /// **'많음'**
+  String get home_monthly_tracker_legend_more;
+
   /// No description provided for @common_unit_day.
   ///
   /// In ko, this message translates to:
@@ -1689,6 +1713,54 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'감정으로 필터링'**
   String get entries_mood_filter_title;
+
+  /// No description provided for @statistics_mood_distribution_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'표시할 기분 분포 데이터가 없습니다.'**
+  String get statistics_mood_distribution_empty;
+
+  /// No description provided for @statistics_mood_distribution_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분 분포'**
+  String get statistics_mood_distribution_description;
+
+  /// No description provided for @statistics_mood_trend_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'기분 변화'**
+  String get statistics_mood_trend_description;
+
+  /// No description provided for @statistics_mood_trend_daily_records.
+  ///
+  /// In ko, this message translates to:
+  /// **'일간 기분 기록'**
+  String get statistics_mood_trend_daily_records;
+
+  /// No description provided for @statistics_mood_trend_overall_average.
+  ///
+  /// In ko, this message translates to:
+  /// **'전체 평균 점수'**
+  String get statistics_mood_trend_overall_average;
+
+  /// No description provided for @statistics_mood_trend_recent_7days_average.
+  ///
+  /// In ko, this message translates to:
+  /// **'최근 7일 평균'**
+  String get statistics_mood_trend_recent_7days_average;
+
+  /// No description provided for @home_representative_mood_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'나의 현재 감정'**
+  String get home_representative_mood_title;
+
+  /// No description provided for @home_representative_mood_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'최근 30일 감정 분석 결과'**
+  String get home_representative_mood_description;
 }
 
 class _AppLocalizationsDelegate

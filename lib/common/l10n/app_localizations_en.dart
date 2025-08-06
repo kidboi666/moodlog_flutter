@@ -857,8 +857,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_delete_failed => 'Failed to delete tag';
 
   @override
+  String get home_monthly_tracker_title => 'Monthly Journal Tracker';
+
+  @override
+  String get home_yearly_tracker_title => 'Yearly Journal Tracker';
+
+  @override
+  String get home_monthly_tracker_legend_less => 'Less';
+
+  @override
+  String get home_monthly_tracker_legend_more => 'More';
+
+  @override
   String get common_unit_day => 'day';
 
   @override
   String get entries_mood_filter_title => 'Filter by mood';
+
+  @override
+  String get statistics_mood_distribution_empty =>
+      'No mood distribution data to display.';
+
+  @override
+  String get statistics_mood_distribution_description => 'Mood Distribution';
+
+  @override
+  String get statistics_mood_trend_description => 'Mood Trend';
+
+  @override
+  String get statistics_mood_trend_daily_records => 'Daily mood records';
+
+  @override
+  String get statistics_mood_trend_overall_average => 'Overall average score';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average =>
+      'Recent 7-day average';
+
+  @override
+  String get home_representative_mood_title => 'My Current Mood';
+
+  @override
+  String get home_representative_mood_description =>
+      'Based on 30-day mood analysis';
 }

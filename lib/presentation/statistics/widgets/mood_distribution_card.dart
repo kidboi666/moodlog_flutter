@@ -16,10 +16,62 @@ class MoodDistributionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<StatisticsViewModel>(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+    
     final totalCount = viewModel.moodCounts.values.fold(
       0,
       (sum, count) => sum + count,
     );
+
+    // 데이터가 없을 때 폴백 UI
+    if (totalCount == 0) {
+      return BaseCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.pie_chart,
+                  color: colorScheme.primary,
+                  size: 24,
+                ),
+                const SizedBox(width: Spacing.sm),
+                Text(
+                  t.statistics_mood_distribution_description,
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: Spacing.lg),
+            Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.pie_chart_outline,
+                    size: 64,
+                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                  ),
+                  const SizedBox(height: Spacing.md),
+                  Text(
+                    t.statistics_mood_distribution_empty,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     final List<PieChartSectionData> sections = MoodType.values.map((moodType) {
       final count = viewModel.moodCounts[moodType] ?? 0;
       final double percentage = totalCount > 0 ? (count / totalCount) * 100 : 0;
@@ -29,11 +81,8 @@ class MoodDistributionCard extends StatelessWidget {
         value: count.toDouble(),
         title: '${percentage.toStringAsFixed(1)}%',
         radius: 50,
-        titleStyle: Theme.of(
-          context,
-        ).textTheme.bodyMedium?.copyWith(color: Colors.black87),
-        badgeWidget: Text(moodType.emoji, style: const TextStyle(fontSize: 24)),
-        // Emoji as badge
+        titleStyle: textTheme.bodyMedium?.copyWith(color: Colors.black87),
+        badgeWidget: Text(moodType.emoji, style: const TextStyle(fontSize: 20)),
         badgePositionPercentageOffset: .98,
       );
     }).toList();
@@ -42,11 +91,41 @@ class MoodDistributionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context)!.statistics_mood_distribution_title,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Icon(
+                Icons.pie_chart,
+                color: colorScheme.primary,
+                size: 24,
+              ),
+              const SizedBox(width: Spacing.sm),
+              Text(
+                t.statistics_mood_distribution_description,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: Spacing.lg),
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  totalCount.toString(),
+                  style: textTheme.displayMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.primary,
+                  ),
+                ),
+                Text(
+                  t.statistics_total_records_count_unit,
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: Spacing.lg),
           SizedBox(
@@ -57,22 +136,27 @@ class MoodDistributionCard extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 sectionsSpace: 0,
                 centerSpaceRadius: 40,
-                pieTouchData: PieTouchData(
-                  enabled: false,
-                ), // Disable touch for simplicity
+                pieTouchData: PieTouchData(enabled: false),
               ),
             ),
           ),
           const SizedBox(height: Spacing.lg),
-          Column(
-            children: MoodType.values.map((moodType) {
-              final count = viewModel.moodCounts[moodType] ?? 0;
-              return MoodDistributionItem(
-                mood: moodType.getDisplayName(context),
-                count: count,
-                color: Color(moodType.colorValue),
-              );
-            }).toList(),
+          Container(
+            padding: const EdgeInsets.all(Spacing.md),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              children: MoodType.values.map((moodType) {
+                final count = viewModel.moodCounts[moodType] ?? 0;
+                return MoodDistributionItem(
+                  mood: moodType.getDisplayName(context),
+                  count: count,
+                  color: Color(moodType.colorValue),
+                );
+              }).toList(),
+            ),
           ),
         ],
       ),

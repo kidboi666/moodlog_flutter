@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 
 import '../../../common/constants/enum.dart';
 import '../../../common/mixins/async_state_mixin.dart';
@@ -21,6 +22,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadStatistics();
   }
 
+  final Logger _log = Logger('StatisticsViewModel');
   List<Journal> _allJournals = [];
   Map<MoodType, int> _moodCounts = {};
   int _totalJournals = 0;
@@ -29,6 +31,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   Map<DateTime, MoodType> _moodCalendar = {};
   List<Journal> _recentJournals = [];
   Map<DateTime, double> _moodTrendData = {};
+  final Map<DateTime, List<Journal>> _yearlyJournals = {};
 
   String? get profileImage => _userProvider.user?.photoURL;
 
@@ -46,11 +49,13 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   List<Journal> get recentJournals => _recentJournals;
 
+  Map<DateTime, List<Journal>> get yearlyJournals => _yearlyJournals;
+
   Map<DateTime, double> get moodTrendData => _moodTrendData;
 
   Future<void> _loadStatistics() async {
     setLoading();
-    
+
     final result = await _journalRepository.getAllJournals();
     switch (result) {
       case Ok<List<Journal>>():
@@ -60,6 +65,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         _calculateStreak();
         _calculateMoodCalendar();
         _calculateMoodTrend();
+        _loadYearlyJournals();
         _recentJournals = _allJournals
             .sorted((a, b) => b.createdAt.compareTo(a.createdAt))
             .take(5)
@@ -173,5 +179,43 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     dailyScores.forEach((date, scores) {
       _moodTrendData[date] = scores.average;
     });
+  }
+
+  Future<void> _loadYearlyJournals() async {
+    final now = DateTime.now();
+
+    // 올해 전체 데이터를 로드하기 위해 각 월별로 호출
+    _yearlyJournals.clear();
+
+    for (int month = 1; month <= 12; month++) {
+      final monthDate = DateTime(now.year, month, 1);
+      final result = await _journalRepository.getJournalsByMonth(monthDate);
+
+      switch (result) {
+        case Ok<List<Journal>>():
+          // 날짜별로 일기들을 그룹화하여 연간 맵에 추가
+          for (final journal in result.value) {
+            final dateKey = DateTime(
+              journal.createdAt.year,
+              journal.createdAt.month,
+              journal.createdAt.day,
+            );
+
+            if (_yearlyJournals.containsKey(dateKey)) {
+              _yearlyJournals[dateKey]!.add(journal);
+            } else {
+              _yearlyJournals[dateKey] = [journal];
+            }
+          }
+        case Failure<List<Journal>>():
+          _log.warning(
+            'Failed to load journals for month $month',
+            result.error,
+          );
+      }
+    }
+
+    _log.fine('Loaded yearly journals: ${_yearlyJournals.length} days');
+    notifyListeners();
   }
 }

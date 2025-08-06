@@ -386,6 +386,10 @@
   "tags_no_tags": "没有找到标签",
   "tags_load_failed": "加载标签失败",
   "tags_delete_failed": "删除标签失败",
+  "home_monthly_tracker_title": "本月日记记录",
+  "home_yearly_tracker_title": "今年日记记录",
+  "home_monthly_tracker_legend_less": "较少",
+  "home_monthly_tracker_legend_more": "较多",
   "common_unit_day": "天",
   "entries_mood_filter_title": "按心情筛选"
 }

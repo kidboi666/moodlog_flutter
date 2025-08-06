@@ -386,6 +386,18 @@
   "tags_no_tags": "ไม่พบแท็ก",
   "tags_load_failed": "โหลดแท็กไม่สำเร็จ",
   "tags_delete_failed": "ลบแท็กไม่สำเร็จ",
+  "home_monthly_tracker_title": "ติดตามไดอารี่รายเดือน",
+  "home_yearly_tracker_title": "ติดตามไดอารี่รายปี",
+  "home_monthly_tracker_legend_less": "น้อย",
+  "home_monthly_tracker_legend_more": "มาก",
   "common_unit_day": "วัน",
-  "entries_mood_filter_title": "กรองตามอารมณ์"
+  "entries_mood_filter_title": "กรองตามอารมณ์",
+  "statistics_mood_distribution_empty": "ไม่มีข้อมูลการกระจายอารมณ์ที่จะแสดง",
+  "statistics_mood_distribution_description": "การกระจายอารมณ์",
+  "statistics_mood_trend_description": "แนวโน้มอารมณ์",
+  "statistics_mood_trend_daily_records": "บันทึกอารมณ์รายวัน",
+  "statistics_mood_trend_overall_average": "คะแนนเฉลี่ยโดยรวม",
+  "statistics_mood_trend_recent_7days_average": "ค่าเฉลี่ย 7 วันล่าสุด",
+  "home_representative_mood_title": "อารมณ์ปัจจุบันของฉัน",
+  "home_representative_mood_description": "จากการวิเคราะห์ 30 วัน"
 }

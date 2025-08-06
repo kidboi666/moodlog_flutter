@@ -12,6 +12,7 @@ import '../../core/widgets/fade_in.dart';
 import '../../core/widgets/journal_card.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../widgets/horizontal_calendar.dart';
+import '../widgets/representative_mood_card.dart';
 import '../widgets/weather_widget.dart';
 import '../widgets/welcome_zone.dart';
 
@@ -61,6 +62,8 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const WelcomeZone(),
+                  const SizedBox(height: Spacing.xl),
+                  const RepresentativeMoodCard(),
                   const SizedBox(height: Spacing.xl),
                   const HorizontalCalendar(),
                   const SizedBox(height: Spacing.xl),

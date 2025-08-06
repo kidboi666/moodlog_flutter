@@ -862,8 +862,49 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tags_delete_failed => 'Không thể xóa thẻ';
 
   @override
+  String get home_monthly_tracker_title => '이번 달 일기 작성';
+
+  @override
+  String get home_yearly_tracker_title => '올해 일기 작성';
+
+  @override
+  String get home_monthly_tracker_legend_less => '적음';
+
+  @override
+  String get home_monthly_tracker_legend_more => '많음';
+
+  @override
   String get common_unit_day => 'ngày';
 
   @override
   String get entries_mood_filter_title => 'Lọc theo tâm trạng';
+
+  @override
+  String get statistics_mood_distribution_empty =>
+      'Không có dữ liệu phân phối tâm trạng để hiển thị.';
+
+  @override
+  String get statistics_mood_distribution_description => 'Phân Phối Tâm Trạng';
+
+  @override
+  String get statistics_mood_trend_description => 'Xu Hướng Tâm Trạng';
+
+  @override
+  String get statistics_mood_trend_daily_records =>
+      'Bản ghi tâm trạng hàng ngày';
+
+  @override
+  String get statistics_mood_trend_overall_average =>
+      'Điểm trung bình tổng thể';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average =>
+      'Trung bình 7 ngày gần đây';
+
+  @override
+  String get home_representative_mood_title => 'Tâm Trạng Hiện Tại Của Tôi';
+
+  @override
+  String get home_representative_mood_description =>
+      'Dựa trên phân tích 30 ngày';
 }

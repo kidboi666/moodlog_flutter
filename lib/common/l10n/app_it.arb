@@ -387,5 +387,13 @@
   "tags_load_failed": "Impossibile caricare i tag",
   "tags_delete_failed": "Impossibile eliminare il tag",
   "common_unit_day": "giorno",
-  "entries_mood_filter_title": "Filtra per umore"
+  "entries_mood_filter_title": "Filtra per umore",
+  "statistics_mood_distribution_empty": "Nessun dato di distribuzione dell'umore da visualizzare.",
+  "statistics_mood_distribution_description": "Distribuzione dell'Umore",
+  "statistics_mood_trend_description": "Tendenza dell'Umore",
+  "statistics_mood_trend_daily_records": "Record giornalieri dell'umore",
+  "statistics_mood_trend_overall_average": "Punteggio medio complessivo",
+  "statistics_mood_trend_recent_7days_average": "Media degli ultimi 7 giorni",
+  "home_representative_mood_title": "Il Mio Umore Attuale",
+  "home_representative_mood_description": "Basato su analisi di 30 giorni"
 }

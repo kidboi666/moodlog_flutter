@@ -387,5 +387,13 @@
   "tags_load_failed": "Không thể tải thẻ",
   "tags_delete_failed": "Không thể xóa thẻ",
   "common_unit_day": "ngày",
-  "entries_mood_filter_title": "Lọc theo tâm trạng"
+  "entries_mood_filter_title": "Lọc theo tâm trạng",
+  "statistics_mood_distribution_empty": "Không có dữ liệu phân phối tâm trạng để hiển thị.",
+  "statistics_mood_distribution_description": "Phân Phối Tâm Trạng",
+  "statistics_mood_trend_description": "Xu Hướng Tâm Trạng",
+  "statistics_mood_trend_daily_records": "Bản ghi tâm trạng hàng ngày",
+  "statistics_mood_trend_overall_average": "Điểm trung bình tổng thể",
+  "statistics_mood_trend_recent_7days_average": "Trung bình 7 ngày gần đây",
+  "home_representative_mood_title": "Tâm Trạng Hiện Tại Của Tôi",
+  "home_representative_mood_description": "Dựa trên phân tích 30 ngày"
 }

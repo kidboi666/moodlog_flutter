@@ -387,5 +387,13 @@
   "tags_load_failed": "Impossible de charger les étiquettes",
   "tags_delete_failed": "Impossible de supprimer l'étiquette",
   "common_unit_day": "jour",
-  "entries_mood_filter_title": "Filtrer par humeur"
+  "entries_mood_filter_title": "Filtrer par humeur",
+  "statistics_mood_distribution_empty": "Aucune donnée de distribution d'humeur à afficher.",
+  "statistics_mood_distribution_description": "Distribution de l'Humeur",
+  "statistics_mood_trend_description": "Tendance de l'Humeur",
+  "statistics_mood_trend_daily_records": "Enregistrements quotidiens d'humeur",
+  "statistics_mood_trend_overall_average": "Score moyen global",
+  "statistics_mood_trend_recent_7days_average": "Moyenne des 7 derniers jours",
+  "home_representative_mood_title": "Mon Humeur Actuelle",
+  "home_representative_mood_description": "Basé sur analyse de 30 jours"
 }

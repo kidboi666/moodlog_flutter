@@ -386,6 +386,18 @@
   "tags_no_tags": "No se encontraron etiquetas",
   "tags_load_failed": "Error al cargar etiquetas",
   "tags_delete_failed": "Error al eliminar etiqueta",
+  "home_monthly_tracker_title": "Registro mensual de diario",
+  "home_yearly_tracker_title": "Registro anual de diario",
+  "home_monthly_tracker_legend_less": "Menos",
+  "home_monthly_tracker_legend_more": "Más",
   "common_unit_day": "día",
-  "entries_mood_filter_title": "Filtrar por estado de ánimo"
+  "entries_mood_filter_title": "Filtrar por estado de ánimo",
+  "statistics_mood_distribution_empty": "No hay datos de distribución del estado de ánimo para mostrar.",
+  "statistics_mood_distribution_description": "Distribución del Estado de Ánimo",
+  "statistics_mood_trend_description": "Tendencia del Estado de Ánimo",
+  "statistics_mood_trend_daily_records": "Registros diarios del estado de ánimo",
+  "statistics_mood_trend_overall_average": "Puntuación promedio general",
+  "statistics_mood_trend_recent_7days_average": "Promedio de los últimos 7 días",
+  "home_representative_mood_title": "Mi Estado de Ánimo Actual",
+  "home_representative_mood_description": "Basado en análisis de 30 días"
 }

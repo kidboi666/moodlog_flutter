@@ -838,8 +838,44 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tags_delete_failed => '태그 삭제에 실패했습니다';
 
   @override
+  String get home_monthly_tracker_title => '이번 달 일기 작성';
+
+  @override
+  String get home_yearly_tracker_title => '올해 일기 작성';
+
+  @override
+  String get home_monthly_tracker_legend_less => '적음';
+
+  @override
+  String get home_monthly_tracker_legend_more => '많음';
+
+  @override
   String get common_unit_day => '일';
 
   @override
   String get entries_mood_filter_title => '감정으로 필터링';
+
+  @override
+  String get statistics_mood_distribution_empty => '표시할 기분 분포 데이터가 없습니다.';
+
+  @override
+  String get statistics_mood_distribution_description => '기분 분포';
+
+  @override
+  String get statistics_mood_trend_description => '기분 변화';
+
+  @override
+  String get statistics_mood_trend_daily_records => '일간 기분 기록';
+
+  @override
+  String get statistics_mood_trend_overall_average => '전체 평균 점수';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average => '최근 7일 평균';
+
+  @override
+  String get home_representative_mood_title => '나의 현재 감정';
+
+  @override
+  String get home_representative_mood_description => '최근 30일 감정 분석 결과';
 }

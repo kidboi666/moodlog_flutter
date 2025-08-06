@@ -58,10 +58,16 @@ class OnboardingPageViewPersonality extends StatelessWidget {
             },
           ),
         ),
-        Text(t.onboarding_personality_hint, style: textTheme.bodyMedium),
-        const Expanded(child: SizedBox()),
         FadeIn(
           delay: DelayMs.medium * 3,
+          child: Text(
+            t.onboarding_personality_hint,
+            style: textTheme.bodyMedium,
+          ),
+        ),
+        const Expanded(child: SizedBox()),
+        FadeIn(
+          delay: DelayMs.medium * 4,
           child: SafeArea(
             bottom: true,
             child: SizedBox(

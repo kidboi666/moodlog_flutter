@@ -861,8 +861,50 @@ class AppLocalizationsIt extends AppLocalizations {
   String get tags_delete_failed => 'Impossibile eliminare il tag';
 
   @override
+  String get home_monthly_tracker_title => '이번 달 일기 작성';
+
+  @override
+  String get home_yearly_tracker_title => '올해 일기 작성';
+
+  @override
+  String get home_monthly_tracker_legend_less => '적음';
+
+  @override
+  String get home_monthly_tracker_legend_more => '많음';
+
+  @override
   String get common_unit_day => 'giorno';
 
   @override
   String get entries_mood_filter_title => 'Filtra per umore';
+
+  @override
+  String get statistics_mood_distribution_empty =>
+      'Nessun dato di distribuzione dell\'umore da visualizzare.';
+
+  @override
+  String get statistics_mood_distribution_description =>
+      'Distribuzione dell\'Umore';
+
+  @override
+  String get statistics_mood_trend_description => 'Tendenza dell\'Umore';
+
+  @override
+  String get statistics_mood_trend_daily_records =>
+      'Record giornalieri dell\'umore';
+
+  @override
+  String get statistics_mood_trend_overall_average =>
+      'Punteggio medio complessivo';
+
+  @override
+  String get statistics_mood_trend_recent_7days_average =>
+      'Media degli ultimi 7 giorni';
+
+  @override
+  String get home_representative_mood_title => 'Il Mio Umore Attuale';
+
+  @override
+  String get home_representative_mood_description =>
+      'Basato su analisi di 30 giorni';
 }

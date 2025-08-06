@@ -398,6 +398,18 @@
   "tags_no_tags": "No tags found",
   "tags_load_failed": "Failed to load tags",
   "tags_delete_failed": "Failed to delete tag",
+  "home_monthly_tracker_title": "Monthly Journal Tracker",
+  "home_yearly_tracker_title": "Yearly Journal Tracker",
+  "home_monthly_tracker_legend_less": "Less",
+  "home_monthly_tracker_legend_more": "More",
   "common_unit_day": "day",
-  "entries_mood_filter_title": "Filter by mood"
+  "entries_mood_filter_title": "Filter by mood",
+  "statistics_mood_distribution_empty": "No mood distribution data to display.",
+  "statistics_mood_distribution_description": "Mood Distribution",
+  "statistics_mood_trend_description": "Mood Trend",
+  "statistics_mood_trend_daily_records": "Daily mood records",
+  "statistics_mood_trend_overall_average": "Overall average score",
+  "statistics_mood_trend_recent_7days_average": "Recent 7-day average",
+  "home_representative_mood_title": "My Current Mood",
+  "home_representative_mood_description": "Based on 30-day mood analysis"
 }
