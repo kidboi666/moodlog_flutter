@@ -1,4 +1,18 @@
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart' as meterial;
+
+abstract final class Roundness {
+  static const none = 0.0;
+  static const xs = 4.0;
+  static const sm = 8.0;
+  static const md = 12.0;
+  static const lg = 16.0;
+  static const xl = 20.0;
+  static const xxl = 24.0;
+
+  static const card = 24.0;
+  static const chip = 16.0;
+  static const button = 12.0;
+}
 
 abstract final class Spacing {
   static const xs = 4.0;
@@ -8,15 +22,19 @@ abstract final class Spacing {
   static const xl = 20.0;
   static const xxl = 24.0;
 
-  static const containerHorizontalPadding = EdgeInsets.symmetric(
+  static const containerHorizontalPadding = meterial.EdgeInsets.symmetric(
     horizontal: 16.0,
   );
-  static const paddingVertical = EdgeInsets.symmetric(vertical: 16.0);
-  static const containerMarginTop = EdgeInsets.only(top: 28.0);
-  static const containerPaddingTop = EdgeInsets.only(top: 80.0);
-  static const containerPaddingBottom = EdgeInsets.only(bottom: 180.0);
-  static const headerVerticalPadding = EdgeInsets.symmetric(vertical: 12.0);
-  static const imagePickerBoxInnerPadding = EdgeInsets.only(right: 8.0);
+  static const paddingVertical = meterial.EdgeInsets.symmetric(vertical: 16.0);
+  static const containerMarginTop = meterial.EdgeInsets.only(top: 28.0);
+  static const containerPaddingTop = meterial.EdgeInsets.only(top: 80.0);
+  static const containerPaddingBottom = meterial.EdgeInsets.only(bottom: 180.0);
+  static const headerVerticalPadding = meterial.EdgeInsets.symmetric(
+    vertical: 12.0,
+  );
+  static const imagePickerBoxInnerPadding = meterial.EdgeInsets.only(
+    right: 8.0,
+  );
   static const calendarScrollSize = 44.0;
   static const aiResponseGap = 26.0;
   static const horCalendarDateHeight = 60.0;

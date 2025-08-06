@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/constants/common.dart';
@@ -39,49 +38,37 @@ class JournalCard extends StatelessWidget {
       onDismissed: (DismissDirection direction) {
         onDismissed();
       },
-      child: DottedBorder(
-        options: RoundedRectDottedBorderOptions(
-          radius: Radius.circular(24),
-          dashPattern: [5, 5],
-          strokeWidth: 1,
-          color: colorScheme.outlineVariant,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: InkResponse(
-            containedInkWell: true,
-            child: Container(
-              color: colorScheme.surface,
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                onTap: onTap,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.xxl,
-                  vertical: Spacing.md,
-                ),
-                leading: Container(
-                  width: Spacing.sm,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    color: Color(moodType.colorValue),
-                  ),
-                ),
-                title: Text(
-                  createdAt.formatted(t),
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.outline,
-                  ),
-                ),
-                subtitle: Text(
-                  content.trim(),
-                  style: textTheme.bodyLarge,
-                  maxLines: 4,
-                ),
-                trailing: Icon(Icons.keyboard_arrow_left),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(Roundness.card),
+        child: Ink(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: BorderRadius.circular(Roundness.card),
+            border: Border.all(color: colorScheme.surfaceContainer),
+          ),
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: Spacing.xxl,
+              vertical: Spacing.md,
+            ),
+            leading: Container(
+              width: Spacing.sm,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Roundness.card),
+                color: Color(moodType.colorValue),
               ),
             ),
+            title: Text(
+              createdAt.formatted(t),
+              style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
+            ),
+            subtitle: Text(
+              content.trim(),
+              style: textTheme.bodyLarge,
+              maxLines: 4,
+            ),
+            trailing: Icon(Icons.keyboard_arrow_left),
           ),
         ),
       ).scale(),
