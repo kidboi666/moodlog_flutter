@@ -23,20 +23,22 @@ class EntriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<EntriesViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Selector<EntriesViewModel, DateTime>(
-          selector: (_, viewModel) => viewModel.selectedMonth,
-          builder: (_, selectedMonth, _) =>
-              Text(selectedMonth.formattedDotNationWithMonth()),
+        title: Builder(
+          builder: (context) {
+            final selectedMonth = context.select<EntriesViewModel, DateTime>(
+              (vm) => vm.selectedMonth,
+            );
+            return Text(selectedMonth.formattedDotNationWithMonth());
+          },
         ),
-        leading: Selector<EntriesViewModel, Function>(
-          selector: (_, viewModel) => viewModel.setPreviousMonth,
-          builder: (_, setPreviousMonth, _) => IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => setPreviousMonth(),
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: viewModel.setPreviousMonth,
         ),
         actions: [
           Selector<EntriesViewModel, EntriesViewMode>(
@@ -47,8 +49,7 @@ class EntriesScreen extends StatelessWidget {
                     ? Icons.calendar_month
                     : Icons.view_list,
               ),
-              onPressed: () =>
-                  context.read<EntriesViewModel>().toggleViewMode(),
+              onPressed: viewModel.toggleViewMode,
             ),
           ),
           Selector<EntriesViewModel, Function>(
@@ -65,20 +66,26 @@ class EntriesScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
           const SliverToBoxAdapter(child: TagFilterSection()),
           const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
-          Selector<EntriesViewModel, EntriesSelectorType>(
-            selector: (_, viewModel) => (
-              entries: viewModel.entries,
-              isLoading: viewModel.isLoading,
-              viewMode: viewModel.viewMode,
-            ),
-            builder: (_, viewModel, _) {
-              if (viewModel.isLoading) {
+          Builder(
+            builder: (context) {
+              final entries = context.select<EntriesViewModel, List<Journal>>(
+                (vm) => vm.entries,
+              );
+              final isLoading = context.select<EntriesViewModel, bool>(
+                (vm) => vm.isLoading,
+              );
+              final viewMode = context
+                  .select<EntriesViewModel, EntriesViewMode>(
+                    (vm) => vm.viewMode,
+                  );
+
+              if (isLoading) {
                 return SliverToBoxAdapter(
                   child: const CircularProgressIndicator(),
                 );
               }
 
-              if (viewModel.viewMode == EntriesViewMode.calendar) {
+              if (viewMode == EntriesViewMode.calendar) {
                 return const SliverToBoxAdapter(
                   child: Padding(
                     padding: Spacing.containerHorizontalPadding,
@@ -87,7 +94,7 @@ class EntriesScreen extends StatelessWidget {
                 );
               }
 
-              if (viewModel.entries.isEmpty) {
+              if (entries.isEmpty) {
                 return SliverToBoxAdapter(
                   child: FadeIn(
                     delay: DelayMs.medium,
@@ -101,7 +108,7 @@ class EntriesScreen extends StatelessWidget {
 
               return SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final e = viewModel.entries[index];
+                  final e = entries[index];
                   return Padding(
                     padding: Spacing.containerHorizontalPadding,
                     child: FadeIn(
@@ -114,16 +121,14 @@ class EntriesScreen extends StatelessWidget {
                             moodType: e.moodType,
                             createdAt: e.createdAt,
                             onTap: () => context.pushToJournalFromEntries(e.id),
-                            onDismissed: () => context
-                                .read<EntriesViewModel>()
-                                .deleteJournal(e.id),
+                            onDismissed: () => viewModel.deleteJournal(e.id),
                           ),
                           const SizedBox(height: Spacing.xl),
                         ],
                       ),
                     ),
                   );
-                }, childCount: viewModel.entries.length),
+                }, childCount: entries.length),
               );
             },
           ),

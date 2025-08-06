@@ -7,6 +7,7 @@ import '../../../common/providers/app_state_provider.dart';
 import '../../../common/utils/result.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/create_journal_dto.dart';
+import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/location_info.dart';
 import '../../../domain/entities/tag.dart';
 import '../../../domain/entities/update_journal_dto.dart';
@@ -14,6 +15,7 @@ import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/ai_generation_repository.dart';
 import '../../../domain/repositories/app_state_repository.dart';
 import '../../../domain/repositories/gemini_repository.dart';
+import '../../../domain/repositories/journal_repository.dart';
 import '../../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
 import '../../../domain/use_cases/image/pick_image_usecase.dart';
 import '../../../domain/use_cases/journal/add_journal_use_case.dart';
@@ -23,8 +25,6 @@ import '../../../domain/use_cases/tag/add_tag_use_case.dart';
 import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
 import '../../../domain/use_cases/tag/update_journal_tags_use_case.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/repositories/journal_repository.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -85,7 +85,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-
   final Logger _log = Logger('WriteViewModel');
   String? _content;
   MoodType _selectedMood = MoodType.neutral;
@@ -118,7 +117,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   int? get submittedJournalId => _submittedJournalId;
 
-
   bool get canUseAiToday => _canUseAiToday;
 
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
@@ -136,6 +134,12 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   bool get isEditMode => _isEditMode;
 
   List<Tag> get selectedTags => _selectedTags;
+
+  bool get isFormValid {
+    return _content != null &&
+        _content!.trim().isNotEmpty &&
+        !_isLoadingLocation;
+  }
 
   void updateAiEnabled(bool value) {
     if (_canUseAiToday) {
@@ -175,55 +179,129 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-  bool get isFormValid {
-    return _content != null &&
-        _content!.trim().isNotEmpty &&
-        !_isLoadingLocation;
+  Future<void> pickImage() async {
+    setLoading();
+    final result = await _pickImageUseCase.pickImage();
+    switch (result) {
+      case Ok<String?>():
+        _log.fine('Image picked successfully');
+        _imageFileList.add(result.value!);
+        setSuccess();
+      case Failure<String?>():
+        _log.warning('Failed to pick image: ${result.error}');
+        setError(result.error);
+    }
   }
 
-  Future<void> _loadJournalForEdit(int journalId) async {
-    try {
-      _log.info('Loading journal for edit: $journalId');
-      final result = await _journalRepository.getJournalById(journalId);
-      switch (result) {
-        case Ok<Journal>():
-          final journal = result.value;
-          _log.info('Journal loaded successfully: ${journal.content}');
-          _content = journal.content;
-          _selectedMood = journal.moodType;
-          _imageFileList = journal.imageUri ?? [];
-          _aiEnabled = journal.aiResponseEnabled;
-          _selectedDate = journal.createdAt;
-          
-          if (journal.latitude != null && journal.longitude != null) {
-            _locationInfo = LocationInfo(
-              latitude: journal.latitude!,
-              longitude: journal.longitude!,
-              address: journal.address,
-            );
-          }
-          
-          if (journal.temperature != null) {
-            _weatherInfo = WeatherInfo(
-              temperature: journal.temperature!,
-              icon: journal.weatherIcon ?? '',
-              description: journal.weatherDescription ?? '',
-              humidity: 0.0,
-              pressure: 0.0,
-              windSpeed: 0.0,
-              location: journal.address ?? '',
-              timestamp: journal.createdAt,
-            );
-          }
-          
-          _selectedTags = journal.tags ?? [];
-          notifyListeners();
-        case Failure<Journal>():
-          _log.warning('Failed to load journal for edit: ${result.error}');
-      }
-    } catch (e) {
-      _log.warning('Error loading journal for edit: $e');
+  void clearWeather() {
+    _weatherInfo = null;
+    notifyListeners();
+    getCurrentWeather();
+  }
+
+  Future<void> getCurrentWeather() async {
+    double latitude = 37.5665; // 서울 기본 위치
+    double longitude = 126.9780;
+
+    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
+    if (_locationInfo != null) {
+      latitude = _locationInfo!.latitude;
+      longitude = _locationInfo!.longitude;
+      _log.info('Using actual location: $latitude, $longitude');
+    } else {
+      _log.info('Using default location (Seoul): $latitude, $longitude');
     }
+
+    _isLoadingWeather = true;
+    notifyListeners();
+
+    final result = await _getCurrentWeatherUseCase.execute(
+      latitude: latitude,
+      longitude: longitude,
+    );
+
+    switch (result) {
+      case Ok<WeatherInfo>():
+        _log.fine('Weather retrieved successfully');
+        _weatherInfo = result.value;
+      case Failure<WeatherInfo>():
+        _log.warning('Failed to get weather: ${result.error}');
+        setError(result.error);
+    }
+
+    _isLoadingWeather = false;
+    notifyListeners();
+  }
+
+  void removeTag(Tag tag) {
+    _selectedTags.remove(tag);
+    notifyListeners();
+  }
+
+  Future<void> addNewTag(String tagName) async {
+    final trimmedName = tagName.trim();
+    if (trimmedName.isEmpty) return;
+
+    final existingTag = _availableTags.firstWhere(
+      (tag) => tag.name.toLowerCase() == trimmedName.toLowerCase(),
+      orElse: () => Tag(id: -1, name: '', createdAt: DateTime.now()),
+    );
+
+    if (existingTag.id != -1) {
+      addExistingTag(existingTag);
+      return;
+    }
+
+    final result = await _addTagUseCase.call(trimmedName, null);
+    switch (result) {
+      case Ok<int>():
+        final newTag = Tag(
+          id: result.value,
+          name: trimmedName,
+          createdAt: DateTime.now(),
+        );
+        _availableTags.add(newTag);
+        addExistingTag(newTag);
+      case Failure<int>():
+        _log.warning('Failed to add tag: ${result.error}');
+        setError(result.error);
+    }
+  }
+
+  void addExistingTag(Tag tag) {
+    if (!_selectedTags.contains(tag)) {
+      _selectedTags.add(tag);
+      notifyListeners();
+    }
+  }
+
+  void clearLocation() {
+    _locationInfo = null;
+    notifyListeners();
+  }
+
+  void updateSelectedDate(DateTime date) {
+    _selectedDate = date;
+    notifyListeners();
+  }
+
+  Future<void> getCurrentLocation() async {
+    _isLoadingLocation = true;
+    notifyListeners();
+
+    final result = await _getCurrentLocationUseCase.execute();
+
+    switch (result) {
+      case Ok<LocationInfo>():
+        _log.fine('Location retrieved successfully');
+        _locationInfo = result.value;
+      case Failure<LocationInfo>():
+        _log.warning('Failed to get location: ${result.error}');
+        setError(result.error);
+    }
+
+    _isLoadingLocation = false;
+    notifyListeners();
   }
 
   Future<Result<void>> submitJournal() async {
@@ -301,29 +379,29 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
       longitude: _locationInfo?.longitude,
       address: _locationInfo?.address,
     );
-    
+
     final result = await _updateJournalUseCase.execute(updateJournal);
-    
+
     switch (result) {
       case Ok<int>():
         _log.fine('Journal updated successfully');
         _isSubmitted = true;
         _submittedJournalId = _editJournalId;
-        
+
         if (_selectedTags.isNotEmpty) {
           await _updateJournalTagsUseCase.call(
             _editJournalId!,
             _selectedTags.map((tag) => tag.id).toList(),
           );
         }
-        
+
         AnalyticsRepositoryImpl().logMoodEntry(
           moodType: _selectedMood.name,
           entryType: 'edit',
           hasImage: _imageFileList.isNotEmpty,
           hasTag: _selectedTags.isNotEmpty,
         );
-        
+
         setSuccess();
         return Result.ok(null);
       case Failure<int>():
@@ -331,25 +409,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         setError(result.error);
         return Result.failure(result.error);
     }
-  }
-
-  Future<void> pickImage() async {
-    setLoading();
-    final result = await _pickImageUseCase.pickImage();
-    switch (result) {
-      case Ok<String?>():
-        _log.fine('Image picked successfully');
-        _imageFileList.add(result.value!);
-        setSuccess();
-      case Failure<String?>():
-        _log.warning('Failed to pick image: ${result.error}');
-        setError(result.error);
-    }
-  }
-
-  void updateSelectedDate(DateTime date) {
-    _selectedDate = date;
-    notifyListeners();
   }
 
   Future<void> _checkAiUsageLimit() async {
@@ -403,23 +462,9 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  Future<void> getCurrentLocation() async {
-    _isLoadingLocation = true;
-    notifyListeners();
-
-    final result = await _getCurrentLocationUseCase.execute();
-
-    switch (result) {
-      case Ok<LocationInfo>():
-        _log.fine('Location retrieved successfully');
-        _locationInfo = result.value;
-      case Failure<LocationInfo>():
-        _log.warning('Failed to get location: ${result.error}');
-        setError(result.error);
-    }
-
-    _isLoadingLocation = false;
-    notifyListeners();
+  Future<void> _loadWeatherAfterLocation() async {
+    // getCurrentWeather 메서드가 기본 위치 처리를 포함하므로 직접 호출
+    await getCurrentWeather();
   }
 
   Future<void> _loadCurrentLocationOnInit() async {
@@ -442,60 +487,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-  Future<void> _loadWeatherAfterLocation() async {
-    // getCurrentWeather 메서드가 기본 위치 처리를 포함하므로 직접 호출
-    await getCurrentWeather();
-  }
-
-  void clearLocation() {
-    _locationInfo = null;
-    notifyListeners();
-  }
-
-  Future<void> getCurrentWeather() async {
-    double latitude = 37.5665; // 서울 기본 위치
-    double longitude = 126.9780;
-
-    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
-    if (_locationInfo != null) {
-      latitude = _locationInfo!.latitude;
-      longitude = _locationInfo!.longitude;
-      _log.info('Using actual location: $latitude, $longitude');
-    } else {
-      _log.info('Using default location (Seoul): $latitude, $longitude');
-    }
-
-    _isLoadingWeather = true;
-    notifyListeners();
-
-    final result = await _getCurrentWeatherUseCase.execute(
-      latitude: latitude,
-      longitude: longitude,
-    );
-
-    switch (result) {
-      case Ok<WeatherInfo>():
-        _log.fine('Weather retrieved successfully');
-        _weatherInfo = result.value;
-      case Failure<WeatherInfo>():
-        _log.warning('Failed to get weather: ${result.error}');
-        setError(result.error);
-    }
-
-    _isLoadingWeather = false;
-    notifyListeners();
-  }
-
   Future<void> _loadCurrentWeatherOnInit() async {
     // 위치 정보 로드를 잠시 기다렸다가 날씨 정보 로드 (기본 위치 사용)
     await Future.delayed(Duration(milliseconds: 500));
     await getCurrentWeather();
-  }
-
-  void clearWeather() {
-    _weatherInfo = null;
-    notifyListeners();
-    getCurrentWeather();
   }
 
   Future<void> _loadAllTags() async {
@@ -509,45 +504,48 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  void addExistingTag(Tag tag) {
-    if (!_selectedTags.contains(tag)) {
-      _selectedTags.add(tag);
-      notifyListeners();
-    }
-  }
+  Future<void> _loadJournalForEdit(int journalId) async {
+    try {
+      _log.info('Loading journal for edit: $journalId');
+      final result = await _journalRepository.getJournalById(journalId);
+      switch (result) {
+        case Ok<Journal>():
+          final journal = result.value;
+          _log.info('Journal loaded successfully: ${journal.content}');
+          _content = journal.content;
+          _selectedMood = journal.moodType;
+          _imageFileList = journal.imageUri ?? [];
+          _aiEnabled = journal.aiResponseEnabled;
+          _selectedDate = journal.createdAt;
 
-  void removeTag(Tag tag) {
-    _selectedTags.remove(tag);
-    notifyListeners();
-  }
+          if (journal.latitude != null && journal.longitude != null) {
+            _locationInfo = LocationInfo(
+              latitude: journal.latitude!,
+              longitude: journal.longitude!,
+              address: journal.address,
+            );
+          }
 
-  Future<void> addNewTag(String tagName) async {
-    final trimmedName = tagName.trim();
-    if (trimmedName.isEmpty) return;
+          if (journal.temperature != null) {
+            _weatherInfo = WeatherInfo(
+              temperature: journal.temperature!,
+              icon: journal.weatherIcon ?? '',
+              description: journal.weatherDescription ?? '',
+              humidity: 0.0,
+              pressure: 0.0,
+              windSpeed: 0.0,
+              location: journal.address ?? '',
+              timestamp: journal.createdAt,
+            );
+          }
 
-    final existingTag = _availableTags.firstWhere(
-      (tag) => tag.name.toLowerCase() == trimmedName.toLowerCase(),
-      orElse: () => Tag(id: -1, name: '', createdAt: DateTime.now()),
-    );
-
-    if (existingTag.id != -1) {
-      addExistingTag(existingTag);
-      return;
-    }
-
-    final result = await _addTagUseCase.call(trimmedName, null);
-    switch (result) {
-      case Ok<int>():
-        final newTag = Tag(
-          id: result.value,
-          name: trimmedName,
-          createdAt: DateTime.now(),
-        );
-        _availableTags.add(newTag);
-        addExistingTag(newTag);
-      case Failure<int>():
-        _log.warning('Failed to add tag: ${result.error}');
-        setError(result.error);
+          _selectedTags = journal.tags ?? [];
+          notifyListeners();
+        case Failure<Journal>():
+          _log.warning('Failed to load journal for edit: ${result.error}');
+      }
+    } catch (e) {
+      _log.warning('Error loading journal for edit: $e');
     }
   }
 }

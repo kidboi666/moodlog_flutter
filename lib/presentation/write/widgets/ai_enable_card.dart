@@ -14,16 +14,15 @@ class AiEnableCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, _) {
-        return Card(
-          elevation: 0,
-          color: colorScheme.surfaceContainer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
+    final viewModel = context.watch<WriteViewModel>();
+    return Card(
+      elevation: 0,
+      color: colorScheme.surfaceContainer,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      clipBehavior: Clip.hardEdge,
+      child: Builder(
+        builder: (context) {
+          return InkWell(
             onTap: () {
               if (viewModel.canUseAiToday) {
                 viewModel.updateAiEnabled(!viewModel.aiEnabled);
@@ -66,9 +65,9 @@ class AiEnableCard extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ).scale();
-      },
-    );
+          );
+        },
+      ),
+    ).scale();
   }
 }

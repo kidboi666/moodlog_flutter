@@ -67,12 +67,10 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final viewModel = context.read<WriteViewModel>();
-      // 수정 모드가 아닐 때만 바텀시트 표시
       if (!viewModel.isEditMode) {
-        _showMoodSelectionBottomSheet();
+        Future.delayed(DelayMs.lazy, _showMoodSelectionBottomSheet);
       }
 
-      // 수정 모드일 때는 기존 내용 로드
       if (viewModel.content != null && widget.contentController.text.isEmpty) {
         widget.contentController.text = viewModel.content!;
       }

@@ -41,11 +41,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Selector<OnboardingViewModel, PaginationDotProps>(
-          selector: (context, viewModel) =>
-              (current: viewModel.currentStep, total: viewModel.totalSteps),
-          builder: (_, props, _) {
-            return PaginationDot(current: props.current, total: props.total);
+        title: Builder(
+          builder: (context) {
+            final currentStep = context.select<OnboardingViewModel, int>(
+              (vm) => vm.currentStep,
+            );
+            final totalSteps = context.select<OnboardingViewModel, int>(
+              (vm) => vm.totalSteps,
+            );
+            return PaginationDot(current: currentStep, total: totalSteps);
           },
         ),
       ),

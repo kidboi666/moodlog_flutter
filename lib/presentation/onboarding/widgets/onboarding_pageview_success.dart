@@ -46,10 +46,16 @@ class OnboardingPageViewSuccess extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Consumer<OnboardingViewModel>(
-                    builder: (context, viewModel, _) {
+                  Builder(
+                    builder: (context) {
+                      final viewModel = context.read<OnboardingViewModel>();
+                      final isLoading = context
+                          .select<OnboardingViewModel, bool>(
+                            (vm) => vm.isLoading,
+                          );
+
                       return FilledButton(
-                        onPressed: viewModel.isLoading
+                        onPressed: isLoading
                             ? null
                             : () async {
                                 await viewModel.setOnboardingCompleted();
@@ -57,7 +63,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
                                   context.go(Routes.home);
                                 }
                               },
-                        child: viewModel.isLoading
+                        child: isLoading
                             ? const Spinner()
                             : Text(t.onboarding_success_next),
                       );
