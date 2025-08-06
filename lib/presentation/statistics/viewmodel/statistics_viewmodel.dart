@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -32,6 +34,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   List<Journal> _recentJournals = [];
   Map<DateTime, double> _moodTrendData = {};
   final Map<DateTime, List<Journal>> _yearlyJournals = {};
+  MoodType? _representativeMood;
 
   String? get profileImage => _userProvider.user?.photoURL;
 
@@ -42,6 +45,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   int get totalJournals => _totalJournals;
 
   int get currentStreak => _currentStreak;
+  MoodType? get representativeMood => _representativeMood;
 
   int get maxStreak => _maxStreak;
 
@@ -65,6 +69,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         _calculateStreak();
         _calculateMoodCalendar();
         _calculateMoodTrend();
+        _loadRecentJournalsAndRepresentativeMood();
         _loadYearlyJournals();
         _recentJournals = _allJournals
             .sorted((a, b) => b.createdAt.compareTo(a.createdAt))
@@ -179,6 +184,95 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     dailyScores.forEach((date, scores) {
       _moodTrendData[date] = scores.average;
     });
+  }
+
+  Future<void> refreshRepresentativeMood() async {
+    await _loadRecentJournalsAndRepresentativeMood();
+  }
+
+  Future<void> _loadRecentJournalsAndRepresentativeMood() async {
+    final result = await _journalRepository.getAllJournals();
+
+    switch (result) {
+      case Ok<List<Journal>>():
+        final allJournals = result.value;
+
+        // 최근 30일 일기만 가져오기
+        final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
+        _recentJournals =
+            allJournals
+                .where((journal) => journal.createdAt.isAfter(thirtyDaysAgo))
+                .toList()
+              ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+        // 대표 감정 계산
+        _calculateRepresentativeMood();
+        notifyListeners();
+
+      case Failure<List<Journal>>():
+        _log.warning(
+          'Failed to load recent journals for representative mood',
+          result.error,
+        );
+        _recentJournals = [];
+        _representativeMood = null;
+        notifyListeners();
+    }
+  }
+
+  bool isLightColor(Color color) {
+    final luminance = color.computeLuminance();
+    return luminance > 0.5;
+  }
+
+  void _calculateRepresentativeMood() {
+    if (_recentJournals.isEmpty) {
+      _representativeMood = null;
+      return;
+    }
+
+    // 최근 7일 일기에 더 높은 가중치 적용
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 7));
+    final fourteenDaysAgo = now.subtract(const Duration(days: 14));
+
+    double totalScore = 0;
+    int totalWeight = 0;
+
+    for (final journal in _recentJournals) {
+      int weight = 1;
+
+      // 가중치 적용 (최근일수록 높은 가중치)
+      if (journal.createdAt.isAfter(sevenDaysAgo)) {
+        weight = 3; // 최근 7일: 가중치 3
+      } else if (journal.createdAt.isAfter(fourteenDaysAgo)) {
+        weight = 2; // 7-14일: 가중치 2
+      }
+      // 14-30일: 가중치 1 (기본값)
+
+      totalScore += journal.moodType.score * weight;
+      totalWeight += weight;
+    }
+
+    if (totalWeight == 0) {
+      _representativeMood = null;
+      return;
+    }
+
+    final averageScore = totalScore / totalWeight;
+
+    // 평균 점수를 기반으로 대표 감정 결정
+    if (averageScore >= 4.5) {
+      _representativeMood = MoodType.veryHappy;
+    } else if (averageScore >= 3.5) {
+      _representativeMood = MoodType.happy;
+    } else if (averageScore >= 2.5) {
+      _representativeMood = MoodType.neutral;
+    } else if (averageScore >= 1.5) {
+      _representativeMood = MoodType.sad;
+    } else {
+      _representativeMood = MoodType.verySad;
+    }
   }
 
   Future<void> _loadYearlyJournals() async {

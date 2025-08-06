@@ -6,6 +6,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../../../common/routing/routes.dart';
 import '../../core/widgets/avatar.dart';
+import '../../home/widgets/representative_mood_card.dart';
 import '../../home/widgets/yearly_journal_tracker.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import '../widgets/average_mood_card.dart';
@@ -25,22 +26,30 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          Selector<StatisticsViewModel, String?>(
-            selector: (_, viewModel) => viewModel.profileImage,
-            builder: (_, profileImage, _) => SliverAppBar(
-              title: Text(t.tab_statistics),
-              actionsPadding: Spacing.containerHorizontalPadding,
-              actions: [
-                Avatar(
-                  photoUrl: profileImage,
-                  onTap: () => context.push(Routes.profile),
-                ),
-              ],
-            ),
+          Builder(
+            builder: (context) {
+              final profileImage = context.select<StatisticsViewModel, String?>(
+                (vm) => vm.profileImage,
+              );
+
+              return SliverAppBar(
+                title: Text(t.tab_statistics),
+                actionsPadding: Spacing.containerHorizontalPadding,
+                actions: [
+                  Avatar(
+                    photoUrl: profileImage,
+                    onTap: () => context.push(Routes.profile),
+                  ),
+                ],
+              );
+            },
           ),
-          Selector<StatisticsViewModel, bool>(
-            selector: (_, viewModel) => viewModel.isLoading,
-            builder: (_, isLoading, _) {
+          Builder(
+            builder: (context) {
+              final isLoading = context.select<StatisticsViewModel, bool>(
+                (vm) => vm.isLoading,
+              );
+
               if (isLoading) {
                 return SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),
@@ -51,6 +60,8 @@ class StatisticsScreen extends StatelessWidget {
                 padding: Spacing.containerHorizontalPadding,
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    const SizedBox(height: Spacing.xl),
+                    const RepresentativeMoodCard(),
                     const SizedBox(height: Spacing.xl),
                     const YearlyJournalTracker(),
                     const SizedBox(height: Spacing.xl),

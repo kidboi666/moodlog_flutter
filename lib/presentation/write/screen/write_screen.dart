@@ -33,13 +33,10 @@ class _WriteScreenState extends State<WriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<WriteViewModel>();
     final isEditMode = context.select<WriteViewModel, bool>(
       (vm) => vm.isEditMode,
     );
-    final submitJournal = context.read<WriteViewModel>().submitJournal;
-    final updateSelectedDate = context
-        .read<WriteViewModel>()
-        .updateSelectedDate;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -77,7 +74,7 @@ class _WriteScreenState extends State<WriteScreen> {
                       pickedTime.minute,
                     );
                     if (context.mounted) {
-                      updateSelectedDate(newDate);
+                      viewModel.updateSelectedDate(newDate);
                     }
                   }
                 }
@@ -105,7 +102,7 @@ class _WriteScreenState extends State<WriteScreen> {
               );
 
               return IconButton(
-                onPressed: isFormValid ? submitJournal : null,
+                onPressed: isFormValid ? viewModel.submitJournal : null,
                 icon: Icon(isEditMode ? Icons.check : Icons.send),
               );
             },

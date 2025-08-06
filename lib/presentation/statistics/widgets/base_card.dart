@@ -11,6 +11,7 @@ class BaseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(padding: EdgeInsets.all(Spacing.lg), child: child),
     );
   }

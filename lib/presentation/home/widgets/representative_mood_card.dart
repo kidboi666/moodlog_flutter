@@ -1,32 +1,31 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/core/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/extensions/enum.dart';
 import '../../../common/l10n/app_localizations.dart';
-import '../viewmodel/home_viewmodel.dart';
+import '../../core/widgets/fade_in.dart';
+import '../../statistics/viewmodel/statistics_viewmodel.dart';
 
 class RepresentativeMoodCard extends StatelessWidget {
   const RepresentativeMoodCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<HomeViewModel>();
+    final viewModel = context.read<StatisticsViewModel>();
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-    final representativeMood = context.select<HomeViewModel, MoodType?>(
+    final representativeMood = context.select<StatisticsViewModel, MoodType?>(
       (vm) => vm.representativeMood,
     );
     if (representativeMood == null) {
       return FadeIn(
         delay: DelayMs.medium * 4,
         child: Container(
-          height: 140,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
@@ -46,20 +45,15 @@ class RepresentativeMoodCard extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            colorScheme.surfaceContainer.withValues(alpha: 0.2),
-                            colorScheme.surfaceContainer.withValues(
-                              alpha: 0.05,
-                            ),
-                          ],
-                        ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          colorScheme.surfaceContainer.withValues(alpha: 0.2),
+                          colorScheme.surfaceContainer.withValues(alpha: 0.05),
+                        ],
                       ),
                     ),
                   ),
@@ -214,7 +208,6 @@ class RepresentativeMoodCard extends StatelessWidget {
     return FadeIn(
       delay: DelayMs.medium * 4,
       child: Container(
-        height: 140,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: BoxBorder.all(color: moodColor),
@@ -337,10 +330,7 @@ class RepresentativeMoodCard extends StatelessWidget {
                                 color: moodColor.withValues(alpha: 0.3),
                               ),
                             ),
-                            child: Icon(
-                              Icons.refresh,
-                              size: 20,
-                            ),
+                            child: Icon(Icons.refresh, size: 20),
                           ),
                         ),
                       ],

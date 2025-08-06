@@ -121,11 +121,6 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     setSuccess();
   }
 
-  bool isLightColor(Color color) {
-    final luminance = color.computeLuminance();
-    return luminance > 0.5;
-  }
-
   void _calculateDateItems() {
     final currentDate = DateTime.now();
     final lastDateOfMonth = currentDate.lastDateOfMonth;
