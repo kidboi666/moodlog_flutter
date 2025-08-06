@@ -121,6 +121,11 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     setSuccess();
   }
 
+  bool isLightColor(Color color) {
+    final luminance = color.computeLuminance();
+    return luminance > 0.5;
+  }
+
   void _calculateDateItems() {
     final currentDate = DateTime.now();
     final lastDateOfMonth = currentDate.lastDateOfMonth;
@@ -251,6 +256,10 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     getCurrentWeather();
   }
 
+  Future<void> refreshRepresentativeMood() async {
+    await _loadRecentJournalsAndRepresentativeMood();
+  }
+
   Future<void> _loadMonthlyJournals() async {
     final now = DateTime.now();
 
@@ -323,24 +332,28 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> _loadRecentJournalsAndRepresentativeMood() async {
     final result = await _journalRepository.getAllJournals();
-    
+
     switch (result) {
       case Ok<List<Journal>>():
         final allJournals = result.value;
-        
+
         // 최근 30일 일기만 가져오기
         final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
-        _recentJournals = allJournals
-            .where((journal) => journal.createdAt.isAfter(thirtyDaysAgo))
-            .toList()
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        
+        _recentJournals =
+            allJournals
+                .where((journal) => journal.createdAt.isAfter(thirtyDaysAgo))
+                .toList()
+              ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
         // 대표 감정 계산
         _calculateRepresentativeMood();
         notifyListeners();
-        
+
       case Failure<List<Journal>>():
-        _log.warning('Failed to load recent journals for representative mood', result.error);
+        _log.warning(
+          'Failed to load recent journals for representative mood',
+          result.error,
+        );
         _recentJournals = [];
         _representativeMood = null;
         notifyListeners();
@@ -362,14 +375,13 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     int totalWeight = 0;
 
     for (final journal in _recentJournals) {
-      final daysDiff = now.difference(journal.createdAt).inDays;
       int weight = 1;
-      
+
       // 가중치 적용 (최근일수록 높은 가중치)
       if (journal.createdAt.isAfter(sevenDaysAgo)) {
         weight = 3; // 최근 7일: 가중치 3
       } else if (journal.createdAt.isAfter(fourteenDaysAgo)) {
-        weight = 2; // 7-14일: 가중치 2  
+        weight = 2; // 7-14일: 가중치 2
       }
       // 14-30일: 가중치 1 (기본값)
 
@@ -383,7 +395,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     }
 
     final averageScore = totalScore / totalWeight;
-    
+
     // 평균 점수를 기반으로 대표 감정 결정
     if (averageScore >= 4.5) {
       _representativeMood = MoodType.veryHappy;

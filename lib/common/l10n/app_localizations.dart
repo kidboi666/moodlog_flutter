@@ -1761,6 +1761,132 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'최근 30일 감정 분석 결과'**
   String get home_representative_mood_description;
+
+  /// No description provided for @home_representative_mood_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'감정 기록 없음'**
+  String get home_representative_mood_empty;
+
+  /// No description provided for @home_representative_mood_empty_description.
+  ///
+  /// In ko, this message translates to:
+  /// **'일기를 작성하여 감정을 기록해보세요'**
+  String get home_representative_mood_empty_description;
+
+  /// No description provided for @calendar_month_jan.
+  ///
+  /// In ko, this message translates to:
+  /// **'1월'**
+  String get calendar_month_jan;
+
+  /// No description provided for @calendar_month_feb.
+  ///
+  /// In ko, this message translates to:
+  /// **'2월'**
+  String get calendar_month_feb;
+
+  /// No description provided for @calendar_month_mar.
+  ///
+  /// In ko, this message translates to:
+  /// **'3월'**
+  String get calendar_month_mar;
+
+  /// No description provided for @calendar_month_apr.
+  ///
+  /// In ko, this message translates to:
+  /// **'4월'**
+  String get calendar_month_apr;
+
+  /// No description provided for @calendar_month_may.
+  ///
+  /// In ko, this message translates to:
+  /// **'5월'**
+  String get calendar_month_may;
+
+  /// No description provided for @calendar_month_jun.
+  ///
+  /// In ko, this message translates to:
+  /// **'6월'**
+  String get calendar_month_jun;
+
+  /// No description provided for @calendar_month_jul.
+  ///
+  /// In ko, this message translates to:
+  /// **'7월'**
+  String get calendar_month_jul;
+
+  /// No description provided for @calendar_month_aug.
+  ///
+  /// In ko, this message translates to:
+  /// **'8월'**
+  String get calendar_month_aug;
+
+  /// No description provided for @calendar_month_sep.
+  ///
+  /// In ko, this message translates to:
+  /// **'9월'**
+  String get calendar_month_sep;
+
+  /// No description provided for @calendar_month_oct.
+  ///
+  /// In ko, this message translates to:
+  /// **'10월'**
+  String get calendar_month_oct;
+
+  /// No description provided for @calendar_month_nov.
+  ///
+  /// In ko, this message translates to:
+  /// **'11월'**
+  String get calendar_month_nov;
+
+  /// No description provided for @calendar_month_dec.
+  ///
+  /// In ko, this message translates to:
+  /// **'12월'**
+  String get calendar_month_dec;
+
+  /// No description provided for @calendar_weekday_sun.
+  ///
+  /// In ko, this message translates to:
+  /// **'일'**
+  String get calendar_weekday_sun;
+
+  /// No description provided for @calendar_weekday_mon.
+  ///
+  /// In ko, this message translates to:
+  /// **'월'**
+  String get calendar_weekday_mon;
+
+  /// No description provided for @calendar_weekday_tue.
+  ///
+  /// In ko, this message translates to:
+  /// **'화'**
+  String get calendar_weekday_tue;
+
+  /// No description provided for @calendar_weekday_wed.
+  ///
+  /// In ko, this message translates to:
+  /// **'수'**
+  String get calendar_weekday_wed;
+
+  /// No description provided for @calendar_weekday_thu.
+  ///
+  /// In ko, this message translates to:
+  /// **'목'**
+  String get calendar_weekday_thu;
+
+  /// No description provided for @calendar_weekday_fri.
+  ///
+  /// In ko, this message translates to:
+  /// **'금'**
+  String get calendar_weekday_fri;
+
+  /// No description provided for @calendar_weekday_sat.
+  ///
+  /// In ko, this message translates to:
+  /// **'토'**
+  String get calendar_weekday_sat;
 }
 
 class _AppLocalizationsDelegate

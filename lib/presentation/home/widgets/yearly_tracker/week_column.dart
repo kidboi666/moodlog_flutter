@@ -18,7 +18,7 @@ class WeekColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 14,
+      width: 16.8, // 14 * 1.2
       margin: const EdgeInsets.only(right: 2),
       child: Column(
         children: week.map((date) {

@@ -895,4 +895,68 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get home_representative_mood_description => 'จากการวิเคราะห์ 30 วัน';
+
+  @override
+  String get home_representative_mood_empty => 'ไม่มีบันทึกอารมณ์';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      'เขียนไดอารี่เพื่อบันทึกอารมณ์ของคุณ';
+
+  @override
+  String get calendar_month_jan => 'ม.ค.';
+
+  @override
+  String get calendar_month_feb => 'ก.พ.';
+
+  @override
+  String get calendar_month_mar => 'มี.ค.';
+
+  @override
+  String get calendar_month_apr => 'เม.ย.';
+
+  @override
+  String get calendar_month_may => 'พ.ค.';
+
+  @override
+  String get calendar_month_jun => 'มิ.ย.';
+
+  @override
+  String get calendar_month_jul => 'ก.ค.';
+
+  @override
+  String get calendar_month_aug => 'ส.ค.';
+
+  @override
+  String get calendar_month_sep => 'ก.ย.';
+
+  @override
+  String get calendar_month_oct => 'ต.ค.';
+
+  @override
+  String get calendar_month_nov => 'พ.ย.';
+
+  @override
+  String get calendar_month_dec => 'ธ.ค.';
+
+  @override
+  String get calendar_weekday_sun => 'อา';
+
+  @override
+  String get calendar_weekday_mon => 'จ';
+
+  @override
+  String get calendar_weekday_tue => 'อ';
+
+  @override
+  String get calendar_weekday_wed => 'พ';
+
+  @override
+  String get calendar_weekday_thu => 'พฤ';
+
+  @override
+  String get calendar_weekday_fri => 'ศ';
+
+  @override
+  String get calendar_weekday_sat => 'ส';
 }

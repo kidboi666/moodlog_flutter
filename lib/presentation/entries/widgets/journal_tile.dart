@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/common/extensions/enum.dart';
 
 import '../../../common/constants/common.dart';
 import '../../../common/extensions/routing.dart';
@@ -44,7 +45,7 @@ class JournalTile extends StatelessWidget {
                   ),
                   const SizedBox(width: Spacing.sm),
                   Text(
-                    journal.moodType.displayName,
+                    journal.moodType.getDisplayName(context),
                     style: textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),

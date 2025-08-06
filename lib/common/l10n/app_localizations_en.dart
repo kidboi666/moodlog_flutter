@@ -900,4 +900,68 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get home_representative_mood_description =>
       'Based on 30-day mood analysis';
+
+  @override
+  String get home_representative_mood_empty => 'No mood records';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      'Write a journal to record your mood';
+
+  @override
+  String get calendar_month_jan => 'Jan';
+
+  @override
+  String get calendar_month_feb => 'Feb';
+
+  @override
+  String get calendar_month_mar => 'Mar';
+
+  @override
+  String get calendar_month_apr => 'Apr';
+
+  @override
+  String get calendar_month_may => 'May';
+
+  @override
+  String get calendar_month_jun => 'Jun';
+
+  @override
+  String get calendar_month_jul => 'Jul';
+
+  @override
+  String get calendar_month_aug => 'Aug';
+
+  @override
+  String get calendar_month_sep => 'Sep';
+
+  @override
+  String get calendar_month_oct => 'Oct';
+
+  @override
+  String get calendar_month_nov => 'Nov';
+
+  @override
+  String get calendar_month_dec => 'Dec';
+
+  @override
+  String get calendar_weekday_sun => 'Sun';
+
+  @override
+  String get calendar_weekday_mon => 'Mon';
+
+  @override
+  String get calendar_weekday_tue => 'Tue';
+
+  @override
+  String get calendar_weekday_wed => 'Wed';
+
+  @override
+  String get calendar_weekday_thu => 'Thu';
+
+  @override
+  String get calendar_weekday_fri => 'Fri';
+
+  @override
+  String get calendar_weekday_sat => 'Sat';
 }

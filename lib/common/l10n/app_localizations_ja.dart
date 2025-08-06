@@ -876,4 +876,68 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get home_representative_mood_description => '최근 30일 감정 분석 결과';
+
+  @override
+  String get home_representative_mood_empty => '감정 기록 없음';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      '일기를 작성하여 감정을 기록해보세요';
+
+  @override
+  String get calendar_month_jan => '1月';
+
+  @override
+  String get calendar_month_feb => '2月';
+
+  @override
+  String get calendar_month_mar => '3月';
+
+  @override
+  String get calendar_month_apr => '4月';
+
+  @override
+  String get calendar_month_may => '5月';
+
+  @override
+  String get calendar_month_jun => '6月';
+
+  @override
+  String get calendar_month_jul => '7月';
+
+  @override
+  String get calendar_month_aug => '8月';
+
+  @override
+  String get calendar_month_sep => '9月';
+
+  @override
+  String get calendar_month_oct => '10月';
+
+  @override
+  String get calendar_month_nov => '11月';
+
+  @override
+  String get calendar_month_dec => '12月';
+
+  @override
+  String get calendar_weekday_sun => '日';
+
+  @override
+  String get calendar_weekday_mon => '月';
+
+  @override
+  String get calendar_weekday_tue => '火';
+
+  @override
+  String get calendar_weekday_wed => '水';
+
+  @override
+  String get calendar_weekday_thu => '木';
+
+  @override
+  String get calendar_weekday_fri => '金';
+
+  @override
+  String get calendar_weekday_sat => '土';
 }

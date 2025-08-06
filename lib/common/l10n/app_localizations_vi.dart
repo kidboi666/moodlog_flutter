@@ -907,4 +907,68 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get home_representative_mood_description =>
       'Dựa trên phân tích 30 ngày';
+
+  @override
+  String get home_representative_mood_empty => 'Không có bản ghi tâm trạng';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      'Viết nhật ký để ghi lại tâm trạng của bạn';
+
+  @override
+  String get calendar_month_jan => 'Th1';
+
+  @override
+  String get calendar_month_feb => 'Th2';
+
+  @override
+  String get calendar_month_mar => 'Th3';
+
+  @override
+  String get calendar_month_apr => 'Th4';
+
+  @override
+  String get calendar_month_may => 'Th5';
+
+  @override
+  String get calendar_month_jun => 'Th6';
+
+  @override
+  String get calendar_month_jul => 'Th7';
+
+  @override
+  String get calendar_month_aug => 'Th8';
+
+  @override
+  String get calendar_month_sep => 'Th9';
+
+  @override
+  String get calendar_month_oct => 'Th10';
+
+  @override
+  String get calendar_month_nov => 'Th11';
+
+  @override
+  String get calendar_month_dec => 'Th12';
+
+  @override
+  String get calendar_weekday_sun => 'CN';
+
+  @override
+  String get calendar_weekday_mon => 'T2';
+
+  @override
+  String get calendar_weekday_tue => 'T3';
+
+  @override
+  String get calendar_weekday_wed => 'T4';
+
+  @override
+  String get calendar_weekday_thu => 'T5';
+
+  @override
+  String get calendar_weekday_fri => 'T6';
+
+  @override
+  String get calendar_weekday_sat => 'T7';
 }

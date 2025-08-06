@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../../statistics/viewmodel/statistics_viewmodel.dart';
+import '../../statistics/widgets/base_card.dart';
 import 'yearly_tracker/yearly_grid.dart';
-import 'yearly_tracker/yearly_tracker_legend.dart';
 
 class YearlyJournalTracker extends StatelessWidget {
   const YearlyJournalTracker({super.key});
@@ -21,41 +21,34 @@ class YearlyJournalTracker extends StatelessWidget {
         final now = DateTime.now();
         final yearlyJournals = viewModel.yearlyJournals;
 
-        return Container(
-          padding: const EdgeInsets.all(Spacing.md),
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            borderRadius: BorderRadius.circular(12),
-          ),
+        return BaseCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 제목과 년도 표시
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Icon(Icons.grid_on, color: colorScheme.primary, size: 24),
+                  const SizedBox(width: Spacing.sm),
                   Text(
                     t.home_yearly_tracker_title,
                     style: textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const Spacer(),
                   Text(
                     '${now.year}',
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: Spacing.md),
+              const SizedBox(height: Spacing.lg),
 
               YearlyGrid(now: now, yearlyJournals: yearlyJournals),
-
-              const SizedBox(height: Spacing.sm),
-
-              // 범례
-              const YearlyTrackerLegend(),
             ],
           ),
         );

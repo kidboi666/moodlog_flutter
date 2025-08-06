@@ -44,53 +44,57 @@ class ScaffoldWithNavbar extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      extendBody: true,
-      body: AnimatedNavigatorContainer(
-        currentIndex: navigationShell.currentIndex,
-        children: children,
-      ),
-      persistentFooterButtons: [
-        Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
-      ],
-      bottomNavigationBar: NavigationBar(
-        animationDuration: DurationMs.lazy,
-        selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
-        onDestinationSelected: (index) => _onTap(context, index),
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home_filled),
-            label: t.tab_home,
-          ).scale(),
-          NavigationDestination(
-            icon: const Icon(Icons.book_outlined),
-            selectedIcon: const Icon(Icons.book),
-            label: t.tab_entries,
-          ).scale(),
-          NavigationDestination(
-            icon: SizedBox(
-              width: 56,
-              height: 56,
-              child: GradientBox(
-                child: Icon(Icons.add, color: colorScheme.surface, size: 28),
-              ),
-            ),
-
-            label: t.tab_write,
-          ).scale(),
-          NavigationDestination(
-            icon: const Icon(Icons.query_stats_sharp),
-            selectedIcon: const Icon(Icons.query_stats),
-            label: t.tab_statistics,
-          ).scale(),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings),
-            label: t.tab_settings,
-          ).scale(),
+    return GlowingOverscrollIndicator(
+      axisDirection: AxisDirection.down,
+      color: colorScheme.secondary,
+      child: Scaffold(
+        extendBody: true,
+        body: AnimatedNavigatorContainer(
+          currentIndex: navigationShell.currentIndex,
+          children: children,
+        ),
+        persistentFooterButtons: [
+          Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
         ],
+        bottomNavigationBar: NavigationBar(
+          animationDuration: DurationMs.lazy,
+          selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
+          onDestinationSelected: (index) => _onTap(context, index),
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home_filled),
+              label: t.tab_home,
+            ).scale(),
+            NavigationDestination(
+              icon: const Icon(Icons.book_outlined),
+              selectedIcon: const Icon(Icons.book),
+              label: t.tab_entries,
+            ).scale(),
+            NavigationDestination(
+              icon: SizedBox(
+                width: 56,
+                height: 56,
+                child: GradientBox(
+                  child: Icon(Icons.add, color: colorScheme.surface, size: 28),
+                ),
+              ),
+
+              label: t.tab_write,
+            ).scale(),
+            NavigationDestination(
+              icon: const Icon(Icons.query_stats_sharp),
+              selectedIcon: const Icon(Icons.query_stats),
+              label: t.tab_statistics,
+            ).scale(),
+            NavigationDestination(
+              icon: const Icon(Icons.settings_outlined),
+              selectedIcon: const Icon(Icons.settings),
+              label: t.tab_settings,
+            ).scale(),
+          ],
+        ),
       ),
     );
   }

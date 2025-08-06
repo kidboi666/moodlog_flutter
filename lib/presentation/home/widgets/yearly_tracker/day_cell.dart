@@ -46,14 +46,14 @@ class DayCell extends StatelessWidget {
     }
 
     return Container(
-      width: 12,
-      height: 12,
-      margin: const EdgeInsets.only(bottom: 2),
+      width: 14.4, // 12 * 1.2
+      height: 14.4, // 12 * 1.2
+      margin: const EdgeInsets.only(bottom: 2.4), // 2 * 1.2
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(2.4), // 2 * 1.2
         border: isToday
-            ? Border.all(color: colorScheme.primary, width: 1)
+            ? Border.all(color: colorScheme.primary, width: 1.2) // 1 * 1.2
             : null,
       ),
     );

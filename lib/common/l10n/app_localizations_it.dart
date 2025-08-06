@@ -907,4 +907,68 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get home_representative_mood_description =>
       'Basato su analisi di 30 giorni';
+
+  @override
+  String get home_representative_mood_empty => 'Nessun record dell\'umore';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      'Scrivi un diario per registrare il tuo umore';
+
+  @override
+  String get calendar_month_jan => 'Gen';
+
+  @override
+  String get calendar_month_feb => 'Feb';
+
+  @override
+  String get calendar_month_mar => 'Mar';
+
+  @override
+  String get calendar_month_apr => 'Apr';
+
+  @override
+  String get calendar_month_may => 'Mag';
+
+  @override
+  String get calendar_month_jun => 'Giu';
+
+  @override
+  String get calendar_month_jul => 'Lug';
+
+  @override
+  String get calendar_month_aug => 'Ago';
+
+  @override
+  String get calendar_month_sep => 'Set';
+
+  @override
+  String get calendar_month_oct => 'Ott';
+
+  @override
+  String get calendar_month_nov => 'Nov';
+
+  @override
+  String get calendar_month_dec => 'Dic';
+
+  @override
+  String get calendar_weekday_sun => 'Dom';
+
+  @override
+  String get calendar_weekday_mon => 'Lun';
+
+  @override
+  String get calendar_weekday_tue => 'Mar';
+
+  @override
+  String get calendar_weekday_wed => 'Mer';
+
+  @override
+  String get calendar_weekday_thu => 'Gio';
+
+  @override
+  String get calendar_weekday_fri => 'Ven';
+
+  @override
+  String get calendar_weekday_sat => 'Sab';
 }

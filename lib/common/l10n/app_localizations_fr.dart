@@ -916,4 +916,68 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get home_representative_mood_description =>
       'Basé sur analyse de 30 jours';
+
+  @override
+  String get home_representative_mood_empty => 'Aucun enregistrement d\'humeur';
+
+  @override
+  String get home_representative_mood_empty_description =>
+      'Écrivez un journal pour enregistrer votre humeur';
+
+  @override
+  String get calendar_month_jan => 'Jan';
+
+  @override
+  String get calendar_month_feb => 'Fév';
+
+  @override
+  String get calendar_month_mar => 'Mar';
+
+  @override
+  String get calendar_month_apr => 'Avr';
+
+  @override
+  String get calendar_month_may => 'Mai';
+
+  @override
+  String get calendar_month_jun => 'Jun';
+
+  @override
+  String get calendar_month_jul => 'Jui';
+
+  @override
+  String get calendar_month_aug => 'Aoû';
+
+  @override
+  String get calendar_month_sep => 'Sep';
+
+  @override
+  String get calendar_month_oct => 'Oct';
+
+  @override
+  String get calendar_month_nov => 'Nov';
+
+  @override
+  String get calendar_month_dec => 'Déc';
+
+  @override
+  String get calendar_weekday_sun => 'Dim';
+
+  @override
+  String get calendar_weekday_mon => 'Lun';
+
+  @override
+  String get calendar_weekday_tue => 'Mar';
+
+  @override
+  String get calendar_weekday_wed => 'Mer';
+
+  @override
+  String get calendar_weekday_thu => 'Jeu';
+
+  @override
+  String get calendar_weekday_fri => 'Ven';
+
+  @override
+  String get calendar_weekday_sat => 'Sam';
 }
