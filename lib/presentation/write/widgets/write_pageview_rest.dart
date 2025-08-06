@@ -10,10 +10,6 @@ import 'ai_enable_card.dart';
 import 'bottom_sheet/mood_selection_bottom_sheet.dart';
 import 'content_input.dart';
 import 'image_preview_section.dart';
-import 'location_button.dart';
-import 'location_card.dart';
-import 'mood_card.dart';
-import 'weather_card.dart';
 
 class WritePageViewRest extends StatefulWidget {
   final TextEditingController contentController;
@@ -111,17 +107,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             FadeIn(delay: DelayMs.quick, child: const ImagePreviewSection()),
             Column(
               children: [
-                FadeIn(
-                  delay: DelayMs.quick * 1.5,
-                  child: Row(
-                    children: [
-                      const WeatherCard(),
-                      const LocationButton(),
-                      const LocationCard(),
-                      MoodCard(onTap: _showMoodSelectionBottomSheet),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: Spacing.md),
                 FadeIn(
                   delay: DelayMs.quick * 2,
                   child: ContentInput(

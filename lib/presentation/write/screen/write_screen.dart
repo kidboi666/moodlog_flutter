@@ -127,11 +127,17 @@ class _WriteScreenState extends State<WriteScreen> {
             });
           }
 
-          return Column(
+          return Stack(
             children: [
-              WritePageViewRest(contentController: _contentController),
-              const Spacer(),
-              EditorBottomPanel(contentController: _contentController),
+              Positioned.fill(
+                child: WritePageViewRest(contentController: _contentController),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: EditorBottomPanel(contentController: _contentController),
+              ),
             ],
           );
         },
