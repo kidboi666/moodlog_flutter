@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/extensions/date_time.dart';
 import '../../../common/extensions/routing.dart';
+import '../../../common/l10n/app_localizations.dart';
 import '../../../domain/entities/journal.dart';
 import '../../core/widgets/empty_entries_box.dart';
 import '../../core/widgets/fade_in.dart';
@@ -20,6 +21,41 @@ typedef EntriesSelectorType = ({
 
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({super.key});
+
+  // 날짜별로 저널 그룹화
+  Map<DateTime, List<Journal>> _groupJournalsByDate(List<Journal> journals) {
+    final Map<DateTime, List<Journal>> groupedJournals = {};
+
+    for (final journal in journals) {
+      final date = DateTime(
+        journal.createdAt.year,
+        journal.createdAt.month,
+        journal.createdAt.day,
+      );
+
+      if (groupedJournals[date] == null) {
+        groupedJournals[date] = [];
+      }
+      groupedJournals[date]!.add(journal);
+    }
+
+    return groupedJournals;
+  }
+
+  // 요일과 날짜 포맷팅
+  String _formatDateWithWeekday(DateTime date, AppLocalizations t) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly = DateTime(date.year, date.month, date.day);
+    
+    if (dateOnly == today) {
+      return '${t.common_date_today} (${date.getLocalizedWeekdayShortName(t)})';
+    } else if (dateOnly == today.subtract(const Duration(days: 1))) {
+      return '${t.common_date_yesterday} (${date.getLocalizedWeekdayShortName(t)})';
+    } else {
+      return '${date.day}${t.common_unit_day} (${date.getLocalizedWeekdayShortName(t)})';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,30 +142,112 @@ class EntriesScreen extends StatelessWidget {
                 );
               }
 
+              // 날짜별 그룹화된 저널 표시
+              final groupedJournals = _groupJournalsByDate(entries);
+              final sortedDates = groupedJournals.keys.toList()
+                ..sort((a, b) => b.compareTo(a)); // 최신 날짜부터
+
               return SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final e = entries[index];
+                  final date = sortedDates[index];
+                  final journalsForDate = groupedJournals[date]!;
+                  final t = AppLocalizations.of(context)!;
+                  final colorScheme = Theme.of(context).colorScheme;
+                  final textTheme = Theme.of(context).textTheme;
+
                   return Padding(
                     padding: Spacing.containerHorizontalPadding,
                     child: FadeIn(
-                      delay: DelayMs.medium,
+                      delay: DelayMs.medium + Duration(milliseconds: index * 50),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          JournalCard(
-                            id: e.id,
-                            content: e.content ?? '',
-                            moodType: e.moodType,
-                            coverImg: e.imageUri?.isNotEmpty == true ? e.imageUri!.first : null,
-                            createdAt: e.createdAt,
-                            onTap: () => context.pushToJournalFromEntries(e.id),
-                            onDismissed: () => viewModel.deleteJournal(e.id),
+                          // 날짜 헤더
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: Spacing.lg,
+                              vertical: Spacing.md,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colorScheme.surfaceContainerHighest
+                                  .withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(
+                                Roundness.card,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 4,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: colorScheme.primary,
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                                const SizedBox(width: Spacing.md),
+                                Text(
+                                  _formatDateWithWeekday(date, t),
+                                  style: textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: colorScheme.onSurface,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: Spacing.sm,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: colorScheme.primary.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    '${journalsForDate.length}',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: colorScheme.primary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: Spacing.xl),
+                          const SizedBox(height: Spacing.lg),
+
+                          // 해당 날짜의 저널들
+                          ...journalsForDate.asMap().entries.map((entry) {
+                            final journalIndex = entry.key;
+                            final journal = entry.value;
+
+                            return Column(
+                              children: [
+                                JournalCard(
+                                  id: journal.id,
+                                  content: journal.content ?? '',
+                                  moodType: journal.moodType,
+                                  coverImg: journal.imageUri?.isNotEmpty == true
+                                      ? journal.imageUri!.first
+                                      : null,
+                                  createdAt: journal.createdAt,
+                                  onTap: () => context.pushToJournalFromEntries(
+                                    journal.id,
+                                  ),
+                                  onDismissed: () =>
+                                      viewModel.deleteJournal(journal.id),
+                                ),
+                                if (journalIndex < journalsForDate.length - 1)
+                                  const SizedBox(height: Spacing.lg),
+                              ],
+                            );
+                          }).toList(),
+                          const SizedBox(height: Spacing.xxl),
                         ],
                       ),
                     ),
                   );
-                }, childCount: entries.length),
+                }, childCount: sortedDates.length),
               );
             },
           ),

@@ -47,83 +47,84 @@ class JournalCard extends StatelessWidget {
             horizontal: Spacing.xxl,
             vertical: Spacing.md,
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Mood color indicator
-              Container(
-                width: Spacing.sm,
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Roundness.card),
-                  color: Color(moodType.colorValue),
-                ),
-              ),
-              const SizedBox(width: Spacing.lg),
-              
-              // Content section
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      createdAt.formatted(t),
-                      style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
-                    ),
-                    const SizedBox(height: Spacing.xs),
-                    Text(
-                      content.trim(),
-                      style: textTheme.bodyLarge,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (coverImg != null && coverImg!.isNotEmpty) ...[
-                      const SizedBox(height: Spacing.md),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(Roundness.xs),
-                        child: Image.file(
-                          File(coverImg!),
-                          height: 120,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              height: 120,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: colorScheme.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(Roundness.xs),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_not_supported_outlined,
-                                    color: colorScheme.outline,
-                                    size: 32,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Image not found',
-                                    style: TextStyle(
-                                      color: colorScheme.outline,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Mood color indicator
+                Container(
+                  width: Spacing.sm,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Roundness.card),
+                    color: Color(moodType.colorValue),
+                  ),
+                  ),
+                const SizedBox(width: Spacing.lg),
+                
+                // Content section
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        createdAt.formatted(t),
+                        style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
                       ),
+                      const SizedBox(height: Spacing.xs),
+                      Text(
+                        content.trim(),
+                        style: textTheme.bodyLarge,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (coverImg != null && coverImg!.isNotEmpty) ...[
+                        const SizedBox(height: Spacing.md),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(Roundness.xs),
+                          child: Image.file(
+                            File(coverImg!),
+                            height: 120,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 120,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: colorScheme.surfaceContainerHighest,
+                                  borderRadius: BorderRadius.circular(Roundness.xs),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.image_not_supported_outlined,
+                                      color: colorScheme.outline,
+                                      size: 32,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Image not found',
+                                      style: TextStyle(
+                                        color: colorScheme.outline,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              
-              // Arrow icon
-              const Icon(Icons.keyboard_arrow_left),
-            ],
+                
+                // Arrow icon
+                const Icon(Icons.keyboard_arrow_left),
+              ],
+            ),
           ),
         ),
       ),
