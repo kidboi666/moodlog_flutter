@@ -118,6 +118,7 @@ class HomeScreen extends StatelessWidget {
                           id: e.id,
                           content: e.content ?? '',
                           moodType: e.moodType,
+                          coverImg: e.imageUri?.isNotEmpty == true ? e.imageUri!.first : null,
                           createdAt: e.createdAt,
                           onTap: () => context.pushToJournalFromHome(e.id),
                           onDismissed: () =>

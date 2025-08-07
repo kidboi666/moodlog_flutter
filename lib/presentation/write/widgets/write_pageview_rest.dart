@@ -7,7 +7,7 @@ import '../../../common/extensions/routing.dart';
 import '../../core/widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
-import 'bottom_sheet/mood_selection_bottom_sheet.dart';
+import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'content_input.dart';
 import 'image_preview_section.dart';
 
@@ -45,7 +45,7 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             color: Theme.of(bottomSheetContext).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
-          child: const MoodSelectionBottomSheet(),
+          child: const MoodSliderSelectionBottomSheet(),
         ),
       ),
     );

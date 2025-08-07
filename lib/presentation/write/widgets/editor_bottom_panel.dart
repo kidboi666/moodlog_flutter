@@ -5,7 +5,7 @@ import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../journal/widgets/location_simple_bottom_sheet.dart';
 import '../viewmodel/write_viewmodel.dart';
-import 'bottom_sheet/mood_selection_bottom_sheet.dart';
+import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'bottom_sheet/weather_info_bottom_sheet.dart';
 import 'image_picker_button.dart';
 import 'tag_input_button.dart';
@@ -99,7 +99,7 @@ class EditorBottomPanel extends StatelessWidget {
             color: Theme.of(bottomSheetContext).colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
-          child: const MoodSelectionBottomSheet(),
+          child: const MoodSliderSelectionBottomSheet(),
         ),
       ),
     );
