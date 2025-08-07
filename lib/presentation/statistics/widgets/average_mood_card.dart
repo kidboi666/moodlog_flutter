@@ -90,22 +90,11 @@ class AverageMoodCard extends StatelessWidget {
         : colorScheme.onSurfaceVariant;
 
     return BaseCard(
+      title: t.statistics_average_mood_title,
+      icon: Icons.mood,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.mood, color: averageMoodColor, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_average_mood_title,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Center(
             child: Column(
               children: [

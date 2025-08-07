@@ -114,22 +114,11 @@ class WritingFrequencyCard extends StatelessWidget {
     ];
 
     return BaseCard(
+      title: t.statistics_writing_frequency_title,
+      icon: Icons.schedule,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.schedule, color: colorScheme.secondary, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_writing_frequency_title,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Container(
             padding: const EdgeInsets.all(Spacing.lg),
             decoration: BoxDecoration(
@@ -333,10 +322,10 @@ class WritingFrequencyCard extends StatelessWidget {
             const SizedBox(height: Spacing.md),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.md),
+              padding: const EdgeInsets.all(Spacing.lg),
               decoration: BoxDecoration(
                 color: Colors.blue.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Roundness.cardInner),
                 border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
               ),
               child: Row(

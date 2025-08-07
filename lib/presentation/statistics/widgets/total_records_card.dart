@@ -31,22 +31,11 @@ class TotalRecordsCard extends StatelessWidget {
         : 0;
 
     return BaseCard(
+      title: t.statistics_total_record_description,
+      icon: Icons.edit_note,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.edit_note, color: colorScheme.primary, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_total_record_description,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Center(
             child: Column(
               children: [

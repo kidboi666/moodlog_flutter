@@ -26,19 +26,15 @@ class YearlyGrid extends StatelessWidget {
     final firstDayOfYear = DateTime(now.year, 1, 1);
     final lastDayOfYear = DateTime(now.year, 12, 31);
 
-    // 첫 날이 속한 주의 일요일부터 시작
-    final startDate = firstDayOfYear.subtract(
-      Duration(days: firstDayOfYear.weekday % 7),
-    );
+    // 1월 1일부터 시작 (이전 년도 날짜 포함하지 않음)
+    final startDate = firstDayOfYear;
 
-    // 마지막 날까지의 모든 날짜 생성
+    // 올해 날짜만 생성 (12월 31일까지만)
     final allDates = <DateTime>[];
     var currentDate = startDate;
 
     while (currentDate.isBefore(lastDayOfYear) ||
-        currentDate.isAtSameMomentAs(lastDayOfYear) ||
-        currentDate.weekday != 7) {
-      // 토요일까지 채우기
+        currentDate.isAtSameMomentAs(lastDayOfYear)) {
       allDates.add(currentDate);
       currentDate = currentDate.add(const Duration(days: 1));
     }
@@ -72,22 +68,31 @@ class YearlyGrid extends StatelessWidget {
               children: [
                 // 월 라벨들
                 Row(
-                  children: weeks.map((week) {
-                    // 이 주에 1일이 포함되어 있는지 확인
-                    final firstOfMonthInWeek = week.firstWhere(
-                      (day) => day.day == 1 && day.year == now.year,
-                      orElse: () => DateTime(1900), // 기본값 (존재하지 않는 날짜)
-                    );
-
-                    final isNewMonth = firstOfMonthInWeek.year == now.year;
-                    final monthName = isNewMonth
-                        ? _getMonthName(firstOfMonthInWeek.month, context)
-                        : '';
+                  children: weeks.asMap().entries.map((entry) {
+                    final weekIndex = entry.key;
+                    final week = entry.value;
+                    
+                    String monthName = '';
+                    
+                    // 첫 번째 주는 무조건 1월 표시
+                    if (weekIndex == 0) {
+                      monthName = _getMonthName(1, context);
+                    } else {
+                      // 다른 주들은 1일이 포함된 경우만 월 이름 표시
+                      final firstOfMonthInWeek = week.firstWhere(
+                        (day) => day.day == 1 && day.year == now.year,
+                        orElse: () => DateTime(1900), // 기본값
+                      );
+                      
+                      if (firstOfMonthInWeek.year == now.year) {
+                        monthName = _getMonthName(firstOfMonthInWeek.month, context);
+                      }
+                    }
 
                     return SizedBox(
                       width: 16.8, // 14 * 1.2
                       height: 24, // 20 * 1.2
-                      child: isNewMonth
+                      child: monthName.isNotEmpty
                           ? Align(
                               alignment: Alignment.center,
                               child: FittedBox(
@@ -96,7 +101,7 @@ class YearlyGrid extends StatelessWidget {
                                   monthName,
                                   style: textTheme.bodySmall?.copyWith(
                                     color: colorScheme.onSurfaceVariant,
-                                    fontSize: 10, // 크기 약간 줄임
+                                    fontSize: 10,
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 1,

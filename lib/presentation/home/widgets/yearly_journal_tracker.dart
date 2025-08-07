@@ -22,21 +22,14 @@ class YearlyJournalTracker extends StatelessWidget {
         final yearlyJournals = viewModel.yearlyJournals;
 
         return BaseCard(
+          title: t.home_yearly_tracker_title,
+          icon: Icons.grid_4x4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 제목과 년도 표시
               Row(
                 children: [
-                  Icon(Icons.grid_on, color: colorScheme.primary, size: 24),
-                  const SizedBox(width: Spacing.sm),
-                  Text(
-                    t.home_yearly_tracker_title,
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
                   Text(
                     '${now.year}',
                     style: textTheme.bodyMedium?.copyWith(

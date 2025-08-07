@@ -30,26 +30,11 @@ class MaxStreakCard extends StatelessWidget {
             : 0.0;
 
         return BaseCard(
+          title: t.statistics_total_streak_max_description,
+          icon: Icons.emoji_events,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.emoji_events,
-                    color: colorScheme.tertiary,
-                    size: 24,
-                  ),
-                  const SizedBox(width: Spacing.sm),
-                  Text(
-                    t.statistics_total_streak_max_description,
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: Spacing.lg),
               Center(
                 child: Column(
                   children: [

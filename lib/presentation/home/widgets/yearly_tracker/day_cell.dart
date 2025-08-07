@@ -24,9 +24,11 @@ class DayCell extends StatelessWidget {
     // 올해가 아니거나 미래 날짜인지 확인
     final isCurrentYear = date.year == now.year;
     final isFuture = date.isAfter(now);
-    final isToday = DateTime(date.year, date.month, date.day).isAtSameMomentAs(
-      DateTime(now.year, now.month, now.day),
-    );
+    final isToday = DateTime(
+      date.year,
+      date.month,
+      date.day,
+    ).isAtSameMomentAs(DateTime(now.year, now.month, now.day));
 
     // 색상 결정
     Color backgroundColor;

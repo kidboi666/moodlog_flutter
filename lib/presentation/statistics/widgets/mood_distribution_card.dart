@@ -28,22 +28,11 @@ class MoodDistributionCard extends StatelessWidget {
     // 데이터가 없을 때 폴백 UI
     if (totalCount == 0) {
       return BaseCard(
+        title: t.statistics_mood_distribution_description,
+        icon: Icons.pie_chart,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Icon(Icons.pie_chart, color: colorScheme.primary, size: 24),
-                const SizedBox(width: Spacing.sm),
-                Text(
-                  t.statistics_mood_distribution_description,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: Spacing.lg),
             Center(
               child: Column(
                 children: [
@@ -84,22 +73,11 @@ class MoodDistributionCard extends StatelessWidget {
     }).toList();
 
     return BaseCard(
+      title: t.statistics_mood_distribution_title,
+      icon: Icons.pie_chart,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.pie_chart, color: colorScheme.primary, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_mood_distribution_description,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Center(
             child: Column(
               children: [

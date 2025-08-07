@@ -25,22 +25,11 @@ class MoodTrendCard extends StatelessWidget {
 
     if (sortedMoodTrendData.isEmpty) {
       return BaseCard(
+        title: t.statistics_mood_trend_description,
+        icon: Icons.trending_up,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Icon(Icons.trending_up, color: colorScheme.primary, size: 24),
-                const SizedBox(width: Spacing.sm),
-                Text(
-                  t.statistics_mood_trend_description,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: Spacing.lg),
             Center(
               child: Column(
                 children: [
@@ -102,22 +91,11 @@ class MoodTrendCard extends StatelessWidget {
         : 0.0;
 
     return BaseCard(
+      title: t.statistics_mood_trend_description,
+      icon: Icons.trending_up,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.trending_up, color: colorScheme.primary, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_mood_trend_description,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Center(
             child: Column(
               children: [
@@ -246,7 +224,7 @@ class MoodTrendCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${averageScore.toStringAsFixed(1)}점',
+                      averageScore.toStringAsFixed(1),
                       style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -265,7 +243,7 @@ class MoodTrendCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${recent7DaysAvg.toStringAsFixed(1)}점',
+                        recent7DaysAvg.toStringAsFixed(1),
                         style: textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w500,
                           color: recent7DaysAvg > averageScore

@@ -38,22 +38,11 @@ class CurrentStreakCard extends StatelessWidget {
         : colorScheme.error;
 
     return BaseCard(
+      title: t.statistics_total_streak_description,
+      icon: Icons.emoji_events,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.local_fire_department, color: streakColor, size: 24),
-              const SizedBox(width: Spacing.sm),
-              Text(
-                t.statistics_total_streak_description,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: Spacing.lg),
           Center(
             child: Column(
               children: [
