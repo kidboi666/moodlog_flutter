@@ -25,14 +25,15 @@ class SettingsViewModel extends ChangeNotifier {
        _journalRepository = journalRepository,
        _userProvider = userProvider;
 
+  String _appVersion = '';
+  String _appBuild = '';
   bool _isLoading = false;
 
+  String get appVersion => _appVersion;
+  String get appBuild => _appBuild;
   String? get profileImage => _userProvider.user?.photoURL;
-
   bool get isLoading => _isLoading;
-
   Settings get appState => _appStateProvider.appState;
-
   User? get currentUser => _userProvider.user;
 
   void setLoading(bool isLoading) {
@@ -91,5 +92,11 @@ class SettingsViewModel extends ChangeNotifier {
   void clearSharedPreferences() {
     _settingsRepository.clearSharedPreferences();
     notifyListeners();
+  }
+
+  Future<void> loadAppInfo() async {
+    final appInfo = await _settingsRepository.getAppInfo();
+    _appVersion = appInfo.version;
+    _appBuild = appInfo.buildNumber;
   }
 }

@@ -19,7 +19,7 @@ class MoodDistributionCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-    
+
     final totalCount = viewModel.moodCounts.values.fold(
       0,
       (sum, count) => sum + count,
@@ -33,11 +33,7 @@ class MoodDistributionCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.pie_chart,
-                  color: colorScheme.primary,
-                  size: 24,
-                ),
+                Icon(Icons.pie_chart, color: colorScheme.primary, size: 24),
                 const SizedBox(width: Spacing.sm),
                 Text(
                   t.statistics_mood_distribution_description,
@@ -93,11 +89,7 @@ class MoodDistributionCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.pie_chart,
-                color: colorScheme.primary,
-                size: 24,
-              ),
+              Icon(Icons.pie_chart, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
                 t.statistics_mood_distribution_description,
@@ -142,10 +134,10 @@ class MoodDistributionCard extends StatelessWidget {
           ),
           const SizedBox(height: Spacing.lg),
           Container(
-            padding: const EdgeInsets.all(Spacing.md),
+            padding: const EdgeInsets.all(Spacing.lg),
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(Roundness.cardInner),
             ),
             child: Column(
               children: MoodType.values.map((moodType) {

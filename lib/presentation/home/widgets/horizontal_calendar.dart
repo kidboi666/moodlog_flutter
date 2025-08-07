@@ -78,6 +78,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                           todayDate: viewModel.now,
                           selectedDate: viewModel.selectedDate,
                           selectDate: viewModel.selectDate,
+                          isFuture: date.day > viewModel.now.day,
                         ),
                       ),
                       const SizedBox(width: Spacing.md),

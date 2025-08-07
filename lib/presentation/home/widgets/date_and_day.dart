@@ -9,6 +9,7 @@ class DateAndDay extends StatelessWidget {
   final DateTime todayDate;
   final DateTime selectedDate;
   final Function selectDate;
+  final bool isFuture;
 
   const DateAndDay({
     super.key,
@@ -16,6 +17,7 @@ class DateAndDay extends StatelessWidget {
     required this.todayDate,
     required this.selectedDate,
     required this.selectDate,
+    required this.isFuture,
   });
 
   @override
@@ -24,9 +26,8 @@ class DateAndDay extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(Spacing.md),
-      onTap: () => selectDate(date),
+    return GestureDetector(
+      onTap: isFuture ? null : () => selectDate(date),
       child: AnimatedContainer(
         duration: DurationMs.quick,
         curve: Curves.easeInOutQuad,
@@ -50,13 +51,13 @@ class DateAndDay extends StatelessWidget {
             Text(
               date.getLocalizedWeekdayShortName(t),
               style: textTheme.titleMedium?.copyWith(
-                color: colorScheme.surface,
+                color: isFuture ? colorScheme.secondary : colorScheme.surface,
               ),
             ),
             Text(
               date.day.toString(),
               style: textTheme.titleMedium?.copyWith(
-                color: colorScheme.surface,
+                color: isFuture ? colorScheme.secondary : colorScheme.surface,
               ),
             ),
           ],

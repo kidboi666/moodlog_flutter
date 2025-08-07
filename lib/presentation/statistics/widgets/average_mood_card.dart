@@ -131,10 +131,10 @@ class AverageMoodCard extends StatelessWidget {
           ),
           const SizedBox(height: Spacing.lg),
           Container(
-            padding: const EdgeInsets.all(Spacing.md),
+            padding: const EdgeInsets.all(Spacing.lg),
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(Roundness.cardInner),
             ),
             child: Column(
               children: [
@@ -196,10 +196,10 @@ class AverageMoodCard extends StatelessWidget {
             const SizedBox(height: Spacing.md),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.md),
+              padding: const EdgeInsets.all(Spacing.lg),
               decoration: BoxDecoration(
                 color: Colors.green.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Roundness.cardInner),
                 border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
               child: Row(
@@ -226,10 +226,10 @@ class AverageMoodCard extends StatelessWidget {
             const SizedBox(height: Spacing.md),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.md),
+              padding: const EdgeInsets.all(Spacing.lg),
               decoration: BoxDecoration(
                 color: Colors.orange.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Roundness.cardInner),
                 border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
               ),
               child: Row(

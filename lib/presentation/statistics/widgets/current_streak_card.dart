@@ -108,7 +108,7 @@ class CurrentStreakCard extends StatelessWidget {
                 color: colorScheme.surfaceContainerHighest.withValues(
                   alpha: 0.3,
                 ),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Roundness.cardInner),
               ),
               child: Column(
                 children: [
@@ -167,7 +167,7 @@ class CurrentStreakCard extends StatelessWidget {
               padding: const EdgeInsets.all(Spacing.md),
               decoration: BoxDecoration(
                 color: colorScheme.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Roundness.cardInner),
                 border: Border.all(
                   color: colorScheme.primary.withValues(alpha: 0.3),
                 ),

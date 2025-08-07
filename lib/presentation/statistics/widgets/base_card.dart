@@ -9,9 +9,13 @@ class BaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: Theme.of(context).colorScheme.surface,
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(Roundness.card),
+        border: Border.all(color: colorScheme.surfaceContainerHighest),
+      ),
       child: Padding(padding: EdgeInsets.all(Spacing.lg), child: child),
     );
   }

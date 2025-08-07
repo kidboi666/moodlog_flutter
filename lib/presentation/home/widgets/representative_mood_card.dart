@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../common/constants/common.dart';
 import '../../../common/constants/enum.dart';
 import '../../../common/extensions/enum.dart';
+import '../../../common/extensions/widget_scale.dart';
 import '../../../common/l10n/app_localizations.dart';
 import '../../statistics/viewmodel/statistics_viewmodel.dart';
 
@@ -21,10 +22,11 @@ class RepresentativeMoodCard extends StatelessWidget {
     final representativeMood = context.select<StatisticsViewModel, MoodType?>(
       (vm) => vm.representativeMood,
     );
+
     if (representativeMood == null) {
       return Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(Roundness.card),
           border: Border.all(color: colorScheme.outline.withValues(alpha: 0.3)),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -36,7 +38,7 @@ class RepresentativeMoodCard extends StatelessWidget {
           ),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(Roundness.card),
           child: Stack(
             children: [
               Positioned.fill(
@@ -88,7 +90,9 @@ class RepresentativeMoodCard extends StatelessWidget {
                           padding: const EdgeInsets.all(Spacing.sm),
                           decoration: BoxDecoration(
                             color: colorScheme.surface.withValues(alpha: 0.8),
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(
+                              Roundness.button,
+                            ),
                             border: Border.all(
                               color: colorScheme.outline.withValues(alpha: 0.3),
                             ),
@@ -125,12 +129,14 @@ class RepresentativeMoodCard extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => viewModel.refreshRepresentativeMood(),
+                          onTap: viewModel.refreshRepresentativeMood,
                           child: Container(
                             padding: const EdgeInsets.all(Spacing.sm),
                             decoration: BoxDecoration(
                               color: colorScheme.surface.withValues(alpha: 0.8),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(
+                                Roundness.button,
+                              ),
                               border: Border.all(
                                 color: colorScheme.outline.withValues(
                                   alpha: 0.3,
@@ -143,7 +149,7 @@ class RepresentativeMoodCard extends StatelessWidget {
                               color: colorScheme.onSurfaceVariant,
                             ),
                           ),
-                        ),
+                        ).scale(),
                       ],
                     ),
                     const SizedBox(height: Spacing.md),
@@ -193,8 +199,8 @@ class RepresentativeMoodCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: BoxBorder.all(color: moodColor),
+        borderRadius: BorderRadius.circular(Roundness.card),
+        border: BoxBorder.all(color: moodColor.withValues(alpha: 0.6)),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -205,7 +211,7 @@ class RepresentativeMoodCard extends StatelessWidget {
         ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(Roundness.card),
         child: Stack(
           children: [
             Positioned.fill(
@@ -262,7 +268,7 @@ class RepresentativeMoodCard extends StatelessWidget {
                         padding: const EdgeInsets.all(Spacing.sm),
                         decoration: BoxDecoration(
                           color: colorScheme.surface.withValues(alpha: 0.8),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(Roundness.button),
                           border: Border.all(
                             color: moodColor.withValues(alpha: 0.3),
                           ),
@@ -309,14 +315,16 @@ class RepresentativeMoodCard extends StatelessWidget {
                           padding: const EdgeInsets.all(Spacing.sm),
                           decoration: BoxDecoration(
                             color: colorScheme.surface.withValues(alpha: 0.8),
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(
+                              Roundness.button,
+                            ),
                             border: Border.all(
                               color: moodColor.withValues(alpha: 0.3),
                             ),
                           ),
                           child: Icon(Icons.refresh, size: 20),
                         ),
-                      ),
+                      ).scale(),
                     ],
                   ),
                   const SizedBox(height: Spacing.md),
@@ -327,7 +335,7 @@ class RepresentativeMoodCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: colorScheme.surface.withValues(alpha: 0.6),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(Roundness.xl),
                       border: Border.all(
                         color: moodColor.withValues(alpha: 0.2),
                       ),

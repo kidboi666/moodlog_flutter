@@ -4,10 +4,21 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/l10n/app_localizations.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
-class AppInfoDialog extends StatelessWidget {
+class AppInfoDialog extends StatefulWidget {
   final SettingsViewModel viewModel;
 
   const AppInfoDialog({super.key, required this.viewModel});
+
+  @override
+  State<AppInfoDialog> createState() => _AppInfoDialogState();
+}
+
+class _AppInfoDialogState extends State<AppInfoDialog> {
+  @override
+  void initState() {
+    super.initState();
+    widget.viewModel.loadAppInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +29,18 @@ class AppInfoDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${AppLocalizations.of(context)!.settings_information_app_version}: 1.0.0',
+            '${AppLocalizations.of(context)!.settings_information_app_version}: ${widget.viewModel.appVersion}',
           ),
           SizedBox(height: 8),
           Text(
-            '${AppLocalizations.of(context)!.settings_information_app_build}: 100',
+            '${AppLocalizations.of(context)!.settings_information_app_build}: ${widget.viewModel.appBuild}',
           ),
           SizedBox(height: 8),
           Text(
-            '${AppLocalizations.of(context)!.settings_information_app_developer}: ${AppLocalizations.of(context)!.app_info_developer}',
+            '${AppLocalizations.of(context)!.settings_information_app_developer}: Logmind',
           ),
           SizedBox(height: 8),
-          Text(AppLocalizations.of(context)!.app_info_copyright),
+          Text('© 2024 All rights reserved'),
         ],
       ),
       actions: [

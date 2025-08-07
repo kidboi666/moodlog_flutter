@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/constants/common.dart';
@@ -76,6 +77,12 @@ class SettingsRepositoryImpl extends SettingsRepository {
   Future<List<String>?> getOnboardedLoginTypes() async {
     final p = await prefs;
     return p.getStringList(PreferenceKeys.onboardingCompleted);
+  }
+
+  @override
+  Future<PackageInfo> getAppInfo() async {
+    PackageInfo appInfo = await PackageInfo.fromPlatform();
+    return appInfo;
   }
 
   @override

@@ -11,7 +11,7 @@ class ContactDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.settings_information_qna_title),
       content: Text(
-        '${AppLocalizations.of(context)!.common_email}: sleepnowinthefire66@gmail.com\n${AppLocalizations.of(context)!.common_phone}: 010-9383-4485',
+        '${AppLocalizations.of(context)!.common_email}: log.mind.365@gmail.com\n${AppLocalizations.of(context)!.common_phone}: 010-9383-4485',
       ),
       actions: [
         TextButton(

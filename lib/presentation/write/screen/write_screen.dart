@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/common/constants/common.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/extensions/date_time.dart';
@@ -81,6 +82,7 @@ class _WriteScreenState extends State<WriteScreen> {
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: Spacing.sm,
                 children: [
                   Text(
                     selectedDate.formattedDotNation(),

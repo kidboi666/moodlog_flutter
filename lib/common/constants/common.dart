@@ -10,6 +10,7 @@ abstract final class Roundness {
   static const xxl = 24.0;
 
   static const card = 24.0;
+  static const cardInner = 20.0;
   static const chip = 16.0;
   static const button = 12.0;
 }

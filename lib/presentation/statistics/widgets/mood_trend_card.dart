@@ -229,10 +229,10 @@ class MoodTrendCard extends StatelessWidget {
           ),
           const SizedBox(height: Spacing.lg),
           Container(
-            padding: const EdgeInsets.all(Spacing.md),
+            padding: const EdgeInsets.all(Spacing.lg),
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(Roundness.cardInner),
             ),
             child: Column(
               children: [

@@ -84,7 +84,9 @@ class MaxStreakCard extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: colorScheme.tertiary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(
+                            Roundness.cardInner,
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -112,12 +114,12 @@ class MaxStreakCard extends StatelessWidget {
               if (maxStreak > 0) ...[
                 const SizedBox(height: Spacing.lg),
                 Container(
-                  padding: const EdgeInsets.all(Spacing.md),
+                  padding: const EdgeInsets.all(Spacing.lg),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest.withValues(
                       alpha: 0.3,
                     ),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(Roundness.cardInner),
                   ),
                   child: Column(
                     children: [
@@ -177,10 +179,10 @@ class MaxStreakCard extends StatelessWidget {
                 const SizedBox(height: Spacing.md),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(Spacing.md),
+                  padding: const EdgeInsets.all(Spacing.lg),
                   decoration: BoxDecoration(
                     color: colorScheme.tertiary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(Roundness.cardInner),
                     border: Border.all(
                       color: colorScheme.tertiary.withValues(alpha: 0.3),
                     ),

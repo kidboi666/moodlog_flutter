@@ -1,3 +1,5 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 import '../../common/constants/enum.dart';
 
 abstract class SettingsRepository {
@@ -18,6 +20,8 @@ abstract class SettingsRepository {
   Future<SimpleTextAlign> getTextAlign();
 
   Future<List<String>?> getOnboardedLoginTypes();
+
+  Future<PackageInfo> getAppInfo();
 
   Future<void> updateAiPersonality(AiPersonality aiPersonality);
 

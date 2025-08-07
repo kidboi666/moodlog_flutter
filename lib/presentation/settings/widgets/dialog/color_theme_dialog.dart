@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:moodlog/common/extensions/widget_scale.dart';
 
 import '../../../../common/constants/common.dart';
 import '../../../../common/constants/enum.dart';
@@ -50,7 +50,7 @@ class ColorThemeDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(Roundness.cardInner),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
@@ -68,16 +68,10 @@ class ColorThemeDialog extends StatelessWidget {
                   const SizedBox(height: Spacing.md),
                 ],
               ),
-            );
+            ).scale();
           },
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.common_confirm_cancel),
-        ),
-      ],
     );
   }
 }
