@@ -25,57 +25,8 @@ class EntriesCalendarView extends StatelessWidget {
       builder: (context, viewModel, child) {
         return Column(
           children: [
-            // 모던한 범례 카드
             Container(
               padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerLowest,
-                borderRadius: BorderRadius.circular(Roundness.card),
-                border: Border.all(
-                  color: colorScheme.outline.withOpacity(0.1),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildLegendItem(
-                    context,
-                    '😄',
-                    'Very Happy',
-                    colorScheme.primary,
-                  ),
-                  _buildLegendItem(
-                    context,
-                    '😊',
-                    'Happy',
-                    const Color(0xFF8BC34A),
-                  ),
-                  _buildLegendItem(
-                    context,
-                    '😐',
-                    'Neutral',
-                    const Color(0xFFFFEB3B),
-                  ),
-                  _buildLegendItem(
-                    context,
-                    '😢',
-                    'Sad',
-                    const Color(0xFFFF9800),
-                  ),
-                  _buildLegendItem(
-                    context,
-                    '😭',
-                    'Very Sad',
-                    const Color(0xFFF44336),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: Spacing.xl),
-
-            // 모던한 달력 컨테이너
-            Container(
               decoration: BoxDecoration(
                 color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(Roundness.card),

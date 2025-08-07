@@ -47,7 +47,7 @@ class EntriesScreen extends StatelessWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final dateOnly = DateTime(date.year, date.month, date.day);
-    
+
     if (dateOnly == today) {
       return '${t.common_date_today} (${date.getLocalizedWeekdayShortName(t)})';
     } else if (dateOnly == today.subtract(const Duration(days: 1))) {
@@ -158,7 +158,8 @@ class EntriesScreen extends StatelessWidget {
                   return Padding(
                     padding: Spacing.containerHorizontalPadding,
                     child: FadeIn(
-                      delay: DelayMs.medium + Duration(milliseconds: index * 50),
+                      delay:
+                          DelayMs.medium + Duration(milliseconds: index * 50),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -241,7 +242,7 @@ class EntriesScreen extends StatelessWidget {
                                   const SizedBox(height: Spacing.lg),
                               ],
                             );
-                          }).toList(),
+                          }),
                           const SizedBox(height: Spacing.xxl),
                         ],
                       ),
