@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../common/constants/common.dart';
@@ -44,8 +45,8 @@ class JournalCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: Spacing.xxl,
-            vertical: Spacing.md,
+            horizontal: Spacing.xl,
+            vertical: Spacing.xl,
           ),
           child: IntrinsicHeight(
             child: Row(
@@ -58,9 +59,9 @@ class JournalCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(Roundness.card),
                     color: Color(moodType.colorValue),
                   ),
-                  ),
+                ),
                 const SizedBox(width: Spacing.lg),
-                
+
                 // Content section
                 Expanded(
                   child: Column(
@@ -68,7 +69,9 @@ class JournalCard extends StatelessWidget {
                     children: [
                       Text(
                         createdAt.formatted(t),
-                        style: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.outline,
+                        ),
                       ),
                       const SizedBox(height: Spacing.xs),
                       Text(
@@ -92,7 +95,9 @@ class JournalCard extends StatelessWidget {
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: colorScheme.surfaceContainerHighest,
-                                  borderRadius: BorderRadius.circular(Roundness.xs),
+                                  borderRadius: BorderRadius.circular(
+                                    Roundness.xs,
+                                  ),
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -120,9 +125,6 @@ class JournalCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                
-                // Arrow icon
-                const Icon(Icons.keyboard_arrow_left),
               ],
             ),
           ),

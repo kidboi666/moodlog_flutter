@@ -1,0 +1,45 @@
+<ko-KR>
+🎨 감정 선택 슬라이더 인터페이스 추가
+🌍 일기 목록 날짜별 그룹화 및 달력 UI 개선
+🔧 일기 카드에 이미지 미리보기 표시 기능 추가
+</ko-KR>
+<en-US>
+🎨 Added emotion selection slider interface
+🌍 Grouped journal list by date and improved calendar UI
+🔧 Added image preview display to journal cards
+</en-US>
+<es-ES>
+🎨 Interfaz deslizante para selección de emociones
+🌍 Agrupación de lista de diarios por fecha y mejora de UI del calendario
+🔧 Vista previa de imágenes en tarjetas de diario
+</es-ES>
+<fr-FR>
+🎨 Interface de curseur de sélection d'émotions
+🌍 Regroupement de liste de journaux par date et amélioration UI du calendrier
+🔧 Aperçu d'images dans les cartes de journal
+</fr-FR>
+<it-IT>
+🎨 Interfaccia slider per selezione emozioni
+🌍 Raggruppamento lista diari per data e miglioramento UI calendario
+🔧 Anteprima immagini nelle carte diario
+</it-IT>
+<ja-JP>
+🎨 感情選択スライダーインターフェースを追加
+🌍 日記リストの日付別グループ化とカレンダーUI改善
+🔧 日記カードに画像プレビュー表示機能を追加
+</ja-JP>
+<th>
+🎨 อินเตอร์เฟซแบบเลื่อนสำหรับเลือกอารมณ์
+🌍 จัดกลุ่มรายการไดอารี่ตามวันและปรับปรุง UI ปฏิทิน
+🔧 แสดงตัวอย่างรูปภาพในการ์ดไดอารี่
+</th>
+<vi>
+🎨 Giao diện thanh trượt chọn cảm xúc
+🌍 Nhóm danh sách nhật ký theo ngày và cải thiện UI lịch
+🔧 Hiển thị xem trước hình ảnh trong thẻ nhật ký
+</vi>
+<zh-CN>
+🎨 新增情感选择滑块界面
+🌍 按日期分组日记列表并改进日历界面
+🔧 在日记卡片中添加图片预览显示
+</zh-CN>

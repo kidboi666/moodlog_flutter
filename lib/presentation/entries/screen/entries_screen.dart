@@ -164,29 +164,13 @@ class EntriesScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // 날짜 헤더
-                          Container(
+                          Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: Spacing.lg,
-                              vertical: Spacing.md,
-                            ),
-                            decoration: BoxDecoration(
-                              color: colorScheme.surfaceContainerHighest
-                                  .withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(
-                                Roundness.card,
-                              ),
+                              horizontal: Spacing.sm,
+                              vertical: Spacing.xs,
                             ),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 4,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.primary,
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                ),
-                                const SizedBox(width: Spacing.md),
                                 Text(
                                   _formatDateWithWeekday(date, t),
                                   style: textTheme.titleMedium?.copyWith(
@@ -195,21 +179,11 @@ class EntriesScreen extends StatelessWidget {
                                   ),
                                 ),
                                 const Spacer(),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: Spacing.sm,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Text(
-                                    '${journalsForDate.length}',
-                                    style: textTheme.bodySmall?.copyWith(
-                                      color: colorScheme.primary,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                Text(
+                                  '${journalsForDate.length}',
+                                  style: textTheme.bodyMedium?.copyWith(
+                                    color: colorScheme.outline,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],

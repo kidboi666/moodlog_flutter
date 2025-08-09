@@ -31,12 +31,12 @@ class EntriesCalendarView extends StatelessWidget {
                 color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(Roundness.card),
                 border: Border.all(
-                  color: colorScheme.outline.withOpacity(0.1),
+                  color: colorScheme.outline.withValues(alpha: 0.1),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: colorScheme.shadow.withOpacity(0.05),
+                    color: colorScheme.shadow.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 2),
                   ),
@@ -62,13 +62,13 @@ class EntriesCalendarView extends StatelessWidget {
                   daysOfWeekStyle: DaysOfWeekStyle(
                     weekdayStyle:
                         textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.7),
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
                           fontWeight: FontWeight.w600,
                         ) ??
                         const TextStyle(),
                     weekendStyle:
                         textTheme.bodySmall?.copyWith(
-                          color: colorScheme.error.withOpacity(0.7),
+                          color: colorScheme.error.withValues(alpha: 0.7),
                           fontWeight: FontWeight.w600,
                         ) ??
                         const TextStyle(),
@@ -88,7 +88,7 @@ class EntriesCalendarView extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     todayDecoration: BoxDecoration(
-                      color: colorScheme.primary.withOpacity(0.2),
+                      color: colorScheme.primary.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                       border: Border.all(color: colorScheme.primary, width: 2),
                     ),
@@ -117,7 +117,7 @@ class EntriesCalendarView extends StatelessWidget {
                       if (events.isEmpty) return null;
 
                       // 해당 날짜의 첫 번째 저널의 감정으로 표시
-                      final journal = events.first as Journal;
+                      final journal = events.first;
                       return Positioned(
                         bottom: 2,
                         right: 2,
@@ -161,43 +161,6 @@ class EntriesCalendarView extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget _buildLegendItem(
-    BuildContext context,
-    String emoji,
-    String label,
-    Color color,
-  ) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.15),
-            shape: BoxShape.circle,
-            border: Border.all(color: color.withOpacity(0.3), width: 1),
-          ),
-          child: Center(
-            child: Text(emoji, style: const TextStyle(fontSize: 16)),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface.withOpacity(0.7),
-            fontSize: 10,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
     );
   }
 }
