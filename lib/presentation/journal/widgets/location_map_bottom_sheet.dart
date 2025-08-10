@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../common/constants/common.dart';
+import '../../../core/constants/common.dart';
 
 class LocationMapBottomSheet extends StatefulWidget {
   final double latitude;

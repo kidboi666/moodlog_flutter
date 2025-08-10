@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../common/utils/result.dart';
+import '../../../core/utils/result.dart';
 import '../../repositories/auth_repository.dart';
 
 class AuthUseCase {

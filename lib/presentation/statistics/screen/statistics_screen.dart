@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../../common/routing/routes.dart';
-import '../../core/widgets/avatar.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/routes.dart';
 import '../../home/widgets/representative_mood_card.dart';
 import '../../home/widgets/yearly_journal_tracker.dart';
+import '../../ui/widgets/avatar.dart';
 import '../viewmodel/statistics_viewmodel.dart';
 import '../widgets/average_mood_card.dart';
 import '../widgets/current_streak_card.dart';

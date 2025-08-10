@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/common.dart';
+import '../../../core/constants/common.dart';
 
 class CardListTile extends StatelessWidget {
   final String title;

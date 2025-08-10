@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/snack_bar.dart';
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/snack_bar.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../widgets/account_card.dart';
 import '../widgets/creation_time_card.dart';

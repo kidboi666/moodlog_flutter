@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 
-import '../../common/constants/enum.dart';
-import '../../common/utils/converter.dart';
+import '../../core/constants/enum.dart';
+import '../../core/utils/converter.dart';
 import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal_tag.dart';
 import '../../domain/entities/stat.dart';
 import '../../domain/entities/tag.dart';
-import '../../domain/entities/journal_tag.dart';
 
 @UseRowClass(Journal)
 @TableIndex(name: 'journals_created_at', columns: {#createdAt})
@@ -67,9 +67,11 @@ class Tags extends Table {
 class JournalTags extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get journalId => integer().references(Journals, #id, onDelete: KeyAction.cascade)();
+  IntColumn get journalId =>
+      integer().references(Journals, #id, onDelete: KeyAction.cascade)();
 
-  IntColumn get tagId => integer().references(Tags, #id, onDelete: KeyAction.cascade)();
+  IntColumn get tagId =>
+      integer().references(Tags, #id, onDelete: KeyAction.cascade)();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

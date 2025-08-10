@@ -1,4 +1,4 @@
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 import '../entities/create_journal_dto.dart';
 import '../entities/journal.dart';
 import '../entities/update_journal_dto.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/widget_scale.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../core/widgets/fade_in.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/widget_scale.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../ui/widgets/fade_in.dart';
 
 class OnboardingPageViewWelcome extends StatelessWidget {
   final void Function() onNext;

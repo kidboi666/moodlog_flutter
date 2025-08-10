@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/l10n/app_localizations.dart';
 
 class UserInfoCard extends StatelessWidget {
   final User? user;

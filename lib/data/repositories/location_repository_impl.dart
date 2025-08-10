@@ -1,7 +1,7 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 import '../../domain/entities/location_info.dart';
 import '../../domain/repositories/location_repository.dart';
 
@@ -10,8 +10,10 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<Result<bool>> checkLocationPermission() async {
     try {
       final permission = await Geolocator.checkPermission();
-      return Result.ok(permission == LocationPermission.whileInUse || 
-                       permission == LocationPermission.always);
+      return Result.ok(
+        permission == LocationPermission.whileInUse ||
+            permission == LocationPermission.always,
+      );
     } catch (e) {
       return Result.failure(
         Exception('Failed to check location permission: $e'),
@@ -23,8 +25,10 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<Result<bool>> requestLocationPermission() async {
     try {
       final permission = await Geolocator.requestPermission();
-      return Result.ok(permission == LocationPermission.whileInUse || 
-                       permission == LocationPermission.always);
+      return Result.ok(
+        permission == LocationPermission.whileInUse ||
+            permission == LocationPermission.always,
+      );
     } catch (e) {
       return Result.failure(
         Exception('Failed to request location permission: $e'),

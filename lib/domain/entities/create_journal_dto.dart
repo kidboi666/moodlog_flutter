@@ -1,4 +1,4 @@
-import '../../common/constants/enum.dart';
+import '../../core/constants/enum.dart';
 
 class CreateJournalDto {
   final String? content;

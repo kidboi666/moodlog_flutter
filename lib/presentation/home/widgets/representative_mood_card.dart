@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/extensions/enum.dart';
-import '../../../common/extensions/widget_scale.dart';
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/extensions/enum.dart';
+import '../../../core/extensions/widget_scale.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../statistics/viewmodel/statistics_viewmodel.dart';
 
 class RepresentativeMoodCard extends StatelessWidget {

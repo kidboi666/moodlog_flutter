@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/date_time.dart';
-import '../../../common/extensions/routing.dart';
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../../core/extensions/routing.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../../domain/entities/journal.dart';
-import '../../core/widgets/empty_entries_box.dart';
-import '../../core/widgets/fade_in.dart';
-import '../../core/widgets/journal_card.dart';
+import '../../ui/widgets/empty_entries_box.dart';
+import '../../ui/widgets/fade_in.dart';
+import '../../ui/widgets/journal_card.dart';
 import '../viewmodel/entries_viewmodel.dart';
 import '../widgets/entries_calendar_view.dart';
 import '../widgets/tag_filter_section.dart';

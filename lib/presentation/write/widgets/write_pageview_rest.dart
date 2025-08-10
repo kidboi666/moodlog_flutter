@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/extensions/routing.dart';
-import '../../core/widgets/fade_in.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/extensions/routing.dart';
+import '../../ui/widgets/fade_in.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';

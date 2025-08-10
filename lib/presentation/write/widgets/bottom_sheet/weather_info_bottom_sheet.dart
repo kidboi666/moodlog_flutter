@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/common.dart';
+import '../../../../core/constants/common.dart';
 import '../../../../domain/entities/weather_info.dart';
 
 class WeatherInfoBottomSheet extends StatelessWidget {

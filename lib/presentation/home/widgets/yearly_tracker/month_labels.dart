@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/common.dart';
+import '../../../../core/constants/common.dart';
 
 class MonthLabels extends StatelessWidget {
   final List<List<DateTime>> weeks;
   final DateTime now;
 
-  const MonthLabels({
-    super.key,
-    required this.weeks,
-    required this.now,
-  });
+  const MonthLabels({super.key, required this.weeks, required this.now});
 
   @override
   Widget build(BuildContext context) {

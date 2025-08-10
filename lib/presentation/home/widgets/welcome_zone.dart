@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../core/widgets/fade_in.dart';
-import '../../core/widgets/shake_emoji.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../ui/widgets/fade_in.dart';
+import '../../ui/widgets/shake_emoji.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 class WelcomeZone extends StatelessWidget {

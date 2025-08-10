@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/extensions/enum.dart';
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/extensions/enum.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/entries_viewmodel.dart';
 
 class TagFilterSection extends StatelessWidget {
@@ -16,7 +16,7 @@ class TagFilterSection extends StatelessWidget {
     return Consumer<EntriesViewModel>(
       builder: (context, viewModel, child) {
         final bool hasFilters = viewModel.availableTags.isNotEmpty;
-        
+
         if (!hasFilters) {
           return const SizedBox.shrink();
         }
@@ -59,7 +59,7 @@ class TagFilterSection extends StatelessWidget {
               ),
             ),
             const SizedBox(height: Spacing.md),
-            
+
             // 태그 필터 섹션
             Padding(
               padding: const EdgeInsets.only(left: Spacing.lg),

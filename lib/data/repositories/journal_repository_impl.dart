@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:drift/drift.dart';
 
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 import '../../domain/entities/create_journal_dto.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/tag.dart';

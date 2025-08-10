@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
+import '../../../core/constants/common.dart';
 import '../viewmodel/write_viewmodel.dart';
 
 class ImagePreviewSection extends StatefulWidget {
@@ -29,26 +29,28 @@ class _ImagePreviewSectionState extends State<ImagePreviewSection> {
         if (viewModel.imageUri.isEmpty) {
           return const SizedBox.shrink();
         }
-        
+
         return SizedBox(
           height: 60,
           child: ListView(
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
-            children: viewModel.imageUri.map(
-              (imageUri) => Card(
-                elevation: 0,
-                margin: Spacing.imagePickerBoxInnerPadding,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.file(
-                    File(imageUri),
-                    fit: BoxFit.cover,
-                    width: 60,
+            children: viewModel.imageUri
+                .map(
+                  (imageUri) => Card(
+                    elevation: 0,
+                    margin: Spacing.imagePickerBoxInnerPadding,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.file(
+                        File(imageUri),
+                        fit: BoxFit.cover,
+                        width: 60,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ).toList(),
+                )
+                .toList(),
           ),
         );
       },

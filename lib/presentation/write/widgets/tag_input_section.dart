@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/common/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/widget_scale.dart';
 import '../../../domain/entities/tag.dart';
 import '../viewmodel/write_viewmodel.dart';
 

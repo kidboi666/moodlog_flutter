@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../core/widgets/avatar.dart';
+import '../../../core/constants/common.dart';
+import '../../ui/widgets/avatar.dart';
 import '../viewmodel/profile_viewmodel.dart';
 
 class ProfileAvatar extends StatelessWidget {

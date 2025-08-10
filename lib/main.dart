@@ -6,16 +6,16 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-import 'common/constants/enum.dart';
-import 'common/di/injection_container.dart';
-import 'common/l10n/app_localizations.dart';
-import 'common/providers/app_state_provider.dart';
-import 'common/routing/router.dart';
-import 'common/utils/keyboard_utils.dart';
+import 'core/constants/enum.dart';
+import 'core/di/injection_container.dart';
+import 'core/l10n/app_localizations.dart';
+import 'core/providers/app_state_provider.dart';
+import 'core/routing/router.dart';
+import 'core/utils/keyboard_utils.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 import 'firebase_options.dart';
-import 'presentation/core/theme/theme.dart';
-import 'presentation/core/widgets/spinner.dart';
+import 'presentation/ui/theme/theme.dart';
+import 'presentation/ui/widgets/spinner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

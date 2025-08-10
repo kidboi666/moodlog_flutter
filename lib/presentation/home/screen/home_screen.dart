@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/routing.dart';
-import '../../../common/routing/routes.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/routing.dart';
+import '../../../core/routing/routes.dart';
 import '../../../domain/entities/journal.dart';
-import '../../core/widgets/avatar.dart';
-import '../../core/widgets/empty_entries_box.dart';
-import '../../core/widgets/fade_in.dart';
-import '../../core/widgets/journal_card.dart';
+import '../../ui/widgets/avatar.dart';
+import '../../ui/widgets/empty_entries_box.dart';
+import '../../ui/widgets/fade_in.dart';
+import '../../ui/widgets/journal_card.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../widgets/horizontal_calendar.dart';
 import '../widgets/weather_widget.dart';
@@ -118,7 +118,9 @@ class HomeScreen extends StatelessWidget {
                           id: e.id,
                           content: e.content ?? '',
                           moodType: e.moodType,
-                          coverImg: e.imageUri?.isNotEmpty == true ? e.imageUri!.first : null,
+                          coverImg: e.imageUri?.isNotEmpty == true
+                              ? e.imageUri!.first
+                              : null,
                           createdAt: e.createdAt,
                           onTap: () => context.pushToJournalFromHome(e.id),
                           onDismissed: () =>

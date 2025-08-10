@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/widget_scale.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/widget_scale.dart';
 import '../viewmodel/write_viewmodel.dart';
 
 class ImagePickingSection extends StatefulWidget {

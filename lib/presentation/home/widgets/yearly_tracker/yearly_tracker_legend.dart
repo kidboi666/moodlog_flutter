@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/common.dart';
-import '../../../../common/constants/enum.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/l10n/app_localizations.dart';
 
 class YearlyTrackerLegend extends StatelessWidget {
   const YearlyTrackerLegend({super.key});
@@ -48,7 +48,9 @@ class YearlyTrackerLegend extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             _LegendBox(
-              color: Color(MoodType.veryHappy.colorValue).withValues(alpha: 0.8),
+              color: Color(
+                MoodType.veryHappy.colorValue,
+              ).withValues(alpha: 0.8),
             ),
           ],
         ),

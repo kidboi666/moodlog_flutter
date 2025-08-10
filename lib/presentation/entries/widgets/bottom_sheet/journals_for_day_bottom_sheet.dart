@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/common.dart';
-import '../../../../common/extensions/date_time.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/extensions/date_time.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../domain/entities/journal.dart';
 import '../journal_tile.dart';
 

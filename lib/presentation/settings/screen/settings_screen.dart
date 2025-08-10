@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/enum.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../../common/routing/routes.dart';
-import '../../core/widgets/avatar.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/enum.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/routes.dart';
+import '../../ui/widgets/avatar.dart';
 import '../viewmodel/settings_viewmodel.dart';
 import '../widgets/card_list_tile.dart';
 import '../widgets/dialog/ai_personality_dialog.dart';

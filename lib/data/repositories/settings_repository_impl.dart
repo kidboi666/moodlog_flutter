@@ -3,8 +3,8 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/constants/common.dart';
-import '../../common/constants/enum.dart';
+import '../../core/constants/common.dart';
+import '../../core/constants/enum.dart';
 import '../../domain/repositories/app_state_repository.dart';
 
 class SettingsRepositoryImpl extends SettingsRepository {

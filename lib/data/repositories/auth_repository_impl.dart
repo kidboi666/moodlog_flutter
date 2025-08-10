@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {

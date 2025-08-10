@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
 import '../../journal/widgets/location_simple_bottom_sheet.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/common.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../domain/entities/journal.dart';
 import 'week_column.dart';
 import 'weekday_labels.dart';
@@ -71,9 +71,9 @@ class YearlyGrid extends StatelessWidget {
                   children: weeks.asMap().entries.map((entry) {
                     final weekIndex = entry.key;
                     final week = entry.value;
-                    
+
                     String monthName = '';
-                    
+
                     // 첫 번째 주는 무조건 1월 표시
                     if (weekIndex == 0) {
                       monthName = _getMonthName(1, context);
@@ -83,9 +83,12 @@ class YearlyGrid extends StatelessWidget {
                         (day) => day.day == 1 && day.year == now.year,
                         orElse: () => DateTime(1900), // 기본값
                       );
-                      
+
                       if (firstOfMonthInWeek.year == now.year) {
-                        monthName = _getMonthName(firstOfMonthInWeek.month, context);
+                        monthName = _getMonthName(
+                          firstOfMonthInWeek.month,
+                          context,
+                        );
                       }
                     }
 

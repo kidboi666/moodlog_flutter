@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/common/extensions/enum.dart';
 
-import '../../../../common/constants/enum.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/extensions/enum.dart';
+import '../../../../core/l10n/app_localizations.dart';
 
 class MoodSliderSelectionBottomSheet extends StatefulWidget {
   const MoodSliderSelectionBottomSheet({super.key});
@@ -94,7 +94,9 @@ class _MoodSliderSelectionBottomSheetState
                     fontSize: 64,
                     shadows: [
                       Shadow(
-                        color: Color(_currentMood.colorValue).withValues(alpha: 0.5),
+                        color: Color(
+                          _currentMood.colorValue,
+                        ).withValues(alpha: 0.5),
                         blurRadius: 10,
                       ),
                     ],
@@ -116,7 +118,9 @@ class _MoodSliderSelectionBottomSheetState
                 fontWeight: FontWeight.w700,
                 shadows: [
                   Shadow(
-                    color: Color(_currentMood.colorValue).withValues(alpha: 0.3),
+                    color: Color(
+                      _currentMood.colorValue,
+                    ).withValues(alpha: 0.3),
                     blurRadius: 4,
                   ),
                 ],
@@ -139,7 +143,9 @@ class _MoodSliderSelectionBottomSheetState
                   thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 16,
                   ),
-                  overlayColor: Color(_currentMood.colorValue).withValues(alpha: 0.2),
+                  overlayColor: Color(
+                    _currentMood.colorValue,
+                  ).withValues(alpha: 0.2),
                   overlayShape: const RoundSliderOverlayShape(
                     overlayRadius: 28,
                   ),
@@ -197,7 +203,7 @@ class _MoodSliderSelectionBottomSheetState
   Widget _buildEmotionLabel(BuildContext context, MoodType mood) {
     final colorScheme = Theme.of(context).colorScheme;
     final isSelected = _currentMood == mood;
-    
+
     // 슬라이더 값에 맞는 인덱스로 변환
     final moodValue = switch (mood) {
       MoodType.verySad => 0.0,
@@ -217,14 +223,12 @@ class _MoodSliderSelectionBottomSheetState
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected 
+          color: isSelected
               ? Color(mood.colorValue).withValues(alpha: 0.2)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected 
-                ? Color(mood.colorValue)
-                : Colors.transparent,
+            color: isSelected ? Color(mood.colorValue) : Colors.transparent,
             width: 2,
           ),
         ),
@@ -235,12 +239,14 @@ class _MoodSliderSelectionBottomSheetState
               mood.emoji,
               style: TextStyle(
                 fontSize: 24,
-                shadows: isSelected ? [
-                  Shadow(
-                    color: Color(mood.colorValue).withValues(alpha: 0.5),
-                    blurRadius: 8,
-                  ),
-                ] : null,
+                shadows: isSelected
+                    ? [
+                        Shadow(
+                          color: Color(mood.colorValue).withValues(alpha: 0.5),
+                          blurRadius: 8,
+                        ),
+                      ]
+                    : null,
               ),
             ),
             const SizedBox(height: 4),
@@ -248,7 +254,9 @@ class _MoodSliderSelectionBottomSheetState
               mood.getDisplayName(context),
               style: TextStyle(
                 fontSize: 10,
-                color: isSelected ? Color(mood.colorValue) : colorScheme.outline,
+                color: isSelected
+                    ? Color(mood.colorValue)
+                    : colorScheme.outline,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               ),
               textAlign: TextAlign.center,

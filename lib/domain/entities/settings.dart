@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../common/constants/enum.dart';
+import '../../core/constants/enum.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';

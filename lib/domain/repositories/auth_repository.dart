@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 
 abstract class AuthRepository extends ChangeNotifier {
   Stream<User?> get userChanges;

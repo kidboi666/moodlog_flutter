@@ -1,4 +1,4 @@
-import '../../../common/utils/result.dart';
+import '../../../core/utils/result.dart';
 import '../../repositories/tag_repository.dart';
 
 class AddTagUseCase {

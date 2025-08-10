@@ -1,4 +1,4 @@
-import '../../../common/utils/result.dart';
+import '../../../core/utils/result.dart';
 import '../../repositories/app_state_repository.dart';
 
 class CheckAiUsageLimitUseCase {

@@ -4,10 +4,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../../common/constants/enum.dart';
-import '../../../common/mixins/async_state_mixin.dart';
-import '../../../common/providers/user_provider.dart';
-import '../../../common/utils/result.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/providers/user_provider.dart';
+import '../../../core/utils/result.dart';
 import '../../../data/repositories/analytics_repository_impl.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/repositories/journal_repository.dart';

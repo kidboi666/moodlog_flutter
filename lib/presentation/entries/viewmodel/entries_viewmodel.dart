@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../../common/mixins/async_state_mixin.dart';
-import '../../../common/utils/result.dart';
-import '../../../common/constants/enum.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/tag.dart';
 import '../../../domain/repositories/journal_repository.dart';
@@ -199,7 +199,9 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
         final tagsResult = await _getTagsByJournalUseCase.call(journal.id);
         switch (tagsResult) {
           case Ok<List<Tag>>():
-            if (tagsResult.value.any((tag) => tag.id == _selectedTagFilter!.id)) {
+            if (tagsResult.value.any(
+              (tag) => tag.id == _selectedTagFilter!.id,
+            )) {
               tagFilteredEntries.add(journal);
             }
           case Failure<List<Tag>>():

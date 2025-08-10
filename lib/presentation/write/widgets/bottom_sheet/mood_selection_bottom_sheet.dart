@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/constants/enum.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../mood_button.dart';
 
 class MoodSelectionBottomSheet extends StatelessWidget {

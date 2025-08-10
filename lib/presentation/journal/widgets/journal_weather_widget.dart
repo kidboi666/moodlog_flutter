@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/utils/result.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/utils/result.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';

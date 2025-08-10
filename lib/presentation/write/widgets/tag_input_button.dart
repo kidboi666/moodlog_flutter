@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/common/extensions/widget_scale.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/l10n/app_localizations.dart';
+import '../../../core/extensions/widget_scale.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../viewmodel/write_viewmodel.dart';
 import 'bottom_sheet/tag_input_bottom_sheet.dart';
 

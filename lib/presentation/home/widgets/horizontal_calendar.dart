@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/extensions/date_time.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../core/widgets/fade_in.dart';
-import '../../core/widgets/gradient_box.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../ui/widgets/fade_in.dart';
+import '../../ui/widgets/gradient_box.dart';
 import '../viewmodel/home_viewmodel.dart';
 import 'date_and_day.dart';
 

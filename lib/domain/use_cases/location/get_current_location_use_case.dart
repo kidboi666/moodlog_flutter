@@ -1,4 +1,4 @@
-import '../../../common/utils/result.dart';
+import '../../../core/utils/result.dart';
 import '../../entities/location_info.dart';
 import '../../repositories/location_repository.dart';
 

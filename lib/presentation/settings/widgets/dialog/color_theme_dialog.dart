@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/common/extensions/widget_scale.dart';
 
-import '../../../../common/constants/common.dart';
-import '../../../../common/constants/enum.dart';
-import '../../../../common/l10n/app_localizations.dart';
-import '../../../core/theme/colors.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/extensions/widget_scale.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../ui/theme/colors.dart';
 import '../../viewmodel/settings_viewmodel.dart';
 
 class ColorThemeDialog extends StatelessWidget {

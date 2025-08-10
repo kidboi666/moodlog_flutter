@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/common.dart';
+import '../../../core/constants/common.dart';
 
 class BaseCard extends StatelessWidget {
   final Widget child;

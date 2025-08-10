@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/extensions/date_time.dart';
-import '../../../common/mixins/async_state_mixin.dart';
-import '../../../common/providers/user_provider.dart';
-import '../../../common/utils/result.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../../core/mixins/async_state_mixin.dart';
+import '../../../core/providers/user_provider.dart';
+import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/location_info.dart';
 import '../../../domain/entities/weather_info.dart';

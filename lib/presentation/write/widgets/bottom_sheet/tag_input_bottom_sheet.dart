@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../common/constants/common.dart';
-import '../../../../common/l10n/app_localizations.dart';
+import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../viewmodel/write_viewmodel.dart';
 
 class TagInputBottomSheet extends StatefulWidget {

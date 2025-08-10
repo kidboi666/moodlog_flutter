@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/constants/enum.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../../common/routing/routes.dart';
-import '../../core/widgets/spinner.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/constants/enum.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/routing/routes.dart';
+import '../../ui/widgets/spinner.dart';
 import '../viewmodel/auth_viewmodel.dart';
 
 class KakaoSigninButton extends StatelessWidget {

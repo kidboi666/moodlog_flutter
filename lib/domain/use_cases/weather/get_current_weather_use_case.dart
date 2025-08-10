@@ -1,4 +1,4 @@
-import '../../../common/utils/result.dart';
+import '../../../core/utils/result.dart';
 import '../../entities/weather_info.dart';
 import '../../repositories/weather_repository.dart';
 

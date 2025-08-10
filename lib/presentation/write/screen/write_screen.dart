@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/common/constants/common.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/extensions/date_time.dart';
-import '../../core/widgets/pop_button.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/extensions/date_time.dart';
+import '../../ui/widgets/pop_button.dart';
 import '../viewmodel/write_viewmodel.dart';
 import '../widgets/editor_bottom_panel.dart';
 import '../widgets/write_pageview_rest.dart';

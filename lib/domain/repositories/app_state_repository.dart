@@ -1,6 +1,6 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../common/constants/enum.dart';
+import '../../core/constants/enum.dart';
 
 abstract class SettingsRepository {
   Future<ThemeMode> getThemeMode();

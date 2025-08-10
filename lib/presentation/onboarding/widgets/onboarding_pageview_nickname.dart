@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/constants/common.dart';
-import '../../../common/l10n/app_localizations.dart';
-import '../../core/widgets/fade_in.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
+import '../../ui/widgets/fade_in.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 
 class OnboardingPageViewNickName extends StatefulWidget {

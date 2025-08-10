@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 
-import '../../common/utils/result.dart';
+import '../../core/utils/result.dart';
 import '../../domain/entities/weather_info.dart';
 import '../../domain/repositories/weather_repository.dart';
 
