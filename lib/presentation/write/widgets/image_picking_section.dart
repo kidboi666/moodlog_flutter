@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/widget_scale.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../write_viewmodel.dart';
 
 class ImagePickingSection extends StatefulWidget {
   const ImagePickingSection({super.key});

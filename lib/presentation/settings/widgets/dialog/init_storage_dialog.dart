@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../viewmodel/settings_viewmodel.dart';
+import '../../settings_viewmodel.dart';
 
 class InitStorageDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

@@ -1,37 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/enum.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../write_viewmodel.dart';
 
-class MoodSliderSelectionBottomSheet extends StatefulWidget {
+class MoodSliderSelectionBottomSheet extends StatelessWidget {
   const MoodSliderSelectionBottomSheet({super.key});
 
-  @override
-  State<MoodSliderSelectionBottomSheet> createState() =>
-      _MoodSliderSelectionBottomSheetState();
-}
+  double _getCurrentValue(MoodType mood) => mood.sliderValue;
 
-class _MoodSliderSelectionBottomSheetState
-    extends State<MoodSliderSelectionBottomSheet> {
-  double _currentValue = 2.0; // 기본값은 중립 (neutral)
-
-  MoodType get _currentMood {
-    switch (_currentValue.round()) {
-      case 0:
-        return MoodType.verySad;
-      case 1:
-        return MoodType.sad;
-      case 2:
-        return MoodType.neutral;
-      case 3:
-        return MoodType.happy;
-      case 4:
-        return MoodType.veryHappy;
-      default:
-        return MoodType.neutral;
-    }
+  void _changeMood(BuildContext context, double value) {
+    final viewModel = context.read<WriteViewModel>();
+    final nextMood = MoodType.fromSlider(value);
+    viewModel.updateMoodType(nextMood);
   }
 
   @override
@@ -39,10 +23,12 @@ class _MoodSliderSelectionBottomSheetState
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final viewModel = context.watch<WriteViewModel>();
 
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -70,15 +56,21 @@ class _MoodSliderSelectionBottomSheetState
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: Color(_currentMood.colorValue).withValues(alpha: 0.2),
+              color: Color(
+                viewModel.selectedMood.colorValue,
+              ).withValues(alpha: 0.2),
               shape: BoxShape.circle,
               border: Border.all(
-                color: Color(_currentMood.colorValue).withValues(alpha: 0.8),
+                color: Color(
+                  viewModel.selectedMood.colorValue,
+                ).withValues(alpha: 0.8),
                 width: 3,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(_currentMood.colorValue).withValues(alpha: 0.4),
+                  color: Color(
+                    viewModel.selectedMood.colorValue,
+                  ).withValues(alpha: 0.4),
                   blurRadius: 20,
                   spreadRadius: 2,
                 ),
@@ -88,14 +80,14 @@ class _MoodSliderSelectionBottomSheetState
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
                 child: Text(
-                  _currentMood.emoji,
-                  key: ValueKey(_currentMood),
+                  viewModel.selectedMood.emoji,
+                  key: ValueKey(viewModel.selectedMood),
                   style: TextStyle(
                     fontSize: 64,
                     shadows: [
                       Shadow(
                         color: Color(
-                          _currentMood.colorValue,
+                          viewModel.selectedMood.colorValue,
                         ).withValues(alpha: 0.5),
                         blurRadius: 10,
                       ),
@@ -111,15 +103,15 @@ class _MoodSliderSelectionBottomSheetState
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: Text(
-              _currentMood.getDisplayName(context),
-              key: ValueKey(_currentMood),
+              viewModel.selectedMood.getDisplayName(context),
+              key: ValueKey(viewModel.selectedMood),
               style: textTheme.titleLarge?.copyWith(
-                color: Color(_currentMood.colorValue),
+                color: Color(viewModel.selectedMood.colorValue),
                 fontWeight: FontWeight.w700,
                 shadows: [
                   Shadow(
                     color: Color(
-                      _currentMood.colorValue,
+                      viewModel.selectedMood.colorValue,
                     ).withValues(alpha: 0.3),
                     blurRadius: 4,
                   ),
@@ -135,16 +127,16 @@ class _MoodSliderSelectionBottomSheetState
             children: [
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: Color(_currentMood.colorValue),
+                  activeTrackColor: Color(viewModel.selectedMood.colorValue),
                   inactiveTrackColor: colorScheme.outline.withValues(
                     alpha: 0.3,
                   ),
-                  thumbColor: Color(_currentMood.colorValue),
+                  thumbColor: Color(viewModel.selectedMood.colorValue),
                   thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 16,
                   ),
                   overlayColor: Color(
-                    _currentMood.colorValue,
+                    viewModel.selectedMood.colorValue,
                   ).withValues(alpha: 0.2),
                   overlayShape: const RoundSliderOverlayShape(
                     overlayRadius: 28,
@@ -152,15 +144,11 @@ class _MoodSliderSelectionBottomSheetState
                   trackHeight: 8,
                 ),
                 child: Slider(
-                  value: _currentValue,
+                  value: _getCurrentValue(viewModel.selectedMood),
                   min: 0,
                   max: 4,
                   divisions: 4,
-                  onChanged: (value) {
-                    setState(() {
-                      _currentValue = value;
-                    });
-                  },
+                  onChanged: (value) => _changeMood(context, value),
                 ),
               ),
               const SizedBox(height: 10),
@@ -169,11 +157,11 @@ class _MoodSliderSelectionBottomSheetState
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildEmotionLabel(context, MoodType.verySad),
-                  _buildEmotionLabel(context, MoodType.sad),
-                  _buildEmotionLabel(context, MoodType.neutral),
-                  _buildEmotionLabel(context, MoodType.happy),
-                  _buildEmotionLabel(context, MoodType.veryHappy),
+                  _buildEmotionLabel(context, MoodType.verySad, viewModel),
+                  _buildEmotionLabel(context, MoodType.sad, viewModel),
+                  _buildEmotionLabel(context, MoodType.neutral, viewModel),
+                  _buildEmotionLabel(context, MoodType.happy, viewModel),
+                  _buildEmotionLabel(context, MoodType.veryHappy, viewModel),
                 ],
               ),
             ],
@@ -184,7 +172,7 @@ class _MoodSliderSelectionBottomSheetState
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () => context.pop(_currentMood),
+              onPressed: () => context.pop(viewModel.selectedMood),
               child: Text(
                 t.common_confirm_ok,
                 style: textTheme.titleMedium?.copyWith(
@@ -200,24 +188,17 @@ class _MoodSliderSelectionBottomSheetState
     );
   }
 
-  Widget _buildEmotionLabel(BuildContext context, MoodType mood) {
+  Widget _buildEmotionLabel(
+    BuildContext context,
+    MoodType mood,
+    WriteViewModel viewModel,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isSelected = _currentMood == mood;
-
-    // 슬라이더 값에 맞는 인덱스로 변환
-    final moodValue = switch (mood) {
-      MoodType.verySad => 0.0,
-      MoodType.sad => 1.0,
-      MoodType.neutral => 2.0,
-      MoodType.happy => 3.0,
-      MoodType.veryHappy => 4.0,
-    };
+    final isSelected = viewModel.selectedMood == mood;
 
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _currentValue = moodValue;
-        });
+        viewModel.updateMoodType(mood);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

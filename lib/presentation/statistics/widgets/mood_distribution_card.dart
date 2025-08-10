@@ -6,7 +6,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/statistics_viewmodel.dart';
+import '../statistics_viewmodel.dart';
 import 'base_card.dart';
 import 'mood_distribution_item.dart';
 

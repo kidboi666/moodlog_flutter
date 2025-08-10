@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide ThemeMode;
 
-import '../../../core/constants/enum.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/providers/user_provider.dart';
-import '../../../data/repositories/analytics_repository_impl.dart';
-import '../../../domain/entities/settings.dart';
-import '../../../domain/repositories/app_state_repository.dart';
-import '../../../domain/repositories/journal_repository.dart';
+import '../../core/constants/enum.dart';
+import '../../core/providers/app_state_provider.dart';
+import '../../core/providers/user_provider.dart';
+import '../../data/repositories/analytics_repository_impl.dart';
+import '../../domain/entities/settings.dart';
+import '../../domain/repositories/app_state_repository.dart';
+import '../../domain/repositories/journal_repository.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateProvider _appStateProvider;

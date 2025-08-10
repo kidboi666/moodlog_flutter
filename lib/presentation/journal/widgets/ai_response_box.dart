@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/journal_viewmodel.dart';
+import '../journal_viewmodel.dart';
 
 class AiResponseBox extends StatefulWidget {
   final JournalViewModel viewModel;

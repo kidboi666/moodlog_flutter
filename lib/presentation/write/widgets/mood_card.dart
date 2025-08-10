@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../write_viewmodel.dart';
 
 class MoodCard extends StatelessWidget {
   final void Function() onTap;

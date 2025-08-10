@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../viewmodel/profile_viewmodel.dart';
+import '../../profile_viewmodel.dart';
 
 class SignOutDialog extends StatelessWidget {
   final ProfileViewModel viewModel;

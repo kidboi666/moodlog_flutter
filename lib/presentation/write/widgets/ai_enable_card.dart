@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/extensions/snack_bar.dart';
 import '../../../core/extensions/widget_scale.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../write_viewmodel.dart';
 
 class AiEnableCard extends StatelessWidget {
   const AiEnableCard({super.key});

@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/utils/result.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/entities/tag.dart';
-import '../../../domain/repositories/journal_repository.dart';
-import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
-import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
-import '../../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
+import '../../core/constants/enum.dart';
+import '../../core/mixins/async_state_mixin.dart';
+import '../../core/utils/result.dart';
+import '../../domain/entities/journal.dart';
+import '../../domain/entities/tag.dart';
+import '../../domain/repositories/journal_repository.dart';
+import '../../domain/use_cases/journal/delete_journal_use_case.dart';
+import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
 
 enum EntriesViewMode { list, calendar }
 

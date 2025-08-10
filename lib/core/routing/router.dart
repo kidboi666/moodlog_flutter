@@ -5,27 +5,16 @@ import 'package:provider/provider.dart';
 import '../../core/constants/enum.dart';
 import '../../core/providers/user_provider.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
-import '../../presentation/auth/screen/sign_in_screen.dart';
-import '../../presentation/auth/viewmodel/auth_viewmodel.dart';
-import '../../presentation/entries/screen/entries_screen.dart';
-import '../../presentation/entries/viewmodel/entries_viewmodel.dart';
-import '../../presentation/home/screen/home_screen.dart';
-import '../../presentation/home/viewmodel/home_viewmodel.dart';
-import '../../presentation/journal/screen/journal_screen.dart';
-import '../../presentation/journal/viewmodel/journal_viewmodel.dart';
-import '../../presentation/onboarding/screen/onboarding_screen.dart';
-import '../../presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
-import '../../presentation/profile/screen/profile_screen.dart';
-import '../../presentation/profile/viewmodel/profile_viewmodel.dart';
-import '../../presentation/settings/screen/settings_screen.dart';
-import '../../presentation/settings/viewmodel/settings_viewmodel.dart';
-import '../../presentation/statistics/screen/statistics_screen.dart';
-import '../../presentation/statistics/viewmodel/statistics_viewmodel.dart';
+import '../../presentation/auth/sign_in_screen.dart';
+import '../../presentation/entries/entries_screen.dart';
+import '../../presentation/home/home_screen.dart';
+import '../../presentation/journal/journal_screen.dart';
+import '../../presentation/onboarding/onboarding_screen.dart';
+import '../../presentation/profile/profile_screen.dart';
+import '../../presentation/settings/settings_screen.dart';
+import '../../presentation/statistics/statistics_screen.dart';
 import '../../presentation/ui/widgets/scaffold_with_navbar.dart';
-import '../../presentation/write/screen/write_screen.dart';
-import '../../presentation/write/viewmodel/write_viewmodel.dart';
+import '../../presentation/write/write_screen.dart';
 import 'routes.dart';
 
 GoRouter router(UserProvider userProvider) => GoRouter(
@@ -38,13 +27,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
       path: Routes.signIn,
       builder: (_, state) {
         final extra = state.extra as Map<String, SignInSource>?;
-        return ChangeNotifierProvider(
-          create: (context) => AuthViewModel(
-            authRepository: context.read(),
-            appStateProvider: context.read(),
-          ),
-          child: SignInScreen(source: extra?['source']),
-        );
+        return SignInScreen(source: extra?['source']);
       },
     ),
     GoRoute(
@@ -52,27 +35,14 @@ GoRouter router(UserProvider userProvider) => GoRouter(
       builder: (_, state) {
         final extra = state.extra as Map<String, LoginType>?;
         final loginType = extra?['loginType'] ?? LoginType.anonymous;
-        return ChangeNotifierProvider(
-          create: (context) => OnboardingViewModel(
-            totalSteps: 4,
-            appStateProvider: context.read(),
-            authRepository: context.read(),
-            loginType: loginType,
-          ),
-          child: const OnboardingScreen(),
-        );
+        return OnboardingScreen(loginType: loginType);
       },
     ),
     GoRoute(
       path: Routes.profile,
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (context) => ProfileViewModel(
-          userProvider: context.read(),
-          authUseCase: context.read(),
-          pickImageUseCase: context.read(),
-        ),
-        child: const ProfileScreen(),
-      ),
+      builder: (_, _) {
+        return const ProfileScreen();
+      },
     ),
     GoRoute(
       path: Routes.write,
@@ -83,27 +53,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
         final editJournalId = editJournalIdStr != null
             ? int.tryParse(editJournalIdStr)
             : null;
-        return ChangeNotifierProvider(
-          create: (context) => WriteViewModel(
-            geminiRepository: context.read(),
-            appStateProvider: context.read(),
-            settingsRepository: context.read(),
-            aiGenerationRepository: context.read(),
-            pickImageUseCase: context.read(),
-            getCurrentLocationUseCase: context.read(),
-            getCurrentWeatherUseCase: context.read(),
-            addJournalUseCase: context.read(),
-            updateJournalUseCase: context.read(),
-            checkAiUsageLimitUseCase: context.read(),
-            addTagUseCase: context.read(),
-            getAllTagsUseCase: context.read(),
-            updateJournalTagsUseCase: context.read(),
-            journalRepository: context.read(),
-            selectedDate: date,
-            editJournalId: editJournalId,
-          ),
-          child: const WriteScreen(),
-        );
+        return WriteScreen(date: date, editJournalId: editJournalId);
       },
     ),
     GoRoute(
@@ -112,22 +62,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
         final id = int.parse(state.pathParameters['id']!);
         final extra = state.extra as Map<String, JournalSource>?;
         final source = extra?['source'] ?? JournalSource.home;
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => JournalViewModel(
-                journalRepository: context.read(),
-                aiGenerationRepository: context.read(),
-                appStateProvider: context.read(),
-                source: source,
-                id: id,
-              ),
-            ),
-            Provider.value(value: context.read<GetCurrentWeatherUseCase>()),
-            Provider.value(value: context.read<WeatherRepository>()),
-          ],
-          child: const JournalScreen(),
-        );
+        return JournalScreen(source: source, id: id);
       },
     ),
     StatefulShellRoute(
@@ -143,16 +78,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.home,
-              builder: (_, _) => ChangeNotifierProvider(
-                create: (context) => HomeViewModel(
-                  journalRepository: context.read(),
-                  userProvider: context.read(),
-                  deleteJournalUseCase: context.read(),
-                  getCurrentLocationUseCase: context.read(),
-                  getCurrentWeatherUseCase: context.read(),
-                ),
-                child: const HomeScreen(),
-              ),
+              builder: (_, _) {
+                return const HomeScreen();
+              },
             ),
           ],
         ),
@@ -160,15 +88,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.entries,
-              builder: (_, _) => ChangeNotifierProvider(
-                create: (context) => EntriesViewModel(
-                  journalRepository: context.read(),
-                  deleteJournalUseCase: context.read(),
-                  getAllTagsUseCase: context.read(),
-                  getTagsByJournalUseCase: context.read(),
-                ),
-                child: const EntriesScreen(),
-              ),
+              builder: (_, _) {
+                return const EntriesScreen();
+              },
             ),
           ],
         ),
@@ -176,13 +98,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.statistics,
-              builder: (_, _) => ChangeNotifierProvider(
-                create: (context) => StatisticsViewModel(
-                  journalRepository: context.read(),
-                  userProvider: context.read(),
-                ),
-                child: const StatisticsScreen(),
-              ),
+              builder: (_, _) {
+                return const StatisticsScreen();
+              },
             ),
           ],
         ),
@@ -190,15 +108,9 @@ GoRouter router(UserProvider userProvider) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.settings,
-              builder: (_, _) => ChangeNotifierProvider(
-                create: (context) => SettingsViewModel(
-                  settingsRepository: context.read(),
-                  appStateProvider: context.read(),
-                  journalRepository: context.read(),
-                  userProvider: context.read(),
-                ),
-                child: const SettingsScreen(),
-              ),
+              builder: (_, _) {
+                return const SettingsScreen();
+              },
             ),
           ],
         ),

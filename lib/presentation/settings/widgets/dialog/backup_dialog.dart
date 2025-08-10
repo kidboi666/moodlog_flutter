@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/snack_bar.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../viewmodel/settings_viewmodel.dart';
+import '../../settings_viewmodel.dart';
 
 class BackupDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

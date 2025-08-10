@@ -6,7 +6,7 @@ import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../ui/widgets/fade_in.dart';
 import '../../ui/widgets/shake_emoji.dart';
-import '../viewmodel/home_viewmodel.dart';
+import '../home_viewmodel.dart';
 
 class WelcomeZone extends StatelessWidget {
   const WelcomeZone({super.key});

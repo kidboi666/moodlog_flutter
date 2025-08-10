@@ -1,26 +1,16 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+part of 'sign_in_screen.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../ui/widgets/fade_in.dart';
-import '../widgets/google_signin_button.dart';
-import '../widgets/guest_signin_button.dart';
-import '../widgets/kakao_signin_button.dart';
-import '../widgets/sign_in_terms_message.dart';
-
-class SignInScreen extends StatelessWidget {
+class _SignInScreenContent extends StatelessWidget {
   final SignInSource? source;
 
-  const SignInScreen({super.key, this.source});
+  const _SignInScreenContent({this.source});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final mediaquery = MediaQuery.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -32,8 +22,8 @@ class SignInScreen extends StatelessWidget {
                 delay: DelayMs.medium,
                 child: Image.asset(
                   'assets/images/icon.png',
-                  width: mediaquery.size.width / 2,
-                  height: mediaquery.size.width / 2,
+                  width: mediaQuery.size.width / 2,
+                  height: mediaQuery.size.width / 2,
                   fit: BoxFit.contain,
                 ),
               ),

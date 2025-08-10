@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../ui/widgets/avatar.dart';
-import '../viewmodel/profile_viewmodel.dart';
+import '../profile_viewmodel.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key});

@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/utils/result.dart';
-import '../../../data/repositories/analytics_repository_impl.dart';
-import '../../../domain/entities/create_journal_dto.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/entities/location_info.dart';
-import '../../../domain/entities/tag.dart';
-import '../../../domain/entities/update_journal_dto.dart';
-import '../../../domain/entities/weather_info.dart';
-import '../../../domain/repositories/ai_generation_repository.dart';
-import '../../../domain/repositories/app_state_repository.dart';
-import '../../../domain/repositories/gemini_repository.dart';
-import '../../../domain/repositories/journal_repository.dart';
-import '../../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
-import '../../../domain/use_cases/image/pick_image_usecase.dart';
-import '../../../domain/use_cases/journal/add_journal_use_case.dart';
-import '../../../domain/use_cases/journal/update_journal_use_case.dart';
-import '../../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../../domain/use_cases/tag/add_tag_use_case.dart';
-import '../../../domain/use_cases/tag/get_all_tags_use_case.dart';
-import '../../../domain/use_cases/tag/update_journal_tags_use_case.dart';
-import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../core/constants/enum.dart';
+import '../../core/mixins/async_state_mixin.dart';
+import '../../core/providers/app_state_provider.dart';
+import '../../core/utils/result.dart';
+import '../../data/repositories/analytics_repository_impl.dart';
+import '../../domain/entities/create_journal_dto.dart';
+import '../../domain/entities/journal.dart';
+import '../../domain/entities/location_info.dart';
+import '../../domain/entities/tag.dart';
+import '../../domain/entities/update_journal_dto.dart';
+import '../../domain/entities/weather_info.dart';
+import '../../domain/repositories/ai_generation_repository.dart';
+import '../../domain/repositories/app_state_repository.dart';
+import '../../domain/repositories/gemini_repository.dart';
+import '../../domain/repositories/journal_repository.dart';
+import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/image/pick_image_usecase.dart';
+import '../../domain/use_cases/journal/add_journal_use_case.dart';
+import '../../domain/use_cases/journal/update_journal_use_case.dart';
+import '../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../domain/use_cases/tag/add_tag_use_case.dart';
+import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../domain/use_cases/tag/update_journal_tags_use_case.dart';
+import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -104,37 +104,21 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   int? _editJournalId;
 
   String? get content => _content;
-
   bool get aiEnabled => _aiEnabled;
-
   MoodType get selectedMood => _selectedMood;
-
   DateTime get selectedDate => _selectedDate;
-
   List<String> get imageUri => _imageFileList;
-
   bool get isSubmitted => _isSubmitted;
-
   int? get submittedJournalId => _submittedJournalId;
-
   bool get canUseAiToday => _canUseAiToday;
-
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
-
   LocationInfo? get locationInfo => _locationInfo;
-
   bool get isLoadingLocation => _isLoadingLocation;
-
   WeatherInfo? get weatherInfo => _weatherInfo;
-
   bool get isLoadingWeather => _isLoadingWeather;
-
   List<Tag> get availableTags => _availableTags;
-
   bool get isEditMode => _isEditMode;
-
   List<Tag> get selectedTags => _selectedTags;
-
   bool get isFormValid {
     return _content != null &&
         _content!.trim().isNotEmpty &&

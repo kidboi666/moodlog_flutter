@@ -6,7 +6,7 @@ import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../../ui/widgets/tag_section.dart';
-import '../viewmodel/journal_viewmodel.dart';
+import '../journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';
 

@@ -1,24 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+part of 'onboarding_screen.dart';
 
-import '../../../core/constants/common.dart';
-import '../../ui/widgets/pagination_dot.dart';
-import '../viewmodel/onboarding_viewmodel.dart';
-import '../widgets/onboarding_pageview_nickname.dart';
-import '../widgets/onboarding_pageview_personality.dart';
-import '../widgets/onboarding_pageview_success.dart';
-import '../widgets/onboarding_pageview_welcome.dart';
-
-typedef PaginationDotProps = ({int current, int total});
-
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
-
+class _OnboardingScreenContent extends StatefulWidget {
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<_OnboardingScreenContent> createState() =>
+      _OnboardingScreenContentState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
   late PageController _pageController;
 
   void onNext() {
@@ -35,8 +23,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<OnboardingViewModel>();
+    final viewModel = context.watch<OnboardingViewModel>();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -74,11 +68,5 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }

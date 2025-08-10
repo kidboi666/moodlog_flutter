@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
-import '../viewmodel/journal_viewmodel.dart';
+import '../journal_viewmodel.dart';
 import 'location_map_bottom_sheet.dart';
 
 class LocationCard extends StatelessWidget {

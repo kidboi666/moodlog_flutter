@@ -1,19 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/routing.dart';
-import '../../../core/routing/routes.dart';
-import '../../../domain/entities/journal.dart';
-import '../../ui/widgets/avatar.dart';
-import '../../ui/widgets/empty_entries_box.dart';
-import '../../ui/widgets/fade_in.dart';
-import '../../ui/widgets/journal_card.dart';
-import '../viewmodel/home_viewmodel.dart';
-import '../widgets/horizontal_calendar.dart';
-import '../widgets/weather_widget.dart';
-import '../widgets/welcome_zone.dart';
+part of 'home_screen.dart';
 
 typedef HomeFeedState = ({
   bool isFirstRender,
@@ -25,9 +10,7 @@ typedef HomeFeedState = ({
 
 typedef HomeCalendarState = ({DateTime selectedDate, String? nickname});
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class _HomeScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(

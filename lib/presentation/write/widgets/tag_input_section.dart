@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/widget_scale.dart';
 import '../../../domain/entities/tag.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../write_viewmodel.dart';
 
 class TagInputSection extends StatefulWidget {
   const TagInputSection({super.key});

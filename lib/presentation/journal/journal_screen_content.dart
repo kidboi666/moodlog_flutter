@@ -1,24 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/constants/enum.dart';
-import 'package:provider/provider.dart';
+part of 'journal_screen.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/extensions/widget_scale.dart';
-import '../../../core/routing/routes.dart';
-import '../../../domain/entities/journal.dart';
-import '../../ui/widgets/fade_in.dart';
-import '../../ui/widgets/pop_button.dart';
-import '../viewmodel/journal_viewmodel.dart';
-import '../widgets/ai_response_box.dart';
-import '../widgets/content_box.dart';
-import '../widgets/dialog/delete_confirm_dialog.dart';
-import '../widgets/mood_bar.dart';
-
-class JournalScreen extends StatelessWidget {
-  const JournalScreen({super.key});
-
+class _JournalScreenContent extends StatelessWidget {
   void _handleBackNavigation(BuildContext context, JournalViewModel viewModel) {
     if (viewModel.shouldReplaceOnPop) {
       context.replace(Routes.home);

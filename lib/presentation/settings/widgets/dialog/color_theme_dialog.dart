@@ -5,12 +5,14 @@ import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/widget_scale.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../ui/theme/colors.dart';
-import '../../viewmodel/settings_viewmodel.dart';
+import '../../settings_viewmodel.dart';
 
 class ColorThemeDialog extends StatelessWidget {
   final SettingsViewModel viewModel;
 
   const ColorThemeDialog({super.key, required this.viewModel});
+
+  final double r = 40;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ColorThemeDialog extends StatelessWidget {
         child: GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+            crossAxisCount: 4,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
             childAspectRatio: 1,
@@ -45,8 +47,8 @@ class ColorThemeDialog extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 60,
+                    width: r,
+                    height: r,
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.rectangle,

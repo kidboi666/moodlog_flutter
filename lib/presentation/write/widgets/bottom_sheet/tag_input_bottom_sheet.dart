@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../viewmodel/write_viewmodel.dart';
+import '../../write_viewmodel.dart';
 
 class TagInputBottomSheet extends StatefulWidget {
   const TagInputBottomSheet({super.key});

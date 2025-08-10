@@ -3,19 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/providers/user_provider.dart';
-import '../../../core/utils/result.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/entities/location_info.dart';
-import '../../../domain/entities/weather_info.dart';
-import '../../../domain/repositories/journal_repository.dart';
-import '../../../domain/use_cases/journal/delete_journal_use_case.dart';
-import '../../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../core/constants/common.dart';
+import '../../core/constants/enum.dart';
+import '../../core/extensions/date_time.dart';
+import '../../core/mixins/async_state_mixin.dart';
+import '../../core/providers/user_provider.dart';
+import '../../core/utils/result.dart';
+import '../../domain/entities/journal.dart';
+import '../../domain/entities/location_info.dart';
+import '../../domain/entities/weather_info.dart';
+import '../../domain/repositories/journal_repository.dart';
+import '../../domain/use_cases/journal/delete_journal_use_case.dart';
+import '../../domain/use_cases/location/get_current_location_use_case.dart';
+import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;

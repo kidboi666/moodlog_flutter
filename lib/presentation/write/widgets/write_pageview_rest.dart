@@ -5,7 +5,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/routing.dart';
 import '../../ui/widgets/fade_in.dart';
-import '../viewmodel/write_viewmodel.dart';
+import '../write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'content_input.dart';
@@ -33,26 +33,12 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
   }
 
   Future<void> _showMoodSelectionBottomSheet() async {
-    final viewModel = context.read<WriteViewModel>();
-    final selectedMood = await showModalBottomSheet<MoodType>(
+    await showModalBottomSheet<MoodType>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => ChangeNotifierProvider.value(
-        value: viewModel,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(bottomSheetContext).colorScheme.surface,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: const MoodSliderSelectionBottomSheet(),
-        ),
-      ),
+      builder: (bottomSheetContext) => MoodSliderSelectionBottomSheet(),
     );
-
-    if (selectedMood != null && mounted) {
-      viewModel.updateMoodType(selectedMood);
-    }
   }
 
   @override

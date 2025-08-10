@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extensions/date_time.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/profile_viewmodel.dart';
+import '../profile_viewmodel.dart';
 
 class CreationTimeCard extends StatelessWidget {
   const CreationTimeCard({super.key});

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
-import '../viewmodel/home_viewmodel.dart';
+import '../home_viewmodel.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key});

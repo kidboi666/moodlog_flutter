@@ -1,17 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/date_time.dart';
-import '../../../core/extensions/routing.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../domain/entities/journal.dart';
-import '../../ui/widgets/empty_entries_box.dart';
-import '../../ui/widgets/fade_in.dart';
-import '../../ui/widgets/journal_card.dart';
-import '../viewmodel/entries_viewmodel.dart';
-import '../widgets/entries_calendar_view.dart';
-import '../widgets/tag_filter_section.dart';
+part of 'entries_screen.dart';
 
 typedef EntriesSelectorType = ({
   bool isLoading,
@@ -19,9 +6,7 @@ typedef EntriesSelectorType = ({
   EntriesViewMode viewMode,
 });
 
-class EntriesScreen extends StatelessWidget {
-  const EntriesScreen({super.key});
-
+class _EntriesScreenContent extends StatelessWidget {
   // 날짜별로 저널 그룹화
   Map<DateTime, List<Journal>> _groupJournalsByDate(List<Journal> journals) {
     final Map<DateTime, List<Journal>> groupedJournals = {};

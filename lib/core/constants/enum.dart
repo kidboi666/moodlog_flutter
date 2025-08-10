@@ -241,44 +241,87 @@ enum MoodType {
 
   material.Color get color => material.Color(colorValue);
 
-  String get displayName {
-    switch (this) {
-      case MoodType.veryHappy:
-        return '매우 좋음';
-      case MoodType.happy:
-        return '좋음';
-      case MoodType.neutral:
-        return '보통';
-      case MoodType.sad:
-        return '나쁨';
-      case MoodType.verySad:
-        return '매우 나쁨';
-    }
+  double get sliderValue => switch (this) {
+    MoodType.verySad => 0.0,
+    MoodType.sad => 1.0,
+    MoodType.neutral => 2.0,
+    MoodType.happy => 3.0,
+    MoodType.veryHappy => 4.0,
+  };
+
+  static MoodType fromSlider(num value) {
+    return switch (value) {
+      0.0 => MoodType.verySad,
+      1.0 => MoodType.sad,
+      2.0 => MoodType.neutral,
+      3.0 => MoodType.happy,
+      4.0 => MoodType.veryHappy,
+      _ => MoodType.neutral,
+    };
   }
 }
 
 enum ColorTheme {
-  blue,
-  indigo,
   red,
+  pink,
   purple,
+  deepPurple,
+  indigo,
+  blue,
+  lightBlue,
+  cyan,
+  teal,
   green,
-  orange;
+  lightGreen,
+  lime,
+  yellow,
+  amber,
+  orange,
+  deepOrange,
+  brown,
+  grey,
+  blueGrey;
 
   static ColorTheme fromString(String? value) {
     switch (value) {
       case 'red':
         return ColorTheme.red;
-      case 'blue':
-        return ColorTheme.blue;
+      case 'pink':
+        return ColorTheme.pink;
       case 'purple':
         return ColorTheme.purple;
-      case 'green':
-        return ColorTheme.green;
-      case 'orange':
-        return ColorTheme.orange;
+      case 'deepPurple':
+        return ColorTheme.deepPurple;
       case 'indigo':
         return ColorTheme.indigo;
+      case 'blue':
+        return ColorTheme.blue;
+      case 'lightBlue':
+        return ColorTheme.lightBlue;
+      case 'cyan':
+        return ColorTheme.cyan;
+      case 'teal':
+        return ColorTheme.teal;
+      case 'green':
+        return ColorTheme.green;
+      case 'lightGreen':
+        return ColorTheme.lightGreen;
+      case 'lime':
+        return ColorTheme.lime;
+      case 'yellow':
+        return ColorTheme.yellow;
+      case 'amber':
+        return ColorTheme.amber;
+      case 'orange':
+        return ColorTheme.orange;
+      case 'deepOrange':
+        return ColorTheme.deepOrange;
+      case 'brown':
+        return ColorTheme.brown;
+      case 'grey':
+        return ColorTheme.grey;
+      case 'blueGrey':
+        return ColorTheme.blueGrey;
       default:
         return ColorTheme.blue;
     }
@@ -288,16 +331,42 @@ enum ColorTheme {
     switch (this) {
       case ColorTheme.red:
         return 'red';
-      case ColorTheme.blue:
-        return 'blue';
+      case ColorTheme.pink:
+        return 'pink';
       case ColorTheme.purple:
         return 'purple';
-      case ColorTheme.green:
-        return 'green';
-      case ColorTheme.orange:
-        return 'orange';
+      case ColorTheme.deepPurple:
+        return 'deepPurple';
       case ColorTheme.indigo:
         return 'indigo';
+      case ColorTheme.blue:
+        return 'blue';
+      case ColorTheme.lightBlue:
+        return 'lightBlue';
+      case ColorTheme.cyan:
+        return 'cyan';
+      case ColorTheme.teal:
+        return 'teal';
+      case ColorTheme.green:
+        return 'green';
+      case ColorTheme.lightGreen:
+        return 'lightGreen';
+      case ColorTheme.lime:
+        return 'lime';
+      case ColorTheme.yellow:
+        return 'yellow';
+      case ColorTheme.amber:
+        return 'amber';
+      case ColorTheme.orange:
+        return 'orange';
+      case ColorTheme.deepOrange:
+        return 'deepOrange';
+      case ColorTheme.brown:
+        return 'brown';
+      case ColorTheme.grey:
+        return 'grey';
+      case ColorTheme.blueGrey:
+        return 'blueGrey';
     }
   }
 }

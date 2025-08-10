@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/profile_viewmodel.dart';
+import '../profile_viewmodel.dart';
 
 class UserIdCard extends StatelessWidget {
   const UserIdCard({super.key});

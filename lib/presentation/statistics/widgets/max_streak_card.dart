@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../viewmodel/statistics_viewmodel.dart';
+import '../statistics_viewmodel.dart';
 import 'base_card.dart';
 
 class MaxStreakCard extends StatelessWidget {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/constants/enum.dart';
-import '../../../core/mixins/async_state_mixin.dart';
-import '../../../core/mixins/debounce_mixin.dart';
-import '../../../core/providers/app_state_provider.dart';
-import '../../../core/utils/result.dart';
-import '../../../domain/entities/journal.dart';
-import '../../../domain/repositories/ai_generation_repository.dart';
-import '../../../domain/repositories/journal_repository.dart';
+import '../../core/constants/enum.dart';
+import '../../core/mixins/async_state_mixin.dart';
+import '../../core/mixins/debounce_mixin.dart';
+import '../../core/providers/app_state_provider.dart';
+import '../../core/utils/result.dart';
+import '../../domain/entities/journal.dart';
+import '../../domain/repositories/ai_generation_repository.dart';
+import '../../domain/repositories/journal_repository.dart';
 
 class JournalViewModel extends ChangeNotifier
     with AsyncStateMixin, DebounceMixin {
