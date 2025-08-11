@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
+import '../../constants/common.dart';
 
 class ScaleWrapper extends StatefulWidget {
   final Widget child;

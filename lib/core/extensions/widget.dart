@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/common.dart';
-import '../../presentation/ui/widgets/scale_wrapper.dart';
+import '../ui/widgets/scale_wrapper.dart';
 
 extension WidgetScaleExtension on Widget {
   Widget scale({

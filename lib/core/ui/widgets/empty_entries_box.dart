@@ -2,10 +2,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/widget.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
+import '../../constants/common.dart';
+import '../../extensions/widget.dart';
+import '../../l10n/app_localizations.dart';
+import '../../routing/routes.dart';
 
 class EmptyEntriesBox extends StatelessWidget {
   final void Function()? onPressed;

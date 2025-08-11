@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
-import '../../ui/widgets/avatar.dart';
+import '../../../core/ui/widgets/avatar.dart';
 import '../profile_viewmodel.dart';
 
 class ProfileAvatar extends StatelessWidget {

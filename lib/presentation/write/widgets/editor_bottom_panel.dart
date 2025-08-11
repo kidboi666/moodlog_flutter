@@ -83,6 +83,9 @@ class _EditorBottomPanelState extends State<EditorBottomPanel> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final selectedMood = context.select<WriteViewModel, MoodType>(
+      (vm) => vm.selectedMood,
+    );
 
     return SafeArea(
       child: Container(
@@ -101,7 +104,10 @@ class _EditorBottomPanelState extends State<EditorBottomPanel> {
               ),
               IconButton(
                 onPressed: () => _showMoodSelectionBottomSheet(),
-                icon: const Icon(Icons.mood_outlined),
+                icon: Icon(
+                  Icons.mood_outlined,
+                  color: Color(selectedMood.colorValue),
+                ),
               ),
               const ImagePickerButton(),
               const TagInputButton(),

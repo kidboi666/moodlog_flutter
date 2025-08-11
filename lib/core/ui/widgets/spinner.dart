@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/enum.dart';
+import '../../constants/enum.dart';
 
 class Spinner extends StatelessWidget {
   final SpinnerType spinnerType;

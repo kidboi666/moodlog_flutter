@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
-import '../../ui/widgets/image_screen_with_button.dart';
+import '../../../core/ui/widgets/image_screen_with_button.dart';
 import '../journal_viewmodel.dart';
 import 'cover_image_button.dart';
 

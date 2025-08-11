@@ -21,19 +21,16 @@ class DayCell extends StatelessWidget {
 
     final hasJournal = journals.isNotEmpty;
 
-    // 올해가 아니거나 미래 날짜인지 확인
-    final isCurrentYear = date.year == now.year;
-    final isFuture = date.isAfter(now);
-    final isToday = DateTime(
-      date.year,
-      date.month,
-      date.day,
-    ).isAtSameMomentAs(DateTime(now.year, now.month, now.day));
+    // 미래 날짜인지 확인 (올해 날짜만 들어오므로 isCurrentYear 체크 불필요)
+    final isFuture = date.isAfter(DateTime(now.year, now.month, now.day));
+    final isToday = DateTime(date.year, date.month, date.day)
+        .isAtSameMomentAs(DateTime(now.year, now.month, now.day));
 
     // 색상 결정
     Color backgroundColor;
 
-    if (!isCurrentYear || isFuture) {
+    if (isFuture) {
+      // 미래 날짜는 연하게 표시
       backgroundColor = colorScheme.surfaceContainerHighest.withValues(
         alpha: 0.2,
       );
@@ -42,6 +39,7 @@ class DayCell extends StatelessWidget {
       final primaryMood = _getPrimaryMood(journals);
       backgroundColor = Color(primaryMood.colorValue).withValues(alpha: 0.8);
     } else {
+      // 일기가 없는 과거/현재 날짜
       backgroundColor = colorScheme.surfaceContainerHighest.withValues(
         alpha: 0.4,
       );

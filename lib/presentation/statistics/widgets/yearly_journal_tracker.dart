@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../home/widgets/yearly_tracker/yearly_grid.dart';
 import '../statistics_viewmodel.dart';
 import 'base_card.dart';
-import '../../home/widgets/yearly_tracker/yearly_grid.dart';
 
 class YearlyJournalTracker extends StatelessWidget {
   const YearlyJournalTracker({super.key});
@@ -27,19 +26,18 @@ class YearlyJournalTracker extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Text(
-                    '${now.year}',
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: Spacing.lg),
-
+              // Row(
+              //   children: [
+              //     Text(
+              //       '${now.year}',
+              //       style: textTheme.bodyMedium?.copyWith(
+              //         color: colorScheme.onSurfaceVariant,
+              //         fontWeight: FontWeight.w500,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: Spacing.lg),
               YearlyGrid(now: now, yearlyJournals: yearlyJournals),
             ],
           ),

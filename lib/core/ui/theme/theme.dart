@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../core/constants/enum.dart';
-import 'colors.dart';
+import '../../../core/ui/theme/colors.dart';
+import '../../constants/enum.dart';
 
 abstract final class AppTheme {
   static ThemeData lightTheme(ColorTheme colorTheme, FontFamily fontFamily) {

@@ -7,7 +7,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
-import '../../ui/widgets/spinner.dart';
+import '../../../core/ui/widgets/spinner.dart';
 import '../auth_viewmodel.dart';
 
 class KakaoSigninButton extends StatelessWidget {

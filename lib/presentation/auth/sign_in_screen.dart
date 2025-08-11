@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
 import '../../core/l10n/app_localizations.dart';
-import '../ui/widgets/fade_in.dart';
+import '../../core/ui/widgets/fade_in.dart';
 import 'auth_viewmodel.dart';
 import 'widgets/google_signin_button.dart';
 import 'widgets/guest_signin_button.dart';

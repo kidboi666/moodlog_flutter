@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/enum.dart';
+import '../../constants/enum.dart';
 
 class ShakeEmoji extends StatefulWidget {
   final Emoji emoji;

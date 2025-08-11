@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
-import '../../ui/widgets/fade_in.dart';
-import '../../ui/widgets/spinner.dart';
+import '../../../core/ui/widgets/fade_in.dart';
+import '../../../core/ui/widgets/spinner.dart';
 import '../onboarding_viewmodel.dart';
 
 class OnboardingPageViewSuccess extends StatelessWidget {

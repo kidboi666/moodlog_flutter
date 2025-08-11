@@ -4,7 +4,7 @@ import '../../../../core/constants/common.dart';
 import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/widget.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../ui/theme/colors.dart';
+import '../../../../core/ui/theme/colors.dart';
 import '../../settings_viewmodel.dart';
 
 class ColorThemeDialog extends StatelessWidget {

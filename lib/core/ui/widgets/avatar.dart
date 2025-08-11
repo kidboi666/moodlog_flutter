@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/widget.dart';
+import '../../constants/common.dart';
+import '../../extensions/widget.dart';
 
 class Avatar extends StatelessWidget {
   final String? photoUrl;

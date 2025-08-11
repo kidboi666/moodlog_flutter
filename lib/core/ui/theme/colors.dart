@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/enum.dart';
+import '../../constants/enum.dart';
 
 abstract final class AppColor {
   static final Map<ColorTheme, Color> colorMap = {

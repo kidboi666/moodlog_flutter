@@ -11,11 +11,11 @@ import 'core/di/injection_container.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/providers/app_state_provider.dart';
 import 'core/routing/router.dart';
+import 'core/ui/theme/theme.dart';
+import 'core/ui/widgets/spinner.dart';
 import 'core/utils/keyboard_utils.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 import 'firebase_options.dart';
-import 'presentation/ui/theme/theme.dart';
-import 'presentation/ui/widgets/spinner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

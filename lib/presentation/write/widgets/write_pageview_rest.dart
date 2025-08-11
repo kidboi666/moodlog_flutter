@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/routing.dart';
-import '../../ui/widgets/fade_in.dart';
+import '../../../core/ui/widgets/fade_in.dart';
 import '../write_viewmodel.dart';
 import 'ai_enable_card.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';

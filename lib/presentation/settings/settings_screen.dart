@@ -7,7 +7,7 @@ import '../../core/constants/common.dart';
 import '../../core/extensions/enum.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/routing/routes.dart';
-import '../ui/widgets/avatar.dart';
+import '../../core/ui/widgets/avatar.dart';
 import 'settings_viewmodel.dart';
 import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';

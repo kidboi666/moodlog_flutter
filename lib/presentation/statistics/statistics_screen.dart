@@ -5,17 +5,17 @@ import 'package:provider/provider.dart';
 import '../../core/constants/common.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/routing/routes.dart';
-import 'widgets/representative_mood_card.dart';
-import 'widgets/yearly_journal_tracker.dart';
-import '../ui/widgets/avatar.dart';
+import '../../core/ui/widgets/avatar.dart';
 import 'statistics_viewmodel.dart';
 import 'widgets/average_mood_card.dart';
 import 'widgets/current_streak_card.dart';
 import 'widgets/max_streak_card.dart';
 import 'widgets/mood_distribution_card.dart';
 import 'widgets/mood_trend_card.dart';
+import 'widgets/representative_mood_card.dart';
 import 'widgets/total_records_card.dart';
 import 'widgets/writing_frequency_card.dart';
+import 'widgets/yearly_journal_tracker.dart';
 
 part 'statistics_screen_content.dart';
 

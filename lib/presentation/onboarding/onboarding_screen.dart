@@ -3,7 +3,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
-import '../ui/widgets/pagination_dot.dart';
+import '../../core/ui/widgets/pagination_dot.dart';
 import 'onboarding_viewmodel.dart';
 import 'widgets/onboarding_pageview_nickname.dart';
 import 'widgets/onboarding_pageview_personality.dart';

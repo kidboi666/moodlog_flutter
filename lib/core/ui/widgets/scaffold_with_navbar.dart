@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/navigation.dart';
-import '../../../core/extensions/widget.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
-import '../../../core/utils/animated_container.dart';
-import 'banner_ad_widget.dart';
-import 'gradient_box.dart';
+import '../../../core/ui/widgets/banner_ad_widget.dart';
+import '../../../core/ui/widgets/gradient_box.dart';
+import '../../constants/common.dart';
+import '../../constants/navigation.dart';
+import '../../extensions/widget.dart';
+import '../../l10n/app_localizations.dart';
+import '../../routing/routes.dart';
+import '../../utils/animated_container.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final List<Widget> children;
