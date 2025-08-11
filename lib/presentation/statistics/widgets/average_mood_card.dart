@@ -16,7 +16,6 @@ class AverageMoodCard extends StatelessWidget {
     final viewModel = context.read<StatisticsViewModel>();
     final allJournals = viewModel.allJournals;
     final moodCounts = viewModel.moodCounts;
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
@@ -67,6 +66,77 @@ class AverageMoodCard extends StatelessWidget {
         .reversed
         .toList();
 
+    return BaseCard(
+      title: t.statistics_average_mood_title,
+      icon: Icons.mood,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTotalResult(
+            context,
+            dominantMood: dominantMood,
+            averageMoodText: averageMoodText,
+            averageMoodColor: averageMoodColor,
+            averageScore: averageScore,
+          ),
+          const SizedBox(height: Spacing.lg),
+          _buildContent(
+            context,
+            mostFrequentMood: mostFrequentMood,
+            averageScore: averageScore,
+            recentMoods: recentMoods,
+          ),
+          const SizedBox(height: Spacing.md),
+          _buildMoodDistribution(context, averageScore: averageScore),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTotalResult(
+    BuildContext context, {
+    required MoodType dominantMood,
+    required String averageMoodText,
+    required Color averageMoodColor,
+    required double averageScore,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
+    return Center(
+      child: Column(
+        children: [
+          Text(dominantMood.emoji, style: const TextStyle(fontSize: 48)),
+          const SizedBox(height: Spacing.sm),
+          Text(
+            averageMoodText,
+            style: textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: averageMoodColor,
+            ),
+          ),
+          Text(
+            t.statistics_average_mood_score(averageScore.toStringAsFixed(1)),
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContent(
+    BuildContext context, {
+    required MoodType mostFrequentMood,
+    required double averageScore,
+    required List<int> recentMoods,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
     final recentAverage = recentMoods.isNotEmpty
         ? recentMoods.reduce((a, b) => a + b) / recentMoods.length
         : averageScore;
@@ -89,161 +159,135 @@ class AverageMoodCard extends StatelessWidget {
         ? Colors.red
         : colorScheme.onSurfaceVariant;
 
-    return BaseCard(
-      title: t.statistics_average_mood_title,
-      icon: Icons.mood,
+    return Container(
+      padding: const EdgeInsets.all(Spacing.lg),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(Roundness.cardInner),
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Column(
-              children: [
-                Text(dominantMood.emoji, style: const TextStyle(fontSize: 48)),
-                const SizedBox(height: Spacing.sm),
-                Text(
-                  averageMoodText,
-                  style: textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: averageMoodColor,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                t.statistics_average_mood_most_frequent,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                 ),
-                Text(
-                  t.statistics_average_mood_score(
-                    averageScore.toStringAsFixed(1),
-                  ),
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: Spacing.lg),
-          Container(
-            padding: const EdgeInsets.all(Spacing.lg),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(Roundness.cardInner),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      t.statistics_average_mood_most_frequent,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          mostFrequentMood.emoji,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(width: Spacing.xs),
-                        Text(
-                          mostFrequentMood.getDisplayName(context),
-                          style: textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: Spacing.sm),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      t.statistics_average_mood_recent_trend,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(trendIcon, color: trendColor, size: 16),
-                        const SizedBox(width: Spacing.xs),
-                        Text(
-                          trendIndicator,
-                          style: textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: trendColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          if (averageScore >= 4.0) ...[
-            const SizedBox(height: Spacing.md),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: Colors.green.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
-              child: Row(
+              Row(
                 children: [
-                  const Icon(
-                    Icons.sentiment_very_satisfied,
-                    color: Colors.green,
-                    size: 20,
+                  Text(
+                    mostFrequentMood.emoji,
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  const SizedBox(width: Spacing.sm),
-                  Expanded(
-                    child: Text(
-                      t.statistics_mood_positive_message,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  const SizedBox(width: Spacing.xs),
+                  Text(
+                    mostFrequentMood.getDisplayName(context),
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
-            ),
-          ] else if (averageScore < 2.5) ...[
-            const SizedBox(height: Spacing.md),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: Colors.orange.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-                border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+            ],
+          ),
+          const SizedBox(height: Spacing.sm),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                t.statistics_average_mood_recent_trend,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
-              child: Row(
+              Row(
                 children: [
-                  const Icon(
-                    Icons.sentiment_dissatisfied,
-                    color: Colors.orange,
-                    size: 20,
-                  ),
-                  const SizedBox(width: Spacing.sm),
-                  Expanded(
-                    child: Text(
-                      t.statistics_mood_negative_message,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  Icon(trendIcon, color: trendColor, size: 16),
+                  const SizedBox(width: Spacing.xs),
+                  Text(
+                    trendIndicator,
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: trendColor,
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ],
       ),
     );
+  }
+
+  Widget _buildMoodDistribution(
+    BuildContext context, {
+    required double averageScore,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
+
+    if (averageScore >= 4.0) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: Colors.green.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+          border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.sentiment_very_satisfied,
+              color: Colors.green,
+              size: 20,
+            ),
+            const SizedBox(width: Spacing.sm),
+            Expanded(
+              child: Text(
+                t.statistics_mood_positive_message,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: Colors.orange.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+          border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.sentiment_dissatisfied,
+              color: Colors.orange,
+              size: 20,
+            ),
+            const SizedBox(width: Spacing.sm),
+            Expanded(
+              child: Text(
+                t.statistics_mood_negative_message,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

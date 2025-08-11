@@ -13,8 +13,6 @@ class WritingFrequencyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<StatisticsViewModel>();
     final allJournals = viewModel.allJournals;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
     if (allJournals.isEmpty) {
@@ -47,6 +45,62 @@ class WritingFrequencyCard extends StatelessWidget {
         ? (allJournals.length / totalDays * 30)
         : monthlyEntries.toDouble();
 
+    final Map<int, int> hourlyDistribution = {};
+    for (var journal in allJournals) {
+      final hour = journal.createdAt.hour;
+      hourlyDistribution[hour] = (hourlyDistribution[hour] ?? 0) + 1;
+    }
+
+    final Map<int, int> weekdayDistribution = {};
+    for (var journal in allJournals) {
+      final weekday = journal.createdAt.weekday;
+      weekdayDistribution[weekday] = (weekdayDistribution[weekday] ?? 0) + 1;
+    }
+
+    final mostActiveHour = hourlyDistribution.isNotEmpty
+        ? hourlyDistribution.entries
+              .reduce((a, b) => a.value > b.value ? a : b)
+              .key
+        : 12;
+
+    final mostActiveWeekday = weekdayDistribution.isNotEmpty
+        ? weekdayDistribution.entries
+              .reduce((a, b) => a.value > b.value ? a : b)
+              .key
+        : 1;
+
+    return BaseCard(
+      title: t.statistics_writing_frequency_title,
+      icon: Icons.schedule,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildThisWeekFrequency(context, weeklyEntries),
+          const SizedBox(height: Spacing.lg),
+          Row(
+            children: [
+              _buildWeeklyAverage(context, weeklyAverage),
+              const SizedBox(width: Spacing.md),
+              _buildMonthlyAverage(context, monthlyAverage),
+            ],
+          ),
+          const SizedBox(height: Spacing.lg),
+          _buildFrequencyTime(
+            context,
+            mostActiveHour: mostActiveHour,
+            mostActiveWeekday: mostActiveWeekday,
+          ),
+          const SizedBox(height: Spacing.md),
+          _buildFallback(context, weeklyEntries),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThisWeekFrequency(BuildContext context, int weeklyEntries) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
     final weeklyFrequencyText = weeklyEntries >= 7
         ? t.statistics_writing_frequency_daily
         : weeklyEntries >= 5
@@ -56,7 +110,6 @@ class WritingFrequencyCard extends StatelessWidget {
         : weeklyEntries >= 1
         ? t.statistics_writing_frequency_sometimes
         : t.statistics_writing_frequency_none;
-
     final weeklyFrequencyColor = weeklyEntries >= 7
         ? Colors.green
         : weeklyEntries >= 5
@@ -67,42 +120,144 @@ class WritingFrequencyCard extends StatelessWidget {
         ? Colors.orange
         : Colors.red;
 
-    final Map<int, int> hourlyDistribution = {};
-    for (var journal in allJournals) {
-      final hour = journal.createdAt.hour;
-      hourlyDistribution[hour] = (hourlyDistribution[hour] ?? 0) + 1;
-    }
+    return Container(
+      padding: const EdgeInsets.all(Spacing.lg),
+      decoration: BoxDecoration(
+        color: weeklyFrequencyColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(Roundness.cardInner),
+        border: Border.all(color: weeklyFrequencyColor.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                t.statistics_writing_frequency_this_week,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    weeklyEntries.toString(),
+                    style: textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: weeklyFrequencyColor,
+                    ),
+                  ),
+                  Text(
+                    t.statistics_writing_frequency_count_unit,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: weeklyFrequencyColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.sm,
+              vertical: Spacing.xs,
+            ),
+            decoration: BoxDecoration(
+              color: weeklyFrequencyColor.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(Roundness.cardInner),
+            ),
+            child: Text(
+              weeklyFrequencyText,
+              style: textTheme.bodySmall?.copyWith(
+                color: weeklyFrequencyColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-    final mostActiveHour = hourlyDistribution.isNotEmpty
-        ? hourlyDistribution.entries
-              .reduce((a, b) => a.value > b.value ? a : b)
-              .key
-        : 12;
+  Widget _buildWeeklyAverage(BuildContext context, double weeklyAverage) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
 
-    String getTimeOfDayText(int hour) {
-      if (hour >= 6 && hour < 12) {
-        return t.statistics_time_with_hour(t.statistics_time_morning, hour);
-      } else if (hour >= 12 && hour < 18) {
-        return t.statistics_time_with_hour(t.statistics_time_afternoon, hour);
-      } else if (hour >= 18 && hour < 22) {
-        return t.statistics_time_with_hour(t.statistics_time_evening, hour);
-      } else {
-        return t.statistics_time_with_hour(t.statistics_time_night, hour);
-      }
-    }
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+        ),
+        child: Column(
+          children: [
+            Text(
+              t.statistics_writing_frequency_weekly_avg,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: Spacing.xs),
+            Text(
+              t.statistics_writing_frequency_weekly_count(
+                weeklyAverage.toStringAsFixed(1),
+              ),
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-    final Map<int, int> weekdayDistribution = {};
-    for (var journal in allJournals) {
-      final weekday = journal.createdAt.weekday;
-      weekdayDistribution[weekday] = (weekdayDistribution[weekday] ?? 0) + 1;
-    }
+  Widget _buildMonthlyAverage(BuildContext context, double monthlyAverage) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
 
-    final mostActiveWeekday = weekdayDistribution.isNotEmpty
-        ? weekdayDistribution.entries
-              .reduce((a, b) => a.value > b.value ? a : b)
-              .key
-        : 1;
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+        ),
+        child: Column(
+          children: [
+            Text(
+              t.statistics_writing_frequency_monthly_avg,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: Spacing.xs),
+            Text(
+              t.statistics_writing_frequency_monthly_count(
+                monthlyAverage.toStringAsFixed(1),
+              ),
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  Widget _buildFrequencyTime(
+    BuildContext context, {
+    required int mostActiveHour,
+    required int mostActiveWeekday,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
     final weekdayNames = [
       t.common_weekday_mon,
       t.common_weekday_tue,
@@ -112,245 +267,121 @@ class WritingFrequencyCard extends StatelessWidget {
       t.common_weekday_sat,
       t.common_weekday_sun,
     ];
-
-    return BaseCard(
-      title: t.statistics_writing_frequency_title,
-      icon: Icons.schedule,
+    return Container(
+      padding: const EdgeInsets.all(Spacing.lg),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(Roundness.cardInner),
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(Spacing.lg),
-            decoration: BoxDecoration(
-              color: weeklyFrequencyColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(Roundness.cardInner),
-              border: Border.all(
-                color: weeklyFrequencyColor.withValues(alpha: 0.3),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t.statistics_writing_frequency_this_week,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          weeklyEntries.toString(),
-                          style: textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: weeklyFrequencyColor,
-                          ),
-                        ),
-                        Text(
-                          t.statistics_writing_frequency_count_unit,
-                          style: textTheme.bodyLarge?.copyWith(
-                            color: weeklyFrequencyColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Spacing.sm,
-                    vertical: Spacing.xs,
-                  ),
-                  decoration: BoxDecoration(
-                    color: weeklyFrequencyColor.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(Roundness.cardInner),
-                  ),
-                  child: Text(
-                    weeklyFrequencyText,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: weeklyFrequencyColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: Spacing.lg),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(Spacing.lg),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest.withValues(
-                      alpha: 0.3,
-                    ),
-                    borderRadius: BorderRadius.circular(Roundness.cardInner),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        t.statistics_writing_frequency_weekly_avg,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: Spacing.xs),
-                      Text(
-                        t.statistics_writing_frequency_weekly_count(
-                          weeklyAverage.toStringAsFixed(1),
-                        ),
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+              Text(
+                t.statistics_writing_frequency_most_active_time,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
-              const SizedBox(width: Spacing.md),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(Spacing.lg),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest.withValues(
-                      alpha: 0.3,
-                    ),
-                    borderRadius: BorderRadius.circular(Roundness.cardInner),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        t.statistics_writing_frequency_monthly_avg,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: Spacing.xs),
-                      Text(
-                        t.statistics_writing_frequency_monthly_count(
-                          monthlyAverage.toStringAsFixed(1),
-                        ),
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+              Text(
+                _getTimeOfDayText(context, mostActiveHour),
+                style: textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: Spacing.lg),
-          Container(
-            padding: const EdgeInsets.all(Spacing.lg),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(Roundness.cardInner),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      t.statistics_writing_frequency_most_active_time,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Text(
-                      getTimeOfDayText(mostActiveHour),
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+          const SizedBox(height: Spacing.sm),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                t.statistics_writing_frequency_most_active_day,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                 ),
-                const SizedBox(height: Spacing.sm),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      t.statistics_writing_frequency_most_active_day,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Text(
-                      weekdayNames[mostActiveWeekday - 1],
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+              ),
+              Text(
+                weekdayNames[mostActiveWeekday - 1],
+                style: textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          if (weeklyEntries >= 5) ...[
-            const SizedBox(height: Spacing.md),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: Colors.green.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.star, color: Colors.green, size: 20),
-                  const SizedBox(width: Spacing.sm),
-                  Expanded(
-                    child: Text(
-                      t.statistics_writing_frequency_good_habit,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ] else if (weeklyEntries < 2) ...[
-            const SizedBox(height: Spacing.md),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-                border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.lightbulb_outline,
-                    color: Colors.blue,
-                    size: 20,
-                  ),
-                  const SizedBox(width: Spacing.sm),
-                  Expanded(
-                    child: Text(
-                      t.statistics_writing_frequency_encouragement,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ],
       ),
     );
+  }
+
+  String _getTimeOfDayText(BuildContext context, int hour) {
+    final t = AppLocalizations.of(context)!;
+    if (hour >= 6 && hour < 12) {
+      return t.statistics_time_with_hour(t.statistics_time_morning, hour);
+    } else if (hour >= 12 && hour < 18) {
+      return t.statistics_time_with_hour(t.statistics_time_afternoon, hour);
+    } else if (hour >= 18 && hour < 22) {
+      return t.statistics_time_with_hour(t.statistics_time_evening, hour);
+    } else {
+      return t.statistics_time_with_hour(t.statistics_time_night, hour);
+    }
+  }
+
+  Widget _buildFallback(BuildContext context, int weeklyEntries) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+
+    if (weeklyEntries >= 5) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: Colors.green.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+          border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.star, color: Colors.green, size: 20),
+            const SizedBox(width: Spacing.sm),
+            Expanded(
+              child: Text(
+                t.statistics_writing_frequency_good_habit,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(Spacing.lg),
+        decoration: BoxDecoration(
+          color: Colors.blue.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(Roundness.cardInner),
+          border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.lightbulb_outline, color: Colors.blue, size: 20),
+            const SizedBox(width: Spacing.sm),
+            Expanded(
+              child: Text(
+                t.statistics_writing_frequency_encouragement,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

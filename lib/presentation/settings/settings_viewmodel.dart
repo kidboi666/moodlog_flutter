@@ -98,5 +98,6 @@ class SettingsViewModel extends ChangeNotifier {
     final appInfo = await _settingsRepository.getAppInfo();
     _appVersion = appInfo.version;
     _appBuild = appInfo.buildNumber;
+    notifyListeners();
   }
 }

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/navigation.dart';
-import '../../../core/extensions/widget_scale.dart';
+import '../../../core/extensions/widget.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/utils/animated_container.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/extensions/snack_bar.dart';
-import '../../../core/extensions/widget_scale.dart';
+import '../../../core/extensions/widget.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../write_viewmodel.dart';
 

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/extensions/date_time.dart';
-import '../../core/extensions/widget_scale.dart';
+import '../../core/extensions/widget.dart';
 import '../../core/routing/routes.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/repositories/weather_repository.dart';

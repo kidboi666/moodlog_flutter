@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/constants/enum.dart';
 import '../../core/providers/user_provider.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../presentation/auth/sign_in_screen.dart';
@@ -15,6 +14,7 @@ import '../../presentation/settings/settings_screen.dart';
 import '../../presentation/statistics/statistics_screen.dart';
 import '../../presentation/ui/widgets/scaffold_with_navbar.dart';
 import '../../presentation/write/write_screen.dart';
+import '../constants/enum.dart';
 import 'routes.dart';
 
 GoRouter router(UserProvider userProvider) => GoRouter(

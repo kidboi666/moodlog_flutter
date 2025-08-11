@@ -36,9 +36,11 @@ class WelcomeZone extends StatelessWidget {
         ),
         FadeIn(
           delay: DelayMs.medium * 2,
-          child: Selector<HomeViewModel, String?>(
-            selector: (_, viewModel) => viewModel.nickname,
-            builder: (context, nickname, _) {
+          child: Builder(
+            builder: (context) {
+              final nickname = context.select<HomeViewModel, String?>(
+                (vm) => vm.nickname,
+              );
               return Row(
                 spacing: Spacing.md,
                 children: [

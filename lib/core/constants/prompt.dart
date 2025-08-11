@@ -1,4 +1,4 @@
-import '../../core/constants/enum.dart';
+import 'enum.dart';
 
 abstract final class Prompt {
   static String generateSystemContext(AiPersonality personality) {

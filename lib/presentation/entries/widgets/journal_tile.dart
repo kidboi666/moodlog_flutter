@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/enum.dart';
 import '../../../core/extensions/routing.dart';
-import '../../../core/extensions/widget_scale.dart';
+import '../../../core/extensions/widget.dart';
 import '../../../domain/entities/journal.dart';
 import '../../ui/widgets/tag_section.dart';
 

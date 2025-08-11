@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
-import '../../../core/extensions/widget_scale.dart';
+import '../../../core/extensions/widget.dart';
 import '../write_viewmodel.dart';
 
 class MoodButton extends StatelessWidget {

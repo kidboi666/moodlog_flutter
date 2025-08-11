@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
-import '../../../../core/constants/enum.dart';
+import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../ui/widgets/fade_in.dart';
 import '../onboarding_viewmodel.dart';

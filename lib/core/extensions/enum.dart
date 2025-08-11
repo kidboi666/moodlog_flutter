@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide ThemeMode;
 
-import '../../core/constants/enum.dart';
+import '../constants/enum.dart';
 import '../l10n/app_localizations.dart';
 
 extension MoodTypeExtension on MoodType {

@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../statistics/statistics_viewmodel.dart';
-import '../../statistics/widgets/base_card.dart';
-import 'yearly_tracker/yearly_grid.dart';
+import '../statistics_viewmodel.dart';
+import 'base_card.dart';
+import '../../home/widgets/yearly_tracker/yearly_grid.dart';
 
 class YearlyJournalTracker extends StatelessWidget {
   const YearlyJournalTracker({super.key});

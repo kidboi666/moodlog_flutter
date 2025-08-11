@@ -153,21 +153,23 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   }
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     final viewModel = context.read<WriteViewModel>();
     final isEditMode = context.select<WriteViewModel, bool>(
       (vm) => vm.isEditMode,
     );
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final isFormValid = context.select<WriteViewModel, bool>(
+      (vm) => vm.isFormValid,
+    );
+    final selectedDate = context.select<WriteViewModel, DateTime>(
+      (vm) => vm.selectedDate,
+    );
 
     return AppBar(
       leading: const PopButton(icon: Icons.close),
       title: Builder(
         builder: (context) {
-          final selectedDate = context.select<WriteViewModel, DateTime>(
-            (vm) => vm.selectedDate,
-          );
-
           return TextButton(
             onPressed: () async {
               final DateTime? pickedDate = await showDatePicker(
@@ -214,17 +216,9 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
         },
       ),
       actions: [
-        Builder(
-          builder: (context) {
-            final isFormValid = context.select<WriteViewModel, bool>(
-              (vm) => vm.isFormValid,
-            );
-
-            return IconButton(
-              onPressed: isFormValid ? viewModel.submitJournal : null,
-              icon: Icon(isEditMode ? Icons.check : Icons.send),
-            );
-          },
+        IconButton(
+          onPressed: isFormValid ? viewModel.submitJournal : null,
+          icon: Icon(isEditMode ? Icons.check : Icons.send),
         ),
       ],
     );

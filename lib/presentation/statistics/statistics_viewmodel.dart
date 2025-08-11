@@ -37,24 +37,15 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   MoodType? _representativeMood;
 
   String? get profileImage => _userProvider.user?.photoURL;
-
   List<Journal> get allJournals => _allJournals;
-
   Map<MoodType, int> get moodCounts => _moodCounts;
-
   int get totalJournals => _totalJournals;
-
   int get currentStreak => _currentStreak;
   MoodType? get representativeMood => _representativeMood;
-
   int get maxStreak => _maxStreak;
-
   Map<DateTime, MoodType> get moodCalendar => _moodCalendar;
-
   List<Journal> get recentJournals => _recentJournals;
-
   Map<DateTime, List<Journal>> get yearlyJournals => _yearlyJournals;
-
   Map<DateTime, double> get moodTrendData => _moodTrendData;
 
   Future<void> _loadStatistics() async {
@@ -197,7 +188,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
       case Ok<List<Journal>>():
         final allJournals = result.value;
 
-        // 최근 30일 일기만 가져오기
         final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
         _recentJournals =
             allJournals
@@ -205,7 +195,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
                 .toList()
               ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-        // 대표 감정 계산
         _calculateRepresentativeMood();
         notifyListeners();
 
@@ -231,7 +220,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
       return;
     }
 
-    // 최근 7일 일기에 더 높은 가중치 적용
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 7));
     final fourteenDaysAgo = now.subtract(const Duration(days: 14));
@@ -242,13 +230,11 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     for (final journal in _recentJournals) {
       int weight = 1;
 
-      // 가중치 적용 (최근일수록 높은 가중치)
       if (journal.createdAt.isAfter(sevenDaysAgo)) {
-        weight = 3; // 최근 7일: 가중치 3
+        weight = 3;
       } else if (journal.createdAt.isAfter(fourteenDaysAgo)) {
-        weight = 2; // 7-14일: 가중치 2
+        weight = 2;
       }
-      // 14-30일: 가중치 1 (기본값)
 
       totalScore += journal.moodType.score * weight;
       totalWeight += weight;
@@ -261,7 +247,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
 
     final averageScore = totalScore / totalWeight;
 
-    // 평균 점수를 기반으로 대표 감정 결정
     if (averageScore >= 4.5) {
       _representativeMood = MoodType.veryHappy;
     } else if (averageScore >= 3.5) {
@@ -278,7 +263,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> _loadYearlyJournals() async {
     final now = DateTime.now();
 
-    // 올해 전체 데이터를 로드하기 위해 각 월별로 호출
     _yearlyJournals.clear();
 
     for (int month = 1; month <= 12; month++) {
@@ -287,7 +271,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
 
       switch (result) {
         case Ok<List<Journal>>():
-          // 날짜별로 일기들을 그룹화하여 연간 맵에 추가
           for (final journal in result.value) {
             final dateKey = DateTime(
               journal.createdAt.year,
