@@ -9,27 +9,23 @@ import '../../core/utils/result.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/tag.dart';
 import '../../domain/repositories/journal_repository.dart';
-import '../../domain/use_cases/journal/delete_journal_use_case.dart';
-import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
-import '../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
+import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/tag_use_case.dart';
 
 enum EntriesViewMode { list, calendar }
 
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
-  final DeleteJournalUseCase _deleteJournalUseCase;
-  final GetAllTagsUseCase _getAllTagsUseCase;
-  final GetTagsByJournalUseCase _getTagsByJournalUseCase;
+  final JournalUseCase _journalUseCase;
+  final TagUseCase _tagUseCase;
 
   EntriesViewModel({
     required JournalRepository journalRepository,
-    required DeleteJournalUseCase deleteJournalUseCase,
-    required GetAllTagsUseCase getAllTagsUseCase,
-    required GetTagsByJournalUseCase getTagsByJournalUseCase,
+    required JournalUseCase journalUseCase,
+    required TagUseCase tagUseCase,
   }) : _journalRepository = journalRepository,
-       _deleteJournalUseCase = deleteJournalUseCase,
-       _getAllTagsUseCase = getAllTagsUseCase,
-       _getTagsByJournalUseCase = getTagsByJournalUseCase {
+       _journalUseCase = journalUseCase,
+       _tagUseCase = tagUseCase {
     _loadMonthEntries();
     _subscribeToJournalChanges();
     _loadAllTags();
@@ -90,7 +86,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> deleteJournal(int id) async {
     setLoading();
-    await _deleteJournalUseCase.deleteJournal(id);
+    await _journalUseCase.deleteJournal(id);
     setSuccess();
   }
 
@@ -141,7 +137,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadAllTags() async {
-    final result = await _getAllTagsUseCase.call();
+    final result = await _tagUseCase.getAllTags();
     switch (result) {
       case Ok<List<Tag>>():
         _availableTags = result.value;
@@ -196,7 +192,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     if (_selectedTagFilter != null) {
       final tagFilteredEntries = <Journal>[];
       for (final journal in filteredEntries) {
-        final tagsResult = await _getTagsByJournalUseCase.call(journal.id);
+        final tagsResult = await _tagUseCase.getTagsByJournalId(journal.id);
         switch (tagsResult) {
           case Ok<List<Tag>>():
             if (tagsResult.value.any(

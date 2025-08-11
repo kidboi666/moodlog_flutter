@@ -18,13 +18,10 @@ import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/image/pick_image_usecase.dart';
-import '../../domain/use_cases/journal/add_journal_use_case.dart';
-import '../../domain/use_cases/journal/update_journal_use_case.dart';
-import '../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../domain/use_cases/tag/add_tag_use_case.dart';
-import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
-import '../../domain/use_cases/tag/update_journal_tags_use_case.dart';
-import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/location_use_case.dart';
+import '../../domain/use_cases/tag_use_case.dart';
+import '../../domain/use_cases/weather_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiRepository _geminiRepository;
@@ -32,14 +29,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final AiGenerationRepository _aiGenerationRepository;
   final PickImageUseCase _pickImageUseCase;
   final SettingsRepository _settingsRepository;
-  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
-  final GetCurrentWeatherUseCase _getCurrentWeatherUseCase;
-  final AddJournalUseCase _addJournalUseCase;
-  final UpdateJournalUseCase _updateJournalUseCase;
+  final LocationUseCase _locationUseCase;
+  final WeatherUseCase _weatherUseCase;
+  final JournalUseCase _journalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
-  final AddTagUseCase _addTagUseCase;
-  final GetAllTagsUseCase _getAllTagsUseCase;
-  final UpdateJournalTagsUseCase _updateJournalTagsUseCase;
+  final TagUseCase _tagUseCase;
   final JournalRepository _journalRepository;
 
   WriteViewModel({
@@ -48,14 +42,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required AiGenerationRepository aiGenerationRepository,
     required PickImageUseCase pickImageUseCase,
     required SettingsRepository settingsRepository,
-    required GetCurrentLocationUseCase getCurrentLocationUseCase,
-    required GetCurrentWeatherUseCase getCurrentWeatherUseCase,
-    required AddJournalUseCase addJournalUseCase,
-    required UpdateJournalUseCase updateJournalUseCase,
+    required LocationUseCase locationUseCase,
+    required WeatherUseCase weatherUseCase,
+    required JournalUseCase journalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
-    required AddTagUseCase addTagUseCase,
-    required GetAllTagsUseCase getAllTagsUseCase,
-    required UpdateJournalTagsUseCase updateJournalTagsUseCase,
+    required TagUseCase tagUseCase,
     required JournalRepository journalRepository,
     required DateTime selectedDate,
     int? editJournalId,
@@ -64,14 +55,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
        _aiGenerationRepository = aiGenerationRepository,
        _pickImageUseCase = pickImageUseCase,
        _settingsRepository = settingsRepository,
-       _getCurrentLocationUseCase = getCurrentLocationUseCase,
-       _getCurrentWeatherUseCase = getCurrentWeatherUseCase,
-       _addJournalUseCase = addJournalUseCase,
-       _updateJournalUseCase = updateJournalUseCase,
+       _locationUseCase = locationUseCase,
+       _weatherUseCase = weatherUseCase,
+       _journalUseCase = journalUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
-       _addTagUseCase = addTagUseCase,
-       _getAllTagsUseCase = getAllTagsUseCase,
-       _updateJournalTagsUseCase = updateJournalTagsUseCase,
+       _tagUseCase = tagUseCase,
        _journalRepository = journalRepository {
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
@@ -199,7 +187,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingWeather = true;
     notifyListeners();
 
-    final result = await _getCurrentWeatherUseCase.execute(
+    final result = await _weatherUseCase.getCurrentWeather(
       latitude: latitude,
       longitude: longitude,
     );
@@ -236,7 +224,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
       return;
     }
 
-    final result = await _addTagUseCase.call(trimmedName, null);
+    final result = await _tagUseCase.addTag(trimmedName, null);
     switch (result) {
       case Ok<int>():
         final newTag = Tag(
@@ -273,7 +261,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _getCurrentLocationUseCase.execute();
+    final result = await _locationUseCase.getCurrentLocation();
 
     switch (result) {
       case Ok<LocationInfo>():
@@ -319,7 +307,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
       weatherIcon: _weatherInfo?.icon,
       weatherDescription: _weatherInfo?.description,
     );
-    final result = await _addJournalUseCase.execute(newJournal);
+    final result = await _journalUseCase.addJournal(newJournal);
 
     switch (result) {
       case Ok<Map<String, dynamic>>():
@@ -329,7 +317,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         final aiResponseEnabled = result.value['aiResponseEnabled'];
 
         if (_selectedTags.isNotEmpty) {
-          await _updateJournalTagsUseCase.call(
+          await _tagUseCase.updateJournalTags(
             result.value['id'],
             _selectedTags.map((tag) => tag.id).toList(),
           );
@@ -364,7 +352,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
       address: _locationInfo?.address,
     );
 
-    final result = await _updateJournalUseCase.execute(updateJournal);
+    final result = await _journalUseCase.updateJournal(updateJournal);
 
     switch (result) {
       case Ok<int>():
@@ -373,7 +361,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _submittedJournalId = _editJournalId;
 
         if (_selectedTags.isNotEmpty) {
-          await _updateJournalTagsUseCase.call(
+          await _tagUseCase.updateJournalTags(
             _editJournalId!,
             _selectedTags.map((tag) => tag.id).toList(),
           );
@@ -438,7 +426,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           id: _submittedJournalId!,
           aiResponse: aiResponse.value,
         );
-        await _updateJournalUseCase.execute(newJournal);
+        await _journalUseCase.updateJournal(newJournal);
         _aiGenerationRepository.setSuccessGeneratingAiResponse();
       case Failure<String>():
         _log.warning('Failed to add AI response: ${aiResponse.error}');
@@ -455,7 +443,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _getCurrentLocationUseCase.execute();
+    final result = await _locationUseCase.getCurrentLocation();
 
     switch (result) {
       case Ok<LocationInfo>():
@@ -478,7 +466,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadAllTags() async {
-    final result = await _getAllTagsUseCase.call();
+    final result = await _tagUseCase.getAllTags();
     switch (result) {
       case Ok<List<Tag>>():
         _availableTags = result.value;

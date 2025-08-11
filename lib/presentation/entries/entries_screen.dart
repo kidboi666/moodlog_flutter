@@ -23,9 +23,8 @@ class EntriesScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => EntriesViewModel(
         journalRepository: context.read(),
-        deleteJournalUseCase: context.read(),
-        getAllTagsUseCase: context.read(),
-        getTagsByJournalUseCase: context.read(),
+        journalUseCase: context.read(),
+        tagUseCase: context.read(),
       ),
       child: _EntriesScreenContent(),
     );

@@ -13,28 +13,28 @@ import '../../domain/entities/journal.dart';
 import '../../domain/entities/location_info.dart';
 import '../../domain/entities/weather_info.dart';
 import '../../domain/repositories/journal_repository.dart';
-import '../../domain/use_cases/journal/delete_journal_use_case.dart';
-import '../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/location_use_case.dart';
+import '../../domain/use_cases/weather_use_case.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
-  final DeleteJournalUseCase _deleteJournalUseCase;
-  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
-  final GetCurrentWeatherUseCase _getCurrentWeatherUseCase;
+  final JournalUseCase _journalUseCase;
+  final LocationUseCase _locationUseCase;
+  final WeatherUseCase _weatherUseCase;
 
   HomeViewModel({
     required JournalRepository journalRepository,
     required UserProvider userProvider,
-    required DeleteJournalUseCase deleteJournalUseCase,
-    required GetCurrentLocationUseCase getCurrentLocationUseCase,
-    required GetCurrentWeatherUseCase getCurrentWeatherUseCase,
+    required JournalUseCase journalUseCase,
+    required LocationUseCase locationUseCase,
+    required WeatherUseCase weatherUseCase,
   }) : _journalRepository = journalRepository,
        _userProvider = userProvider,
-       _deleteJournalUseCase = deleteJournalUseCase,
-       _getCurrentLocationUseCase = getCurrentLocationUseCase,
-       _getCurrentWeatherUseCase = getCurrentWeatherUseCase {
+       _journalUseCase = journalUseCase,
+       _locationUseCase = locationUseCase,
+       _weatherUseCase = weatherUseCase {
     _calculateDateItems();
     _load();
     _loadMonthlyJournals();
@@ -117,7 +117,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> deleteJournal(int id) async {
     setLoading();
-    await _deleteJournalUseCase.deleteJournal(id);
+    await _journalUseCase.deleteJournal(id);
     setSuccess();
   }
 
@@ -204,7 +204,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingWeather = true;
     notifyListeners();
 
-    final result = await _getCurrentWeatherUseCase.execute(
+    final result = await _weatherUseCase.getCurrentWeather(
       latitude: latitude,
       longitude: longitude,
     );
@@ -225,7 +225,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _getCurrentLocationUseCase.execute();
+    final result = await _locationUseCase.getCurrentLocation();
 
     switch (result) {
       case Ok<LocationInfo>():

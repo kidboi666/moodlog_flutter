@@ -21,17 +21,10 @@ import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/auth/auth_use_case.dart';
 import '../../domain/use_cases/image/pick_image_usecase.dart';
-import '../../domain/use_cases/journal/add_journal_use_case.dart';
-import '../../domain/use_cases/journal/delete_journal_use_case.dart';
-import '../../domain/use_cases/journal/update_journal_use_case.dart';
-import '../../domain/use_cases/location/get_current_location_use_case.dart';
-import '../../domain/use_cases/tag/add_tag_use_case.dart';
-import '../../domain/use_cases/tag/delete_tag_use_case.dart';
-import '../../domain/use_cases/tag/get_all_tags_use_case.dart';
-import '../../domain/use_cases/tag/get_tags_by_journal_use_case.dart';
-import '../../domain/use_cases/tag/update_journal_tags_use_case.dart';
-import '../../domain/use_cases/tag/update_tag_use_case.dart';
-import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/location_use_case.dart';
+import '../../domain/use_cases/tag_use_case.dart';
+import '../../domain/use_cases/weather_use_case.dart';
 import '../providers/app_state_provider.dart';
 
 List<SingleChildWidget> createProviders() {
@@ -83,44 +76,23 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) => AuthUseCase(authRepository: context.read()),
     ),
     Provider<PickImageUseCase>(create: (_) => PickImageUseCase()),
-    Provider<DeleteJournalUseCase>(
-      create: (context) =>
-          DeleteJournalUseCase(journalRepository: context.read()),
+    Provider<JournalUseCase>(
+      create: (context) => JournalUseCase(journalRepository: context.read()),
     ),
-    Provider<GetCurrentLocationUseCase>(
-      create: (context) =>
-          GetCurrentLocationUseCase(locationRepository: context.read()),
+    Provider<TagUseCase>(
+      create: (context) => TagUseCase(context.read()),
     ),
-    Provider<AddJournalUseCase>(
-      create: (context) => AddJournalUseCase(journalRepository: context.read()),
-    ),
-    Provider<UpdateJournalUseCase>(
+    Provider<LocationUseCase>(
       create: (context) =>
-          UpdateJournalUseCase(journalRepository: context.read()),
+          LocationUseCase(locationRepository: context.read()),
     ),
     Provider<CheckAiUsageLimitUseCase>(
       create: (context) =>
           CheckAiUsageLimitUseCase(settingsRepository: context.read()),
     ),
-    Provider<GetCurrentWeatherUseCase>(
+    Provider<WeatherUseCase>(
       create: (context) =>
-          GetCurrentWeatherUseCase(weatherRepository: context.read()),
-    ),
-    Provider<AddTagUseCase>(create: (context) => AddTagUseCase(context.read())),
-    Provider<GetAllTagsUseCase>(
-      create: (context) => GetAllTagsUseCase(context.read()),
-    ),
-    Provider<GetTagsByJournalUseCase>(
-      create: (context) => GetTagsByJournalUseCase(context.read()),
-    ),
-    Provider<UpdateJournalTagsUseCase>(
-      create: (context) => UpdateJournalTagsUseCase(context.read()),
-    ),
-    Provider<DeleteTagUseCase>(
-      create: (context) => DeleteTagUseCase(context.read()),
-    ),
-    Provider<UpdateTagUseCase>(
-      create: (context) => UpdateTagUseCase(context.read()),
+          WeatherUseCase(weatherRepository: context.read()),
     ),
   ];
 }

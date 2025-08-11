@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/utils/result.dart';
 import '../../../../domain/entities/tag.dart';
-import '../../../../domain/use_cases/tag/delete_tag_use_case.dart';
-import '../../../../domain/use_cases/tag/get_all_tags_use_case.dart';
+import '../../../../domain/use_cases/tag_use_case.dart';
 
 class TagManagementDialog extends StatefulWidget {
   const TagManagementDialog({super.key});
@@ -25,8 +24,8 @@ class _TagManagementDialogState extends State<TagManagementDialog> {
 
   Future<void> _loadTags() async {
     setState(() => _isLoading = true);
-    final useCase = context.read<GetAllTagsUseCase>();
-    final result = await useCase.call();
+    final useCase = context.read<TagUseCase>();
+    final result = await useCase.getAllTags();
 
     switch (result) {
       case Ok<List<Tag>>():
@@ -45,8 +44,8 @@ class _TagManagementDialogState extends State<TagManagementDialog> {
   }
 
   Future<void> _deleteTag(Tag tag) async {
-    final deleteUseCase = context.read<DeleteTagUseCase>();
-    final result = await deleteUseCase.call(tag.id);
+    final deleteUseCase = context.read<TagUseCase>();
+    final result = await deleteUseCase.deleteTag(tag.id);
 
     switch (result) {
       case Ok<void>():

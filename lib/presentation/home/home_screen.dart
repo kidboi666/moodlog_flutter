@@ -26,9 +26,9 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeViewModel(
         journalRepository: context.read(),
         userProvider: context.read(),
-        deleteJournalUseCase: context.read(),
-        getCurrentLocationUseCase: context.read(),
-        getCurrentWeatherUseCase: context.read(),
+        journalUseCase: context.read(),
+        locationUseCase: context.read(),
+        weatherUseCase: context.read(),
       ),
       child: _HomeScreenContent(),
     );

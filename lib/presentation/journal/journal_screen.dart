@@ -9,7 +9,7 @@ import '../../core/extensions/widget_scale.dart';
 import '../../core/routing/routes.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../domain/use_cases/weather_use_case.dart';
 import '../ui/widgets/fade_in.dart';
 import '../ui/widgets/pop_button.dart';
 import 'journal_viewmodel.dart';
@@ -38,7 +38,7 @@ class JournalScreen extends StatelessWidget {
             id: id,
           ),
         ),
-        Provider.value(value: context.read<GetCurrentWeatherUseCase>()),
+        Provider.value(value: context.read<WeatherUseCase>()),
         Provider.value(value: context.read<WeatherRepository>()),
       ],
       child: _JournalScreenContent(),

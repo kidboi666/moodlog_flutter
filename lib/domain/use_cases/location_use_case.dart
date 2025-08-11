@@ -1,16 +1,15 @@
-import '../../../core/utils/result.dart';
-import '../../entities/location_info.dart';
-import '../../repositories/location_repository.dart';
+import '../../core/utils/result.dart';
+import '../entities/location_info.dart';
+import '../repositories/location_repository.dart';
 
-class GetCurrentLocationUseCase {
+class LocationUseCase {
   final LocationRepository _locationRepository;
 
-  GetCurrentLocationUseCase({required LocationRepository locationRepository})
-    : _locationRepository = locationRepository;
+  LocationUseCase({required LocationRepository locationRepository})
+      : _locationRepository = locationRepository;
 
-  Future<Result<LocationInfo>> execute() async {
-    final permissionResult = await _locationRepository
-        .checkLocationPermission();
+  Future<Result<LocationInfo>> getCurrentLocation() async {
+    final permissionResult = await _locationRepository.checkLocationPermission();
 
     return switch (permissionResult) {
       Ok<bool>() => await _handlePermissionGranted(permissionResult.value),
@@ -22,8 +21,7 @@ class GetCurrentLocationUseCase {
     bool hasPermission,
   ) async {
     if (!hasPermission) {
-      final requestResult = await _locationRepository
-          .requestLocationPermission();
+      final requestResult = await _locationRepository.requestLocationPermission();
       return switch (requestResult) {
         Ok<bool>() =>
           requestResult.value

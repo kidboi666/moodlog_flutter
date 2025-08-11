@@ -5,7 +5,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
-import '../../../domain/use_cases/weather/get_current_weather_use_case.dart';
+import '../../../domain/use_cases/weather_use_case.dart';
 
 class JournalWeatherWidget extends StatefulWidget {
   final double? latitude;
@@ -45,8 +45,8 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
     });
 
     try {
-      final weatherUseCase = context.read<GetCurrentWeatherUseCase>();
-      final result = await weatherUseCase.execute(
+      final weatherUseCase = context.read<WeatherUseCase>();
+      final result = await weatherUseCase.getCurrentWeather(
         latitude: widget.latitude!,
         longitude: widget.longitude!,
       );
