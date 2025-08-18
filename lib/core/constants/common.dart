@@ -73,3 +73,5 @@ abstract final class PreferenceKeys {
 abstract final class DebounceKeys {
   static const aiResponse = 'ai_response';
 }
+
+const kBreakPoint = 768.0;

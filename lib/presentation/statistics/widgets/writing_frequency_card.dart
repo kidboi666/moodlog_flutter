@@ -16,7 +16,11 @@ class WritingFrequencyCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
 
     if (allJournals.isEmpty) {
-      return const SizedBox.shrink();
+      return BaseCard(
+        title: t.statistics_writing_frequency_title,
+        icon: Icons.schedule,
+        child: _buildEmptyState(context),
+      );
     }
 
     final now = DateTime.now();
@@ -383,5 +387,32 @@ class WritingFrequencyCard extends StatelessWidget {
         ),
       );
     }
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.schedule_outlined,
+            size: 64,
+            color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            t.home_representative_mood_empty,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
   }
 }

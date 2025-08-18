@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../domain/entities/journal.dart';
 import '../../home/widgets/yearly_tracker/yearly_grid.dart';
 import '../statistics_viewmodel.dart';
 import 'base_card.dart';
@@ -12,37 +13,50 @@ class YearlyJournalTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Consumer<StatisticsViewModel>(
-      builder: (context, viewModel, child) {
-        final now = DateTime.now();
-        final yearlyJournals = viewModel.yearlyJournals;
-
-        return BaseCard(
-          title: t.home_yearly_tracker_title,
-          icon: Icons.grid_4x4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Row(
-              //   children: [
-              //     Text(
-              //       '${now.year}',
-              //       style: textTheme.bodyMedium?.copyWith(
-              //         color: colorScheme.onSurfaceVariant,
-              //         fontWeight: FontWeight.w500,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: Spacing.lg),
-              YearlyGrid(now: now, yearlyJournals: yearlyJournals),
-            ],
-          ),
+    final now = DateTime.now();
+    final yearlyJournals = context
+        .select<StatisticsViewModel, Map<DateTime, List<Journal>>>(
+          (vm) => vm.yearlyJournals,
         );
-      },
+
+    // 데이터 존재 여부 확인
+    final hasAnyJournals = yearlyJournals.values.any(
+      (journalList) => journalList.isNotEmpty,
+    );
+
+    return BaseCard(
+      title: t.home_yearly_tracker_title,
+      icon: Icons.grid_4x4,
+      child: hasAnyJournals
+          ? YearlyGrid(now: now, yearlyJournals: yearlyJournals)
+          : _buildEmptyState(context),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.grid_4x4_outlined,
+            size: 64,
+            color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            t.home_representative_mood_empty,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

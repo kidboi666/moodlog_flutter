@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/ui/widgets/banner_ad_widget.dart';
-import '../../../core/ui/widgets/gradient_box.dart';
 import '../../constants/common.dart';
 import '../../constants/navigation.dart';
 import '../../extensions/widget.dart';
@@ -60,7 +59,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
           animationDuration: DurationMs.lazy,
           selectedIndex: _getNavigationIndex(navigationShell.currentIndex),
           onDestinationSelected: (index) => _onTap(context, index),
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           destinations: [
             NavigationDestination(
               icon: const Icon(Icons.home_outlined),
@@ -73,14 +72,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
               label: t.tab_entries,
             ).scale(),
             NavigationDestination(
-              icon: SizedBox(
-                width: 56,
-                height: 56,
-                child: GradientBox(
-                  child: Icon(Icons.add, color: colorScheme.surface, size: 28),
-                ),
-              ),
-
+              icon: const Icon(Icons.create),
               label: t.tab_write,
             ).scale(),
             NavigationDestination(

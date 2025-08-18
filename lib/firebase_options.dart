@@ -28,10 +28,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -51,13 +48,24 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g',
-    appId: '1:761406625155:android:9ac92360eaadfb8cc712b6',
+    appId: '1:761406625155:android:e45f3ebf5df9ed13c712b6',
     messagingSenderId: '761406625155',
     projectId: 'moodlog-ba790',
     storageBucket: 'moodlog-ba790.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBW50LByIz8nstWavjOBbiZfp5KgLfXaM8',
+    appId: '1:761406625155:ios:99543007b90791b1c712b6',
+    messagingSenderId: '761406625155',
+    projectId: 'moodlog-ba790',
+    storageBucket: 'moodlog-ba790.firebasestorage.app',
+    androidClientId: '761406625155-9gs74ltv95rd4euf8fqbjudgranfo38q.apps.googleusercontent.com',
+    iosClientId: '761406625155-iel6nd3d9fpoaqlu59i8ft7q1p55goh3.apps.googleusercontent.com',
+    iosBundleId: 'com.kidboi666.moodlog',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBW50LByIz8nstWavjOBbiZfp5KgLfXaM8',
     appId: '1:761406625155:ios:99543007b90791b1c712b6',
     messagingSenderId: '761406625155',

@@ -53,7 +53,6 @@
 
 ### New Feature
 
-- 위젯을 _build... 와 같은 프라이빗 메서드로 구현하지 말고 항상 새로운 파일로 된 위젯으로 분리할것
 - colorScheme에서 deprecated된 api는 사용하지 않고 대체 api를 사용
 - withOpacity대신 withValues(alpha: ..)를 사용
 
