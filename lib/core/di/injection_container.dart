@@ -79,20 +79,16 @@ List<SingleChildWidget> _createUseCases() {
     Provider<JournalUseCase>(
       create: (context) => JournalUseCase(journalRepository: context.read()),
     ),
-    Provider<TagUseCase>(
-      create: (context) => TagUseCase(context.read()),
-    ),
+    Provider<TagUseCase>(create: (context) => TagUseCase(context.read())),
     Provider<LocationUseCase>(
-      create: (context) =>
-          LocationUseCase(locationRepository: context.read()),
+      create: (context) => LocationUseCase(locationRepository: context.read()),
     ),
     Provider<CheckAiUsageLimitUseCase>(
       create: (context) =>
           CheckAiUsageLimitUseCase(settingsRepository: context.read()),
     ),
     Provider<WeatherUseCase>(
-      create: (context) =>
-          WeatherUseCase(weatherRepository: context.read()),
+      create: (context) => WeatherUseCase(weatherRepository: context.read()),
     ),
   ];
 }

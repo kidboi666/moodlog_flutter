@@ -14,27 +14,19 @@ import '../../domain/entities/location_info.dart';
 import '../../domain/entities/weather_info.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/use_cases/journal_use_case.dart';
-import '../../domain/use_cases/location_use_case.dart';
-import '../../domain/use_cases/weather_use_case.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
   final JournalUseCase _journalUseCase;
-  final LocationUseCase _locationUseCase;
-  final WeatherUseCase _weatherUseCase;
 
   HomeViewModel({
     required JournalRepository journalRepository,
     required UserProvider userProvider,
     required JournalUseCase journalUseCase,
-    required LocationUseCase locationUseCase,
-    required WeatherUseCase weatherUseCase,
   }) : _journalRepository = journalRepository,
        _userProvider = userProvider,
-       _journalUseCase = journalUseCase,
-       _locationUseCase = locationUseCase,
-       _weatherUseCase = weatherUseCase {
+       _journalUseCase = journalUseCase {
     _calculateDateItems();
     _load();
     _loadMonthlyJournals();
@@ -42,7 +34,6 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadRecentJournalsAndRepresentativeMood();
     _initializeDelayedRender();
     _subscribeToJournalChanges();
-    _loadCurrentLocationAndWeather();
   }
 
   final Logger _log = Logger('HomeViewModel');
@@ -182,73 +173,6 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     }).toList();
 
     notifyListeners();
-  }
-
-  Future<void> getCurrentWeather() async {
-    double latitude = 37.5665; // 서울 기본 위치
-    double longitude = 126.9780;
-
-    if (_locationInfo == null) {
-      await _getCurrentLocation();
-    }
-
-    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
-    if (_locationInfo != null) {
-      latitude = _locationInfo!.latitude;
-      longitude = _locationInfo!.longitude;
-      _log.info('Using actual location: $latitude, $longitude');
-    } else {
-      _log.info('Using default location (Seoul): $latitude, $longitude');
-    }
-
-    _isLoadingWeather = true;
-    notifyListeners();
-
-    final result = await _weatherUseCase.getCurrentWeather(
-      latitude: latitude,
-      longitude: longitude,
-    );
-
-    switch (result) {
-      case Ok<WeatherInfo>():
-        _log.fine('Weather retrieved successfully');
-        _weatherInfo = result.value;
-      case Failure<WeatherInfo>():
-        _log.warning('Failed to get weather: ${result.error}');
-    }
-
-    _isLoadingWeather = false;
-    notifyListeners();
-  }
-
-  Future<void> _getCurrentLocation() async {
-    _isLoadingLocation = true;
-    notifyListeners();
-
-    final result = await _locationUseCase.getCurrentLocation();
-
-    switch (result) {
-      case Ok<LocationInfo>():
-        _log.fine('Location retrieved successfully');
-        _locationInfo = result.value;
-      case Failure<LocationInfo>():
-        _log.warning('Failed to get location: ${result.error}');
-    }
-
-    _isLoadingLocation = false;
-    notifyListeners();
-  }
-
-  Future<void> _loadCurrentLocationAndWeather() async {
-    await _getCurrentLocation();
-    // 위치 정보가 있든 없든 날씨 정보를 로드 (기본 위치 사용)
-    await getCurrentWeather();
-  }
-
-  void clearWeather() {
-    _weatherInfo = null;
-    notifyListeners();
-    getCurrentWeather();
   }
 
   Future<void> refreshRepresentativeMood() async {

@@ -11,7 +11,7 @@ class Avatar extends StatelessWidget {
   const Avatar({
     super.key,
     this.photoUrl,
-    this.size = Spacing.xl * 2,
+    this.size = Spacing.lg * 2,
     this.onTap,
   });
 

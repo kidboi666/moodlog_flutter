@@ -58,96 +58,102 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: buildAppBar(context),
-      body: Builder(
-        builder: (context) {
-          final content = context.select<WriteViewModel, String?>(
-            (vm) => vm.content,
-          );
-          final isEditMode = context.select<WriteViewModel, bool>(
-            (vm) => vm.isEditMode,
-          );
+    return Glower(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: buildAppBar(context),
+        body: Builder(
+          builder: (context) {
+            final content = context.select<WriteViewModel, String?>(
+              (vm) => vm.content,
+            );
+            final isEditMode = context.select<WriteViewModel, bool>(
+              (vm) => vm.isEditMode,
+            );
 
-          if (!_isInitialized && content != null && isEditMode) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (_contentController.text.isEmpty) {
-                _contentController.text = content;
-                _changeInitialized();
-              }
-            });
-          }
+            if (!_isInitialized && content != null && isEditMode) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (_contentController.text.isEmpty) {
+                  _contentController.text = content;
+                  _changeInitialized();
+                }
+              });
+            }
 
-          return Stack(
-            children: [
-              Positioned.fill(
-                child: PopScope(
-                  onPopInvokedWithResult: (didPop, result) {
-                    if (didPop) {
-                      _dismissKeyboard();
-                    }
-                  },
-                  child: Padding(
-                    padding: Spacing.containerHorizontalPadding,
-                    child: Column(
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            final isSubmitted = context
-                                .select<WriteViewModel, bool>(
-                                  (vm) => vm.isSubmitted,
-                                );
-                            final submittedJournalId = context
-                                .select<WriteViewModel, int?>(
-                                  (vm) => vm.submittedJournalId,
-                                );
-                            if (isSubmitted) {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                context.goToJournalFromWrite(
-                                  submittedJournalId!,
-                                );
-                              });
-                            }
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                        const SizedBox(height: Spacing.md),
-                        FadeIn(
-                          delay: DelayMs.quick,
-                          child: const ImagePreviewSection(),
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(height: Spacing.md),
-                            FadeIn(
-                              delay: DelayMs.quick * 2,
-                              child: ContentInput(
-                                contentController: _contentController,
-                                focusNode: _contentFocusNode,
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: PopScope(
+                    onPopInvokedWithResult: (didPop, result) {
+                      if (didPop) {
+                        _dismissKeyboard();
+                      }
+                    },
+                    child: Padding(
+                      padding: Spacing.containerHorizontalPadding,
+                      child: Column(
+                        children: [
+                          Builder(
+                            builder: (context) {
+                              final isSubmitted = context
+                                  .select<WriteViewModel, bool>(
+                                    (vm) => vm.isSubmitted,
+                                  );
+                              final submittedJournalId = context
+                                  .select<WriteViewModel, int?>(
+                                    (vm) => vm.submittedJournalId,
+                                  );
+                              if (isSubmitted) {
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  _,
+                                ) {
+                                  context.goToJournalFromWrite(
+                                    submittedJournalId!,
+                                  );
+                                });
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                          const SizedBox(height: Spacing.md),
+                          FadeIn(
+                            delay: DelayMs.quick,
+                            child: const ImagePreviewSection(),
+                          ),
+                          Column(
+                            children: [
+                              const SizedBox(height: Spacing.md),
+                              FadeIn(
+                                delay: DelayMs.quick * 2,
+                                child: ContentInput(
+                                  contentController: _contentController,
+                                  focusNode: _contentFocusNode,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: Spacing.xxl),
-                        FadeIn(
-                          delay: DelayMs.quick * 3,
-                          child: const AiEnableCard(),
-                        ),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(height: Spacing.xxl),
+                          FadeIn(
+                            delay: DelayMs.quick * 3,
+                            child: const AiEnableCard(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: EditorBottomPanel(contentController: _contentController),
-              ),
-            ],
-          );
-        },
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: EditorBottomPanel(
+                    contentController: _contentController,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

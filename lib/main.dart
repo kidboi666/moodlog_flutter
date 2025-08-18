@@ -48,7 +48,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
       builder: (context, appStateProvider, child) {
         final appState = appStateProvider.appState;
         if (appStateProvider.isLoading) {
-          return const Spinner(spinnerType: SpinnerType.screen);
+          return const Spinner(spinnerType: SpinnerType.center);
         }
         _router ??= router(context.read());
 

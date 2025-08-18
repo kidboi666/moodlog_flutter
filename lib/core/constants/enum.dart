@@ -534,7 +534,7 @@ enum JournalSource {
   }
 }
 
-enum SpinnerType { button, screen, element }
+enum SpinnerType { button, center, expanded }
 
 enum Emoji {
   shakeHand,

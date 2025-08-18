@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/providers/user_provider.dart';
-import '../../core/ui/widgets/scaffold_with_navbar.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../presentation/auth/sign_in_screen.dart';
 import '../../presentation/entries/entries_screen.dart';
 import '../../presentation/home/home_screen.dart';
 import '../../presentation/journal/journal_screen.dart';
+import '../../presentation/layout/base_scaffold/base_scaffold_screen.dart';
 import '../../presentation/onboarding/onboarding_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
 import '../../presentation/settings/settings_screen.dart';
@@ -68,7 +68,7 @@ GoRouter router(UserProvider userProvider) => GoRouter(
     StatefulShellRoute(
       builder: (_, _, navigationShell) => navigationShell,
       navigatorContainerBuilder: (_, navigationShell, children) {
-        return ScaffoldWithNavbar(
+        return BaseLayoutScreen(
           navigationShell: navigationShell,
           children: children,
         );

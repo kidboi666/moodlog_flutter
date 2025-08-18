@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:moodlog/presentation/layout/glower.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/extensions/routing.dart';
-import '../../core/routing/routes.dart';
-import '../../core/ui/widgets/avatar.dart';
 import '../../core/ui/widgets/empty_entries_box.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/journal_card.dart';
 import '../../domain/entities/journal.dart';
 import 'home_viewmodel.dart';
 import 'widgets/horizontal_calendar.dart';
-import 'widgets/weather_widget.dart';
 import 'widgets/welcome_zone.dart';
 
 part 'home_screen_content.dart';
@@ -27,8 +24,6 @@ class HomeScreen extends StatelessWidget {
         journalRepository: context.read(),
         userProvider: context.read(),
         journalUseCase: context.read(),
-        locationUseCase: context.read(),
-        weatherUseCase: context.read(),
       ),
       child: _HomeScreenContent(),
     );

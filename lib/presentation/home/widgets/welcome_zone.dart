@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/fade_in.dart';
-import '../../../core/ui/widgets/shake_emoji.dart';
 import '../home_viewmodel.dart';
 
 class WelcomeZone extends StatelessWidget {
@@ -20,20 +18,6 @@ class WelcomeZone extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FadeIn(
-          delay: DelayMs.medium,
-          child: Row(
-            spacing: Spacing.sm,
-            children: [
-              Text(t.home_hello, style: textTheme.displaySmall),
-              const ShakeEmoji(
-                emoji: Emoji.shakeHand,
-                size: 36,
-                repeatCount: 5,
-              ),
-            ],
-          ),
-        ),
         FadeIn(
           delay: DelayMs.medium * 2,
           child: Builder(

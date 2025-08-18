@@ -6,7 +6,7 @@ class WeatherUseCase {
   final WeatherRepository _weatherRepository;
 
   WeatherUseCase({required WeatherRepository weatherRepository})
-      : _weatherRepository = weatherRepository;
+    : _weatherRepository = weatherRepository;
 
   Future<Result<WeatherInfo>> getCurrentWeather({
     required double latitude,
@@ -16,5 +16,9 @@ class WeatherUseCase {
       latitude: latitude,
       longitude: longitude,
     );
+  }
+
+  WeatherCondition getWeatherCondition(String iconCode) {
+    return _weatherRepository.getWeatherCondition(iconCode);
   }
 }

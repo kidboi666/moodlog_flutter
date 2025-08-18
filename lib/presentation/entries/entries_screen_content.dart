@@ -46,175 +46,177 @@ class _EntriesScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<EntriesViewModel>();
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Builder(
-          builder: (context) {
-            final selectedMonth = context.select<EntriesViewModel, DateTime>(
-              (vm) => vm.selectedMonth,
-            );
-            return Text(selectedMonth.formattedDotNationWithMonth());
-          },
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: viewModel.setPreviousMonth,
-        ),
-        actions: [
-          Selector<EntriesViewModel, EntriesViewMode>(
-            selector: (_, viewModel) => viewModel.viewMode,
-            builder: (_, viewMode, _) => IconButton(
-              icon: Icon(
-                viewMode == EntriesViewMode.list
-                    ? Icons.calendar_month
-                    : Icons.view_list,
-              ),
-              onPressed: viewModel.toggleViewMode,
-            ),
-          ),
-          Selector<EntriesViewModel, Function>(
-            selector: (_, viewModel) => viewModel.setNextMonth,
-            builder: (_, setNextMonth, _) => IconButton(
-              icon: const Icon(Icons.arrow_forward),
-              onPressed: () => setNextMonth(),
-            ),
-          ),
-        ],
-      ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
-          const SliverToBoxAdapter(child: TagFilterSection()),
-          const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
-          Builder(
+    return Glower(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Builder(
             builder: (context) {
-              final entries = context.select<EntriesViewModel, List<Journal>>(
-                (vm) => vm.entries,
+              final selectedMonth = context.select<EntriesViewModel, DateTime>(
+                (vm) => vm.selectedMonth,
               );
-              final isLoading = context.select<EntriesViewModel, bool>(
-                (vm) => vm.isLoading,
-              );
-              final viewMode = context
-                  .select<EntriesViewModel, EntriesViewMode>(
-                    (vm) => vm.viewMode,
+              return Text(selectedMonth.formattedDotNationWithMonth());
+            },
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: viewModel.setPreviousMonth,
+          ),
+          actions: [
+            Selector<EntriesViewModel, EntriesViewMode>(
+              selector: (_, viewModel) => viewModel.viewMode,
+              builder: (_, viewMode, _) => IconButton(
+                icon: Icon(
+                  viewMode == EntriesViewMode.list
+                      ? Icons.calendar_month
+                      : Icons.view_list,
+                ),
+                onPressed: viewModel.toggleViewMode,
+              ),
+            ),
+            Selector<EntriesViewModel, Function>(
+              selector: (_, viewModel) => viewModel.setNextMonth,
+              builder: (_, setNextMonth, _) => IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                onPressed: () => setNextMonth(),
+              ),
+            ),
+          ],
+        ),
+        body: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+            const SliverToBoxAdapter(child: TagFilterSection()),
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
+            Builder(
+              builder: (context) {
+                final entries = context.select<EntriesViewModel, List<Journal>>(
+                  (vm) => vm.entries,
+                );
+                final isLoading = context.select<EntriesViewModel, bool>(
+                  (vm) => vm.isLoading,
+                );
+                final viewMode = context
+                    .select<EntriesViewModel, EntriesViewMode>(
+                      (vm) => vm.viewMode,
+                    );
+
+                if (isLoading) {
+                  return SliverToBoxAdapter(
+                    child: const CircularProgressIndicator(),
                   );
+                }
 
-              if (isLoading) {
-                return SliverToBoxAdapter(
-                  child: const CircularProgressIndicator(),
-                );
-              }
-
-              if (viewMode == EntriesViewMode.calendar) {
-                return const SliverToBoxAdapter(
-                  child: Padding(
-                    padding: Spacing.containerHorizontalPadding,
-                    child: EntriesCalendarView(),
-                  ),
-                );
-              }
-
-              if (entries.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: FadeIn(
-                    delay: DelayMs.medium,
+                if (viewMode == EntriesViewMode.calendar) {
+                  return const SliverToBoxAdapter(
                     child: Padding(
                       padding: Spacing.containerHorizontalPadding,
-                      child: EmptyEntriesBox(),
+                      child: EntriesCalendarView(),
                     ),
-                  ),
-                );
-              }
+                  );
+                }
 
-              // 날짜별 그룹화된 저널 표시
-              final groupedJournals = _groupJournalsByDate(entries);
-              final sortedDates = groupedJournals.keys.toList()
-                ..sort((a, b) => b.compareTo(a)); // 최신 날짜부터
-
-              return SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final date = sortedDates[index];
-                  final journalsForDate = groupedJournals[date]!;
-                  final t = AppLocalizations.of(context)!;
-                  final colorScheme = Theme.of(context).colorScheme;
-                  final textTheme = Theme.of(context).textTheme;
-
-                  return Padding(
-                    padding: Spacing.containerHorizontalPadding,
+                if (entries.isEmpty) {
+                  return SliverToBoxAdapter(
                     child: FadeIn(
-                      delay:
-                          DelayMs.medium + Duration(milliseconds: index * 50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // 날짜 헤더
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: Spacing.sm,
-                              vertical: Spacing.xs,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  _formatDateWithWeekday(date, t),
-                                  style: textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: colorScheme.onSurface,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '${journalsForDate.length}',
-                                  style: textTheme.bodyMedium?.copyWith(
-                                    color: colorScheme.outline,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: Spacing.lg),
-
-                          // 해당 날짜의 저널들
-                          ...journalsForDate.asMap().entries.map((entry) {
-                            final journalIndex = entry.key;
-                            final journal = entry.value;
-
-                            return Column(
-                              children: [
-                                JournalCard(
-                                  id: journal.id,
-                                  content: journal.content ?? '',
-                                  moodType: journal.moodType,
-                                  coverImg: journal.imageUri?.isNotEmpty == true
-                                      ? journal.imageUri!.first
-                                      : null,
-                                  createdAt: journal.createdAt,
-                                  onTap: () => context.pushToJournalFromEntries(
-                                    journal.id,
-                                  ),
-                                  onDismissed: () =>
-                                      viewModel.deleteJournal(journal.id),
-                                ),
-                                if (journalIndex < journalsForDate.length - 1)
-                                  const SizedBox(height: Spacing.lg),
-                              ],
-                            );
-                          }),
-                          const SizedBox(height: Spacing.xxl),
-                        ],
+                      delay: DelayMs.medium,
+                      child: Padding(
+                        padding: Spacing.containerHorizontalPadding,
+                        child: EmptyEntriesBox(),
                       ),
                     ),
                   );
-                }, childCount: sortedDates.length),
-              );
-            },
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: kBottomNavigationBarHeight * 3),
-          ),
-        ],
+                }
+
+                // 날짜별 그룹화된 저널 표시
+                final groupedJournals = _groupJournalsByDate(entries);
+                final sortedDates = groupedJournals.keys.toList()
+                  ..sort((a, b) => b.compareTo(a)); // 최신 날짜부터
+
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final date = sortedDates[index];
+                    final journalsForDate = groupedJournals[date]!;
+                    final t = AppLocalizations.of(context)!;
+                    final colorScheme = Theme.of(context).colorScheme;
+                    final textTheme = Theme.of(context).textTheme;
+
+                    return Padding(
+                      padding: Spacing.containerHorizontalPadding,
+                      child: FadeIn(
+                        delay:
+                            DelayMs.medium + Duration(milliseconds: index * 50),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 날짜 헤더
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: Spacing.sm,
+                                vertical: Spacing.xs,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    _formatDateWithWeekday(date, t),
+                                    style: textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: colorScheme.onSurface,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${journalsForDate.length}',
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      color: colorScheme.outline,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: Spacing.lg),
+
+                            // 해당 날짜의 저널들
+                            ...journalsForDate.asMap().entries.map((entry) {
+                              final journalIndex = entry.key;
+                              final journal = entry.value;
+
+                              return Column(
+                                children: [
+                                  JournalCard(
+                                    id: journal.id,
+                                    content: journal.content ?? '',
+                                    moodType: journal.moodType,
+                                    coverImg:
+                                        journal.imageUri?.isNotEmpty == true
+                                        ? journal.imageUri!.first
+                                        : null,
+                                    createdAt: journal.createdAt,
+                                    onTap: () => context
+                                        .pushToJournalFromEntries(journal.id),
+                                    onDismissed: () =>
+                                        viewModel.deleteJournal(journal.id),
+                                  ),
+                                  if (journalIndex < journalsForDate.length - 1)
+                                    const SizedBox(height: Spacing.lg),
+                                ],
+                              );
+                            }),
+                            const SizedBox(height: Spacing.xxl),
+                          ],
+                        ),
+                      ),
+                    );
+                  }, childCount: sortedDates.length),
+                );
+              },
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: kBottomNavigationBarHeight * 3),
+            ),
+          ],
+        ),
       ),
     );
   }
