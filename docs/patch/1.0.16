@@ -1,0 +1,53 @@
+<ko-KR>
+🌍 태그 관리 기능 다국어화
+🎨 NavigationRail 레이아웃 적용
+🔧 태그 관리 로직 아키텍처 개선
+</ko-KR>
+
+<en-US>
+🌍 Tag management multilingual support
+🎨 NavigationRail layout implementation
+🔧 Tag management architecture improvement
+</en-US>
+
+<es-ES>
+🌍 Soporte multiidioma para gestión de etiquetas
+🎨 Implementación de NavigationRail
+🔧 Mejora de arquitectura de etiquetas
+</es-ES>
+
+<fr-FR>
+🌍 Support multilingue pour gestion des étiquettes
+🎨 Implémentation de NavigationRail
+🔧 Amélioration architecture des étiquettes
+</fr-FR>
+
+<it-IT>
+🌍 Supporto multilingue per gestione tag
+🎨 Implementazione NavigationRail
+🔧 Miglioramento architettura tag
+</it-IT>
+
+<ja-JP>
+🌍 タグ管理機能の多言語対応
+🎨 NavigationRailレイアウト実装
+🔧 タグ管理アーキテクチャ改善
+</ja-JP>
+
+<th>
+🌍 รองรับหลายภาษาสำหรับการจัดการแท็ก
+🎨 การใช้งาน NavigationRail
+🔧 ปรับปรุงสถาปัตยกรรมการจัดการแท็ก
+</th>
+
+<vi>
+🌍 Hỗ trợ đa ngôn ngữ quản lý thẻ
+🎨 Triển khai NavigationRail
+🔧 Cải thiện kiến trúc quản lý thẻ
+</vi>
+
+<zh-CN>
+🌍 标签管理多语言支持
+🎨 NavigationRail布局实现
+🔧 标签管理架构改进
+</zh-CN>

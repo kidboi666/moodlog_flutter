@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/presentation/settings/settings_viewmodel.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../domain/entities/tag.dart';
+import '../../settings_viewmodel.dart';
 
 class TagManagementDialog extends StatelessWidget {
   final SettingsViewModel viewModel;
