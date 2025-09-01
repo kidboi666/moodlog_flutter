@@ -1,69 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:moodlog/presentation/settings/settings_viewmodel.dart';
 
-import '../../../../core/utils/result.dart';
 import '../../../../domain/entities/tag.dart';
-import '../../../../domain/use_cases/tag_use_case.dart';
 
-class TagManagementDialog extends StatefulWidget {
-  const TagManagementDialog({super.key});
+class TagManagementDialog extends StatelessWidget {
+  final SettingsViewModel viewModel;
 
-  @override
-  State<TagManagementDialog> createState() => _TagManagementDialogState();
-}
+  const TagManagementDialog({super.key, required this.viewModel});
 
-class _TagManagementDialogState extends State<TagManagementDialog> {
-  List<Tag> _tags = [];
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadTags();
-  }
-
-  Future<void> _loadTags() async {
-    setState(() => _isLoading = true);
-    final useCase = context.read<TagUseCase>();
-    final result = await useCase.getAllTags();
-
-    switch (result) {
-      case Ok<List<Tag>>():
-        setState(() {
-          _tags = result.value;
-          _isLoading = false;
-        });
-      case Failure<List<Tag>>():
-        setState(() => _isLoading = false);
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Failed to load tags')));
-        }
-    }
-  }
-
-  Future<void> _deleteTag(Tag tag) async {
-    final deleteUseCase = context.read<TagUseCase>();
-    final result = await deleteUseCase.deleteTag(tag.id);
-
-    switch (result) {
-      case Ok<void>():
-        setState(() {
-          _tags.removeWhere((t) => t.id == tag.id);
-        });
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Tag "${tag.name}" deleted')));
-        }
-      case Failure<void>():
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Failed to delete tag')));
-        }
-    }
+  void _showDeleteConfirmation(BuildContext context, Tag tag) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Tag'),
+        content: Text(
+          'Are you sure you want to delete "${tag.name}"? This will remove the tag from all journals.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              viewModel.deleteTag(tag.id);
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -73,14 +43,14 @@ class _TagManagementDialogState extends State<TagManagementDialog> {
       content: SizedBox(
         width: double.maxFinite,
         height: 400,
-        child: _isLoading
+        child: viewModel.isLoading
             ? const Center(child: CircularProgressIndicator())
-            : _tags.isEmpty
+            : viewModel.tags.isEmpty
             ? const Center(child: Text('No tags found'))
             : ListView.builder(
-                itemCount: _tags.length,
+                itemCount: viewModel.tags.length,
                 itemBuilder: (context, index) {
-                  final tag = _tags[index];
+                  final tag = viewModel.tags[index];
                   return ListTile(
                     leading: CircleAvatar(
                       backgroundColor: tag.color != null
@@ -99,7 +69,7 @@ class _TagManagementDialogState extends State<TagManagementDialog> {
                         Icons.delete,
                         color: Theme.of(context).colorScheme.error,
                       ),
-                      onPressed: () => _showDeleteConfirmation(tag),
+                      onPressed: () => _showDeleteConfirmation(context, tag),
                     ),
                   );
                 },
@@ -111,34 +81,6 @@ class _TagManagementDialogState extends State<TagManagementDialog> {
           child: const Text('Close'),
         ),
       ],
-    );
-  }
-
-  void _showDeleteConfirmation(Tag tag) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Tag'),
-        content: Text(
-          'Are you sure you want to delete "${tag.name}"? This will remove the tag from all journals.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _deleteTag(tag);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
     );
   }
 }

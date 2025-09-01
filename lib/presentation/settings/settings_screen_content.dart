@@ -124,7 +124,7 @@ class _SettingsScreenContent extends StatelessWidget {
                 icon: Icons.label,
                 onTap: () => showDialog(
                   context: context,
-                  builder: (_) => const TagManagementDialog(),
+                  builder: (_) => TagManagementDialog(viewModel: viewModel),
                 ),
               ),
               CardListTile(
