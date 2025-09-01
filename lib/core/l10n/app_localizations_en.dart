@@ -964,4 +964,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => 'Sat';
+
+  @override
+  String get tags_dialog_title => 'Manage Tags';
+
+  @override
+  String get tags_dialog_empty => 'No tags found';
+
+  @override
+  String get tags_dialog_close => 'Close';
+
+  @override
+  String get tags_dialog_delete_title => 'Delete Tag';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return 'Are you sure you want to delete \"$tagName\"? This will remove the tag from all journals.';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return 'Created: $date';
+  }
 }

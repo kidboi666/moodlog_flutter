@@ -959,4 +959,26 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => 'ส';
+
+  @override
+  String get tags_dialog_title => 'จัดการแท็ก';
+
+  @override
+  String get tags_dialog_empty => 'ไม่พบแท็ก';
+
+  @override
+  String get tags_dialog_close => 'ปิด';
+
+  @override
+  String get tags_dialog_delete_title => 'ลบแท็ก';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return 'คุณแน่ใจว่าต้องการลบ \"$tagName\" หรือไม่? การกระทำนี้จะลบแท็กจากบันทึกทั้งหมด';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return 'สร้าง: $date';
+  }
 }

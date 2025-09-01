@@ -416,5 +416,25 @@
   "calendar_weekday_wed": "Mer",
   "calendar_weekday_thu": "Jeu",
   "calendar_weekday_fri": "Ven",
-  "calendar_weekday_sat": "Sam"
+  "calendar_weekday_sat": "Sam",
+  "tags_dialog_title": "Gérer les Étiquettes",
+  "tags_dialog_empty": "Aucune étiquette trouvée",
+  "tags_dialog_close": "Fermer",
+  "tags_dialog_delete_title": "Supprimer l’Étiquette",
+  "tags_dialog_delete_message": "Êtes-vous sûr de vouloir supprimer \"{tagName}\" ? Cela supprimera l’étiquette de tous les journaux.",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "Créé: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

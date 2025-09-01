@@ -410,5 +410,25 @@
   "calendar_weekday_wed": "水",
   "calendar_weekday_thu": "木",
   "calendar_weekday_fri": "金",
-  "calendar_weekday_sat": "土"
+  "calendar_weekday_sat": "土",
+  "tags_dialog_title": "タグ管理",
+  "tags_dialog_empty": "タグがありません",
+  "tags_dialog_close": "閉じる",
+  "tags_dialog_delete_title": "タグを削除",
+  "tags_dialog_delete_message": "\"{tagName}\"を削除しますか？すべての日記からこのタグが削除されます。",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "作成日: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

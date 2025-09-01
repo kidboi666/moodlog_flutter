@@ -933,4 +933,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => '六';
+
+  @override
+  String get tags_dialog_title => '标签管理';
+
+  @override
+  String get tags_dialog_empty => '未找到标签';
+
+  @override
+  String get tags_dialog_close => '关闭';
+
+  @override
+  String get tags_dialog_delete_title => '删除标签';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return '确定要删除\"$tagName\"吗？这将从所有日记中删除该标签。';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return '创建日期: $date';
+  }
 }

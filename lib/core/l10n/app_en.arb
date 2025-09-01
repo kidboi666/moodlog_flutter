@@ -432,5 +432,25 @@
   "calendar_weekday_wed": "Wed",
   "calendar_weekday_thu": "Thu",
   "calendar_weekday_fri": "Fri",
-  "calendar_weekday_sat": "Sat"
+  "calendar_weekday_sat": "Sat",
+  "tags_dialog_title": "Manage Tags",
+  "tags_dialog_empty": "No tags found",
+  "tags_dialog_close": "Close",
+  "tags_dialog_delete_title": "Delete Tag",
+  "tags_dialog_delete_message": "Are you sure you want to delete \"{tagName}\"? This will remove the tag from all journals.",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "Created: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

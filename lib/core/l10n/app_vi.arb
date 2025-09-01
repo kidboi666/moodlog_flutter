@@ -416,5 +416,25 @@
   "calendar_weekday_wed": "T4",
   "calendar_weekday_thu": "T5",
   "calendar_weekday_fri": "T6",
-  "calendar_weekday_sat": "T7"
+  "calendar_weekday_sat": "T7",
+  "tags_dialog_title": "Quản lý Thẻ",
+  "tags_dialog_empty": "Không tìm thấy thẻ nào",
+  "tags_dialog_close": "Đóng",
+  "tags_dialog_delete_title": "Xóa Thẻ",
+  "tags_dialog_delete_message": "Bạn có chắc chắn muốn xóa \"{tagName}\"? Việc này sẽ xóa thẻ khỏi tất cả nhật ký.",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "Tạo: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

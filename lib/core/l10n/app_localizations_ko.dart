@@ -942,4 +942,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => '토';
+
+  @override
+  String get tags_dialog_title => '태그 관리';
+
+  @override
+  String get tags_dialog_empty => '태그가 없습니다';
+
+  @override
+  String get tags_dialog_close => '닫기';
+
+  @override
+  String get tags_dialog_delete_title => '태그 삭제';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return '생성 날짜: $date';
+  }
 }

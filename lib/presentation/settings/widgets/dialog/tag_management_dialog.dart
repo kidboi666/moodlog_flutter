@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/settings/settings_viewmodel.dart';
 
 import '../../../../domain/entities/tag.dart';
@@ -11,65 +12,59 @@ class TagManagementDialog extends StatelessWidget {
   void _showDeleteConfirmation(BuildContext context, Tag tag) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Tag'),
-        content: Text(
-          'Are you sure you want to delete "${tag.name}"? This will remove the tag from all journals.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              viewModel.deleteTag(tag.id);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
+      builder: (context) {
+        final t = AppLocalizations.of(context)!;
+        return AlertDialog(
+          title: Text(t.tags_dialog_delete_title),
+          content: Text(t.tags_dialog_delete_message(tag.name)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(t.common_confirm_cancel),
             ),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                viewModel.deleteTag(tag.id);
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: Text(t.common_confirm_delete),
+            ),
+          ],
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: const Text('Manage Tags'),
+      title: Text(t.tags_dialog_title),
       content: SizedBox(
         width: double.maxFinite,
         height: 400,
         child: viewModel.isLoading
             ? const Center(child: CircularProgressIndicator())
             : viewModel.tags.isEmpty
-            ? const Center(child: Text('No tags found'))
+            ? Center(child: Text(t.tags_dialog_empty))
             : ListView.builder(
                 itemCount: viewModel.tags.length,
                 itemBuilder: (context, index) {
                   final tag = viewModel.tags[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: tag.color != null
-                          ? Color(int.parse(tag.color!, radix: 16))
-                          : Theme.of(
-                              context,
-                            ).colorScheme.surfaceContainerHighest,
-                      radius: 12,
-                    ),
-                    title: Text(tag.name),
-                    subtitle: Text(
-                      'Created: ${tag.createdAt.day}/${tag.createdAt.month}/${tag.createdAt.year}',
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: Theme.of(context).colorScheme.error,
+                  return Dismissible(
+                    key: Key(tag.id.toString()),
+                    onDismissed: (direction) => viewModel.deleteTag(tag.id),
+                    child: ListTile(
+                      onTap: () {},
+                      title: Text(tag.name),
+                      subtitle: Text(
+                        t.tags_dialog_created(
+                          '${tag.createdAt.day}/${tag.createdAt.month}/${tag.createdAt.year}',
+                        ),
                       ),
-                      onPressed: () => _showDeleteConfirmation(context, tag),
                     ),
                   );
                 },
@@ -78,7 +73,7 @@ class TagManagementDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
+          child: Text(t.tags_dialog_close),
         ),
       ],
     );

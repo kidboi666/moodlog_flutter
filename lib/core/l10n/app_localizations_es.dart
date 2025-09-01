@@ -983,4 +983,26 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => 'Sáb';
+
+  @override
+  String get tags_dialog_title => 'Gestionar Etiquetas';
+
+  @override
+  String get tags_dialog_empty => 'No se encontraron etiquetas';
+
+  @override
+  String get tags_dialog_close => 'Cerrar';
+
+  @override
+  String get tags_dialog_delete_title => 'Eliminar Etiqueta';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return '¿Está seguro de que desea eliminar \"$tagName\"? Esto eliminará la etiqueta de todos los diarios.';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return 'Creado: $date';
+  }
 }

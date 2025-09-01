@@ -940,4 +940,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => '土';
+
+  @override
+  String get tags_dialog_title => 'タグ管理';
+
+  @override
+  String get tags_dialog_empty => 'タグがありません';
+
+  @override
+  String get tags_dialog_close => '閉じる';
+
+  @override
+  String get tags_dialog_delete_title => 'タグを削除';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return '\"$tagName\"を削除しますか？すべての日記からこのタグが削除されます。';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return '作成日: $date';
+  }
 }

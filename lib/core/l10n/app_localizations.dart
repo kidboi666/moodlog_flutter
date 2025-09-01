@@ -1887,6 +1887,42 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'토'**
   String get calendar_weekday_sat;
+
+  /// No description provided for @tags_dialog_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 관리'**
+  String get tags_dialog_title;
+
+  /// No description provided for @tags_dialog_empty.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그가 없습니다'**
+  String get tags_dialog_empty;
+
+  /// No description provided for @tags_dialog_close.
+  ///
+  /// In ko, this message translates to:
+  /// **'닫기'**
+  String get tags_dialog_close;
+
+  /// No description provided for @tags_dialog_delete_title.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그 삭제'**
+  String get tags_dialog_delete_title;
+
+  /// No description provided for @tags_dialog_delete_message.
+  ///
+  /// In ko, this message translates to:
+  /// **'\"{tagName}\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.'**
+  String tags_dialog_delete_message(String tagName);
+
+  /// No description provided for @tags_dialog_created.
+  ///
+  /// In ko, this message translates to:
+  /// **'생성 날짜: {date}'**
+  String tags_dialog_created(String date);
 }
 
 class _AppLocalizationsDelegate

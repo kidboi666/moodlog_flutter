@@ -423,5 +423,25 @@
   "calendar_weekday_wed": "수",
   "calendar_weekday_thu": "목",
   "calendar_weekday_fri": "금",
-  "calendar_weekday_sat": "토"
+  "calendar_weekday_sat": "토",
+  "tags_dialog_title": "태그 관리",
+  "tags_dialog_empty": "태그가 없습니다",
+  "tags_dialog_close": "닫기",
+  "tags_dialog_delete_title": "태그 삭제",
+  "tags_dialog_delete_message": "\"{tagName}\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "생성 날짜: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

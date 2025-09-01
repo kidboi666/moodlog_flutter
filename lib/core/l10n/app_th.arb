@@ -420,5 +420,25 @@
   "calendar_weekday_wed": "พ",
   "calendar_weekday_thu": "พฤ",
   "calendar_weekday_fri": "ศ",
-  "calendar_weekday_sat": "ส"
+  "calendar_weekday_sat": "ส",
+  "tags_dialog_title": "จัดการแท็ก",
+  "tags_dialog_empty": "ไม่พบแท็ก",
+  "tags_dialog_close": "ปิด",
+  "tags_dialog_delete_title": "ลบแท็ก",
+  "tags_dialog_delete_message": "คุณแน่ใจว่าต้องการลบ \"{tagName}\" หรือไม่? การกระทำนี้จะลบแท็กจากบันทึกทั้งหมด",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "สร้าง: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

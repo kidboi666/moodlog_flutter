@@ -971,4 +971,26 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get calendar_weekday_sat => 'T7';
+
+  @override
+  String get tags_dialog_title => 'Quản lý Thẻ';
+
+  @override
+  String get tags_dialog_empty => 'Không tìm thấy thẻ nào';
+
+  @override
+  String get tags_dialog_close => 'Đóng';
+
+  @override
+  String get tags_dialog_delete_title => 'Xóa Thẻ';
+
+  @override
+  String tags_dialog_delete_message(String tagName) {
+    return 'Bạn có chắc chắn muốn xóa \"$tagName\"? Việc này sẽ xóa thẻ khỏi tất cả nhật ký.';
+  }
+
+  @override
+  String tags_dialog_created(String date) {
+    return 'Tạo: $date';
+  }
 }

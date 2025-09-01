@@ -410,5 +410,25 @@
   "calendar_weekday_wed": "三",
   "calendar_weekday_thu": "四",
   "calendar_weekday_fri": "五",
-  "calendar_weekday_sat": "六"
+  "calendar_weekday_sat": "六",
+  "tags_dialog_title": "标签管理",
+  "tags_dialog_empty": "未找到标签",
+  "tags_dialog_close": "关闭",
+  "tags_dialog_delete_title": "删除标签",
+  "tags_dialog_delete_message": "确定要删除\"{tagName}\"吗？这将从所有日记中删除该标签。",
+  "@tags_dialog_delete_message": {
+    "placeholders": {
+      "tagName": {
+        "type": "String"
+      }
+    }
+  },
+  "tags_dialog_created": "创建日期: {date}",
+  "@tags_dialog_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }
