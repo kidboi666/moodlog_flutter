@@ -187,7 +187,7 @@ MoodLog 프로젝트에 기여해주시는 모든 분들을 환영합니다!
 
 - **개발자**: logmind 
 - **이메일**: log.mind.365@gmail.com
-- **GitHub**: [@your-username](https://github.com/kidboi666/moodlog)
+- **GitHub**: [@kidboi666](https://github.com/kidboi666/moodlog)
 
 ## 🙏 감사의 말
 
