@@ -1,3 +1,4 @@
+import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -10,16 +11,17 @@ import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/tag_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
-import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/image_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/location_repository.dart';
+import '../../domain/repositories/settings_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/gemini_use_Case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
@@ -95,6 +97,12 @@ List<SingleChildWidget> _createUseCases() {
   return [
     Provider<AuthUseCase>(
       create: (context) => AuthUseCase(authRepository: context.read()),
+    ),
+    Provider<SettingsUseCase>(
+      create: (context) => SettingsUseCase(settingsRepository: context.read()),
+    ),
+    Provider<GeminiUseCase>(
+      create: (context) => GeminiUseCase(geminiRepository: context.read()),
     ),
     Provider<PickImageUseCase>(
       create: (context) => PickImageUseCase(imageRepository: context.read()),

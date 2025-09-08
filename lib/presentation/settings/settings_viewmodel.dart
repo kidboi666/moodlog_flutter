@@ -7,8 +7,8 @@ import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../../domain/repositories/settings_repository.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../providers/user_provider.dart';
 

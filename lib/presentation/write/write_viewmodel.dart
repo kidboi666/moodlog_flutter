@@ -11,56 +11,52 @@ import '../../domain/entities/location_info.dart';
 import '../../domain/entities/tag.dart';
 import '../../domain/entities/update_journal_dto.dart';
 import '../../domain/entities/weather_info.dart';
-import '../../domain/repositories/app_state_repository.dart';
-import '../../domain/repositories/gemini_repository.dart';
-import '../../domain/repositories/journal_repository.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/gemini_use_Case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
+import '../../domain/use_cases/settings_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../providers/ai_generation_provider.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
-  final GeminiRepository _geminiRepository;
+  final GeminiUseCase _geminiUseCase;
   final AppStateProvider _appStateProvider;
   final AiGenerationProvider _aiGenerationProvider;
   final PickImageUseCase _pickImageUseCase;
-  final SettingsRepository _settingsRepository;
+  final SettingsUseCase _settingsUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
   final JournalUseCase _journalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
   final TagUseCase _tagUseCase;
-  final JournalRepository _journalRepository;
 
   WriteViewModel({
-    required GeminiRepository geminiRepository,
+    required GeminiUseCase geminiUseCase,
     required AppStateProvider appStateProvider,
     required AiGenerationProvider aiGenerationProvider,
     required PickImageUseCase pickImageUseCase,
-    required SettingsRepository settingsRepository,
+    required SettingsUseCase settingsUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
     required JournalUseCase journalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
     required TagUseCase tagUseCase,
-    required JournalRepository journalRepository,
     required DateTime selectedDate,
     int? editJournalId,
-  }) : _geminiRepository = geminiRepository,
+  }) : _geminiUseCase = geminiUseCase,
        _appStateProvider = appStateProvider,
        _aiGenerationProvider = aiGenerationProvider,
        _pickImageUseCase = pickImageUseCase,
-       _settingsRepository = settingsRepository,
+       _settingsUseCase = settingsUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
        _journalUseCase = journalUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
-       _tagUseCase = tagUseCase,
-       _journalRepository = journalRepository {
+       _tagUseCase = tagUseCase {
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
@@ -408,13 +404,13 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _aiGenerationProvider.setGeneratingAiResponse();
 
     // Record AI usage
-    await _settingsRepository.updateLastAiUsageDate(DateTime.now());
+    await _settingsUseCase.updateLastAiUsageDate(DateTime.now());
     _canUseAiToday = false;
     notifyListeners();
 
     final aiPersonality = _appStateProvider.appState.aiPersonality;
-    await _geminiRepository.init(aiPersonality);
-    final aiResponse = await _geminiRepository.generateResponse(
+    await _geminiUseCase.initialize(aiPersonality);
+    final aiResponse = await _geminiUseCase.generateResponse(
       prompt: content!,
       moodType: selectedMood,
     );
@@ -479,7 +475,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> _loadJournalForEdit(int journalId) async {
     try {
       _log.info('Loading journal for edit: $journalId');
-      final result = await _journalRepository.getJournalById(journalId);
+      final result = await _journalUseCase.getJournalById(journalId);
       switch (result) {
         case Ok<Journal>():
           final journal = result.value;

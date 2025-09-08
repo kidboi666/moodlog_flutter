@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../repositories/app_state_repository.dart';
+import '../repositories/settings_repository.dart';
 
 class CheckAiUsageLimitUseCase {
   final SettingsRepository _settingsRepository;

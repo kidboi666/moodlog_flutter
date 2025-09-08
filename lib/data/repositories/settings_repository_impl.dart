@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
 import '../../domain/entities/app_info.dart';
-import '../../domain/repositories/app_state_repository.dart';
+import '../../domain/repositories/settings_repository.dart';
 
 class SettingsRepositoryImpl extends SettingsRepository {
   SharedPreferences? _prefs;
