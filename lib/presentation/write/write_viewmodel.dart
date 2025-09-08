@@ -153,7 +153,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> pickImage() async {
     setLoading();
-    final result = await _pickImageUseCase.pickImage();
+    final result = await _pickImageUseCase.fromGallery();
     switch (result) {
       case Ok<String?>():
         _log.fine('Image picked successfully');

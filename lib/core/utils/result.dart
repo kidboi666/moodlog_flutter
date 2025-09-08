@@ -2,7 +2,6 @@ sealed class Result<T> {
   const Result();
 
   const factory Result.ok(T value) = Ok._;
-
   const factory Result.failure(Object error) = Failure._;
 }
 

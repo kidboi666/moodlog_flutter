@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/use_cases/auth/auth_use_case.dart';
 import '../../domain/use_cases/image/pick_image_usecase.dart';
 import '../providers/user_provider.dart';
@@ -58,7 +58,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   // TODO: 프로필 이미지 기능 (파이어베이스 요금제 업그레이드 필요)
   Future<Result<void>> pickImage() async {
     setLoading();
-    final result = await _pickImageUseCase.pickImage();
+    final result = await _pickImageUseCase.fromGallery();
 
     switch (result) {
       case Ok<String?>():

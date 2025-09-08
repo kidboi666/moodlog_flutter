@@ -1,10 +1,13 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'
+    show FirebaseAuth, GoogleAuthProvider, OAuthCredential;
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/utils/result.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../extension/firebase_user.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -19,13 +22,15 @@ class AuthRepositoryImpl extends AuthRepository {
   bool get isAnonymousUser => _firebaseAuth.currentUser?.isAnonymous ?? false;
 
   @override
-  Stream<User?> get userChanges => _firebaseAuth.userChanges();
+  Stream<User?> get userChanges =>
+      _firebaseAuth.userChanges().map((user) => user?.toDomain());
 
   @override
   Future<Result<User?>> getCurrentUser() async {
     try {
       final user = _firebaseAuth.currentUser;
-      return Result.ok(user);
+
+      return Result.ok(user?.toDomain());
     } catch (e) {
       return Result.failure(e);
     }
@@ -40,7 +45,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<User?>> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
-      return Result.ok(userCredential.user);
+      return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       return Result.failure(e);
     }
@@ -53,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
-      return Result.ok(userCredential.user);
+      return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       return Result.failure(e);
     }
@@ -65,7 +70,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final credential = await _getGoogleCredential();
       final userCredential = await _firebaseAuth.currentUser
           ?.linkWithCredential(credential);
-      return Result.ok(userCredential?.user);
+      return Result.ok(userCredential?.user?.toDomain());
     } catch (e) {
       return Result.failure(e);
     }

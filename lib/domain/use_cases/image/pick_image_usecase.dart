@@ -1,26 +1,13 @@
-import 'package:image_picker/image_picker.dart';
-import 'package:logging/logging.dart';
-
 import '../../../core/utils/result.dart';
+import '../../repositories/image_repository.dart';
 
 class PickImageUseCase {
-  final Logger _log = Logger('PickImageUseCase');
-  final ImagePicker _picker = ImagePicker();
+  final ImageRepository _imageRepository;
 
-  Future<Result<String?>> pickImage() async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(
-        source: ImageSource.gallery,
-      );
+  PickImageUseCase({required ImageRepository imageRepository})
+    : _imageRepository = imageRepository;
 
-      if (pickedFile != null) {
-        _log.fine('Image picked: ${pickedFile.name}');
-        return Result.ok(pickedFile.path);
-      }
-      return Result.ok(null);
-    } catch (e) {
-      _log.warning('Error picking image: $e');
-      return Result.failure(e);
-    }
+  Future<Result<String?>> fromGallery() async {
+    return await _imageRepository.pickImageFromGallery();
   }
 }

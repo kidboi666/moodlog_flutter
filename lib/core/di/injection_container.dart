@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 import '../../data/data_source/database.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
+import '../../data/repositories/image_repository_impl.dart';
 import '../../data/repositories/journal_repository_impl.dart';
 import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
@@ -12,6 +13,7 @@ import '../../data/repositories/weather_repository_impl.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
+import '../../domain/repositories/image_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/location_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
@@ -70,6 +72,7 @@ List<SingleChildWidget> _createRepositories() {
     ),
     Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
     Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
+    Provider<ImageRepository>(create: (_) => ImageRepositoryImpl()),
   ];
 }
 
@@ -93,7 +96,9 @@ List<SingleChildWidget> _createUseCases() {
     Provider<AuthUseCase>(
       create: (context) => AuthUseCase(authRepository: context.read()),
     ),
-    Provider<PickImageUseCase>(create: (_) => PickImageUseCase()),
+    Provider<PickImageUseCase>(
+      create: (context) => PickImageUseCase(imageRepository: context.read()),
+    ),
     Provider<JournalUseCase>(
       create: (context) => JournalUseCase(journalRepository: context.read()),
     ),
