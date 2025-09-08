@@ -12,6 +12,21 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 
+## 📱 스크린샷
+
+<table>
+  <tr>
+    <td><img width="295" height="639" alt="Simulator Screenshot 1" src="https://github.com/user-attachments/assets/dbcddcd5-5928-4572-8b91-3a2f98fd226d" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot 2" src="https://github.com/user-attachments/assets/61aa82f0-0da1-419a-ad50-be48df805ac7" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot 3" src="https://github.com/user-attachments/assets/18881eeb-ebc2-4a51-9876-80aaae5e1a79" /></td>
+  </tr>
+  <tr>
+    <td><img width="295" height="639" alt="Simulator Screenshot 4" src="https://github.com/user-attachments/assets/53e2e39b-b608-4270-933d-e1019f18afd8" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot 5" src="https://github.com/user-attachments/assets/bc6fdecc-d644-465c-ba57-0e6e34e14ac6" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot 6" src="https://github.com/user-attachments/assets/bbd60fc4-1259-4e95-b619-69e2a210d60c" /></td>
+  </tr>
+</table>
+
 ## ✨ 주요 기능
 
 ### 📝 **스마트 감정 기록**
