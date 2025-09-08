@@ -4,6 +4,10 @@
 
 MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 만들어가는 여정을 돕는 Flutter 기반 크로스플랫폼 앱입니다.
 
+<a href="https://play.google.com/store/apps/details?id=com.kidboi666.moodlog">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="150">
+</a>
+
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
@@ -200,4 +204,3 @@ MoodLog 프로젝트에 기여해주시는 모든 분들을 환영합니다!
 
 **MoodLog와 함께 당신의 감정 여행을 시작해보세요! 🌈**
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.kidboi666.moodlog)
