@@ -11,6 +11,11 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
+![Provider](https://img.shields.io/badge/Provider-%23006600?style=for-the-badge)
+![Freezed](https://img.shields.io/badge/Freezed-%235395FD?style=for-the-badge)
+![Drift](https://img.shields.io/badge/Drift-%23478061?style=for-the-badge)
+
+
 
 ## 📱 스크린샷
 
@@ -157,8 +162,6 @@ flutter build ios --release
 # Web
 flutter build web
 ```
-
-## 📱 스크린샷
 
 ### 메인 화면
 | 홈 | 일기 작성 | 통계 |
