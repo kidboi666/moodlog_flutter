@@ -7,7 +7,7 @@ class JournalUseCase {
   final JournalRepository _journalRepository;
 
   JournalUseCase({required JournalRepository journalRepository})
-      : _journalRepository = journalRepository;
+    : _journalRepository = journalRepository;
 
   Future<Result<Map<String, dynamic>>> addJournal(CreateJournalDto dto) async {
     return await _journalRepository.addJournal(dto);

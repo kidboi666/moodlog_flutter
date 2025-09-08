@@ -14,10 +14,10 @@ import '../../domain/entities/weather_info.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
-import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
-import '../../domain/use_cases/image/pick_image_usecase.dart';
+import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
-import '../../domain/use_cases/location_use_case.dart';
+import '../../domain/use_cases/pick_image_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
 import '../../presentation/providers/app_state_provider.dart';
@@ -29,7 +29,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final AiGenerationProvider _aiGenerationProvider;
   final PickImageUseCase _pickImageUseCase;
   final SettingsRepository _settingsRepository;
-  final LocationUseCase _locationUseCase;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
   final JournalUseCase _journalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
@@ -42,7 +42,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required AiGenerationProvider aiGenerationProvider,
     required PickImageUseCase pickImageUseCase,
     required SettingsRepository settingsRepository,
-    required LocationUseCase locationUseCase,
+    required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
     required JournalUseCase journalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
@@ -55,7 +55,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
        _aiGenerationProvider = aiGenerationProvider,
        _pickImageUseCase = pickImageUseCase,
        _settingsRepository = settingsRepository,
-       _locationUseCase = locationUseCase,
+       _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
        _journalUseCase = journalUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
@@ -261,7 +261,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _locationUseCase.getCurrentLocation();
+    final result = await _getCurrentLocationUseCase();
 
     switch (result) {
       case Ok<LocationInfo>():
@@ -384,7 +384,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _checkAiUsageLimit() async {
-    final result = await _checkAiUsageLimitUseCase.execute();
+    final result = await _checkAiUsageLimitUseCase();
 
     switch (result) {
       case Ok<bool>():
@@ -443,7 +443,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _locationUseCase.getCurrentLocation();
+    final result = await _getCurrentLocationUseCase();
 
     switch (result) {
       case Ok<LocationInfo>():

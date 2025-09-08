@@ -1,6 +1,6 @@
-import '../../../core/utils/result.dart';
-import '../../entities/user.dart';
-import '../../repositories/auth_repository.dart';
+import '../../core/utils/result.dart';
+import '../entities/user.dart';
+import '../repositories/auth_repository.dart';
 
 class AuthUseCase {
   final AuthRepository _authRepository;

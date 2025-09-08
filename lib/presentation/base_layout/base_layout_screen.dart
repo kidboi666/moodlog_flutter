@@ -30,7 +30,7 @@ class BaseLayoutScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BaseLayoutViewModel(
         userProvider: context.read(),
-        locationUseCase: context.read(),
+        getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
       ),
       child: _BaseLayoutScreenContent(

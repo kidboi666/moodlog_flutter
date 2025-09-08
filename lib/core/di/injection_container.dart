@@ -18,11 +18,11 @@ import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/location_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/ai/check_ai_usage_limit_use_case.dart';
-import '../../domain/use_cases/auth/auth_use_case.dart';
-import '../../domain/use_cases/image/pick_image_usecase.dart';
+import '../../domain/use_cases/auth_use_case.dart';
+import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
-import '../../domain/use_cases/location_use_case.dart';
+import '../../domain/use_cases/pick_image_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
 import '../../presentation/providers/ai_generation_provider.dart';
@@ -103,8 +103,9 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) => JournalUseCase(journalRepository: context.read()),
     ),
     Provider<TagUseCase>(create: (context) => TagUseCase(context.read())),
-    Provider<LocationUseCase>(
-      create: (context) => LocationUseCase(locationRepository: context.read()),
+    Provider<GetCurrentLocationUseCase>(
+      create: (context) =>
+          GetCurrentLocationUseCase(locationRepository: context.read()),
     ),
     Provider<CheckAiUsageLimitUseCase>(
       create: (context) =>

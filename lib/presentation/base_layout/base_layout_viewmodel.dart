@@ -3,22 +3,22 @@ import 'package:logging/logging.dart';
 
 import '../../../../domain/entities/location_info.dart';
 import '../../../../domain/entities/weather_info.dart';
-import '../../../../domain/use_cases/location_use_case.dart';
 import '../../../../domain/use_cases/weather_use_case.dart';
 import '../../../../presentation/providers/user_provider.dart';
 import '../../core/utils/result.dart';
+import '../../domain/use_cases/get_current_location_use_case.dart';
 
 class BaseLayoutViewModel extends ChangeNotifier {
   final UserProvider _userProvider;
-  final LocationUseCase _locationUseCase;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
 
   BaseLayoutViewModel({
     required UserProvider userProvider,
-    required LocationUseCase locationUseCase,
+    required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
   }) : _userProvider = userProvider,
-       _locationUseCase = locationUseCase,
+       _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase {
     _load();
   }
@@ -78,7 +78,7 @@ class BaseLayoutViewModel extends ChangeNotifier {
     _isLoadingLocation = true;
     notifyListeners();
 
-    final result = await _locationUseCase.getCurrentLocation();
+    final result = await _getCurrentLocationUseCase();
 
     switch (result) {
       case Ok<LocationInfo>():

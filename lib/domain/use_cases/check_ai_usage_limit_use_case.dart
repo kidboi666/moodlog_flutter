@@ -1,5 +1,5 @@
-import '../../../core/utils/result.dart';
-import '../../repositories/app_state_repository.dart';
+import '../../core/utils/result.dart';
+import '../repositories/app_state_repository.dart';
 
 class CheckAiUsageLimitUseCase {
   final SettingsRepository _settingsRepository;
@@ -7,7 +7,7 @@ class CheckAiUsageLimitUseCase {
   CheckAiUsageLimitUseCase({required SettingsRepository settingsRepository})
     : _settingsRepository = settingsRepository;
 
-  Future<Result<bool>> execute() async {
+  Future<Result<bool>> call() async {
     try {
       final lastUsageDate = await _settingsRepository.getLastAiUsageDate();
       final now = DateTime.now();
