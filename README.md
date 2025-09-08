@@ -146,7 +146,14 @@ flutterfire configure
 
 4. **코드 생성**
 ```bash
-flutter packages pub run build_runner build
+# 한 번만 빌드
+dart run build_runner build
+
+# 변경사항 감지하여 자동 빌드
+dart run build_runner watch
+
+# 기존 생성된 파일 삭제 후 재 빌드
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 5. **앱 실행**

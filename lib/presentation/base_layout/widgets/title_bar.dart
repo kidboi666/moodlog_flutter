@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/common.dart';
+import '../../../core/constants/common.dart';
 import 'hello.dart';
 import 'weather_widget.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 
-import '../../../../core/constants/common.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
 
 class BottomNavigation extends StatelessWidget {
   final Function getNavigationIndex;

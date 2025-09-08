@@ -1,6 +1,5 @@
-import 'package:package_info_plus/package_info_plus.dart';
-
 import '../../core/constants/enum.dart';
+import '../entities/app_info.dart';
 
 abstract class SettingsRepository {
   Future<ThemeMode> getThemeMode();
@@ -21,7 +20,7 @@ abstract class SettingsRepository {
 
   Future<List<String>?> getOnboardedLoginTypes();
 
-  Future<PackageInfo> getAppInfo();
+  Future<AppInfo> getAppInfo();
 
   Future<void> updateAiPersonality(AiPersonality aiPersonality);
 

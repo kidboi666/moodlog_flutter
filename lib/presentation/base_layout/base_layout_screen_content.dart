@@ -1,4 +1,4 @@
-part of 'base_scaffold_screen.dart';
+part of 'base_layout_screen.dart';
 
 class _BaseLayoutScreenContent extends StatelessWidget {
   final List<Widget> children;
@@ -50,11 +50,10 @@ class _BaseLayoutScreenContent extends StatelessWidget {
         Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
       ],
       body: RailNavigation(
-        buildContent: _buildContent,
         navigationShell: navigationShell,
         getNavigationIndex: _getNavigationIndex,
         onTap: _onTap,
-        children: children,
+        buildContent: _buildContent,
       ),
     );
   }

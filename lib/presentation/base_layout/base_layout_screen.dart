@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/common.dart';
-import '../../../core/constants/navigation.dart';
-import '../../../core/routing/routes.dart';
-import '../../../core/ui/widgets/avatar.dart';
-import '../../../core/ui/widgets/banner_ad_widget.dart';
-import '../../../core/utils/animated_container.dart';
-import 'base_scaffold_viewmodel.dart';
-import "widgets/bottom_navigation.dart";
+import '../../core/constants/common.dart';
+import '../../core/constants/navigation.dart';
+import '../../core/routing/routes.dart';
+import '../../core/ui/widgets/avatar.dart';
+import '../../core/ui/widgets/banner_ad_widget.dart';
+import '../../core/utils/animated_container.dart';
+import 'base_layout_viewmodel.dart';
+import 'widgets/bottom_navigation.dart';
 import 'widgets/rail_navigation.dart';
 import 'widgets/title_bar.dart';
 
-part 'base_scaffold_screen_content.dart';
+part 'base_layout_screen_content.dart';
 
 class BaseLayoutScreen extends StatelessWidget {
   final List<Widget> children;

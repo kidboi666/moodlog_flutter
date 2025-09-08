@@ -51,12 +51,25 @@ const _$ThemeModeEnumMap = {
 };
 
 const _$ColorThemeEnumMap = {
-  ColorTheme.blue: 'blue',
-  ColorTheme.indigo: 'indigo',
   ColorTheme.red: 'red',
+  ColorTheme.pink: 'pink',
   ColorTheme.purple: 'purple',
+  ColorTheme.deepPurple: 'deepPurple',
+  ColorTheme.indigo: 'indigo',
+  ColorTheme.blue: 'blue',
+  ColorTheme.lightBlue: 'lightBlue',
+  ColorTheme.cyan: 'cyan',
+  ColorTheme.teal: 'teal',
   ColorTheme.green: 'green',
+  ColorTheme.lightGreen: 'lightGreen',
+  ColorTheme.lime: 'lime',
+  ColorTheme.yellow: 'yellow',
+  ColorTheme.amber: 'amber',
   ColorTheme.orange: 'orange',
+  ColorTheme.deepOrange: 'deepOrange',
+  ColorTheme.brown: 'brown',
+  ColorTheme.grey: 'grey',
+  ColorTheme.blueGrey: 'blueGrey',
 };
 
 const _$LanguageCodeEnumMap = {

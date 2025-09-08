@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:logging/logging.dart';
 
-import '../../../core/utils/result.dart';
-import '../../../domain/entities/location_info.dart';
-import '../../../domain/entities/weather_info.dart';
-import '../../../domain/use_cases/location_use_case.dart';
-import '../../../domain/use_cases/weather_use_case.dart';
-import '../../providers/user_provider.dart';
+import '../../../../domain/entities/location_info.dart';
+import '../../../../domain/entities/weather_info.dart';
+import '../../../../domain/use_cases/location_use_case.dart';
+import '../../../../domain/use_cases/weather_use_case.dart';
+import '../../../../presentation/providers/user_provider.dart';
+import '../../core/utils/result.dart';
 
 class BaseLayoutViewModel extends ChangeNotifier {
   final UserProvider _userProvider;

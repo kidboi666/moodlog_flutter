@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/common.dart';
 import '../../core/extensions/enum.dart';
 import '../../core/l10n/app_localizations.dart';
-import '../layout/glower.dart';
+import '../../core/ui/widgets/glower.dart';
 import 'settings_viewmodel.dart';
 import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';

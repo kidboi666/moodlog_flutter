@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/l10n/app_localizations.dart';
+import '../../../core/l10n/app_localizations.dart';
 
 class RailNavigation extends StatelessWidget {
-  final List<Widget> children;
   final StatefulNavigationShell navigationShell;
   final Function getNavigationIndex;
   final Function onTap;
@@ -13,7 +12,6 @@ class RailNavigation extends StatelessWidget {
   const RailNavigation({
     super.key,
     required this.navigationShell,
-    required this.children,
     required this.getNavigationIndex,
     required this.onTap,
     required this.buildContent,

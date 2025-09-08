@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
+import '../../domain/entities/app_info.dart';
 import '../../domain/repositories/app_state_repository.dart';
 
 class SettingsRepositoryImpl extends SettingsRepository {
@@ -80,9 +81,14 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<PackageInfo> getAppInfo() async {
-    PackageInfo appInfo = await PackageInfo.fromPlatform();
-    return appInfo;
+  Future<AppInfo> getAppInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return AppInfo(
+      appName: packageInfo.appName,
+      packageName: packageInfo.packageName,
+      version: packageInfo.version,
+      buildNumber: packageInfo.buildNumber,
+    );
   }
 
   @override
