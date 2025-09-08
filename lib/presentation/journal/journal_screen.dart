@@ -32,7 +32,7 @@ class JournalScreen extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => JournalViewModel(
             journalRepository: context.read(),
-            aiGenerationRepository: context.read(),
+            aiGenerationProvider: context.read(),
             appStateProvider: context.read(),
             source: source,
             id: id,

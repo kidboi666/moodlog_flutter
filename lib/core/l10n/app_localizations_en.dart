@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_date_yesterday => 'Yesterday';
 
   @override
-  String get common_date_full => 'yyyy. MM. dd';
+  String get common_date_full => 'MMM dd, yyyy';
 
   @override
   String get common_confirm_cancel => 'Cancel';
@@ -136,11 +136,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_welcome_description1 =>
-      'MoodLog is an app where you can record your daily emotions and receive AI responses.';
+      'MoodLog is an app that lets you record your daily emotions and receive AI responses to them.';
 
   @override
   String get onboarding_welcome_description2 =>
-      'Record your emotions daily and read AI responses.';
+      'Record your emotions daily and read the AI\'s responses.';
 
   @override
   String get onboarding_welcome_next => 'Shall we get started together?';
@@ -150,7 +150,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_nickname_description =>
-      'Please enter a nickname to use in MoodLog';
+      'Please enter the nickname you want to use in MoodLog';
 
   @override
   String get onboarding_nickname_input_title => 'Nickname';
@@ -185,7 +185,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_personality_balanced_description =>
-      'Balances empathy and realistic advice.';
+      'Balances empathy with realistic advice.';
 
   @override
   String get onboarding_personality_compassionate_title =>
@@ -193,29 +193,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_personality_compassionate_description =>
-      'Provides warm comfort and deep empathy.';
+      'Delivers warm comfort and deep empathy.';
 
   @override
   String get onboarding_personality_hint =>
-      'You can change the setting anytime in the settings menu.';
+      'You can change this anytime in settings.';
 
   @override
-  String get onboarding_success_title => 'You\'re ready to start!';
+  String get onboarding_success_title => 'Ready to start!';
 
   @override
   String get onboarding_success_description => 'Shall we start MoodLog?';
 
   @override
-  String get onboarding_success_next => 'Start!';
+  String get onboarding_success_next => 'Get Started';
 
   @override
-  String get signin_title => 'You\'re ready to start!';
+  String get signin_title => 'Ready to start!';
 
   @override
-  String get signin_growth => 'Record your emotions.';
+  String get signin_growth => 'Record your growing mind.';
 
   @override
-  String get signin_login_title => 'Save your entries by logging in.';
+  String get signin_login_title => 'Sign up to save your records.';
 
   @override
   String get signin_button_guest => 'Start as Guest';
@@ -241,13 +241,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_empty_box => 'Waiting for your story.';
 
   @override
-  String get entries_empty_box_title => 'No entries yet.';
+  String get entries_empty_box_title => 'No diary entries yet.';
 
   @override
-  String get entries_empty_box_description => 'Your entries will appear here.';
+  String get entries_empty_box_description =>
+      'Your written entries will appear here.';
 
   @override
-  String get entries_empty_box_button => 'Start writing';
+  String get entries_empty_box_button => 'Go write a diary entry';
 
   @override
   String get entries_calendar_legend_has_journal => 'Has entry';
@@ -271,10 +272,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tab_statistics => 'Statistics';
 
   @override
-  String get write_title => 'Write Entry';
+  String get write_title => 'Write Diary';
 
   @override
-  String get write_edit_title => 'Edit Entry';
+  String get write_edit_title => 'Edit Diary';
 
   @override
   String get write_mood_title => 'How are you feeling today?';
@@ -286,31 +287,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get write_input_title => 'Content';
 
   @override
-  String get write_input_hint => 'Record your emotions and experiences today.';
+  String get write_input_hint => 'Record today\'s emotions and experiences.';
 
   @override
   String get write_ai_title => 'AI Comfort Message';
 
   @override
   String get write_ai_description =>
-      'After writing your diary, AI will send you comfort and encouragement messages.';
+      'After writing your diary, AI will send you a message of comfort and encouragement.';
 
   @override
   String get write_location_remove => 'Remove';
 
   @override
-  String get journal_delete_confirm_title => 'Delete Confirmation';
+  String get journal_delete_confirm_title => 'Confirm Delete';
 
   @override
   String get journal_delete_confirm_description =>
-      'Are you sure you want to delete this entry?';
+      'Do you want to delete this entry?';
 
   @override
   String get journal_ai_generating_response_title =>
       'AI is writing a response.';
 
   @override
-  String get statistics_total_title => 'Total Statistics';
+  String get statistics_total_title => 'Overall Statistics';
 
   @override
   String get statistics_total_record_description => 'Total Records';
@@ -329,7 +330,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statistics_total_streak_max_description => 'Max Streak';
+  String get statistics_total_streak_max_description => 'Longest Streak';
 
   @override
   String statistics_total_streak_max(Object count) {
@@ -348,7 +349,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statistics_mood_trend_title => 'Mood Trends';
+  String get statistics_mood_trend_title => 'Mood Trend';
 
   @override
   String get statistics_mood_trend_empty => 'No mood trend data available.';
@@ -363,10 +364,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics_total_records_count_unit => 'records';
 
   @override
-  String get statistics_total_records_first_record => 'First record';
+  String get statistics_total_records_first_record => 'First Record';
 
   @override
-  String get statistics_total_records_period => 'Recording period';
+  String get statistics_total_records_period => 'Recording Period';
 
   @override
   String statistics_total_records_period_days(int days) {
@@ -374,7 +375,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statistics_total_records_avg_frequency => 'Average frequency';
+  String get statistics_total_records_avg_frequency => 'Average Frequency';
 
   @override
   String statistics_total_records_weekly_frequency(String frequency) {
@@ -388,7 +389,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics_streak_status_inactive => 'Inactive';
 
   @override
-  String get statistics_streak_last_record => 'Last record';
+  String get statistics_streak_last_record => 'Last Record';
 
   @override
   String statistics_streak_days_ago(int days) {
@@ -396,7 +397,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statistics_streak_stopped => 'Consecutive record stopped';
+  String get statistics_streak_stopped => 'Streak Stopped';
 
   @override
   String statistics_streak_stopped_days(int days) {
@@ -405,36 +406,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statistics_streak_encouragement =>
-      'Great! You\'re maintaining a consecutive record';
+      'Great! You\'re keeping up your streak';
 
   @override
-  String get statistics_max_streak_new_record => 'New record!';
+  String get statistics_max_streak_new_record => 'New Record!';
 
   @override
-  String get statistics_max_streak_progress => 'Current progress';
+  String get statistics_max_streak_progress => 'Current Progress';
 
   @override
-  String get statistics_max_streak_remaining => 'Until maximum record';
+  String get statistics_max_streak_remaining => 'To beat your record';
 
   @override
   String statistics_max_streak_remaining_days(int days) {
-    return '$days days remaining';
+    return '$days days to go';
   }
 
   @override
   String get statistics_max_streak_achievement_week =>
-      'One week consecutive record achieved! You\'re doing great!';
+      'One week streak achieved! You\'re doing great!';
 
   @override
   String get statistics_max_streak_achievement_two_weeks =>
-      'Two weeks consecutive record achieved! Fantastic!';
+      'Two weeks streak achieved! Excellent!';
 
   @override
   String get statistics_max_streak_achievement_month =>
-      'One month consecutive record achieved! Really impressive!';
+      'One month streak achieved! Amazing!';
 
   @override
-  String get statistics_average_mood_title => 'Average mood';
+  String get statistics_average_mood_title => 'Average Mood';
 
   @override
   String statistics_average_mood_score(String score) {
@@ -442,8 +443,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statistics_average_mood_most_frequent =>
-      'Most frequently felt mood';
+  String get statistics_average_mood_most_frequent => 'Most frequent mood';
 
   @override
   String get statistics_average_mood_recent_trend => 'Recent 7-day trend';
@@ -463,22 +463,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statistics_mood_negative_message =>
-      'It seems you\'re going through difficult times. Take time to take care of yourself.';
+      'You\'re going through a tough time. Take some time to care for yourself.';
 
   @override
-  String get statistics_writing_frequency_title => 'Writing frequency';
+  String get statistics_writing_frequency_title => 'Writing Frequency';
 
   @override
-  String get statistics_writing_frequency_this_week => 'This week';
+  String get statistics_writing_frequency_this_week => 'This Week';
 
   @override
   String get statistics_writing_frequency_count_unit => 'times';
 
   @override
-  String get statistics_writing_frequency_daily => 'Daily recording!';
+  String get statistics_writing_frequency_daily => 'Daily record!';
 
   @override
-  String get statistics_writing_frequency_often => 'Frequent recording';
+  String get statistics_writing_frequency_often => 'Frequent records';
 
   @override
   String get statistics_writing_frequency_normal => 'Normal';
@@ -490,10 +490,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics_writing_frequency_none => 'No records';
 
   @override
-  String get statistics_writing_frequency_weekly_avg => 'Weekly average';
+  String get statistics_writing_frequency_weekly_avg => 'Weekly avg';
 
   @override
-  String get statistics_writing_frequency_monthly_avg => 'Monthly average';
+  String get statistics_writing_frequency_monthly_avg => 'Monthly avg';
 
   @override
   String statistics_writing_frequency_weekly_count(String count) {
@@ -526,7 +526,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String statistics_time_with_hour(String timeOfDay, int hour) {
-    return '$timeOfDay (${hour}h)';
+    return '$timeOfDay ($hour o\'clock)';
   }
 
   @override
@@ -535,7 +535,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statistics_writing_frequency_encouragement =>
-      'Try recording more frequently. Small moments are precious too!';
+      'Try recording a bit more often. Small moments are precious too!';
 
   @override
   String get settings_title => 'Settings';
@@ -554,7 +554,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_theme_title => 'Theme';
 
   @override
-  String get settings_common_theme_subtitle => 'Select brightness theme.';
+  String get settings_common_theme_subtitle => 'Choose brightness theme.';
 
   @override
   String get settings_common_theme_light => 'Light Theme';
@@ -569,7 +569,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_color_theme_title => 'Color Theme';
 
   @override
-  String get settings_common_color_theme_subtitle => 'Select color theme.';
+  String get settings_common_color_theme_subtitle => 'Choose color theme.';
 
   @override
   String get settings_common_language_title => 'Language';
@@ -584,7 +584,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_pretendard => 'Pretendard';
 
   @override
-  String get settings_common_font_family_leeSeoyun => 'LeeSeoyun';
+  String get settings_common_font_family_leeSeoyun => 'Lee Seoyun';
 
   @override
   String get settings_common_font_family_orbitOfTheMoon => 'Orbit of the Moon';
@@ -596,7 +596,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_overcome => 'Overcome';
 
   @override
-  String get settings_common_font_family_system => 'System Font';
+  String get settings_common_font_family_system => 'System Default';
 
   @override
   String get settings_data_title => 'Data';
@@ -611,7 +611,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_data_backup_title => 'Data Backup';
 
   @override
-  String get settings_data_backup_subtitle => 'Back up data.';
+  String get settings_data_backup_subtitle => 'Backup your data.';
 
   @override
   String get settings_data_backup_confirm => 'Do you want to backup your data?';
@@ -627,7 +627,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_data_cache_cleanup_confirm =>
-      'Do you want to delete the cache?\nThis action cannot be undone.';
+      'Do you want to clear cache?\nThis action cannot be undone.';
 
   @override
   String get settings_ai_personality_changed =>
@@ -659,7 +659,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_information_faq_subtitle => 'Usage and FAQ';
 
   @override
-  String get settings_information_qna_title => 'Contact';
+  String get settings_information_qna_title => 'Contact Us';
 
   @override
   String get settings_information_qna_subtitle => 'Contact the developer.';
@@ -674,7 +674,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_nickname_title => 'Change Nickname';
 
   @override
-  String get profile_nickname_hint => 'Please enter a new nickname';
+  String get profile_nickname_hint => 'Enter new nickname.';
 
   @override
   String get profile_creation_time_title => 'Join Date';
@@ -683,14 +683,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_uid_title => 'User ID';
 
   @override
-  String get profile_button_login => 'Go to SignIn';
+  String get profile_button_login => 'Go to Login';
 
   @override
   String get profile_button_logout => 'Logout';
 
   @override
   String get write_ai_limit_reached =>
-      'AI responses are limited to once per day. Try again tomorrow!';
+      'AI responses are limited to once per day. Please try again tomorrow!';
 
   @override
   String get write_timestamp_add => 'Add Time';
@@ -699,31 +699,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get write_location_add => 'Add Location';
 
   @override
-  String get common_language_korean => 'Korean';
+  String get common_language_korean => '한국어';
 
   @override
   String get common_language_english => 'English';
 
   @override
-  String get common_language_japanese => 'Japanese';
+  String get common_language_japanese => '日本語';
 
   @override
-  String get common_language_chinese => 'Chinese';
+  String get common_language_chinese => '中文';
 
   @override
-  String get common_language_spanish => 'Spanish';
+  String get common_language_spanish => 'Español';
 
   @override
-  String get common_language_italian => 'Italian';
+  String get common_language_italian => 'Italiano';
 
   @override
-  String get common_language_french => 'French';
+  String get common_language_french => 'Français';
 
   @override
-  String get common_language_vietnamese => 'Vietnamese';
+  String get common_language_vietnamese => 'Tiếng Việt';
 
   @override
-  String get common_language_thai => 'Thai';
+  String get common_language_thai => 'ไทย';
 
   @override
   String get common_developing => 'In Development';
@@ -732,7 +732,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_user_info_title => 'Login Information';
 
   @override
-  String get settings_user_info_empty => 'No login information available.';
+  String get settings_user_info_empty => 'No login information.';
 
   @override
   String get settings_user_info_status => 'Status';
@@ -744,13 +744,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_user_info_logged_in => 'Logged In';
 
   @override
-  String get dialog_storage_init_title => 'Storage Initialization';
+  String get dialog_storage_init_title => 'Initialize Storage';
 
   @override
   String get dialog_storage_init_content => 'Initialize SharedPreferences.';
 
   @override
-  String get dialog_database_init_title => 'Database Initialization';
+  String get dialog_database_init_title => 'Initialize Database';
 
   @override
   String get dialog_database_init_content => 'Initialize SQLite database.';
@@ -762,7 +762,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_developer_options => 'Developer Options';
 
   @override
-  String get settings_developer_mode_only => 'Debug mode only';
+  String get settings_developer_mode_only => 'Developer mode only';
 
   @override
   String get settings_ai_section_title => 'AI Settings';
@@ -778,7 +778,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return 'By continuing, you agree to our $terms and $privacy.';
+    return 'By continuing, you agree to $terms and $privacy.';
   }
 
   @override
@@ -805,10 +805,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get location_current => 'Current location';
+  String get location_current => 'Current Location';
 
   @override
-  String get location_add_location => 'Add location';
+  String get location_add_location => 'Add Location';
 
   @override
   String get tags_manage_title => 'Manage Tags';
@@ -820,7 +820,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_filter_all => 'All';
 
   @override
-  String get tags_filter_title => 'Filter by tags';
+  String get tags_filter_title => 'Filter by Tags';
 
   @override
   String get tags_suggested_title => 'Suggested Tags';
@@ -829,7 +829,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_selected_title => 'Selected Tags';
 
   @override
-  String get tags_add_new => 'Add new tag';
+  String get tags_add_new => 'Add New Tag';
 
   @override
   String get tags_input_hint => 'Tag name';
@@ -839,16 +839,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tags_delete_message(String tagName) {
-    return 'Are you sure you want to delete \"$tagName\"? This will remove the tag from all journals.';
+    return 'Do you want to delete \"$tagName\"? This tag will be removed from all diary entries.';
   }
 
   @override
   String tags_delete_success(String tagName) {
-    return 'Tag \"$tagName\" deleted';
+    return 'Tag \"$tagName\" has been deleted';
   }
 
   @override
-  String get tags_no_tags => 'No tags found';
+  String get tags_no_tags => 'No tags';
 
   @override
   String get tags_load_failed => 'Failed to load tags';
@@ -857,10 +857,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_delete_failed => 'Failed to delete tag';
 
   @override
-  String get home_monthly_tracker_title => 'Monthly Journal Tracker';
+  String get home_monthly_tracker_title => 'This Month\'s Diary Writing';
 
   @override
-  String get home_yearly_tracker_title => 'Yearly Journal Tracker';
+  String get home_yearly_tracker_title => 'This Year\'s Diary Writing';
 
   @override
   String get home_monthly_tracker_legend_less => 'Less';
@@ -872,7 +872,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_unit_day => 'day';
 
   @override
-  String get entries_mood_filter_title => 'Filter by mood';
+  String get entries_mood_filter_title => 'Filter by Mood';
 
   @override
   String get statistics_mood_distribution_empty =>
@@ -882,31 +882,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics_mood_distribution_description => 'Mood Distribution';
 
   @override
-  String get statistics_mood_trend_description => 'Mood Trend';
+  String get statistics_mood_trend_description => 'Mood Changes';
 
   @override
-  String get statistics_mood_trend_daily_records => 'Daily mood records';
+  String get statistics_mood_trend_daily_records => 'Daily Mood Records';
 
   @override
-  String get statistics_mood_trend_overall_average => 'Overall average score';
+  String get statistics_mood_trend_overall_average => 'Overall Average Score';
 
   @override
   String get statistics_mood_trend_recent_7days_average =>
-      'Recent 7-day average';
+      'Recent 7-day Average';
 
   @override
-  String get home_representative_mood_title => 'My Current Mood';
+  String get home_representative_mood_title => 'My Current Emotion';
 
   @override
   String get home_representative_mood_description =>
-      'Based on 30-day mood analysis';
+      'Recent 30-day emotion analysis result';
 
   @override
-  String get home_representative_mood_empty => 'No mood records';
+  String get home_representative_mood_empty => 'No emotion records';
 
   @override
   String get home_representative_mood_empty_description =>
-      'Write a journal to record your mood';
+      'Write a diary to record your emotions';
 
   @override
   String get calendar_month_jan => 'Jan';
@@ -969,7 +969,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_dialog_title => 'Manage Tags';
 
   @override
-  String get tags_dialog_empty => 'No tags found';
+  String get tags_dialog_empty => 'No tags';
 
   @override
   String get tags_dialog_close => 'Close';
@@ -979,7 +979,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tags_dialog_delete_message(String tagName) {
-    return 'Are you sure you want to delete \"$tagName\"? This will remove the tag from all journals.';
+    return 'Do you want to delete \"$tagName\"? This tag will be removed from all diary entries.';
   }
 
   @override

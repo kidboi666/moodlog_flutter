@@ -4,13 +4,13 @@ import 'package:moodlog/domain/entities/tag.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 
 import '../../core/constants/enum.dart';
-import '../../core/providers/app_state_provider.dart';
-import '../../core/providers/user_provider.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../../presentation/providers/app_state_provider.dart';
+import '../providers/user_provider.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateProvider _appStateProvider;

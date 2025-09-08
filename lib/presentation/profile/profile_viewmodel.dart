@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
-import '../../core/providers/user_provider.dart';
 import '../../core/utils/result.dart';
 import '../../domain/use_cases/auth/auth_use_case.dart';
 import '../../domain/use_cases/image/pick_image_usecase.dart';
+import '../providers/user_provider.dart';
 
 class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   final PickImageUseCase _pickImageUseCase;

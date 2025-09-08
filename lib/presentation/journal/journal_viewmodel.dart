@@ -4,31 +4,31 @@ import 'package:logging/logging.dart';
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/mixins/debounce_mixin.dart';
-import '../../core/providers/app_state_provider.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal.dart';
-import '../../domain/repositories/ai_generation_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../../presentation/providers/ai_generation_provider.dart';
+import '../../presentation/providers/app_state_provider.dart';
 
 class JournalViewModel extends ChangeNotifier
     with AsyncStateMixin, DebounceMixin {
   final JournalRepository _journalRepository;
-  final AiGenerationRepository _aiGenerationRepository;
+  final AiGenerationProvider _aiGenerationProvider;
   final AppStateProvider _appStateProvider;
   final JournalSource source;
   final int id;
 
   JournalViewModel({
     required JournalRepository journalRepository,
-    required AiGenerationRepository aiGenerationRepository,
+    required AiGenerationProvider aiGenerationProvider,
     required AppStateProvider appStateProvider,
     required this.source,
     required this.id,
   }) : _journalRepository = journalRepository,
-       _aiGenerationRepository = aiGenerationRepository,
+       _aiGenerationProvider = aiGenerationProvider,
        _appStateProvider = appStateProvider {
     _load();
-    _aiGenerationRepository.addListener(_load);
+    _aiGenerationProvider.addListener(_load);
   }
 
   final Logger _log = Logger('JournalViewModel');
@@ -43,7 +43,7 @@ class JournalViewModel extends ChangeNotifier
       _pendingAlign ?? _appStateProvider.appState.textAlign;
 
   bool get isGeneratingAiResponse =>
-      _aiGenerationRepository.isGeneratingAiResponse;
+      _aiGenerationProvider.isGeneratingAiResponse;
 
   void changeAlign() {
     _pendingAlign = currentAlign.next;
@@ -88,7 +88,7 @@ class JournalViewModel extends ChangeNotifier
 
   @override
   void dispose() {
-    _aiGenerationRepository.removeListener(_load);
+    _aiGenerationProvider.removeListener(_load);
     disposeDebounce(); // DebounceMixin의 cleanup
     super.dispose();
   }

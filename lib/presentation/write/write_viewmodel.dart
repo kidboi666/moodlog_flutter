@@ -3,7 +3,6 @@ import 'package:logging/logging.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
-import '../../core/providers/app_state_provider.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/create_journal_dto.dart';
@@ -12,7 +11,6 @@ import '../../domain/entities/location_info.dart';
 import '../../domain/entities/tag.dart';
 import '../../domain/entities/update_journal_dto.dart';
 import '../../domain/entities/weather_info.dart';
-import '../../domain/repositories/ai_generation_repository.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
@@ -22,11 +20,13 @@ import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/location_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
+import '../../presentation/providers/app_state_provider.dart';
+import '../providers/ai_generation_provider.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiRepository _geminiRepository;
   final AppStateProvider _appStateProvider;
-  final AiGenerationRepository _aiGenerationRepository;
+  final AiGenerationProvider _aiGenerationProvider;
   final PickImageUseCase _pickImageUseCase;
   final SettingsRepository _settingsRepository;
   final LocationUseCase _locationUseCase;
@@ -39,7 +39,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   WriteViewModel({
     required GeminiRepository geminiRepository,
     required AppStateProvider appStateProvider,
-    required AiGenerationRepository aiGenerationRepository,
+    required AiGenerationProvider aiGenerationProvider,
     required PickImageUseCase pickImageUseCase,
     required SettingsRepository settingsRepository,
     required LocationUseCase locationUseCase,
@@ -52,7 +52,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     int? editJournalId,
   }) : _geminiRepository = geminiRepository,
        _appStateProvider = appStateProvider,
-       _aiGenerationRepository = aiGenerationRepository,
+       _aiGenerationProvider = aiGenerationProvider,
        _pickImageUseCase = pickImageUseCase,
        _settingsRepository = settingsRepository,
        _locationUseCase = locationUseCase,
@@ -405,7 +405,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void _generateAiResponse() async {
-    _aiGenerationRepository.setGeneratingAiResponse();
+    _aiGenerationProvider.setGeneratingAiResponse();
 
     // Record AI usage
     await _settingsRepository.updateLastAiUsageDate(DateTime.now());
@@ -427,10 +427,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           aiResponse: aiResponse.value,
         );
         await _journalUseCase.updateJournal(newJournal);
-        _aiGenerationRepository.setSuccessGeneratingAiResponse();
+        _aiGenerationProvider.setSuccessGeneratingAiResponse();
       case Failure<String>():
         _log.warning('Failed to add AI response: ${aiResponse.error}');
-        _aiGenerationRepository.setErrorGeneratingAiResponse(aiResponse.error);
+        _aiGenerationProvider.setErrorGeneratingAiResponse(aiResponse.error);
     }
   }
 

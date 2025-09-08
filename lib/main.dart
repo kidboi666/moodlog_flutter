@@ -11,13 +11,13 @@ import 'package:provider/provider.dart';
 import 'core/constants/enum.dart';
 import 'core/di/injection_container.dart';
 import 'core/l10n/app_localizations.dart';
-import 'core/providers/app_state_provider.dart';
 import 'core/routing/router.dart';
 import 'core/ui/theme/theme.dart';
 import 'core/ui/widgets/spinner.dart';
 import 'core/utils/keyboard_utils.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 import 'firebase_options.dart';
+import 'presentation/providers/app_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,12 +64,6 @@ class _MoodLogAppState extends State<MoodLogApp> {
               Locale(LanguageCode.ko.value),
               Locale(LanguageCode.en.value),
               Locale(LanguageCode.ja.value),
-              Locale(LanguageCode.zh.value),
-              Locale(LanguageCode.es.value),
-              Locale(LanguageCode.it.value),
-              Locale(LanguageCode.fr.value),
-              Locale(LanguageCode.vi.value),
-              Locale(LanguageCode.th.value),
             ],
             locale: Locale(appState.languageCode.value),
             theme: AppTheme.lightTheme(

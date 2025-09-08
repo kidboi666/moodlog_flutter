@@ -4,10 +4,10 @@ import 'package:logging/logging.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
-import '../../core/providers/app_state_provider.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../presentation/providers/app_state_provider.dart';
 
 class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   final AuthRepository _authRepository;

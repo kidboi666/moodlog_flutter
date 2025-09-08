@@ -2,7 +2,7 @@
   "common_date_today": "Today",
   "common_date_tomorrow": "Tomorrow",
   "common_date_yesterday": "Yesterday",
-  "common_date_full": "yyyy. MM. dd",
+  "common_date_full": "MMM dd, yyyy",
   "common_confirm_cancel": "Cancel",
   "common_confirm_ok": "OK",
   "common_confirm_delete": "Delete",
@@ -41,11 +41,11 @@
   "common_weekday_sat_short": "Sat",
   "common_weekday_sun_short": "Sun",
   "onboarding_welcome_title": "Welcome to MoodLog!",
-  "onboarding_welcome_description1": "MoodLog is an app where you can record your daily emotions and receive AI responses.",
-  "onboarding_welcome_description2": "Record your emotions daily and read AI responses.",
+  "onboarding_welcome_description1": "MoodLog is an app that lets you record your daily emotions and receive AI responses to them.",
+  "onboarding_welcome_description2": "Record your emotions daily and read the AI's responses.",
   "onboarding_welcome_next": "Shall we get started together?",
   "onboarding_nickname_title": "Set Nickname",
-  "onboarding_nickname_description": "Please enter a nickname to use in MoodLog",
+  "onboarding_nickname_description": "Please enter the nickname you want to use in MoodLog",
   "onboarding_nickname_input_title": "Nickname",
   "onboarding_nickname_input_hint": "Enter nickname (2-10 characters)",
   "onboarding_nickname_next": "You can change your nickname anytime in the settings menu.",
@@ -55,35 +55,26 @@
   "onboarding_personality_rational_title": "Rational Analyst",
   "onboarding_personality_rational_description": "Provides objective and practical advice",
   "onboarding_personality_balanced_title": "Balanced Advisor",
-  "onboarding_personality_balanced_description": "Balances empathy and realistic advice.",
+  "onboarding_personality_balanced_description": "Balances empathy with realistic advice.",
   "onboarding_personality_compassionate_title": "Compassionate Healer",
-  "onboarding_personality_compassionate_description": "Provides warm comfort and deep empathy.",
-  "onboarding_personality_hint": "You can change the setting anytime in the settings menu.",
-  "onboarding_success_title": "You're ready to start!",
+  "onboarding_personality_compassionate_description": "Delivers warm comfort and deep empathy.",
+  "onboarding_personality_hint": "You can change this anytime in settings.",
+  "onboarding_success_title": "Ready to start!",
   "onboarding_success_description": "Shall we start MoodLog?",
-  "onboarding_success_next": "Start!",
-  "signin_title": "You're ready to start!",
-  "signin_growth": "Record your emotions.",
-  "signin_login_title": "Save your entries by logging in.",
+  "onboarding_success_next": "Get Started",
+  "signin_title": "Ready to start!",
+  "signin_growth": "Record your growing mind.",
+  "signin_login_title": "Sign up to save your records.",
   "signin_button_guest": "Start as Guest",
   "signin_button_google": "Start with Google",
   "signin_button_kakao": "Start with Kakao",
   "home_hello": "Hello!",
   "home_welcome": "{nickname}.",
-  "@home_welcome": {
-    "description": "nickname",
-    "placeholder": {
-      "nickname": {
-        "type": "String",
-        "example": "Bob"
-      }
-    }
-  },
   "home_howareyou": "How are you feeling today?",
   "home_empty_box": "Waiting for your story.",
-  "entries_empty_box_title": "No entries yet.",
-  "entries_empty_box_description": "Your entries will appear here.",
-  "entries_empty_box_button": "Start writing",
+  "entries_empty_box_title": "No diary entries yet.",
+  "entries_empty_box_description": "Your written entries will appear here.",
+  "entries_empty_box_button": "Go write a diary entry",
   "entries_calendar_legend_has_journal": "Has entry",
   "entries_calendar_legend_today": "Today",
   "tab_home": "Home",
@@ -91,23 +82,23 @@
   "tab_settings": "Settings",
   "tab_write": "Write",
   "tab_statistics": "Statistics",
-  "write_title": "Write Entry",
-  "write_edit_title": "Edit Entry",
+  "write_title": "Write Diary",
+  "write_edit_title": "Edit Diary",
   "write_mood_title": "How are you feeling today?",
   "write_mood_subtitle": "Please select your mood",
   "write_input_title": "Content",
-  "write_input_hint": "Record your emotions and experiences today.",
+  "write_input_hint": "Record today's emotions and experiences.",
   "write_ai_title": "AI Comfort Message",
-  "write_ai_description": "After writing your diary, AI will send you comfort and encouragement messages.",
+  "write_ai_description": "After writing your diary, AI will send you a message of comfort and encouragement.",
   "write_location_remove": "Remove",
-  "journal_delete_confirm_title": "Delete Confirmation",
-  "journal_delete_confirm_description": "Are you sure you want to delete this entry?",
+  "journal_delete_confirm_title": "Confirm Delete",
+  "journal_delete_confirm_description": "Do you want to delete this entry?",
   "journal_ai_generating_response_title": "AI is writing a response.",
-  "statistics_total_title": "Total Statistics",
+  "statistics_total_title": "Overall Statistics",
   "statistics_total_record_description": "Total Records",
   "statistics_total_record": "{count} entries",
   "@statistics_total_record": {
-    "description": "Total Records",
+    "description": "Total records",
     "placeholder": {
       "count": {
         "type": "Integer"
@@ -117,17 +108,17 @@
   "statistics_total_streak_description": "Current Streak",
   "statistics_total_streak": "{count} days",
   "@statistics_total_streak": {
-    "description": "Current Streak",
+    "description": "Current streak",
     "placeholder": {
       "count": {
         "type": "Integer"
       }
     }
   },
-  "statistics_total_streak_max_description": "Max Streak",
+  "statistics_total_streak_max_description": "Longest Streak",
   "statistics_total_streak_max": "{count} days",
   "@statistics_total_streak_max": {
-    "description": "Max Streak",
+    "description": "Longest streak",
     "placeholder": {
       "count": {
         "type": "Integer"
@@ -138,20 +129,20 @@
   "statistics_mood_distribution_title": "Mood Distribution",
   "statistics_mood_distribution_unit": "{count} times",
   "@statistics_mood_distribution_unit": {
-    "description": "Times",
+    "description": "Count",
     "placeholder": {
       "count": {
         "type": "Integer"
       }
     }
   },
-  "statistics_mood_trend_title": "Mood Trends",
+  "statistics_mood_trend_title": "Mood Trend",
   "statistics_mood_trend_empty": "No mood trend data available.",
   "statistics_recent_title": "Recent Entries",
   "statistics_recent_empty": "No recent entries.",
   "statistics_total_records_count_unit": "records",
-  "statistics_total_records_first_record": "First record",
-  "statistics_total_records_period": "Recording period",
+  "statistics_total_records_first_record": "First Record",
+  "statistics_total_records_period": "Recording Period",
   "statistics_total_records_period_days": "{days} days",
   "@statistics_total_records_period_days": {
     "placeholders": {
@@ -160,7 +151,7 @@
       }
     }
   },
-  "statistics_total_records_avg_frequency": "Average frequency",
+  "statistics_total_records_avg_frequency": "Average Frequency",
   "statistics_total_records_weekly_frequency": "{frequency} times/week",
   "@statistics_total_records_weekly_frequency": {
     "placeholders": {
@@ -171,7 +162,7 @@
   },
   "statistics_streak_status_active": "Active",
   "statistics_streak_status_inactive": "Inactive",
-  "statistics_streak_last_record": "Last record",
+  "statistics_streak_last_record": "Last Record",
   "statistics_streak_days_ago": "{days} days ago",
   "@statistics_streak_days_ago": {
     "placeholders": {
@@ -180,7 +171,7 @@
       }
     }
   },
-  "statistics_streak_stopped": "Consecutive record stopped",
+  "statistics_streak_stopped": "Streak Stopped",
   "statistics_streak_stopped_days": "{days} days ago",
   "@statistics_streak_stopped_days": {
     "placeholders": {
@@ -189,11 +180,11 @@
       }
     }
   },
-  "statistics_streak_encouragement": "Great! You're maintaining a consecutive record",
-  "statistics_max_streak_new_record": "New record!",
-  "statistics_max_streak_progress": "Current progress",
-  "statistics_max_streak_remaining": "Until maximum record",
-  "statistics_max_streak_remaining_days": "{days} days remaining",
+  "statistics_streak_encouragement": "Great! You're keeping up your streak",
+  "statistics_max_streak_new_record": "New Record!",
+  "statistics_max_streak_progress": "Current Progress",
+  "statistics_max_streak_remaining": "To beat your record",
+  "statistics_max_streak_remaining_days": "{days} days to go",
   "@statistics_max_streak_remaining_days": {
     "placeholders": {
       "days": {
@@ -201,10 +192,10 @@
       }
     }
   },
-  "statistics_max_streak_achievement_week": "One week consecutive record achieved! You're doing great!",
-  "statistics_max_streak_achievement_two_weeks": "Two weeks consecutive record achieved! Fantastic!",
-  "statistics_max_streak_achievement_month": "One month consecutive record achieved! Really impressive!",
-  "statistics_average_mood_title": "Average mood",
+  "statistics_max_streak_achievement_week": "One week streak achieved! You're doing great!",
+  "statistics_max_streak_achievement_two_weeks": "Two weeks streak achieved! Excellent!",
+  "statistics_max_streak_achievement_month": "One month streak achieved! Amazing!",
+  "statistics_average_mood_title": "Average Mood",
   "statistics_average_mood_score": "Average {score} points",
   "@statistics_average_mood_score": {
     "placeholders": {
@@ -213,23 +204,23 @@
       }
     }
   },
-  "statistics_average_mood_most_frequent": "Most frequently felt mood",
+  "statistics_average_mood_most_frequent": "Most frequent mood",
   "statistics_average_mood_recent_trend": "Recent 7-day trend",
   "statistics_trend_rising": "Rising",
   "statistics_trend_falling": "Falling",
   "statistics_trend_stable": "Stable",
   "statistics_mood_positive_message": "You're maintaining a generally positive mood!",
-  "statistics_mood_negative_message": "It seems you're going through difficult times. Take time to take care of yourself.",
-  "statistics_writing_frequency_title": "Writing frequency",
-  "statistics_writing_frequency_this_week": "This week",
+  "statistics_mood_negative_message": "You're going through a tough time. Take some time to care for yourself.",
+  "statistics_writing_frequency_title": "Writing Frequency",
+  "statistics_writing_frequency_this_week": "This Week",
   "statistics_writing_frequency_count_unit": "times",
-  "statistics_writing_frequency_daily": "Daily recording!",
-  "statistics_writing_frequency_often": "Frequent recording",
+  "statistics_writing_frequency_daily": "Daily record!",
+  "statistics_writing_frequency_often": "Frequent records",
   "statistics_writing_frequency_normal": "Normal",
   "statistics_writing_frequency_sometimes": "Sometimes",
   "statistics_writing_frequency_none": "No records",
-  "statistics_writing_frequency_weekly_avg": "Weekly average",
-  "statistics_writing_frequency_monthly_avg": "Monthly average",
+  "statistics_writing_frequency_weekly_avg": "Weekly avg",
+  "statistics_writing_frequency_monthly_avg": "Monthly avg",
   "statistics_writing_frequency_weekly_count": "{count} times",
   "@statistics_writing_frequency_weekly_count": {
     "placeholders": {
@@ -252,7 +243,7 @@
   "statistics_time_afternoon": "Afternoon",
   "statistics_time_evening": "Evening",
   "statistics_time_night": "Night",
-  "statistics_time_with_hour": "{timeOfDay} ({hour}h)",
+  "statistics_time_with_hour": "{timeOfDay} ({hour} o'clock)",
   "@statistics_time_with_hour": {
     "placeholders": {
       "timeOfDay": {
@@ -264,37 +255,37 @@
     }
   },
   "statistics_writing_frequency_good_habit": "You're recording consistently! Excellent!",
-  "statistics_writing_frequency_encouragement": "Try recording more frequently. Small moments are precious too!",
+  "statistics_writing_frequency_encouragement": "Try recording a bit more often. Small moments are precious too!",
   "settings_title": "Settings",
   "settings_common_title": "General",
   "settings_common_notification_title": "Notifications",
   "settings_common_notification_subtitle": "Receive push notifications.",
   "settings_common_theme_title": "Theme",
-  "settings_common_theme_subtitle": "Select brightness theme.",
+  "settings_common_theme_subtitle": "Choose brightness theme.",
   "settings_common_theme_light": "Light Theme",
   "settings_common_theme_dark": "Dark Theme",
   "settings_common_theme_system": "System Theme",
   "settings_common_color_theme_title": "Color Theme",
-  "settings_common_color_theme_subtitle": "Select color theme.",
+  "settings_common_color_theme_subtitle": "Choose color theme.",
   "settings_common_language_title": "Language",
   "settings_common_language_dialog_title": "Select Language",
   "settings_common_font_family_title": "Font",
   "settings_common_font_family_pretendard": "Pretendard",
-  "settings_common_font_family_leeSeoyun": "LeeSeoyun",
+  "settings_common_font_family_leeSeoyun": "Lee Seoyun",
   "settings_common_font_family_orbitOfTheMoon": "Orbit of the Moon",
   "settings_common_font_family_restart": "Restart",
   "settings_common_font_family_overcome": "Overcome",
-  "settings_common_font_family_system": "System Font",
+  "settings_common_font_family_system": "System Default",
   "settings_data_title": "Data",
   "settings_data_auto_sync_title": "Auto Sync",
   "settings_data_auto_sync_subtitle": "Automatically sync data.",
   "settings_data_backup_title": "Data Backup",
-  "settings_data_backup_subtitle": "Back up data.",
+  "settings_data_backup_subtitle": "Backup your data.",
   "settings_data_backup_confirm": "Do you want to backup your data?",
   "settings_data_backup_confirm_ok": "Backup",
   "settings_data_cache_cleanup_title": "Clear Cache",
   "settings_data_cache_cleanup_subtitle": "Delete temporary files.",
-  "settings_data_cache_cleanup_confirm": "Do you want to delete the cache?\nThis action cannot be undone.",
+  "settings_data_cache_cleanup_confirm": "Do you want to clear cache?\nThis action cannot be undone.",
   "settings_ai_personality_changed": "AI personality has been changed.",
   "settings_information_title": "Information",
   "settings_information_app_title": "App Information",
@@ -304,46 +295,46 @@
   "settings_information_app_developer": "Developer",
   "settings_information_faq_title": "Help",
   "settings_information_faq_subtitle": "Usage and FAQ",
-  "settings_information_qna_title": "Contact",
+  "settings_information_qna_title": "Contact Us",
   "settings_information_qna_subtitle": "Contact the developer.",
   "profile_title": "Profile",
   "profile_account_title": "Account Information",
   "profile_nickname_title": "Change Nickname",
-  "profile_nickname_hint": "Please enter a new nickname",
+  "profile_nickname_hint": "Enter new nickname.",
   "profile_creation_time_title": "Join Date",
   "profile_uid_title": "User ID",
-  "profile_button_login": "Go to SignIn",
+  "profile_button_login": "Go to Login",
   "profile_button_logout": "Logout",
-  "write_ai_limit_reached": "AI responses are limited to once per day. Try again tomorrow!",
+  "write_ai_limit_reached": "AI responses are limited to once per day. Please try again tomorrow!",
   "write_timestamp_add": "Add Time",
   "write_location_add": "Add Location",
-  "common_language_korean": "Korean",
+  "common_language_korean": "한국어",
   "common_language_english": "English",
-  "common_language_japanese": "Japanese",
-  "common_language_chinese": "Chinese",
-  "common_language_spanish": "Spanish",
-  "common_language_italian": "Italian",
-  "common_language_french": "French",
-  "common_language_vietnamese": "Vietnamese",
-  "common_language_thai": "Thai",
+  "common_language_japanese": "日本語",
+  "common_language_chinese": "中文",
+  "common_language_spanish": "Español",
+  "common_language_italian": "Italiano",
+  "common_language_french": "Français",
+  "common_language_vietnamese": "Tiếng Việt",
+  "common_language_thai": "ไทย",
   "common_developing": "In Development",
   "settings_user_info_title": "Login Information",
-  "settings_user_info_empty": "No login information available.",
+  "settings_user_info_empty": "No login information.",
   "settings_user_info_status": "Status",
   "settings_user_info_anonymous": "Anonymous Login",
   "settings_user_info_logged_in": "Logged In",
-  "dialog_storage_init_title": "Storage Initialization",
+  "dialog_storage_init_title": "Initialize Storage",
   "dialog_storage_init_content": "Initialize SharedPreferences.",
-  "dialog_database_init_title": "Database Initialization",
+  "dialog_database_init_title": "Initialize Database",
   "dialog_database_init_content": "Initialize SQLite database.",
   "dialog_init_button": "Initialize",
   "settings_developer_options": "Developer Options",
-  "settings_developer_mode_only": "Debug mode only",
+  "settings_developer_mode_only": "Developer mode only",
   "settings_ai_section_title": "AI Settings",
   "settings_ai_personality_title": "AI Personality",
   "snackbar_backup_completed": "Backup completed.",
   "snackbar_cache_cleared": "Cache cleared.",
-  "auth_terms_message": "By continuing, you agree to our {terms} and {privacy}.",
+  "auth_terms_message": "By continuing, you agree to {terms} and {privacy}.",
   "@auth_terms_message": {
     "placeholders": {
       "terms": {
@@ -368,18 +359,18 @@
       }
     }
   },
-  "location_current": "Current location",
-  "location_add_location": "Add location",
+  "location_current": "Current Location",
+  "location_add_location": "Add Location",
   "tags_manage_title": "Manage Tags",
   "tags_manage_subtitle": "View and manage your tags",
   "tags_filter_all": "All",
-  "tags_filter_title": "Filter by tags",
+  "tags_filter_title": "Filter by Tags",
   "tags_suggested_title": "Suggested Tags",
   "tags_selected_title": "Selected Tags",
-  "tags_add_new": "Add new tag",
+  "tags_add_new": "Add New Tag",
   "tags_input_hint": "Tag name",
   "tags_delete_title": "Delete Tag",
-  "tags_delete_message": "Are you sure you want to delete \"{tagName}\"? This will remove the tag from all journals.",
+  "tags_delete_message": "Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.",
   "@tags_delete_message": {
     "placeholders": {
       "tagName": {
@@ -387,7 +378,7 @@
       }
     }
   },
-  "tags_delete_success": "Tag \"{tagName}\" deleted",
+  "tags_delete_success": "Tag \"{tagName}\" has been deleted",
   "@tags_delete_success": {
     "placeholders": {
       "tagName": {
@@ -395,25 +386,25 @@
       }
     }
   },
-  "tags_no_tags": "No tags found",
+  "tags_no_tags": "No tags",
   "tags_load_failed": "Failed to load tags",
   "tags_delete_failed": "Failed to delete tag",
-  "home_monthly_tracker_title": "Monthly Journal Tracker",
-  "home_yearly_tracker_title": "Yearly Journal Tracker",
+  "home_monthly_tracker_title": "This Month's Diary Writing",
+  "home_yearly_tracker_title": "This Year's Diary Writing",
   "home_monthly_tracker_legend_less": "Less",
   "home_monthly_tracker_legend_more": "More",
   "common_unit_day": "day",
-  "entries_mood_filter_title": "Filter by mood",
+  "entries_mood_filter_title": "Filter by Mood",
   "statistics_mood_distribution_empty": "No mood distribution data to display.",
   "statistics_mood_distribution_description": "Mood Distribution",
-  "statistics_mood_trend_description": "Mood Trend",
-  "statistics_mood_trend_daily_records": "Daily mood records",
-  "statistics_mood_trend_overall_average": "Overall average score",
-  "statistics_mood_trend_recent_7days_average": "Recent 7-day average",
-  "home_representative_mood_title": "My Current Mood",
-  "home_representative_mood_description": "Based on 30-day mood analysis",
-  "home_representative_mood_empty": "No mood records",
-  "home_representative_mood_empty_description": "Write a journal to record your mood",
+  "statistics_mood_trend_description": "Mood Changes",
+  "statistics_mood_trend_daily_records": "Daily Mood Records",
+  "statistics_mood_trend_overall_average": "Overall Average Score",
+  "statistics_mood_trend_recent_7days_average": "Recent 7-day Average",
+  "home_representative_mood_title": "My Current Emotion",
+  "home_representative_mood_description": "Recent 30-day emotion analysis result",
+  "home_representative_mood_empty": "No emotion records",
+  "home_representative_mood_empty_description": "Write a diary to record your emotions",
   "calendar_month_jan": "Jan",
   "calendar_month_feb": "Feb",
   "calendar_month_mar": "Mar",
@@ -434,10 +425,10 @@
   "calendar_weekday_fri": "Fri",
   "calendar_weekday_sat": "Sat",
   "tags_dialog_title": "Manage Tags",
-  "tags_dialog_empty": "No tags found",
+  "tags_dialog_empty": "No tags",
   "tags_dialog_close": "Close",
   "tags_dialog_delete_title": "Delete Tag",
-  "tags_dialog_delete_message": "Are you sure you want to delete \"{tagName}\"? This will remove the tag from all journals.",
+  "tags_dialog_delete_message": "Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.",
   "@tags_dialog_delete_message": {
     "placeholders": {
       "tagName": {

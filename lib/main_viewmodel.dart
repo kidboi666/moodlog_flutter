@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:moodlog/core/providers/user_provider.dart';
+import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class MainViewModel extends ChangeNotifier {
   final UserProvider _userProvider;

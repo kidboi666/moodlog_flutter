@@ -38,42 +38,6 @@ class LanguageDialog extends StatelessWidget {
                 groupValue: viewModel.appState.languageCode,
                 onChanged: viewModel.setLanguage,
               ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.zh.displayName),
-                value: LanguageCode.zh,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.es.displayName),
-                value: LanguageCode.es,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.it.displayName),
-                value: LanguageCode.it,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.fr.displayName),
-                value: LanguageCode.fr,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.vi.displayName),
-                value: LanguageCode.vi,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
-              RadioListTile<LanguageCode>(
-                title: Text(LanguageCode.th.displayName),
-                value: LanguageCode.th,
-                groupValue: viewModel.appState.languageCode,
-                onChanged: viewModel.setLanguage,
-              ),
             ],
           );
         },

@@ -6,11 +6,11 @@ import 'package:logging/logging.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
-import '../../core/providers/user_provider.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../providers/user_provider.dart';
 
 class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;

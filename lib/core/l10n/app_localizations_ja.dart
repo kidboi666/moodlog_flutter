@@ -24,7 +24,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_confirm_cancel => 'キャンセル';
 
   @override
-  String get common_confirm_ok => '確認';
+  String get common_confirm_ok => 'OK';
 
   @override
   String get common_confirm_delete => '削除';
@@ -136,13 +136,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get onboarding_welcome_description1 =>
-      'ムードログは、日々の感情を記録し、AIからの返信を受け取ることができるアプリです。';
+      'ムードログは、日常の感情を記録し、AIからの返信を受け取ることができるアプリです。';
 
   @override
-  String get onboarding_welcome_description2 => '毎日感情を記録し、AIからの返信を読んでみてください。';
+  String get onboarding_welcome_description2 => '毎日感情を記録して、AIからの返信を読んでみましょう。';
 
   @override
-  String get onboarding_welcome_next => '一緒に準備しましょうか？';
+  String get onboarding_welcome_next => '一緒に準備してみませんか？';
 
   @override
   String get onboarding_nickname_title => 'ニックネーム設定';
@@ -157,16 +157,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboarding_nickname_input_hint => 'ニックネームを入力してください（2〜10文字）';
 
   @override
-  String get onboarding_nickname_next => 'ニックネームは設定メニューでいつでも変更できます。';
+  String get onboarding_nickname_next => 'ニックネームはいつでも設定メニューで変更できます。';
 
   @override
   String get onboarding_nickname_input_error => 'ニックネームを入力してください。';
 
   @override
-  String get onboarding_personality_title => '返信スタイルの決定';
+  String get onboarding_personality_title => '返信スタイルを決める';
 
   @override
-  String get onboarding_personality_description => 'あなたの日記に返信するAIの性格を選択してください。';
+  String get onboarding_personality_description =>
+      'あなたの日記に返信してくれるAIの性格を選択してください。';
 
   @override
   String get onboarding_personality_rational_title => '冷静な分析者';
@@ -176,7 +177,7 @@ class AppLocalizationsJa extends AppLocalizations {
       '客観的で実用的なアドバイスを提供します';
 
   @override
-  String get onboarding_personality_balanced_title => 'バランスの取れた助言者';
+  String get onboarding_personality_balanced_title => 'バランス型アドバイザー';
 
   @override
   String get onboarding_personality_balanced_description =>
@@ -196,10 +197,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onboarding_success_title => '始める準備ができました！';
 
   @override
-  String get onboarding_success_description => 'ムードログを始めましょうか？';
+  String get onboarding_success_description => 'ムードログを始めてみませんか？';
 
   @override
-  String get onboarding_success_next => '始める';
+  String get onboarding_success_next => '開始する';
 
   @override
   String get signin_title => '始める準備ができました！';
@@ -208,16 +209,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get signin_growth => '成長する心を記録しましょう。';
 
   @override
-  String get signin_login_title => 'アカウント登録で記録を保存してください。';
+  String get signin_login_title => '登録して記録を保存しましょう。';
 
   @override
-  String get signin_button_guest => 'ゲストで開始';
+  String get signin_button_guest => 'ゲストとして開始';
 
   @override
   String get signin_button_google => 'Googleアカウントで開始';
 
   @override
-  String get signin_button_kakao => 'カカオアカウントで開始';
+  String get signin_button_kakao => 'Kakaoアカウントで開始';
 
   @override
   String get home_hello => 'こんにちは！';
@@ -240,7 +241,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get entries_empty_box_description => '作成した日記がここに表示されます。';
 
   @override
-  String get entries_empty_box_button => '日記作成へ行く';
+  String get entries_empty_box_button => '日記を書きに行く';
 
   @override
   String get entries_calendar_legend_has_journal => '日記あり';
@@ -264,22 +265,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tab_statistics => '統計';
 
   @override
-  String get write_title => '일기 작성';
+  String get write_title => '日記作成';
 
   @override
-  String get write_edit_title => '일기 수정';
+  String get write_edit_title => '日記編集';
 
   @override
   String get write_mood_title => '今日の気分はいかがですか？';
 
   @override
-  String get write_mood_subtitle => '기분을 선택해주세요';
+  String get write_mood_subtitle => '気分を選択してください';
 
   @override
   String get write_input_title => '内容';
 
   @override
-  String get write_input_hint => '今日の感情と経験を記録してみてください。';
+  String get write_input_hint => '今日の感情と体験を記録してみてください。';
 
   @override
   String get write_ai_title => 'AI慰めメッセージ';
@@ -297,7 +298,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get journal_delete_confirm_description => 'この項目を削除しますか？';
 
   @override
-  String get journal_ai_generating_response_title => 'AIが返答を作成中です。';
+  String get journal_ai_generating_response_title => 'AIが返信を作成中です。';
 
   @override
   String get statistics_total_title => '全体統計';
@@ -307,7 +308,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String statistics_total_record(Object count) {
-    return '$count件';
+    return '$count個';
   }
 
   @override
@@ -394,7 +395,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get statistics_streak_encouragement => '素晴らしい！連続記録を続けていますね';
+  String get statistics_streak_encouragement => '素晴らしい！連続記録を続けています';
 
   @override
   String get statistics_max_streak_new_record => '新記録！';
@@ -414,11 +415,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_max_streak_achievement_week => '1週間連続記録達成！よくやっています！';
 
   @override
-  String get statistics_max_streak_achievement_two_weeks =>
-      '2週間連続記録達成！素晴らしいです！';
+  String get statistics_max_streak_achievement_two_weeks => '2週間連続記録達成！素晴らしい！';
 
   @override
-  String get statistics_max_streak_achievement_month => '1ヶ月連続記録達成！本当に素晴らしいです！';
+  String get statistics_max_streak_achievement_month => '1か月連続記録達成！本当にすごいです！';
 
   @override
   String get statistics_average_mood_title => '平均気分';
@@ -429,10 +429,10 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get statistics_average_mood_most_frequent => '最も多く感じた気分';
+  String get statistics_average_mood_most_frequent => '最も頻繁に感じた気分';
 
   @override
-  String get statistics_average_mood_recent_trend => '最近7日の推移';
+  String get statistics_average_mood_recent_trend => '最近7日間の推移';
 
   @override
   String get statistics_trend_rising => '上昇';
@@ -448,7 +448,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get statistics_mood_negative_message =>
-      '大変な時期を過ごしていらっしゃいますね。自分を労わる時間を持ってみてください。';
+      'つらい時間を過ごしていますね。自分を労わる時間を作ってみてください。';
 
   @override
   String get statistics_writing_frequency_title => '作成頻度';
@@ -463,7 +463,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_writing_frequency_daily => '毎日記録！';
 
   @override
-  String get statistics_writing_frequency_often => 'よく記録';
+  String get statistics_writing_frequency_often => '頻繁に記録';
 
   @override
   String get statistics_writing_frequency_normal => '普通';
@@ -491,10 +491,10 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get statistics_writing_frequency_most_active_time => '最も書く時間';
+  String get statistics_writing_frequency_most_active_time => '最も活発な時間';
 
   @override
-  String get statistics_writing_frequency_most_active_day => '最も書く曜日';
+  String get statistics_writing_frequency_most_active_day => '最も活発な曜日';
 
   @override
   String get statistics_time_morning => '午前';
@@ -510,11 +510,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String statistics_time_with_hour(String timeOfDay, int hour) {
-    return '$timeOfDay ($hour時)';
+    return '$timeOfDay（$hour時）';
   }
 
   @override
-  String get statistics_writing_frequency_good_habit => '着実に記録していますね！素晴らしいです！';
+  String get statistics_writing_frequency_good_habit =>
+      '着実に記録を続けていますね！素晴らしいです！';
 
   @override
   String get statistics_writing_frequency_encouragement =>
@@ -536,7 +537,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_common_theme_title => 'テーマ';
 
   @override
-  String get settings_common_theme_subtitle => '明度テーマを選択します。';
+  String get settings_common_theme_subtitle => '明るさテーマを選択します。';
 
   @override
   String get settings_common_theme_light => 'ライトテーマ';
@@ -563,22 +564,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_common_font_family_title => 'フォント';
 
   @override
-  String get settings_common_font_family_pretendard => 'プリテンダード';
+  String get settings_common_font_family_pretendard => 'Pretendard';
 
   @override
   String get settings_common_font_family_leeSeoyun => 'イ・ソユン体';
 
   @override
-  String get settings_common_font_family_orbitOfTheMoon => 'ナヌム手書き 月の軌道';
+  String get settings_common_font_family_orbitOfTheMoon => 'ナヌム手書き文字 月の軌道';
 
   @override
-  String get settings_common_font_family_restart => 'ナヌム手書き 再スタート';
+  String get settings_common_font_family_restart => 'ナヌム手書き文字 再スタート';
 
   @override
-  String get settings_common_font_family_overcome => 'ナヌム手書き 乗り越える';
+  String get settings_common_font_family_overcome => 'ナヌム手書き文字 私は乗り越える';
 
   @override
-  String get settings_common_font_family_system => 'システム標準';
+  String get settings_common_font_family_system => 'システム既定';
 
   @override
   String get settings_data_title => 'データ';
@@ -609,7 +610,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settings_data_cache_cleanup_confirm =>
-      'キャッシュを削除しますか？\\nこの操作は取り消せません。';
+      'キャッシュを削除しますか？\nこの操作は元に戻せません。';
 
   @override
   String get settings_ai_personality_changed => 'AI性格が変更されました。';
@@ -663,13 +664,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profile_uid_title => 'ユーザーID';
 
   @override
-  String get profile_button_login => 'ログインへ行く';
+  String get profile_button_login => 'ログインしに行く';
 
   @override
   String get profile_button_logout => 'ログアウト';
 
   @override
-  String get write_ai_limit_reached => 'AI返答は1日1回のみ可能です。明日再度お試しください！';
+  String get write_ai_limit_reached => 'AI返信は1日に1回のみ可能です。明日また試してください！';
 
   @override
   String get write_timestamp_add => '時間追加';
@@ -714,7 +715,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_user_info_empty => 'ログイン情報がありません。';
 
   @override
-  String get settings_user_info_status => '状態';
+  String get settings_user_info_status => 'ステータス';
 
   @override
   String get settings_user_info_anonymous => '匿名ログイン';
@@ -757,7 +758,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return '続行することで、$termsと$privacyに同意します。';
+    return '続行することで$termsと$privacyに同意します。';
   }
 
   @override
@@ -780,11 +781,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String journal_count(int count) {
-    return '$count件';
+    return '$count個';
   }
 
   @override
-  String get location_current => '現在位置';
+  String get location_current => '現在地';
 
   @override
   String get location_add_location => '位置を追加';
@@ -793,16 +794,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tags_manage_title => 'タグ管理';
 
   @override
-  String get tags_manage_subtitle => 'タグを見て管理しましょう';
+  String get tags_manage_subtitle => 'タグを表示・管理します';
 
   @override
   String get tags_filter_all => '全て';
 
   @override
-  String get tags_filter_title => 'タグでフィルタリング';
+  String get tags_filter_title => 'タグでフィルタ';
 
   @override
-  String get tags_suggested_title => 'おすすめタグ';
+  String get tags_suggested_title => '推奨タグ';
 
   @override
   String get tags_selected_title => '選択されたタグ';
@@ -818,19 +819,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String tags_delete_message(String tagName) {
-    return '\"$tagName\"を削除しますか？すべての日記からこのタグが削除されます。';
+    return '「$tagName」を削除しますか？すべての日記からこのタグが削除されます。';
   }
 
   @override
   String tags_delete_success(String tagName) {
-    return 'タグ\"$tagName\"が削除されました';
+    return 'タグ「$tagName」が削除されました';
   }
 
   @override
   String get tags_no_tags => 'タグがありません';
 
   @override
-  String get tags_load_failed => 'タグを読み込めませんでした';
+  String get tags_load_failed => 'タグの読み込みに失敗しました';
 
   @override
   String get tags_delete_failed => 'タグの削除に失敗しました';
@@ -851,38 +852,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_unit_day => '日';
 
   @override
-  String get entries_mood_filter_title => '気分でフィルタリング';
+  String get entries_mood_filter_title => '感情でフィルタ';
 
   @override
-  String get statistics_mood_distribution_empty => '표시할 기분 분포 데이터가 없습니다.';
+  String get statistics_mood_distribution_empty => '表示する気分分布データがありません。';
 
   @override
-  String get statistics_mood_distribution_description => '기분 분포';
+  String get statistics_mood_distribution_description => '気分分布';
 
   @override
-  String get statistics_mood_trend_description => '기분 변화';
+  String get statistics_mood_trend_description => '気分変化';
 
   @override
-  String get statistics_mood_trend_daily_records => '일간 기분 기록';
+  String get statistics_mood_trend_daily_records => '日間気分記録';
 
   @override
-  String get statistics_mood_trend_overall_average => '전체 평균 점수';
+  String get statistics_mood_trend_overall_average => '全体平均スコア';
 
   @override
-  String get statistics_mood_trend_recent_7days_average => '최근 7일 평균';
+  String get statistics_mood_trend_recent_7days_average => '最近7日間平均';
 
   @override
-  String get home_representative_mood_title => '나의 현재 감정';
+  String get home_representative_mood_title => '私の現在の感情';
 
   @override
-  String get home_representative_mood_description => '최근 30일 감정 분석 결과';
+  String get home_representative_mood_description => '最近30日間の感情分析結果';
 
   @override
-  String get home_representative_mood_empty => '감정 기록 없음';
+  String get home_representative_mood_empty => '感情記録なし';
 
   @override
   String get home_representative_mood_empty_description =>
-      '일기를 작성하여 감정을 기록해보세요';
+      '日記を書いて感情を記録してみてください';
 
   @override
   String get calendar_month_jan => '1月';
@@ -951,15 +952,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tags_dialog_close => '閉じる';
 
   @override
-  String get tags_dialog_delete_title => 'タグを削除';
+  String get tags_dialog_delete_title => 'タグ削除';
 
   @override
   String tags_dialog_delete_message(String tagName) {
-    return '\"$tagName\"を削除しますか？すべての日記からこのタグが削除されます。';
+    return '「$tagName」を削除しますか？すべての日記からこのタグが削除されます。';
   }
 
   @override
   String tags_dialog_created(String date) {
-    return '作成日: $date';
+    return '作成日：$date';
   }
 }

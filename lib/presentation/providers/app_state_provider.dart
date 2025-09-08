@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
+import '../../core/constants/enum.dart';
+import '../../core/mixins/async_state_mixin.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/repositories/app_state_repository.dart';
-import '../constants/enum.dart';
-import '../mixins/async_state_mixin.dart';
 
 class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   final SettingsRepository _settingsRepository;

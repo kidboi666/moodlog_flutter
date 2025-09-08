@@ -1,7 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../../core/providers/user_provider.dart';
 import '../../data/data_source/database.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
@@ -10,7 +9,6 @@ import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/tag_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
-import '../../domain/repositories/ai_generation_repository.dart';
 import '../../domain/repositories/app_state_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
@@ -25,25 +23,37 @@ import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/location_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
-import '../providers/app_state_provider.dart';
+import '../../presentation/providers/ai_generation_provider.dart';
+import '../../presentation/providers/app_state_provider.dart';
+import '../../presentation/providers/user_provider.dart';
 
 List<SingleChildWidget> createProviders() {
+  return [
+    ..._createInfrastructures(),
+    ..._createRepositories(),
+    ..._createUseCases(),
+    ..._createStateProviders(),
+  ];
+}
+
+List<SingleChildWidget> _createInfrastructures() {
   return [
     Provider<MoodLogDatabase>(
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
       lazy: false,
     ),
+  ];
+}
+
+List<SingleChildWidget> _createRepositories() {
+  return [
     Provider<SettingsRepository>(
       create: (_) => SettingsRepositoryImpl(),
       lazy: false,
     ),
-    ChangeNotifierProvider<AuthRepository>(
+    Provider<AuthRepository>(
       create: (context) => AuthRepositoryImpl(),
-      lazy: false,
-    ),
-    ChangeNotifierProvider<AppStateProvider>(
-      create: (context) => AppStateProvider(settingsRepository: context.read()),
       lazy: false,
     ),
     Provider<GeminiRepository>(
@@ -58,15 +68,23 @@ List<SingleChildWidget> createProviders() {
       update: (_, db, previous) => previous ?? TagRepositoryImpl(db),
       lazy: false,
     ),
-    ChangeNotifierProvider<AiGenerationRepository>(
-      create: (_) => AiGenerationRepository(),
+    Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
+    Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
+  ];
+}
+
+List<SingleChildWidget> _createStateProviders() {
+  return [
+    ChangeNotifierProvider<AppStateProvider>(
+      create: (context) => AppStateProvider(settingsRepository: context.read()),
+      lazy: false,
     ),
     ChangeNotifierProvider<UserProvider>(
       create: (context) => UserProvider(authRepository: context.read()),
     ),
-    Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
-    Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
-    ..._createUseCases(),
+    ChangeNotifierProvider<AiGenerationProvider>(
+      create: (context) => AiGenerationProvider(),
+    ),
   ];
 }
 

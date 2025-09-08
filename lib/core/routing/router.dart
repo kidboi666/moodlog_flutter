@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/providers/user_provider.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../presentation/auth/sign_in_screen.dart';
 import '../../presentation/entries/entries_screen.dart';
@@ -11,6 +10,7 @@ import '../../presentation/journal/journal_screen.dart';
 import '../../presentation/layout/base_scaffold/base_scaffold_screen.dart';
 import '../../presentation/onboarding/onboarding_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
+import '../../presentation/providers/user_provider.dart';
 import '../../presentation/settings/settings_screen.dart';
 import '../../presentation/statistics/statistics_screen.dart';
 import '../../presentation/write/write_screen.dart';

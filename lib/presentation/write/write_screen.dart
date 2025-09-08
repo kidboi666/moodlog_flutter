@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/layout/glower.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
@@ -8,6 +7,7 @@ import '../../core/extensions/date_time.dart';
 import '../../core/extensions/routing.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/pop_button.dart';
+import "../layout/glower.dart";
 import 'widgets/ai_enable_card.dart';
 import 'widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'widgets/content_input.dart';
@@ -29,7 +29,7 @@ class WriteScreen extends StatelessWidget {
         geminiRepository: context.read(),
         appStateProvider: context.read(),
         settingsRepository: context.read(),
-        aiGenerationRepository: context.read(),
+        aiGenerationProvider: context.read(),
         pickImageUseCase: context.read(),
         locationUseCase: context.read(),
         weatherUseCase: context.read(),
