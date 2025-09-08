@@ -21,7 +21,7 @@ import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
-import '../../domain/use_cases/gemini_use_Case.dart';
+import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';

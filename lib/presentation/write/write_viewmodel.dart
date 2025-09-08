@@ -12,7 +12,7 @@ import '../../domain/entities/tag.dart';
 import '../../domain/entities/update_journal_dto.dart';
 import '../../domain/entities/weather_info.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
-import '../../domain/use_cases/gemini_use_Case.dart';
+import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
