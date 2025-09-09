@@ -16,21 +16,21 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   bool _isBannerAdReady = false;
 
   void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      size: AdSize.banner,
-      adUnitId: AdmobHelper.bannerAdUnitId!,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          debugPrint('NativeAd failed to load: $error');
-        },
-      ),
-    );
+    _bannerAd ??= BannerAd(
+        size: AdSize.banner,
+        adUnitId: AdmobHelper.bannerAdUnitId!,
+        request: const AdRequest(),
+        listener: BannerAdListener(
+          onAdLoaded: (_) {
+            setState(() {
+              _isBannerAdReady = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            debugPrint('NativeAd failed to load: $error');
+          },
+        ),
+      );
 
     _bannerAd!.load();
   }
