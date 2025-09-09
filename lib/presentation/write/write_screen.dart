@@ -35,6 +35,7 @@ class WriteScreen extends StatelessWidget {
         weatherUseCase: context.read(),
         journalUseCase: context.read(),
         checkAiUsageLimitUseCase: context.read(),
+        logMoodEntryUseCase: context.read(),
         tagUseCase: context.read(),
         selectedDate: date,
         editJournalId: editJournalId,

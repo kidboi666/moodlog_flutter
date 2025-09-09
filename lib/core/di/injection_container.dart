@@ -1,8 +1,8 @@
-import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../../data/data_source/database.dart';
+import '../../data/repositories/analytics_repository_impl.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
 import '../../data/repositories/image_repository_impl.dart';
@@ -11,6 +11,7 @@ import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/tag_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
+import '../../domain/repositories/analytics_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/image_repository.dart';
@@ -27,6 +28,8 @@ import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
+import '../../domain/use_cases/settings_use_case.dart';
+import '../../domain/use_cases/log_mood_entry_use_case.dart';
 import '../../presentation/providers/ai_generation_provider.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
@@ -75,6 +78,7 @@ List<SingleChildWidget> _createRepositories() {
     Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
     Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
     Provider<ImageRepository>(create: (_) => ImageRepositoryImpl()),
+    Provider<AnalyticsRepository>(create: (_) => AnalyticsRepositoryImpl()),
   ];
 }
 
@@ -121,6 +125,10 @@ List<SingleChildWidget> _createUseCases() {
     ),
     Provider<WeatherUseCase>(
       create: (context) => WeatherUseCase(weatherRepository: context.read()),
+    ),
+    Provider<LogMoodEntryUseCase>(
+      create: (context) =>
+          LogMoodEntryUseCase(analyticsRepository: context.read()),
     ),
   ];
 }

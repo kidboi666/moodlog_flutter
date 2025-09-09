@@ -116,10 +116,10 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                             },
                           ),
                           const SizedBox(height: Spacing.md),
-                          FadeIn(
-                            delay: DelayMs.quick,
-                            child: const ImagePreviewSection(),
-                          ),
+                          // FadeIn(
+                          //   delay: DelayMs.quick,
+                          //   child: const ImagePreviewSection(),
+                          // ),
                           Column(
                             children: [
                               const SizedBox(height: Spacing.md),

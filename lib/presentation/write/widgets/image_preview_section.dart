@@ -15,6 +15,7 @@ class ImagePreviewSection extends StatefulWidget {
 
 class _ImagePreviewSectionState extends State<ImagePreviewSection> {
   late ScrollController _scrollController;
+  final Map<String, Image> _imageCache = {};
 
   @override
   void initState() {
@@ -42,11 +43,7 @@ class _ImagePreviewSectionState extends State<ImagePreviewSection> {
                     margin: Spacing.imagePickerBoxInnerPadding,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.file(
-                        File(imageUri),
-                        fit: BoxFit.cover,
-                        width: 60,
-                      ),
+                      child: _buildOptimizedImage(imageUri)
                     ),
                   ),
                 )
@@ -55,6 +52,17 @@ class _ImagePreviewSectionState extends State<ImagePreviewSection> {
         );
       },
     );
+  }
+
+  Widget _buildOptimizedImage(String imageUri) {
+    if (!_imageCache.containsKey(imageUri)) {
+      _imageCache[imageUri] = Image.file(
+        File(imageUri),
+        fit: BoxFit.cover,
+        width: 60,
+      );
+    }
+    return _imageCache[imageUri]!;
   }
 
   @override

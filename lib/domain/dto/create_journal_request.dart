@@ -1,31 +1,25 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../core/constants/enum.dart';
 
-class CreateJournalRequest {
-  final String? content;
-  final MoodType moodType;
-  final List<String>? imageUri;
-  final bool aiResponseEnabled;
-  final String? aiResponse;
-  final DateTime createdAt;
-  final double? latitude;
-  final double? longitude;
-  final String? address;
-  final double? temperature;
-  final String? weatherIcon;
-  final String? weatherDescription;
+part 'create_journal_request.freezed.dart';
 
-  const CreateJournalRequest({
-    this.content,
-    required this.moodType,
-    this.imageUri,
-    required this.aiResponseEnabled,
-    this.aiResponse,
-    required this.createdAt,
-    this.latitude,
-    this.longitude,
-    this.address,
-    this.temperature,
-    this.weatherIcon,
-    this.weatherDescription,
-  });
+@freezed
+abstract class CreateJournalRequest with _$CreateJournalRequest {
+  const CreateJournalRequest._();
+
+  const factory CreateJournalRequest({
+    String? content,
+    required MoodType moodType,
+    List<String>? imageUri,
+    required bool aiResponseEnabled,
+    String? aiResponse,
+    required DateTime createdAt,
+    double? latitude,
+    double? longitude,
+    String? address,
+    double? temperature,
+    String? weatherIcon,
+    String? weatherDescription,
+  }) = _CreateJournalRequest;
 }

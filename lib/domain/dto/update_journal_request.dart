@@ -1,19 +1,18 @@
-class UpdateJournalRequest {
-  final int id;
-  final String? content;
-  final List<String>? imageUri;
-  final String? aiResponse;
-  final double? latitude;
-  final double? longitude;
-  final String? address;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const UpdateJournalRequest({
-    required this.id,
-    this.content,
-    this.imageUri,
-    this.aiResponse,
-    this.latitude,
-    this.longitude,
-    this.address,
-  });
+part 'update_journal_request.freezed.dart';
+
+@freezed
+abstract class UpdateJournalRequest with _$UpdateJournalRequest {
+  const UpdateJournalRequest._();
+
+  const factory UpdateJournalRequest({
+    required int id,
+    String? content,
+    List<String>? imageUri,
+    String? aiResponse,
+    double? latitude,
+    double? longitude,
+    String? address,
+  }) = _UpdateJournalRequest;
 }

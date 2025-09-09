@@ -1,5 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/cupertino.dart';
 
+import '../../domain/entities/analytics/analytics_event.dart';
+import '../../domain/entities/analytics/analytics_observer.dart';
+import '../../domain/entities/analytics/mood_analytics.dart';
+import '../../domain/entities/analytics/screen_view.dart';
 import '../../domain/repositories/analytics_repository.dart';
 
 class AnalyticsRepositoryImpl implements AnalyticsRepository {
@@ -12,9 +17,14 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
-  @override
-  FirebaseAnalyticsObserver get observer =>
+  NavigatorObserver get navigatorObserver =>
       FirebaseAnalyticsObserver(analytics: _analytics);
+
+  @override
+  AnalyticsObserver get observer {
+    final firebaseObserver = FirebaseAnalyticsObserver(analytics: _analytics);
+    return AnalyticsObserver(name: firebaseObserver.toString(), properties: {});
+  }
 
   @override
   Future<void> initialize() async {
@@ -22,11 +32,8 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
   }
 
   @override
-  Future<void> logEvent({
-    required String name,
-    Map<String, Object>? parameters,
-  }) async {
-    await _analytics.logEvent(name: name, parameters: parameters);
+  Future<void> logEvent(AnalyticsEvent event) async {
+    await _analytics.logEvent(name: event.name, parameters: event.parameters);
   }
 
   @override
@@ -43,40 +50,34 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
   }
 
   @override
-  Future<void> logScreenView({
-    required String screenName,
-    String? screenClass,
-  }) async {
+  Future<void> logScreenView(ScreenView screenView) async {
     await _analytics.logScreenView(
-      screenName: screenName,
-      screenClass: screenClass,
+      screenName: screenView.screenName,
+      screenClass: screenView.screenClass,
     );
   }
 
   @override
-  Future<void> logMoodEntry({
-    required String moodType,
-    required String entryType,
-    bool hasImage = false,
-    bool hasTag = false,
-  }) async {
-    await logEvent(
+  Future<void> logMoodEntry(MoodAnalytics moodAnalytics) async {
+    final event = AnalyticsEvent(
       name: 'mood_entry_created',
       parameters: {
-        'mood_type': moodType,
-        'entry_type': entryType,
-        'has_image': hasImage,
-        'has_tag': hasTag,
+        'mood_type': moodAnalytics.moodType,
+        'entry_type': moodAnalytics.entryType,
+        'has_image': moodAnalytics.hasImage,
+        'has_tag': moodAnalytics.hasTag,
       },
     );
+    await logEvent(event);
   }
 
   @override
   Future<void> logMoodView({required String viewType, String? period}) async {
-    await logEvent(
+    final event = AnalyticsEvent(
       name: 'mood_view',
       parameters: {'view_type': viewType, 'period': period ?? ''},
     );
+    await logEvent(event);
   }
 
   @override
@@ -84,10 +85,11 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
     required String settingType,
     required String value,
   }) async {
-    await logEvent(
+    final event = AnalyticsEvent(
       name: 'settings_changed',
       parameters: {'setting_type': settingType, 'value': value},
     );
+    await logEvent(event);
   }
 
   @override
@@ -95,10 +97,11 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
     required String featureName,
     Map<String, Object>? context,
   }) async {
-    await logEvent(
+    final event = AnalyticsEvent(
       name: 'feature_used',
       parameters: {'feature_name': featureName, ...?context},
     );
+    await logEvent(event);
   }
 
   @override
@@ -106,12 +109,13 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
     required String engagementType,
     int? duration,
   }) async {
-    await logEvent(
+    final event = AnalyticsEvent(
       name: 'user_engagement',
       parameters: {
         'engagement_type': engagementType,
         if (duration != null) 'duration_seconds': duration,
       },
     );
+    await logEvent(event);
   }
 }

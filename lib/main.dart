@@ -25,15 +25,24 @@ void main() async {
   if (Platform.isAndroid || Platform.isIOS) {
     await MobileAds.instance.initialize();
   }
-  await AnalyticsRepositoryImpl().initialize();
+
+  final analyticsRepo = AnalyticsRepositoryImpl();
+  await analyticsRepo.initialize();
+
   Logger.root.level = Level.ALL;
   runApp(
-    MultiProvider(providers: createProviders(), child: const MoodLogApp()),
+    MultiProvider(
+      providers: createProviders(),
+      child: MoodLogApp(analyticsObserver: analyticsRepo.navigatorObserver),
+    ),
   );
 }
 
+
 class MoodLogApp extends StatefulWidget {
-  const MoodLogApp({super.key});
+  final NavigatorObserver analyticsObserver;
+
+  const MoodLogApp({required this.analyticsObserver, super.key});
 
   @override
   State<MoodLogApp> createState() => _MoodLogAppState();
@@ -50,7 +59,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
         if (appStateProvider.isLoading) {
           return const Spinner(spinnerType: SpinnerType.center);
         }
-        _router ??= router(context.read());
+        _router ??= router(context.read(), widget.analyticsObserver);
 
         return KeyboardDismissOnTapOutside(
           child: MaterialApp.router(

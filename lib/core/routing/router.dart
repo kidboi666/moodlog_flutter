@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/domain/use_cases/get_analytics_observer_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/repositories/analytics_repository_impl.dart';
@@ -17,11 +18,14 @@ import '../../presentation/write/write_screen.dart';
 import '../constants/enum.dart';
 import 'routes.dart';
 
-GoRouter router(UserProvider userProvider) => GoRouter(
+GoRouter router(
+  UserProvider userProvider,
+  NavigatorObserver analyticsObserver,
+) => GoRouter(
   initialLocation: Routes.home,
   redirect: _redirect,
   refreshListenable: userProvider,
-  observers: [AnalyticsRepositoryImpl().observer],
+  observers: [analyticsObserver],
   routes: [
     GoRoute(
       path: Routes.signIn,

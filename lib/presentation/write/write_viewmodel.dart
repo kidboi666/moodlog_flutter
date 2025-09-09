@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/dto/create_journal_request.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/location_info.dart';
@@ -32,6 +32,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final WeatherUseCase _weatherUseCase;
   final JournalUseCase _journalUseCase;
   final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
+  final LogMoodEntryUseCase _logMoodEntryUseCase;
   final TagUseCase _tagUseCase;
 
   WriteViewModel({
@@ -45,6 +46,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required JournalUseCase journalUseCase,
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
     required TagUseCase tagUseCase,
+    required LogMoodEntryUseCase logMoodEntryUseCase,
     required DateTime selectedDate,
     int? editJournalId,
   }) : _geminiUseCase = geminiUseCase,
@@ -55,18 +57,13 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
        _journalUseCase = journalUseCase,
+       _logMoodEntryUseCase = logMoodEntryUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
-       _tagUseCase = tagUseCase {
-    _checkAiUsageLimit();
-    _loadCurrentLocationOnInit();
-    _loadCurrentWeatherOnInit();
-    _loadAllTags();
-    _selectedDate = selectedDate;
-    if (editJournalId != null) {
-      _editJournalId = editJournalId;
-      _isEditMode = true;
-      _loadJournalForEdit(editJournalId);
-    }
+       _tagUseCase = tagUseCase,
+       _selectedDate = selectedDate,
+       _editJournalId = editJournalId,
+       _isEditMode = editJournalId != null {
+    _initialize();
   }
 
   final Logger _log = Logger('WriteViewModel');
@@ -84,29 +81,56 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   bool _isLoadingWeather = false;
   List<Tag> _availableTags = [];
   List<Tag> _selectedTags = [];
-  bool _isEditMode = false;
+  final bool _isEditMode;
   int? _editJournalId;
 
   String? get content => _content;
+
   bool get aiEnabled => _aiEnabled;
+
   MoodType get selectedMood => _selectedMood;
+
   DateTime get selectedDate => _selectedDate;
+
   List<String> get imageUri => _imageFileList;
+
   bool get isSubmitted => _isSubmitted;
+
   int? get submittedJournalId => _submittedJournalId;
+
   bool get canUseAiToday => _canUseAiToday;
+
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
+
   LocationInfo? get locationInfo => _locationInfo;
+
   bool get isLoadingLocation => _isLoadingLocation;
+
   WeatherInfo? get weatherInfo => _weatherInfo;
+
   bool get isLoadingWeather => _isLoadingWeather;
+
   List<Tag> get availableTags => _availableTags;
+
   bool get isEditMode => _isEditMode;
+
   List<Tag> get selectedTags => _selectedTags;
+
   bool get isFormValid {
     return _content != null &&
         _content!.trim().isNotEmpty &&
         !_isLoadingLocation;
+  }
+
+  void _initialize() {
+    _checkAiUsageLimit();
+    _loadCurrentLocationOnInit();
+    _loadCurrentWeatherOnInit();
+    _loadAllTags();
+    _selectedDate = selectedDate;
+    if (_isEditMode) {
+      _loadJournalForEdit(_editJournalId!);
+    }
   }
 
   void updateAiEnabled(bool value) {
@@ -319,7 +343,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           );
         }
 
-        AnalyticsRepositoryImpl().logMoodEntry(
+        _logMoodEntryUseCase(
           moodType: _selectedMood.name,
           entryType: 'manual',
           hasImage: _imageFileList.isNotEmpty,
@@ -363,7 +387,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           );
         }
 
-        AnalyticsRepositoryImpl().logMoodEntry(
+        _logMoodEntryUseCase(
           moodType: _selectedMood.name,
           entryType: 'edit',
           hasImage: _imageFileList.isNotEmpty,
@@ -515,5 +539,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     } catch (e) {
       _log.warning('Error loading journal for edit: $e');
     }
+  }
+
+  @override
+  void dispose() {
+    _imageFileList.clear();
+    super.dispose();
   }
 }
