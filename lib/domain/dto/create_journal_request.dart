@@ -1,6 +1,6 @@
 import '../../core/constants/enum.dart';
 
-class CreateJournalDto {
+class CreateJournalRequest {
   final String? content;
   final MoodType moodType;
   final List<String>? imageUri;
@@ -14,7 +14,7 @@ class CreateJournalDto {
   final String? weatherIcon;
   final String? weatherDescription;
 
-  const CreateJournalDto({
+  const CreateJournalRequest({
     this.content,
     required this.moodType,
     this.imageUri,

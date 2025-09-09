@@ -5,11 +5,11 @@ import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../domain/entities/create_journal_dto.dart';
+import '../../domain/dto/create_journal_request.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/location_info.dart';
 import '../../domain/entities/tag.dart';
-import '../../domain/entities/update_journal_dto.dart';
+import '../../domain/dto/update_journal_request.dart';
 import '../../domain/entities/weather_info.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
@@ -290,7 +290,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<Result<void>> _createNewJournal() async {
-    final newJournal = CreateJournalDto(
+    final newJournal = CreateJournalRequest(
       content: _content,
       moodType: _selectedMood,
       imageUri: _imageFileList,
@@ -339,7 +339,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<Result<void>> _updateExistingJournal() async {
-    final updateJournal = UpdateJournalDto(
+    final updateJournal = UpdateJournalRequest(
       id: _editJournalId!,
       content: _content,
       imageUri: _imageFileList,
@@ -418,7 +418,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     switch (aiResponse) {
       case Ok<String>():
         _log.fine('AI response generated successfully');
-        final newJournal = UpdateJournalDto(
+        final newJournal = UpdateJournalRequest(
           id: _submittedJournalId!,
           aiResponse: aiResponse.value,
         );

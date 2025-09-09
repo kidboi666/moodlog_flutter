@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:drift/drift.dart';
 
 import '../../core/utils/result.dart';
-import '../../domain/entities/create_journal_dto.dart';
+import '../../domain/dto/create_journal_request.dart';
 import '../../domain/entities/journal.dart';
 import '../../domain/entities/tag.dart';
-import '../../domain/entities/update_journal_dto.dart';
+import '../../domain/dto/update_journal_request.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/database.dart';
 import '../models/request/add_journal_request.dart';
-import '../models/request/update_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final MoodLogDatabase _db;
@@ -83,7 +82,7 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<Map<String, dynamic>>> addJournal(CreateJournalDto dto) async {
+  Future<Result<Map<String, dynamic>>> addJournal(CreateJournalRequest dto) async {
     final request = AddJournalRequest(
       content: dto.content,
       moodType: dto.moodType,
@@ -129,7 +128,7 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<int>> updateJournal(UpdateJournalDto dto) async {
+  Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
     final request = UpdateJournalRequest(
       id: dto.id,
       content: dto.content,

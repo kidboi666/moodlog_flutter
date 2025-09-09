@@ -1,4 +1,4 @@
-class UpdateJournalDto {
+class UpdateJournalRequest {
   final int id;
   final String? content;
   final List<String>? imageUri;
@@ -7,7 +7,7 @@ class UpdateJournalDto {
   final double? longitude;
   final String? address;
 
-  const UpdateJournalDto({
+  const UpdateJournalRequest({
     required this.id,
     this.content,
     this.imageUri,
