@@ -4,9 +4,9 @@ import 'package:drift/drift.dart';
 
 import '../../core/utils/result.dart';
 import '../../domain/dto/create_journal_request.dart';
-import '../../domain/entities/journal.dart';
-import '../../domain/entities/tag.dart';
 import '../../domain/dto/update_journal_request.dart';
+import '../../domain/entities/journal/journal.dart';
+import '../../domain/entities/journal/tag.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/database.dart';
 import '../models/request/add_journal_request.dart';
@@ -82,7 +82,9 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<Map<String, dynamic>>> addJournal(CreateJournalRequest dto) async {
+  Future<Result<Map<String, dynamic>>> addJournal(
+    CreateJournalRequest dto,
+  ) async {
     final request = AddJournalRequest(
       content: dto.content,
       moodType: dto.moodType,

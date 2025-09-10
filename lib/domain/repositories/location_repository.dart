@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/location_info.dart';
+import '../entities/journal/location_info.dart';
 
 abstract class LocationRepository {
   Future<Result<LocationInfo>> getCurrentLocation();

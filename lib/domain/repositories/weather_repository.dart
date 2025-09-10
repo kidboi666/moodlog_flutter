@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/weather_info.dart';
+import '../entities/journal/weather_info.dart';
 
 abstract class WeatherRepository {
   /// 현재 날씨 정보를 가져옵니다.

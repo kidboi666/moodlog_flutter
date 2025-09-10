@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/widget.dart';
-import '../../../domain/entities/tag.dart';
+import '../../../domain/entities/journal/tag.dart';
 import '../write_viewmodel.dart';
 
 class TagInputSection extends StatefulWidget {

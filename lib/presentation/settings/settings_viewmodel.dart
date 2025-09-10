@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart' hide ThemeMode;
-import 'package:moodlog/domain/entities/tag.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../domain/entities/settings.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/app/settings.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../presentation/providers/app_state_provider.dart';

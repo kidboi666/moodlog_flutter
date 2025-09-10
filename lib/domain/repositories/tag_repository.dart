@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/tag.dart';
+import '../entities/journal/tag.dart';
 
 abstract class TagRepository {
   Future<Result<List<Tag>>> getAllTags();

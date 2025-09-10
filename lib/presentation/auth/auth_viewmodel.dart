@@ -5,7 +5,7 @@ import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../presentation/providers/app_state_provider.dart';
 

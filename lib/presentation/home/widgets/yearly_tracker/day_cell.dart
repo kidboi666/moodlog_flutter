@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/enum.dart';
-import '../../../../domain/entities/journal.dart';
+import '../../../../domain/entities/journal/journal.dart';
 
 class DayCell extends StatelessWidget {
   final DateTime date;
@@ -23,8 +23,11 @@ class DayCell extends StatelessWidget {
 
     // 미래 날짜인지 확인 (올해 날짜만 들어오므로 isCurrentYear 체크 불필요)
     final isFuture = date.isAfter(DateTime(now.year, now.month, now.day));
-    final isToday = DateTime(date.year, date.month, date.day)
-        .isAtSameMomentAs(DateTime(now.year, now.month, now.day));
+    final isToday = DateTime(
+      date.year,
+      date.month,
+      date.day,
+    ).isAtSameMomentAs(DateTime(now.year, now.month, now.day));
 
     // 색상 결정
     Color backgroundColor;

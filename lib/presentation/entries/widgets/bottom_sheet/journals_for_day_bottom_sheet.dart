@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/common.dart';
 import '../../../../core/extensions/date_time.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../domain/entities/journal.dart';
+import '../../../../domain/entities/journal/journal.dart';
 import '../journal_tile.dart';
 
 class JournalsForDayBottomSheet extends StatelessWidget {

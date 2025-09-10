@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/location_info.dart';
+import '../entities/journal/location_info.dart';
 import '../repositories/location_repository.dart';
 
 class GetCurrentLocationUseCase {

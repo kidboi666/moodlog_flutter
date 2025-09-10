@@ -7,7 +7,7 @@ import '../../core/extensions/routing.dart';
 import '../../core/ui/widgets/empty_entries_box.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/journal_card.dart';
-import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal/journal.dart';
 import 'home_viewmodel.dart';
 import 'widgets/horizontal_calendar.dart';
 import 'widgets/welcome_zone.dart';

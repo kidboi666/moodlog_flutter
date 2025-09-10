@@ -1,4 +1,4 @@
-import '../../core/constants/enum.dart';
+import '../../../core/constants/enum.dart';
 import 'tag.dart';
 
 class Journal {

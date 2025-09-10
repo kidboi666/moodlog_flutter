@@ -4,7 +4,7 @@ import 'package:logging/logging.dart';
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/mixins/step_mixin.dart';
-import '../../domain/entities/settings.dart';
+import '../../domain/entities/app/settings.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../presentation/providers/app_state_provider.dart';
 

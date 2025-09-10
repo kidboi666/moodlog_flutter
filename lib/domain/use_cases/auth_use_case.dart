@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/user.dart';
+import '../entities/user/user.dart';
 import '../repositories/auth_repository.dart';
 
 class AuthUseCase {

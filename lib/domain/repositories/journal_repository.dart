@@ -1,7 +1,7 @@
 import '../../core/utils/result.dart';
 import '../dto/create_journal_request.dart';
-import '../entities/journal.dart';
 import '../dto/update_journal_request.dart';
+import '../entities/journal/journal.dart';
 
 abstract class JournalRepository {
   Stream<List<Journal>> get journalStream;

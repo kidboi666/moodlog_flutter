@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/ui/widgets/tag_chip.dart';
-import '../../../domain/entities/tag.dart';
+import '../../../domain/entities/journal/tag.dart';
 import '../../constants/common.dart';
 import '../../constants/enum.dart';
 

@@ -9,7 +9,7 @@ import '../../core/ui/widgets/empty_entries_box.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/glower.dart';
 import '../../core/ui/widgets/journal_card.dart';
-import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal/journal.dart';
 import 'entries_viewmodel.dart';
 import 'widgets/entries_calendar_view.dart';
 import 'widgets/tag_filter_section.dart';

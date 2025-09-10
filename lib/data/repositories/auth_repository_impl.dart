@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/utils/result.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../extension/firebase_user.dart';
 

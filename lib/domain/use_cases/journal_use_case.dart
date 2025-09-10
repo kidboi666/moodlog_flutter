@@ -1,7 +1,7 @@
 import '../../core/utils/result.dart';
 import '../dto/create_journal_request.dart';
-import '../entities/journal.dart';
 import '../dto/update_journal_request.dart';
+import '../entities/journal/journal.dart';
 import '../repositories/journal_repository.dart';
 
 class JournalUseCase {
@@ -10,7 +10,9 @@ class JournalUseCase {
   JournalUseCase({required JournalRepository journalRepository})
     : _journalRepository = journalRepository;
 
-  Future<Result<Map<String, dynamic>>> addJournal(CreateJournalRequest dto) async {
+  Future<Result<Map<String, dynamic>>> addJournal(
+    CreateJournalRequest dto,
+  ) async {
     return await _journalRepository.addJournal(dto);
   }
 

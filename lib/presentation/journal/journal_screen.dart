@@ -9,7 +9,7 @@ import '../../core/extensions/widget.dart';
 import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/pop_button.dart';
-import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal/journal.dart';
 import '../../domain/repositories/weather_repository.dart';
 import '../../domain/use_cases/weather_use_case.dart';
 import 'journal_viewmodel.dart';

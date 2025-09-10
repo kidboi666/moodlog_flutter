@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/utils/result.dart';
-import '../../../domain/entities/weather_info.dart';
+import '../../../domain/entities/journal/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../../../domain/use_cases/weather_use_case.dart';
 

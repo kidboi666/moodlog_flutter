@@ -1,5 +1,5 @@
 import '../../core/constants/enum.dart';
-import '../entities/app_info.dart';
+import '../entities/app/app_info.dart';
 
 abstract class SettingsRepository {
   Future<ThemeMode> getThemeMode();

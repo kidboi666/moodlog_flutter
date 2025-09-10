@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 
 import '../../core/utils/result.dart';
-import '../../domain/entities/tag.dart';
+import '../../domain/entities/journal/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
 import '../data_source/database.dart';
 

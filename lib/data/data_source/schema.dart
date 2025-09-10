@@ -2,10 +2,10 @@ import 'package:drift/drift.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/utils/converter.dart';
-import '../../domain/entities/journal.dart';
-import '../../domain/entities/journal_tag.dart';
-import '../../domain/entities/stat.dart';
-import '../../domain/entities/tag.dart';
+import '../../domain/entities/app/stat.dart';
+import '../../domain/entities/journal/journal.dart';
+import '../../domain/entities/journal/journal_tag.dart';
+import '../../domain/entities/journal/tag.dart';
 
 @UseRowClass(Journal)
 @TableIndex(name: 'journals_created_at', columns: {#createdAt})

@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/user.dart';
+import '../entities/user/user.dart';
 
 abstract class AuthRepository {
   Stream<User?> get userChanges;

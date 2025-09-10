@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../domain/entities/tag.dart';
+import '../../../../domain/entities/journal/tag.dart';
 import '../../settings_viewmodel.dart';
 
 class TagManagementDialog extends StatelessWidget {

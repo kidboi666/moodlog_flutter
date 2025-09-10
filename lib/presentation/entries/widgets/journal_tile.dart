@@ -5,7 +5,7 @@ import '../../../core/extensions/enum.dart';
 import '../../../core/extensions/routing.dart';
 import '../../../core/extensions/widget.dart';
 import '../../../core/ui/widgets/tag_section.dart';
-import '../../../domain/entities/journal.dart';
+import '../../../domain/entities/journal/journal.dart';
 
 class JournalTile extends StatelessWidget {
   final Journal journal;

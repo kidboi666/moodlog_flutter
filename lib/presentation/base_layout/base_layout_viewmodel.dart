@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:logging/logging.dart';
 
-import '../../../../domain/entities/location_info.dart';
-import '../../../../domain/entities/weather_info.dart';
 import '../../../../domain/use_cases/weather_use_case.dart';
 import '../../../../presentation/providers/user_provider.dart';
 import '../../core/utils/result.dart';
+import '../../domain/entities/journal/location_info.dart';
+import '../../domain/entities/journal/weather_info.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 
 class BaseLayoutViewModel extends ChangeNotifier {

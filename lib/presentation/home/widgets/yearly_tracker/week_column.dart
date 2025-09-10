@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/journal.dart';
+import '../../../../domain/entities/journal/journal.dart';
 import 'day_cell.dart';
 
 class WeekColumn extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
 import '../providers/user_provider.dart';

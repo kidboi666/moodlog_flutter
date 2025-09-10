@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../domain/entities/weather_info.dart';
+import '../../../domain/entities/journal/weather_info.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../write_viewmodel.dart';
 

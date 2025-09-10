@@ -1,5 +1,5 @@
 import '../../core/utils/result.dart';
-import '../entities/tag.dart';
+import '../entities/journal/tag.dart';
 import '../repositories/tag_repository.dart';
 
 class TagUseCase {

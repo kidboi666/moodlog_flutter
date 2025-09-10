@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/ui/widgets/spinner.dart';
-import '../../../domain/entities/weather_info.dart';
+import '../../../domain/entities/journal/weather_info.dart';
 import '../base_layout_viewmodel.dart';
 
 class WeatherWidget extends StatelessWidget {

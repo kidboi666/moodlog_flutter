@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../domain/entities/journal.dart';
+import '../../../../domain/entities/journal/journal.dart';
 import 'week_column.dart';
 import 'weekday_labels.dart';
 
@@ -14,7 +14,7 @@ class MonthPosition {
   final double left;
   final double top;
   final int weekday; // 해당 월 1일의 요일 (0=일요일, 6=토요일)
-  
+
   MonthPosition({
     required this.monthName,
     required this.left,
@@ -81,11 +81,12 @@ class YearlyGrid extends StatelessWidget {
                     ),
                   ],
                 ),
-                
+
                 // 월 라벨들 (오버레이)
-                ...monthPositions.map((position) => _buildMonthLabel(
-                  position, textTheme, colorScheme
-                )),
+                ...monthPositions.map(
+                  (position) =>
+                      _buildMonthLabel(position, textTheme, colorScheme),
+                ),
               ],
             ),
           ),
@@ -95,19 +96,23 @@ class YearlyGrid extends StatelessWidget {
   }
 
   // GitHub 스타일 잔디밭 데이터 생성
-  (List<List<DateTime?>>, List<MonthPosition>) _generateGithubStyleGrid(BuildContext context) {
+  (List<List<DateTime?>>, List<MonthPosition>) _generateGithubStyleGrid(
+    BuildContext context,
+  ) {
     // 올해 첫날부터 마지막날까지
     final firstDayOfYear = DateTime(now.year, 1, 1);
     final lastDayOfYear = DateTime(now.year, 12, 31);
-    
+
     // 1월 1일이 포함된 주의 일요일 찾기
-    final firstWeekday = firstDayOfYear.weekday == 7 ? 0 : firstDayOfYear.weekday;
+    final firstWeekday = firstDayOfYear.weekday == 7
+        ? 0
+        : firstDayOfYear.weekday;
     final startDate = firstDayOfYear.subtract(Duration(days: firstWeekday));
-    
+
     // 12월 31일이 포함된 주의 토요일까지 찾기
     final lastWeekday = lastDayOfYear.weekday == 7 ? 0 : lastDayOfYear.weekday;
     final endDate = lastDayOfYear.add(Duration(days: 6 - lastWeekday));
-    
+
     // 모든 날짜 생성
     final allDates = <DateTime>[];
     DateTime current = startDate;
@@ -115,11 +120,11 @@ class YearlyGrid extends StatelessWidget {
       allDates.add(current);
       current = current.add(const Duration(days: 1));
     }
-    
+
     // 주단위로 그룹화 (7일씩)
     final weeks = <List<DateTime?>>[];
     final monthPositions = <MonthPosition>[];
-    
+
     for (int i = 0; i < allDates.length; i += 7) {
       final weekDates = allDates.skip(i).take(7).toList();
       if (weekDates.length == 7) {
@@ -128,7 +133,7 @@ class YearlyGrid extends StatelessWidget {
           return date.year == now.year ? date : null;
         }).toList();
         weeks.add(processedWeek);
-        
+
         // 월 라벨 위치 계산: 해당 주에 현재 년도의 1일이 있는지 확인
         for (int dayIndex = 0; dayIndex < weekDates.length; dayIndex++) {
           final date = weekDates[dayIndex];
@@ -136,27 +141,33 @@ class YearlyGrid extends StatelessWidget {
             // 해당 월 1일의 위치 계산
             final weekIndex = weeks.length - 1;
             final left = weekIndex * 18.8; // 주별 너비 (16.8 + 2 마진)
-            
+
             // 월 라벨을 모두 상단 한 줄에 정렬
             final top = 4.0; // 상단 고정 위치
-            
-            monthPositions.add(MonthPosition(
-              monthName: _getMonthName(date.month, context),
-              left: left,
-              top: top,
-              weekday: dayIndex, // 0=일요일, 6=토요일
-            ));
+
+            monthPositions.add(
+              MonthPosition(
+                monthName: _getMonthName(date.month, context),
+                left: left,
+                top: top,
+                weekday: dayIndex, // 0=일요일, 6=토요일
+              ),
+            );
             break;
           }
         }
       }
     }
-    
+
     return (weeks, monthPositions);
   }
 
   // 월 라벨 위젯 생성 (요일 텍스트와 동일한 스타일)
-  Widget _buildMonthLabel(MonthPosition position, TextTheme textTheme, ColorScheme colorScheme) {
+  Widget _buildMonthLabel(
+    MonthPosition position,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
     return Positioned(
       left: position.left,
       top: position.top,

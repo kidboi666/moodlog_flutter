@@ -5,7 +5,7 @@ import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/mixins/debounce_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../../presentation/providers/ai_generation_provider.dart';
 import '../../presentation/providers/app_state_provider.dart';

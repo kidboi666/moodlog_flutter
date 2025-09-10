@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class UserProvider extends ChangeNotifier with AsyncStateMixin {

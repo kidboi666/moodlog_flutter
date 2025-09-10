@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../domain/entities/journal.dart';
+import '../../../domain/entities/journal/journal.dart';
 import '../entries_viewmodel.dart';
 import 'bottom_sheet/journals_for_day_bottom_sheet.dart';
 

@@ -8,7 +8,7 @@ import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../domain/entities/journal.dart';
+import '../../domain/entities/journal/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../providers/user_provider.dart';
 
