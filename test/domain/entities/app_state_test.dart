@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import "package:moodlog/core/constants/enum.dart";
-import "package:moodlog/domain/entities/settings.dart";
+import "package:moodlog/domain/entities/app/settings.dart";
 
 void main() {
   group('AppState', () {
-    test('fromJson creates a valid AppState instance', () {
+    test('fromJson 으로 AppState 생성', () {
       final json = {
         'hasNotificationEnabled': false,
         'hasAutoSyncEnabled': false,
@@ -24,7 +24,7 @@ void main() {
       expect(appState.aiPersonality, AiPersonality.balanced);
     });
 
-    test('toJson returns valid JSON', () {
+    test('toJson 으로 AppState를 JSON으로 변환', () {
       final appState = Settings(
         hasNotificationEnabled: false,
         hasAutoSyncEnabled: false,
@@ -44,7 +44,7 @@ void main() {
       expect(json['aiPersonality'], 'balanced');
     });
 
-    test('fromJson creates a valid AppState with default values', () {
+    test('기본값으로 AppState 생성', () {
       final json = Settings();
       final appState = Settings.fromJson(json.toJson());
       expect(appState.hasNotificationEnabled, false);

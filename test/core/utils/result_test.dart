@@ -19,6 +19,14 @@ void main() {
         expect(result, isA<Result<String?>>());
         expect((result as Ok<String?>).value, isNull);
       });
+
+      test('객체 Ok 인스턴스 생성', () {
+        final result = Result.ok({'key': 'value'});
+
+        expect(result, isA<Ok<Map<String, dynamic>>>());
+        expect(result, isA<Result<Map<String, dynamic>>>());
+        expect((result as Ok<Map<String, dynamic>>).value, {'key': 'value'});
+      });
     });
 
     group('Result.failure 팩토리 생성자', () {
