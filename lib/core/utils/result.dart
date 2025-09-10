@@ -6,18 +6,18 @@ sealed class Result<T> {
 }
 
 final class Ok<T> extends Result<T> {
-  const Ok._(this.value);
-
   final T value;
+
+  const Ok._(this.value);
 
   @override
   String toString() => 'Result<$T>.ok($value)';
 }
 
 final class Failure<T> extends Result<T> {
-  const Failure._(this.error);
-
   final Object error;
+
+  const Failure._(this.error);
 
   @override
   String toString() => 'Result<$T>.error($error)';
