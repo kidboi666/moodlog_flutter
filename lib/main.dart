@@ -38,7 +38,6 @@ void main() async {
   );
 }
 
-
 class MoodLogApp extends StatefulWidget {
   final NavigatorObserver analyticsObserver;
 

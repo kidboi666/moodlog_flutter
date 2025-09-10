@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constants/common.dart';
+import '../../constants/common.dart';
 
 class AnimatedNavigatorContainer extends StatelessWidget {
   final int currentIndex;
