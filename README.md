@@ -1,4 +1,6 @@
 # 🌟 MoodLog
+<img width="256" height="256" alt="대지 수정본 2" src="https://github.com/user-attachments/assets/17782d8d-dbec-43f7-9744-bde595498ef9" />
+
 
 > **감정을 기록하고, 마음을 들여다보는 AI 감정 일기 앱**
 
