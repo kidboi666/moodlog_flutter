@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +8,6 @@ import '../../core/ui/widgets/fade_in.dart';
 import 'auth_viewmodel.dart';
 import 'widgets/google_signin_button.dart';
 import 'widgets/guest_signin_button.dart';
-import 'widgets/kakao_signin_button.dart';
 import 'widgets/sign_in_terms_message.dart';
 
 part 'sign_in_screen_content.dart';

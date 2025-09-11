@@ -1,5 +1,5 @@
-import 'package:moodlog/domain/entities/analytics/mood_analytics.dart';
-import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import '../entities/analytics/mood_analytics.dart';
+import '../repositories/analytics_repository.dart';
 
 class LogMoodEntryUseCase {
   final AnalyticsRepository analyticsRepository;

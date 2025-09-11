@@ -445,15 +445,12 @@ enum FontFamily {
 
 enum LoginType {
   google,
-  kakao,
   anonymous;
 
   String get value {
     switch (this) {
       case LoginType.google:
         return 'google';
-      case LoginType.kakao:
-        return 'kakao';
       case LoginType.anonymous:
         return 'anonymous';
     }
@@ -463,8 +460,6 @@ enum LoginType {
     switch (value) {
       case 'google':
         return LoginType.google;
-      case 'kakao':
-        return LoginType.kakao;
       case 'anonymous':
         return LoginType.anonymous;
       default:
