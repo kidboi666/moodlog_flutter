@@ -1,13 +1,15 @@
 import 'package:drift/drift.dart';
 
-import '../../core/constants/enum.dart';
-import '../../core/utils/converter.dart';
-import '../../domain/entities/app/stat.dart';
-import '../../domain/entities/journal/journal.dart';
-import '../../domain/entities/journal/journal_tag.dart';
-import '../../domain/entities/journal/tag.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/utils/converter.dart';
+import '../../../../domain/entities/app/stat.dart';
+import '../../../../domain/entities/journal/journal.dart';
+import '../../../../domain/entities/journal/journal_tag.dart';
+import '../../../../domain/entities/journal/tag.dart';
 
+// Drift 어노테이션: 이 테이블에서 생성되는 행 데이터를 Tag 클래스로 매핑
 @UseRowClass(Journal)
+// 테이블 인덱스 생성 어노테이션: [name]: 인덱스 이름, [columns]: 인덱스를 생성할 컬럼 목록
 @TableIndex(name: 'journals_created_at', columns: {#createdAt})
 class Journals extends Table {
   IntColumn get id => integer().autoIncrement()();

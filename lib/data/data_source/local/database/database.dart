@@ -5,12 +5,12 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../core/constants/enum.dart';
-import '../../core/utils/converter.dart';
-import '../../domain/entities/app/stat.dart';
-import '../../domain/entities/journal/journal.dart';
-import '../../domain/entities/journal/journal_tag.dart';
-import '../../domain/entities/journal/tag.dart';
+import '../../../../core/constants/enum.dart';
+import '../../../../core/utils/converter.dart';
+import '../../../../domain/entities/app/stat.dart';
+import '../../../../domain/entities/journal/journal.dart';
+import '../../../../domain/entities/journal/journal_tag.dart';
+import '../../../../domain/entities/journal/tag.dart';
 import 'schema.dart';
 
 part 'database.g.dart';

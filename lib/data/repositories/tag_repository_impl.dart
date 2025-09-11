@@ -4,7 +4,7 @@ import 'package:drift/native.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
-import '../data_source/database.dart';
+import '../data_source/local/database/database.dart';
 
 class TagRepositoryImpl implements TagRepository {
   final MoodLogDatabase _database;

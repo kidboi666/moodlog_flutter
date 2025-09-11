@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/converter.dart';
-import 'package:moodlog/data/data_source/schema.dart';
+import 'package:moodlog/data/data_source/local/database/schema.dart';
 import 'package:moodlog/domain/entities/app/stat.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/journal_tag.dart';

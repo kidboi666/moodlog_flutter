@@ -1,7 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../../data/data_source/database.dart';
+import '../../data/data_source/local/database/database.dart';
+import '../../data/data_source/local/journal_local_data_source.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
@@ -25,11 +26,11 @@ import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/log_mood_entry_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
+import '../../domain/use_cases/settings_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
-import '../../domain/use_cases/settings_use_case.dart';
-import '../../domain/use_cases/log_mood_entry_use_case.dart';
 import '../../presentation/providers/ai_generation_provider.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
@@ -37,6 +38,7 @@ import '../../presentation/providers/user_provider.dart';
 List<SingleChildWidget> createProviders() {
   return [
     ..._createInfrastructures(),
+    ..._createDataSources(),
     ..._createRepositories(),
     ..._createUseCases(),
     ..._createStateProviders(),
@@ -67,8 +69,9 @@ List<SingleChildWidget> _createRepositories() {
       create: (_) => GeminiRepositoryImpl.instance,
       lazy: false,
     ),
-    ProxyProvider<MoodLogDatabase, JournalRepository>(
-      update: (_, db, previous) => previous ?? JournalRepositoryImpl(db: db),
+    Provider<JournalRepository>(
+      create: (context) =>
+          JournalRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
     ProxyProvider<MoodLogDatabase, TagRepository>(
@@ -79,6 +82,14 @@ List<SingleChildWidget> _createRepositories() {
     Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
     Provider<ImageRepository>(create: (_) => ImageRepositoryImpl()),
     Provider<AnalyticsRepository>(create: (_) => AnalyticsRepositoryImpl()),
+  ];
+}
+
+List<SingleChildWidget> _createDataSources() {
+  return [
+    ProxyProvider<MoodLogDatabase, JournalLocalDataSource>(
+      update: (_, db, previous) => previous ?? JournalLocalDataSource(db: db),
+    ),
   ];
 }
 
