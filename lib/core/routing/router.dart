@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/domain/use_cases/get_analytics_observer_use_case.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/repositories/analytics_repository_impl.dart';
 import '../../presentation/auth/sign_in_screen.dart';
 import '../../presentation/base_layout/base_layout_screen.dart';
 import '../../presentation/entries/entries_screen.dart';
