@@ -1,22 +1,20 @@
-import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
-import '../data_source/local/database/database.dart';
+import '../data_source/local/tag_local_data_source.dart';
 
 class TagRepositoryImpl implements TagRepository {
-  final MoodLogDatabase _database;
+  final TagLocalDataSource _localDataSource;
 
-  TagRepositoryImpl(this._database);
+  TagRepositoryImpl({required TagLocalDataSource localDataSource})
+    : _localDataSource = localDataSource;
 
   @override
   Future<Result<List<Tag>>> getAllTags() async {
     try {
-      final query = _database.select(_database.tags)
-        ..orderBy([(t) => OrderingTerm.asc(t.createdAt)]);
-      final tags = await query.get();
+      final tags = await _localDataSource.getAllTags();
       return Result.ok(tags);
     } catch (e) {
       return Result.failure(Exception('태그 목록을 가져오는데 실패했습니다: $e'));
@@ -26,10 +24,7 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<Tag?>> getTagById(int id) async {
     try {
-      final query = _database.select(_database.tags)
-        ..where((t) => t.id.equals(id));
-      final results = await query.get();
-      final tag = results.isNotEmpty ? results.first : null;
+      final tag = await _localDataSource.getTagById(id);
       return Result.ok(tag);
     } catch (e) {
       return Result.failure(Exception('태그를 찾는데 실패했습니다: $e'));
@@ -39,18 +34,7 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<List<Tag>>> getTagsByJournalId(int journalId) async {
     try {
-      final query =
-          _database.select(_database.tags).join([
-              innerJoin(
-                _database.journalTags,
-                _database.journalTags.tagId.equalsExp(_database.tags.id),
-              ),
-            ])
-            ..where(_database.journalTags.journalId.equals(journalId))
-            ..orderBy([OrderingTerm.asc(_database.tags.name)]);
-
-      final results = await query.get();
-      final tags = results.map((row) => row.readTable(_database.tags)).toList();
+      final tags = await _localDataSource.getTagsByJournalId(journalId);
       return Result.ok(tags);
     } catch (e) {
       return Result.failure(Exception('일기의 태그를 가져오는데 실패했습니다: $e'));
@@ -60,15 +44,7 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<int>> addTag(String name, String? color) async {
     try {
-      final tagId = await _database
-          .into(_database.tags)
-          .insert(
-            TagsCompanion(
-              name: Value(name),
-              color: Value(color),
-              createdAt: Value(DateTime.now()),
-            ),
-          );
+      final tagId = await _localDataSource.addTag(name, color);
       return Result.ok(tagId);
     } on SqliteException catch (e) {
       if (e.extendedResultCode == 2067) {
@@ -84,10 +60,7 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<void>> updateTag(int id, String name, String? color) async {
     try {
-      final affectedRows =
-          await (_database.update(_database.tags)
-                ..where((t) => t.id.equals(id)))
-              .write(TagsCompanion(name: Value(name), color: Value(color)));
+      final affectedRows = await _localDataSource.updateTag(id, name, color);
 
       if (affectedRows == 0) {
         return Result.failure(Exception('존재하지 않는 태그입니다'));
@@ -99,6 +72,7 @@ class TagRepositoryImpl implements TagRepository {
         // UNIQUE constraint failed
         return Result.failure(Exception('이미 존재하는 태그 이름입니다'));
       }
+
       return Result.failure(Exception('태그 수정에 실패했습니다: $e'));
     } catch (e) {
       return Result.failure(Exception('태그 수정에 실패했습니다: $e'));
@@ -108,9 +82,7 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<void>> deleteTag(int id) async {
     try {
-      final affectedRows = await (_database.delete(
-        _database.tags,
-      )..where((t) => t.id.equals(id))).go();
+      final affectedRows = await _localDataSource.deleteTag(id);
 
       if (affectedRows == 0) {
         return Result.failure(Exception('존재하지 않는 태그입니다'));
@@ -122,6 +94,7 @@ class TagRepositoryImpl implements TagRepository {
         // FOREIGN KEY constraint failed
         return Result.failure(Exception('사용 중인 태그는 삭제할 수 없습니다'));
       }
+
       return Result.failure(Exception('태그 삭제에 실패했습니다: $e'));
     } catch (e) {
       return Result.failure(Exception('태그 삭제에 실패했습니다: $e'));
@@ -131,15 +104,8 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<void>> addTagToJournal(int journalId, int tagId) async {
     try {
-      await _database
-          .into(_database.journalTags)
-          .insert(
-            JournalTagsCompanion(
-              journalId: Value(journalId),
-              tagId: Value(tagId),
-              createdAt: Value(DateTime.now()),
-            ),
-          );
+      await _localDataSource.addTagToJournal(journalId, tagId);
+
       return Result.ok(null);
     } on SqliteException catch (e) {
       if (e.extendedResultCode == 2067) {
@@ -159,11 +125,10 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<void>> removeTagFromJournal(int journalId, int tagId) async {
     try {
-      final affectedRows =
-          await (_database.delete(_database.journalTags)..where(
-                (jt) => jt.journalId.equals(journalId) & jt.tagId.equals(tagId),
-              ))
-              .go();
+      final affectedRows = await _localDataSource.removeTagFromJournal(
+        journalId,
+        tagId,
+      );
 
       if (affectedRows == 0) {
         return Result.failure(Exception('일기에서 해당 태그를 찾을 수 없습니다'));
@@ -181,25 +146,7 @@ class TagRepositoryImpl implements TagRepository {
     List<int> tagIds,
   ) async {
     try {
-      await _database.transaction(() async {
-        // 기존 태그들 모두 삭제
-        await (_database.delete(
-          _database.journalTags,
-        )..where((jt) => jt.journalId.equals(journalId))).go();
-
-        // 새로운 태그들 추가
-        for (final tagId in tagIds) {
-          await _database
-              .into(_database.journalTags)
-              .insert(
-                JournalTagsCompanion(
-                  journalId: Value(journalId),
-                  tagId: Value(tagId),
-                  createdAt: Value(DateTime.now()),
-                ),
-              );
-        }
-      });
+      await _localDataSource.updateJournalTags(journalId, tagIds);
 
       return Result.ok(null);
     } on SqliteException catch (e) {
@@ -210,38 +157,6 @@ class TagRepositoryImpl implements TagRepository {
       return Result.failure(Exception('일기 태그 업데이트에 실패했습니다: $e'));
     } catch (e) {
       return Result.failure(Exception('일기 태그 업데이트에 실패했습니다: $e'));
-    }
-  }
-
-  // 추가적인 헬퍼 메서드들
-  @override
-  Future<Result<bool>> isTagNameExists(String name, {int? excludeId}) async {
-    try {
-      final query = _database.select(_database.tags)
-        ..where((t) => t.name.equals(name));
-
-      if (excludeId != null) {
-        query.where((t) => t.id.equals(excludeId).not());
-      }
-
-      final results = await query.get();
-      return Result.ok(results.isNotEmpty);
-    } catch (e) {
-      return Result.failure(Exception('태그 중복 확인에 실패했습니다: $e'));
-    }
-  }
-
-  @override
-  Future<Result<List<Tag>>> searchTags(String query) async {
-    try {
-      final searchQuery = _database.select(_database.tags)
-        ..where((t) => t.name.like('%$query%'))
-        ..orderBy([(t) => OrderingTerm.asc(t.name)]);
-
-      final tags = await searchQuery.get();
-      return Result.ok(tags);
-    } catch (e) {
-      return Result.failure(Exception('태그 검색에 실패했습니다: $e'));
     }
   }
 }

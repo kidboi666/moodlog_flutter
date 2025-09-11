@@ -19,8 +19,4 @@ abstract class TagRepository {
   Future<Result<void>> removeTagFromJournal(int journalId, int tagId);
 
   Future<Result<void>> updateJournalTags(int journalId, List<int> tagIds);
-
-  Future<Result<bool>> isTagNameExists(String name, {int? excludeId});
-
-  Future<Result<List<Tag>>> searchTags(String query);
 }

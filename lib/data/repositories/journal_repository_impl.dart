@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
-
 import '../../core/utils/result.dart';
 import '../../domain/dto/create_journal_request.dart';
 import '../../domain/dto/update_journal_request.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../data_source/local/journal_local_data_source.dart';
 import '../models/request/add_journal_request.dart';
 
 class JournalRepositoryImpl implements JournalRepository {

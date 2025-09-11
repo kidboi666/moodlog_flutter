@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 
 import '../../data/data_source/local/database/database.dart';
 import '../../data/data_source/local/journal_local_data_source.dart';
+import '../../data/data_source/local/tag_local_data_source.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
@@ -55,6 +56,17 @@ List<SingleChildWidget> _createInfrastructures() {
   ];
 }
 
+List<SingleChildWidget> _createDataSources() {
+  return [
+    ProxyProvider<MoodLogDatabase, JournalLocalDataSource>(
+      update: (_, db, previous) => previous ?? JournalLocalDataSource(db: db),
+    ),
+    ProxyProvider<MoodLogDatabase, TagLocalDataSource>(
+      update: (_, db, previous) => previous ?? TagLocalDataSource(db: db),
+    ),
+  ];
+}
+
 List<SingleChildWidget> _createRepositories() {
   return [
     Provider<SettingsRepository>(
@@ -74,22 +86,14 @@ List<SingleChildWidget> _createRepositories() {
           JournalRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
-    ProxyProvider<MoodLogDatabase, TagRepository>(
-      update: (_, db, previous) => previous ?? TagRepositoryImpl(db),
+    Provider<TagRepository>(
+      create: (context) => TagRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
     Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
     Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
     Provider<ImageRepository>(create: (_) => ImageRepositoryImpl()),
     Provider<AnalyticsRepository>(create: (_) => AnalyticsRepositoryImpl()),
-  ];
-}
-
-List<SingleChildWidget> _createDataSources() {
-  return [
-    ProxyProvider<MoodLogDatabase, JournalLocalDataSource>(
-      update: (_, db, previous) => previous ?? JournalLocalDataSource(db: db),
-    ),
   ];
 }
 
