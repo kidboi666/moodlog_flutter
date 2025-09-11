@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +30,12 @@ void main() async {
   final analyticsRepo = AnalyticsRepositoryImpl();
   await analyticsRepo.initialize();
 
-  Logger.root.level = Level.ALL;
+  if (kDebugMode) {
+    Logger.root.level = Level.ALL;
+    Logger.root.onRecord.listen((record) {
+      debugPrint('${record.level.name}: ${record.time}: ${record.message}');
+    });
+  }
   runApp(
     MultiProvider(
       providers: createProviders(),
