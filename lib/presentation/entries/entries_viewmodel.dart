@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/tag.dart';
-import '../../domain/repositories/journal_repository.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 
@@ -16,12 +16,15 @@ enum EntriesViewMode { list, calendar }
 
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalUseCase _journalUseCase;
+  final ObserveJournalListUseCase _observeJournalListUseCase;
   final TagUseCase _tagUseCase;
 
   EntriesViewModel({
     required JournalUseCase journalUseCase,
+    required ObserveJournalListUseCase observeJournalListUseCase,
     required TagUseCase tagUseCase,
   }) : _journalUseCase = journalUseCase,
+       _observeJournalListUseCase = observeJournalListUseCase,
        _tagUseCase = tagUseCase {
     _load();
   }
@@ -231,7 +234,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void _subscribeToJournalChanges() {
-    _journalSubscription = _journalRepository.journalStream.listen((
+    _journalSubscription = _observeJournalListUseCase.call().listen((
       journals,
     ) async {
       await _filterJournalsForSelectedMonth(journals);

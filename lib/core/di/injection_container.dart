@@ -29,6 +29,7 @@ import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/log_mood_entry_use_case.dart';
+import '../../domain/use_cases/observe_journal_list_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
 import '../../domain/use_cases/settings_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
@@ -146,6 +147,10 @@ List<SingleChildWidget> _createUseCases() {
     Provider<LogMoodEntryUseCase>(
       create: (context) =>
           LogMoodEntryUseCase(analyticsRepository: context.read()),
+    ),
+    Provider<ObserveJournalListUseCase>(
+      create: (context) =>
+          ObserveJournalListUseCase(journalRepository: context.read()),
     ),
   ];
 }

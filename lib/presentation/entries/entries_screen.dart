@@ -23,7 +23,7 @@ class EntriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => EntriesViewModel(
-        journalRepository: context.read(),
+        observeJournalListUseCase: context.read(),
         journalUseCase: context.read(),
         tagUseCase: context.read(),
       ),
