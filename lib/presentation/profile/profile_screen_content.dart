@@ -35,7 +35,7 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
           behavior: SnackBarBehavior.floating,
         ),
       );
-      viewModel.clearError();
+      viewModel.clearState();
     }
   }
 

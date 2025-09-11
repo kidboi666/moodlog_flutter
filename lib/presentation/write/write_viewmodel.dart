@@ -167,7 +167,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isLoadingWeather = false;
     _selectedTags.clear();
     _checkAiUsageLimit();
-    clearError();
+    clearState();
     notifyListeners();
   }
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
+import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
@@ -30,11 +31,11 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void clearSuccessMessage() {
     _successMessage = null;
-    notifyListeners();
+    setAsyncState(AsyncState.idle);
   }
 
   Future<Result<void>> updateDisplayName(String displayName) async {
-    setLoading();
+    setAsyncState(AsyncState.loading);
     final result = await _authUseCase.updateDisplayName(displayName);
     switch (result) {
       case Ok<void>():

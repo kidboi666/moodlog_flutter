@@ -15,20 +15,15 @@ import '../../domain/use_cases/tag_use_case.dart';
 enum EntriesViewMode { list, calendar }
 
 class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
-  final JournalRepository _journalRepository;
   final JournalUseCase _journalUseCase;
   final TagUseCase _tagUseCase;
 
   EntriesViewModel({
-    required JournalRepository journalRepository,
     required JournalUseCase journalUseCase,
     required TagUseCase tagUseCase,
-  }) : _journalRepository = journalRepository,
-       _journalUseCase = journalUseCase,
+  }) : _journalUseCase = journalUseCase,
        _tagUseCase = tagUseCase {
-    _loadMonthEntries();
-    _subscribeToJournalChanges();
-    _loadAllTags();
+    _load();
   }
 
   final Logger _log = Logger('EntriesViewModel');
@@ -57,11 +52,24 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
 
   MoodType? get selectedMoodFilter => _selectedMoodFilter;
 
+  Future<void> _load() async {
+    setLoading();
+    try {
+      await Future.wait([_loadMonthEntries(), _loadAllTags()]);
+      _subscribeToJournalChanges();
+      _log.fine('Data loaded successfully');
+      setSuccess();
+    } catch (e) {
+      _log.warning('Failed to load data', e);
+      setError(e);
+    }
+  }
+
   void toggleViewMode() {
     _viewMode = _viewMode == EntriesViewMode.list
         ? EntriesViewMode.calendar
         : EntriesViewMode.list;
-    _selectedDay = null; // 뷰 모드 변경 시 선택된 날짜 초기화
+    _selectedDay = null;
     notifyListeners();
   }
 
@@ -70,125 +78,114 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-  void setPreviousMonth() {
+  Future<void> setPreviousMonth() async {
     _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1, 1);
     _selectedDay = null; // 월 변경 시 선택된 날짜 초기화
-    notifyListeners();
-    _loadMonthEntries();
+
+    setLoading();
+    try {
+      await _loadMonthEntries();
+      setSuccess();
+    } catch (e) {
+      _log.warning('Failed to load month entries', e);
+      setError(e);
+    }
   }
 
-  void setNextMonth() {
+  Future<void> setNextMonth() async {
     _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 1);
     _selectedDay = null; // 월 변경 시 선택된 날짜 초기화
-    notifyListeners();
-    _loadMonthEntries();
+
+    setLoading();
+    try {
+      await _loadMonthEntries();
+      setSuccess();
+    } catch (e) {
+      _log.warning('Failed to load month entries', e);
+      setError(e);
+    }
   }
 
   Future<void> deleteJournal(int id) async {
     setLoading();
-    await _journalUseCase.deleteJournal(id);
-    setSuccess();
+    final result = await _journalUseCase.deleteJournal(id);
+    switch (result) {
+      case Ok<void>():
+        _log.fine('Journal deleted successfully');
+        setSuccess();
+      case Failure<void>():
+        _log.warning('Failed to delete journal: ${result.error}');
+        setError(result.error);
+    }
+  }
+
+  Future<void> setTagFilter(Tag? tag) async {
+    _selectedTagFilter = tag;
+    await _applyFilters();
+    notifyListeners();
+  }
+
+  Future<void> clearTagFilter() async {
+    _selectedTagFilter = null;
+    await _applyFilters();
+    notifyListeners();
+  }
+
+  Future<void> setMoodFilter(MoodType? mood) async {
+    _selectedMoodFilter = mood;
+    await _applyFilters();
+    notifyListeners();
+  }
+
+  Future<void> clearMoodFilter() async {
+    _selectedMoodFilter = null;
+    await _applyFilters();
+    notifyListeners();
+  }
+
+  Future<void> clearAllFilters() async {
+    _selectedTagFilter = null;
+    _selectedMoodFilter = null;
+    await _applyFilters();
+    notifyListeners();
   }
 
   Future<void> _loadMonthEntries() async {
-    setLoading();
-
-    final result = await _journalRepository.getJournalsByMonth(_selectedMonth);
+    final result = await _journalUseCase.getJournalsByMonth(_selectedMonth);
     switch (result) {
       case Ok<List<Journal>>():
-        _allMonthEntries = result.value;
-        _applyFilters();
         _log.fine('Loaded journals');
+        _allMonthEntries = result.value;
+        await _applyFilters();
       case Failure<List<Journal>>():
+        _log.warning('Failed to load journals', result.error);
         _allMonthEntries = [];
         _entries = [];
-        setError(result.error);
-        _log.warning('Failed to load journals', result.error);
+        throw result.error;
     }
-    setSuccess();
-  }
-
-  void _subscribeToJournalChanges() {
-    _journalSubscription = _journalRepository.journalStream.listen((journals) {
-      // 전체 일기 목록이 변경되었을 때, 현재 선택된 월의 일기만 필터링
-      _filterJournalsForSelectedMonth(journals);
-    });
-  }
-
-  void _filterJournalsForSelectedMonth(List<Journal> allJournals) {
-    final startOfMonth = DateTime(_selectedMonth.year, _selectedMonth.month, 1);
-    final endOfMonth = DateTime(
-      _selectedMonth.year,
-      _selectedMonth.month + 1,
-      0,
-      23,
-      59,
-      59,
-      999,
-    );
-
-    _allMonthEntries = allJournals.where((journal) {
-      return journal.createdAt.isAfter(startOfMonth) &&
-          journal.createdAt.isBefore(endOfMonth);
-    }).toList();
-
-    _applyFilters();
-    notifyListeners();
   }
 
   Future<void> _loadAllTags() async {
     final result = await _tagUseCase.getAllTags();
     switch (result) {
       case Ok<List<Tag>>():
+        _log.fine('Loaded tags');
         _availableTags = result.value;
-        notifyListeners();
       case Failure<List<Tag>>():
         _log.warning('Failed to load tags: ${result.error}');
+        _availableTags = [];
     }
-  }
-
-  void setTagFilter(Tag? tag) {
-    _selectedTagFilter = tag;
-    _applyFilters();
-    notifyListeners();
-  }
-
-  void clearTagFilter() {
-    _selectedTagFilter = null;
-    _applyFilters();
-    notifyListeners();
-  }
-
-  void setMoodFilter(MoodType? mood) {
-    _selectedMoodFilter = mood;
-    _applyFilters();
-    notifyListeners();
-  }
-
-  void clearMoodFilter() {
-    _selectedMoodFilter = null;
-    _applyFilters();
-    notifyListeners();
-  }
-
-  void clearAllFilters() {
-    _selectedTagFilter = null;
-    _selectedMoodFilter = null;
-    _applyFilters();
-    notifyListeners();
   }
 
   Future<void> _applyFilters() async {
     List<Journal> filteredEntries = _allMonthEntries;
 
-    // 감정 필터 적용
     if (_selectedMoodFilter != null) {
       filteredEntries = filteredEntries
           .where((journal) => journal.moodType == _selectedMoodFilter)
           .toList();
     }
 
-    // 태그 필터 적용
     if (_selectedTagFilter != null) {
       final tagFilteredEntries = <Journal>[];
       for (final journal in filteredEntries) {
@@ -208,6 +205,37 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
     }
 
     _entries = filteredEntries;
+  }
+
+  Future<void> _filterJournalsForSelectedMonth(
+    List<Journal> allJournals,
+  ) async {
+    final startOfMonth = DateTime(_selectedMonth.year, _selectedMonth.month, 1);
+    final endOfMonth = DateTime(
+      _selectedMonth.year,
+      _selectedMonth.month + 1,
+      0,
+      23,
+      59,
+      59,
+      999,
+    );
+
+    _allMonthEntries = allJournals.where((journal) {
+      return journal.createdAt.isAfter(startOfMonth) &&
+          journal.createdAt.isBefore(endOfMonth);
+    }).toList();
+
+    await _applyFilters();
+    notifyListeners();
+  }
+
+  void _subscribeToJournalChanges() {
+    _journalSubscription = _journalRepository.journalStream.listen((
+      journals,
+    ) async {
+      await _filterJournalsForSelectedMonth(journals);
+    });
   }
 
   @override

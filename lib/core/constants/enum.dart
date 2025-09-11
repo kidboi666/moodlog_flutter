@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart' as material;
 
+enum AsyncState { idle, loading, success, error }
+
 enum LanguageCode {
   ko,
   en,

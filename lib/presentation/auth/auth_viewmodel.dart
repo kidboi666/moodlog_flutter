@@ -36,8 +36,8 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
       false;
 
   Future<Result<void>> signInAnonymously() async {
-    _loginType = LoginType.anonymous;
     setLoading();
+    _loginType = LoginType.anonymous;
     final result = await _authRepository.signInAnonymously();
     switch (result) {
       case Ok<User?>():
@@ -56,8 +56,8 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<Result<void>> signInGoogle() async {
-    _loginType = LoginType.google;
     setLoading();
+    _loginType = LoginType.google;
     final result = await _authRepository.signInWithGoogle();
     switch (result) {
       case Ok<User?>():
@@ -74,6 +74,4 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
         return Result.failure(result.error);
     }
   }
-
-  Future<void> signInKakao() async {}
 }

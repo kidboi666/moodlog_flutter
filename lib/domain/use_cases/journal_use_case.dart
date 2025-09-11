@@ -24,8 +24,14 @@ class JournalUseCase {
     return await _journalRepository.getJournalById(id);
   }
 
-  Future<void> deleteJournal(int id) async {
-    _journalRepository.deleteJournalById(id);
+  Future<Result<List<Journal>>> getJournalsByMonth(
+    DateTime selectedMonth,
+  ) async {
+    return await _journalRepository.getJournalsByMonth(selectedMonth);
+  }
+
+  Future<Result<void>> deleteJournal(int id) async {
+    return await _journalRepository.deleteJournalById(id);
   }
 
   Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
