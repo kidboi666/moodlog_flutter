@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 
 import '../../data/data_source/local/database/database.dart';
 import '../../data/data_source/local/journal_local_data_source.dart';
+import '../../data/data_source/local/shared_preferences_local_data_source.dart';
 import '../../data/data_source/local/tag_local_data_source.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../data/repositories/auth_repository_impl.dart';
@@ -64,19 +65,20 @@ List<SingleChildWidget> _createDataSources() {
     ProxyProvider<MoodLogDatabase, TagLocalDataSource>(
       update: (_, db, previous) => previous ?? TagLocalDataSource(db: db),
     ),
+    Provider<SharedPreferencesLocalDataSource>(
+      create: (_) => SharedPreferencesLocalDataSource(),
+    ),
   ];
 }
 
 List<SingleChildWidget> _createRepositories() {
   return [
     Provider<SettingsRepository>(
-      create: (_) => SettingsRepositoryImpl(),
+      create: (context) =>
+          SettingsRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
-    Provider<AuthRepository>(
-      create: (context) => AuthRepositoryImpl(),
-      lazy: false,
-    ),
+    Provider<AuthRepository>(create: (_) => AuthRepositoryImpl(), lazy: false),
     Provider<GeminiRepository>(
       create: (_) => GeminiRepositoryImpl.instance,
       lazy: false,
