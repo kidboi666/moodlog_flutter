@@ -42,7 +42,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
     final viewModel = context.read<HomeViewModel>();
-    final now = context.select<HomeViewModel, DateTime>((vm) => vm.now);
+    final now = DateTime.now();
     final selectedDate = context.select<HomeViewModel, DateTime>(
       (vm) => vm.selectedDate,
     );

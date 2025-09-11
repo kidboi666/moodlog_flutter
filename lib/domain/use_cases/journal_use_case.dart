@@ -37,4 +37,8 @@ class JournalUseCase {
   Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
     return await _journalRepository.updateJournal(dto);
   }
+
+  Future<Result<List<Journal>>> getJournalsByDate(DateTime date) async {
+    return await _journalRepository.getJournalsByDate(date);
+  }
 }

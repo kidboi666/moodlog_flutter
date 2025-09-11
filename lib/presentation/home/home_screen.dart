@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/ui/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/extensions/routing.dart';
 import '../../core/ui/widgets/empty_entries_box.dart';
 import '../../core/ui/widgets/fade_in.dart';
+import '../../core/ui/widgets/glower.dart';
 import '../../core/ui/widgets/journal_card.dart';
 import '../../domain/entities/journal/journal.dart';
 import 'home_viewmodel.dart';
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
-        journalRepository: context.read(),
+        observeJournalListUseCase: context.read(),
         userProvider: context.read(),
         journalUseCase: context.read(),
       ),

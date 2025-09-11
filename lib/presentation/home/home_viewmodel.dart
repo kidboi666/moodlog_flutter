@@ -11,34 +11,27 @@ import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/weather_info.dart';
-import '../../domain/repositories/journal_repository.dart';
 import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/observe_journal_list_use_case.dart';
 import '../providers/user_provider.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
-  final JournalRepository _journalRepository;
   final UserProvider _userProvider;
   final JournalUseCase _journalUseCase;
+  final ObserveJournalListUseCase _observeJournalListUseCase;
 
   HomeViewModel({
-    required JournalRepository journalRepository,
     required UserProvider userProvider,
     required JournalUseCase journalUseCase,
-  }) : _journalRepository = journalRepository,
-       _userProvider = userProvider,
-       _journalUseCase = journalUseCase {
-    _calculateDateItems();
+    required ObserveJournalListUseCase observeJournalListUseCase,
+  }) : _userProvider = userProvider,
+       _journalUseCase = journalUseCase,
+       _observeJournalListUseCase = observeJournalListUseCase {
     _load();
-    _loadMonthlyJournals();
-    _loadYearlyJournals();
-    _loadRecentJournalsAndRepresentativeMood();
-    _initializeDelayedRender();
-    _subscribeToJournalChanges();
   }
 
   final Logger _log = Logger('HomeViewModel');
   StreamSubscription? _journalSubscription;
-  final DateTime _now = DateTime.now();
   List<Journal> _journal = [];
   DateTime _selectedDate = DateTime.now();
   List<DateTime>? _dateItems;
@@ -59,8 +52,6 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
       _userProvider.user?.email?.split('@').first;
 
   DateTime get selectedDate => _selectedDate;
-
-  DateTime get now => _now;
 
   List<DateTime>? get dateItems => _dateItems;
 
@@ -95,10 +86,20 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   List<Journal> get recentJournals => _recentJournals;
 
+  void _load() {
+    _calculateDateItems();
+    _loadJournals();
+    _loadMonthlyJournals();
+    _loadYearlyJournals();
+    _loadRecentJournalsAndRepresentativeMood();
+    _initializeDelayedRender();
+    _subscribeToJournalChanges();
+  }
+
   void selectDate(DateTime date) {
     _selectedDate = date;
     notifyListeners();
-    _load();
+    _loadJournals();
   }
 
   Future<void> setIsFirstRender(bool value) async {
@@ -110,6 +111,10 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     setLoading();
     await _journalUseCase.deleteJournal(id);
     setSuccess();
+  }
+
+  Future<void> refreshRepresentativeMood() async {
+    await _loadRecentJournalsAndRepresentativeMood();
   }
 
   void _calculateDateItems() {
@@ -124,9 +129,9 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _dateItems = dates;
   }
 
-  Future<void> _load() async {
+  Future<void> _loadJournals() async {
     setLoading();
-    final result = await _journalRepository.getJournalsByDate(_selectedDate);
+    final result = await _journalUseCase.getJournalsByDate(_selectedDate);
     switch (result) {
       case Ok<List<Journal>>():
         _log.fine('Loaded journals');
@@ -145,7 +150,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void _subscribeToJournalChanges() {
-    _journalSubscription = _journalRepository.journalStream.listen((journals) {
+    _journalSubscription = _observeJournalListUseCase.call().listen((journals) {
       // 전체 일기 목록이 변경되었을 때, 현재 선택된 날짜의 일기만 필터링
       _filterJournalsForSelectedDate(journals);
     });
@@ -175,14 +180,10 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-  Future<void> refreshRepresentativeMood() async {
-    await _loadRecentJournalsAndRepresentativeMood();
-  }
-
   Future<void> _loadMonthlyJournals() async {
     final now = DateTime.now();
 
-    final result = await _journalRepository.getJournalsByMonth(now);
+    final result = await _journalUseCase.getJournalsByMonth(now);
 
     switch (result) {
       case Ok<List<Journal>>():
@@ -219,7 +220,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
     for (int month = 1; month <= 12; month++) {
       final monthDate = DateTime(now.year, month, 1);
-      final result = await _journalRepository.getJournalsByMonth(monthDate);
+      final result = await _journalUseCase.getJournalsByMonth(monthDate);
 
       switch (result) {
         case Ok<List<Journal>>():
@@ -250,7 +251,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadRecentJournalsAndRepresentativeMood() async {
-    final result = await _journalRepository.getAllJournals();
+    final result = await _journalUseCase.getJournals();
 
     switch (result) {
       case Ok<List<Journal>>():
