@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../constants/common.dart';
 
 class TagChip extends StatelessWidget {
-  final String tagName;
+  final String name;
   final double? fontSize;
   final EdgeInsets? padding;
   final double? borderRadius;
 
   const TagChip({
     super.key,
-    required this.tagName,
+    required this.name,
     this.fontSize,
     this.padding,
     this.borderRadius,
@@ -34,7 +34,7 @@ class TagChip extends StatelessWidget {
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Text(
-        tagName,
+        name,
         style: textTheme.bodySmall?.copyWith(
           fontSize: fontSize,
           color: colorScheme.onSurfaceVariant,

@@ -1,7 +1,8 @@
 import '../../core/utils/result.dart';
-import '../dto/create_journal_request.dart';
-import '../dto/update_journal_request.dart';
 import '../entities/journal/journal.dart';
+import '../models/create_journal_request.dart';
+import '../models/update_journal_ai_response_request.dart';
+import '../models/update_journal_request.dart';
 
 abstract class JournalRepository {
   Stream<List<Journal>> get journalStream;
@@ -18,5 +19,11 @@ abstract class JournalRepository {
 
   Future<Result<int>> updateJournal(UpdateJournalRequest dto);
 
+  Future<Result<int>> updateJournalAiResponse(
+    UpdateJournalAiResponseRequest dto,
+  );
+
   Future<Result<void>> deleteJournalById(int id);
+
+  Future<void> notifyJournalUpdate();
 }

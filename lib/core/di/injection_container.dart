@@ -85,8 +85,10 @@ List<SingleChildWidget> _createRepositories() {
       lazy: false,
     ),
     Provider<JournalRepository>(
-      create: (context) =>
-          JournalRepositoryImpl(localDataSource: context.read()),
+      create: (context) => JournalRepositoryImpl(
+        localDataSource: context.read(),
+        tagLocalDataSource: context.read(),
+      ),
       lazy: false,
     ),
     Provider<TagRepository>(

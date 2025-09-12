@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../domain/dto/create_journal_request.dart';
-import '../../domain/dto/update_journal_request.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/entities/journal/weather_info.dart';
+import '../../domain/models/create_journal_request.dart';
+import '../../domain/models/update_journal_request.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
@@ -47,7 +48,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
     required TagUseCase tagUseCase,
     required LogMoodEntryUseCase logMoodEntryUseCase,
-    required DateTime selectedDate,
+    DateTime? selectedDate,
     int? editJournalId,
   }) : _geminiUseCase = geminiUseCase,
        _appStateProvider = appStateProvider,
@@ -60,7 +61,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
        _logMoodEntryUseCase = logMoodEntryUseCase,
        _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
        _tagUseCase = tagUseCase,
-       _selectedDate = selectedDate,
+       _selectedDate = selectedDate ?? DateTime.now(),
        _editJournalId = editJournalId,
        _isEditMode = editJournalId != null {
     _initialize();
@@ -127,7 +128,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
     _loadAllTags();
-    _selectedDate = selectedDate;
     if (_isEditMode) {
       _loadJournalForEdit(_editJournalId!);
     }
@@ -301,7 +301,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _isSubmitted = false;
     _submittedJournalId = null;
 
-    if (_isEditMode && _editJournalId != null) {
+    if (_isEditMode) {
       return _updateExistingJournal();
     } else {
       return _createNewJournal();
@@ -361,11 +361,14 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<Result<void>> _updateExistingJournal() async {
     final updateJournal = UpdateJournalRequest(
       id: _editJournalId!,
+      aiResponseEnabled: _aiEnabled,
       content: _content,
       imageUri: _imageFileList,
       latitude: _locationInfo?.latitude,
       longitude: _locationInfo?.longitude,
       address: _locationInfo?.address,
+      moodType: _selectedMood,
+      tagNames: _selectedTags.map((tag) => tag.name).toList(),
     );
 
     final result = await _journalUseCase.updateJournal(updateJournal);
@@ -376,12 +379,14 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _isSubmitted = true;
         _submittedJournalId = _editJournalId;
 
-        if (_selectedTags.isNotEmpty) {
-          await _tagUseCase.updateJournalTags(
-            _editJournalId,
-            _selectedTags.map((tag) => tag.id).toList(),
-          );
-        }
+        // 태그 업데이트
+        await _tagUseCase.updateJournalTags(
+          _editJournalId,
+          _selectedTags.map((tag) => tag.id).toList(),
+        );
+
+        // 태그 업데이트 후 journal stream에 변경사항 알림
+        await _journalUseCase.notifyJournalUpdate();
 
         _logMoodEntryUseCase.call(
           moodType: _selectedMood.name,
@@ -438,21 +443,17 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     switch (aiResponse) {
       case Ok<String>():
         _log.fine('AI response generated successfully');
-        final newJournal = UpdateJournalRequest(
+        final dto = UpdateJournalAiResponseRequest(
           id: _submittedJournalId!,
+          aiResponseEnabled: true,
           aiResponse: aiResponse.value,
         );
-        await _journalUseCase.updateJournal(newJournal);
+        await _journalUseCase.updateJournalAiResponse(dto);
         _aiGenerationProvider.setSuccessGeneratingAiResponse();
       case Error<String>():
         _log.warning('Failed to add AI response: ${aiResponse.error}');
         _aiGenerationProvider.setErrorGeneratingAiResponse(aiResponse.error);
     }
-  }
-
-  Future<void> _loadWeatherAfterLocation() async {
-    // getCurrentWeather 메서드가 기본 위치 처리를 포함하므로 직접 호출
-    await getCurrentWeather();
   }
 
   Future<void> _loadCurrentLocationOnInit() async {
@@ -466,7 +467,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Location retrieved successfully on init');
         _locationInfo = result.value;
         // 위치 정보가 로드되면 자동으로 날씨 정보도 로드
-        _loadWeatherAfterLocation();
+        await getCurrentWeather();
       case Error<LocationInfo>():
         _log.info('Failed to get location on init: ${result.error}');
     }
@@ -505,6 +506,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           _imageFileList = journal.imageUri ?? [];
           _aiEnabled = journal.aiResponseEnabled;
           _selectedDate = journal.createdAt;
+          _selectedTags = journal.tags ?? [];
 
           if (journal.latitude != null && journal.longitude != null) {
             _locationInfo = LocationInfo(
@@ -527,7 +529,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
             );
           }
 
-          _selectedTags = journal.tags ?? [];
           notifyListeners();
         case Error<Journal>():
           _log.warning('Failed to load journal for edit: ${result.error}');

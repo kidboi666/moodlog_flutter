@@ -1,7 +1,8 @@
 import '../../core/utils/result.dart';
-import '../dto/create_journal_request.dart';
-import '../dto/update_journal_request.dart';
 import '../entities/journal/journal.dart';
+import '../models/create_journal_request.dart';
+import '../models/update_journal_ai_response_request.dart';
+import '../models/update_journal_request.dart';
 import '../repositories/journal_repository.dart';
 
 class JournalUseCase {
@@ -38,11 +39,21 @@ class JournalUseCase {
     return await _journalRepository.updateJournal(dto);
   }
 
+  Future<Result<int>> updateJournalAiResponse(
+    UpdateJournalAiResponseRequest dto,
+  ) async {
+    return await _journalRepository.updateJournalAiResponse(dto);
+  }
+
   Future<Result<List<Journal>>> getJournalsByDate(DateTime date) async {
     return await _journalRepository.getJournalsByDate(date);
   }
 
   Future<Result<void>> deleteJournalById(int id) async {
     return await _journalRepository.deleteJournalById(id);
+  }
+
+  Future<void> notifyJournalUpdate() async {
+    await _journalRepository.notifyJournalUpdate();
   }
 }

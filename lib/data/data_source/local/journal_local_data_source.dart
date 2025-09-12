@@ -1,10 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 
 import '../../../core/utils/result.dart';
-import '../../../domain/dto/update_journal_request.dart';
 import '../../../domain/entities/journal/journal.dart';
-import '../../models/request/add_journal_request.dart';
+import '../../../domain/models/create_journal_request.dart';
+import '../../../domain/models/update_journal_request.dart';
 import 'database/database.dart';
 
 class JournalLocalDataSource {
@@ -70,7 +71,7 @@ class JournalLocalDataSource {
     }
   }
 
-  Future<Journal?> addJournal(AddJournalRequest request) async {
+  Future<Journal?> addJournal(CreateJournalRequest request) async {
     try {
       return await _db
           .into(_db.journals)
@@ -103,14 +104,44 @@ class JournalLocalDataSource {
         _db.journals,
       )..where((t) => t.id.equals(request.id))).write(
         JournalsCompanion(
+          aiResponseEnabled: Value(request.aiResponseEnabled),
+          moodType: Value(request.moodType),
           content: request.content == null
-              ? Value.absent()
+              ? const Value.absent()
               : Value(request.content),
           imageUri: request.imageUri == null
-              ? Value.absent()
+              ? const Value.absent()
               : Value(request.imageUri),
+          latitude: request.latitude == null
+              ? const Value.absent()
+              : Value(request.latitude),
+          longitude: request.longitude == null
+              ? const Value.absent()
+              : Value(request.longitude),
+          address: request.address == null
+              ? const Value.absent()
+              : Value(request.address),
+          tagNames: Value(request.tagNames),
+        ),
+      );
+    } on SqliteException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<int> updateJournalAiResponse(
+    UpdateJournalAiResponseRequest request,
+  ) async {
+    try {
+      return await (_db.update(
+        _db.journals,
+      )..where((t) => t.id.equals(request.id))).write(
+        JournalsCompanion(
+          aiResponseEnabled: Value(request.aiResponseEnabled),
           aiResponse: request.aiResponse == null
-              ? Value.absent()
+              ? const Value.absent()
               : Value(request.aiResponse),
         ),
       );

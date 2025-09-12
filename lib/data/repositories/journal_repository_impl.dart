@@ -1,18 +1,24 @@
 import 'dart:async';
 
 import '../../core/utils/result.dart';
-import '../../domain/dto/create_journal_request.dart';
-import '../../domain/dto/update_journal_request.dart';
 import '../../domain/entities/journal/journal.dart';
+import '../../domain/extensions/journal_extension.dart';
+import '../../domain/models/create_journal_request.dart';
+import '../../domain/models/update_journal_ai_response_request.dart';
+import '../../domain/models/update_journal_request.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../data_source/local/journal_local_data_source.dart';
-import '../models/request/add_journal_request.dart';
+import '../data_source/local/tag_local_data_source.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
-  final JournalLocalDataSource _localDataSource;
+  final JournalLocalDataSource _journalLocalDataSource;
+  final TagLocalDataSource _tagLocalDataSource;
 
-  JournalRepositoryImpl({required JournalLocalDataSource localDataSource})
-    : _localDataSource = localDataSource;
+  JournalRepositoryImpl({
+    required JournalLocalDataSource localDataSource,
+    required TagLocalDataSource tagLocalDataSource,
+  }) : _journalLocalDataSource = localDataSource,
+       _tagLocalDataSource = tagLocalDataSource;
 
   final _journalStreamController = StreamController<List<Journal>>.broadcast();
 
@@ -22,7 +28,7 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<List<Journal>>> getJournals() async {
     try {
-      final journals = await _localDataSource.getJournals();
+      final journals = await _journalLocalDataSource.getJournals();
       return Result.ok(journals);
     } catch (e) {
       return Result.error(Exception('Failed to get journals: $e'));
@@ -34,7 +40,7 @@ class JournalRepositoryImpl implements JournalRepository {
     final startOfMonth = DateTime(date.year, date.month, 1);
     final endOfMonth = DateTime(date.year, date.month + 1, 0);
     try {
-      final journals = await _localDataSource.getJournalsByMonth(
+      final journals = await _journalLocalDataSource.getJournalsByMonth(
         startOfMonth,
         endOfMonth,
       );
@@ -49,7 +55,7 @@ class JournalRepositoryImpl implements JournalRepository {
     final startOfDay = DateTime(date.year, date.month, date.day);
     final endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59, 999);
     try {
-      final journals = await _localDataSource.getJournalsByDate(
+      final journals = await _journalLocalDataSource.getJournalsByDate(
         startOfDay,
         endOfDay,
       );
@@ -62,11 +68,13 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<Journal>> getJournalById(int id) async {
     try {
-      final journal = await _localDataSource.getJournalById(id);
+      final journal = await _journalLocalDataSource.getJournalById(id);
       if (journal == null) {
         return Result.error(Exception('Journal not found'));
       }
-      return Result.ok(journal);
+      final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
+      final journalWithTags = journal.attachTags(tags);
+      return Result.ok(journalWithTags);
     } catch (e) {
       return Result.error(Exception('Failed to get journal: $e'));
     }
@@ -76,7 +84,7 @@ class JournalRepositoryImpl implements JournalRepository {
   Future<Result<Map<String, dynamic>>> createJournal(
     CreateJournalRequest dto,
   ) async {
-    final request = AddJournalRequest(
+    final request = CreateJournalRequest(
       content: dto.content,
       moodType: dto.moodType,
       imageUri: dto.imageUri,
@@ -92,12 +100,12 @@ class JournalRepositoryImpl implements JournalRepository {
       weatherDescription: dto.weatherDescription,
     );
     try {
-      final journal = await _localDataSource.addJournal(request);
+      final journal = await _journalLocalDataSource.addJournal(request);
       final response = {
         'id': journal?.id,
         'aiResponseEnabled': journal?.aiResponseEnabled,
       };
-      _notifyJournalUpdate();
+      notifyJournalUpdate();
       return Result.ok(response);
     } catch (e) {
       return Result.error(Exception('Failed to add journal: $e'));
@@ -107,11 +115,29 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
     try {
-      final updatedRows = await _localDataSource.updateJournal(dto);
+      final updatedRows = await _journalLocalDataSource.updateJournal(dto);
       if (updatedRows == 0) {
         return Result.error(Exception('Failed to update journal'));
       }
-      _notifyJournalUpdate();
+      notifyJournalUpdate();
+      return Result.ok(updatedRows);
+    } catch (e) {
+      return Result.error(Exception('Failed to update journal: $e'));
+    }
+  }
+
+  @override
+  Future<Result<int>> updateJournalAiResponse(
+    UpdateJournalAiResponseRequest dto,
+  ) async {
+    try {
+      final updatedRows = await _journalLocalDataSource.updateJournalAiResponse(
+        dto,
+      );
+      if (updatedRows == 0) {
+        return Result.error(Exception('Failed to update journal'));
+      }
+      notifyJournalUpdate();
       return Result.ok(updatedRows);
     } catch (e) {
       return Result.error(Exception('Failed to update journal: $e'));
@@ -121,18 +147,19 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<void>> deleteJournalById(int id) async {
     try {
-      final deletedRows = await _localDataSource.deleteJournalById(id);
+      final deletedRows = await _journalLocalDataSource.deleteJournalById(id);
       if (deletedRows == 0) {
         return Result.error(Exception('Failed to delete journal'));
       }
-      _notifyJournalUpdate();
+      notifyJournalUpdate();
       return Result.ok(null);
     } catch (e) {
       return Result.error(Exception('Failed to delete journal: $e'));
     }
   }
 
-  Future<void> _notifyJournalUpdate() async {
+  @override
+  Future<void> notifyJournalUpdate() async {
     if (!_journalStreamController.isClosed) {
       final result = await getJournals();
       if (result is Ok<List<Journal>>) {

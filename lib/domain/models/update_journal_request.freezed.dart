@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UpdateJournalRequest {
 
- int get id; String? get content; List<String>? get imageUri; String? get aiResponse; double? get latitude; double? get longitude; String? get address;
+ int get id; MoodType get moodType; String? get content; List<String>? get imageUri; bool get aiResponseEnabled; double? get latitude; double? get longitude; String? get address; List<String>? get tagNames;
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $UpdateJournalRequestCopyWith<UpdateJournalRequest> get copyWith => _$UpdateJour
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.tagNames, tagNames));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(imageUri),aiResponse,latitude,longitude,address);
+int get hashCode => Object.hash(runtimeType,id,moodType,content,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,latitude,longitude,address,const DeepCollectionEquality().hash(tagNames));
 
 @override
 String toString() {
-  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address)';
+  return 'UpdateJournalRequest(id: $id, moodType: $moodType, content: $content, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, latitude: $latitude, longitude: $longitude, address: $address, tagNames: $tagNames)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $UpdateJournalRequestCopyWith<$Res>  {
   factory $UpdateJournalRequestCopyWith(UpdateJournalRequest value, $Res Function(UpdateJournalRequest) _then) = _$UpdateJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- int id, String? content, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address
+ int id, MoodType moodType, String? content, List<String>? imageUri, bool aiResponseEnabled, double? latitude, double? longitude, String? address, List<String>? tagNames
 });
 
 
@@ -62,16 +62,18 @@ class _$UpdateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? moodType = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? tagNames = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as int,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
+as MoodType,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,imageUri: freezed == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as List<String>?,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
+as bool,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,tagNames: freezed == tagNames ? _self.tagNames : tagNames // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String? content,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  MoodType moodType,  String? content,  List<String>? imageUri,  bool aiResponseEnabled,  double? latitude,  double? longitude,  String? address,  List<String>? tagNames)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UpdateJournalRequest() when $default != null:
-return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address);case _:
+return $default(_that.id,_that.moodType,_that.content,_that.imageUri,_that.aiResponseEnabled,_that.latitude,_that.longitude,_that.address,_that.tagNames);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.lat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String? content,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  MoodType moodType,  String? content,  List<String>? imageUri,  bool aiResponseEnabled,  double? latitude,  double? longitude,  String? address,  List<String>? tagNames)  $default,) {final _that = this;
 switch (_that) {
 case _UpdateJournalRequest():
-return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address);case _:
+return $default(_that.id,_that.moodType,_that.content,_that.imageUri,_that.aiResponseEnabled,_that.latitude,_that.longitude,_that.address,_that.tagNames);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.lat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String? content,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  MoodType moodType,  String? content,  List<String>? imageUri,  bool aiResponseEnabled,  double? latitude,  double? longitude,  String? address,  List<String>? tagNames)?  $default,) {final _that = this;
 switch (_that) {
 case _UpdateJournalRequest() when $default != null:
-return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address);case _:
+return $default(_that.id,_that.moodType,_that.content,_that.imageUri,_that.aiResponseEnabled,_that.latitude,_that.longitude,_that.address,_that.tagNames);case _:
   return null;
 
 }
@@ -211,11 +213,12 @@ return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.lat
 /// @nodoc
 
 
-class _UpdateJournalRequest implements UpdateJournalRequest {
-  const _UpdateJournalRequest({required this.id, this.content, final  List<String>? imageUri, this.aiResponse, this.latitude, this.longitude, this.address}): _imageUri = imageUri;
+class _UpdateJournalRequest extends UpdateJournalRequest {
+  const _UpdateJournalRequest({required this.id, required this.moodType, this.content, final  List<String>? imageUri, required this.aiResponseEnabled, this.latitude, this.longitude, this.address, final  List<String>? tagNames}): _imageUri = imageUri,_tagNames = tagNames,super._();
   
 
 @override final  int id;
+@override final  MoodType moodType;
 @override final  String? content;
  final  List<String>? _imageUri;
 @override List<String>? get imageUri {
@@ -226,10 +229,19 @@ class _UpdateJournalRequest implements UpdateJournalRequest {
   return EqualUnmodifiableListView(value);
 }
 
-@override final  String? aiResponse;
+@override final  bool aiResponseEnabled;
 @override final  double? latitude;
 @override final  double? longitude;
 @override final  String? address;
+ final  List<String>? _tagNames;
+@override List<String>? get tagNames {
+  final value = _tagNames;
+  if (value == null) return null;
+  if (_tagNames is EqualUnmodifiableListView) return _tagNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +253,16 @@ _$UpdateJournalRequestCopyWith<_UpdateJournalRequest> get copyWith => __$UpdateJ
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(_imageUri),aiResponse,latitude,longitude,address);
+int get hashCode => Object.hash(runtimeType,id,moodType,content,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,latitude,longitude,address,const DeepCollectionEquality().hash(_tagNames));
 
 @override
 String toString() {
-  return 'UpdateJournalRequest(id: $id, content: $content, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address)';
+  return 'UpdateJournalRequest(id: $id, moodType: $moodType, content: $content, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, latitude: $latitude, longitude: $longitude, address: $address, tagNames: $tagNames)';
 }
 
 
@@ -261,7 +273,7 @@ abstract mixin class _$UpdateJournalRequestCopyWith<$Res> implements $UpdateJour
   factory _$UpdateJournalRequestCopyWith(_UpdateJournalRequest value, $Res Function(_UpdateJournalRequest) _then) = __$UpdateJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String? content, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address
+ int id, MoodType moodType, String? content, List<String>? imageUri, bool aiResponseEnabled, double? latitude, double? longitude, String? address, List<String>? tagNames
 });
 
 
@@ -278,16 +290,18 @@ class __$UpdateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of UpdateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? moodType = null,Object? content = freezed,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? tagNames = freezed,}) {
   return _then(_UpdateJournalRequest(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as int,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
+as MoodType,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,imageUri: freezed == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as List<String>?,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
+as bool,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,tagNames: freezed == tagNames ? _self._tagNames : tagNames // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 

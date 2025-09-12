@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 import '../../../core/ui/widgets/tag_chip.dart';
 import '../../constants/common.dart';
 import '../../constants/enum.dart';
 
 class TagSection extends StatelessWidget {
-  final List<String> tagNames;
+  final List<Tag> tags;
   final String? title;
   final SimpleTextAlign? textAlign;
   final int? maxTags;
@@ -17,7 +18,7 @@ class TagSection extends StatelessWidget {
 
   const TagSection({
     super.key,
-    required this.tagNames,
+    required this.tags,
     this.title,
     this.textAlign,
     this.maxTags,
@@ -30,11 +31,9 @@ class TagSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (tagNames.isEmpty) return const SizedBox.shrink();
+    if (tags.isEmpty) return const SizedBox.shrink();
 
-    final displayTags = maxTags != null
-        ? tagNames.take(maxTags!).toList()
-        : tagNames;
+    final displayTags = maxTags != null ? tags.take(maxTags!).toList() : tags;
 
     return Column(
       crossAxisAlignment:
@@ -46,9 +45,9 @@ class TagSection extends StatelessWidget {
           ),
           spacing: spacing ?? Spacing.sm,
           runSpacing: runSpacing ?? Spacing.sm,
-          children: displayTags.map((tagName) {
+          children: displayTags.map((tag) {
             return TagChip(
-              tagName: tagName,
+              name: tag.name,
               fontSize: chipFontSize,
               padding: chipPadding,
               borderRadius: chipBorderRadius,
