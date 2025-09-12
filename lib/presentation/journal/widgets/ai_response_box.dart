@@ -34,17 +34,21 @@ class _AiResponseBoxState extends State<AiResponseBox>
 
   @override
   Widget build(BuildContext context) {
+    final journal = widget.viewModel.journal;
+
+    if (journal == null) {
+      return const SizedBox.shrink();
+    }
+
     return Offstage(
-      offstage: !widget.viewModel.journal.aiResponseEnabled,
+      offstage: !journal.aiResponseEnabled,
       child: Card(
-        color: Color(
-          widget.viewModel.journal.moodType.colorValue,
-        ).withValues(alpha: 0.6),
+        color: Color(journal.moodType.colorValue).withValues(alpha: 0.6),
         margin: const EdgeInsets.all(Spacing.md),
         child: Padding(
           padding: const EdgeInsets.all(Spacing.md),
           child: AnimatedCrossFade(
-            crossFadeState: widget.viewModel.journal.aiResponse != null
+            crossFadeState: journal.aiResponse != null
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
             duration: DurationMs.lazy,
@@ -62,7 +66,7 @@ class _AiResponseBoxState extends State<AiResponseBox>
                   ],
                 ),
                 Text(
-                  widget.viewModel.journal.aiResponse ?? '',
+                  journal.aiResponse ?? '',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],

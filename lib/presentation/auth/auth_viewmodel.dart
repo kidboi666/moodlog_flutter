@@ -39,6 +39,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
     setLoading();
     _loginType = LoginType.anonymous;
     final result = await _authRepository.signInAnonymously();
+
     switch (result) {
       case Ok<User?>():
         AnalyticsRepositoryImpl().setUserId(result.value?.uid);
@@ -48,6 +49,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
         );
         setSuccess();
         return Result.ok(null);
+
       case Failure<User?>():
         _log.warning('Failed to sign in anonymously', result.error);
         setError(result.error);
@@ -59,6 +61,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
     setLoading();
     _loginType = LoginType.google;
     final result = await _authRepository.signInWithGoogle();
+
     switch (result) {
       case Ok<User?>():
         AnalyticsRepositoryImpl().setUserId(result.value?.uid);
@@ -68,6 +71,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
         );
         setSuccess();
         return Result.ok(null);
+
       case Failure<User?>():
         _log.warning('Failed to sign in with Google', result.error);
         setError(result.error);

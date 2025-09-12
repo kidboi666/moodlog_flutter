@@ -17,8 +17,13 @@ class LocationCard extends StatelessWidget {
   });
 
   void _showLocationMap(BuildContext context) {
-    if (viewModel.journal.latitude == null ||
-        viewModel.journal.longitude == null) {
+    final journal = viewModel.journal;
+
+    if (journal == null) {
+      return;
+    }
+
+    if (journal.latitude == null || journal.longitude == null) {
       return;
     }
 
@@ -27,9 +32,9 @@ class LocationCard extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => LocationMapBottomSheet(
-        latitude: viewModel.journal.latitude!,
-        longitude: viewModel.journal.longitude!,
-        address: viewModel.journal.address,
+        latitude: journal.latitude!,
+        longitude: journal.longitude!,
+        address: journal.address,
       ),
     );
   }
@@ -38,11 +43,14 @@ class LocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final journal = viewModel.journal;
+
+    if (journal == null) {
+      return const SizedBox.shrink();
+    }
 
     return Visibility(
-      visible:
-          viewModel.journal.latitude != null &&
-          viewModel.journal.longitude != null,
+      visible: journal.latitude != null && journal.longitude != null,
       child: Row(
         mainAxisAlignment: currentAlign.mainAxisAlignment,
         children: [
@@ -69,8 +77,8 @@ class LocationCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
-                          viewModel.journal.address ??
-                              '${viewModel.journal.latitude?.toStringAsFixed(2) ?? '0.00'}, ${viewModel.journal.longitude?.toStringAsFixed(2) ?? '0.00'}',
+                          journal.address ??
+                              '${journal.latitude?.toStringAsFixed(2) ?? '0.00'}, ${journal.longitude?.toStringAsFixed(2) ?? '0.00'}',
                           style: textTheme.bodyLarge?.copyWith(
                             color: colorScheme.outline,
                           ),

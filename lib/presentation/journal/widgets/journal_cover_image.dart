@@ -20,6 +20,12 @@ class JournalCoverImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final journal = viewModel.journal;
+
+    if (journal == null) {
+      return const SizedBox.shrink();
+    }
+
     return Offstage(
       offstage: !isVisibleImage,
       child: SizedBox(
@@ -28,7 +34,7 @@ class JournalCoverImage extends StatelessWidget {
           controller: _scrollController,
           scrollDirection: Axis.horizontal,
           children: [
-            ...viewModel.journal.imageUri?.map(
+            ...journal.imageUri?.map(
                   (image) => ImageScreenWithButton(
                     image: image,
                     button: CoverImageButton(image: image),

@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../domain/entities/analytics/analytics_event.dart';
 import '../../domain/entities/analytics/analytics_observer.dart';
@@ -59,14 +59,10 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
 
   @override
   Future<void> logMoodEntry(MoodAnalytics moodAnalytics) async {
+    final fromDomainMoodAnalytics = moodAnalytics.toAnalyticsParameters();
     final event = AnalyticsEvent(
       name: 'mood_entry_created',
-      parameters: {
-        'mood_type': moodAnalytics.moodType,
-        'entry_type': moodAnalytics.entryType,
-        'has_image': moodAnalytics.hasImage,
-        'has_tag': moodAnalytics.hasTag,
-      },
+      parameters: fromDomainMoodAnalytics,
     );
     await logEvent(event);
   }

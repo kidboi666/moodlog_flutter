@@ -17,6 +17,14 @@ class _TagInputDialogState extends State<TagInputDialog> {
   final TextEditingController _tagController = TextEditingController();
   final FocusNode _tagFocusNode = FocusNode();
 
+  void _addNewTag(Function(String) addNewTag) {
+    final tagName = _tagController.text.trim();
+    if (tagName.isNotEmpty) {
+      addNewTag(tagName);
+      _tagController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -116,14 +124,6 @@ class _TagInputDialogState extends State<TagInputDialog> {
         );
       },
     );
-  }
-
-  void _addNewTag(Function(String) addNewTag) {
-    final tagName = _tagController.text.trim();
-    if (tagName.isNotEmpty) {
-      addNewTag(tagName);
-      _tagController.clear();
-    }
   }
 
   @override

@@ -11,7 +11,6 @@ part of 'app_info.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$AppInfo {
 
@@ -22,8 +21,6 @@ mixin _$AppInfo {
 @pragma('vm:prefer-inline')
 $AppInfoCopyWith<AppInfo> get copyWith => _$AppInfoCopyWithImpl<AppInfo>(this as AppInfo, _$identity);
 
-  /// Serializes this AppInfo to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AppInfo&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.packageName, packageName) || other.packageName == packageName)&&(identical(other.version, version) || other.version == version)&&(identical(other.buildNumber, buildNumber) || other.buildNumber == buildNumber));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,appName,packageName,version,buildNumber);
 
@@ -209,11 +206,11 @@ return $default(_that.appName,_that.packageName,_that.version,_that.buildNumber)
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _AppInfo extends AppInfo {
   const _AppInfo({required this.appName, required this.packageName, required this.version, required this.buildNumber}): super._();
-  factory _AppInfo.fromJson(Map<String, dynamic> json) => _$AppInfoFromJson(json);
+  
 
 @override final  String appName;
 @override final  String packageName;
@@ -226,17 +223,14 @@ class _AppInfo extends AppInfo {
 @pragma('vm:prefer-inline')
 _$AppInfoCopyWith<_AppInfo> get copyWith => __$AppInfoCopyWithImpl<_AppInfo>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$AppInfoToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppInfo&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.packageName, packageName) || other.packageName == packageName)&&(identical(other.version, version) || other.version == version)&&(identical(other.buildNumber, buildNumber) || other.buildNumber == buildNumber));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,appName,packageName,version,buildNumber);
 

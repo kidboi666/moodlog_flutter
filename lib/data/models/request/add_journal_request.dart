@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../core/constants/enum.dart';
 
 part 'add_journal_request.freezed.dart';
-part 'add_journal_request.g.dart';
 
 @freezed
 abstract class AddJournalRequest with _$AddJournalRequest {
@@ -21,7 +20,4 @@ abstract class AddJournalRequest with _$AddJournalRequest {
     String? weatherIcon,
     String? weatherDescription,
   }) = _AddJournalRequest;
-
-  factory AddJournalRequest.fromJson(Map<String, dynamic> json) =>
-      _$AddJournalRequestFromJson(json);
 }

@@ -11,7 +11,6 @@ part of 'settings.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$Settings {
 
@@ -22,8 +21,6 @@ mixin _$Settings {
 @pragma('vm:prefer-inline')
 $SettingsCopyWith<Settings> get copyWith => _$SettingsCopyWithImpl<Settings>(this as Settings, _$identity);
 
-  /// Serializes this Settings to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&const DeepCollectionEquality().equals(other.onboardedLoginTypes, onboardedLoginTypes));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontFamily,textAlign,const DeepCollectionEquality().hash(onboardedLoginTypes));
 
@@ -214,11 +211,11 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _Settings extends Settings {
   const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontFamily = FontFamily.restart, this.textAlign = SimpleTextAlign.left, final  List<String>? onboardedLoginTypes}): _onboardedLoginTypes = onboardedLoginTypes,super._();
-  factory _Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
+  
 
 @override@JsonKey() final  bool hasNotificationEnabled;
 @override@JsonKey() final  bool hasAutoSyncEnabled;
@@ -244,17 +241,14 @@ class _Settings extends Settings {
 @pragma('vm:prefer-inline')
 _$SettingsCopyWith<_Settings> get copyWith => __$SettingsCopyWithImpl<_Settings>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$SettingsToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&const DeepCollectionEquality().equals(other._onboardedLoginTypes, _onboardedLoginTypes));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontFamily,textAlign,const DeepCollectionEquality().hash(_onboardedLoginTypes));
 

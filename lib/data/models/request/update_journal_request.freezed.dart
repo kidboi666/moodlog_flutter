@@ -11,7 +11,6 @@ part of 'update_journal_request.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$UpdateJournalRequest {
 
@@ -22,8 +21,6 @@ mixin _$UpdateJournalRequest {
 @pragma('vm:prefer-inline')
 $UpdateJournalRequestCopyWith<UpdateJournalRequest> get copyWith => _$UpdateJournalRequestCopyWithImpl<UpdateJournalRequest>(this as UpdateJournalRequest, _$identity);
 
-  /// Serializes this UpdateJournalRequest to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(imageUri),aiResponse,latitude,longitude,address);
 
@@ -212,11 +209,11 @@ return $default(_that.id,_that.content,_that.imageUri,_that.aiResponse,_that.lat
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _UpdateJournalRequest implements UpdateJournalRequest {
   const _UpdateJournalRequest({required this.id, this.content, final  List<String>? imageUri, this.aiResponse, this.latitude, this.longitude, this.address}): _imageUri = imageUri;
-  factory _UpdateJournalRequest.fromJson(Map<String, dynamic> json) => _$UpdateJournalRequestFromJson(json);
+  
 
 @override final  int id;
 @override final  String? content;
@@ -240,17 +237,14 @@ class _UpdateJournalRequest implements UpdateJournalRequest {
 @pragma('vm:prefer-inline')
 _$UpdateJournalRequestCopyWith<_UpdateJournalRequest> get copyWith => __$UpdateJournalRequestCopyWithImpl<_UpdateJournalRequest>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$UpdateJournalRequestToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateJournalRequest&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,content,const DeepCollectionEquality().hash(_imageUri),aiResponse,latitude,longitude,address);
 

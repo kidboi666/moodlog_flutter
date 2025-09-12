@@ -11,7 +11,6 @@ part of 'add_journal_request.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$AddJournalRequest {
 
@@ -22,8 +21,6 @@ mixin _$AddJournalRequest {
 @pragma('vm:prefer-inline')
 $AddJournalRequestCopyWith<AddJournalRequest> get copyWith => _$AddJournalRequestCopyWithImpl<AddJournalRequest>(this as AddJournalRequest, _$identity);
 
-  /// Serializes this AddJournalRequest to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
 
@@ -217,11 +214,11 @@ return $default(_that.content,_that.moodType,_that.imageUri,_that.aiResponseEnab
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _AddJournalRequest implements AddJournalRequest {
   const _AddJournalRequest({this.content, required this.moodType, final  List<String>? imageUri, required this.aiResponseEnabled, this.aiResponse, required this.createdAt, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription}): _imageUri = imageUri;
-  factory _AddJournalRequest.fromJson(Map<String, dynamic> json) => _$AddJournalRequestFromJson(json);
+  
 
 @override final  String? content;
 @override final  MoodType moodType;
@@ -250,17 +247,14 @@ class _AddJournalRequest implements AddJournalRequest {
 @pragma('vm:prefer-inline')
 _$AddJournalRequestCopyWith<_AddJournalRequest> get copyWith => __$AddJournalRequestCopyWithImpl<_AddJournalRequest>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$AddJournalRequestToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,content,moodType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
 

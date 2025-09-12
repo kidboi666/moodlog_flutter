@@ -11,7 +11,6 @@ part of 'weather_info.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$WeatherInfo {
 
@@ -22,8 +21,6 @@ mixin _$WeatherInfo {
 @pragma('vm:prefer-inline')
 $WeatherInfoCopyWith<WeatherInfo> get copyWith => _$WeatherInfoCopyWithImpl<WeatherInfo>(this as WeatherInfo, _$identity);
 
-  /// Serializes this WeatherInfo to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherInfo&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.description, description) || other.description == description)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.humidity, humidity) || other.humidity == humidity)&&(identical(other.pressure, pressure) || other.pressure == pressure)&&(identical(other.windSpeed, windSpeed) || other.windSpeed == windSpeed)&&(identical(other.location, location) || other.location == location)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,temperature,description,icon,humidity,pressure,windSpeed,location,timestamp);
 
@@ -213,11 +210,11 @@ return $default(_that.temperature,_that.description,_that.icon,_that.humidity,_t
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _WeatherInfo implements WeatherInfo {
   const _WeatherInfo({required this.temperature, required this.description, required this.icon, required this.humidity, required this.pressure, required this.windSpeed, required this.location, required this.timestamp});
-  factory _WeatherInfo.fromJson(Map<String, dynamic> json) => _$WeatherInfoFromJson(json);
+  
 
 @override final  double temperature;
 @override final  String description;
@@ -234,17 +231,14 @@ class _WeatherInfo implements WeatherInfo {
 @pragma('vm:prefer-inline')
 _$WeatherInfoCopyWith<_WeatherInfo> get copyWith => __$WeatherInfoCopyWithImpl<_WeatherInfo>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$WeatherInfoToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherInfo&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.description, description) || other.description == description)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.humidity, humidity) || other.humidity == humidity)&&(identical(other.pressure, pressure) || other.pressure == pressure)&&(identical(other.windSpeed, windSpeed) || other.windSpeed == windSpeed)&&(identical(other.location, location) || other.location == location)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,temperature,description,icon,humidity,pressure,windSpeed,location,timestamp);
 

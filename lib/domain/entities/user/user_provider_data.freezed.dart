@@ -11,7 +11,6 @@ part of 'user_provider_data.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$UserProviderData {
 
@@ -22,8 +21,6 @@ mixin _$UserProviderData {
 @pragma('vm:prefer-inline')
 $UserProviderDataCopyWith<UserProviderData> get copyWith => _$UserProviderDataCopyWithImpl<UserProviderData>(this as UserProviderData, _$identity);
 
-  /// Serializes this UserProviderData to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProviderData&&(identical(other.providerId, providerId) || other.providerId == providerId));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,providerId);
 
@@ -206,11 +203,11 @@ return $default(_that.providerId);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _UserProviderData implements UserProviderData {
   const _UserProviderData({required this.providerId});
-  factory _UserProviderData.fromJson(Map<String, dynamic> json) => _$UserProviderDataFromJson(json);
+  
 
 @override final  String providerId;
 
@@ -220,17 +217,14 @@ class _UserProviderData implements UserProviderData {
 @pragma('vm:prefer-inline')
 _$UserProviderDataCopyWith<_UserProviderData> get copyWith => __$UserProviderDataCopyWithImpl<_UserProviderData>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$UserProviderDataToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProviderData&&(identical(other.providerId, providerId) || other.providerId == providerId));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,providerId);
 

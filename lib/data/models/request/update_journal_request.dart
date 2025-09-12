@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'update_journal_request.freezed.dart';part 'update_journal_request.g.dart';
+part 'update_journal_request.freezed.dart';
 
 @freezed
 abstract class UpdateJournalRequest with _$UpdateJournalRequest {
@@ -13,7 +13,4 @@ abstract class UpdateJournalRequest with _$UpdateJournalRequest {
     double? longitude,
     String? address,
   }) = _UpdateJournalRequest;
-
-  factory UpdateJournalRequest.fromJson(Map<String, dynamic> json) =>
-      _$UpdateJournalRequestFromJson(json);
 }

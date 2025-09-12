@@ -6,25 +6,25 @@ import '../../core/mixins/async_state_mixin.dart';
 import '../../core/mixins/debounce_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
-import '../../domain/repositories/journal_repository.dart';
+import '../../domain/use_cases/journal_use_case.dart';
 import '../../presentation/providers/ai_generation_provider.dart';
 import '../../presentation/providers/app_state_provider.dart';
 
 class JournalViewModel extends ChangeNotifier
     with AsyncStateMixin, DebounceMixin {
-  final JournalRepository _journalRepository;
+  final JournalUseCase _journalUseCase;
   final AiGenerationProvider _aiGenerationProvider;
   final AppStateProvider _appStateProvider;
   final JournalSource source;
   final int id;
 
   JournalViewModel({
-    required JournalRepository journalRepository,
+    required JournalUseCase journalUseCase,
     required AiGenerationProvider aiGenerationProvider,
     required AppStateProvider appStateProvider,
     required this.source,
     required this.id,
-  }) : _journalRepository = journalRepository,
+  }) : _journalUseCase = journalUseCase,
        _aiGenerationProvider = aiGenerationProvider,
        _appStateProvider = appStateProvider {
     _load();
@@ -32,12 +32,12 @@ class JournalViewModel extends ChangeNotifier
   }
 
   final Logger _log = Logger('JournalViewModel');
-  late Journal _journal;
+  Journal? _journal;
   SimpleTextAlign? _pendingAlign; // 로컬 상태
 
   bool get shouldReplaceOnPop => source == JournalSource.write;
 
-  Journal get journal => _journal;
+  Journal? get journal => _journal;
 
   SimpleTextAlign get currentAlign =>
       _pendingAlign ?? _appStateProvider.appState.textAlign;
@@ -57,10 +57,10 @@ class JournalViewModel extends ChangeNotifier
 
   Future<Result<void>> delete() async {
     setLoading();
-    final result = await _journalRepository.deleteJournalById(id);
+    final result = await _journalUseCase.deleteJournalById(id);
     switch (result) {
       case Ok<void>():
-        _log.fine('Deleted Journal', journal.id);
+        _log.fine('Deleted Journal', journal?.id);
         setSuccess();
         return Result.ok(null);
       case Failure<void>():
@@ -72,7 +72,7 @@ class JournalViewModel extends ChangeNotifier
 
   Future<Result<void>> _load() async {
     setLoading();
-    final journal = await _journalRepository.getJournalById(id);
+    final journal = await _journalUseCase.getJournalById(id);
     switch (journal) {
       case Ok<Journal>():
         _journal = journal.value;

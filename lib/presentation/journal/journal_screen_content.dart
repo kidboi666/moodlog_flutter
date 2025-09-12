@@ -16,7 +16,7 @@ class _JournalScreenContent extends StatelessWidget {
     final isLoading = context.select<JournalViewModel, bool>(
       (vm) => vm.isLoading,
     );
-    final journal = context.select<JournalViewModel, Journal>(
+    final journal = context.select<JournalViewModel, Journal?>(
       (vm) => vm.journal,
     );
     final align = context.select<JournalViewModel, SimpleTextAlign>(
@@ -36,12 +36,14 @@ class _JournalScreenContent extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          surfaceTintColor: Color(journal.moodType.colorValue),
+          surfaceTintColor: Color(
+            journal?.moodType.colorValue ?? MoodType.happy.colorValue,
+          ),
           leading: PopButton(
             onTap: () => _handleBackNavigation(context, viewModel),
           ),
           title: Text(
-            journal.createdAt.formattedDotNation(),
+            journal?.createdAt.formattedDotNation() ?? '',
             style: textTheme.titleLarge,
           ),
           actions: [
@@ -82,7 +84,7 @@ class _JournalScreenContent extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MoodBar(moodType: journal.moodType),
+                    MoodBar(moodType: journal?.moodType ?? MoodType.happy),
                     ContentBox(viewModel: viewModel, currentAlign: align),
                   ],
                 ),

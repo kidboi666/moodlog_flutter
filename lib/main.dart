@@ -36,6 +36,7 @@ void main() async {
       debugPrint('${record.level.name}: ${record.time}: ${record.message}');
     });
   }
+
   runApp(
     MultiProvider(
       providers: createProviders(),

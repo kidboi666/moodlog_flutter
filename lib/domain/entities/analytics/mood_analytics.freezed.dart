@@ -208,8 +208,8 @@ return $default(_that.moodType,_that.entryType,_that.hasImage,_that.hasTag);case
 /// @nodoc
 
 
-class _MoodAnalytics implements MoodAnalytics {
-  const _MoodAnalytics({required this.moodType, required this.entryType, this.hasImage = false, this.hasTag = false});
+class _MoodAnalytics extends MoodAnalytics {
+  const _MoodAnalytics({required this.moodType, required this.entryType, this.hasImage = false, this.hasTag = false}): super._();
   
 
 @override final  String moodType;

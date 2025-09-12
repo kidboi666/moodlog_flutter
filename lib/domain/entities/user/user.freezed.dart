@@ -11,7 +11,6 @@ part of 'user.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$User {
 
@@ -22,8 +21,6 @@ mixin _$User {
 @pragma('vm:prefer-inline')
 $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$identity);
 
-  /// Serializes this User to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.photoURL, photoURL) || other.photoURL == photoURL)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&const DeepCollectionEquality().equals(other.providerData, providerData));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,uid,email,isAnonymous,displayName,photoURL,metadata,const DeepCollectionEquality().hash(providerData));
 
@@ -221,11 +218,11 @@ return $default(_that.uid,_that.email,_that.isAnonymous,_that.displayName,_that.
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _User implements User {
   const _User({required this.uid, this.email, required this.isAnonymous, this.displayName, this.photoURL, required this.metadata, required final  List<UserProviderData> providerData}): _providerData = providerData;
-  factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  
 
 @override final  String uid;
 @override final  String? email;
@@ -247,17 +244,14 @@ class _User implements User {
 @pragma('vm:prefer-inline')
 _$UserCopyWith<_User> get copyWith => __$UserCopyWithImpl<_User>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$UserToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.photoURL, photoURL) || other.photoURL == photoURL)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&const DeepCollectionEquality().equals(other._providerData, _providerData));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,uid,email,isAnonymous,displayName,photoURL,metadata,const DeepCollectionEquality().hash(_providerData));
 

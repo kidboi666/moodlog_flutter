@@ -11,7 +11,6 @@ part of 'user_metadata.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$UserMetadata {
 
@@ -22,8 +21,6 @@ mixin _$UserMetadata {
 @pragma('vm:prefer-inline')
 $UserMetadataCopyWith<UserMetadata> get copyWith => _$UserMetadataCopyWithImpl<UserMetadata>(this as UserMetadata, _$identity);
 
-  /// Serializes this UserMetadata to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is UserMetadata&&(identical(other.creationTime, creationTime) || other.creationTime == creationTime)&&(identical(other.lastSignInTime, lastSignInTime) || other.lastSignInTime == lastSignInTime));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,creationTime,lastSignInTime);
 
@@ -207,11 +204,11 @@ return $default(_that.creationTime,_that.lastSignInTime);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _UserMetadata implements UserMetadata {
   const _UserMetadata({this.creationTime, this.lastSignInTime});
-  factory _UserMetadata.fromJson(Map<String, dynamic> json) => _$UserMetadataFromJson(json);
+  
 
 @override final  DateTime? creationTime;
 @override final  DateTime? lastSignInTime;
@@ -222,17 +219,14 @@ class _UserMetadata implements UserMetadata {
 @pragma('vm:prefer-inline')
 _$UserMetadataCopyWith<_UserMetadata> get copyWith => __$UserMetadataCopyWithImpl<_UserMetadata>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$UserMetadataToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserMetadata&&(identical(other.creationTime, creationTime) || other.creationTime == creationTime)&&(identical(other.lastSignInTime, lastSignInTime) || other.lastSignInTime == lastSignInTime));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,creationTime,lastSignInTime);
 

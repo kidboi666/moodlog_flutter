@@ -5,6 +5,7 @@ import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/enum.dart';
 import '../../../core/ui/widgets/tag_section.dart';
+import '../../../domain/entities/journal/journal.dart';
 import '../../../domain/repositories/weather_repository.dart';
 import '../journal_viewmodel.dart';
 import 'journal_cover_image.dart';
@@ -27,6 +28,8 @@ class ContentBox extends StatefulWidget {
 class _ContentBoxState extends State<ContentBox> {
   bool get _hasWeatherData {
     final journal = widget.viewModel.journal;
+    if (journal == null) return false;
+
     return journal.temperature != null &&
         journal.weatherIcon != null &&
         journal.weatherDescription != null;
@@ -35,8 +38,13 @@ class _ContentBoxState extends State<ContentBox> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final isVisibleImage =
-        widget.viewModel.journal.imageUri?.isNotEmpty ?? false;
+    final journal = widget.viewModel.journal;
+
+    if (journal == null) {
+      return const SizedBox.shrink();
+    }
+
+    final isVisibleImage = journal.imageUri?.isNotEmpty ?? false;
 
     return Expanded(
       child: Column(
@@ -51,17 +59,14 @@ class _ContentBoxState extends State<ContentBox> {
                   mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
                   children: [
                     Text(
-                      widget.viewModel.journal.moodType.getDisplayName(context),
+                      journal.moodType.getDisplayName(context),
                       style: textTheme.titleLarge,
                     ),
                     const SizedBox(width: Spacing.sm),
-                    Text(
-                      widget.viewModel.journal.moodType.emoji,
-                      style: textTheme.titleLarge,
-                    ),
+                    Text(journal.moodType.emoji, style: textTheme.titleLarge),
                     if (_hasWeatherData) ...[
                       const SizedBox(width: Spacing.md),
-                      _buildWeatherInfo(context, textTheme),
+                      _buildWeatherInfo(context, textTheme, journal),
                     ],
                   ],
                 ),
@@ -84,15 +89,14 @@ class _ContentBoxState extends State<ContentBox> {
                 crossAxisAlignment: widget.currentAlign.crossAxisAlignment,
                 children: [
                   Text(
-                    widget.viewModel.journal.content ?? '',
+                    journal.content ?? '',
                     style: textTheme.bodyLarge,
                     textAlign: widget.currentAlign.textAlign,
                   ),
-                  if (widget.viewModel.journal.tags != null &&
-                      widget.viewModel.journal.tags!.isNotEmpty) ...[
+                  if (journal.tags != null && journal.tags!.isNotEmpty) ...[
                     const SizedBox(height: Spacing.lg),
                     TagSection(
-                      tags: widget.viewModel.journal.tags!,
+                      tags: journal.tags!,
                       textAlign: widget.currentAlign,
                     ),
                   ],
@@ -105,9 +109,12 @@ class _ContentBoxState extends State<ContentBox> {
     );
   }
 
-  Widget _buildWeatherInfo(BuildContext context, TextTheme textTheme) {
+  Widget _buildWeatherInfo(
+    BuildContext context,
+    TextTheme textTheme,
+    Journal journal,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
-    final journal = widget.viewModel.journal;
     final weatherRepository = context.read<WeatherRepository>();
     final condition = weatherRepository.getWeatherCondition(
       journal.weatherIcon!,
