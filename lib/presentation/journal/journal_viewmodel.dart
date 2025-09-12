@@ -63,10 +63,10 @@ class JournalViewModel extends ChangeNotifier
         _log.fine('Deleted Journal', journal?.id);
         setSuccess();
         return Result.ok(null);
-      case Failure<void>():
+      case Error<void>():
         _log.warning('Failed to delete Journal', result.error);
         setError(result.error);
-        return Result.failure(result.error);
+        return Result.error(result.error);
     }
   }
 
@@ -79,10 +79,10 @@ class JournalViewModel extends ChangeNotifier
         _log.fine('Loaded Journal', journal.value.id);
         setSuccess();
         return Result.ok(null);
-      case Failure<Journal>():
+      case Error<Journal>():
         _log.warning('Failed to load Journal', journal.error);
         setError(journal.error);
-        return Result.failure(journal.error);
+        return Result.error(journal.error);
     }
   }
 

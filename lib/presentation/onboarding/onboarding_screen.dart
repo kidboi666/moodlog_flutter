@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/constants/enum.dart';
 import '../../core/ui/widgets/pagination_dot.dart';
 import 'onboarding_viewmodel.dart';
 import 'widgets/onboarding_pageview_nickname.dart';
@@ -24,7 +24,7 @@ class OnboardingScreen extends StatelessWidget {
       create: (context) => OnboardingViewModel(
         totalSteps: 4,
         appStateProvider: context.read(),
-        authRepository: context.read(),
+        authUseCase: context.read(),
         loginType: loginType,
       ),
       child: _OnboardingScreenContent(),

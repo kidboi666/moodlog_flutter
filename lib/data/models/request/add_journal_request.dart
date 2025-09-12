@@ -10,6 +10,7 @@ abstract class AddJournalRequest with _$AddJournalRequest {
     String? content,
     required MoodType moodType,
     List<String>? imageUri,
+    List<String>? tagNames,
     required bool aiResponseEnabled,
     String? aiResponse,
     required DateTime createdAt,

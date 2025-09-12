@@ -66,7 +66,7 @@ class BaseLayoutViewModel extends ChangeNotifier {
       case Ok<WeatherInfo>():
         _log.fine('Weather retrieved successfully');
         _weatherInfo = result.value;
-      case Failure<WeatherInfo>():
+      case Error<WeatherInfo>():
         _log.warning('Failed to get weather: ${result.error}');
     }
 
@@ -84,7 +84,7 @@ class BaseLayoutViewModel extends ChangeNotifier {
       case Ok<LocationInfo>():
         _log.fine('Location retrieved successfully');
         _locationInfo = result.value;
-      case Failure<LocationInfo>():
+      case Error<LocationInfo>():
         _log.warning('Failed to get location: ${result.error}');
     }
 

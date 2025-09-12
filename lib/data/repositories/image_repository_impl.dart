@@ -21,7 +21,7 @@ class ImageRepositoryImpl implements ImageRepository {
       }
       return Result.ok(null);
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 }

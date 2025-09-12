@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart' hide ThemeMode;
-import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/utils/result.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/app/settings.dart';
+import '../../domain/entities/journal/tag.dart';
 import '../../domain/entities/user/user.dart';
-import '../../domain/repositories/journal_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
+import '../../domain/use_cases/tag_use_case.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../providers/user_provider.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final AppStateProvider _appStateProvider;
   final SettingsRepository _settingsRepository;
-  final JournalRepository _journalRepository;
   final UserProvider _userProvider;
   final TagUseCase _tagUseCase;
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
     required SettingsRepository settingsRepository,
-    required JournalRepository journalRepository,
     required UserProvider userProvider,
     required TagUseCase tagUseCase,
   }) : _appStateProvider = appStateProvider,
        _settingsRepository = settingsRepository,
-       _journalRepository = journalRepository,
        _userProvider = userProvider,
        _tagUseCase = tagUseCase {
     getAllTags();
@@ -66,7 +62,7 @@ class SettingsViewModel extends ChangeNotifier {
         _tags = result.value;
         setLoading(false);
         break;
-      case Failure<List<Tag>>():
+      case Error<List<Tag>>():
         setLoading(false);
         break;
     }
@@ -80,7 +76,7 @@ class SettingsViewModel extends ChangeNotifier {
         getAllTags();
         setLoading(false);
         break;
-      case Failure<void>():
+      case Error<void>():
         setLoading(false);
         break;
     }
@@ -128,10 +124,6 @@ class SettingsViewModel extends ChangeNotifier {
 
   void performBackup() {
     // TODO: 백업 기능
-  }
-
-  void clearCache() {
-    _journalRepository.clearCache();
   }
 
   void clearSharedPreferences() {

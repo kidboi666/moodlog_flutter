@@ -14,7 +14,7 @@ class GetCurrentLocationUseCase {
 
     return switch (permissionResult) {
       Ok<bool>() => await _proceedWithLocationAccess(permissionResult.value),
-      Failure<bool>() => Result.failure(permissionResult.error),
+      Error<bool>() => Result.error(permissionResult.error),
     };
   }
 
@@ -31,8 +31,8 @@ class GetCurrentLocationUseCase {
       Ok<bool>() =>
         requestResult.value
             ? await _locationRepository.getCurrentLocation()
-            : Result.failure(Exception('Location permission denied')),
-      Failure<bool>() => Result.failure(requestResult.error),
+            : Result.error(Exception('Location permission denied')),
+      Error<bool>() => Result.error(requestResult.error),
     };
   }
 }

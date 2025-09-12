@@ -47,7 +47,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
       } else {
         final error = 'OpenWeatherMap API Error: ${response.statusCode}';
         _log.warning(error);
-        return Result.failure(Exception(error));
+        return Result.error(Exception(error));
       }
     } catch (e) {
       _log.severe('Failed to fetch weather data: $e');

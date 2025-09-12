@@ -45,7 +45,7 @@ class GeminiRepositoryImpl implements GeminiRepository {
     required MoodType moodType,
   }) async {
     if (!isInitialized) {
-      return Result.failure(Exception('Gemini model is not initialized'));
+      return Result.error(Exception('Gemini model is not initialized'));
     }
     final response = await _model!.generateContent([
       Content.text(Prompt.generateAnswerPrompt(prompt, moodType)),

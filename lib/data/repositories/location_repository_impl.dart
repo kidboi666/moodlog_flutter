@@ -15,9 +15,7 @@ class LocationRepositoryImpl implements LocationRepository {
             permission == LocationPermission.always,
       );
     } catch (e) {
-      return Result.failure(
-        Exception('Failed to check location permission: $e'),
-      );
+      return Result.error(Exception('Failed to check location permission: $e'));
     }
   }
 
@@ -30,7 +28,7 @@ class LocationRepositoryImpl implements LocationRepository {
             permission == LocationPermission.always,
       );
     } catch (e) {
-      return Result.failure(
+      return Result.error(
         Exception('Failed to request location permission: $e'),
       );
     }
@@ -41,7 +39,7 @@ class LocationRepositoryImpl implements LocationRepository {
     try {
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        return Result.failure(Exception('Location services are disabled'));
+        return Result.error(Exception('Location services are disabled'));
       }
 
       LocationPermission permission = await Geolocator.checkPermission();
@@ -49,12 +47,12 @@ class LocationRepositoryImpl implements LocationRepository {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          return Result.failure(Exception('Location permissions are denied'));
+          return Result.error(Exception('Location permissions are denied'));
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        return Result.failure(
+        return Result.error(
           Exception('Location permissions are permanently denied'),
         );
       }
@@ -73,7 +71,7 @@ class LocationRepositoryImpl implements LocationRepository {
 
       final address = switch (addressResult) {
         Ok<String>() => addressResult.value,
-        Failure<String>() => null,
+        Error<String>() => null,
       };
 
       return Result.ok(
@@ -84,7 +82,7 @@ class LocationRepositoryImpl implements LocationRepository {
         ),
       );
     } catch (e) {
-      return Result.failure(Exception('Failed to get current location: $e'));
+      return Result.error(Exception('Failed to get current location: $e'));
     }
   }
 
@@ -106,9 +104,9 @@ class LocationRepositoryImpl implements LocationRepository {
 
         return Result.ok(address.isNotEmpty ? address : 'Unknown location');
       }
-      return Result.failure(Exception('No address found'));
+      return Result.error(Exception('No address found'));
     } catch (e) {
-      return Result.failure(Exception('Failed to get address: $e'));
+      return Result.error(Exception('Failed to get address: $e'));
     }
   }
 }

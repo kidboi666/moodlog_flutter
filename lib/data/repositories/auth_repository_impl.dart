@@ -32,7 +32,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return Result.ok(user?.toDomain());
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 
@@ -47,7 +47,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final userCredential = await _firebaseAuth.signInAnonymously();
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 
@@ -60,7 +60,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 
@@ -72,7 +72,7 @@ class AuthRepositoryImpl extends AuthRepository {
           ?.linkWithCredential(credential);
       return Result.ok(userCredential?.user?.toDomain());
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 
@@ -83,7 +83,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _firebaseAuth.currentUser?.reload();
       return Result.ok(null);
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 
@@ -94,7 +94,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _firebaseAuth.currentUser?.reload();
       return Result.ok(null);
     } catch (e) {
-      return Result.failure(e);
+      return Result.error(Exception(e));
     }
   }
 

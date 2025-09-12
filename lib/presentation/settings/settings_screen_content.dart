@@ -127,15 +127,6 @@ class _SettingsScreenContent extends StatelessWidget {
                   builder: (_) => TagManagementDialog(viewModel: viewModel),
                 ),
               ),
-              CardListTile(
-                title: t.settings_data_cache_cleanup_title,
-                subtitle: t.settings_data_cache_cleanup_subtitle,
-                icon: Icons.delete_sweep,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => ClearCacheDialog(viewModel: viewModel),
-                ),
-              ),
               const SizedBox(height: Spacing.xl),
               SectionHeader(title: t.settings_information_title),
               CardListTile(

@@ -93,10 +93,11 @@ class _ContentBoxState extends State<ContentBox> {
                     style: textTheme.bodyLarge,
                     textAlign: widget.currentAlign.textAlign,
                   ),
-                  if (journal.tags != null && journal.tags!.isNotEmpty) ...[
+                  if (journal.tagNames != null &&
+                      journal.tagNames!.isNotEmpty) ...[
                     const SizedBox(height: Spacing.lg),
                     TagSection(
-                      tags: journal.tags!,
+                      tagNames: journal.tagNames!,
                       textAlign: widget.currentAlign,
                     ),
                   ],

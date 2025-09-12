@@ -137,7 +137,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Loaded journals');
         _journal = result.value;
         setSuccess();
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         _log.warning('Failed to load journals', result.error);
         _journal = [];
         setError(result.error);
@@ -205,7 +205,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
           }
         }
         notifyListeners();
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         _log.warning('Failed to load monthly journals', result.error);
         _monthlyJournals.clear();
         notifyListeners();
@@ -238,7 +238,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
               _yearlyJournals[dateKey] = [journal];
             }
           }
-        case Failure<List<Journal>>():
+        case Error<List<Journal>>():
           _log.warning(
             'Failed to load journals for month $month',
             result.error,
@@ -269,7 +269,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
         _calculateRepresentativeMood();
         notifyListeners();
 
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         _log.warning(
           'Failed to load recent journals for representative mood',
           result.error,

@@ -7,7 +7,7 @@ class TagUseCase {
 
   TagUseCase(this._tagRepository);
 
-  Future<Result<int>> addTag(String name, String? color) async {
+  Future<Result<Tag>> addTag(String name, String? color) async {
     return await _tagRepository.addTag(name, color);
   }
 

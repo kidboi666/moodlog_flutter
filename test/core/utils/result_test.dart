@@ -21,21 +21,23 @@ void main() {
       });
 
       test('객체 Ok 인스턴스 생성', () {
-        final result = Result.ok({'key': 'value'});
+        final result = Result<Map<String, String>>.ok({'key': 'string value'});
 
-        expect(result, isA<Ok<Map<String, dynamic>>>());
-        expect(result, isA<Result<Map<String, dynamic>>>());
-        expect((result as Ok<Map<String, dynamic>>).value, {'key': 'value'});
+        expect(result, isA<Ok<Map<String, String>>>());
+        expect(result, isA<Result<Map<String, String>>>());
+        expect((result as Ok<Map<String, String>>).value, {
+          'key': 'string value',
+        });
       });
     });
 
-    group('Result.failure 팩토리 생성자', () {
-      test('Failure 인스턴스 생성', () {
-        final result = Result<String>.failure('error');
+    group('Result.error 팩토리 생성자', () {
+      test('Error 인스턴스 생성', () {
+        final exception = Exception('error');
+        final result = Result<Exception>.error(exception);
 
-        expect(result, isA<Failure<String>>());
-        expect(result, isA<Result<String>>());
-        expect((result as Failure<String>).error, 'error');
+        expect(result, isA<Result<Exception>>());
+        expect((result as Error<Exception>).error, exception);
       });
     });
   });

@@ -23,7 +23,7 @@ class CheckAiUsageLimitUseCase {
 
       return Result.ok(!isSameDay);
     } catch (e) {
-      return Result.failure(Exception('Failed to check AI usage limit: $e'));
+      return Result.error(Exception('Failed to check AI usage limit: $e'));
     }
   }
 }

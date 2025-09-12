@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
@@ -10,6 +9,7 @@ import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/use_cases/journal_use_case.dart';
+import '../../domain/use_cases/observe_journal_list_use_case.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 
 enum EntriesViewMode { list, calendar }
@@ -116,7 +116,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
       case Ok<void>():
         _log.fine('Journal deleted successfully');
         setSuccess();
-      case Failure<void>():
+      case Error<void>():
         _log.warning('Failed to delete journal: ${result.error}');
         setError(result.error);
     }
@@ -160,7 +160,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
         _log.fine('Loaded journals');
         _allMonthEntries = result.value;
         await _applyFilters();
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         _log.warning('Failed to load journals', result.error);
         _allMonthEntries = [];
         _entries = [];
@@ -174,7 +174,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
       case Ok<List<Tag>>():
         _log.fine('Loaded tags');
         _availableTags = result.value;
-      case Failure<List<Tag>>():
+      case Error<List<Tag>>():
         _log.warning('Failed to load tags: ${result.error}');
         _availableTags = [];
     }
@@ -200,7 +200,7 @@ class EntriesViewModel extends ChangeNotifier with AsyncStateMixin {
             )) {
               tagFilteredEntries.add(journal);
             }
-          case Failure<List<Tag>>():
+          case Error<List<Tag>>():
             _log.warning('Failed to get tags for journal ${journal.id}');
         }
       }

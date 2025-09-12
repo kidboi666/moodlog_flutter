@@ -51,7 +51,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> _loadStatistics() async {
     setLoading();
 
-    final result = await _journalRepository.getAllJournals();
+    final result = await _journalRepository.getJournals();
     switch (result) {
       case Ok<List<Journal>>():
         _allJournals = result.value;
@@ -73,7 +73,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         );
 
         setSuccess();
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         debugPrint('Error loading journals: ${result.error}');
         setError(result.error);
     }
@@ -182,7 +182,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadRecentJournalsAndRepresentativeMood() async {
-    final result = await _journalRepository.getAllJournals();
+    final result = await _journalRepository.getJournals();
 
     switch (result) {
       case Ok<List<Journal>>():
@@ -198,7 +198,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         _calculateRepresentativeMood();
         notifyListeners();
 
-      case Failure<List<Journal>>():
+      case Error<List<Journal>>():
         _log.warning(
           'Failed to load recent journals for representative mood',
           result.error,
@@ -284,7 +284,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
               _yearlyJournals[dateKey] = [journal];
             }
           }
-        case Failure<List<Journal>>():
+        case Error<List<Journal>>():
           _log.warning(
             'Failed to load journals for month $month',
             result.error,

@@ -59,7 +59,7 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
             _weatherInfo = result.value;
             _isLoading = false;
           });
-        case Failure<WeatherInfo>():
+        case Error<WeatherInfo>():
           setState(() {
             _hasError = true;
             _isLoading = false;

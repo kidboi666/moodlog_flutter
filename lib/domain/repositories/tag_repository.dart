@@ -8,7 +8,7 @@ abstract class TagRepository {
 
   Future<Result<List<Tag>>> getTagsByJournalId(int journalId);
 
-  Future<Result<int>> addTag(String name, String? color);
+  Future<Result<Tag>> addTag(String name, String? color);
 
   Future<Result<void>> updateTag(int id, String name, String? color);
 

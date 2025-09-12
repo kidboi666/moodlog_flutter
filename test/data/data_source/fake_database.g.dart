@@ -21,17 +21,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
-  static const VerificationMeta _contentMeta = const VerificationMeta(
-    'content',
-  );
-  @override
-  late final GeneratedColumn<String> content = GeneratedColumn<String>(
-    'content',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   @override
   late final GeneratedColumnWithTypeConverter<MoodType, int> moodType =
       GeneratedColumn<int>(
@@ -41,15 +30,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.int,
         requiredDuringInsert: true,
       ).withConverter<MoodType>($JournalsTable.$convertermoodType);
-  @override
-  late final GeneratedColumnWithTypeConverter<List<String>?, String> imageUri =
-      GeneratedColumn<String>(
-        'image_uri',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      ).withConverter<List<String>?>($JournalsTable.$converterimageUri);
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -76,6 +56,35 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       'CHECK ("ai_response_enabled" IN (0, 1))',
     ),
   );
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>?, String> imageUri =
+      GeneratedColumn<String>(
+        'image_uri',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<List<String>?>($JournalsTable.$converterimageUri);
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+    'content',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>?, String> tagNames =
+      GeneratedColumn<String>(
+        'tag_names',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<List<String>?>($JournalsTable.$convertertagNames);
   static const VerificationMeta _aiResponseMeta = const VerificationMeta(
     'aiResponse',
   );
@@ -156,11 +165,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   @override
   List<GeneratedColumn> get $columns => [
     id,
-    content,
     moodType,
-    imageUri,
     createdAt,
     aiResponseEnabled,
+    imageUri,
+    content,
+    tagNames,
     aiResponse,
     latitude,
     longitude,
@@ -184,12 +194,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('content')) {
-      context.handle(
-        _contentMeta,
-        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
-      );
-    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -206,6 +210,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       );
     } else if (isInserting) {
       context.missing(_aiResponseEnabledMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     }
     if (data.containsKey('ai_response')) {
       context.handle(
@@ -271,21 +281,11 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.int,
         data['${effectivePrefix}id'],
       )!,
-      content: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}content'],
-      ),
       moodType: $JournalsTable.$convertermoodType.fromSql(
         attachedDatabase.typeMapping.read(
           DriftSqlType.int,
           data['${effectivePrefix}mood_type'],
         )!,
-      ),
-      imageUri: $JournalsTable.$converterimageUri.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}image_uri'],
-        ),
       ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -295,6 +295,22 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.bool,
         data['${effectivePrefix}ai_response_enabled'],
       )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      ),
+      imageUri: $JournalsTable.$converterimageUri.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}image_uri'],
+        ),
+      ),
+      tagNames: $JournalsTable.$convertertagNames.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tag_names'],
+        ),
+      ),
       aiResponse: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}ai_response'],
@@ -335,15 +351,18 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       const EnumIndexConverter<MoodType>(MoodType.values);
   static TypeConverter<List<String>?, String?> $converterimageUri =
       const StringListConverter();
+  static TypeConverter<List<String>?, String?> $convertertagNames =
+      const StringListConverter();
 }
 
 class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<int> id;
-  final Value<String?> content;
   final Value<MoodType> moodType;
-  final Value<List<String>?> imageUri;
   final Value<DateTime> createdAt;
   final Value<bool> aiResponseEnabled;
+  final Value<List<String>?> imageUri;
+  final Value<String?> content;
+  final Value<List<String>?> tagNames;
   final Value<String?> aiResponse;
   final Value<double?> latitude;
   final Value<double?> longitude;
@@ -353,11 +372,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<String?> weatherDescription;
   const JournalsCompanion({
     this.id = const Value.absent(),
-    this.content = const Value.absent(),
     this.moodType = const Value.absent(),
-    this.imageUri = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.aiResponseEnabled = const Value.absent(),
+    this.imageUri = const Value.absent(),
+    this.content = const Value.absent(),
+    this.tagNames = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -368,11 +388,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
-    this.content = const Value.absent(),
     required MoodType moodType,
-    this.imageUri = const Value.absent(),
     this.createdAt = const Value.absent(),
     required bool aiResponseEnabled,
+    this.imageUri = const Value.absent(),
+    this.content = const Value.absent(),
+    this.tagNames = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -384,11 +405,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
        aiResponseEnabled = Value(aiResponseEnabled);
   static Insertable<Journal> custom({
     Expression<int>? id,
-    Expression<String>? content,
     Expression<int>? moodType,
-    Expression<String>? imageUri,
     Expression<DateTime>? createdAt,
     Expression<bool>? aiResponseEnabled,
+    Expression<String>? imageUri,
+    Expression<String>? content,
+    Expression<String>? tagNames,
     Expression<String>? aiResponse,
     Expression<double>? latitude,
     Expression<double>? longitude,
@@ -399,11 +421,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (content != null) 'content': content,
       if (moodType != null) 'mood_type': moodType,
-      if (imageUri != null) 'image_uri': imageUri,
       if (createdAt != null) 'created_at': createdAt,
       if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
+      if (imageUri != null) 'image_uri': imageUri,
+      if (content != null) 'content': content,
+      if (tagNames != null) 'tag_names': tagNames,
       if (aiResponse != null) 'ai_response': aiResponse,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
@@ -416,11 +439,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
 
   JournalsCompanion copyWith({
     Value<int>? id,
-    Value<String?>? content,
     Value<MoodType>? moodType,
-    Value<List<String>?>? imageUri,
     Value<DateTime>? createdAt,
     Value<bool>? aiResponseEnabled,
+    Value<List<String>?>? imageUri,
+    Value<String?>? content,
+    Value<List<String>?>? tagNames,
     Value<String?>? aiResponse,
     Value<double?>? latitude,
     Value<double?>? longitude,
@@ -431,11 +455,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   }) {
     return JournalsCompanion(
       id: id ?? this.id,
-      content: content ?? this.content,
       moodType: moodType ?? this.moodType,
-      imageUri: imageUri ?? this.imageUri,
       createdAt: createdAt ?? this.createdAt,
       aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
+      imageUri: imageUri ?? this.imageUri,
+      content: content ?? this.content,
+      tagNames: tagNames ?? this.tagNames,
       aiResponse: aiResponse ?? this.aiResponse,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -452,17 +477,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (content.present) {
-      map['content'] = Variable<String>(content.value);
-    }
     if (moodType.present) {
       map['mood_type'] = Variable<int>(
         $JournalsTable.$convertermoodType.toSql(moodType.value),
-      );
-    }
-    if (imageUri.present) {
-      map['image_uri'] = Variable<String>(
-        $JournalsTable.$converterimageUri.toSql(imageUri.value),
       );
     }
     if (createdAt.present) {
@@ -470,6 +487,19 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     }
     if (aiResponseEnabled.present) {
       map['ai_response_enabled'] = Variable<bool>(aiResponseEnabled.value);
+    }
+    if (imageUri.present) {
+      map['image_uri'] = Variable<String>(
+        $JournalsTable.$converterimageUri.toSql(imageUri.value),
+      );
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (tagNames.present) {
+      map['tag_names'] = Variable<String>(
+        $JournalsTable.$convertertagNames.toSql(tagNames.value),
+      );
     }
     if (aiResponse.present) {
       map['ai_response'] = Variable<String>(aiResponse.value);
@@ -499,11 +529,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   String toString() {
     return (StringBuffer('JournalsCompanion(')
           ..write('id: $id, ')
-          ..write('content: $content, ')
           ..write('moodType: $moodType, ')
-          ..write('imageUri: $imageUri, ')
           ..write('createdAt: $createdAt, ')
           ..write('aiResponseEnabled: $aiResponseEnabled, ')
+          ..write('imageUri: $imageUri, ')
+          ..write('content: $content, ')
+          ..write('tagNames: $tagNames, ')
           ..write('aiResponse: $aiResponse, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
@@ -1024,6 +1055,10 @@ class $JournalTagsTable extends JournalTags
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {journalId, tagId},
+  ];
+  @override
   JournalTag map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return JournalTag(
@@ -1187,11 +1222,12 @@ abstract class _$FakeDatabase extends GeneratedDatabase {
 typedef $$JournalsTableCreateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
-      Value<String?> content,
       required MoodType moodType,
-      Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
       required bool aiResponseEnabled,
+      Value<List<String>?> imageUri,
+      Value<String?> content,
+      Value<List<String>?> tagNames,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1203,11 +1239,12 @@ typedef $$JournalsTableCreateCompanionBuilder =
 typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
-      Value<String?> content,
       Value<MoodType> moodType,
-      Value<List<String>?> imageUri,
       Value<DateTime> createdAt,
       Value<bool> aiResponseEnabled,
+      Value<List<String>?> imageUri,
+      Value<String?> content,
+      Value<List<String>?> tagNames,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1254,22 +1291,11 @@ class $$JournalsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get content => $composableBuilder(
-    column: $table.content,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnWithTypeConverterFilters<MoodType, MoodType, int> get moodType =>
       $composableBuilder(
         column: $table.moodType,
         builder: (column) => ColumnWithTypeConverterFilters(column),
       );
-
-  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
-  get imageUri => $composableBuilder(
-    column: $table.imageUri,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
@@ -1279,6 +1305,23 @@ class $$JournalsTableFilterComposer
   ColumnFilters<bool> get aiResponseEnabled => $composableBuilder(
     column: $table.aiResponseEnabled,
     builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
+  get imageUri => $composableBuilder(
+    column: $table.imageUri,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
+  get tagNames => $composableBuilder(
+    column: $table.tagNames,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
   ColumnFilters<String> get aiResponse => $composableBuilder(
@@ -1356,18 +1399,8 @@ class $$JournalsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get content => $composableBuilder(
-    column: $table.content,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<int> get moodType => $composableBuilder(
     column: $table.moodType,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get imageUri => $composableBuilder(
-    column: $table.imageUri,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -1378,6 +1411,21 @@ class $$JournalsTableOrderingComposer
 
   ColumnOrderings<bool> get aiResponseEnabled => $composableBuilder(
     column: $table.aiResponseEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get imageUri => $composableBuilder(
+    column: $table.imageUri,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tagNames => $composableBuilder(
+    column: $table.tagNames,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -1429,14 +1477,8 @@ class $$JournalsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => column);
-
   GeneratedColumnWithTypeConverter<MoodType, int> get moodType =>
       $composableBuilder(column: $table.moodType, builder: (column) => column);
-
-  GeneratedColumnWithTypeConverter<List<String>?, String> get imageUri =>
-      $composableBuilder(column: $table.imageUri, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -1445,6 +1487,15 @@ class $$JournalsTableAnnotationComposer
     column: $table.aiResponseEnabled,
     builder: (column) => column,
   );
+
+  GeneratedColumnWithTypeConverter<List<String>?, String> get imageUri =>
+      $composableBuilder(column: $table.imageUri, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<List<String>?, String> get tagNames =>
+      $composableBuilder(column: $table.tagNames, builder: (column) => column);
 
   GeneratedColumn<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
@@ -1530,11 +1581,12 @@ class $$JournalsTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> content = const Value.absent(),
                 Value<MoodType> moodType = const Value.absent(),
-                Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<bool> aiResponseEnabled = const Value.absent(),
+                Value<List<String>?> imageUri = const Value.absent(),
+                Value<String?> content = const Value.absent(),
+                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1544,11 +1596,12 @@ class $$JournalsTableTableManager
                 Value<String?> weatherDescription = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
-                content: content,
                 moodType: moodType,
-                imageUri: imageUri,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
+                imageUri: imageUri,
+                content: content,
+                tagNames: tagNames,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
@@ -1560,11 +1613,12 @@ class $$JournalsTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> content = const Value.absent(),
                 required MoodType moodType,
-                Value<List<String>?> imageUri = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 required bool aiResponseEnabled,
+                Value<List<String>?> imageUri = const Value.absent(),
+                Value<String?> content = const Value.absent(),
+                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1574,11 +1628,12 @@ class $$JournalsTableTableManager
                 Value<String?> weatherDescription = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
-                content: content,
                 moodType: moodType,
-                imageUri: imageUri,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
+                imageUri: imageUri,
+                content: content,
+                tagNames: tagNames,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,

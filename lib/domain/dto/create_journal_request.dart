@@ -13,6 +13,7 @@ abstract class CreateJournalRequest with _$CreateJournalRequest {
     required MoodType moodType,
     List<String>? imageUri,
     required bool aiResponseEnabled,
+    List<String>? tagNames,
     String? aiResponse,
     required DateTime createdAt,
     double? latitude,

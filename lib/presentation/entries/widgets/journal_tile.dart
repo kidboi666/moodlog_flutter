@@ -68,10 +68,10 @@ class JournalTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
-              if (journal.tags != null && journal.tags!.isNotEmpty) ...[
+              if (journal.tagNames != null && journal.tagNames!.isNotEmpty) ...[
                 const SizedBox(height: Spacing.sm),
                 TagSection(
-                  tags: journal.tags!,
+                  tagNames: journal.tagNames!,
                   maxTags: 3,
                   spacing: Spacing.xs,
                   runSpacing: Spacing.xs,

@@ -13,11 +13,11 @@ class JournalUseCase {
   Future<Result<Map<String, dynamic>>> addJournal(
     CreateJournalRequest dto,
   ) async {
-    return await _journalRepository.addJournal(dto);
+    return await _journalRepository.createJournal(dto);
   }
 
   Future<Result<List<Journal>>> getJournals() async {
-    return await _journalRepository.getAllJournals();
+    return await _journalRepository.getJournals();
   }
 
   Future<Result<Journal>> getJournalById(int id) async {

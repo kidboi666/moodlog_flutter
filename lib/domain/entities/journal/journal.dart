@@ -3,11 +3,12 @@ import 'tag.dart';
 
 class Journal {
   final int id;
-  final String? content;
   final MoodType moodType;
-  final List<String>? imageUri;
   final DateTime createdAt;
   final bool aiResponseEnabled;
+  final String? content;
+  final List<String>? imageUri;
+  final List<String>? tagNames;
   final String? aiResponse;
   final double? latitude;
   final double? longitude;
@@ -19,11 +20,12 @@ class Journal {
 
   Journal({
     required this.id,
-    this.content,
     required this.moodType,
-    this.imageUri,
     required this.createdAt,
     required this.aiResponseEnabled,
+    this.content,
+    this.imageUri,
+    this.tagNames,
     this.aiResponse,
     this.latitude,
     this.longitude,

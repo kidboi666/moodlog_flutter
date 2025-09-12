@@ -14,16 +14,19 @@ import '../../../../domain/entities/journal/tag.dart';
 class Journals extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  TextColumn get content => text().nullable()();
-
   IntColumn get moodType => intEnum<MoodType>()();
-
-  TextColumn get imageUri =>
-      text().map(const StringListConverter()).nullable()();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   BoolColumn get aiResponseEnabled => boolean()();
+
+  TextColumn get imageUri =>
+      text().map(const StringListConverter()).nullable()();
+
+  TextColumn get content => text().nullable()();
+
+  TextColumn get tagNames =>
+      text().map(const StringListConverter()).nullable()();
 
   TextColumn get aiResponse => text().nullable()();
 
@@ -76,4 +79,9 @@ class JournalTags extends Table {
       integer().references(Tags, #id, onDelete: KeyAction.cascade)();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+    {journalId, tagId},
+  ];
 }

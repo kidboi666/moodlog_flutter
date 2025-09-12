@@ -11,7 +11,6 @@ import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';
 import 'widgets/dialog/app_info_dialog.dart';
 import 'widgets/dialog/backup_dialog.dart';
-import 'widgets/dialog/clear_cache_dialog.dart';
 import 'widgets/dialog/color_theme_dialog.dart';
 import 'widgets/dialog/contact_dialog.dart';
 import 'widgets/dialog/font_family_dialog.dart';
@@ -35,7 +34,6 @@ class SettingsScreen extends StatelessWidget {
       create: (context) => SettingsViewModel(
         appStateProvider: context.read(),
         settingsRepository: context.read(),
-        journalRepository: context.read(),
         userProvider: context.read(),
         tagUseCase: context.read(),
       ),

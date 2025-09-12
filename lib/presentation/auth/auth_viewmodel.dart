@@ -50,10 +50,10 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
         setSuccess();
         return Result.ok(null);
 
-      case Failure<User?>():
+      case Error<User?>():
         _log.warning('Failed to sign in anonymously', result.error);
         setError(result.error);
-        return Result.failure(result.error);
+        return Result.error(result.error);
     }
   }
 
@@ -72,10 +72,10 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
         setSuccess();
         return Result.ok(null);
 
-      case Failure<User?>():
+      case Error<User?>():
         _log.warning('Failed to sign in with Google', result.error);
         setError(result.error);
-        return Result.failure(result.error);
+        return Result.error(result.error);
     }
   }
 }
