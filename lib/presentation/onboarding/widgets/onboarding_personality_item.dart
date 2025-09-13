@@ -47,9 +47,20 @@ class PersonalityItem extends StatelessWidget {
                   children: [
                     Text(
                       personality.getTitle(context),
-                      style: textTheme.titleMedium,
+                      style: textTheme.titleMedium?.copyWith(
+                        color: isSelected
+                            ? colorScheme.onPrimaryContainer
+                            : null,
+                      ),
                     ),
-                    Text(personality.getDescription(context)),
+                    Text(
+                      personality.getDescription(context),
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: isSelected
+                            ? colorScheme.onPrimaryContainer
+                            : null,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -57,6 +68,9 @@ class PersonalityItem extends StatelessWidget {
                 value: personality,
                 groupValue: selectedPersonality,
                 onChanged: (Object? value) => setPersonality(value),
+                fillColor: WidgetStateProperty.all(
+                  isSelected ? colorScheme.onPrimaryContainer : null,
+                ),
               ),
             ],
           ),

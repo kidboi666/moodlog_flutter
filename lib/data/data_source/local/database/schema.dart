@@ -25,14 +25,14 @@ class Journals extends Table {
 
   TextColumn get content => text().nullable()();
 
-  TextColumn get tagNames =>
-      text().map(const StringListConverter()).nullable()();
-
   TextColumn get aiResponse => text().nullable()();
 
   RealColumn get latitude => real().nullable()();
 
   RealColumn get longitude => real().nullable()();
+
+  TextColumn get tagNames =>
+      text().map(const StringListConverter()).nullable()();
 
   TextColumn get address => text().nullable()();
 

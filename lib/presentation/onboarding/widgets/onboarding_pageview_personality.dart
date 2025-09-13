@@ -62,7 +62,10 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           delay: DelayMs.medium * 3,
           child: Text(
             t.onboarding_personality_hint,
-            style: textTheme.bodyMedium,
+            style: textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: colorScheme.secondary,
+            ),
           ),
         ),
         const Expanded(child: SizedBox()),

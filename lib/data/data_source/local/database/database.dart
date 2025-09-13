@@ -25,9 +25,9 @@ class MoodLogDatabase extends _$MoodLogDatabase {
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
-      onUpgrade: (migrator, from, to) async {
+      onUpgrade: (m, from, to) async {
         if (from == 1) {
-          await migrator.createIndex(
+          await m.createIndex(
             Index(
               'journals',
               'CREATE INDEX journals_created_at ON journals (created_at)',
@@ -35,21 +35,21 @@ class MoodLogDatabase extends _$MoodLogDatabase {
           );
         }
         if (from <= 2) {
-          await migrator.addColumn(journals, journals.latitude);
-          await migrator.addColumn(journals, journals.longitude);
-          await migrator.addColumn(journals, journals.address);
+          await m.addColumn(journals, journals.latitude);
+          await m.addColumn(journals, journals.longitude);
+          await m.addColumn(journals, journals.address);
         }
         if (from <= 3) {
-          await migrator.addColumn(journals, journals.temperature);
-          await migrator.addColumn(journals, journals.weatherIcon);
-          await migrator.addColumn(journals, journals.weatherDescription);
+          await m.addColumn(journals, journals.temperature);
+          await m.addColumn(journals, journals.weatherIcon);
+          await m.addColumn(journals, journals.weatherDescription);
         }
         if (from <= 4) {
-          await migrator.createTable(tags);
-          await migrator.createTable(journalTags);
+          await m.createTable(tags);
+          await m.createTable(journalTags);
         }
         if (from <= 5) {
-          await migrator.addColumn(journals, journals.tagNames);
+          await m.addColumn(journals, journals.tagNames);
         }
       },
     );
@@ -59,7 +59,7 @@ class MoodLogDatabase extends _$MoodLogDatabase {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'mood_log.db'));
+    final file = File(p.join(dbFolder.path, 'db.sqlite'));
 
     return NativeDatabase(file);
   });

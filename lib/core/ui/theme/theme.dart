@@ -5,9 +5,9 @@ import '../../../core/ui/theme/colors.dart';
 import '../../constants/enum.dart';
 
 abstract final class AppTheme {
-  static ThemeData lightTheme(ColorTheme colorTheme, FontFamily fontFamily) {
+  static ThemeData lightTheme(FontFamily fontFamily) {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColor.colorMap[colorTheme]!,
+      seedColor: AppColors.lightTheme.primaryColor,
       brightness: Brightness.light,
     );
     return ThemeData(
@@ -23,13 +23,13 @@ abstract final class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
-      colorScheme: colorScheme,
+      colorScheme: AppColors.lightColorScheme,
     );
   }
 
-  static ThemeData darkTheme(ColorTheme colorTheme, FontFamily fontFamily) {
+  static ThemeData darkTheme(FontFamily fontFamily) {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColor.colorMap[colorTheme]!,
+      seedColor: AppColors.darkTheme.primaryColor,
       brightness: Brightness.dark,
     );
     return ThemeData(
@@ -45,7 +45,7 @@ abstract final class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
-      colorScheme: colorScheme,
+      colorScheme: AppColors.darkColorScheme,
     );
   }
 

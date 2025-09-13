@@ -76,15 +76,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  @override
-  late final GeneratedColumnWithTypeConverter<List<String>?, String> tagNames =
-      GeneratedColumn<String>(
-        'tag_names',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      ).withConverter<List<String>?>($JournalsTable.$convertertagNames);
   static const VerificationMeta _aiResponseMeta = const VerificationMeta(
     'aiResponse',
   );
@@ -118,6 +109,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     type: DriftSqlType.double,
     requiredDuringInsert: false,
   );
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>?, String> tagNames =
+      GeneratedColumn<String>(
+        'tag_names',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<List<String>?>($JournalsTable.$convertertagNames);
   static const VerificationMeta _addressMeta = const VerificationMeta(
     'address',
   );
@@ -170,10 +170,10 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     aiResponseEnabled,
     imageUri,
     content,
-    tagNames,
     aiResponse,
     latitude,
     longitude,
+    tagNames,
     address,
     temperature,
     weatherIcon,
@@ -305,12 +305,6 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
           data['${effectivePrefix}image_uri'],
         ),
       ),
-      tagNames: $JournalsTable.$convertertagNames.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}tag_names'],
-        ),
-      ),
       aiResponse: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}ai_response'],
@@ -330,6 +324,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       temperature: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}temperature'],
+      ),
+      tagNames: $JournalsTable.$convertertagNames.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tag_names'],
+        ),
       ),
       weatherIcon: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -362,10 +362,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<bool> aiResponseEnabled;
   final Value<List<String>?> imageUri;
   final Value<String?> content;
-  final Value<List<String>?> tagNames;
   final Value<String?> aiResponse;
   final Value<double?> latitude;
   final Value<double?> longitude;
+  final Value<List<String>?> tagNames;
   final Value<String?> address;
   final Value<double?> temperature;
   final Value<String?> weatherIcon;
@@ -377,10 +377,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.aiResponseEnabled = const Value.absent(),
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
-    this.tagNames = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
+    this.tagNames = const Value.absent(),
     this.address = const Value.absent(),
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
@@ -393,10 +393,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     required bool aiResponseEnabled,
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
-    this.tagNames = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
+    this.tagNames = const Value.absent(),
     this.address = const Value.absent(),
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
@@ -410,10 +410,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Expression<bool>? aiResponseEnabled,
     Expression<String>? imageUri,
     Expression<String>? content,
-    Expression<String>? tagNames,
     Expression<String>? aiResponse,
     Expression<double>? latitude,
     Expression<double>? longitude,
+    Expression<String>? tagNames,
     Expression<String>? address,
     Expression<double>? temperature,
     Expression<String>? weatherIcon,
@@ -426,10 +426,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
       if (imageUri != null) 'image_uri': imageUri,
       if (content != null) 'content': content,
-      if (tagNames != null) 'tag_names': tagNames,
       if (aiResponse != null) 'ai_response': aiResponse,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
+      if (tagNames != null) 'tag_names': tagNames,
       if (address != null) 'address': address,
       if (temperature != null) 'temperature': temperature,
       if (weatherIcon != null) 'weather_icon': weatherIcon,
@@ -444,10 +444,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<bool>? aiResponseEnabled,
     Value<List<String>?>? imageUri,
     Value<String?>? content,
-    Value<List<String>?>? tagNames,
     Value<String?>? aiResponse,
     Value<double?>? latitude,
     Value<double?>? longitude,
+    Value<List<String>?>? tagNames,
     Value<String?>? address,
     Value<double?>? temperature,
     Value<String?>? weatherIcon,
@@ -460,10 +460,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
       imageUri: imageUri ?? this.imageUri,
       content: content ?? this.content,
-      tagNames: tagNames ?? this.tagNames,
       aiResponse: aiResponse ?? this.aiResponse,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      tagNames: tagNames ?? this.tagNames,
       address: address ?? this.address,
       temperature: temperature ?? this.temperature,
       weatherIcon: weatherIcon ?? this.weatherIcon,
@@ -496,11 +496,6 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (content.present) {
       map['content'] = Variable<String>(content.value);
     }
-    if (tagNames.present) {
-      map['tag_names'] = Variable<String>(
-        $JournalsTable.$convertertagNames.toSql(tagNames.value),
-      );
-    }
     if (aiResponse.present) {
       map['ai_response'] = Variable<String>(aiResponse.value);
     }
@@ -509,6 +504,11 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     }
     if (longitude.present) {
       map['longitude'] = Variable<double>(longitude.value);
+    }
+    if (tagNames.present) {
+      map['tag_names'] = Variable<String>(
+        $JournalsTable.$convertertagNames.toSql(tagNames.value),
+      );
     }
     if (address.present) {
       map['address'] = Variable<String>(address.value);
@@ -534,10 +534,10 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('aiResponseEnabled: $aiResponseEnabled, ')
           ..write('imageUri: $imageUri, ')
           ..write('content: $content, ')
-          ..write('tagNames: $tagNames, ')
           ..write('aiResponse: $aiResponse, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
+          ..write('tagNames: $tagNames, ')
           ..write('address: $address, ')
           ..write('temperature: $temperature, ')
           ..write('weatherIcon: $weatherIcon, ')
@@ -1227,10 +1227,10 @@ typedef $$JournalsTableCreateCompanionBuilder =
       required bool aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
-      Value<List<String>?> tagNames,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
+      Value<List<String>?> tagNames,
       Value<String?> address,
       Value<double?> temperature,
       Value<String?> weatherIcon,
@@ -1244,10 +1244,10 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<bool> aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
-      Value<List<String>?> tagNames,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
+      Value<List<String>?> tagNames,
       Value<String?> address,
       Value<double?> temperature,
       Value<String?> weatherIcon,
@@ -1318,12 +1318,6 @@ class $$JournalsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
-  get tagNames => $composableBuilder(
-    column: $table.tagNames,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
-
   ColumnFilters<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
     builder: (column) => ColumnFilters(column),
@@ -1337,6 +1331,12 @@ class $$JournalsTableFilterComposer
   ColumnFilters<double> get longitude => $composableBuilder(
     column: $table.longitude,
     builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
+  get tagNames => $composableBuilder(
+    column: $table.tagNames,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
   ColumnFilters<String> get address => $composableBuilder(
@@ -1424,11 +1424,6 @@ class $$JournalsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get tagNames => $composableBuilder(
-    column: $table.tagNames,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
     builder: (column) => ColumnOrderings(column),
@@ -1441,6 +1436,11 @@ class $$JournalsTableOrderingComposer
 
   ColumnOrderings<double> get longitude => $composableBuilder(
     column: $table.longitude,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tagNames => $composableBuilder(
+    column: $table.tagNames,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -1494,9 +1494,6 @@ class $$JournalsTableAnnotationComposer
   GeneratedColumn<String> get content =>
       $composableBuilder(column: $table.content, builder: (column) => column);
 
-  GeneratedColumnWithTypeConverter<List<String>?, String> get tagNames =>
-      $composableBuilder(column: $table.tagNames, builder: (column) => column);
-
   GeneratedColumn<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
     builder: (column) => column,
@@ -1507,6 +1504,9 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<double> get longitude =>
       $composableBuilder(column: $table.longitude, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<List<String>?, String> get tagNames =>
+      $composableBuilder(column: $table.tagNames, builder: (column) => column);
 
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
@@ -1586,10 +1586,10 @@ class $$JournalsTableTableManager
                 Value<bool> aiResponseEnabled = const Value.absent(),
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
-                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
+                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> address = const Value.absent(),
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
@@ -1601,10 +1601,10 @@ class $$JournalsTableTableManager
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
-                tagNames: tagNames,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
+                tagNames: tagNames,
                 address: address,
                 temperature: temperature,
                 weatherIcon: weatherIcon,
@@ -1618,10 +1618,10 @@ class $$JournalsTableTableManager
                 required bool aiResponseEnabled,
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
-                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
+                Value<List<String>?> tagNames = const Value.absent(),
                 Value<String?> address = const Value.absent(),
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
@@ -1633,10 +1633,10 @@ class $$JournalsTableTableManager
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
-                tagNames: tagNames,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
+                tagNames: tagNames,
                 address: address,
                 temperature: temperature,
                 weatherIcon: weatherIcon,

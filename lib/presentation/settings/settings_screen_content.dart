@@ -57,15 +57,6 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
               ),
               DialogTile(
-                title: t.settings_common_color_theme_title,
-                subtitle: t.settings_common_color_theme_subtitle,
-                icon: Icons.color_lens,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => ColorThemeDialog(viewModel: viewModel),
-                ),
-              ),
-              DialogTile(
                 title: t.settings_common_language_title,
                 subtitle: viewModel.appState.languageCode.displayName,
                 icon: Icons.language,

@@ -8,7 +8,6 @@ class Journal {
   final bool aiResponseEnabled;
   final String? content;
   final List<String>? imageUri;
-  final List<String>? tagNames;
   final String? aiResponse;
   final double? latitude;
   final double? longitude;
@@ -16,6 +15,7 @@ class Journal {
   final double? temperature;
   final String? weatherIcon;
   final String? weatherDescription;
+  final List<String>? tagNames;
   final List<Tag>? tags;
 
   Journal({
@@ -25,12 +25,12 @@ class Journal {
     required this.aiResponseEnabled,
     this.content,
     this.imageUri,
-    this.tagNames,
     this.aiResponse,
     this.latitude,
     this.longitude,
     this.address,
     this.temperature,
+    this.tagNames,
     this.weatherIcon,
     this.weatherDescription,
     this.tags,

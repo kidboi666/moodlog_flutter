@@ -11,7 +11,6 @@ import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';
 import 'widgets/dialog/app_info_dialog.dart';
 import 'widgets/dialog/backup_dialog.dart';
-import 'widgets/dialog/color_theme_dialog.dart';
 import 'widgets/dialog/contact_dialog.dart';
 import 'widgets/dialog/font_family_dialog.dart';
 import 'widgets/dialog/init_db_dialog.dart';
