@@ -34,8 +34,8 @@ class _ImagePickingSectionState extends State<ImagePickingSection> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             children: [
-              if (viewModel.imageUri.isNotEmpty)
-                ...viewModel.imageUri.map(
+              if (viewModel.selectedImageList.isNotEmpty)
+                ...viewModel.selectedImageList.map(
                   (imageUri) => Card(
                     elevation: 0,
                     margin: Spacing.imagePickerBoxInnerPadding,

@@ -70,7 +70,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final Logger _log = Logger('WriteViewModel');
   String? _content;
   MoodType _selectedMood = MoodType.neutral;
-  List<String> _imageFileList = [];
+  List<String> _selectedImageList = [];
   bool _isSubmitted = false;
   int? _submittedJournalId;
   bool _aiEnabled = true;
@@ -93,7 +93,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   DateTime get selectedDate => _selectedDate;
 
-  List<String> get imageUri => _imageFileList;
+  List<String> get selectedImageList => _selectedImageList;
 
   bool get isSubmitted => _isSubmitted;
 
@@ -155,14 +155,16 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void deleteImage(String imageUri) {
-    _imageFileList.remove(imageUri);
+    _selectedImageList = _selectedImageList
+        .where((uri) => uri != imageUri)
+        .toList();
     notifyListeners();
   }
 
   void resetForm() {
     _content = null;
     _selectedMood = MoodType.neutral;
-    _imageFileList = [];
+    _selectedImageList = [];
     _isSubmitted = false;
     _submittedJournalId = null;
     _aiEnabled = true;
@@ -182,7 +184,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     switch (result) {
       case Ok<String?>():
         _log.fine('Image picked successfully');
-        _imageFileList.add(result.value!);
+        _selectedImageList = [..._selectedImageList, result.value!];
         setSuccess();
       case Error<String?>():
         _log.warning('Failed to pick image: ${result.error}');
@@ -317,7 +319,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     final newJournal = CreateJournalRequest(
       content: _content,
       moodType: _selectedMood,
-      imageUri: _imageFileList,
+      imageUri: _selectedImageList,
       aiResponseEnabled: _aiEnabled,
       createdAt: _selectedDate,
       latitude: _locationInfo?.latitude,
@@ -347,7 +349,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _logMoodEntryUseCase(
           moodType: _selectedMood.name,
           entryType: 'manual',
-          hasImage: _imageFileList.isNotEmpty,
+          hasImage: _selectedImageList.isNotEmpty,
           hasTag: _selectedTags.isNotEmpty,
         );
 
@@ -368,7 +370,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
       id: _editJournalId!,
       aiResponseEnabled: _aiEnabled,
       content: _content,
-      imageUri: _imageFileList,
+      imageUri: _selectedImageList,
       latitude: _locationInfo?.latitude,
       longitude: _locationInfo?.longitude,
       address: _locationInfo?.address,
@@ -396,7 +398,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _logMoodEntryUseCase.call(
           moodType: _selectedMood.name,
           entryType: 'edit',
-          hasImage: _imageFileList.isNotEmpty,
+          hasImage: _selectedImageList.isNotEmpty,
           hasTag: _selectedTags.isNotEmpty,
         );
 
@@ -508,7 +510,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           _log.info('Journal loaded successfully: ${journal.content}');
           _content = journal.content;
           _selectedMood = journal.moodType;
-          _imageFileList = journal.imageUri ?? [];
+          _selectedImageList = journal.imageUri ?? [];
           _aiEnabled = journal.aiResponseEnabled;
           _selectedDate = journal.createdAt;
           _selectedTags = journal.tags ?? [];
@@ -545,7 +547,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   @override
   void dispose() {
-    _imageFileList.clear();
+    _selectedImageList.clear();
     super.dispose();
   }
 }

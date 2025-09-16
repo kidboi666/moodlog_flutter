@@ -8,9 +8,14 @@ class _WriteScreenContent extends StatefulWidget {
 class _WriteScreenContentState extends State<_WriteScreenContent> {
   late TextEditingController _contentController;
   late FocusNode _contentFocusNode;
+  bool _isContentLoaded = false;
 
   void _onContentChanged() {
     context.read<WriteViewModel>().updateContent(_contentController.text);
+  }
+
+  void _onDismissPreviewImage(String imageUri) {
+    context.read<WriteViewModel>().deleteImage(imageUri);
   }
 
   void _dismissKeyboard() {
@@ -37,15 +42,28 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
     super.initState();
     final viewModel = context.read<WriteViewModel>();
 
-    _contentController = TextEditingController(text: viewModel.content);
+    _contentController = TextEditingController();
     _contentFocusNode = FocusNode();
     _contentController.addListener(_onContentChanged);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (viewModel.content != null && _contentController.text.isEmpty) {
+      if (!viewModel.isEditMode) {
         Future.delayed(DelayMs.lazy, _showMoodSelectionBottomSheet);
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_isContentLoaded) {
+      final viewModel = context.watch<WriteViewModel>();
+      if (viewModel.isEditMode && viewModel.content != null) {
+        _contentController.text = viewModel.content!;
+        _isContentLoaded = true;
+      }
+    }
   }
 
   @override
@@ -85,9 +103,16 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                       },
                     ),
                     const SizedBox(height: Spacing.md),
-                    FadeIn(
-                      delay: DelayMs.quick,
-                      child: ImagePreviewSection(onTap: () {}),
+                    Builder(
+                      builder: (context) {
+                        final selectedImageList = context.select(
+                          (WriteViewModel vm) => vm.selectedImageList,
+                        );
+                        return ImagePreviewSection(
+                          selectedImageList: selectedImageList,
+                          onTap: _onDismissPreviewImage,
+                        );
+                      },
                     ),
                     Column(
                       children: [
