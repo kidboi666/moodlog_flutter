@@ -90,7 +90,10 @@ class _WritePageViewRestState extends State<WritePageViewRest> {
             ),
 
             const SizedBox(height: Spacing.md),
-            FadeIn(delay: DelayMs.quick, child: const ImagePreviewSection()),
+            FadeIn(
+              delay: DelayMs.quick,
+              child: ImagePreviewSection(onTap: () {}),
+            ),
             Column(
               children: [
                 const SizedBox(height: Spacing.md),

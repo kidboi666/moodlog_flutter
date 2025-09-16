@@ -23,7 +23,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: Spacing.xl * 2,
+      spacing: Spacing.xl ,
       children: [
         FadeIn(
           child: Text(

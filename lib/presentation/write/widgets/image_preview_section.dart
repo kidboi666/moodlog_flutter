@@ -7,7 +7,9 @@ import '../../../core/constants/common.dart';
 import '../write_viewmodel.dart';
 
 class ImagePreviewSection extends StatefulWidget {
-  const ImagePreviewSection({super.key});
+  final Function onTap;
+
+  const ImagePreviewSection({super.key, required this.onTap});
 
   @override
   State<ImagePreviewSection> createState() => _ImagePreviewSectionState();
@@ -15,7 +17,6 @@ class ImagePreviewSection extends StatefulWidget {
 
 class _ImagePreviewSectionState extends State<ImagePreviewSection> {
   late ScrollController _scrollController;
-  final Map<String, Image> _imageCache = {};
 
   @override
   void initState() {
@@ -37,16 +38,7 @@ class _ImagePreviewSectionState extends State<ImagePreviewSection> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             children: viewModel.imageUri
-                .map(
-                  (imageUri) => Card(
-                    elevation: 0,
-                    margin: Spacing.imagePickerBoxInnerPadding,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: _buildOptimizedImage(imageUri)
-                    ),
-                  ),
-                )
+                .map((imageUri) => _buildPreviewImage(imageUri, widget.onTap))
                 .toList(),
           ),
         );
@@ -54,15 +46,24 @@ class _ImagePreviewSectionState extends State<ImagePreviewSection> {
     );
   }
 
-  Widget _buildOptimizedImage(String imageUri) {
-    if (!_imageCache.containsKey(imageUri)) {
-      _imageCache[imageUri] = Image.file(
-        File(imageUri),
-        fit: BoxFit.cover,
-        width: 60,
-      );
-    }
-    return _imageCache[imageUri]!;
+  Widget _buildPreviewImage(String imageUri, Function onTap) {
+    return Padding(
+      padding: const EdgeInsets.only(right: Spacing.md),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Material(
+          child: InkWell(
+            onTap: () => onTap(),
+            child: Ink.image(
+              image: FileImage(File(imageUri)),
+              fit: BoxFit.cover,
+              width: 60,
+              height: 60,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override

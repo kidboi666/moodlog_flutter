@@ -154,6 +154,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
+  void deleteImage(String imageUri) {
+    _imageFileList.remove(imageUri);
+    notifyListeners();
+  }
+
   void resetForm() {
     _content = null;
     _selectedMood = MoodType.neutral;
