@@ -53,7 +53,7 @@ class _BaseLayoutScreenContent extends StatelessWidget {
         navigationShell: navigationShell,
         getNavigationIndex: _getNavigationIndex,
         onTap: _onTap,
-        buildContent: _buildContent,
+        buildContent: _buildContent(context),
       ),
     );
   }
@@ -65,7 +65,7 @@ class _BaseLayoutScreenContent extends StatelessWidget {
       persistentFooterButtons: [
         Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
       ],
-      body: _buildContent(),
+      body: _buildContent(context),
       bottomNavigationBar: BottomNavigation(
         navigationShell: navigationShell,
         getNavigationIndex: _getNavigationIndex,
@@ -74,7 +74,7 @@ class _BaseLayoutScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return AnimatedNavigatorContainer(
       currentIndex: navigationShell.currentIndex,
       children: children,

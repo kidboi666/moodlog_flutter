@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/ui/widgets/animated_container.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/navigation.dart';
 import '../../core/routing/routes.dart';
-import '../../core/ui/widgets/animated_container.dart';
 import '../../core/ui/widgets/avatar.dart';
 import '../../core/ui/widgets/banner_ad_widget.dart';
 import 'base_layout_viewmodel.dart';

@@ -7,7 +7,7 @@ class RailNavigation extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
   final Function getNavigationIndex;
   final Function onTap;
-  final Widget Function() buildContent;
+  final Widget buildContent;
 
   const RailNavigation({
     super.key,
@@ -54,7 +54,7 @@ class RailNavigation extends StatelessWidget {
           ],
         ),
         const VerticalDivider(),
-        Expanded(child: buildContent()),
+        Expanded(child: buildContent),
       ],
     );
   }

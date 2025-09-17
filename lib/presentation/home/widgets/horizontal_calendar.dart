@@ -25,7 +25,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     _scrollController = ScrollController();
     final selectedDateDay = context.read<HomeViewModel>().selectedDate.day;
 
-    Future.delayed(DelayMS.lazy * 3, () {
+    Future.delayed(DelayMS.oneSecond * 3, () {
       if (context.mounted) {
         _scrollController.animateTo(
           Spacing.calendarScrollSize * (selectedDateDay - 3),

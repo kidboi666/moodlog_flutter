@@ -42,7 +42,7 @@ abstract final class Spacing {
 }
 
 abstract final class DelayMS {
-  static const lazy = Duration(milliseconds: 1000);
+  static const oneSecond = Duration(milliseconds: 1000);
   static const medium = Duration(milliseconds: 500);
   static const quick = Duration(milliseconds: 300);
   static const instant = Duration(milliseconds: 150);

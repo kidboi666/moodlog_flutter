@@ -48,7 +48,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!viewModel.isEditMode) {
-        Future.delayed(DelayMS.lazy, _showMoodSelectionBottomSheet);
+        Future.delayed(DelayMS.oneSecond, _showMoodSelectionBottomSheet);
       }
     });
   }
