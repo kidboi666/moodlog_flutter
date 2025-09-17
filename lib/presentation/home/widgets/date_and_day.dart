@@ -29,7 +29,7 @@ class DateAndDay extends StatelessWidget {
     return GestureDetector(
       onTap: isFuture ? null : () => selectDate(date),
       child: AnimatedContainer(
-        duration: DurationMs.quick,
+        duration: DurationMS.quick,
         curve: Curves.easeInOutQuad,
         height: Spacing.horCalendarDateHeight,
         decoration: BoxDecoration(

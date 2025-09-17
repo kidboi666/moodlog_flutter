@@ -30,7 +30,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
         Expanded(
           flex: 1,
           child: FadeIn(
-            delay: DelayMs.medium,
+            delay: DelayMS.medium,
             child: Text(
               t.onboarding_success_description,
               style: textTheme.titleLarge,
@@ -38,7 +38,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium * 2,
+          delay: DelayMS.medium * 2,
           child: SafeArea(
             bottom: true,
             child: SizedBox(

@@ -20,10 +20,10 @@ class AnimatedNavigatorContainer extends StatelessWidget {
         return AnimatedSlide(
           offset: Offset(0, index == currentIndex ? 0 : 0.01),
           curve: Curves.easeInOut,
-          duration: DurationMs.medium,
+          duration: DurationMS.medium,
           child: AnimatedOpacity(
             opacity: index == currentIndex ? 1 : 0,
-            duration: DurationMs.medium,
+            duration: DurationMS.medium,
             child: _branchNavigatorWrapper(index, navigator),
           ),
         );

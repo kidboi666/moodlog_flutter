@@ -19,7 +19,7 @@ class WelcomeZone extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeIn(
-          delay: DelayMs.medium * 2,
+          delay: DelayMS.medium * 2,
           child: Builder(
             builder: (context) {
               final nickname = context.select<HomeViewModel, String?>(
@@ -38,7 +38,7 @@ class WelcomeZone extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium * 3,
+          delay: DelayMS.medium * 3,
           child: Text(
             t.home_howareyou,
             style: textTheme.headlineSmall?.copyWith(

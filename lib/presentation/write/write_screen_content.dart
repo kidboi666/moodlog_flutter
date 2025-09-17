@@ -48,7 +48,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!viewModel.isEditMode) {
-        Future.delayed(DelayMs.lazy, _showMoodSelectionBottomSheet);
+        Future.delayed(DelayMS.lazy, _showMoodSelectionBottomSheet);
       }
     });
   }
@@ -118,7 +118,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                       children: [
                         const SizedBox(height: Spacing.md),
                         FadeIn(
-                          delay: DelayMs.quick * 2,
+                          delay: DelayMS.quick * 2,
                           child: ContentInput(
                             contentController: _contentController,
                             focusNode: _contentFocusNode,
@@ -128,7 +128,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                     ),
                     const SizedBox(height: Spacing.xxl),
                     FadeIn(
-                      delay: DelayMs.quick * 3,
+                      delay: DelayMS.quick * 3,
                       child: const AiEnableCard(),
                     ),
                   ],

@@ -51,7 +51,7 @@ class _AiResponseBoxState extends State<AiResponseBox>
             crossFadeState: journal.aiResponse != null
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
-            duration: DurationMs.lazy,
+            duration: DurationMS.lazy,
             firstChild: Column(
               spacing: Spacing.xl,
               children: [

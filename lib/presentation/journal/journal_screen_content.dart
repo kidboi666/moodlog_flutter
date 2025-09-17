@@ -80,7 +80,7 @@ class _JournalScreenContent extends StatelessWidget {
           children: [
             IntrinsicHeight(
               child: FadeIn(
-                delay: DelayMs.quick,
+                delay: DelayMS.quick,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -92,7 +92,7 @@ class _JournalScreenContent extends StatelessWidget {
             ),
             const SizedBox(height: Spacing.lg),
             FadeIn(
-              delay: DelayMs.quick * 2,
+              delay: DelayMS.quick * 2,
               child: AiResponseBox(viewModel: viewModel),
             ),
           ],

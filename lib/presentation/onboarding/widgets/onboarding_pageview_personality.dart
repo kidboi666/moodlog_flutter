@@ -23,7 +23,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: Spacing.xl ,
+      spacing: Spacing.xl,
       children: [
         FadeIn(
           child: Text(
@@ -32,14 +32,14 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium,
+          delay: DelayMS.medium,
           child: Text(
             t.onboarding_personality_description,
             style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium * 2,
+          delay: DelayMS.medium * 2,
           child: Selector<OnboardingViewModel, AiPersonality>(
             selector: (_, viewModel) => viewModel.selectedPersonality,
             builder: (context, selectedPersonality, _) {
@@ -59,7 +59,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium * 3,
+          delay: DelayMS.medium * 3,
           child: Text(
             t.onboarding_personality_hint,
             style: textTheme.bodyLarge?.copyWith(
@@ -70,7 +70,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
         ),
         const Expanded(child: SizedBox()),
         FadeIn(
-          delay: DelayMs.medium * 4,
+          delay: DelayMS.medium * 4,
           child: SafeArea(
             bottom: true,
             child: SizedBox(

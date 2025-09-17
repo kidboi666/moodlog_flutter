@@ -29,7 +29,7 @@ class MoodButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: () async {
             viewModel.updateMoodType(mood);
-            Future.delayed(DurationMs.instant, () => nextPage());
+            Future.delayed(DurationMS.instant, () => nextPage());
           },
           style: ButtonStyle(
             elevation: WidgetStateProperty.all(0),

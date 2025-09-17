@@ -25,12 +25,12 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     _scrollController = ScrollController();
     final selectedDateDay = context.read<HomeViewModel>().selectedDate.day;
 
-    Future.delayed(DelayMs.lazy * 3, () {
+    Future.delayed(DelayMS.lazy * 3, () {
       if (context.mounted) {
         _scrollController.animateTo(
-          40.0 * (selectedDateDay - 1),
-          duration: DurationMs.medium,
-          curve: Curves.easeInQuart,
+          Spacing.calendarScrollSize * (selectedDateDay - 3),
+          duration: DurationMS.lazy,
+          curve: Curves.easeInOut,
         );
       }
     });
@@ -38,11 +38,11 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
     final viewModel = context.read<HomeViewModel>();
-    final now = DateTime.now();
     final selectedDate = context.select<HomeViewModel, DateTime>(
       (vm) => vm.selectedDate,
     );
@@ -50,7 +50,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
       (vm) => vm.dateItems!,
     );
     return FadeIn(
-      delay: DelayMs.medium * 4,
+      delay: DelayMS.medium * 4,
       child: GradientBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

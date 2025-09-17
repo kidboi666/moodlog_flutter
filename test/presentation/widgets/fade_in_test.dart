@@ -22,7 +22,7 @@ void main() {
       expect(fadeTransition.opacity.value, closeTo(0.0, 0.01));
       expect(scaleTransition.scale.value, closeTo(0.95, 0.01));
 
-      await tester.pump(DelayMs.instant);
+      await tester.pump(DelayMS.instant);
       await tester.pumpAndSettle();
 
       fadeTransition = tester.widget(find.byType(FadeTransition));

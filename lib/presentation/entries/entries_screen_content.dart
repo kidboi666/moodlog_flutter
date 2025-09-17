@@ -119,7 +119,7 @@ class _EntriesScreenContent extends StatelessWidget {
                 if (entries.isEmpty) {
                   return SliverToBoxAdapter(
                     child: FadeIn(
-                      delay: DelayMs.medium,
+                      delay: DelayMS.medium,
                       child: Padding(
                         padding: Spacing.containerHorizontalPadding,
                         child: EmptyEntriesBox(),
@@ -145,7 +145,7 @@ class _EntriesScreenContent extends StatelessWidget {
                       padding: Spacing.containerHorizontalPadding,
                       child: FadeIn(
                         delay:
-                            DelayMs.medium + Duration(milliseconds: index * 50),
+                            DelayMS.medium + Duration(milliseconds: index * 50),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

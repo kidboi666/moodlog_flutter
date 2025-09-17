@@ -16,7 +16,7 @@ class _TitleBarState extends State<TitleBar> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(DelayMs.lazy * 3, () {
+    Future.delayed(DelayMS.lazy * 3, () {
       setState(() {
         crossFadeState = CrossFadeState.showSecond;
       });
@@ -29,7 +29,7 @@ class _TitleBarState extends State<TitleBar> {
       firstChild: Hello(),
       secondChild: WeatherWidget(),
       crossFadeState: crossFadeState,
-      duration: DurationMs.quick,
+      duration: DurationMS.quick,
     );
   }
 }

@@ -12,7 +12,7 @@ class ScaleWrapper extends StatefulWidget {
     super.key,
     required this.child,
     this.scaleValue = 0.98,
-    this.duration = DurationMs.instant,
+    this.duration = DurationMS.instant,
     this.curve = Curves.easeInOut,
   });
 

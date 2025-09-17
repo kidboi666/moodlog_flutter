@@ -19,7 +19,7 @@ class _SignInScreenContent extends StatelessWidget {
           child: Column(
             children: [
               FadeIn(
-                delay: DelayMs.medium,
+                delay: DelayMS.medium,
                 child: Image.asset(
                   'assets/images/icon.png',
                   width: mediaQuery.size.width / 2,
@@ -28,12 +28,12 @@ class _SignInScreenContent extends StatelessWidget {
                 ),
               ),
               FadeIn(
-                delay: DelayMs.medium * 2,
+                delay: DelayMS.medium * 2,
                 child: Text(t.signin_title, style: textTheme.headlineMedium),
               ),
               const SizedBox(height: Spacing.md),
               FadeIn(
-                delay: DelayMs.medium * 3,
+                delay: DelayMS.medium * 3,
                 child: Text(
                   t.signin_growth,
                   style: textTheme.titleMedium?.copyWith(
@@ -43,7 +43,7 @@ class _SignInScreenContent extends StatelessWidget {
               ),
               const Expanded(child: SizedBox()),
               FadeIn(
-                delay: DelayMs.medium * 4,
+                delay: DelayMS.medium * 4,
                 child: SafeArea(
                   bottom: true,
                   child: Column(

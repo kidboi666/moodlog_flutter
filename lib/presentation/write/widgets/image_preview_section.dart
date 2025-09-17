@@ -17,7 +17,7 @@ class ImagePreviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: DurationMs.quick,
+      duration: DurationMS.quick,
       curve: Curves.easeInOutCubicEmphasized,
       height: selectedImageList.isNotEmpty ? 60 : 0,
       child: SizedBox(

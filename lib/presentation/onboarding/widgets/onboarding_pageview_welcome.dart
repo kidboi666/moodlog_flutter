@@ -28,7 +28,7 @@ class OnboardingPageViewWelcome extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium,
+          delay: DelayMS.medium,
           child: Text(
             t.onboarding_welcome_description1,
             style: textTheme.titleLarge?.copyWith(color: colorScheme.secondary),
@@ -37,7 +37,7 @@ class OnboardingPageViewWelcome extends StatelessWidget {
         Expanded(
           flex: 1,
           child: FadeIn(
-            delay: DelayMs.medium * 2,
+            delay: DelayMS.medium * 2,
             child: Text(
               t.onboarding_welcome_description2,
               style: textTheme.titleLarge?.copyWith(
@@ -47,11 +47,11 @@ class OnboardingPageViewWelcome extends StatelessWidget {
           ),
         ),
         FadeIn(
-          delay: DelayMs.medium * 3,
+          delay: DelayMS.medium * 3,
           child: Text(t.onboarding_welcome_next, style: textTheme.titleLarge),
         ),
         FadeIn(
-          delay: DelayMs.medium * 4,
+          delay: DelayMS.medium * 4,
           child: SafeArea(
             bottom: true,
             child: SizedBox(

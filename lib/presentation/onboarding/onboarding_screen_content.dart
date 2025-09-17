@@ -11,7 +11,7 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
 
   void onNext() {
     _pageController.nextPage(
-      duration: DurationMs.medium,
+      duration: DurationMS.medium,
       curve: Curves.easeInOut,
     );
   }

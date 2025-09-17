@@ -9,8 +9,8 @@ class FadeIn extends StatefulWidget {
 
   const FadeIn({
     super.key,
-    this.delay = DelayMs.instant,
-    this.duration = DurationMs.lazy,
+    this.delay = DelayMS.instant,
+    this.duration = DurationMS.lazy,
     required this.child,
   });
 

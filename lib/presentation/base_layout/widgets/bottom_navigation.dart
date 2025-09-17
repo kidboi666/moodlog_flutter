@@ -22,7 +22,7 @@ class BottomNavigation extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
 
     return NavigationBar(
-      animationDuration: DurationMs.lazy,
+      animationDuration: DurationMS.lazy,
       selectedIndex: getNavigationIndex(navigationShell.currentIndex),
       onDestinationSelected: (index) => onTap(context, index),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,

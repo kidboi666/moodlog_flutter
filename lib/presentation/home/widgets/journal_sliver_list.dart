@@ -35,7 +35,7 @@ class JournalSliverList extends StatelessWidget {
         if (isLoading) {
           return SliverToBoxAdapter(
             child: FadeIn(
-              delay: isFirstRender ? DelayMs.medium * 5 : DelayMs.medium,
+              delay: isFirstRender ? DelayMS.medium * 5 : DelayMS.medium,
               child: const CircularProgressIndicator(),
             ),
           );
@@ -43,7 +43,7 @@ class JournalSliverList extends StatelessWidget {
         if (journal.isEmpty) {
           return SliverToBoxAdapter(
             child: FadeIn(
-              delay: isFirstRender ? DelayMs.medium * 5 : DelayMs.medium,
+              delay: isFirstRender ? DelayMS.medium * 5 : DelayMS.medium,
               child: EmptyEntriesBox(
                 isDisabled: isSelectedDateInFuture,
                 onPressed: () =>
@@ -57,8 +57,8 @@ class JournalSliverList extends StatelessWidget {
             final e = journal[index];
             return FadeIn(
               delay: isFirstRender
-                  ? DelayMs.medium * (5 + index)
-                  : DelayMs.medium,
+                  ? DelayMS.medium * (5 + index)
+                  : DelayMS.medium,
               child: Column(
                 children: [
                   JournalCard(

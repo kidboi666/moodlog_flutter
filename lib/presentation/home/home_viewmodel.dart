@@ -139,7 +139,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _initializeDelayedRender() async {
-    await Future.delayed(DelayMs.medium * 4);
+    await Future.delayed(DelayMS.medium * 4);
     setIsFirstRender(false);
   }
 

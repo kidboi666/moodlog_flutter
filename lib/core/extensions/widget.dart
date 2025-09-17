@@ -6,7 +6,7 @@ import '../ui/widgets/scale_wrapper.dart';
 extension WidgetScaleExtension on Widget {
   Widget scale({
     double scaleValue = 0.90,
-    Duration duration = DurationMs.instant,
+    Duration duration = DurationMS.instant,
     Curve curve = Curves.easeInOut,
   }) {
     return ScaleWrapper(
