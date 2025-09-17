@@ -14,27 +14,22 @@ class WelcomeZone extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final nickname = context.select((HomeViewModel vm) => vm.nickname);
 
+    debugPrint('닉네임: $nickname');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeIn(
           delay: DelayMS.medium * 2,
-          child: Builder(
-            builder: (context) {
-              final nickname = context.select<HomeViewModel, String?>(
-                (vm) => vm.nickname,
-              );
-              return Row(
-                spacing: Spacing.md,
-                children: [
-                  Text(
-                    t.home_welcome(nickname ?? ''),
-                    style: textTheme.headlineSmall,
-                  ),
-                ],
-              );
-            },
+          child: Row(
+            spacing: Spacing.md,
+            children: [
+              Text(
+                t.home_welcome(nickname ?? ''),
+                style: textTheme.headlineSmall,
+              ),
+            ],
           ),
         ),
         FadeIn(

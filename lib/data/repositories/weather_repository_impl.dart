@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:logging/logging.dart';
 
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/weather_info.dart';
@@ -16,7 +14,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
   // 2. 아래 'demo_key'를 발급받은 API 키로 교체
   // 현재는 Mock 데이터가 반환됩니다.
   static const String _apiKey = '210b2d0ea5645db646e999c2e039b211';
-  final Logger _log = Logger('WeatherRepositoryImpl');
 
   @override
   Future<Result<WeatherInfo>> getCurrentWeather({
@@ -28,36 +25,23 @@ class WeatherRepositoryImpl implements WeatherRepository {
         '$_baseUrl/weather?lat=$latitude&lon=$longitude&appid=$_apiKey&units=metric&lang=kr',
       );
 
-      _log.info('Fetching weather data from: $url');
-
       final response = await http.get(url);
-      _log.info('Response status: ${response.statusCode}');
-      debugPrint('Response status: ${response.statusCode}');
-      _log.info('Response body: ${response.body}');
-      debugPrint('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final weatherInfo = _parseOpenWeatherData(data);
-        _log.fine('Weather data fetched successfully');
         return Result.ok(weatherInfo);
       } else if (response.statusCode == 401) {
-        _log.warning('API key invalid, returning mock data');
         return Result.ok(_getMockWeatherData(latitude, longitude));
       } else {
         final error = 'OpenWeatherMap API Error: ${response.statusCode}';
-        _log.warning(error);
         return Result.error(Exception(error));
       }
     } catch (e) {
-      _log.severe('Failed to fetch weather data: $e');
-      // 네트워크 오류 등의 경우 Mock 데이터 반환
-      _log.info('Returning mock weather data due to error');
       return Result.ok(_getMockWeatherData(latitude, longitude));
     }
   }
 
-  /// OpenWeatherMap API 응답을 WeatherInfo 객체로 변환합니다.
   WeatherInfo _parseOpenWeatherData(Map<String, dynamic> data) {
     final main = data['main'];
     final weather = (data['weather'] as List).first;

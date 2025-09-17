@@ -60,7 +60,7 @@ class _EditDisplayNameBottomSheetState
             autofocus: true,
             decoration: InputDecoration(
               hintText: t.profile_nickname_hint,
-              border: const OutlineInputBorder(),
+              border: const UnderlineInputBorder(),
               suffixIcon: IconButton(
                 onPressed: () {
                   _controller.clear();
@@ -69,13 +69,12 @@ class _EditDisplayNameBottomSheetState
               ),
               suffixIconColor: colorScheme.outline,
             ),
+            onSubmitted: _isValid ? (value) => context.pop(value) : null,
           ),
           Text(t.profile_nickname_hint, textAlign: TextAlign.center),
           FilledButton(
             onPressed: _isValid
-                ? () {
-                    context.pop(_controller.text.trim());
-                  }
+                ? () => context.pop(_controller.text.trim())
                 : null,
             child: Text(t.common_confirm_ok),
           ),

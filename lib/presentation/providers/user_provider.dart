@@ -19,8 +19,6 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
   StreamSubscription<User?>? _userSubscription;
   User? _user;
 
-  AuthRepository get authRepository => _authRepository;
-
   User? get user => _user;
 
   bool get isAuthenticated => _authRepository.isAuthenticated;
@@ -40,11 +38,11 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
     _userSubscription = _authRepository.userChanges.listen(
       (user) {
         _user = user;
-        notifyListeners();
+        setSuccess();
       },
       onError: (error) {
         _log.warning('Error in user stream: $error');
-        notifyListeners();
+        setError(error);
       },
     );
   }

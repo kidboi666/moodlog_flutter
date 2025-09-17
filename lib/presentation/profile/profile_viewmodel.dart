@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
@@ -31,12 +30,13 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void clearSuccessMessage() {
     _successMessage = null;
-    setAsyncState(AsyncState.idle);
+    clearState();
   }
 
   Future<Result<void>> updateDisplayName(String displayName) async {
-    setAsyncState(AsyncState.loading);
+    setLoading();
     final result = await _authUseCase.updateDisplayName(displayName);
+
     switch (result) {
       case Ok<void>():
         _successMessage = '닉네임이 변경되었습니다.';
@@ -88,8 +88,10 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _authUseCase.updateProfileImage(photoURL);
     switch (result) {
       case Ok<void>():
+        setSuccess();
         return Result.ok(null);
       case Error<void>():
+        setError(result.error);
         return Result.error(result.error);
     }
   }

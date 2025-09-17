@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core/mixins/async_state_mixin.dart';
-
-class AiGenerationProvider extends ChangeNotifier with AsyncStateMixin {
+class AiGenerationProvider extends ChangeNotifier {
   bool _isGeneratingAiResponse = false;
   Object? _errorGeneratingAiResponse;
 
