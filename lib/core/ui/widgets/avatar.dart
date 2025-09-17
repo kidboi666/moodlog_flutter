@@ -25,7 +25,7 @@ class Avatar extends StatelessWidget {
       borderRadius: BorderRadius.circular(size / 2),
       child: CircleAvatar(
         radius: size / 2,
-        backgroundColor: colorScheme.surfaceContainer,
+        backgroundColor: colorScheme.primaryContainer,
         child: photoUrl != null && photoUrl!.isNotEmpty
             ? ClipOval(
                 child: Image.network(
