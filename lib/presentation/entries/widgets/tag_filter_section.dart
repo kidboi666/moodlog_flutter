@@ -88,9 +88,6 @@ class TagFilterSection extends StatelessWidget {
                         label: tag.name,
                         isSelected: viewModel.selectedTagFilter?.id == tag.id,
                         onTap: () => viewModel.setTagFilter(tag),
-                        color: tag.color != null
-                            ? Color(int.parse(tag.color!, radix: 16))
-                            : null,
                       ),
                     ),
                   ),
@@ -108,24 +105,30 @@ class _FilterChip extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
-  final Color? color;
 
   const _FilterChip({
     required this.label,
     required this.isSelected,
     required this.onTap,
-    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return FilterChip(
-      label: Text(label),
+      label: Text(
+        label,
+        style: textTheme.titleSmall?.copyWith(
+          color: isSelected
+              ? colorScheme.onPrimaryContainer
+              : colorScheme.onSurface,
+        ),
+      ),
       selected: isSelected,
       onSelected: (_) => onTap(),
-      backgroundColor: color ?? colorScheme.surfaceContainer,
-      selectedColor: color ?? colorScheme.primaryContainer,
+      backgroundColor: colorScheme.surfaceContainer,
+      selectedColor: colorScheme.primaryContainer,
       checkmarkColor: isSelected
           ? colorScheme.onPrimaryContainer
           : colorScheme.onSurface,
@@ -147,13 +150,21 @@ class _MoodFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return FilterChip(
       label: Row(
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(mood.emoji, style: const TextStyle(fontSize: 16)),
-          const SizedBox(width: 4),
-          Text(mood.getDisplayName(context)),
+          Text(mood.emoji, style: textTheme.bodyMedium),
+          const SizedBox(width: Spacing.xs),
+          Text(
+            mood.getDisplayName(context),
+            style: textTheme.titleSmall?.copyWith(
+              color: isSelected
+                  ? colorScheme.onPrimaryContainer
+                  : colorScheme.onSurface,
+            ),
+          ),
         ],
       ),
       selected: isSelected,
