@@ -39,9 +39,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final Map<DateTime, List<Journal>> _monthlyJournals = {};
   final Map<DateTime, List<Journal>> _yearlyJournals = {};
   LocationInfo? _locationInfo;
-  bool _isLoadingLocation = false;
   WeatherInfo? _weatherInfo;
-  bool _isLoadingWeather = false;
   MoodType? _representativeMood;
   List<Journal> _recentJournals = [];
 
@@ -61,11 +59,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   LocationInfo? get locationInfo => _locationInfo;
 
-  bool get isLoadingLocation => _isLoadingLocation;
-
   WeatherInfo? get weatherInfo => _weatherInfo;
-
-  bool get isLoadingWeather => _isLoadingWeather;
 
   bool get isSelectedDateInFuture {
     final today = DateTime.now();
