@@ -1,4 +1,4 @@
-package com.kidboi666.moodlog
+package com.logmind.moodlog
 
 import io.flutter.embedding.android.FlutterActivity
 

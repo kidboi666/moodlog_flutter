@@ -25,11 +25,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>googleSignIn</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.761406625155-iel6nd3d9fpoaqlu59i8ft7q1p55goh3</string>
+				<string>com.googleusercontent.apps.16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8</string>
 			</array>
 		</dict>
 	</array>
@@ -38,7 +40,7 @@
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-2882120764375432~9863050090</string>
 	<key>GIDClientID</key>
-	<string>761406625155-iel6nd3d9fpoaqlu59i8ft7q1p55goh3.apps.googleusercontent.com</string>
+	<string>16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>

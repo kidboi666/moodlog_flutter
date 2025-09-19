@@ -9,6 +9,7 @@ import '../../presentation/home/home_screen.dart';
 import '../../presentation/journal/journal_screen.dart';
 import '../../presentation/onboarding/onboarding_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
+import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
 import '../../presentation/settings/settings_screen.dart';
 import '../../presentation/statistics/statistics_screen.dart';
@@ -122,24 +123,44 @@ GoRouter router(
 );
 
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final userProvider = context.read<UserProvider>();
-  final isAuthenticated = userProvider.isAuthenticated;
-  final isAnonymousUser = userProvider.isAnonymousUser;
-  final location = state.matchedLocation;
-  final isOnboarding = location == Routes.onboarding;
-  final isSigning = location == Routes.signIn;
+  final UserProvider userProvider = context.read<UserProvider>();
+  final AppStateProvider appStateProvider = context.read<AppStateProvider>();
+  final bool isAuthenticated = userProvider.isAuthenticated;
+  final bool isAnonymousUser = userProvider.isAnonymousUser;
+  final bool isGoogleUser = userProvider.isGoogleUser;
+  final bool isAppleUser = userProvider.isAppleUser;
+  final List<String>? onboardedLoginTypes =
+      appStateProvider.appState.onboardedLoginTypes;
+  final String location = state.matchedLocation;
+  final bool isOnboarding = location == Routes.onboarding;
+  final bool isSigning = location == Routes.signIn;
 
-  // 로그인을 안했다면
   if (!isAuthenticated) {
-    // 로그인 페이지가 아니라면 로그인 페이지로
     return isSigning ? null : Routes.signIn;
   }
 
-  // 로그인을 했고
-  // 로그인 페이지이거나 온보딩 페이지라면
-  if (isSigning || isOnboarding) {
-    // 익명 사용자가 아니라면 홈으로
-    return isAnonymousUser ? null : Routes.home;
+  if (isSigning) {
+    if (onboardedLoginTypes == null) {
+      return null;
+    }
+
+    if (isGoogleUser) {
+      if (onboardedLoginTypes.contains(LoginType.google.value)) {
+        return Routes.home;
+      }
+      return Routes.onboarding;
+    }
+
+    if (isAppleUser) {
+      if (onboardedLoginTypes.contains(LoginType.apple.value)) {
+        return Routes.home;
+      }
+      return Routes.onboarding;
+    }
+
+    if (isAnonymousUser) {
+      return Routes.home;
+    }
   }
 
   return null;

@@ -57,6 +57,31 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
+  Future<Result<void>> signInApple() async {
+    setLoading();
+    _loginType = LoginType.apple;
+    final result = await _authRepository.signInWithApple();
+    switch (result) {
+      case Ok<User?>():
+        AnalyticsRepositoryImpl().setUserId(result.value?.uid);
+        AnalyticsRepositoryImpl().setUserProperty(
+          name: 'login_method',
+          value: 'apple',
+        );
+        _log.info('Successfully signed in with Apple');
+        setSuccess();
+        return Result.ok(null);
+
+      case Error<User?>():
+        _log.warning(
+          'Failed to sign in with Apple ${result.error}',
+          result.error,
+        );
+        setError(result.error);
+        return Result.error(result.error);
+    }
+  }
+
   Future<Result<void>> signInGoogle() async {
     setLoading();
     _loginType = LoginType.google;

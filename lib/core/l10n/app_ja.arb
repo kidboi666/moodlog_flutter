@@ -67,7 +67,7 @@
   "signin_login_title": "登録して記録を保存しましょう。",
   "signin_button_guest": "ゲストとして開始",
   "signin_button_google": "Googleアカウントで開始",
-  "signin_button_kakao": "Kakaoアカウントで開始",
+  "signin_button_apple": "Appleアカウントで開始",
   "home_hello": "こんにちは！",
   "home_welcome": "{nickname}さん。",
   "home_howareyou": "今日の気分はいかがですか？",

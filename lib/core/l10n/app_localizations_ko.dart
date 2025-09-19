@@ -36,7 +36,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_email => '이메일';
 
   @override
-  String get common_phone => '전화';
+  String get common_phone => '전화번호';
 
   @override
   String get common_mood_verygood => '매우 좋음';
@@ -48,10 +48,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_mood_neutral => '보통';
 
   @override
-  String get common_mood_bad => '안좋음';
+  String get common_mood_bad => '나쁨';
 
   @override
-  String get common_mood_verybad => '매우 안좋음';
+  String get common_mood_verybad => '매우 나쁨';
 
   @override
   String get common_month_jan => '1월';
@@ -132,45 +132,44 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_weekday_sun_short => '일';
 
   @override
-  String get onboarding_welcome_title => '무드로그에 오신 것을 환영합니다!';
+  String get onboarding_welcome_title => 'MoodLog에 오신 것을 환영합니다!';
 
   @override
   String get onboarding_welcome_description1 =>
-      '무드로그는 당신의 일상 감정을 기록하고 그에 대한 AI의 답장을 받을 수 있는 앱입니다.';
+      'MoodLog는 매일의 감정을 기록하고 AI의 응답을 받을 수 있는 앱입니다.';
 
   @override
-  String get onboarding_welcome_description2 => '매일 감정을 기록하고 AI가 해준 답장을 읽어보세요.';
+  String get onboarding_welcome_description2 => '매일 감정을 기록하고 AI의 응답을 읽어보세요.';
 
   @override
-  String get onboarding_welcome_next => '함께 준비해볼까요?';
+  String get onboarding_welcome_next => '함께 시작해볼까요?';
 
   @override
   String get onboarding_nickname_title => '닉네임 설정';
 
   @override
-  String get onboarding_nickname_description => '무드로그에서 사용할 닉네임을 입력해주세요';
+  String get onboarding_nickname_description => 'MoodLog에서 사용할 닉네임을 입력해주세요';
 
   @override
   String get onboarding_nickname_input_title => '닉네임';
 
   @override
-  String get onboarding_nickname_input_hint => '닉네임을 입력하세요 (2~10자)';
+  String get onboarding_nickname_input_hint => '닉네임 입력 (2-10글자)';
 
   @override
-  String get onboarding_nickname_next => '닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.';
+  String get onboarding_nickname_next => '닉네임은 설정 메뉴에서 언제든 변경할 수 있습니다.';
 
   @override
   String get onboarding_nickname_input_error => '닉네임을 입력해주세요.';
 
   @override
-  String get onboarding_personality_title => '답장 스타일 정하기';
+  String get onboarding_personality_title => '응답 스타일 선택';
 
   @override
-  String get onboarding_personality_description =>
-      '당신의 일기에 답변해줄 AI의 성격을 선택하세요.';
+  String get onboarding_personality_description => '일기에 응답할 AI 성격을 선택해주세요.';
 
   @override
-  String get onboarding_personality_rational_title => '냉철한 분석가';
+  String get onboarding_personality_rational_title => '합리적 분석가';
 
   @override
   String get onboarding_personality_rational_description =>
@@ -181,67 +180,67 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onboarding_personality_balanced_description =>
-      '공감과 현실적 조언의 균형을 맞춥니다.';
+      '공감과 현실적인 조언의 균형을 맞춥니다.';
 
   @override
-  String get onboarding_personality_compassionate_title => '다정한 치유자';
+  String get onboarding_personality_compassionate_title => '따뜻한 치유자';
 
   @override
   String get onboarding_personality_compassionate_description =>
-      '따뜻한 위로와 깊은 공감을 전합니다.';
+      '따뜻한 위로와 깊은 공감을 전달합니다.';
 
   @override
-  String get onboarding_personality_hint => '설정에서 언제든지 바꿀 수 있습니다.';
+  String get onboarding_personality_hint => '설정에서 언제든 변경할 수 있습니다.';
 
   @override
-  String get onboarding_success_title => '시작할 준비가 되었어요!';
+  String get onboarding_success_title => '시작할 준비가 되었습니다!';
 
   @override
-  String get onboarding_success_description => '무드로그를 시작해볼까요?';
+  String get onboarding_success_description => 'MoodLog를 시작해볼까요?';
 
   @override
   String get onboarding_success_next => '시작하기';
 
   @override
-  String get signin_title => '시작할 준비가 되었어요!';
+  String get signin_title => '시작할 준비가 되었습니다!';
 
   @override
   String get signin_growth => '성장하는 마음을 기록하세요.';
 
   @override
-  String get signin_login_title => '가입하여 기록을 저장하세요.';
+  String get signin_login_title => '기록을 저장하려면 로그인하세요.';
 
   @override
-  String get signin_button_guest => '게스트로 시작하기';
+  String get signin_button_guest => '게스트로 시작';
 
   @override
-  String get signin_button_google => '구글 아이디로 시작하기';
+  String get signin_button_google => 'Google로 시작';
 
   @override
-  String get signin_button_kakao => '카카오 아이디로 시작하기';
+  String get signin_button_apple => 'Apple로 시작';
 
   @override
   String get home_hello => '안녕하세요!';
 
   @override
   String home_welcome(Object nickname) {
-    return '$nickname 님.';
+    return '$nickname님.';
   }
 
   @override
-  String get home_howareyou => '오늘 기분은 어떠세요?';
+  String get home_howareyou => '오늘 기분이 어떠신가요?';
 
   @override
   String get home_empty_box => '당신의 이야기를 기다리고 있어요.';
 
   @override
-  String get entries_empty_box_title => '작성된 일기가 없습니다.';
+  String get entries_empty_box_title => '아직 일기가 없습니다.';
 
   @override
-  String get entries_empty_box_description => '작성한 일기가 이곳에 나타납니다.';
+  String get entries_empty_box_description => '작성한 일기가 여기에 표시됩니다.';
 
   @override
-  String get entries_empty_box_button => '일기 작성하러 가기';
+  String get entries_empty_box_button => '일기 쓰러 가기';
 
   @override
   String get entries_calendar_legend_has_journal => '일기 있음';
@@ -253,25 +252,25 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_home => '홈';
 
   @override
-  String get tab_entries => '기록';
+  String get tab_entries => '일기';
 
   @override
   String get tab_settings => '설정';
 
   @override
-  String get tab_write => '글쓰기';
+  String get tab_write => '쓰기';
 
   @override
   String get tab_statistics => '통계';
 
   @override
-  String get write_title => '일기 작성';
+  String get write_title => '일기 쓰기';
 
   @override
   String get write_edit_title => '일기 수정';
 
   @override
-  String get write_mood_title => '오늘의 기분은 어떠신가요?';
+  String get write_mood_title => '오늘 기분이 어떤가요?';
 
   @override
   String get write_mood_subtitle => '기분을 선택해주세요';
@@ -286,7 +285,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get write_ai_title => 'AI 위로 메시지';
 
   @override
-  String get write_ai_description => '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.';
+  String get write_ai_description => '일기를 작성하면 AI가 위로와 격려의 메시지를 보내드려요.';
 
   @override
   String get write_location_remove => '제거';
@@ -295,16 +294,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_title => '삭제 확인';
 
   @override
-  String get journal_delete_confirm_description => '이 항목을 삭제하시겠습니까?';
+  String get journal_delete_confirm_description => '이 일기를 삭제하시겠습니까?';
 
   @override
-  String get journal_ai_generating_response_title => 'AI가 답변을 작성 중입니다.';
+  String get journal_ai_generating_response_title => 'AI가 응답을 작성하고 있습니다.';
 
   @override
   String get statistics_total_title => '전체 통계';
 
   @override
-  String get statistics_total_record_description => '총 기록';
+  String get statistics_total_record_description => '총 기록수';
 
   @override
   String statistics_total_record(Object count) {
@@ -312,7 +311,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_total_streak_description => '연속 기록';
+  String get statistics_total_streak_description => '현재 연속기록';
 
   @override
   String statistics_total_streak(Object count) {
@@ -320,7 +319,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_total_streak_max_description => '최대 연속 기록';
+  String get statistics_total_streak_max_description => '최대 연속기록';
 
   @override
   String statistics_total_streak_max(Object count) {
@@ -328,7 +327,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_mood_calendar_title => '감정 달력';
+  String get statistics_mood_calendar_title => '기분 달력';
 
   @override
   String get statistics_mood_distribution_title => '기분 분포';
@@ -339,10 +338,10 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_mood_trend_title => '기분 추이';
+  String get statistics_mood_trend_title => '기분 변화';
 
   @override
-  String get statistics_mood_trend_empty => '기분 추이 데이터가 없습니다.';
+  String get statistics_mood_trend_empty => '기분 변화 데이터가 없습니다.';
 
   @override
   String get statistics_recent_title => '최근 일기';
@@ -351,10 +350,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_recent_empty => '최근 일기가 없습니다.';
 
   @override
-  String get statistics_total_records_count_unit => '개의 기록';
+  String get statistics_total_records_count_unit => '개';
 
   @override
-  String get statistics_total_records_first_record => '첫 기록';
+  String get statistics_total_records_first_record => '첫 번째 기록';
 
   @override
   String get statistics_total_records_period => '기록 기간';
@@ -369,14 +368,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String statistics_total_records_weekly_frequency(String frequency) {
-    return '$frequency회/주';
+    return '주 $frequency회';
   }
 
   @override
-  String get statistics_streak_status_active => '진행 중';
+  String get statistics_streak_status_active => '활성';
 
   @override
-  String get statistics_streak_status_inactive => '중단됨';
+  String get statistics_streak_status_inactive => '비활성';
 
   @override
   String get statistics_streak_last_record => '마지막 기록';
@@ -387,7 +386,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_streak_stopped => '연속 기록 중단';
+  String get statistics_streak_stopped => '연속기록 중단';
 
   @override
   String statistics_streak_stopped_days(int days) {
@@ -395,16 +394,16 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_streak_encouragement => '훌륭해요! 연속 기록을 이어가고 있어요';
+  String get statistics_streak_encouragement => '훌륭해요! 연속기록을 이어가고 있네요';
 
   @override
   String get statistics_max_streak_new_record => '신기록!';
 
   @override
-  String get statistics_max_streak_progress => '현재 진행률';
+  String get statistics_max_streak_progress => '현재 진행도';
 
   @override
-  String get statistics_max_streak_remaining => '최고 기록까지';
+  String get statistics_max_streak_remaining => '기록 갱신까지';
 
   @override
   String statistics_max_streak_remaining_days(int days) {
@@ -412,15 +411,14 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_max_streak_achievement_week => '일주일 연속 기록 달성! 잘하고 있어요!';
+  String get statistics_max_streak_achievement_week =>
+      '1주 연속기록 달성! 정말 잘하고 있어요!';
 
   @override
-  String get statistics_max_streak_achievement_two_weeks =>
-      '2주 연속 기록 달성! 훌륭해요!';
+  String get statistics_max_streak_achievement_two_weeks => '2주 연속기록 달성! 훌륭해요!';
 
   @override
-  String get statistics_max_streak_achievement_month =>
-      '한 달 연속 기록 달성! 정말 대단해요!';
+  String get statistics_max_streak_achievement_month => '한 달 연속기록 달성! 놀라워요!';
 
   @override
   String get statistics_average_mood_title => '평균 기분';
@@ -431,10 +429,10 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_average_mood_most_frequent => '가장 자주 느낀 기분';
+  String get statistics_average_mood_most_frequent => '가장 많은 기분';
 
   @override
-  String get statistics_average_mood_recent_trend => '최근 7일 추이';
+  String get statistics_average_mood_recent_trend => '최근 7일 동향';
 
   @override
   String get statistics_trend_rising => '상승';
@@ -450,7 +448,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get statistics_mood_negative_message =>
-      '힘든 시간을 보내고 계시는군요. 스스로를 돌보는 시간을 가져보세요.';
+      '힘든 시간을 보내고 있군요. 자신을 돌보는 시간을 가져보세요.';
 
   @override
   String get statistics_writing_frequency_title => '작성 빈도';
@@ -493,10 +491,10 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_writing_frequency_most_active_time => '가장 자주 쓰는 시간';
+  String get statistics_writing_frequency_most_active_time => '가장 활발한 시간';
 
   @override
-  String get statistics_writing_frequency_most_active_day => '가장 자주 쓰는 요일';
+  String get statistics_writing_frequency_most_active_day => '가장 활발한 요일';
 
   @override
   String get statistics_time_morning => '오전';
@@ -516,11 +514,11 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 계시는군요! 훌륭해요!';
+  String get statistics_writing_frequency_good_habit => '꾸준히 기록하고 있어요! 훌륭해요!';
 
   @override
   String get statistics_writing_frequency_encouragement =>
-      '조금 더 자주 기록해보세요. 작은 순간들도 소중해요!';
+      '조금 더 자주 기록해보세요. 작은 순간들도 소중하니까요!';
 
   @override
   String get settings_title => '설정';
@@ -538,22 +536,22 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_theme_title => '테마';
 
   @override
-  String get settings_common_theme_subtitle => '밝기 테마를 선택합니다.';
+  String get settings_common_theme_subtitle => '밝기 테마를 선택하세요.';
 
   @override
-  String get settings_common_theme_light => '밝은 테마';
+  String get settings_common_theme_light => '라이트 테마';
 
   @override
-  String get settings_common_theme_dark => '어두운 테마';
+  String get settings_common_theme_dark => '다크 테마';
 
   @override
   String get settings_common_theme_system => '시스템 테마';
 
   @override
-  String get settings_common_color_theme_title => '색상 테마';
+  String get settings_common_color_theme_title => '컬러 테마';
 
   @override
-  String get settings_common_color_theme_subtitle => '색상 테마를 선택합니다.';
+  String get settings_common_color_theme_subtitle => '컬러 테마를 선택하세요.';
 
   @override
   String get settings_common_language_title => '언어';
@@ -571,13 +569,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_font_family_leeSeoyun => '이서윤체';
 
   @override
-  String get settings_common_font_family_orbitOfTheMoon => '나눔손글씨 달의궤도';
+  String get settings_common_font_family_orbitOfTheMoon => '달의 궤도';
 
   @override
-  String get settings_common_font_family_restart => '나눔손글씨 다시 시작해';
+  String get settings_common_font_family_restart => '재시작';
 
   @override
-  String get settings_common_font_family_overcome => '나눔손글씨 나는 이겨낸다';
+  String get settings_common_font_family_overcome => '극복';
 
   @override
   String get settings_common_font_family_system => '시스템 기본';
@@ -598,7 +596,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_data_backup_subtitle => '데이터를 백업합니다.';
 
   @override
-  String get settings_data_backup_confirm => '데이터 백업하시겠습니까?';
+  String get settings_data_backup_confirm => '데이터를 백업하시겠습니까?';
 
   @override
   String get settings_data_backup_confirm_ok => '백업';
@@ -611,7 +609,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_data_cache_cleanup_confirm =>
-      '캐시를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
+      '캐시를 정리하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
 
   @override
   String get settings_ai_personality_changed => 'AI 성격이 변경되었습니다.';
@@ -623,13 +621,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_information_app_title => '앱 정보';
 
   @override
-  String get settings_information_app_subtitle => '버전 및 라이선스 정보';
+  String get settings_information_app_subtitle => '버전 및 라이센스 정보';
 
   @override
   String get settings_information_app_version => '버전';
 
   @override
-  String get settings_information_app_build => '라이선스';
+  String get settings_information_app_build => '라이센스';
 
   @override
   String get settings_information_app_developer => '개발자';
@@ -638,19 +636,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_information_faq_title => '도움말';
 
   @override
-  String get settings_information_faq_subtitle => '사용법 및 FAQ';
+  String get settings_information_faq_subtitle => '사용법 및 자주 묻는 질문';
 
   @override
   String get settings_information_qna_title => '문의하기';
 
   @override
-  String get settings_information_qna_subtitle => '개발자에게 문의합니다.';
+  String get settings_information_qna_subtitle => '개발자에게 문의하세요.';
 
   @override
   String get profile_title => '프로필';
 
   @override
-  String get profile_account_title => '가입 정보';
+  String get profile_account_title => '계정 정보';
 
   @override
   String get profile_nickname_title => '닉네임 변경';
@@ -662,7 +660,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile_creation_time_title => '가입일';
 
   @override
-  String get profile_uid_title => '유저 ID';
+  String get profile_uid_title => '사용자 ID';
 
   @override
   String get profile_button_login => '로그인 하러 가기';
@@ -671,7 +669,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile_button_logout => '로그아웃';
 
   @override
-  String get write_ai_limit_reached => 'AI 답변은 하루에 한 번만 가능합니다. 내일 다시 시도해주세요!';
+  String get write_ai_limit_reached => 'AI 응답은 하루에 한 번만 가능합니다. 내일 다시 시도해주세요!';
 
   @override
   String get write_timestamp_add => '시간 추가';
@@ -707,7 +705,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_language_thai => 'ไทย';
 
   @override
-  String get common_developing => '개발중';
+  String get common_developing => '개발 중';
 
   @override
   String get settings_user_info_title => '로그인 정보';
@@ -722,7 +720,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_user_info_anonymous => '익명 로그인';
 
   @override
-  String get settings_user_info_logged_in => '로그인';
+  String get settings_user_info_logged_in => '로그인됨';
 
   @override
   String get dialog_storage_init_title => '스토리지 초기화';
@@ -740,10 +738,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get dialog_init_button => '초기화';
 
   @override
-  String get settings_developer_options => '개발용 옵션';
+  String get settings_developer_options => '개발자 옵션';
 
   @override
-  String get settings_developer_mode_only => '개발모드 전용 동작';
+  String get settings_developer_mode_only => '개발자 모드 전용';
 
   @override
   String get settings_ai_section_title => 'AI 설정';
@@ -755,30 +753,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snackbar_backup_completed => '백업이 완료되었습니다.';
 
   @override
-  String get snackbar_cache_cleared => '캐시가 삭제되었습니다.';
+  String get snackbar_cache_cleared => '캐시가 정리되었습니다.';
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return '계속 함으로써 $terms과 $privacy에 동의합니다.';
+    return '계속하면 $terms 및 $privacy에 동의하는 것으로 간주됩니다.';
   }
 
   @override
-  String get auth_terms_of_service => '이용약관';
+  String get auth_terms_of_service => '서비스 약관';
 
   @override
-  String get auth_privacy_policy => '개인정보처리방침';
+  String get auth_privacy_policy => '개인정보 처리방침';
 
   @override
   String get app_info_copyright => '© 2024 All rights reserved';
 
   @override
-  String get app_info_developer => 'Your Name';
+  String get app_info_developer => '개발자명';
 
   @override
   String get profile_sign_out_title => '로그아웃';
 
   @override
-  String get profile_sign_out_message => '정말로 로그아웃하시겠습니까?';
+  String get profile_sign_out_message => '정말 로그아웃하시겠습니까?';
 
   @override
   String journal_count(int count) {
@@ -789,7 +787,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get location_current => '현재 위치';
 
   @override
-  String get location_add_location => '위치 추가하기';
+  String get location_add_location => '위치 추가';
 
   @override
   String get tags_manage_title => '태그 관리';
@@ -820,16 +818,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String tags_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+    return '\"$tagName\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.';
   }
 
   @override
   String tags_delete_success(String tagName) {
-    return '태그 \"$tagName\"이(가) 삭제되었습니다';
+    return '\"$tagName\" 태그가 삭제되었습니다';
   }
 
   @override
-  String get tags_no_tags => '태그가 없습니다';
+  String get tags_no_tags => '태그 없음';
 
   @override
   String get tags_load_failed => '태그를 불러오지 못했습니다';
@@ -853,7 +851,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_unit_day => '일';
 
   @override
-  String get entries_mood_filter_title => '감정으로 필터링';
+  String get entries_mood_filter_title => '기분으로 필터링';
 
   @override
   String get statistics_mood_distribution_empty => '표시할 기분 분포 데이터가 없습니다.';
@@ -865,7 +863,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_mood_trend_description => '기분 변화';
 
   @override
-  String get statistics_mood_trend_daily_records => '일간 기분 기록';
+  String get statistics_mood_trend_daily_records => '일별 기분 기록';
 
   @override
   String get statistics_mood_trend_overall_average => '전체 평균 점수';
@@ -884,7 +882,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get home_representative_mood_empty_description =>
-      '일기를 작성하여 감정을 기록해보세요';
+      '일기를 작성해서 감정을 기록해보세요';
 
   @override
   String get calendar_month_jan => '1월';
@@ -947,7 +945,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tags_dialog_title => '태그 관리';
 
   @override
-  String get tags_dialog_empty => '태그가 없습니다';
+  String get tags_dialog_empty => '태그 없음';
 
   @override
   String get tags_dialog_close => '닫기';
@@ -957,11 +955,11 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String tags_dialog_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 모든 일기에서 이 태그가 제거됩니다.';
+    return '\"$tagName\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.';
   }
 
   @override
   String tags_dialog_created(String date) {
-    return '생성 날짜: $date';
+    return '생성일: $date';
   }
 }

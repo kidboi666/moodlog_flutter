@@ -1,47 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/ui/widgets/submit_button.dart';
+import 'package:moodlog/core/ui/widgets/apple_logo_painter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
+import '../../../core/ui/widgets/submit_button.dart';
 import '../auth_viewmodel.dart';
 
-class GoogleSigninButton extends StatelessWidget {
-  const GoogleSigninButton({super.key});
+class AppleSigninButton extends StatelessWidget {
+  const AppleSigninButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
     return Consumer<AuthViewModel>(
       builder: (context, viewModel, _) {
         return SubmitButton(
-          style: FilledButton.styleFrom(
-            backgroundColor: colorScheme.surfaceContainer,
-            foregroundColor: colorScheme.onSurface,
-          ),
           isLoading: viewModel.isLoading,
+          style: FilledButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          ),
           onPressed: () async {
-            await viewModel.signInGoogle();
+            await viewModel.signInApple();
             if (context.mounted) {
               context.go(
                 Routes.onboarding,
-                extra: {'loginType': LoginType.google},
+                extra: {'loginType': LoginType.apple},
               );
             }
           },
           children: [
-            SvgPicture.asset(
-              'assets/svg/google-icon.svg',
-              width: 24,
-              height: 24,
-            ),
+            FixedSizeAppleLogo(),
             Text(
-              t.signin_button_google,
-              style: Theme.of(context).textTheme.titleMedium,
+              t.signin_button_apple,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: colorScheme.onPrimary),
             ),
           ],
         );

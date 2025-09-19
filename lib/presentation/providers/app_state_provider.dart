@@ -38,7 +38,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
         _settingsRepository.getColorTheme(),
         _settingsRepository.getFontFamily(),
         _settingsRepository.getTextAlign(),
-        _settingsRepository.getOnboardedLoginTypes(),
+        _settingsRepository.getOnboardingLoginTypes(),
       ]);
 
       _appState = Settings(

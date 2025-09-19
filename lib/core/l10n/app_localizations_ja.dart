@@ -218,7 +218,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get signin_button_google => 'Googleアカウントで開始';
 
   @override
-  String get signin_button_kakao => 'Kakaoアカウントで開始';
+  String get signin_button_apple => 'Appleアカウントで開始';
 
   @override
   String get home_hello => 'こんにちは！';

@@ -67,7 +67,7 @@
   "signin_login_title": "Sign up to save your records.",
   "signin_button_guest": "Start as Guest",
   "signin_button_google": "Start with Google",
-  "signin_button_kakao": "Start with Kakao",
+  "signin_button_apple": "Start with Apple",
   "home_hello": "Hello!",
   "home_welcome": "{nickname}.",
   "home_howareyou": "How are you feeling today?",

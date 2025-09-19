@@ -48,8 +48,10 @@ class _SignInScreenContent extends StatelessWidget {
                   bottom: true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: Spacing.sm,
                     children: [
                       GoogleSigninButton(),
+                      AppleSigninButton(),
                       if (source != SignInSource.profile) GuestSigninButton(),
                       const SizedBox(height: Spacing.md),
                       SignInTermsMessage(),

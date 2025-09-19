@@ -18,7 +18,7 @@ abstract class SettingsRepository {
 
   Future<SimpleTextAlign> getTextAlign();
 
-  Future<List<String>?> getOnboardedLoginTypes();
+  Future<List<String>?> getOnboardingLoginTypes();
 
   Future<AppInfo> getAppInfo();
 

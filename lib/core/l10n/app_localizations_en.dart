@@ -224,7 +224,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signin_button_google => 'Start with Google';
 
   @override
-  String get signin_button_kakao => 'Start with Kakao';
+  String get signin_button_apple => 'Start with Apple';
 
   @override
   String get home_hello => 'Hello!';

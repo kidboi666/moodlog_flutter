@@ -34,6 +34,15 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
     );
   }
 
+  bool get isAppleUser {
+    if (_user == null) {
+      return false;
+    }
+    return _user!.providerData.any(
+      (provider) => provider.providerId == 'apple.com',
+    );
+  }
+
   void _initializeUserStream() {
     _userSubscription = _authRepository.userChanges.listen(
       (user) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/auth/widgets/apple_signin_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
