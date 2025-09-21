@@ -9,6 +9,7 @@ import '../write_viewmodel.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'bottom_sheet/weather_info_bottom_sheet.dart';
 import 'image_picker_button.dart';
+import 'markdown_button_section.dart';
 import 'tag_input_button.dart';
 import 'timestamp_button.dart';
 
@@ -21,7 +22,86 @@ class EditorBottomPanel extends StatefulWidget {
   State<EditorBottomPanel> createState() => _EditorBottomPanelState();
 }
 
-class _EditorBottomPanelState extends State<EditorBottomPanel> {
+class _EditorBottomPanelState extends State<EditorBottomPanel>
+    with WidgetsBindingObserver {
+  late Map<String, bool> _currentFormattingStates;
+  bool _isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentFormattingStates = {
+      'bold': false,
+      'italic': false,
+      'underline': false,
+      'strikeThrough': false,
+      'link': false,
+      'ul': false,
+      'ol': false,
+      'blockQuote': false,
+    };
+    WidgetsBinding.instance.addObserver(this);
+    widget.quillController.addListener(_updateFormattingStates);
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    final bottomInset = View.of(context).viewInsets.bottom;
+    final keyboardVisible = bottomInset > 0;
+    if (keyboardVisible != _isKeyboardVisible) {
+      setState(() {
+        _isKeyboardVisible = keyboardVisible;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    widget.quillController.removeListener(_updateFormattingStates);
+    super.dispose();
+  }
+
+  void _updateFormattingStates() {
+    final controller = widget.quillController;
+    final selection = controller.selection;
+
+    if (selection.isCollapsed && selection.start > 0) {
+      final style = controller.document.collectStyle(
+        selection.start > 0 ? selection.start - 1 : 0,
+        1,
+      );
+
+      setState(() {
+        _currentFormattingStates['bold'] = style.containsKey(
+          Attribute.bold.key,
+        );
+        _currentFormattingStates['italic'] = style.containsKey(
+          Attribute.italic.key,
+        );
+        _currentFormattingStates['underline'] = style.containsKey(
+          Attribute.underline.key,
+        );
+        _currentFormattingStates['strikeThrough'] = style.containsKey(
+          Attribute.strikeThrough.key,
+        );
+        _currentFormattingStates['link'] = style.containsKey(
+          Attribute.link.key,
+        );
+        _currentFormattingStates['ul'] = style.containsKey(Attribute.ul.key);
+        _currentFormattingStates['ol'] = style.containsKey(Attribute.ol.key);
+        _currentFormattingStates['blockQuote'] = style.containsKey(
+          Attribute.blockQuote.key,
+        );
+      });
+    } else {
+      setState(() {
+        _currentFormattingStates.updateAll((key, value) => false);
+      });
+    }
+  }
+
   Future<void> _showWeatherBottomSheet() async {
     final viewModel = context.read<WriteViewModel>();
     final weatherInfo = viewModel.weatherInfo;
@@ -86,98 +166,61 @@ class _EditorBottomPanelState extends State<EditorBottomPanel> {
     final selection = controller.selection;
 
     if (selection.isCollapsed) {
-      // 선택된 텍스트가 없을 때 현재 라인에서 작동
       final text = controller.document.toPlainText();
       final cursorPosition = selection.start;
 
-      // 현재 커서 위치에서 라인의 시작과 끝을 찾기
       int lineStart = cursorPosition;
       int lineEnd = cursorPosition;
 
-      // 라인 시작 찾기
       while (lineStart > 0 && text[lineStart - 1] != '\n') {
         lineStart--;
       }
 
-      // 라인 끝 찾기
       while (lineEnd < text.length && text[lineEnd] != '\n') {
         lineEnd++;
       }
 
-      // 라인에 텍스트가 있는 경우에만 처리
       if (lineStart < lineEnd) {
-        // 라인 전체 선택
+        final lineStyle = controller.document.collectStyle(
+          lineStart,
+          lineEnd - lineStart,
+        );
+        final isCurrentlyFormatted = lineStyle.containsKey(attribute.key);
+
         controller.updateSelection(
           TextSelection(baseOffset: lineStart, extentOffset: lineEnd),
           ChangeSource.local,
         );
 
-        // 포맷팅 토글 적용
-        controller.formatSelection(attribute);
+        if (isCurrentlyFormatted) {
+          controller.formatSelection(Attribute.clone(attribute, null));
+        } else {
+          controller.formatSelection(attribute);
+        }
 
-        // 커서를 원래 위치로 복원
         controller.updateSelection(
           TextSelection.collapsed(offset: cursorPosition),
           ChangeSource.local,
         );
       }
     } else {
-      // 선택된 텍스트가 있을 때는 선택된 부분만 토글
-      controller.formatSelection(attribute);
+      final selectedLength = selection.end - selection.start;
+      final selectedStyle = controller.document.collectStyle(
+        selection.start,
+        selectedLength,
+      );
+      final isCurrentlyFormatted = selectedStyle.containsKey(attribute.key);
+
+      if (isCurrentlyFormatted) {
+        controller.formatSelection(Attribute.clone(attribute, null));
+      } else {
+        controller.formatSelection(attribute);
+      }
     }
   }
 
   void _insertLink() {
-    final controller = widget.quillController;
-    final selection = controller.selection;
-
-    if (selection.isCollapsed) {
-      // 선택된 텍스트가 없을 때 현재 라인에서 작동
-      final text = controller.document.toPlainText();
-      final cursorPosition = selection.start;
-
-      // 현재 커서 위치에서 라인의 시작과 끝을 찾기
-      int lineStart = cursorPosition;
-      int lineEnd = cursorPosition;
-
-      // 라인 시작 찾기
-      while (lineStart > 0 && text[lineStart - 1] != '\n') {
-        lineStart--;
-      }
-
-      // 라인 끝 찾기
-      while (lineEnd < text.length && text[lineEnd] != '\n') {
-        lineEnd++;
-      }
-
-      // 라인에 텍스트가 있는 경우에만 처리
-      if (lineStart < lineEnd) {
-        // 라인 전체 선택
-        controller.updateSelection(
-          TextSelection(baseOffset: lineStart, extentOffset: lineEnd),
-          ChangeSource.local,
-        );
-
-        // 링크 포맷팅 토글 적용
-        controller.formatSelection(Attribute.link);
-
-        // 커서를 원래 위치로 복원
-        controller.updateSelection(
-          TextSelection.collapsed(offset: cursorPosition),
-          ChangeSource.local,
-        );
-      }
-    } else {
-      // 선택된 텍스트가 있을 때는 선택된 부분만 토글
-      controller.formatSelection(Attribute.link);
-    }
-  }
-
-  Widget _buildMarkdownButton({
-    required IconData icon,
-    required VoidCallback onPressed,
-  }) {
-    return IconButton(onPressed: onPressed, icon: Icon(icon), iconSize: 20);
+    _toggleAttribute(Attribute.link);
   }
 
   @override
@@ -188,12 +231,18 @@ class _EditorBottomPanelState extends State<EditorBottomPanel> {
     );
 
     return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(color: colorScheme.surfaceContainerLowest),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: _isKeyboardVisible ? colorScheme.surfaceContainer : null,
+        ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
-            padding: Spacing.containerHorizontalPadding,
+            padding: EdgeInsets.symmetric(
+              horizontal: Spacing.containerHorizontalPadding.horizontal / 2,
+              vertical: Spacing.xs,
+            ),
             child: Row(
               children: [
                 IconButton(
@@ -214,36 +263,11 @@ class _EditorBottomPanelState extends State<EditorBottomPanel> {
                 const ImagePickerButton(),
                 const TagInputButton(),
                 TimestampButton(quillController: widget.quillController),
-                // Markdown formatting buttons
-                _buildMarkdownButton(
-                  icon: Icons.format_bold,
-                  onPressed: () => _toggleAttribute(Attribute.bold),
+                MarkdownButtonSection(
+                  toggleAttribute: _toggleAttribute,
+                  insertLink: _insertLink,
+                  currentFormattingStates: _currentFormattingStates,
                 ),
-                _buildMarkdownButton(
-                  icon: Icons.format_italic,
-                  onPressed: () => _toggleAttribute(Attribute.italic),
-                ),
-                _buildMarkdownButton(
-                  icon: Icons.format_underlined,
-                  onPressed: () => _toggleAttribute(Attribute.underline),
-                ),
-                _buildMarkdownButton(
-                  icon: Icons.format_strikethrough,
-                  onPressed: () => _toggleAttribute(Attribute.strikeThrough),
-                ),
-                _buildMarkdownButton(
-                  icon: Icons.format_list_bulleted,
-                  onPressed: () => _toggleAttribute(Attribute.ul),
-                ),
-                _buildMarkdownButton(
-                  icon: Icons.format_list_numbered,
-                  onPressed: () => _toggleAttribute(Attribute.ol),
-                ),
-                _buildMarkdownButton(
-                  icon: Icons.format_quote,
-                  onPressed: () => _toggleAttribute(Attribute.blockQuote),
-                ),
-                _buildMarkdownButton(icon: Icons.link, onPressed: _insertLink),
               ],
             ),
           ),

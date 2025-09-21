@@ -20,9 +20,8 @@ class BaseCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
-        color: colorScheme.surface,
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(Roundness.card),
-        border: Border.all(color: colorScheme.surfaceContainerHighest),
       ),
       child: Padding(
         padding: EdgeInsets.all(Spacing.lg),

@@ -40,9 +40,8 @@ class JournalCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(Roundness.card),
       child: Container(
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
-          border: Border.all(color: colorScheme.surfaceContainerHighest),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(

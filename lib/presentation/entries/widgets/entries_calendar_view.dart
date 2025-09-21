@@ -28,19 +28,8 @@ class EntriesCalendarView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(Spacing.lg),
               decoration: BoxDecoration(
-                color: colorScheme.surface,
+                color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(Roundness.card),
-                border: Border.all(
-                  color: colorScheme.outline.withValues(alpha: 0.1),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: colorScheme.shadow.withValues(alpha: 0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Roundness.card),

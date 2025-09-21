@@ -36,8 +36,8 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   Future<void> update(Settings settings) async {
     setLoading();
     try {
-      await _settingsRepository.updateSettings(settings);
-      _appState = settings;
+      final newSettings = await _settingsRepository.updateSettings(settings);
+      _appState = newSettings;
       setSuccess();
     } catch (e) {
       setError(e);

@@ -30,12 +30,13 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<void> updateSettings(Settings newSettings) async {
+  Future<Settings> updateSettings(Settings newSettings) async {
     final settingsModel = AppStateSharedPreferencesModel.fromDomain(
       newSettings,
     );
     final settings = settingsModel.toJson();
     await _prefs.setString(PreferenceKeys.appSettings, jsonEncode(settings));
+    return newSettings;
   }
 
   @override

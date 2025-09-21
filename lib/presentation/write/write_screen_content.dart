@@ -53,6 +53,18 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
   @override
   Widget build(BuildContext context) {
+    final isSubmitted = context.select<WriteViewModel, bool>(
+      (vm) => vm.isSubmitted,
+    );
+    final submittedJournalId = context.select<WriteViewModel, int?>(
+      (vm) => vm.submittedJournalId,
+    );
+    if (isSubmitted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.goToJournalFromWrite(submittedJournalId!);
+      });
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: _buildAppBar(context),
@@ -69,25 +81,6 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                 padding: Spacing.containerHorizontalPadding,
                 child: Column(
                   children: [
-                    Builder(
-                      builder: (context) {
-                        final isSubmitted = context
-                            .select<WriteViewModel, bool>(
-                              (vm) => vm.isSubmitted,
-                            );
-                        final submittedJournalId = context
-                            .select<WriteViewModel, int?>(
-                              (vm) => vm.submittedJournalId,
-                            );
-                        if (isSubmitted) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            context.goToJournalFromWrite(submittedJournalId!);
-                          });
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    const SizedBox(height: Spacing.md),
                     Builder(
                       builder: (context) {
                         final selectedImageList = context.select(
