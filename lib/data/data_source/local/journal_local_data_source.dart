@@ -1,10 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../../../domain/models/create_journal_request.dart';
+import '../../../domain/models/update_journal_ai_response_request.dart';
 import '../../../domain/models/update_journal_request.dart';
 import 'database/database.dart';
 

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
-import '../../domain/extensions/journal_extension.dart';
 import '../../domain/models/create_journal_request.dart';
 import '../../domain/models/update_journal_ai_response_request.dart';
 import '../../domain/models/update_journal_request.dart';

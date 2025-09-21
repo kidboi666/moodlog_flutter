@@ -9,7 +9,7 @@ class SubmitButton extends StatelessWidget {
   final Function onPressed;
   final IconData? icon;
   final String? asset;
-  final ButtonStyle style;
+  final ButtonStyle? style;
   final List<Widget> children;
 
   const SubmitButton({
@@ -18,14 +18,20 @@ class SubmitButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.asset,
-    required this.style,
+    this.style,
     required this.children,
   });
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FilledButton(
-      style: style,
+      style:
+          style ??
+          FilledButton.styleFrom(
+            backgroundColor: colorScheme.surfaceContainer,
+            foregroundColor: colorScheme.onSurface,
+          ),
       onPressed: isLoading
           ? null
           : () async {
