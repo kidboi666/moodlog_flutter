@@ -7,6 +7,7 @@ import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/ui/widgets/submit_button.dart';
+import '../../../core/utils/result.dart';
 import '../auth_viewmodel.dart';
 
 class AppleSigninButton extends StatelessWidget {
@@ -25,12 +26,17 @@ class AppleSigninButton extends StatelessWidget {
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
           ),
           onPressed: () async {
-            await viewModel.signInApple();
+            final result = await viewModel.signInApple();
             if (context.mounted) {
-              context.go(
-                Routes.onboarding,
-                extra: {'loginType': LoginType.apple},
-              );
+              switch (result) {
+                case Ok():
+                  context.go(
+                    Routes.onboarding,
+                    extra: {'loginType': LoginType.apple},
+                  );
+                case Error():
+                  break;
+              }
             }
           },
           children: [

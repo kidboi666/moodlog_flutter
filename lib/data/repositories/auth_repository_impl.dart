@@ -121,7 +121,7 @@ class AuthRepositoryImpl extends AuthRepository {
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       _log.severe('Failed to authenticate with Apple : $e');
-      rethrow;
+      return Result.error(Exception(e));
     }
   }
 
@@ -148,40 +148,35 @@ class AuthRepositoryImpl extends AuthRepository {
     final rawNonce = _generateNonce();
     final nonce = _sha256ofString(rawNonce);
 
-    try {
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'com.logmind.moodlog.signin',
-          redirectUri: Uri.parse(
-            'https://moodlog-75131.firebaseapp.com/__/auth/handler',
-          ),
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      webAuthenticationOptions: WebAuthenticationOptions(
+        clientId: 'com.logmind.moodlog.signin',
+        redirectUri: Uri.parse(
+          'https://moodlog-75131.firebaseapp.com/__/auth/handler',
         ),
-      );
+      ),
+    );
 
-      if (credential.identityToken == null) {
-        _log.severe('Failed to get Apple credential token');
-        throw Exception('Failed to get Apple credential token');
-      }
-
-      final fullname = AppleFullPersonName(
-        givenName: credential.givenName,
-        familyName: credential.familyName,
-      );
-      final appleCredential = AppleAuthProvider.credentialWithIDToken(
-        credential.identityToken!,
-        nonce,
-        fullname,
-      );
-
-      return appleCredential;
-    } catch (e) {
-      _log.severe('Failed to authenticate with Apple : $e');
-      rethrow;
+    if (credential.identityToken == null) {
+      _log.severe('Failed to get Apple credential token');
+      throw Exception('Failed to get Apple credential token');
     }
+
+    final fullname = AppleFullPersonName(
+      givenName: credential.givenName,
+      familyName: credential.familyName,
+    );
+    final appleCredential = AppleAuthProvider.credentialWithIDToken(
+      credential.identityToken!,
+      nonce,
+      fullname,
+    );
+
+    return appleCredential;
   }
 
   String _generateNonce([int length = 32]) {
