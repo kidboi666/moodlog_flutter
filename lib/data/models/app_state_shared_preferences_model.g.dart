@@ -18,6 +18,7 @@ _AppStateSharedPreferencesModel _$AppStateSharedPreferencesModelFromJson(
   fontFamily: json['fontFamily'] as String,
   textAlign: json['textAlign'] as String,
   isOnboardingComplete: json['isOnboardingComplete'] as bool,
+  isSocialOnboardingComplete: json['isSocialOnboardingComplete'] as bool,
 );
 
 Map<String, dynamic> _$AppStateSharedPreferencesModelToJson(
@@ -32,4 +33,5 @@ Map<String, dynamic> _$AppStateSharedPreferencesModelToJson(
   'fontFamily': instance.fontFamily,
   'textAlign': instance.textAlign,
   'isOnboardingComplete': instance.isOnboardingComplete,
+  'isSocialOnboardingComplete': instance.isSocialOnboardingComplete,
 };

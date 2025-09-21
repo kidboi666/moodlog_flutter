@@ -21,6 +21,7 @@ abstract class AppStateSharedPreferencesModel
     required String fontFamily,
     required String textAlign,
     required bool isOnboardingComplete,
+    required bool isSocialOnboardingComplete,
   }) = _AppStateSharedPreferencesModel;
 
   factory AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +38,7 @@ abstract class AppStateSharedPreferencesModel
       fontFamily: entity.fontFamily.toString(),
       textAlign: entity.textAlign.toString(),
       isOnboardingComplete: entity.isOnboardingComplete,
+      isSocialOnboardingComplete: entity.isSocialOnboardingComplete,
     );
   }
 
@@ -46,23 +48,30 @@ abstract class AppStateSharedPreferencesModel
       hasAutoSyncEnabled: hasAutoSyncEnabled,
       themeMode: ThemeMode.values.firstWhere(
         (element) => element.toString() == themeMode,
+        orElse: () => ThemeMode.system,
       ),
       colorTheme: ColorTheme.values.firstWhere(
         (element) => element.toString() == colorTheme,
+        orElse: () => ColorTheme.blue,
       ),
       languageCode: LanguageCode.values.firstWhere(
         (element) => element.toString() == languageCode,
+        orElse: () => LanguageCode.ko,
       ),
       aiPersonality: AiPersonality.values.firstWhere(
         (element) => element.toString() == aiPersonality,
+        orElse: () => AiPersonality.balanced,
       ),
       fontFamily: FontFamily.values.firstWhere(
         (element) => element.toString() == fontFamily,
+        orElse: () => FontFamily.restart,
       ),
       textAlign: SimpleTextAlign.values.firstWhere(
         (element) => element.toString() == textAlign,
+        orElse: () => SimpleTextAlign.left,
       ),
       isOnboardingComplete: isOnboardingComplete,
+      isSocialOnboardingComplete: isSocialOnboardingComplete,
     );
   }
 }

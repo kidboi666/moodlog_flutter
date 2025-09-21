@@ -129,8 +129,8 @@ class SettingsViewModel extends ChangeNotifier {
     _updateSettings(updatedState, 'ai_personality', personality.name);
   }
 
-  void _updateSettings(Settings newSettings, String settingType, String value) {
-    _settingsRepository.updateSettings(newSettings);
+  void _updateSettings(Settings newSettings, String settingType, String value) async {
+    await _appStateProvider.update(newSettings);
     AnalyticsRepositoryImpl().logSettingsChange(
       settingType: settingType,
       value: value,
