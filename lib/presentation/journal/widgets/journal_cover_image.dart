@@ -38,6 +38,7 @@ class JournalCoverImage extends StatelessWidget {
                   (image) => ImageScreenWithButton(
                     image: image,
                     button: CoverImageButton(image: image),
+                    journalId: journal.id,
                   ),
                 ) ??
                 [],

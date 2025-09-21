@@ -6,6 +6,7 @@ import '../../presentation/auth/sign_in_screen.dart';
 import '../../presentation/base_layout/base_layout_screen.dart';
 import '../../presentation/entries/entries_screen.dart';
 import '../../presentation/home/home_screen.dart';
+import '../../presentation/journal/image_detail_screen.dart';
 import '../../presentation/journal/journal_screen.dart';
 import '../../presentation/onboarding/onboarding_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
@@ -89,6 +90,22 @@ GoRouter router(
         final source = extra?['source'] ?? JournalSource.home;
         return JournalScreen(source: source, id: id);
       },
+      routes: [
+        GoRoute(
+          path: 'image',
+          builder: (context, state) {
+            final id = int.parse(state.pathParameters['id']!);
+            final extra = state.extra as Map<String, dynamic>?;
+            final imageUrl = extra?['imageUrl'] as String? ?? '';
+            final heroTag = extra?['heroTag'] as String?;
+
+            return ImageDetailScreen(
+              imageUrl: imageUrl,
+              heroTag: heroTag,
+            );
+          },
+        ),
+      ],
     ),
     StatefulShellRoute(
       builder: (_, _, navigationShell) => navigationShell,

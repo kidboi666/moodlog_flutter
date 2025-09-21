@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:moodlog/core/ui/widgets/error_dialog.dart';
 import 'package:moodlog/core/utils/error_handler.dart';
 
 void main() {
@@ -63,7 +64,10 @@ void main() {
         const customMessage = 'Custom error message';
 
         // Act
-        final result = ErrorHandler.handleError(error, customMessage: customMessage);
+        final result = ErrorHandler.handleError(
+          error,
+          customMessage: customMessage,
+        );
 
         // Assert
         expect(result.title, '오류');
@@ -137,7 +141,9 @@ void main() {
         const permissionName = '카메라';
 
         // Act
-        final result = ErrorDialogFactory.permission(permissionName: permissionName);
+        final result = ErrorDialogFactory.permission(
+          permissionName: permissionName,
+        );
 
         // Assert
         expect(result.title, '권한 필요');

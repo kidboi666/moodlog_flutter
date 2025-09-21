@@ -7,6 +7,7 @@
   "common_confirm_ok": "OK",
   "common_confirm_delete": "削除",
   "common_confirm_save": "保存",
+  "common_reset": "リセット",
   "common_email": "メール",
   "common_phone": "電話",
   "common_mood_verygood": "とても良い",
@@ -443,5 +444,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "journal_image_detail_gesture_hint": "ダブルタップでズームイン/アウト、ピンチで自由に調整"
 }

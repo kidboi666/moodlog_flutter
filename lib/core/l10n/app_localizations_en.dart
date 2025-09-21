@@ -33,6 +33,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_confirm_save => 'Save';
 
   @override
+  String get common_reset => 'Reset';
+
+  @override
   String get common_email => 'Email';
 
   @override
@@ -986,4 +989,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String tags_dialog_created(String date) {
     return 'Created: $date';
   }
+
+  @override
+  String get journal_image_detail_gesture_hint =>
+      'Double tap to zoom in/out, pinch to adjust freely';
 }

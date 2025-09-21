@@ -7,6 +7,7 @@
   "common_confirm_ok": "확인",
   "common_confirm_delete": "삭제",
   "common_confirm_save": "저장",
+  "common_reset": "초기화",
   "common_email": "이메일",
   "common_phone": "전화번호",
   "common_mood_verygood": "매우 좋음",
@@ -443,5 +444,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "journal_image_detail_gesture_hint": "두 번 탭하여 확대/축소, 핀치로 자유롭게 조절"
 }

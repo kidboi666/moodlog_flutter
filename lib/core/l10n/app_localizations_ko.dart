@@ -33,6 +33,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_confirm_save => '저장';
 
   @override
+  String get common_reset => '초기화';
+
+  @override
   String get common_email => '이메일';
 
   @override
@@ -962,4 +965,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String tags_dialog_created(String date) {
     return '생성일: $date';
   }
+
+  @override
+  String get journal_image_detail_gesture_hint => '두 번 탭하여 확대/축소, 핀치로 자유롭게 조절';
 }

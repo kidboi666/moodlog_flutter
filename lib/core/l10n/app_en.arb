@@ -7,6 +7,7 @@
   "common_confirm_ok": "OK",
   "common_confirm_delete": "Delete",
   "common_confirm_save": "Save",
+  "common_reset": "Reset",
   "common_email": "Email",
   "common_phone": "Phone",
   "common_mood_verygood": "Very Good",
@@ -443,5 +444,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "journal_image_detail_gesture_hint": "Double tap to zoom in/out, pinch to adjust freely"
 }

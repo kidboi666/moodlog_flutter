@@ -148,6 +148,12 @@ abstract class AppLocalizations {
   /// **'Save'**
   String get common_confirm_save;
 
+  /// No description provided for @common_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get common_reset;
+
   /// No description provided for @common_email.
   ///
   /// In en, this message translates to:
@@ -1911,6 +1917,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Created: {date}'**
   String tags_dialog_created(String date);
+
+  /// No description provided for @journal_image_detail_gesture_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to zoom in/out, pinch to adjust freely'**
+  String get journal_image_detail_gesture_hint;
 }
 
 class _AppLocalizationsDelegate
