@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
+import '../../../core/utils/result.dart';
 import '../auth_viewmodel.dart';
 
 class GoogleSigninButton extends StatelessWidget {
@@ -25,12 +26,17 @@ class GoogleSigninButton extends StatelessWidget {
           ),
           isLoading: viewModel.isLoading,
           onPressed: () async {
-            await viewModel.signInGoogle();
+            final result = await viewModel.signInGoogle();
             if (context.mounted) {
-              context.go(
-                Routes.onboarding,
-                extra: {'loginType': LoginType.google},
-              );
+              switch (result) {
+                case Ok():
+                  context.go(
+                    Routes.onboarding,
+                    extra: {'loginType': LoginType.google},
+                  );
+                case Error():
+                  break;
+              }
             }
           },
           children: [

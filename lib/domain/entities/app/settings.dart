@@ -18,5 +18,14 @@ abstract class Settings with _$Settings {
     @Default(FontFamily.restart) FontFamily fontFamily,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
     @Default(false) bool isOnboardingComplete,
+    @Default(false) bool isSocialOnboardingComplete,
   }) = _Settings;
+
+  bool shouldShowOnboarding(bool isAnonymousUser) {
+    if (isAnonymousUser) {
+      return !isOnboardingComplete;
+    } else {
+      return !isSocialOnboardingComplete;
+    }
+  }
 }

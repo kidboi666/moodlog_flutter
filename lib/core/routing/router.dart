@@ -127,34 +127,41 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final AppStateProvider appStateProvider = context.read<AppStateProvider>();
   final bool isAuthenticated = userProvider.isAuthenticated;
   final bool isAnonymousUser = userProvider.isAnonymousUser;
-  final bool isOnboardingComplete =
-      appStateProvider.appState.isOnboardingComplete;
+  final bool shouldShowOnboarding =
+      appStateProvider.appState.shouldShowOnboarding(isAnonymousUser);
   final String location = state.matchedLocation;
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
+
+  // 게스트 온보딩인 경우 인증 없이 접근 허용
+  if (isOnboarding && !isAuthenticated) {
+    final extra = state.extra as Map<String, LoginType>?;
+    final loginType = extra?['loginType'];
+    if (loginType == LoginType.anonymous) {
+      return null; // 게스트 온보딩은 허용
+    }
+  }
 
   if (!isAuthenticated) {
     return isOnboarding || isSigning ? null : Routes.signIn;
   }
 
   if (isSigning) {
-    if (isOnboardingComplete) {
-      return null;
-    }
-
-    if (isAnonymousUser) {
+    if (!shouldShowOnboarding) {
       return Routes.home;
     }
+    return null;
   }
 
   if (isOnboarding) {
-    if (isOnboardingComplete) {
-      return null;
-    }
-
-    if (isAnonymousUser) {
+    if (!shouldShowOnboarding) {
       return Routes.home;
     }
+    return null;
+  }
+
+  if (shouldShowOnboarding) {
+    return Routes.onboarding;
   }
 
   return null;

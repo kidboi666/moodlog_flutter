@@ -16,6 +16,13 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
     );
   }
 
+  void onBack() {
+    _pageController.previousPage(
+      duration: DurationMS.medium,
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +42,31 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) {
+            final currentStep = context.select<OnboardingViewModel, int>(
+              (vm) => vm.currentStep,
+            );
+            final loginType = context.select<OnboardingViewModel, LoginType>(
+              (vm) => vm.loginType,
+            );
+
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                if (currentStep == 0) {
+                  if (loginType == LoginType.anonymous) {
+                    context.go(Routes.signIn);
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                } else {
+                  onBack();
+                }
+              },
+            );
+          },
+        ),
         title: Builder(
           builder: (context) {
             final currentStep = context.select<OnboardingViewModel, int>(

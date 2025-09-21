@@ -30,7 +30,9 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
   bool get isOnboardingCompleted =>
-      _appStateProvider.appState.isOnboardingComplete;
+      !_appStateProvider.appState.shouldShowOnboarding(isAnonymousUser);
+
+  bool get isAnonymousUser => _authRepository.isAnonymousUser;
 
   Future<Result<void>> signInAnonymously() async {
     setLoading();
@@ -89,22 +91,29 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<Result<void>> signInGoogle() async {
     setLoading();
     _loginType = LoginType.google;
-    final result = await _authRepository.signInWithGoogle();
 
-    switch (result) {
-      case Ok<User?>():
-        AnalyticsRepositoryImpl().setUserId(result.value?.uid);
-        AnalyticsRepositoryImpl().setUserProperty(
-          name: 'login_method',
-          value: 'google',
-        );
-        setSuccess();
-        return Result.ok(null);
+    try {
+      final result = await _authRepository.signInWithGoogle();
 
-      case Error<User?>():
-        _log.warning('Failed to sign in with Google', result.error);
-        setError(result.error);
-        return Result.error(result.error);
+      switch (result) {
+        case Ok<User?>():
+          AnalyticsRepositoryImpl().setUserId(result.value?.uid);
+          AnalyticsRepositoryImpl().setUserProperty(
+            name: 'login_method',
+            value: 'google',
+          );
+          setSuccess();
+          return Result.ok(null);
+
+        case Error<User?>():
+          _log.warning('Failed to sign in with Google', result.error);
+          setError(result.error);
+          return Result.error(result.error);
+      }
+    } catch (e) {
+      _log.warning('Google sign in was cancelled or failed: $e');
+      clearState();
+      return Result.error(Exception('Google sign in cancelled'));
     }
   }
 }

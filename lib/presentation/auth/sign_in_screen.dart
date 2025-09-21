@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/auth/widgets/apple_signin_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
@@ -7,6 +6,7 @@ import '../../core/constants/enum.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import 'auth_viewmodel.dart';
+import 'widgets/apple_signin_button.dart';
 import 'widgets/google_signin_button.dart';
 import 'widgets/guest_signin_button.dart';
 import 'widgets/sign_in_terms_message.dart';
