@@ -13,6 +13,16 @@ class _SignInScreenContent extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      appBar: source == SignInSource.profile
+          ? AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => context.pop(),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(Spacing.md),

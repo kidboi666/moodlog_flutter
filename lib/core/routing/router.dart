@@ -169,6 +169,10 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   }
 
   if (isSigning) {
+    // 익명 사용자는 로그인 화면 접근 허용
+    if (isAnonymousUser) {
+      return null;
+    }
     if (!shouldShowOnboarding) {
       return Routes.home;
     }
