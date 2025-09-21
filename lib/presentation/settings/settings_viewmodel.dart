@@ -83,43 +83,58 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void setLanguage(LanguageCode? language) {
-    _appStateProvider.updateLanguage(language!);
-    AnalyticsRepositoryImpl().logSettingsChange(
-      settingType: 'language',
-      value: language.value,
+    final updatedState = _appStateProvider.appState.copyWith(
+      languageCode: language!,
     );
+    _updateSettings(updatedState, 'language', language.name);
   }
 
   void setNotificationEnabled(bool enabled) {
-    _appStateProvider.updateNotificationEnabled(enabled);
+    final updatedState = _appStateProvider.appState.copyWith(
+      hasNotificationEnabled: enabled,
+    );
+    _updateSettings(updatedState, 'notification', enabled.toString());
   }
 
   void setAutoSyncEnabled(bool enabled) {
-    _appStateProvider.updateAutoSyncEnabled(enabled);
+    final updatedState = _appStateProvider.appState.copyWith(
+      hasAutoSyncEnabled: enabled,
+    );
+    _updateSettings(updatedState, 'auto_sync', enabled.toString());
   }
 
   void setTheme(ThemeMode? theme) {
-    _appStateProvider.updateThemeMode(theme!);
-    AnalyticsRepositoryImpl().logSettingsChange(
-      settingType: 'theme',
-      value: theme.name,
-    );
+    final updatedState = _appStateProvider.appState.copyWith(themeMode: theme!);
+    _updateSettings(updatedState, 'theme', theme.name);
   }
 
   void setColorTheme(ColorTheme? colorTheme) {
-    _appStateProvider.updateColorTheme(colorTheme!);
-    AnalyticsRepositoryImpl().logSettingsChange(
-      settingType: 'color_theme',
-      value: colorTheme.name,
+    final updatedState = _appStateProvider.appState.copyWith(
+      colorTheme: colorTheme!,
     );
+    _updateSettings(updatedState, 'color_theme', colorTheme.name);
   }
 
   void setFontFamily(FontFamily? fontType) {
-    _appStateProvider.updateFontFamily(fontType!);
+    final updatedState = _appStateProvider.appState.copyWith(
+      fontFamily: fontType!,
+    );
+    _updateSettings(updatedState, 'font_family', fontType.name);
   }
 
   void setAiPersonality(AiPersonality personality) {
-    _appStateProvider.updateAiPersonality(personality);
+    final updatedState = _appStateProvider.appState.copyWith(
+      aiPersonality: personality,
+    );
+    _updateSettings(updatedState, 'ai_personality', personality.name);
+  }
+
+  void _updateSettings(Settings newSettings, String settingType, String value) {
+    _settingsRepository.updateSettings(newSettings);
+    AnalyticsRepositoryImpl().logSettingsChange(
+      settingType: settingType,
+      value: value,
+    );
   }
 
   void performBackup() {

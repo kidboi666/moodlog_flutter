@@ -29,11 +29,8 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
-  bool get isGoogleOnboardingCompleted =>
-      _appStateProvider.appState.onboardedLoginTypes?.contains(
-        LoginType.google.value,
-      ) ??
-      false;
+  bool get isOnboardingCompleted =>
+      _appStateProvider.appState.isOnboardingComplete;
 
   Future<Result<void>> signInAnonymously() async {
     setLoading();

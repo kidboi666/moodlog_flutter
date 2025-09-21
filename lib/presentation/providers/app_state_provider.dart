@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
 
-import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../domain/entities/app/settings.dart';
 import '../../domain/repositories/settings_repository.dart';
@@ -11,10 +9,9 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
 
   AppStateProvider({required SettingsRepository settingsRepository})
     : _settingsRepository = settingsRepository {
-    loadSettings();
+    load();
   }
 
-  final Logger _log = Logger('AppStateProvider');
   Settings? _appState;
 
   Settings get appState {
@@ -24,111 +21,26 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
     return _appState ?? Settings();
   }
 
-  Future<void> loadSettings() async {
-    _log.info('Starting to load settings from SharedPreferences');
+  Future<void> load() async {
     setLoading();
     try {
-      _log.info('Fetching individual settings...');
-      final results = await Future.wait([
-        _settingsRepository.getThemeMode(),
-        _settingsRepository.getLanguageCode(),
-        _settingsRepository.getAiPersonality(),
-        _settingsRepository.getHasNotificationEnabled(),
-        _settingsRepository.getHasAutoSyncEnabled(),
-        _settingsRepository.getColorTheme(),
-        _settingsRepository.getFontFamily(),
-        _settingsRepository.getTextAlign(),
-        _settingsRepository.getOnboardingLoginTypes(),
-      ]);
-
-      _appState = Settings(
-        themeMode: results[0] as ThemeMode,
-        languageCode: results[1] as LanguageCode,
-        aiPersonality: results[2] as AiPersonality,
-        hasNotificationEnabled: results[3] as bool,
-        hasAutoSyncEnabled: results[4] as bool,
-        colorTheme: results[5] as ColorTheme,
-        fontFamily: results[6] as FontFamily,
-        textAlign: results[7] as SimpleTextAlign,
-        onboardedLoginTypes: results[8] as List<String>?,
-      );
-      _log.info(
-        'Successfully loaded settings from SharedPreferences: $_appState',
-      );
+      final settings = await _settingsRepository.loadSettings();
+      _appState = settings;
       setSuccess();
     } catch (e) {
-      _log.severe('Failed to load settings: $e');
       setError(e);
-      if (_appState == null) {
-        _appState = Settings();
-        _log.warning('Using default settings due to error (no previous state)');
-      } else {
-        _log.warning('Keeping previous settings due to error');
-      }
-    } finally {}
-  }
-
-  Future<void> updateThemeMode(ThemeMode themeMode) async {
-    await _settingsRepository.updateThemeMode(themeMode);
-    _appState = _appState?.copyWith(themeMode: themeMode);
-    notifyListeners();
-  }
-
-  Future<void> updateLanguage(LanguageCode languageCode) async {
-    await _settingsRepository.updateLanguage(languageCode);
-    _appState = _appState?.copyWith(languageCode: languageCode);
-    notifyListeners();
-  }
-
-  Future<void> updateAiPersonality(AiPersonality aiPersonality) async {
-    await _settingsRepository.updateAiPersonality(aiPersonality);
-    _appState = _appState?.copyWith(aiPersonality: aiPersonality);
-    notifyListeners();
-  }
-
-  Future<void> updateNotificationEnabled(bool hasNotificationEnabled) async {
-    await _settingsRepository.updateNotificationEnabled(hasNotificationEnabled);
-    _appState = _appState?.copyWith(
-      hasNotificationEnabled: hasNotificationEnabled,
-    );
-    notifyListeners();
-  }
-
-  Future<void> updateAutoSyncEnabled(bool hasAutoSyncEnabled) async {
-    await _settingsRepository.updateAutoSyncEnabled(hasAutoSyncEnabled);
-    _appState = _appState?.copyWith(hasAutoSyncEnabled: hasAutoSyncEnabled);
-    notifyListeners();
-  }
-
-  Future<void> updateColorTheme(ColorTheme colorTheme) async {
-    await _settingsRepository.updateColorTheme(colorTheme);
-    _appState = _appState?.copyWith(colorTheme: colorTheme);
-    notifyListeners();
-  }
-
-  Future<void> updateFontFamily(FontFamily fontFamily) async {
-    await _settingsRepository.updateFontFamily(fontFamily);
-    _appState = _appState?.copyWith(fontFamily: fontFamily);
-    notifyListeners();
-  }
-
-  Future<void> updateTextAlign(SimpleTextAlign textAlign) async {
-    await _settingsRepository.updateTextAlign(textAlign);
-    _appState = _appState?.copyWith(textAlign: textAlign);
-    notifyListeners();
-  }
-
-  Future<void> updateOnboardedLoginTypes(LoginType loginType) async {
-    await _settingsRepository.updateOnboardedLoginTypes(loginType);
-    List<String>? onboardingCompletedList = _appState?.onboardedLoginTypes;
-    if (onboardingCompletedList == null) {
-      _appState = _appState?.copyWith(onboardedLoginTypes: [loginType.value]);
-    } else {
-      onboardingCompletedList.add(loginType.value);
-      _appState = _appState?.copyWith(
-        onboardedLoginTypes: onboardingCompletedList,
-      );
+      _appState = Settings();
     }
-    notifyListeners();
+  }
+
+  Future<void> update(Settings settings) async {
+    setLoading();
+    try {
+      await _settingsRepository.updateSettings(settings);
+      _appState = settings;
+      setSuccess();
+    } catch (e) {
+      setError(e);
+    }
   }
 }

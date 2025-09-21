@@ -50,7 +50,10 @@ class JournalViewModel extends ChangeNotifier
     notifyListeners();
 
     debounce('text_align', Duration(milliseconds: 300), () {
-      _appStateProvider.updateTextAlign(_pendingAlign!);
+      final settings = _appStateProvider.appState.copyWith(
+        textAlign: _pendingAlign!,
+      );
+      _appStateProvider.update(settings);
       _pendingAlign = null; // 저장 완료 후 로컬 상태 초기화
     });
   }

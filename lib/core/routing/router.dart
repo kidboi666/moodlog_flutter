@@ -127,35 +127,29 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final AppStateProvider appStateProvider = context.read<AppStateProvider>();
   final bool isAuthenticated = userProvider.isAuthenticated;
   final bool isAnonymousUser = userProvider.isAnonymousUser;
-  final bool isGoogleUser = userProvider.isGoogleUser;
-  final bool isAppleUser = userProvider.isAppleUser;
-  final List<String>? onboardedLoginTypes =
-      appStateProvider.appState.onboardedLoginTypes;
+  final bool isOnboardingComplete =
+      appStateProvider.appState.isOnboardingComplete;
   final String location = state.matchedLocation;
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
 
   if (!isAuthenticated) {
-    return isSigning ? null : Routes.signIn;
+    return isOnboarding || isSigning ? null : Routes.signIn;
   }
 
   if (isSigning) {
-    if (onboardedLoginTypes == null) {
+    if (isOnboardingComplete) {
       return null;
     }
 
-    if (isGoogleUser) {
-      if (onboardedLoginTypes.contains(LoginType.google.value)) {
-        return Routes.home;
-      }
-      return Routes.onboarding;
+    if (isAnonymousUser) {
+      return Routes.home;
     }
+  }
 
-    if (isAppleUser) {
-      if (onboardedLoginTypes.contains(LoginType.apple.value)) {
-        return Routes.home;
-      }
-      return Routes.onboarding;
+  if (isOnboarding) {
+    if (isOnboardingComplete) {
+      return null;
     }
 
     if (isAnonymousUser) {

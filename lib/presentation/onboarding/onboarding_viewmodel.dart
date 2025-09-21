@@ -53,11 +53,15 @@ class OnboardingViewModel extends ChangeNotifier
   Future<void> setOnboardingCompleted() async {
     setLoading();
     try {
-      await Future.wait([
-        _appStateProvider.updateOnboardedLoginTypes(_loginType),
-        _appStateProvider.updateAiPersonality(_selectedPersonality),
+      Future.wait([
         _authUseCase.updateDisplayName(_nickname),
+        appState.copyWith(
+          isOnboardingComplete: true,
+          aiPersonality: _selectedPersonality,
+        ),
       ]);
+
+      await _appStateProvider.update(appState);
       setSuccess();
     } catch (e) {
       _log.warning('Failed to update base user info', e);

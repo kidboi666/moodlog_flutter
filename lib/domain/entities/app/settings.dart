@@ -17,6 +17,6 @@ abstract class Settings with _$Settings {
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default(FontFamily.restart) FontFamily fontFamily,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
-    List<String>? onboardedLoginTypes,
+    @Default(false) bool isOnboardingComplete,
   }) = _Settings;
 }
