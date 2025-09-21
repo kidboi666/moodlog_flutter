@@ -17,64 +17,67 @@ class OnboardingPageViewSuccess extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      spacing: Spacing.xl * 2,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FadeIn(
-          child: Text(
-            t.onboarding_success_title,
-            style: textTheme.displaySmall,
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: FadeIn(
-            delay: DelayMS.medium,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+      child: Column(
+        spacing: Spacing.xl * 2,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FadeIn(
             child: Text(
-              t.onboarding_success_description,
-              style: textTheme.titleLarge,
+              t.onboarding_success_title,
+              style: textTheme.displaySmall,
             ),
           ),
-        ),
-        FadeIn(
-          delay: DelayMS.medium * 2,
-          child: SafeArea(
-            bottom: true,
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Builder(
-                    builder: (context) {
-                      final viewModel = context.read<OnboardingViewModel>();
-                      final isLoading = context
-                          .select<OnboardingViewModel, bool>(
-                            (vm) => vm.isLoading,
-                          );
-
-                      return FilledButton(
-                        onPressed: isLoading
-                            ? null
-                            : () async {
-                                await viewModel.setOnboardingCompleted();
-                                if (context.mounted) {
-                                  context.go(Routes.home);
-                                }
-                              },
-                        child: isLoading
-                            ? const Spinner()
-                            : Text(t.onboarding_success_next),
-                      );
-                    },
-                  ),
-                ],
+          Expanded(
+            flex: 1,
+            child: FadeIn(
+              delay: DelayMS.medium,
+              child: Text(
+                t.onboarding_success_description,
+                style: textTheme.titleLarge,
               ),
             ),
           ),
-        ),
-      ],
+          FadeIn(
+            delay: DelayMS.medium * 2,
+            child: SafeArea(
+              bottom: true,
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        final viewModel = context.read<OnboardingViewModel>();
+                        final isLoading = context
+                            .select<OnboardingViewModel, bool>(
+                              (vm) => vm.isLoading,
+                            );
+
+                        return FilledButton(
+                          onPressed: isLoading
+                              ? null
+                              : () async {
+                                  await viewModel.setOnboardingCompleted();
+                                  if (context.mounted) {
+                                    context.go(Routes.home);
+                                  }
+                                },
+                          child: isLoading
+                              ? const Spinner()
+                              : Text(t.onboarding_success_next),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -41,64 +41,56 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            final currentStep = context.select<OnboardingViewModel, int>(
-              (vm) => vm.currentStep,
-            );
-            final loginType = context.select<OnboardingViewModel, LoginType>(
-              (vm) => vm.loginType,
-            );
-
-            return IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                if (currentStep == 0) {
-                  if (loginType == LoginType.anonymous) {
-                    context.go(Routes.signIn);
-                  } else {
-                    Navigator.of(context).pop();
-                  }
-                } else {
-                  onBack();
-                }
-              },
-            );
-          },
-        ),
-        title: Builder(
-          builder: (context) {
-            final currentStep = context.select<OnboardingViewModel, int>(
-              (vm) => vm.currentStep,
-            );
-            final totalSteps = context.select<OnboardingViewModel, int>(
-              (vm) => vm.totalSteps,
-            );
-            return PaginationDot(current: currentStep, total: totalSteps);
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(Spacing.md),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: viewModel.setStep,
-                children: [
-                  OnboardingPageViewWelcome(onNext: onNext),
-                  OnboardingPageViewNickName(onNext: onNext),
-                  OnboardingPageViewPersonality(onNext: onNext),
-                  const OnboardingPageViewSuccess(),
-                ],
-              ),
+      appBar: _buildAppBar(context),
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              onPageChanged: viewModel.setStep,
+              children: [
+                OnboardingPageViewWelcome(onNext: onNext),
+                OnboardingPageViewNickName(onNext: onNext),
+                OnboardingPageViewPersonality(onNext: onNext),
+                const OnboardingPageViewSuccess(),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final currentStep = context.select(
+      (OnboardingViewModel vm) => vm.currentStep,
+    );
+    final totalSteps = context.select(
+      (OnboardingViewModel vm) => vm.totalSteps,
+    );
+    final loginType = context.select((OnboardingViewModel vm) => vm.loginType);
+
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          if (currentStep == 0) {
+            if (loginType == LoginType.anonymous) {
+              context.go(Routes.signIn);
+            } else {
+              Navigator.of(context).pop();
+            }
+          } else {
+            onBack();
+          }
+        },
+      ),
+      title: PaginationDot(current: currentStep, total: totalSteps),
+      centerTitle: true,
+      actions: [const IconButton(onPressed: null, icon: Icon(null))],
+      actionsPadding: EdgeInsets.all(Spacing.lg),
     );
   }
 }

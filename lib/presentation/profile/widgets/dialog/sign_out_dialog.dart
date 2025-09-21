@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/routing/routes.dart';
 import '../../profile_viewmodel.dart';
 
 class SignOutDialog extends StatelessWidget {
@@ -23,9 +24,14 @@ class SignOutDialog extends StatelessWidget {
           child: Text(t.common_confirm_cancel),
         ),
         FilledButton(
-          onPressed: () {
+          onPressed: () async {
             viewModel.signOut();
             context.pop();
+            // 약간의 지연 후 로그인 화면으로 이동
+            await Future.delayed(const Duration(milliseconds: 100));
+            if (context.mounted) {
+              context.go(Routes.signIn);
+            }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: colorTheme.error,

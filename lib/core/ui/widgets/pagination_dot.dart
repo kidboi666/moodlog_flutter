@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/common.dart';
+
 class PaginationDot extends StatelessWidget {
   final int current;
   final int total;
@@ -10,10 +12,10 @@ class PaginationDot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      spacing: Spacing.xs,
       children: List.generate(
         total,
         (index) => AnimatedContainer(
-          margin: const EdgeInsets.symmetric(horizontal: 2.0),
           width: 8,
           height: 8,
           duration: const Duration(milliseconds: 400),
