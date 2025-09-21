@@ -172,68 +172,73 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
 
-  // 게스트 온보딩인 경우 인증 없이 접근 허용
-  if (isOnboarding && !isAuthenticated) {
-    final extra = state.extra as Map<String, LoginType>?;
-    final loginType = extra?['loginType'];
-    if (loginType == LoginType.anonymous) {
-      return null; // 게스트 온보딩은 허용
-    }
-  }
-
+  // 인증되지 않은 사용자 처리
   if (!isAuthenticated) {
-    return isOnboarding || isSigning ? null : Routes.signIn;
-  }
-
-  if (isSigning) {
-    // 익명 사용자는 로그인 화면 접근 허용
-    if (isAnonymousUser) {
+    // 온보딩이나 로그인 화면은 접근 허용
+    if (isOnboarding || isSigning) {
       return null;
     }
-    if (!shouldShowOnboarding) {
-      return Routes.home;
-    }
-    return null;
+    // 다른 모든 경로는 로그인 화면으로 리다이렉트
+    return Routes.signIn;
   }
 
+  // 로그인 화면 접근 처리
+  if (isSigning) {
+    if (isAnonymousUser) {
+      // 익명 사용자는 로그인 화면 접근 허용 (소셜 로그인 전환 가능)
+      return null;
+    }
+    // 이미 소셜 로그인한 사용자는 홈으로 리다이렉트
+    return Routes.home;
+  }
+
+  // 온보딩 화면 접근 처리
   if (isOnboarding) {
     if (!shouldShowOnboarding) {
+      // 온보딩이 필요없으면 홈으로 리다이렉트
       return Routes.home;
     }
+    // 온보딩이 필요하면 접근 허용
     return null;
   }
 
+  // 온보딩이 필요한 경우 온보딩 화면으로 리다이렉트
   if (shouldShowOnboarding) {
-    LoginType loginType = LoginType.anonymous;
-
-    if (isAnonymousUser) {
-      loginType = LoginType.anonymous;
-    } else {
-      // 소셜 로그인 사용자인 경우 provider 정보로 정확한 타입 판단
-      final user = userProvider.user;
-      if (user != null) {
-        final isAppleUser = user.providerData.any(
-          (provider) => provider.providerId == 'apple.com',
-        );
-        final isGoogleUser = user.providerData.any(
-          (provider) => provider.providerId == 'google.com',
-        );
-
-        if (isAppleUser) {
-          loginType = LoginType.apple;
-        } else if (isGoogleUser) {
-          loginType = LoginType.google;
-        } else {
-          loginType = LoginType.google; // 기본값
-        }
-      }
-    }
-
+    final loginType = _determineLoginType(userProvider, isAnonymousUser);
     return Uri(
       path: Routes.onboarding,
       queryParameters: {'loginType': loginType.name},
     ).toString();
   }
 
+  // 모든 조건을 통과하면 현재 경로 유지
   return null;
+}
+
+LoginType _determineLoginType(UserProvider userProvider, bool isAnonymousUser) {
+  if (isAnonymousUser) {
+    return LoginType.anonymous;
+  }
+
+  final user = userProvider.user;
+  if (user == null) {
+    return LoginType.anonymous;
+  }
+
+  // 소셜 로그인 provider 확인
+  final isAppleUser = user.providerData.any(
+    (provider) => provider.providerId == 'apple.com',
+  );
+  final isGoogleUser = user.providerData.any(
+    (provider) => provider.providerId == 'google.com',
+  );
+
+  if (isAppleUser) {
+    return LoginType.apple;
+  } else if (isGoogleUser) {
+    return LoginType.google;
+  } else {
+    // 알 수 없는 provider인 경우 익명으로 처리
+    return LoginType.anonymous;
+  }
 }
