@@ -131,11 +131,17 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     String settingType,
     String value,
   ) async {
-    await _appStateProvider.update(newSettings);
-    _analyticsRepository.logSettingsChange(
-      settingType: settingType,
-      value: value,
-    );
+    try {
+      setLoading();
+      await _appStateProvider.update(newSettings);
+      _analyticsRepository.logSettingsChange(
+        settingType: settingType,
+        value: value,
+      );
+      setSuccess();
+    } catch (error) {
+      setError(error);
+    }
   }
 
   void performBackup() {
@@ -148,9 +154,14 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> loadAppInfo() async {
-    final appInfo = await _settingsRepository.getAppInfo();
-    _appVersion = appInfo.version;
-    _appBuild = appInfo.buildNumber;
-    notifyListeners();
+    try {
+      setLoading();
+      final appInfo = await _settingsRepository.getAppInfo();
+      _appVersion = appInfo.version;
+      _appBuild = appInfo.buildNumber;
+      setSuccess();
+    } catch (error) {
+      setError(error);
+    }
   }
 }

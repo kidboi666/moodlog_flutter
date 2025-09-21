@@ -37,56 +37,61 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
-    return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
-      title: Text(t.onboarding_personality_title),
-      content: SizedBox(
-        width: double.maxFinite,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              t.onboarding_personality_description,
-              style: textTheme.bodyMedium,
-            ),
-            const SizedBox(height: Spacing.lg),
-            ...AiPersonality.values.map((personality) {
-              final isSelected = personality == _selectedPersonality;
-
-              return Padding(
-                padding: const EdgeInsets.only(bottom: Spacing.sm),
-                child: PersonalityItem(
-                  personality: personality,
-                  isSelected: isSelected,
-                  selectedPersonality: _selectedPersonality,
-                  setPersonality: _setPersonality,
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+          title: Text(t.onboarding_personality_title),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.onboarding_personality_description,
+                  style: textTheme.bodyMedium,
                 ),
-              );
-            }),
+                const SizedBox(height: Spacing.lg),
+                ...AiPersonality.values.map((personality) {
+                  final isSelected = personality == _selectedPersonality;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: Spacing.sm),
+                    child: PersonalityItem(
+                      personality: personality,
+                      isSelected: isSelected,
+                      selectedPersonality: _selectedPersonality,
+                      setPersonality: _setPersonality,
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: Text(t.common_confirm_cancel),
+            ),
+            FilledButton(
+              onPressed: () {
+                widget.viewModel.setAiPersonality(_selectedPersonality);
+                context.pop();
+                context.showSnackBar(
+                  SnackBar(
+                    content: Text(t.settings_ai_personality_changed),
+                    duration: const Duration(seconds: 2),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              child: Text(t.common_confirm_save),
+            ),
           ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.common_confirm_cancel),
-        ),
-        FilledButton(
-          onPressed: () {
-            widget.viewModel.setAiPersonality(_selectedPersonality);
-            context.pop();
-            context.showSnackBar(
-              SnackBar(
-                content: Text(t.settings_ai_personality_changed),
-                duration: const Duration(seconds: 2),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
-          child: Text(t.common_confirm_save),
-        ),
-      ],
+        );
+      },
     );
   }
 }
