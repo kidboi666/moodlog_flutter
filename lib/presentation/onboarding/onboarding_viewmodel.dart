@@ -53,13 +53,13 @@ class OnboardingViewModel extends ChangeNotifier
   Future<void> setOnboardingCompleted() async {
     setLoading();
     try {
-      Future.wait([
-        _authUseCase.updateDisplayName(_nickname),
+      await _authUseCase.updateDisplayName(_nickname);
+      _appStateProvider.update(
         appState.copyWith(
           isOnboardingComplete: true,
           aiPersonality: _selectedPersonality,
         ),
-      ]);
+      );
 
       await _appStateProvider.update(appState);
       setSuccess();
