@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/extensions/widget.dart';
 
 class TimestampButton extends StatelessWidget {
-  final TextEditingController contentController;
+  final QuillController quillController;
 
-  const TimestampButton({super.key, required this.contentController});
+  const TimestampButton({super.key, required this.quillController});
 
   void _insertTimestamp() {
     final now = DateTime.now();
     final timestamp = DateFormat('HH:mm').format(now);
-    final text = contentController.text;
-    final selection = contentController.selection;
+    final selection = quillController.selection;
 
-    final newText = text.replaceRange(
-      selection.start,
-      selection.end,
-      '$timestamp ',
-    );
-
-    contentController.text = newText;
-    contentController.selection = TextSelection.collapsed(
-      offset: selection.start + timestamp.length + 1,
+    quillController.document.insert(selection.start, '$timestamp ');
+    quillController.updateSelection(
+      TextSelection.collapsed(offset: selection.start + timestamp.length + 1),
+      ChangeSource.local,
     );
   }
 

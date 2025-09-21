@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 
@@ -68,7 +69,9 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   final Logger _log = Logger('WriteViewModel');
+  late QuillController _quillController;
   String? _content;
+  String? _richContent;
   MoodType _selectedMood = MoodType.neutral;
   List<String> _selectedImageList = [];
   bool _isSubmitted = false;
@@ -84,6 +87,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   List<Tag> _selectedTags = [];
   final bool _isEditMode;
   final int? _editJournalId;
+
+  QuillController get quillController => _quillController;
 
   String? get content => _content;
 
@@ -124,6 +129,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void _initialize() {
+    _quillController = QuillController.basic();
+    _quillController.addListener(_onQuillTextChanged);
     _checkAiUsageLimit();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
@@ -131,6 +138,56 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     if (_isEditMode) {
       _loadJournalForEdit(_editJournalId!);
     }
+  }
+
+  void _onQuillTextChanged() {
+    try {
+      // QuillDocument에서 마크다운 형태의 텍스트를 생성하여 저장
+      final markdownText = _convertDocumentToMarkdown(_quillController.document);
+      updateContent(markdownText);
+    } catch (e) {
+      _log.warning('Failed to convert document to markdown: $e');
+      // 실패 시 plain text만 저장
+      final plainText = _quillController.document.toPlainText();
+      updateContent(plainText);
+    }
+  }
+
+  String _convertDocumentToMarkdown(Document document) {
+    final buffer = StringBuffer();
+    final operations = document.toDelta().operations;
+
+    for (final op in operations) {
+      if (op.data is String) {
+        String text = op.data as String;
+
+        // 포맷팅 적용
+        if (op.attributes != null) {
+          final attributes = op.attributes!;
+
+          // 볼드 처리
+          if (attributes.containsKey('bold') && attributes['bold'] == true) {
+            text = '**$text**';
+          }
+          // 이탤릭 처리
+          else if (attributes.containsKey('italic') && attributes['italic'] == true) {
+            text = '*$text*';
+          }
+          // 밑줄 처리
+          else if (attributes.containsKey('underline') && attributes['underline'] == true) {
+            text = '__${text}__';
+          }
+          // 취소선 처리
+          else if (attributes.containsKey('strike') && attributes['strike'] == true) {
+            text = '~~$text~~';
+          }
+        }
+
+        buffer.write(text);
+      }
+    }
+
+    return buffer.toString();
   }
 
   void updateAiEnabled(bool value) {
@@ -163,6 +220,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void resetForm() {
     _content = null;
+    _richContent = null;
+    _quillController.clear();
     _selectedMood = MoodType.neutral;
     _selectedImageList = [];
     _isSubmitted = false;
@@ -509,6 +568,9 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           final journal = result.value;
           _log.info('Journal loaded successfully: ${journal.content}');
           _content = journal.content;
+          if (journal.content != null) {
+            _quillController.document = Document()..insert(0, journal.content!);
+          }
           _selectedMood = journal.moodType;
           _selectedImageList = journal.imageUri ?? [];
           _aiEnabled = journal.aiResponseEnabled;
@@ -547,6 +609,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   @override
   void dispose() {
+    _quillController.removeListener(_onQuillTextChanged);
+    _quillController.dispose();
     _selectedImageList.clear();
     super.dispose();
   }

@@ -6,13 +6,7 @@ class _WriteScreenContent extends StatefulWidget {
 }
 
 class _WriteScreenContentState extends State<_WriteScreenContent> {
-  late TextEditingController _contentController;
   late FocusNode _contentFocusNode;
-  bool _isContentLoaded = false;
-
-  void _onContentChanged() {
-    context.read<WriteViewModel>().updateContent(_contentController.text);
-  }
 
   void _onDismissPreviewImage(String imageUri) {
     context.read<WriteViewModel>().deleteImage(imageUri);
@@ -42,9 +36,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
     super.initState();
     final viewModel = context.read<WriteViewModel>();
 
-    _contentController = TextEditingController();
     _contentFocusNode = FocusNode();
-    _contentController.addListener(_onContentChanged);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!viewModel.isEditMode) {
@@ -56,14 +48,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (!_isContentLoaded) {
-      final viewModel = context.watch<WriteViewModel>();
-      if (viewModel.isEditMode && viewModel.content != null) {
-        _contentController.text = viewModel.content!;
-        _isContentLoaded = true;
-      }
-    }
+    // QuillController content is now handled in WriteViewModel
   }
 
   @override
@@ -119,9 +104,13 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                         const SizedBox(height: Spacing.md),
                         FadeIn(
                           delay: DelayMS.quick * 2,
-                          child: ContentInput(
-                            contentController: _contentController,
-                            focusNode: _contentFocusNode,
+                          child: Consumer<WriteViewModel>(
+                            builder: (context, viewModel, child) {
+                              return ContentInput(
+                                quillController: viewModel.quillController,
+                                focusNode: _contentFocusNode,
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -140,7 +129,13 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: EditorBottomPanel(contentController: _contentController),
+            child: Consumer<WriteViewModel>(
+              builder: (context, viewModel, child) {
+                return EditorBottomPanel(
+                  quillController: viewModel.quillController,
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -217,8 +212,6 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
   @override
   void dispose() {
-    _contentController.removeListener(_onContentChanged);
-    _contentController.dispose();
     _contentFocusNode.dispose();
     super.dispose();
   }
