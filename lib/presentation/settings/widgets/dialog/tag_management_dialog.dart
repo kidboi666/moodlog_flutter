@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../../../domain/entities/journal/tag.dart';
 import '../../settings_viewmodel.dart';
 
 class TagManagementDialog extends StatelessWidget {
@@ -9,34 +8,6 @@ class TagManagementDialog extends StatelessWidget {
 
   const TagManagementDialog({super.key, required this.viewModel});
 
-  void _showDeleteConfirmation(BuildContext context, Tag tag) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        final t = AppLocalizations.of(context)!;
-        return AlertDialog(
-          title: Text(t.tags_dialog_delete_title),
-          content: Text(t.tags_dialog_delete_message(tag.name)),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(t.common_confirm_cancel),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                viewModel.deleteTag(tag.id);
-              },
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.error,
-              ),
-              child: Text(t.common_confirm_delete),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

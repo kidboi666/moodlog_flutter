@@ -8,14 +8,10 @@ import '../../domain/entities/analytics/screen_view.dart';
 import '../../domain/repositories/analytics_repository.dart';
 
 class AnalyticsRepositoryImpl implements AnalyticsRepository {
-  static final AnalyticsRepositoryImpl _instance =
-      AnalyticsRepositoryImpl._internal();
+  final FirebaseAnalytics _analytics;
 
-  factory AnalyticsRepositoryImpl() => _instance;
-
-  AnalyticsRepositoryImpl._internal();
-
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  AnalyticsRepositoryImpl({FirebaseAnalytics? analytics})
+    : _analytics = analytics ?? FirebaseAnalytics.instance;
 
   NavigatorObserver get navigatorObserver =>
       FirebaseAnalyticsObserver(analytics: _analytics);

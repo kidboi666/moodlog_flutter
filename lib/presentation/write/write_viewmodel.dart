@@ -71,7 +71,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final Logger _log = Logger('WriteViewModel');
   late QuillController _quillController;
   String? _content;
-  String? _richContent;
   MoodType _selectedMood = MoodType.neutral;
   List<String> _selectedImageList = [];
   bool _isSubmitted = false;
@@ -297,7 +296,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void resetForm() {
     _content = null;
-    _richContent = null;
     _quillController.clear();
     _selectedMood = MoodType.neutral;
     _selectedImageList = [];

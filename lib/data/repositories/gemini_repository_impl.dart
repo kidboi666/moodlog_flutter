@@ -55,6 +55,10 @@ class GeminiRepositoryImpl implements GeminiRepository {
 
   @override
   void updatePersonality(AiPersonality personality) {
-    // TODO: implement updatePersonality
+    if (_aiPersonality == personality) return;
+
+    _aiPersonality = personality;
+    _isInitialized = false;
+    _model = null;
   }
 }

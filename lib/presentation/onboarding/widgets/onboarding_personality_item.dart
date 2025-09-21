@@ -64,10 +64,10 @@ class PersonalityItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Radio(
+              Radio<AiPersonality>(
                 value: personality,
                 groupValue: selectedPersonality,
-                onChanged: (Object? value) => setPersonality(value),
+                onChanged: (AiPersonality? value) => setPersonality(value),
                 fillColor: WidgetStateProperty.all(
                   isSelected ? colorScheme.onPrimaryContainer : null,
                 ),

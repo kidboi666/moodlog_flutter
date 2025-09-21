@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart' hide ThemeMode;
 
 import '../../core/constants/enum.dart';
+import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/app/settings.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/entities/user/user.dart';
+import '../../domain/repositories/analytics_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/use_cases/tag_use_case.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../providers/user_provider.dart';
 
-class SettingsViewModel extends ChangeNotifier {
+class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   final AppStateProvider _appStateProvider;
   final SettingsRepository _settingsRepository;
   final UserProvider _userProvider;
   final TagUseCase _tagUseCase;
+  final AnalyticsRepository _analyticsRepository;
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
     required SettingsRepository settingsRepository,
     required UserProvider userProvider,
     required TagUseCase tagUseCase,
+    required AnalyticsRepository analyticsRepository,
   }) : _appStateProvider = appStateProvider,
        _settingsRepository = settingsRepository,
        _userProvider = userProvider,
-       _tagUseCase = tagUseCase {
+       _tagUseCase = tagUseCase,
+       _analyticsRepository = analyticsRepository {
     getAllTags();
   }
 
@@ -42,42 +46,35 @@ class SettingsViewModel extends ChangeNotifier {
 
   String? get profileImage => _userProvider.user?.photoURL;
 
-  bool get isLoading => _isLoading;
-
   Settings get appState => _appStateProvider.appState;
 
   User? get currentUser => _userProvider.user;
 
-  void setLoading(bool isLoading) {
-    _isLoading = isLoading;
-    notifyListeners();
-  }
-
   void getAllTags() async {
-    setLoading(true);
+    setLoading();
     final result = await _tagUseCase.getAllTags();
 
     switch (result) {
       case Ok<List<Tag>>():
         _tags = result.value;
-        setLoading(false);
+        setSuccess();
         break;
       case Error<List<Tag>>():
-        setLoading(false);
+        setError(result.error);
         break;
     }
   }
 
   void deleteTag(int id) async {
-    setLoading(true);
+    setLoading();
     final result = await _tagUseCase.deleteTag(id);
     switch (result) {
       case Ok<void>():
         getAllTags();
-        setLoading(false);
+        setSuccess();
         break;
       case Error<void>():
-        setLoading(false);
+        setError(result.error);
         break;
     }
   }
@@ -129,9 +126,13 @@ class SettingsViewModel extends ChangeNotifier {
     _updateSettings(updatedState, 'ai_personality', personality.name);
   }
 
-  void _updateSettings(Settings newSettings, String settingType, String value) async {
+  void _updateSettings(
+    Settings newSettings,
+    String settingType,
+    String value,
+  ) async {
     await _appStateProvider.update(newSettings);
-    AnalyticsRepositoryImpl().logSettingsChange(
+    _analyticsRepository.logSettingsChange(
       settingType: settingType,
       value: value,
     );

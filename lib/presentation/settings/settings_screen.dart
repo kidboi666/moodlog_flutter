@@ -6,6 +6,7 @@ import '../../core/constants/common.dart';
 import '../../core/extensions/enum.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/glower.dart';
+import '../../data/repositories/analytics_repository_impl.dart';
 import 'settings_viewmodel.dart';
 import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';
@@ -35,6 +36,7 @@ class SettingsScreen extends StatelessWidget {
         settingsRepository: context.read(),
         userProvider: context.read(),
         tagUseCase: context.read(),
+        analyticsRepository: AnalyticsRepositoryImpl(),
       ),
       child: _SettingsScreenContent(),
     );
