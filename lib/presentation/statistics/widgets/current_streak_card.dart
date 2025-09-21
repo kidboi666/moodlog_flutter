@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/ui/widgets/base_card.dart';
+import '../../../core/ui/widgets/common_widgets.dart';
+import '../../../core/ui/widgets/statistic_display.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../statistics_viewmodel.dart';
-import 'base_card.dart';
 
 class CurrentStreakCard extends StatelessWidget {
   const CurrentStreakCard({super.key});
@@ -58,7 +60,7 @@ class CurrentStreakCard extends StatelessWidget {
                         color: streakColor,
                       ),
                     ),
-                    const SizedBox(width: Spacing.xs),
+                    CommonSizedBox.widthXs,
                     Text(
                       t.common_unit_day,
                       style: textTheme.titleLarge?.copyWith(
@@ -68,81 +70,37 @@ class CurrentStreakCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: Spacing.xs),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Spacing.sm,
-                    vertical: Spacing.xs,
-                  ),
-                  decoration: BoxDecoration(
-                    color: streakColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    streakStatus,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: streakColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                CommonSizedBox.heightXs,
+                StatusIndicator(
+                  status: streakStatus,
+                  color: streakColor,
                 ),
               ],
             ),
           ),
           if (lastRecordDate != null) ...[
-            const SizedBox(height: Spacing.lg),
-            Container(
+            CommonSizedBox.heightLg,
+            InfoContainer(
               padding: const EdgeInsets.all(Spacing.md),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest.withValues(
-                  alpha: 0.3,
-                ),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-              ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        t.statistics_streak_last_record,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      Text(
-                        daysSinceLastRecord == 0
-                            ? t.common_date_today
-                            : daysSinceLastRecord == 1
-                            ? t.common_date_yesterday
-                            : t.statistics_streak_days_ago(daysSinceLastRecord),
-                        style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  InfoRow(
+                    label: t.statistics_streak_last_record,
+                    value: daysSinceLastRecord == 0
+                        ? t.common_date_today
+                        : daysSinceLastRecord == 1
+                        ? t.common_date_yesterday
+                        : t.statistics_streak_days_ago(daysSinceLastRecord),
                   ),
                   if (!isStreakActive && currentStreak > 0) ...[
-                    const SizedBox(height: Spacing.sm),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          t.statistics_streak_stopped,
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.error,
-                          ),
-                        ),
-                        Text(
-                          t.statistics_streak_stopped_days(
-                            daysSinceLastRecord - 1,
-                          ),
-                          style: textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: colorScheme.error,
-                          ),
-                        ),
-                      ],
+                    CommonSizedBox.heightSm,
+                    InfoRow(
+                      label: t.statistics_streak_stopped,
+                      value: t.statistics_streak_stopped_days(
+                        daysSinceLastRecord - 1,
+                      ),
+                      labelColor: colorScheme.error,
+                      valueColor: colorScheme.error,
                     ),
                   ],
                 ],
@@ -150,7 +108,7 @@ class CurrentStreakCard extends StatelessWidget {
             ),
           ],
           if (isStreakActive && currentStreak > 0) ...[
-            const SizedBox(height: Spacing.md),
+            CommonSizedBox.heightMd,
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(Spacing.md),
@@ -168,7 +126,7 @@ class CurrentStreakCard extends StatelessWidget {
                     color: colorScheme.primary,
                     size: 20,
                   ),
-                  const SizedBox(width: Spacing.sm),
+                  CommonSizedBox.widthSm,
                   Expanded(
                     child: Text(
                       t.statistics_streak_encouragement,

@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/ui/widgets/base_card.dart';
+import '../../../core/ui/widgets/common_widgets.dart';
+import '../../../core/ui/widgets/statistic_display.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../statistics_viewmodel.dart';
-import 'base_card.dart';
 
 class TotalRecordsCard extends StatelessWidget {
   const TotalRecordsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
     final totalJournals = context.select<StatisticsViewModel, int>(
       (vm) => vm.totalJournals,
@@ -37,94 +37,35 @@ class TotalRecordsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Column(
-              children: [
-                Text(
-                  totalJournals.toString(),
-                  style: textTheme.displayMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.primary,
-                  ),
-                ),
-                Text(
-                  t.statistics_total_records_count_unit,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+            child: StatisticDisplay(
+              value: totalJournals.toString(),
+              unit: t.statistics_total_records_count_unit,
             ),
           ),
           if (firstRecordDate != null) ...[
-            const SizedBox(height: Spacing.lg),
-            Container(
-              padding: const EdgeInsets.all(Spacing.lg),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest.withValues(
-                  alpha: 0.3,
-                ),
-                borderRadius: BorderRadius.circular(Roundness.cardInner),
-              ),
+            CommonSizedBox.heightLg,
+            InfoContainer(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        t.statistics_total_records_first_record,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      Text(
-                        '${firstRecordDate.year}.${firstRecordDate.month.toString().padLeft(2, '0')}.${firstRecordDate.day.toString().padLeft(2, '0')}',
-                        style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  InfoRow(
+                    label: t.statistics_total_records_first_record,
+                    value: '${firstRecordDate.year}.${firstRecordDate.month.toString().padLeft(2, '0')}.${firstRecordDate.day.toString().padLeft(2, '0')}',
                   ),
-                  const SizedBox(height: Spacing.sm),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        t.statistics_total_records_period,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      Text(
-                        t.statistics_total_records_period_days(
-                          daysSinceFirstRecord,
-                        ),
-                        style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  CommonSizedBox.heightSm,
+                  InfoRow(
+                    label: t.statistics_total_records_period,
+                    value: t.statistics_total_records_period_days(
+                      daysSinceFirstRecord,
+                    ),
                   ),
                   if (daysSinceFirstRecord > 0) ...[
-                    const SizedBox(height: Spacing.sm),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          t.statistics_total_records_avg_frequency,
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                        Text(
-                          t.statistics_total_records_weekly_frequency(
-                            (totalJournals / daysSinceFirstRecord * 7)
-                                .toStringAsFixed(1),
-                          ),
-                          style: textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    CommonSizedBox.heightSm,
+                    InfoRow(
+                      label: t.statistics_total_records_avg_frequency,
+                      value: t.statistics_total_records_weekly_frequency(
+                        (totalJournals / daysSinceFirstRecord * 7)
+                            .toStringAsFixed(1),
+                      ),
                     ),
                   ],
                 ],

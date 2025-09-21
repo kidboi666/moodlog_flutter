@@ -51,32 +51,38 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   User? get currentUser => _userProvider.user;
 
   void getAllTags() async {
-    setLoading();
-    final result = await _tagUseCase.getAllTags();
+    final result = await executeAsync(
+      () async {
+        final result = await _tagUseCase.getAllTags();
+        switch (result) {
+          case Ok<List<Tag>>():
+            return result.value;
+          case Error<List<Tag>>():
+            throw result.error;
+        }
+      },
+      context: 'getAllTags',
+    );
 
-    switch (result) {
-      case Ok<List<Tag>>():
-        _tags = result.value;
-        setSuccess();
-        break;
-      case Error<List<Tag>>():
-        setError(result.error);
-        break;
+    if (result != null) {
+      _tags = result;
     }
   }
 
   void deleteTag(int id) async {
-    setLoading();
-    final result = await _tagUseCase.deleteTag(id);
-    switch (result) {
-      case Ok<void>():
-        getAllTags();
-        setSuccess();
-        break;
-      case Error<void>():
-        setError(result.error);
-        break;
-    }
+    await executeAsync(
+      () async {
+        final result = await _tagUseCase.deleteTag(id);
+        switch (result) {
+          case Ok<void>():
+            getAllTags(); // 태그 목록 새로고침
+            return;
+          case Error<void>():
+            throw result.error;
+        }
+      },
+      context: 'deleteTag',
+    );
   }
 
   void setLanguage(LanguageCode? language) {
@@ -131,17 +137,16 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     String settingType,
     String value,
   ) async {
-    try {
-      setLoading();
-      await _appStateProvider.update(newSettings);
-      _analyticsRepository.logSettingsChange(
-        settingType: settingType,
-        value: value,
-      );
-      setSuccess();
-    } catch (error) {
-      setError(error);
-    }
+    await executeAsync(
+      () async {
+        await _appStateProvider.update(newSettings);
+        _analyticsRepository.logSettingsChange(
+          settingType: settingType,
+          value: value,
+        );
+      },
+      context: 'updateSettings',
+    );
   }
 
   void performBackup() {
@@ -154,14 +159,17 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> loadAppInfo() async {
-    try {
-      setLoading();
-      final appInfo = await _settingsRepository.getAppInfo();
-      _appVersion = appInfo.version;
-      _appBuild = appInfo.buildNumber;
-      setSuccess();
-    } catch (error) {
-      setError(error);
+    final result = await executeAsync(
+      () async {
+        final appInfo = await _settingsRepository.getAppInfo();
+        return appInfo;
+      },
+      context: 'loadAppInfo',
+    );
+
+    if (result != null) {
+      _appVersion = result.version;
+      _appBuild = result.buildNumber;
     }
   }
 }

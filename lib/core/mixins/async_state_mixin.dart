@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../constants/enum.dart';
+import '../utils/error_handler.dart';
 
 mixin AsyncStateMixin on ChangeNotifier {
   AsyncState _state = AsyncState.idle;
@@ -48,5 +50,75 @@ mixin AsyncStateMixin on ChangeNotifier {
     _error = null;
     _state = AsyncState.idle;
     notifyListeners();
+  }
+
+  /// 비동기 작업을 안전하게 실행하는 헬퍼 메서드
+  Future<T?> executeAsync<T>(
+    Future<T> Function() operation, {
+    String? context,
+    bool showErrorDialog = false,
+    BuildContext? dialogContext,
+    VoidCallback? onError,
+  }) async {
+    try {
+      setLoading();
+      final result = await operation();
+      setSuccess();
+      return result;
+    } catch (error, stackTrace) {
+      setError(error);
+
+      // 에러 로깅
+      ErrorHandler.logError(
+        error,
+        stackTrace,
+        context: context ?? runtimeType.toString(),
+      );
+
+      // 에러 다이얼로그 표시 (선택적)
+      if (showErrorDialog && dialogContext != null && dialogContext.mounted) {
+        await ErrorHandler.handleAndShowError(
+          dialogContext,
+          error,
+          stackTrace: stackTrace,
+          logContext: context,
+        );
+      }
+
+      // 커스텀 에러 핸들러 실행
+      onError?.call();
+
+      return null;
+    }
+  }
+
+  /// 재시도 가능한 비동기 작업 실행
+  Future<T?> executeAsyncWithRetry<T>(
+    Future<T> Function() operation, {
+    int maxRetries = 3,
+    Duration delay = const Duration(seconds: 1),
+    String? context,
+    bool showErrorDialog = false,
+    BuildContext? dialogContext,
+  }) async {
+    for (int attempt = 1; attempt <= maxRetries; attempt++) {
+      final result = await executeAsync(
+        operation,
+        context: '$context (attempt $attempt/$maxRetries)',
+        showErrorDialog: showErrorDialog && attempt == maxRetries,
+        dialogContext: dialogContext,
+      );
+
+      if (result != null || !hasError) {
+        return result;
+      }
+
+      if (attempt < maxRetries) {
+        await Future.delayed(delay);
+        clearState(); // 다음 시도를 위해 에러 상태 초기화
+      }
+    }
+
+    return null;
   }
 }
