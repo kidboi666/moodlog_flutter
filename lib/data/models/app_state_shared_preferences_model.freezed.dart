@@ -216,8 +216,8 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 /// @nodoc
 @JsonSerializable()
 
-class _AppStateSharedPreferencesModel implements AppStateSharedPreferencesModel {
-  const _AppStateSharedPreferencesModel({required this.hasNotificationEnabled, required this.hasAutoSyncEnabled, required this.themeMode, required this.colorTheme, required this.languageCode, required this.aiPersonality, required this.fontFamily, required this.textAlign, required this.isOnboardingComplete});
+class _AppStateSharedPreferencesModel extends AppStateSharedPreferencesModel {
+  const _AppStateSharedPreferencesModel({required this.hasNotificationEnabled, required this.hasAutoSyncEnabled, required this.themeMode, required this.colorTheme, required this.languageCode, required this.aiPersonality, required this.fontFamily, required this.textAlign, required this.isOnboardingComplete}): super._();
   factory _AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) => _$AppStateSharedPreferencesModelFromJson(json);
 
 @override final  bool hasNotificationEnabled;

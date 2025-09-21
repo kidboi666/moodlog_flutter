@@ -9,6 +9,8 @@ part 'app_state_shared_preferences_model.g.dart';
 @freezed
 abstract class AppStateSharedPreferencesModel
     with _$AppStateSharedPreferencesModel {
+  const AppStateSharedPreferencesModel._();
+
   const factory AppStateSharedPreferencesModel({
     required bool hasNotificationEnabled,
     required bool hasAutoSyncEnabled,
