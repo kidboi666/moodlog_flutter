@@ -36,8 +36,30 @@ GoRouter router(
     GoRoute(
       path: Routes.onboarding,
       builder: (_, state) {
+        LoginType loginType = LoginType.anonymous;
+
+        // extra에서 loginType 확인
         final extra = state.extra as Map<String, LoginType>?;
-        final loginType = extra?['loginType'] ?? LoginType.anonymous;
+        if (extra?['loginType'] != null) {
+          loginType = extra!['loginType']!;
+        } else {
+          // query parameter에서 loginType 확인
+          final loginTypeStr = state.uri.queryParameters['loginType'];
+          if (loginTypeStr != null) {
+            switch (loginTypeStr) {
+              case 'anonymous':
+                loginType = LoginType.anonymous;
+                break;
+              case 'google':
+                loginType = LoginType.google;
+                break;
+              case 'apple':
+                loginType = LoginType.apple;
+                break;
+            }
+          }
+        }
+
         return OnboardingScreen(loginType: loginType);
       },
     ),
@@ -161,7 +183,35 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   }
 
   if (shouldShowOnboarding) {
-    return Routes.onboarding;
+    LoginType loginType = LoginType.anonymous;
+
+    if (isAnonymousUser) {
+      loginType = LoginType.anonymous;
+    } else {
+      // 소셜 로그인 사용자인 경우 provider 정보로 정확한 타입 판단
+      final user = userProvider.user;
+      if (user != null) {
+        final isAppleUser = user.providerData.any(
+          (provider) => provider.providerId == 'apple.com',
+        );
+        final isGoogleUser = user.providerData.any(
+          (provider) => provider.providerId == 'google.com',
+        );
+
+        if (isAppleUser) {
+          loginType = LoginType.apple;
+        } else if (isGoogleUser) {
+          loginType = LoginType.google;
+        } else {
+          loginType = LoginType.google; // 기본값
+        }
+      }
+    }
+
+    return Uri(
+      path: Routes.onboarding,
+      queryParameters: {'loginType': loginType.name},
+    ).toString();
   }
 
   return null;

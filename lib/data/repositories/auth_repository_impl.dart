@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart'
     show
         FirebaseAuth,
         GoogleAuthProvider,
-        OAuthCredential,
         AppleAuthProvider,
         AppleFullPersonName;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -57,7 +56,19 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> linkWithCredential() async {
     try {
-      final credential = await _getGoogleCredential();
+      final googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize();
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      if (googleAuth.idToken == null) {
+        _log.severe('Failed to get Google ID token');
+        throw Exception('Failed to get Google ID token');
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
       final userCredential = await _firebaseAuth.currentUser
           ?.linkWithCredential(credential);
       return Result.ok(userCredential?.user?.toDomain());
@@ -101,12 +112,40 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithGoogle() async {
     try {
-      final credential = await _getGoogleCredential();
+      final googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize();
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      if (googleAuth.idToken == null) {
+        _log.severe('Failed to get Google ID token');
+        throw Exception('Failed to get Google ID token');
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
+
+      if (userCredential.user != null) {
+        final user = userCredential.user!;
+
+        if (googleUser.displayName != null &&
+            googleUser.displayName!.isNotEmpty) {
+          await user.updateDisplayName(googleUser.displayName!);
+          _log.info('Updated display name to: ${googleUser.displayName}');
+        }
+
+        await user.reload();
+        final updatedUser = _firebaseAuth.currentUser;
+        return Result.ok(updatedUser?.toDomain());
+      }
+
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
+      _log.severe('Failed to authenticate with Google : $e');
       return Result.error(Exception(e));
     }
   }
@@ -114,10 +153,58 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithApple() async {
     try {
-      final credential = await _getAppleCredential();
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'com.logmind.moodlog.signin',
+          redirectUri: Uri.parse(
+            'https://moodlog-75131.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+
+      if (appleCredential.identityToken == null) {
+        _log.severe('Failed to get Apple credential token');
+        throw Exception('Failed to get Apple credential token');
+      }
+
+      final rawNonce = _generateNonce();
+      final nonce = _sha256ofString(rawNonce);
+
+      final fullname = AppleFullPersonName(
+        givenName: appleCredential.givenName,
+        familyName: appleCredential.familyName,
+      );
+      final credential = AppleAuthProvider.credentialWithIDToken(
+        appleCredential.identityToken!,
+        nonce,
+        fullname,
+      );
+
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
+
+      if (userCredential.user != null) {
+        final user = userCredential.user!;
+        final displayName = _buildDisplayName(
+          appleCredential.givenName,
+          appleCredential.familyName,
+        );
+
+        if (displayName != null && displayName.isNotEmpty) {
+          await user.updateDisplayName(displayName);
+          _log.info('Updated display name to: $displayName');
+        }
+
+        await user.reload();
+        final updatedUser = _firebaseAuth.currentUser;
+        return Result.ok(updatedUser?.toDomain());
+      }
+
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       _log.severe('Failed to authenticate with Apple : $e');
@@ -125,58 +212,14 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
-  Future<OAuthCredential> _getGoogleCredential() async {
-    try {
-      final googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
-      final googleUser = await GoogleSignIn.instance.authenticate();
+  String? _buildDisplayName(String? givenName, String? familyName) {
+    if (givenName == null && familyName == null) return null;
 
-      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+    final parts = <String>[];
+    if (givenName?.isNotEmpty == true) parts.add(givenName!);
+    if (familyName?.isNotEmpty == true) parts.add(familyName!);
 
-      if (googleAuth.idToken == null) {
-        _log.severe('Failed to get Google ID token');
-        throw Exception('Failed to get Google ID token');
-      }
-      return GoogleAuthProvider.credential(idToken: googleAuth.idToken);
-    } catch (e) {
-      _log.severe('Failed to authenticate with Google : $e');
-      rethrow;
-    }
-  }
-
-  Future<OAuthCredential> _getAppleCredential() async {
-    final rawNonce = _generateNonce();
-    final nonce = _sha256ofString(rawNonce);
-
-    final credential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      webAuthenticationOptions: WebAuthenticationOptions(
-        clientId: 'com.logmind.moodlog.signin',
-        redirectUri: Uri.parse(
-          'https://moodlog-75131.firebaseapp.com/__/auth/handler',
-        ),
-      ),
-    );
-
-    if (credential.identityToken == null) {
-      _log.severe('Failed to get Apple credential token');
-      throw Exception('Failed to get Apple credential token');
-    }
-
-    final fullname = AppleFullPersonName(
-      givenName: credential.givenName,
-      familyName: credential.familyName,
-    );
-    final appleCredential = AppleAuthProvider.credentialWithIDToken(
-      credential.identityToken!,
-      nonce,
-      fullname,
-    );
-
-    return appleCredential;
+    return parts.isEmpty ? null : parts.join(' ');
   }
 
   String _generateNonce([int length = 32]) {

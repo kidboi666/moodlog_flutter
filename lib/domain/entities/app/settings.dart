@@ -25,7 +25,9 @@ abstract class Settings with _$Settings {
     if (isAnonymousUser) {
       return !isOnboardingComplete;
     } else {
-      return !isSocialOnboardingComplete;
+      // 소셜 로그인 사용자의 경우 기존 온보딩 완료 상태도 확인
+      // 기존 사용자들은 isOnboardingComplete가 true일 수 있음
+      return !isSocialOnboardingComplete && !isOnboardingComplete;
     }
   }
 }
