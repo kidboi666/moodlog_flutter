@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
     "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
     <dict>
@@ -22,18 +24,16 @@
         <string>$(FLUTTER_BUILD_NAME)</string>
         <key>CFBundleSignature</key>
         <string>????</string>
+        <key>GIDClientID</key>
+        <string>16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8.apps.googleusercontent.com</string>
         <key>CFBundleURLTypes</key>
         <array>
             <dict>
                 <key>CFBundleTypeRole</key>
                 <string>Editor</string>
-                <key>CFBundleURLName</key>
-                <string>googleSignIn</string>
                 <key>CFBundleURLSchemes</key>
                 <array>
-                    <string>
-                        com.googleusercontent.apps.16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8
-                    </string>
+                    <string>com.googleusercontent.apps.16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8</string>
                 </array>
             </dict>
         </array>
@@ -41,8 +41,6 @@
         <string>$(FLUTTER_BUILD_NUMBER)</string>
         <key>GADApplicationIdentifier</key>
         <string>ca-app-pub-2882120764375432~9863050090</string>
-        <key>GIDClientID</key>
-        <string>16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8.apps.googleusercontent.com</string>
         <key>LSRequiresIPhoneOS</key>
         <true />
         <key>NSCameraUsageDescription</key>
@@ -59,6 +57,8 @@
         <string>LaunchScreen</string>
         <key>UIMainStoryboardFile</key>
         <string>Main</string>
+        <key>UIStatusBarHidden</key>
+        <false />
         <key>UISupportedInterfaceOrientations</key>
         <array>
             <string>UIInterfaceOrientationPortrait</string>
@@ -72,7 +72,5 @@
             <string>UIInterfaceOrientationLandscapeLeft</string>
             <string>UIInterfaceOrientationLandscapeRight</string>
         </array>
-        <key>UIStatusBarHidden</key>
-        <false />
     </dict>
 </plist>

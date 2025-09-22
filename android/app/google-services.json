@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:16474611327:android:92f2233575efc46c2ee94a",
+        "mobilesdk_app_id": "1:16474611327:android:027ae3f1a5abc66c2ee94a",
         "android_client_info": {
-          "package_name": "com.logmind.moodlog"
+          "package_name": "com.kidboi666.moodlog"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "16474611327-ddomudiu9fr1msg5am4c9nmrtlnn369d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.logmind.moodlog",
-            "certificate_hash": "16197ec678f65657c0ebba33f88ffc67999eae6c"
-          }
-        },
         {
           "client_id": "16474611327-rlusrt087me9uukv4e4fo6cmp79ns8dc.apps.googleusercontent.com",
           "client_type": 3

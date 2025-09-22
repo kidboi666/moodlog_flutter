@@ -153,11 +153,15 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithApple() async {
     try {
+      final rawNonce = _generateNonce();
+      final nonce = _sha256ofString(rawNonce);
+
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
         ],
+        nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
           clientId: 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
@@ -170,9 +174,6 @@ class AuthRepositoryImpl extends AuthRepository {
         _log.severe('Failed to get Apple credential token');
         throw Exception('Failed to get Apple credential token');
       }
-
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
 
       final fullname = AppleFullPersonName(
         givenName: appleCredential.givenName,
