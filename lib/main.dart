@@ -22,6 +22,8 @@ import 'presentation/providers/app_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(Duration(seconds: 2));
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (Platform.isAndroid || Platform.isIOS) {
     await MobileAds.instance.initialize();
