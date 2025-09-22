@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
-import '../../../core/extensions/enum.dart';
+import '../../../core/extensions/localization.dart';
 import '../../../core/extensions/routing.dart';
 import '../../../core/extensions/widget.dart';
 import '../../../core/ui/widgets/tag_section.dart';

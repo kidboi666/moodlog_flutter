@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/enum.dart';
-import '../../../../core/extensions/enum.dart';
+import '../../../../core/extensions/localization.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../write_viewmodel.dart';
 

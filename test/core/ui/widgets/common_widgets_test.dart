@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/ui/widgets/common_widgets.dart';
 
 void main() {
   group('CommonSizedBox', () {
     test('should provide correct height values', () {
       // Assert
-      expect(CommonSizedBox.heightXs.height, 4.0);
-      expect(CommonSizedBox.heightSm.height, 8.0);
-      expect(CommonSizedBox.heightMd.height, 16.0);
-      expect(CommonSizedBox.heightLg.height, 24.0);
-      expect(CommonSizedBox.heightXl.height, 32.0);
+      expect(CommonSizedBox.heightXs.height, Spacing.xs);
+      expect(CommonSizedBox.heightSm.height, Spacing.sm);
+      expect(CommonSizedBox.heightMd.height, Spacing.md);
+      expect(CommonSizedBox.heightLg.height, Spacing.lg);
+      expect(CommonSizedBox.heightXl.height, Spacing.xl);
     });
 
     test('should provide correct width values', () {
       // Assert
-      expect(CommonSizedBox.widthXs.width, 4.0);
-      expect(CommonSizedBox.widthSm.width, 8.0);
-      expect(CommonSizedBox.widthMd.width, 16.0);
-      expect(CommonSizedBox.widthLg.width, 24.0);
-      expect(CommonSizedBox.widthXl.width, 32.0);
+      expect(CommonSizedBox.widthXs.width, Spacing.xs);
+      expect(CommonSizedBox.widthSm.width, Spacing.sm);
+      expect(CommonSizedBox.widthMd.width, Spacing.md);
+      expect(CommonSizedBox.widthLg.width, Spacing.lg);
+      expect(CommonSizedBox.widthXl.width, Spacing.xl);
     });
 
     test('should provide empty and expand widgets', () {
@@ -44,29 +45,29 @@ void main() {
   group('CommonPadding', () {
     test('should provide correct all padding values', () {
       // Assert
-      expect(CommonPadding.xs, const EdgeInsets.all(4.0));
-      expect(CommonPadding.sm, const EdgeInsets.all(8.0));
-      expect(CommonPadding.md, const EdgeInsets.all(16.0));
-      expect(CommonPadding.lg, const EdgeInsets.all(24.0));
-      expect(CommonPadding.xl, const EdgeInsets.all(32.0));
+      expect(CommonPadding.xs, const EdgeInsets.all(Spacing.xs));
+      expect(CommonPadding.sm, const EdgeInsets.all(Spacing.sm));
+      expect(CommonPadding.md, const EdgeInsets.all(Spacing.md));
+      expect(CommonPadding.lg, const EdgeInsets.all(Spacing.lg));
+      expect(CommonPadding.xl, const EdgeInsets.all(Spacing.xl));
     });
 
     test('should provide correct horizontal padding values', () {
       // Assert
-      expect(CommonPadding.horizontalXs, const EdgeInsets.symmetric(horizontal: 4.0));
-      expect(CommonPadding.horizontalSm, const EdgeInsets.symmetric(horizontal: 8.0));
-      expect(CommonPadding.horizontalMd, const EdgeInsets.symmetric(horizontal: 16.0));
-      expect(CommonPadding.horizontalLg, const EdgeInsets.symmetric(horizontal: 24.0));
-      expect(CommonPadding.horizontalXl, const EdgeInsets.symmetric(horizontal: 32.0));
+      expect(CommonPadding.horizontalXs, const EdgeInsets.symmetric(horizontal: Spacing.xs));
+      expect(CommonPadding.horizontalSm, const EdgeInsets.symmetric(horizontal: Spacing.sm));
+      expect(CommonPadding.horizontalMd, const EdgeInsets.symmetric(horizontal: Spacing.md));
+      expect(CommonPadding.horizontalLg, const EdgeInsets.symmetric(horizontal: Spacing.lg));
+      expect(CommonPadding.horizontalXl, const EdgeInsets.symmetric(horizontal: Spacing.xl));
     });
 
     test('should provide correct vertical padding values', () {
       // Assert
-      expect(CommonPadding.verticalXs, const EdgeInsets.symmetric(vertical: 4.0));
-      expect(CommonPadding.verticalSm, const EdgeInsets.symmetric(vertical: 8.0));
-      expect(CommonPadding.verticalMd, const EdgeInsets.symmetric(vertical: 16.0));
-      expect(CommonPadding.verticalLg, const EdgeInsets.symmetric(vertical: 24.0));
-      expect(CommonPadding.verticalXl, const EdgeInsets.symmetric(vertical: 32.0));
+      expect(CommonPadding.verticalXs, const EdgeInsets.symmetric(vertical: Spacing.xs));
+      expect(CommonPadding.verticalSm, const EdgeInsets.symmetric(vertical: Spacing.sm));
+      expect(CommonPadding.verticalMd, const EdgeInsets.symmetric(vertical: Spacing.md));
+      expect(CommonPadding.verticalLg, const EdgeInsets.symmetric(vertical: Spacing.lg));
+      expect(CommonPadding.verticalXl, const EdgeInsets.symmetric(vertical: Spacing.xl));
     });
   });
 

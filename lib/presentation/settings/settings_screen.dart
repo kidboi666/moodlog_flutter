@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
-import '../../core/extensions/enum.dart';
+import '../../core/extensions/localization.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/glower.dart';
 import '../../data/repositories/analytics_repository_impl.dart';

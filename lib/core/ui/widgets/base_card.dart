@@ -30,7 +30,8 @@ class BaseCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final effectiveTitleColor = titleColor ?? colorScheme.primary;
     final effectiveIconColor = iconColor ?? colorScheme.primary;
-    final effectiveBackgroundColor = backgroundColor ?? colorScheme.surfaceContainer;
+    final effectiveBackgroundColor =
+        backgroundColor ?? colorScheme.surfaceContainer;
     final effectivePadding = padding ?? const EdgeInsets.all(Spacing.lg);
 
     return Container(

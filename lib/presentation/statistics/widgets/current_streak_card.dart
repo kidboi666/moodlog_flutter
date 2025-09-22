@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/base_card.dart';
-import '../../../core/ui/widgets/common_widgets.dart';
 import '../../../core/ui/widgets/statistic_display.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../statistics_viewmodel.dart';

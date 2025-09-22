@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
-import '../../../core/extensions/enum.dart';
+import '../../../core/extensions/localization.dart';
 import '../../../core/ui/widgets/tag_section.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../../../domain/repositories/weather_repository.dart';
@@ -127,11 +127,7 @@ class _ContentBoxState extends State<ContentBox> {
         minHeight: 0,
         maxHeight: double.infinity,
       ),
-      child: IgnorePointer(
-        child: QuillEditor.basic(
-          controller: controller,
-        ),
-      ),
+      child: IgnorePointer(child: QuillEditor.basic(controller: controller)),
     );
   }
 
@@ -171,9 +167,10 @@ class _ContentBoxState extends State<ContentBox> {
         });
 
         // 마크다운 마커 제거하고 텍스트만 남기기
-        processedContent = processedContent.substring(0, start) +
-                          matchText +
-                          processedContent.substring(end);
+        processedContent =
+            processedContent.substring(0, start) +
+            matchText +
+            processedContent.substring(end);
       }
     }
 

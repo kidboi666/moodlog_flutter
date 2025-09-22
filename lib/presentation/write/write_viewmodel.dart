@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
@@ -11,6 +10,7 @@ import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/tag.dart';
 import '../../domain/entities/journal/weather_info.dart';
 import '../../domain/models/create_journal_request.dart';
+import '../../domain/models/update_journal_ai_response_request.dart';
 import '../../domain/models/update_journal_request.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
