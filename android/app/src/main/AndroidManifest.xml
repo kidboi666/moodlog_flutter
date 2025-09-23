@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.kidboi666.moodlog.sign_in_with_apple.SignInWithAppleCallback"
+            android:name="com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
