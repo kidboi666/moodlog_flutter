@@ -52,6 +52,10 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
 
   bool get isAppleUser => _userProvider.isAppleUser;
 
+  bool get isCurrentGoogleUser => _userProvider.isCurrentGoogleUser;
+
+  bool get isCurrentAppleUser => _userProvider.isCurrentAppleUser;
+
   User? get user => _userProvider.user;
 
   bool get isAnonymousUser => _userProvider.isAnonymousUser;

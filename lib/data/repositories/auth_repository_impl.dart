@@ -181,7 +181,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       final credential = AppleAuthProvider.credentialWithIDToken(
         appleCredential.identityToken!,
-        nonce,
+        rawNonce,
         fullname,
       );
 

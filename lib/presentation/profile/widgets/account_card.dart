@@ -23,39 +23,38 @@ class AccountCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
-    return Selector<ProfileViewModel, AccountCardValue>(
-      selector: (context, viewModel) => (
-        isGoogleUser: viewModel.isGoogleUser,
-        isAppleUser: viewModel.isAppleUser,
-        email: viewModel.user?.email,
-        isAnonymousUser: viewModel.isAnonymousUser,
+    final isCurrentGoogleUser = context.select(
+      (ProfileViewModel vm) => vm.isCurrentGoogleUser,
+    );
+    final isCurrentAppleUser = context.select(
+      (ProfileViewModel vm) => vm.isCurrentAppleUser,
+    );
+    final email = context.select((ProfileViewModel vm) => vm.user?.email);
+    final isAnonymousUser = context.select(
+      (ProfileViewModel vm) => vm.isAnonymousUser,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(t.profile_account_title, style: textTheme.titleSmall),
+          const SizedBox(height: 8.0),
+          if (isCurrentGoogleUser) GoogleAccountCard(email: email ?? ''),
+          if (isCurrentAppleUser) AppleAccountCard(email: email ?? ''),
+          if (isAnonymousUser)
+            FilledButton(
+              onPressed: () {
+                context.push(
+                  Routes.signIn,
+                  extra: {'source': SignInSource.profile},
+                );
+              },
+              child: Text(t.profile_button_login),
+            ),
+        ],
       ),
-      builder: (context, viewModel, _) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(t.profile_account_title, style: textTheme.titleSmall),
-              const SizedBox(height: 8.0),
-              if (viewModel.isGoogleUser)
-                GoogleAccountCard(email: viewModel.email ?? ''),
-              if (viewModel.isAppleUser)
-                AppleAccountCard(email: viewModel.email ?? ''),
-              if (viewModel.isAnonymousUser)
-                FilledButton(
-                  onPressed: () {
-                    context.push(
-                      Routes.signIn,
-                      extra: {'source': SignInSource.profile},
-                    );
-                  },
-                  child: Text(t.profile_button_login),
-                ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

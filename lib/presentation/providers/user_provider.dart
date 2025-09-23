@@ -43,6 +43,21 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
     );
   }
 
+  String? get currentSignInMethod {
+    if (_user == null || _user!.providerData.isEmpty) {
+      return null;
+    }
+    return _user!.providerData.first.providerId;
+  }
+
+  bool get isCurrentGoogleUser {
+    return currentSignInMethod == 'google.com';
+  }
+
+  bool get isCurrentAppleUser {
+    return currentSignInMethod == 'apple.com';
+  }
+
   void _initializeUserStream() {
     _userSubscription = _authRepository.userChanges.listen(
       (user) {
