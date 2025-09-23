@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "16474611327",
-    "project_id": "moodlog-75131",
-    "storage_bucket": "moodlog-75131.firebasestorage.app"
+    "project_number": "761406625155",
+    "project_id": "moodlog-ba790",
+    "storage_bucket": "moodlog-ba790.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:16474611327:android:027ae3f1a5abc66c2ee94a",
+        "mobilesdk_app_id": "1:761406625155:android:0e75278d69dfc568c712b6",
         "android_client_info": {
           "package_name": "com.kidboi666.moodlog"
         }
       },
       "oauth_client": [
         {
-          "client_id": "16474611327-rlusrt087me9uukv4e4fo6cmp79ns8dc.apps.googleusercontent.com",
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBCIIGanijkT8KgzpFMeZelJhTqMjrbY7o"
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "16474611327-rlusrt087me9uukv4e4fo6cmp79ns8dc.apps.googleusercontent.com",
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "16474611327-bn7vhhkt34q6mdl1r9mgcodb8mdmpov8.apps.googleusercontent.com",
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.logmind.moodlog"
+                "bundle_id": "com.example.moodlog"
               }
             }
           ]

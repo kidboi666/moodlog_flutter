@@ -165,7 +165,7 @@ class AuthRepositoryImpl extends AuthRepository {
         webAuthenticationOptions: WebAuthenticationOptions(
           clientId: 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            'https://moodlog-75131.firebaseapp.com/__/auth/handler',
+            'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );

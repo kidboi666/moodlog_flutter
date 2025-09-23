@@ -40,7 +40,7 @@
 
                 <data
                     android:scheme="https"
-                    android:host="moodlog-75131.firebaseapp.com" />
+                    android:host="moodlog-ba790.firebaseapp.com" />
             </intent-filter>
         </activity>
         <activity
