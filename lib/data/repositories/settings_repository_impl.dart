@@ -73,4 +73,9 @@ class SettingsRepositoryImpl extends SettingsRepository {
       await _prefs.clear();
     }
   }
+
+  @override
+  Future<void> clearAllData() async {
+    await _prefs.clear();
+  }
 }

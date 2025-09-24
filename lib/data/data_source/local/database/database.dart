@@ -54,6 +54,14 @@ class MoodLogDatabase extends _$MoodLogDatabase {
       },
     );
   }
+
+  Future<void> clearAllTables() async {
+    await transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+  }
 }
 
 LazyDatabase _openConnection() {

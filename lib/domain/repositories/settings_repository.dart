@@ -13,4 +13,6 @@ abstract class SettingsRepository {
   Future<void> updateLastAiUsageDate(DateTime date);
 
   Future<void> clearSharedPreferences();
+
+  Future<void> clearAllData();
 }

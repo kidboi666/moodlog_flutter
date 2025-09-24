@@ -120,7 +120,11 @@ List<SingleChildWidget> _createStateProviders() {
 List<SingleChildWidget> _createUseCases() {
   return [
     Provider<AuthUseCase>(
-      create: (context) => AuthUseCase(authRepository: context.read()),
+      create: (context) => AuthUseCase(
+        authRepository: context.read(),
+        settingsRepository: context.read(),
+        database: context.read(),
+      ),
     ),
     Provider<SettingsUseCase>(
       create: (context) => SettingsUseCase(settingsRepository: context.read()),

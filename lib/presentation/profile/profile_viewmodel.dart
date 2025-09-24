@@ -95,7 +95,7 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<void>():
-        _successMessage = '계정이 삭제되었습니다.';
+        _successMessage = '계정과 모든 데이터가 완전히 삭제되었습니다.';
         setSuccess();
         return Result.ok(null);
       case Error<void>():
