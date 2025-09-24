@@ -89,6 +89,21 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     _authUseCase.signOut();
   }
 
+  Future<Result<void>> deleteAccount() async {
+    setLoading();
+    final result = await _authUseCase.deleteAccount();
+
+    switch (result) {
+      case Ok<void>():
+        _successMessage = '계정이 삭제되었습니다.';
+        setSuccess();
+        return Result.ok(null);
+      case Error<void>():
+        setError(result.error);
+        return Result.error(result.error);
+    }
+  }
+
   Future<Result<void>> _updateProfilePhoto(String photoURL) async {
     setLoading();
     final result = await _authUseCase.updateProfileImage(photoURL);

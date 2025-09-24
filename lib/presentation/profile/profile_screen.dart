@@ -12,6 +12,7 @@ import 'widgets/nickname_card.dart';
 import 'widgets/profile_avatar.dart';
 import 'widgets/sign_out_button.dart';
 import 'widgets/user_id_card.dart';
+import 'widgets/delete_account_button.dart';
 
 part 'profile_screen_content.dart';
 

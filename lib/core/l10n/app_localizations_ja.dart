@@ -783,6 +783,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profile_sign_out_message => '本当にログアウトしますか？';
 
   @override
+  String get profile_delete_account_button => 'アカウント削除';
+
+  @override
+  String get profile_delete_account_dialog_title => 'アカウント削除';
+
+  @override
+  String get profile_delete_account_dialog_content =>
+      'アカウントを削除しますか？この操作は元に戻すことができません。';
+
+  @override
+  String get profile_delete_account_dialog_warning => 'すべてのデータが永久に削除されます。';
+
+  @override
+  String get profile_delete_account_dialog_confirm => '削除';
+
+  @override
   String journal_count(int count) {
     return '$count個';
   }

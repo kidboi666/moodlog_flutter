@@ -23,4 +23,8 @@ class AuthUseCase {
   Future<Result<void>> updateProfileImage(String photoURL) async {
     return await _authRepository.updateProfileImage(photoURL);
   }
+
+  Future<Result<void>> deleteAccount() async {
+    return await _authRepository.deleteAccount();
+  }
 }

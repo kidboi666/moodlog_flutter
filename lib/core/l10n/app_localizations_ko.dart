@@ -782,6 +782,22 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile_sign_out_message => '정말 로그아웃하시겠습니까?';
 
   @override
+  String get profile_delete_account_button => '계정 삭제';
+
+  @override
+  String get profile_delete_account_dialog_title => '계정 삭제';
+
+  @override
+  String get profile_delete_account_dialog_content =>
+      '계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.';
+
+  @override
+  String get profile_delete_account_dialog_warning => '모든 데이터가 영구적으로 삭제됩니다.';
+
+  @override
+  String get profile_delete_account_dialog_confirm => '삭제';
+
+  @override
   String journal_count(int count) {
     return '$count개';
   }

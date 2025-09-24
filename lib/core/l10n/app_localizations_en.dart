@@ -803,6 +803,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_sign_out_message => 'Are you sure you want to sign out?';
 
   @override
+  String get profile_delete_account_button => 'Delete Account';
+
+  @override
+  String get profile_delete_account_dialog_title => 'Delete Account';
+
+  @override
+  String get profile_delete_account_dialog_content =>
+      'Are you sure you want to delete your account? This action cannot be undone.';
+
+  @override
+  String get profile_delete_account_dialog_warning =>
+      'All your data will be permanently deleted.';
+
+  @override
+  String get profile_delete_account_dialog_confirm => 'Delete';
+
+  @override
   String journal_count(int count) {
     return '$count entries';
   }

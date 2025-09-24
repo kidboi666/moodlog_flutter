@@ -70,6 +70,7 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
               const Expanded(child: SizedBox()),
               const Expanded(child: SizedBox()),
               const SignOutButton(),
+              const DeleteAccountButton(),
               const UserIdCard(),
             ],
           ),

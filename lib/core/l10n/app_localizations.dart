@@ -1570,6 +1570,36 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to sign out?'**
   String get profile_sign_out_message;
 
+  /// No description provided for @profile_delete_account_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get profile_delete_account_button;
+
+  /// No description provided for @profile_delete_account_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get profile_delete_account_dialog_title;
+
+  /// No description provided for @profile_delete_account_dialog_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action cannot be undone.'**
+  String get profile_delete_account_dialog_content;
+
+  /// No description provided for @profile_delete_account_dialog_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'All your data will be permanently deleted.'**
+  String get profile_delete_account_dialog_warning;
+
+  /// No description provided for @profile_delete_account_dialog_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get profile_delete_account_dialog_confirm;
+
   /// No description provided for @journal_count.
   ///
   /// In en, this message translates to:
