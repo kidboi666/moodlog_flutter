@@ -19,9 +19,7 @@ class SignOutButton extends StatelessWidget {
           context: context,
           builder: (context) => SignOutDialog(viewModel: viewModel),
         ),
-        style: ButtonStyle(
-          foregroundColor: WidgetStateProperty.all(colorScheme.error),
-        ),
+        style: TextButton.styleFrom(foregroundColor: colorScheme.error),
         child: Text(t.profile_button_logout),
       ),
     );

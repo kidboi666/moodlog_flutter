@@ -1576,6 +1576,12 @@ abstract class AppLocalizations {
   /// **'Delete Account'**
   String get profile_delete_account_button;
 
+  /// No description provided for @profile_delete_account_button_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your current account.'**
+  String get profile_delete_account_button_description;
+
   /// No description provided for @profile_delete_account_dialog_title.
   ///
   /// In en, this message translates to:

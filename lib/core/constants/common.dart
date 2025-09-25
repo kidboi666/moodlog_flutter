@@ -105,11 +105,21 @@ abstract final class CommonPadding {
   static const lg = meterial.EdgeInsets.all(Spacing.lg);
   static const xl = meterial.EdgeInsets.all(Spacing.xl);
 
-  static const horizontalXs = meterial.EdgeInsets.symmetric(horizontal: Spacing.xs);
-  static const horizontalSm = meterial.EdgeInsets.symmetric(horizontal: Spacing.sm);
-  static const horizontalMd = meterial.EdgeInsets.symmetric(horizontal: Spacing.md);
-  static const horizontalLg = meterial.EdgeInsets.symmetric(horizontal: Spacing.lg);
-  static const horizontalXl = meterial.EdgeInsets.symmetric(horizontal: Spacing.xl);
+  static const horizontalXs = meterial.EdgeInsets.symmetric(
+    horizontal: Spacing.xs,
+  );
+  static const horizontalSm = meterial.EdgeInsets.symmetric(
+    horizontal: Spacing.sm,
+  );
+  static const horizontalMd = meterial.EdgeInsets.symmetric(
+    horizontal: Spacing.md,
+  );
+  static const horizontalLg = meterial.EdgeInsets.symmetric(
+    horizontal: Spacing.lg,
+  );
+  static const horizontalXl = meterial.EdgeInsets.symmetric(
+    horizontal: Spacing.xl,
+  );
 
   static const verticalXs = meterial.EdgeInsets.symmetric(vertical: Spacing.xs);
   static const verticalSm = meterial.EdgeInsets.symmetric(vertical: Spacing.sm);

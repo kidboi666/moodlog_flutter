@@ -786,6 +786,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profile_delete_account_button => 'アカウント削除';
 
   @override
+  String get profile_delete_account_button_description => '現在のアカウントを削除します。';
+
+  @override
   String get profile_delete_account_dialog_title => 'アカウント削除';
 
   @override

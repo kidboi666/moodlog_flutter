@@ -213,6 +213,22 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
+  @override
+  Future<Result<void>> deleteAccount() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      await user.delete();
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to delete account: $e');
+      return Result.error(Exception(e));
+    }
+  }
+
   String? _buildDisplayName(String? givenName, String? familyName) {
     if (givenName == null && familyName == null) return null;
 
@@ -238,21 +254,5 @@ class AuthRepositoryImpl extends AuthRepository {
     final bytes = utf8.encode(input);
     final digest = sha256.convert(bytes);
     return digest.toString();
-  }
-
-  @override
-  Future<Result<void>> deleteAccount() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        return Result.error(Exception('No user is currently logged in'));
-      }
-
-      await user.delete();
-      return Result.ok(null);
-    } catch (e) {
-      _log.severe('Failed to delete account: $e');
-      return Result.error(Exception(e));
-    }
   }
 }

@@ -806,6 +806,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_delete_account_button => 'Delete Account';
 
   @override
+  String get profile_delete_account_button_description =>
+      'Delete your current account.';
+
+  @override
   String get profile_delete_account_dialog_title => 'Delete Account';
 
   @override

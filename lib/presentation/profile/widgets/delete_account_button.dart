@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
@@ -10,39 +11,32 @@ class DeleteAccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: TextButton(
-        onPressed: () => _showDeleteAccountDialog(context),
-        style: TextButton.styleFrom(
-          foregroundColor: theme.colorScheme.error,
-          backgroundColor: theme.colorScheme.errorContainer.withValues(
-            alpha: 0.1,
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return InkWell(
+      onTap: () => _showDeleteAccountDialog(context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: Spacing.sm,
           children: [
-            Icon(
-              Icons.delete_forever_outlined,
-              color: theme.colorScheme.error,
-              size: 20,
+            Row(
+              children: [
+                Text(
+                  t.profile_delete_account_button,
+                  style: textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                Icon(Icons.delete_forever_outlined, size: 20),
+              ],
             ),
-            const SizedBox(width: 8),
             Text(
-              t.profile_delete_account_button,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: theme.colorScheme.error,
-                fontWeight: FontWeight.w600,
-              ),
+              t.profile_delete_account_button_description,
+              style: textTheme.bodyMedium,
             ),
           ],
         ),

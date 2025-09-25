@@ -19,41 +19,34 @@ class NicknameCard extends StatelessWidget {
       (vm) => vm.user?.displayName ?? '',
     );
 
-    return Builder(
-      builder: (context) {
-        return InkWell(
-          onTap: () async {
-            final newName = await showModalBottomSheet<String?>(
-              isScrollControlled: true,
-              context: context,
-              builder: (_) => EditDisplayNameBottomSheet(initialName: nickname),
-            );
-            if (newName != null && newName.isNotEmpty && context.mounted) {
-              await updateDisplayName(newName);
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: () async {
+        final newName = await showModalBottomSheet<String?>(
+          isScrollControlled: true,
+          context: context,
+          builder: (_) => EditDisplayNameBottomSheet(initialName: nickname),
+        );
+        if (newName != null && newName.isNotEmpty && context.mounted) {
+          await updateDisplayName(newName);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Text(t.profile_nickname_title, style: textTheme.titleSmall),
-                    const Spacer(),
-                    Icon(Icons.edit, size: 16),
-                  ],
-                ),
-                const SizedBox(height: 8.0),
-                Text(nickname, style: textTheme.bodyMedium),
+                Text(t.profile_nickname_title, style: textTheme.titleSmall),
+                const Spacer(),
+                Icon(Icons.edit, size: 16),
               ],
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 8.0),
+            Text(nickname, style: textTheme.bodyMedium),
+          ],
+        ),
+      ),
     );
   }
 }
