@@ -27,7 +27,6 @@ class SignOutDialog extends StatelessWidget {
           onPressed: () async {
             viewModel.signOut();
             context.pop();
-            // 약간의 지연 후 로그인 화면으로 이동
             await Future.delayed(const Duration(milliseconds: 100));
             if (context.mounted) {
               context.go(Routes.signIn);

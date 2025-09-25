@@ -115,7 +115,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final googleSignIn = GoogleSignIn.instance;
       await googleSignIn.initialize();
       final googleUser = await GoogleSignIn.instance.authenticate();
-      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      final googleAuth = googleUser.authentication;
 
       if (googleAuth.idToken == null) {
         _log.severe('Failed to get Google ID token');
@@ -209,6 +209,84 @@ class AuthRepositoryImpl extends AuthRepository {
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       _log.severe('Failed to authenticate with Apple : $e');
+      return Result.error(Exception(e));
+    }
+  }
+
+  @override
+  Future<Result<void>> reauthenticateWithGoogle() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      final googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize();
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final googleAuth = googleUser.authentication;
+
+      if (googleAuth.idToken == null) {
+        _log.severe('Failed to get Google ID token for reauthentication');
+        throw Exception('Failed to get Google ID token');
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to reauthenticate with Google: $e');
+      return Result.error(Exception(e));
+    }
+  }
+
+  @override
+  Future<Result<void>> reauthenticateWithApple() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      final rawNonce = _generateNonce();
+      final nonce = _sha256ofString(rawNonce);
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'com.logmind.moodlog.signin',
+          redirectUri: Uri.parse(
+            'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+
+      if (appleCredential.identityToken == null) {
+        _log.severe('Failed to get Apple credential token for reauthentication');
+        throw Exception('Failed to get Apple credential token');
+      }
+
+      final fullname = AppleFullPersonName(
+        givenName: appleCredential.givenName,
+        familyName: appleCredential.familyName,
+      );
+      final credential = AppleAuthProvider.credentialWithIDToken(
+        appleCredential.identityToken!,
+        rawNonce,
+        fullname,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to reauthenticate with Apple: $e');
       return Result.error(Exception(e));
     }
   }

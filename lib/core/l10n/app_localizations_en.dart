@@ -821,7 +821,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'All your data will be permanently deleted.';
 
   @override
-  String get profile_delete_account_dialog_confirm => 'Delete';
+  String get profile_delete_account_dialog_confirm => 'Delete Account';
+
+  @override
+  String get profile_delete_account_dialog_password_input_hint =>
+      'Enter your password';
+
+  @override
+  String get profile_delete_account_dialog_password_description =>
+      'You must enter your password to delete your account.';
 
   @override
   String journal_count(int count) {
@@ -1014,4 +1022,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get journal_image_detail_gesture_hint =>
       'Double tap to zoom in/out, pinch to adjust freely';
+
+  @override
+  String get profile_delete_account_reauthentication_required =>
+      'Reauthentication is required to delete your account.';
+
+  @override
+  String get profile_delete_account_reauthentication_google =>
+      'Reauthenticate with Google account';
+
+  @override
+  String get profile_delete_account_reauthentication_apple =>
+      'Reauthenticate with Apple account';
+
+  @override
+  String get profile_delete_account_reauthentication_failed =>
+      'Reauthentication failed. Please try again.';
+
+  @override
+  String get profile_delete_account_success =>
+      'Account has been successfully deleted.';
+
+  @override
+  String get profile_delete_account_error =>
+      'An error occurred while deleting your account.';
 }

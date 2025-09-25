@@ -799,7 +799,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profile_delete_account_dialog_warning => 'すべてのデータが永久に削除されます。';
 
   @override
-  String get profile_delete_account_dialog_confirm => '削除';
+  String get profile_delete_account_dialog_confirm => 'アカウント削除';
+
+  @override
+  String get profile_delete_account_dialog_password_input_hint =>
+      'パスワードを入力してください';
+
+  @override
+  String get profile_delete_account_dialog_password_description =>
+      'アカウントを削除するには、パスワードを入力する必要があります。';
 
   @override
   String journal_count(int count) {
@@ -988,4 +996,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get journal_image_detail_gesture_hint => 'ダブルタップでズームイン/アウト、ピンチで自由に調整';
+
+  @override
+  String get profile_delete_account_reauthentication_required =>
+      'アカウントを削除するには再認証が必要です。';
+
+  @override
+  String get profile_delete_account_reauthentication_google =>
+      'Googleアカウントで再認証する';
+
+  @override
+  String get profile_delete_account_reauthentication_apple =>
+      'Appleアカウントで再認証する';
+
+  @override
+  String get profile_delete_account_reauthentication_failed =>
+      '再認証に失敗しました。もう一度お試しください。';
+
+  @override
+  String get profile_delete_account_success => 'アカウントが正常に削除されました。';
+
+  @override
+  String get profile_delete_account_error => 'アカウント削除中にエラーが発生しました。';
 }

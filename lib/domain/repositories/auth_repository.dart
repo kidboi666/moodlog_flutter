@@ -24,5 +24,9 @@ abstract class AuthRepository {
 
   Future<Result<void>> updateProfileImage(String profileImage);
 
+  Future<Result<void>> reauthenticateWithGoogle();
+
+  Future<Result<void>> reauthenticateWithApple();
+
   Future<Result<void>> deleteAccount();
 }

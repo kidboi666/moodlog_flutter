@@ -18,7 +18,7 @@ class OnboardingPageViewNickName extends StatefulWidget {
 
 class _OnboardingPageViewNickNameState
     extends State<OnboardingPageViewNickName> {
-  late TextEditingController _inputController;
+  TextEditingController inputController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   String? _validateNickname(String? value) {
@@ -29,14 +29,8 @@ class _OnboardingPageViewNickNameState
   }
 
   @override
-  void initState() {
-    super.initState();
-    _inputController = TextEditingController();
-  }
-
-  @override
   void dispose() {
-    _inputController.dispose();
+    inputController.dispose();
     super.dispose();
   }
 
@@ -45,7 +39,7 @@ class _OnboardingPageViewNickNameState
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final onChangedNickname = context.read<OnboardingViewModel>().setNickname;
+    final viewModel = context.read<OnboardingViewModel>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
@@ -82,8 +76,8 @@ class _OnboardingPageViewNickNameState
                     delay: DelayMS.medium * 2,
                     child: TextFormField(
                       maxLength: 10,
-                      controller: _inputController,
-                      onChanged: onChangedNickname,
+                      controller: inputController,
+                      onChanged: viewModel.setNickname,
                       validator: _validateNickname,
                       decoration: InputDecoration(
                         labelText: t.onboarding_nickname_input_title,

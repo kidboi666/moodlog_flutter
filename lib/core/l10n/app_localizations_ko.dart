@@ -798,7 +798,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profile_delete_account_dialog_warning => '모든 데이터가 영구적으로 삭제됩니다.';
 
   @override
-  String get profile_delete_account_dialog_confirm => '삭제';
+  String get profile_delete_account_dialog_confirm => '계정 탈퇴';
+
+  @override
+  String get profile_delete_account_dialog_password_input_hint =>
+      '비밀번호를 입력하세요.';
+
+  @override
+  String get profile_delete_account_dialog_password_description =>
+      '계정 탈퇴를 위해 로그인 비밀번호를 입력해야 합니다.';
 
   @override
   String journal_count(int count) {
@@ -987,4 +995,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get journal_image_detail_gesture_hint => '두 번 탭하여 확대/축소, 핀치로 자유롭게 조절';
+
+  @override
+  String get profile_delete_account_reauthentication_required =>
+      '계정을 삭제하기 위해서는 재인증이 필요합니다.';
+
+  @override
+  String get profile_delete_account_reauthentication_google =>
+      'Google 계정으로 재인증하기';
+
+  @override
+  String get profile_delete_account_reauthentication_apple =>
+      'Apple 계정으로 재인증하기';
+
+  @override
+  String get profile_delete_account_reauthentication_failed =>
+      '재인증에 실패했습니다. 다시 시도해주세요.';
+
+  @override
+  String get profile_delete_account_success => '계정이 성공적으로 삭제되었습니다.';
+
+  @override
+  String get profile_delete_account_error => '계정 삭제 중 오류가 발생했습니다.';
 }

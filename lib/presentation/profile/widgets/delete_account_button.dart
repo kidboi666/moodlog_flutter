@@ -13,9 +13,13 @@ class DeleteAccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
+    final viewModel = context.watch<ProfileViewModel>();
 
     return InkWell(
-      onTap: () => _showDeleteAccountDialog(context),
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) => DeleteAccountDialog(viewModel: viewModel),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
@@ -41,14 +45,6 @@ class DeleteAccountButton extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  void _showDeleteAccountDialog(BuildContext context) {
-    final viewModel = context.read<ProfileViewModel>();
-    showDialog(
-      context: context,
-      builder: (context) => DeleteAccountDialog(viewModel: viewModel),
     );
   }
 }

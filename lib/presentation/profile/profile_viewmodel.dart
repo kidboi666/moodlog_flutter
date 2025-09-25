@@ -89,9 +89,9 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     _authUseCase.signOut();
   }
 
-  Future<Result<void>> deleteAccount() async {
+  Future<Result<void>> deleteAccount(String password) async {
     setLoading();
-    final result = await _authUseCase.deleteAccount();
+    final result = await _authUseCase.deleteAccountWithReauthentication();
 
     switch (result) {
       case Ok<void>():
@@ -102,6 +102,10 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
         setError(result.error);
         return Result.error(result.error);
     }
+  }
+
+  Future<String?> getUserLoginMethod() async {
+    return await _authUseCase.getUserLoginMethod();
   }
 
   Future<Result<void>> _updateProfilePhoto(String photoURL) async {

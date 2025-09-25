@@ -357,7 +357,9 @@
   "profile_delete_account_dialog_title": "Delete Account",
   "profile_delete_account_dialog_content": "Are you sure you want to delete your account? This action cannot be undone.",
   "profile_delete_account_dialog_warning": "All your data will be permanently deleted.",
-  "profile_delete_account_dialog_confirm": "Delete",
+  "profile_delete_account_dialog_confirm": "Delete Account",
+  "profile_delete_account_dialog_password_input_hint": "Enter your password",
+  "profile_delete_account_dialog_password_description": "You must enter your password to delete your account.",
   "journal_count": "{count} entries",
   "@journal_count": {
     "placeholders": {
@@ -451,5 +453,11 @@
       }
     }
   },
-  "journal_image_detail_gesture_hint": "Double tap to zoom in/out, pinch to adjust freely"
+  "journal_image_detail_gesture_hint": "Double tap to zoom in/out, pinch to adjust freely",
+  "profile_delete_account_reauthentication_required": "Reauthentication is required to delete your account.",
+  "profile_delete_account_reauthentication_google": "Reauthenticate with Google account",
+  "profile_delete_account_reauthentication_apple": "Reauthenticate with Apple account",
+  "profile_delete_account_reauthentication_failed": "Reauthentication failed. Please try again.",
+  "profile_delete_account_success": "Account has been successfully deleted.",
+  "profile_delete_account_error": "An error occurred while deleting your account."
 }

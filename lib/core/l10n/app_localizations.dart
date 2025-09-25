@@ -1603,8 +1603,20 @@ abstract class AppLocalizations {
   /// No description provided for @profile_delete_account_dialog_confirm.
   ///
   /// In en, this message translates to:
-  /// **'Delete'**
+  /// **'Delete Account'**
   String get profile_delete_account_dialog_confirm;
+
+  /// No description provided for @profile_delete_account_dialog_password_input_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get profile_delete_account_dialog_password_input_hint;
+
+  /// No description provided for @profile_delete_account_dialog_password_description.
+  ///
+  /// In en, this message translates to:
+  /// **'You must enter your password to delete your account.'**
+  String get profile_delete_account_dialog_password_description;
 
   /// No description provided for @journal_count.
   ///
@@ -1959,6 +1971,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Double tap to zoom in/out, pinch to adjust freely'**
   String get journal_image_detail_gesture_hint;
+
+  /// No description provided for @profile_delete_account_reauthentication_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthentication is required to delete your account.'**
+  String get profile_delete_account_reauthentication_required;
+
+  /// No description provided for @profile_delete_account_reauthentication_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthenticate with Google account'**
+  String get profile_delete_account_reauthentication_google;
+
+  /// No description provided for @profile_delete_account_reauthentication_apple.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthenticate with Apple account'**
+  String get profile_delete_account_reauthentication_apple;
+
+  /// No description provided for @profile_delete_account_reauthentication_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reauthentication failed. Please try again.'**
+  String get profile_delete_account_reauthentication_failed;
+
+  /// No description provided for @profile_delete_account_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Account has been successfully deleted.'**
+  String get profile_delete_account_success;
+
+  /// No description provided for @profile_delete_account_error.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting your account.'**
+  String get profile_delete_account_error;
 }
 
 class _AppLocalizationsDelegate
