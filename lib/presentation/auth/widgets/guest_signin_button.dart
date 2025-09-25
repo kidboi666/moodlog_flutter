@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
+import '../../../core/utils/result.dart';
 import '../auth_viewmodel.dart';
 
 class GuestSigninButton extends StatelessWidget {
@@ -14,20 +15,42 @@ class GuestSigninButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final isLoading = context.select((AuthViewModel vm) => vm.isLoading);
+    final colorScheme = Theme.of(context).colorScheme;
+    final isLoadingAnonymously = context.select(
+      (AuthViewModel vm) => vm.isLoadingAnonymously,
+    );
+    final isAnyLoading = context.select((AuthViewModel vm) => vm.isLoading);
+    final viewModel = context.read<AuthViewModel>();
+    final isDisabled = isAnyLoading && !isLoadingAnonymously;
 
     return SubmitButton(
-      onPressed: () {
-        context.go(
-          Routes.onboarding,
-          extra: {'loginType': LoginType.anonymous},
-        );
-      },
+      onPressed: isDisabled
+          ? null
+          : () async {
+              final result = await viewModel.signInAnonymously();
+              if (context.mounted) {
+                switch (result) {
+                  case Ok():
+                    context.push(
+                      Routes.onboarding,
+                      extra: {'loginType': LoginType.anonymous},
+                    );
+                  case Error():
+                    break;
+                }
+              }
+            },
       style: FilledButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: isDisabled
+            ? Colors.transparent.withValues(alpha: 0.12)
+            : Colors.transparent,
+        foregroundColor: isDisabled
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
+            : colorScheme.onSurface,
+        disabledBackgroundColor: Colors.transparent.withValues(alpha: 0.12),
+        disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
       ),
-      isLoading: isLoading,
+      isLoading: isLoadingAnonymously,
       children: [
         Text(
           t.signin_button_guest,

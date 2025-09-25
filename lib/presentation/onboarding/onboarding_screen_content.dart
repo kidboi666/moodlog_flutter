@@ -78,7 +78,7 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
         onPressed: () {
           if (currentStep == 0) {
             if (loginType == LoginType.anonymous) {
-              context.go(Routes.signIn);
+              context.pushReplacement(Routes.signIn);
             } else {
               Navigator.of(context).pop();
             }

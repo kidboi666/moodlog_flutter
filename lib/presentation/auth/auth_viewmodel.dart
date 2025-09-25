@@ -27,6 +27,8 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   bool get isLoadingGoogle => isLoading && _loginType == LoginType.google;
 
+  bool get isLoadingApple => isLoading && _loginType == LoginType.apple;
+
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
   bool get isOnboardingCompleted =>

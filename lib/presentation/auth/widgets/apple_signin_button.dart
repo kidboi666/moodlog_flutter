@@ -19,18 +19,29 @@ class AppleSigninButton extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     return Consumer<AuthViewModel>(
       builder: (context, viewModel, _) {
+        final isLoadingApple = viewModel.isLoadingApple;
+        final isAnyLoading = viewModel.isLoading;
+
+        final isDisabled = isAnyLoading && !isLoadingApple;
+
         return SubmitButton(
-          isLoading: viewModel.isLoading,
+          isLoading: isLoadingApple,
           style: FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: isDisabled
+                ? colorScheme.primaryContainer.withValues(alpha: 0.12)
+                : colorScheme.primaryContainer,
+            foregroundColor: isDisabled
+                ? colorScheme.onPrimary.withValues(alpha: 0.38)
+                : colorScheme.onPrimary,
+            disabledBackgroundColor: colorScheme.primaryContainer.withValues(alpha: 0.12),
+            disabledForegroundColor: colorScheme.onPrimary.withValues(alpha: 0.38),
           ),
-          onPressed: () async {
+          onPressed: isDisabled ? null : () async {
             final result = await viewModel.signInApple();
             if (context.mounted) {
               switch (result) {
                 case Ok():
-                  context.go(
+                  context.push(
                     Routes.onboarding,
                     extra: {'loginType': LoginType.apple},
                   );

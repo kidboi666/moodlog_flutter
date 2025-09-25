@@ -16,17 +16,30 @@ class GoogleSigninButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final viewModel = context.read<AuthViewModel>();
-    final isLoading = context.select((AuthViewModel vm) => vm.isLoading);
+    final isLoadingGoogle = context.select((AuthViewModel vm) => vm.isLoadingGoogle);
+    final isAnyLoading = context.select((AuthViewModel vm) => vm.isLoading);
+    final isDisabled = isAnyLoading && !isLoadingGoogle;
 
     return SubmitButton(
-      isLoading: isLoading,
-      onPressed: () async {
+      isLoading: isLoadingGoogle,
+      style: FilledButton.styleFrom(
+        backgroundColor: isDisabled
+            ? colorScheme.surfaceContainer.withValues(alpha: 0.12)
+            : colorScheme.surfaceContainer,
+        foregroundColor: isDisabled
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
+            : colorScheme.onSurface,
+        disabledBackgroundColor: colorScheme.surfaceContainer.withValues(alpha: 0.12),
+        disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
+      ),
+      onPressed: isDisabled ? null : () async {
         final result = await viewModel.signInGoogle();
         if (context.mounted) {
           switch (result) {
             case Ok():
-              context.go(
+              context.push(
                 Routes.onboarding,
                 extra: {'loginType': LoginType.google},
               );

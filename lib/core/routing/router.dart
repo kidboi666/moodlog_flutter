@@ -172,13 +172,13 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
 
-  // 인증되지 않은 사용자 처리
+  // 인증되지 않은 사용자는 무조건 로그인 화면으로
   if (!isAuthenticated) {
-    // 온보딩이나 로그인 화면은 접근 허용
-    if (isOnboarding || isSigning) {
+    // 로그인 화면은 접근 허용
+    if (isSigning) {
       return null;
     }
-    // 다른 모든 경로는 로그인 화면으로 리다이렉트
+    // 다른 모든 경로 (온보딩 포함)는 로그인 화면으로 리다이렉트
     return Routes.signIn;
   }
 
