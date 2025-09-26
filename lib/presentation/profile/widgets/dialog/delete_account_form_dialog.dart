@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/utils/result.dart';
 import '../../profile_viewmodel.dart';
@@ -42,9 +42,7 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
 
     if (_isLoadingLoginMethod) {
       return const AlertDialog(
-        content: Center(
-          child: CircularProgressIndicator(),
-        ),
+        content: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -131,7 +129,9 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
         case Ok<void>():
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.profile_delete_account_success),
+              content: Text(
+                AppLocalizations.of(context)!.profile_delete_account_success,
+              ),
               backgroundColor: Theme.of(context).colorScheme.primary,
             ),
           );
@@ -140,12 +140,13 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                AppLocalizations.of(context)!.profile_delete_account_reauthentication_failed,
+                AppLocalizations.of(
+                  context,
+                )!.profile_delete_account_reauthentication_failed,
               ),
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
-          break;
       }
     }
   }

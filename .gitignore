@@ -51,3 +51,6 @@ app.*.map.json
 
 # Firebase
 lib/firebase_options.dart
+
+# Documentation plans (internal use only)
+docs/premium_features_plan.md
