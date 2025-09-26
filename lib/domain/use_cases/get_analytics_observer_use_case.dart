@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import '../repositories/analytics_repository.dart';
 
 class GetAnalyticsObserverUseCase {
@@ -8,7 +6,8 @@ class GetAnalyticsObserverUseCase {
   GetAnalyticsObserverUseCase({required AnalyticsRepository repository})
       : _repository = repository;
 
-  NavigatorObserver call() {
-    return (_repository as dynamic).observer as NavigatorObserver;
+  dynamic call() {
+    // Returns the observer object that can be cast to NavigatorObserver in the presentation layer
+    return (_repository as dynamic).navigatorObserver;
   }
 }

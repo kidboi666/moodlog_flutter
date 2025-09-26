@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal/weather_info.dart';
-import '../../../domain/repositories/weather_repository.dart';
 import '../../../domain/use_cases/weather_use_case.dart';
 
 class JournalWeatherWidget extends StatefulWidget {
@@ -155,8 +154,8 @@ class _JournalWeatherWidgetState extends State<JournalWeatherWidget> {
   }
 
   Widget _buildWeatherInfo(ColorScheme colorScheme, TextTheme textTheme) {
-    final weatherRepository = context.read<WeatherRepository>();
-    final condition = weatherRepository.getWeatherCondition(_weatherInfo!.icon);
+    final weatherUseCase = context.read<WeatherUseCase>();
+    final condition = weatherUseCase.getWeatherCondition(_weatherInfo!.icon);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: Spacing.md),

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
-import '../entities/user/user.dart';
-import '../entities/user/user_metadata.dart';
-import '../entities/user/user_provider_data.dart';
+import '../../domain/entities/user/user.dart';
+import '../../domain/entities/user/user_metadata.dart';
+import '../../domain/entities/user/user_provider_data.dart';
 
 extension FirebaseUserExtensions on firebase.User {
   User toDomain() {

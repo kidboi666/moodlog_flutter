@@ -3,22 +3,26 @@ import '../entities/journal/weather_info.dart';
 import '../repositories/weather_repository.dart';
 
 class WeatherUseCase {
-  final WeatherRepository _weatherRepository;
+  final WeatherRepository _repository;
 
-  WeatherUseCase({required WeatherRepository weatherRepository})
-    : _weatherRepository = weatherRepository;
+  WeatherUseCase({required WeatherRepository repository})
+      : _repository = repository;
 
   Future<Result<WeatherInfo>> getCurrentWeather({
     required double latitude,
     required double longitude,
-  }) async {
-    return await _weatherRepository.getCurrentWeather(
+  }) {
+    return _repository.getCurrentWeather(
       latitude: latitude,
       longitude: longitude,
     );
   }
 
   WeatherCondition getWeatherCondition(String iconCode) {
-    return _weatherRepository.getWeatherCondition(iconCode);
+    return _repository.getWeatherCondition(iconCode);
+  }
+
+  String getWeatherIconUrl(String iconCode) {
+    return _repository.getWeatherIconUrl(iconCode);
   }
 }

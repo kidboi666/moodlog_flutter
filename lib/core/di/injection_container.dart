@@ -148,7 +148,7 @@ List<SingleChildWidget> _createUseCases() {
           CheckAiUsageLimitUseCase(settingsRepository: context.read()),
     ),
     Provider<WeatherUseCase>(
-      create: (context) => WeatherUseCase(weatherRepository: context.read()),
+      create: (context) => WeatherUseCase(repository: context.read()),
     ),
     Provider<LogMoodEntryUseCase>(
       create: (context) =>

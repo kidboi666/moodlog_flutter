@@ -16,7 +16,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
-import '../../domain/extensions/firebase_extension.dart';
+import '../extensions/firebase_extension.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {

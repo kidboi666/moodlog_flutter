@@ -7,7 +7,7 @@ import '../../../core/constants/enum.dart';
 import '../../../core/extensions/localization.dart';
 import '../../../core/ui/widgets/tag_section.dart';
 import '../../../domain/entities/journal/journal.dart';
-import '../../../domain/repositories/weather_repository.dart';
+import '../../../domain/use_cases/weather_use_case.dart';
 import '../journal_viewmodel.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';
@@ -209,10 +209,8 @@ class _ContentBoxState extends State<ContentBox> {
     Journal journal,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
-    final weatherRepository = context.read<WeatherRepository>();
-    final condition = weatherRepository.getWeatherCondition(
-      journal.weatherIcon!,
-    );
+    final weatherUseCase = context.read<WeatherUseCase>();
+    final condition = weatherUseCase.getWeatherCondition(journal.weatherIcon!);
 
     return Row(
       mainAxisSize: MainAxisSize.min,

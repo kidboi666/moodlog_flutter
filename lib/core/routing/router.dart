@@ -94,7 +94,6 @@ GoRouter router(
         GoRoute(
           path: 'image',
           builder: (context, state) {
-            final id = int.parse(state.pathParameters['id']!);
             final extra = state.extra as Map<String, dynamic>?;
             final imageUrl = extra?['imageUrl'] as String? ?? '';
             final heroTag = extra?['heroTag'] as String?;

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../domain/entities/journal/weather_info.dart';
-import '../../../domain/repositories/weather_repository.dart';
+import '../../../domain/use_cases/weather_use_case.dart';
 import '../write_viewmodel.dart';
 
 class WeatherCard extends StatelessWidget {
@@ -29,8 +29,8 @@ class WeatherCard extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final weatherRepository = context.read<WeatherRepository>();
-    final condition = weatherRepository.getWeatherCondition(weatherInfo.icon);
+    final weatherUseCase = context.read<WeatherUseCase>();
+    final condition = weatherUseCase.getWeatherCondition(weatherInfo.icon);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Spacing.xs),

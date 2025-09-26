@@ -35,7 +35,6 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   String _appVersion = '';
   String _appBuild = '';
-  bool _isLoading = false;
   List<Tag> _tags = [];
 
   List<Tag> get tags => _tags;
