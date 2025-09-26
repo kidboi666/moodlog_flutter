@@ -83,6 +83,7 @@ class _BaseLayoutScreenContent extends StatelessWidget {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: TitleBar(),
       actionsPadding: Spacing.containerHorizontalPadding,
       actions: [

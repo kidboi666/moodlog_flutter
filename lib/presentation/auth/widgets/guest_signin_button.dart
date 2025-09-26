@@ -41,13 +41,11 @@ class GuestSigninButton extends StatelessWidget {
               }
             },
       style: FilledButton.styleFrom(
-        backgroundColor: isDisabled
-            ? Colors.transparent.withValues(alpha: 0.12)
-            : Colors.transparent,
+        backgroundColor: Colors.transparent,
         foregroundColor: isDisabled
             ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.onSurface,
-        disabledBackgroundColor: Colors.transparent.withValues(alpha: 0.12),
+        disabledBackgroundColor: Colors.transparent,
         disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
       ),
       isLoading: isLoadingAnonymously,
