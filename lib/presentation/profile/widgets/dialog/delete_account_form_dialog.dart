@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../../../../core/utils/result.dart';
 import '../../profile_viewmodel.dart';
 
@@ -134,7 +135,7 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
               backgroundColor: Theme.of(context).colorScheme.primary,
             ),
           );
-          context.go('/auth');
+          context.go(Routes.signIn);
         case Error<void>():
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
