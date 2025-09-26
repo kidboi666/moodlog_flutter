@@ -1018,4 +1018,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get profile_delete_account_error => 'アカウント削除中にエラーが発生しました。';
+
+  @override
+  String get profile_delete_account_apple_revoke_failed =>
+      'Apple アカウント連携の解除に失敗しましたが、アカウント削除は続行されます。';
+
+  @override
+  String get profile_delete_account_apple_revoke_success =>
+      'Apple アカウント連携が解除されました。';
 }

@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart'
         GoogleAuthProvider,
         AppleAuthProvider,
         AppleFullPersonName;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -163,9 +164,9 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'com.logmind.moodlog.signin',
+          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
@@ -261,9 +262,9 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'com.logmind.moodlog.signin',
+          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
@@ -299,10 +300,58 @@ class AuthRepositoryImpl extends AuthRepository {
         return Result.error(Exception('No user is currently logged in'));
       }
 
+      final isAppleUser = user.providerData.any(
+        (provider) => provider.providerId == 'apple.com',
+      );
+
+      if (isAppleUser) {
+        final revokeResult = await revokeAppleSignIn();
+        if (revokeResult is Error<void>) {
+          _log.warning('Failed to revoke Apple Sign In, but proceeding with account deletion');
+        }
+      }
+
       await user.delete();
       return Result.ok(null);
     } catch (e) {
       _log.severe('Failed to delete account: $e');
+      return Result.error(Exception(e));
+    }
+  }
+
+  @override
+  Future<Result<void>> revokeAppleSignIn() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      final rawNonce = _generateNonce();
+      final nonce = _sha256ofString(rawNonce);
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          redirectUri: Uri.parse(
+            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+
+      await _firebaseAuth.revokeTokenWithAuthorizationCode(
+        appleCredential.authorizationCode,
+      );
+
+      _log.info('Successfully revoked Apple Sign In credentials');
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to revoke Apple Sign In: $e');
       return Result.error(Exception(e));
     }
   }

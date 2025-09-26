@@ -1017,4 +1017,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profile_delete_account_error => '계정 삭제 중 오류가 발생했습니다.';
+
+  @override
+  String get profile_delete_account_apple_revoke_failed =>
+      'Apple 계정 연동 해제에 실패했지만 계정 삭제는 진행됩니다.';
+
+  @override
+  String get profile_delete_account_apple_revoke_success =>
+      'Apple 계정 연동이 해제되었습니다.';
 }

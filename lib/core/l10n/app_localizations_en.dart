@@ -1046,4 +1046,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profile_delete_account_error =>
       'An error occurred while deleting your account.';
+
+  @override
+  String get profile_delete_account_apple_revoke_failed =>
+      'Failed to revoke Apple account connection, but account deletion will proceed.';
+
+  @override
+  String get profile_delete_account_apple_revoke_success =>
+      'Apple account connection has been revoked.';
 }

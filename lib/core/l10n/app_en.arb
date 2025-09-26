@@ -459,5 +459,7 @@
   "profile_delete_account_reauthentication_apple": "Reauthenticate with Apple account",
   "profile_delete_account_reauthentication_failed": "Reauthentication failed. Please try again.",
   "profile_delete_account_success": "Account has been successfully deleted.",
-  "profile_delete_account_error": "An error occurred while deleting your account."
+  "profile_delete_account_error": "An error occurred while deleting your account.",
+  "profile_delete_account_apple_revoke_failed": "Failed to revoke Apple account connection, but account deletion will proceed.",
+  "profile_delete_account_apple_revoke_success": "Apple account connection has been revoked."
 }

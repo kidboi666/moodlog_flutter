@@ -2007,6 +2007,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error occurred while deleting your account.'**
   String get profile_delete_account_error;
+
+  /// No description provided for @profile_delete_account_apple_revoke_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to revoke Apple account connection, but account deletion will proceed.'**
+  String get profile_delete_account_apple_revoke_failed;
+
+  /// No description provided for @profile_delete_account_apple_revoke_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple account connection has been revoked.'**
+  String get profile_delete_account_apple_revoke_success;
 }
 
 class _AppLocalizationsDelegate

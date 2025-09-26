@@ -29,4 +29,6 @@ abstract class AuthRepository {
   Future<Result<void>> reauthenticateWithApple();
 
   Future<Result<void>> deleteAccount();
+
+  Future<Result<void>> revokeAppleSignIn();
 }
