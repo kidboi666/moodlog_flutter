@@ -16,8 +16,8 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
-import '../extensions/firebase_extension.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../extensions/firebase_extension.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -164,9 +164,11 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          clientId:
+              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ??
+                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
@@ -262,15 +264,19 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          clientId:
+              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ??
+                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
 
       if (appleCredential.identityToken == null) {
-        _log.severe('Failed to get Apple credential token for reauthentication');
+        _log.severe(
+          'Failed to get Apple credential token for reauthentication',
+        );
         throw Exception('Failed to get Apple credential token');
       }
 
@@ -308,7 +314,9 @@ class AuthRepositoryImpl extends AuthRepository {
         // Apple 사용자의 경우 재인증과 revoke를 한 번에 처리
         final revokeResult = await _revokeAppleSignInWithReauth();
         if (revokeResult is Error<void>) {
-          _log.warning('Failed to revoke Apple Sign In with reauth, but proceeding with account deletion');
+          _log.warning(
+            'Failed to revoke Apple Sign In with reauth, but proceeding with account deletion',
+          );
         }
       }
 
@@ -339,9 +347,11 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          clientId:
+              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ??
+                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
@@ -385,9 +395,11 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          clientId:
+              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
           redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+            dotenv.env['AUTH_REDIRECT_URI'] ??
+                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
           ),
         ),
       );
