@@ -4,6 +4,8 @@ import '../entities/user/user.dart';
 abstract class AuthRepository {
   Stream<User?> get userChanges;
 
+  Stream<void> get appleCredentialRevokedStream;
+
   bool get isAuthenticated;
 
   bool get isAnonymousUser;

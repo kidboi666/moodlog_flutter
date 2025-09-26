@@ -21,6 +21,8 @@ import '../extensions/firebase_extension.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final FirebaseAuth _firebaseAuth;
+  final StreamController<void> _appleCredentialRevokedController =
+      StreamController<void>.broadcast();
 
   AuthRepositoryImpl({FirebaseAuth? auth})
     : _firebaseAuth = auth ?? FirebaseAuth.instance;
@@ -37,6 +39,10 @@ class AuthRepositoryImpl extends AuthRepository {
   Stream<User?> get userChanges => _firebaseAuth.userChanges().map((user) {
     return user?.toDomain();
   });
+
+  @override
+  Stream<void> get appleCredentialRevokedStream =>
+      _appleCredentialRevokedController.stream;
 
   @override
   Future<Result<User?>> getCurrentUser() async {
@@ -164,12 +170,8 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId:
-              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
-          redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ??
-                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
-          ),
+          clientId: dotenv.env['AUTH_CLIENT_ID']!,
+          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
         ),
       );
 
@@ -198,6 +200,18 @@ class AuthRepositoryImpl extends AuthRepository {
           appleCredential.givenName,
           appleCredential.familyName,
         );
+
+        // Apple에서 제공되는 이메일이 있고, Firebase 계정에 이메일이 없는 경우에만 업데이트
+        if (appleCredential.email != null &&
+            appleCredential.email!.isNotEmpty &&
+            (user.email == null || user.email!.isEmpty)) {
+          try {
+            await user.verifyBeforeUpdateEmail(appleCredential.email!);
+            _log.info('Updated email to: ${appleCredential.email}');
+          } catch (e) {
+            _log.warning('Failed to update email: $e');
+          }
+        }
 
         if (displayName != null && displayName.isNotEmpty) {
           await user.updateDisplayName(displayName);
@@ -264,12 +278,8 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId:
-              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
-          redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ??
-                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
-          ),
+          clientId: dotenv.env['AUTH_CLIENT_ID']!,
+          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
         ),
       );
 
@@ -347,12 +357,8 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId:
-              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
-          redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ??
-                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
-          ),
+          clientId: dotenv.env['AUTH_CLIENT_ID']!,
+          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
         ),
       );
 
@@ -395,12 +401,8 @@ class AuthRepositoryImpl extends AuthRepository {
         ],
         nonce: nonce,
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId:
-              dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
-          redirectUri: Uri.parse(
-            dotenv.env['AUTH_REDIRECT_URI'] ??
-                'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
-          ),
+          clientId: dotenv.env['AUTH_CLIENT_ID']!,
+          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
         ),
       );
 
@@ -427,8 +429,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   String _generateNonce([int length = 32]) {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final charset = dotenv.env['NONCE_CHAR']!;
     final random = Random.secure();
     return List.generate(
       length,
@@ -441,5 +442,16 @@ class AuthRepositoryImpl extends AuthRepository {
     final bytes = utf8.encode(input);
     final digest = sha256.convert(bytes);
     return digest.toString();
+  }
+
+  /// Apple credential revoked 알림을 처리합니다.
+  /// 이 메소드는 네이티브 iOS 코드에서 호출되어야 합니다.
+  void handleAppleCredentialRevoked() {
+    _log.warning('Apple credential has been revoked');
+    _appleCredentialRevokedController.add(null);
+  }
+
+  void dispose() {
+    _appleCredentialRevokedController.close();
   }
 }
