@@ -77,10 +77,8 @@ class AuthUseCase {
           return reauthResult;
         }
       } else if (loginMethod == 'apple') {
-        final reauthResult = await _authRepository.reauthenticateWithApple();
-        if (reauthResult is Error<void>) {
-          return reauthResult;
-        }
+        // Apple 사용자의 경우, deleteAccount에서 재인증과 revoke를 함께 처리
+        // 중복 인증을 방지하기 위해 여기서는 재인증하지 않음
       } else if (loginMethod == 'anonymous') {
         // Anonymous users don't need reauthentication
       } else {

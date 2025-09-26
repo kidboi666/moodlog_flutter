@@ -305,9 +305,10 @@ class AuthRepositoryImpl extends AuthRepository {
       );
 
       if (isAppleUser) {
-        final revokeResult = await revokeAppleSignIn();
+        // Apple 사용자의 경우 재인증과 revoke를 한 번에 처리
+        final revokeResult = await _revokeAppleSignInWithReauth();
         if (revokeResult is Error<void>) {
-          _log.warning('Failed to revoke Apple Sign In, but proceeding with account deletion');
+          _log.warning('Failed to revoke Apple Sign In with reauth, but proceeding with account deletion');
         }
       }
 
@@ -315,6 +316,53 @@ class AuthRepositoryImpl extends AuthRepository {
       return Result.ok(null);
     } catch (e) {
       _log.severe('Failed to delete account: $e');
+      return Result.error(Exception(e));
+    }
+  }
+
+  /// Apple 계정 삭제를 위한 재인증과 revoke를 한 번에 처리
+  Future<Result<void>> _revokeAppleSignInWithReauth() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      final rawNonce = _generateNonce();
+      final nonce = _sha256ofString(rawNonce);
+
+      // Apple 인증을 한 번만 요청하여 재인증과 revoke를 모두 처리
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: dotenv.env['AUTH_CLIENT_ID'] ?? 'com.logmind.moodlog.signin',
+          redirectUri: Uri.parse(
+            dotenv.env['AUTH_REDIRECT_URI'] ?? 'https://moodlog-ba790.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+
+      // 1. 재인증 수행
+      final oauthCredential = AppleAuthProvider.credential(
+        appleCredential.identityToken!,
+      );
+
+      await user.reauthenticateWithCredential(oauthCredential);
+      _log.info('Successfully reauthenticated with Apple');
+
+      // 2. Apple Sign In revoke 수행
+      await _firebaseAuth.revokeTokenWithAuthorizationCode(
+        appleCredential.authorizationCode,
+      );
+
+      _log.info('Successfully revoked Apple Sign In credentials');
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to revoke Apple Sign In with reauth: $e');
       return Result.error(Exception(e));
     }
   }
