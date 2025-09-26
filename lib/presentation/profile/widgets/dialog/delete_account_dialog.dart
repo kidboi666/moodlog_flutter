@@ -82,7 +82,6 @@ class DeleteAccountDialog extends StatelessWidget {
           builder: (context) {
             return FilledButton(
               onPressed: () {
-                context.pop();
                 showDialog(
                   context: context,
                   builder: (context) =>

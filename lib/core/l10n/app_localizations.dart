@@ -2019,6 +2019,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apple account connection has been revoked.'**
   String get profile_delete_account_apple_revoke_success;
+
+  /// No description provided for @profile_delete_account_apple_manual_revoke_guide.
+  ///
+  /// In en, this message translates to:
+  /// **'For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login.'**
+  String get profile_delete_account_apple_manual_revoke_guide;
 }
 
 class _AppLocalizationsDelegate

@@ -127,12 +127,24 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
 
       switch (result) {
         case Ok<void>():
+          final t = AppLocalizations.of(context)!;
+          String message = t.profile_delete_account_success;
+
+          // Apple 사용자인 경우 수동 연동 해제 안내 추가
+          if (_loginMethod == 'apple') {
+            message += '\n\n${t.profile_delete_account_apple_manual_revoke_guide}';
+          }
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                AppLocalizations.of(context)!.profile_delete_account_success,
+                message,
+                style: const TextStyle(fontSize: 13), // 긴 메시지를 위한 폰트 크기 조정
               ),
               backgroundColor: Theme.of(context).colorScheme.primary,
+              duration: const Duration(seconds: 12), // 더 긴 메시지를 위해 시간 연장
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
             ),
           );
           context.go(Routes.signIn);

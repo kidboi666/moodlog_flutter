@@ -3,29 +3,25 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
-import 'package:firebase_auth/firebase_auth.dart'
-    show
-        FirebaseAuth,
-        GoogleAuthProvider,
-        AppleAuthProvider,
-        AppleFullPersonName;
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../core/utils/jwt_utils.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../extensions/firebase_extension.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final FirebaseAuth _firebaseAuth;
+  final firebase.FirebaseAuth _firebaseAuth;
   final StreamController<void> _appleCredentialRevokedController =
       StreamController<void>.broadcast();
 
-  AuthRepositoryImpl({FirebaseAuth? auth})
-    : _firebaseAuth = auth ?? FirebaseAuth.instance;
+  AuthRepositoryImpl({firebase.FirebaseAuth? auth})
+    : _firebaseAuth = auth ?? firebase.FirebaseAuth.instance;
 
   final Logger _log = Logger('AuthRepositoryImpl');
 
@@ -73,7 +69,7 @@ class AuthRepositoryImpl extends AuthRepository {
         throw Exception('Failed to get Google ID token');
       }
 
-      final credential = GoogleAuthProvider.credential(
+      final credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
       final userCredential = await _firebaseAuth.currentUser
@@ -129,7 +125,7 @@ class AuthRepositoryImpl extends AuthRepository {
         throw Exception('Failed to get Google ID token');
       }
 
-      final credential = GoogleAuthProvider.credential(
+      final credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
       final userCredential = await _firebaseAuth.signInWithCredential(
@@ -142,7 +138,6 @@ class AuthRepositoryImpl extends AuthRepository {
         if (googleUser.displayName != null &&
             googleUser.displayName!.isNotEmpty) {
           await user.updateDisplayName(googleUser.displayName!);
-          _log.info('Updated display name to: ${googleUser.displayName}');
         }
 
         await user.reload();
@@ -180,11 +175,11 @@ class AuthRepositoryImpl extends AuthRepository {
         throw Exception('Failed to get Apple credential token');
       }
 
-      final fullname = AppleFullPersonName(
+      final fullname = firebase.AppleFullPersonName(
         givenName: appleCredential.givenName,
         familyName: appleCredential.familyName,
       );
-      final credential = AppleAuthProvider.credentialWithIDToken(
+      final credential = firebase.AppleAuthProvider.credentialWithIDToken(
         appleCredential.identityToken!,
         rawNonce,
         fullname,
@@ -201,21 +196,11 @@ class AuthRepositoryImpl extends AuthRepository {
           appleCredential.familyName,
         );
 
-        // Apple에서 제공되는 이메일이 있고, Firebase 계정에 이메일이 없는 경우에만 업데이트
-        if (appleCredential.email != null &&
-            appleCredential.email!.isNotEmpty &&
-            (user.email == null || user.email!.isEmpty)) {
-          try {
-            await user.verifyBeforeUpdateEmail(appleCredential.email!);
-            _log.info('Updated email to: ${appleCredential.email}');
-          } catch (e) {
-            _log.warning('Failed to update email: $e');
-          }
-        }
+        // 이메일 업데이트 (기존 이메일이 없을 때만)
+        await _updateEmailIfNeeded(user, appleCredential);
 
         if (displayName != null && displayName.isNotEmpty) {
           await user.updateDisplayName(displayName);
-          _log.info('Updated display name to: $displayName');
         }
 
         await user.reload();
@@ -248,7 +233,7 @@ class AuthRepositoryImpl extends AuthRepository {
         throw Exception('Failed to get Google ID token');
       }
 
-      final credential = GoogleAuthProvider.credential(
+      final credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
 
@@ -290,11 +275,11 @@ class AuthRepositoryImpl extends AuthRepository {
         throw Exception('Failed to get Apple credential token');
       }
 
-      final fullname = AppleFullPersonName(
+      final fullname = firebase.AppleFullPersonName(
         givenName: appleCredential.givenName,
         familyName: appleCredential.familyName,
       );
-      final credential = AppleAuthProvider.credentialWithIDToken(
+      final credential = firebase.AppleAuthProvider.credentialWithIDToken(
         appleCredential.identityToken!,
         rawNonce,
         fullname,
@@ -363,19 +348,17 @@ class AuthRepositoryImpl extends AuthRepository {
       );
 
       // 1. 재인증 수행
-      final oauthCredential = AppleAuthProvider.credential(
+      final oauthCredential = firebase.AppleAuthProvider.credential(
         appleCredential.identityToken!,
       );
 
       await user.reauthenticateWithCredential(oauthCredential);
-      _log.info('Successfully reauthenticated with Apple');
 
-      // 2. Apple Sign In revoke 수행
+      // 2. Apple Sign In revoke 수행 (Firebase)
       await _firebaseAuth.revokeTokenWithAuthorizationCode(
         appleCredential.authorizationCode,
       );
 
-      _log.info('Successfully revoked Apple Sign In credentials');
       return Result.ok(null);
     } catch (e) {
       _log.severe('Failed to revoke Apple Sign In with reauth: $e');
@@ -445,10 +428,31 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   /// Apple credential revoked 알림을 처리합니다.
-  /// 이 메소드는 네이티브 iOS 코드에서 호출되어야 합니다.
   void handleAppleCredentialRevoked() {
-    _log.warning('Apple credential has been revoked');
     _appleCredentialRevokedController.add(null);
+  }
+
+
+  /// Apple credential에서 이메일을 추출하여 필요시 업데이트합니다.
+  Future<void> _updateEmailIfNeeded(
+    firebase.User user,
+    AuthorizationCredentialAppleID credential,
+  ) async {
+    if (user.email != null && user.email!.isNotEmpty) {
+      return; // 이미 이메일이 있으면 보존
+    }
+
+    // Apple credential 또는 JWT에서 이메일 추출
+    final email = credential.email ??
+        JwtUtils.extractEmailFromJwt(credential.identityToken);
+
+    if (email != null && email.isNotEmpty) {
+      try {
+        await user.verifyBeforeUpdateEmail(email);
+      } catch (e) {
+        _log.warning('Failed to update email: $e');
+      }
+    }
   }
 
   void dispose() {

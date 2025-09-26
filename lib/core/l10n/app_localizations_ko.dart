@@ -1025,4 +1025,8 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get profile_delete_account_apple_revoke_success =>
       'Apple 계정 연동이 해제되었습니다.';
+
+  @override
+  String get profile_delete_account_apple_manual_revoke_guide =>
+      '완전한 Apple 계정 연동 해제를 원하실 경우:\n\n1️⃣ 웹: appleid.apple.com → 로그인 및 보안 → 앱용 Apple ID → 해당 앱 삭제\n\n2️⃣ iPhone: 설정 → Apple ID → 암호 및 보안 → Apple ID 로그인 → 해당 앱 삭제\n\n이렇게 하면 다음 로그인 시 이메일 공개 여부를 다시 선택할 수 있습니다.';
 }

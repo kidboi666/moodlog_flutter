@@ -1026,4 +1026,8 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get profile_delete_account_apple_revoke_success =>
       'Apple アカウント連携が解除されました。';
+
+  @override
+  String get profile_delete_account_apple_manual_revoke_guide =>
+      '完全なApple アカウント連携解除を行う場合：\n\n1️⃣ ウェブ: appleid.apple.com → サインインとセキュリティ → Apple IDを使用するApp → 該当アプリを削除\n\n2️⃣ iPhone: 設定 → Apple ID → パスワードとセキュリティ → Apple IDログイン → 該当アプリを削除\n\nこれにより次回ログイン時にメール共有設定を再選択できます。';
 }

@@ -1054,4 +1054,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profile_delete_account_apple_revoke_success =>
       'Apple account connection has been revoked.';
+
+  @override
+  String get profile_delete_account_apple_manual_revoke_guide =>
+      'For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login.';
 }
