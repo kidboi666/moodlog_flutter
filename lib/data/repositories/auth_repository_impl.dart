@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 
@@ -104,16 +103,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithGoogle() async {
     try {
-      final googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
       final googleUser = await GoogleSignIn.instance.authenticate();
       final googleAuth = googleUser.authentication;
-
-      if (googleAuth.idToken == null) {
-        _log.severe('Failed to get Google ID token');
-        throw Exception('Failed to get Google ID token');
-      }
-
       final credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
@@ -144,14 +135,12 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<User?>> signInWithApple() async {
     try {
       final appleProvider = firebase.AppleAuthProvider();
-      firebase.UserCredential userCredential;
-      if (kIsWeb) {
-        userCredential = await _firebaseAuth.signInWithPopup(appleProvider);
-      } else {
-        userCredential = await _firebaseAuth.signInWithProvider(appleProvider);
-      }
-
+      appleProvider.addScope('email');
+      final userCredential = await _firebaseAuth.signInWithProvider(
+        appleProvider,
+      );
       final user = userCredential.user;
+
       if (user == null) {
         _log.severe('Apple sign-in succeeded but user is null');
         return Result.error(
@@ -159,15 +148,15 @@ class AuthRepositoryImpl extends AuthRepository {
         );
       }
 
-      final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
+      final additionalUserInfo = userCredential.additionalUserInfo;
 
-      if (isNewUser) {
-        final profile = userCredential.additionalUserInfo?.profile;
-        final newEmail = profile?['email'] as String?;
-        if (newEmail != null && newEmail.isNotEmpty) {
+      if (additionalUserInfo?.isNewUser == true) {
+        _log.info('Apple profile data: $user');
+
+        final newEmail = user.email;
+        if (newEmail != null) {
+          _log.info('Apple email found: $newEmail');
           await user.verifyBeforeUpdateEmail(newEmail);
-        } else {
-          _log.warning('Apple profile email is null or empty for new user');
         }
       }
 
@@ -176,36 +165,6 @@ class AuthRepositoryImpl extends AuthRepository {
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
       _log.severe('Failed to authenticate with Apple : $e');
-      return Result.error(Exception(e));
-    }
-  }
-
-  @override
-  Future<Result<void>> reauthenticateWithGoogle() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        return Result.error(Exception('No user is currently logged in'));
-      }
-
-      final googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
-      final googleUser = await GoogleSignIn.instance.authenticate();
-      final googleAuth = googleUser.authentication;
-
-      if (googleAuth.idToken == null) {
-        _log.severe('Failed to get Google ID token for reauthentication');
-        throw Exception('Failed to get Google ID token');
-      }
-
-      final credential = firebase.GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-      );
-
-      await user.reauthenticateWithCredential(credential);
-      return Result.ok(null);
-    } catch (e) {
-      _log.severe('Failed to reauthenticate with Google: $e');
       return Result.error(Exception(e));
     }
   }
@@ -243,8 +202,22 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Result<void>> deleteAccountWithGoogle() {
-    // TODO: implement deleteAccountWithGoogle
-    throw UnimplementedError();
+  Future<Result<void>> deleteAccountWithGoogle() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        return Result.error(Exception('No user is currently logged in'));
+      }
+
+      final googleProvider = firebase.GoogleAuthProvider();
+      await user.reauthenticateWithProvider(googleProvider);
+      await user.unlink(googleProvider.providerId);
+      await user.delete();
+      _log.info('Google account deleted successfully');
+      return Result.ok(null);
+    } catch (e) {
+      _log.severe('Failed to delete Google account: $e');
+      return Result.error(Exception(e));
+    }
   }
 }

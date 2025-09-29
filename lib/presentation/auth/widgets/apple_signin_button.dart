@@ -51,6 +51,7 @@ class AppleSigninButton extends StatelessWidget {
                           extra: {'loginType': LoginMethod.apple},
                         );
                       case Error():
+                        debugPrint('Error: ${result.error}');
                         break;
                     }
                   }

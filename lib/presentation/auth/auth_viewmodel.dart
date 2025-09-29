@@ -73,7 +73,6 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
           );
           _log.info('Successfully signed in with Apple');
 
-          // Apple 로그인 후 AppStateProvider 새로고침
           await _appStateProvider.load();
 
           setSuccess();
@@ -109,7 +108,6 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
             value: 'google',
           );
 
-          // Google 로그인 후 AppStateProvider 새로고침
           await _appStateProvider.load();
 
           setSuccess();

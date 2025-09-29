@@ -48,13 +48,11 @@ class OnboardingViewModel extends ChangeNotifier
 
   void setPersonality(AiPersonality personality) {
     _selectedPersonality = personality;
-    _log.info('Setting personality to $personality');
     notifyListeners();
   }
 
   void setNickname(String value) {
     _nickname = value;
-    _log.info('Setting nickname to $value');
     notifyListeners();
   }
 

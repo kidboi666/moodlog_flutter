@@ -27,6 +27,4 @@ abstract class AuthRepository {
   Future<Result<void>> deleteAccountWithApple();
 
   Future<Result<void>> deleteAccountWithGoogle();
-
-  Future<Result<void>> reauthenticateWithGoogle();
 }
