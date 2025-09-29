@@ -123,7 +123,6 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) => AuthUseCase(
         authRepository: context.read(),
         settingsRepository: context.read(),
-        database: context.read(),
       ),
     ),
     Provider<SettingsUseCase>(

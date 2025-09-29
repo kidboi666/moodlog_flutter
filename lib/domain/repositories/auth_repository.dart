@@ -4,8 +4,6 @@ import '../entities/user/user.dart';
 abstract class AuthRepository {
   Stream<User?> get userChanges;
 
-  Stream<void> get appleCredentialRevokedStream;
-
   bool get isAuthenticated;
 
   bool get isAnonymousUser;
@@ -26,11 +24,9 @@ abstract class AuthRepository {
 
   Future<Result<void>> updateProfileImage(String profileImage);
 
+  Future<Result<void>> deleteAccountWithApple();
+
+  Future<Result<void>> deleteAccountWithGoogle();
+
   Future<Result<void>> reauthenticateWithGoogle();
-
-  Future<Result<void>> reauthenticateWithApple();
-
-  Future<Result<void>> deleteAccount();
-
-  Future<Result<void>> revokeAppleSignIn();
 }

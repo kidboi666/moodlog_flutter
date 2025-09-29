@@ -19,15 +19,15 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
   }) : _authRepository = authRepository,
        _appStateProvider = appStateProvider;
 
-  LoginType? _loginType;
+  LoginMethod? _loginType;
   final Logger _log = Logger('AuthViewModel');
 
   bool get isLoadingAnonymously =>
-      isLoading && _loginType == LoginType.anonymous;
+      isLoading && _loginType == LoginMethod.anonymous;
 
-  bool get isLoadingGoogle => isLoading && _loginType == LoginType.google;
+  bool get isLoadingGoogle => isLoading && _loginType == LoginMethod.google;
 
-  bool get isLoadingApple => isLoading && _loginType == LoginType.apple;
+  bool get isLoadingApple => isLoading && _loginType == LoginMethod.apple;
 
   bool get isAuthenticated => _authRepository.isAuthenticated;
 
@@ -38,7 +38,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<Result<void>> signInAnonymously() async {
     setLoading();
-    _loginType = LoginType.anonymous;
+    _loginType = LoginMethod.anonymous;
     final result = await _authRepository.signInAnonymously();
 
     switch (result) {
@@ -60,7 +60,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<Result<void>> signInApple() async {
     setLoading();
-    _loginType = LoginType.apple;
+    _loginType = LoginMethod.apple;
 
     try {
       final result = await _authRepository.signInWithApple();
@@ -92,7 +92,7 @@ class AuthViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<Result<void>> signInGoogle() async {
     setLoading();
-    _loginType = LoginType.google;
+    _loginType = LoginMethod.google;
 
     try {
       final result = await _authRepository.signInWithGoogle();

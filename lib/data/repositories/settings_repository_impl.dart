@@ -24,7 +24,15 @@ class SettingsRepositoryImpl extends SettingsRepository {
   Future<Settings> loadSettings() async {
     final settings = await _prefs.getString(PreferenceKeys.appSettings);
     _log.info('Loaded settings: $settings');
-    final settingMap = settings != null ? jsonDecode(settings) : {};
+
+    if (settings == null) {
+      _log.info('No settings found, creating default settings');
+      final defaultSettings = Settings();
+      await updateSettings(defaultSettings);
+      return defaultSettings;
+    }
+
+    final settingMap = jsonDecode(settings);
     final settingsModel = AppStateSharedPreferencesModel.fromJson(settingMap);
     return settingsModel.toDomain();
   }

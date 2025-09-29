@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
-import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../core/utils/jwt_utils.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -17,8 +12,6 @@ import '../extensions/firebase_extension.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final firebase.FirebaseAuth _firebaseAuth;
-  final StreamController<void> _appleCredentialRevokedController =
-      StreamController<void>.broadcast();
 
   AuthRepositoryImpl({firebase.FirebaseAuth? auth})
     : _firebaseAuth = auth ?? firebase.FirebaseAuth.instance;
@@ -35,10 +28,6 @@ class AuthRepositoryImpl extends AuthRepository {
   Stream<User?> get userChanges => _firebaseAuth.userChanges().map((user) {
     return user?.toDomain();
   });
-
-  @override
-  Stream<void> get appleCredentialRevokedStream =>
-      _appleCredentialRevokedController.stream;
 
   @override
   Future<Result<User?>> getCurrentUser() async {
@@ -135,8 +124,7 @@ class AuthRepositoryImpl extends AuthRepository {
       if (userCredential.user != null) {
         final user = userCredential.user!;
 
-        if (googleUser.displayName != null &&
-            googleUser.displayName!.isNotEmpty) {
+        if (googleUser.displayName!.isNotEmpty) {
           await user.updateDisplayName(googleUser.displayName!);
         }
 
@@ -155,58 +143,24 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithApple() async {
     try {
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
+      final appleProvider = firebase.AppleAuthProvider();
+      firebase.UserCredential userCredential;
+      if (kIsWeb) {
+        userCredential = await _firebaseAuth.signInWithPopup(appleProvider);
+      } else {
+        userCredential = await _firebaseAuth.signInWithProvider(appleProvider);
+      }
+      final user = userCredential.user!;
+      final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
 
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID']!,
-          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
-        ),
-      );
-
-      if (appleCredential.identityToken == null) {
-        _log.severe('Failed to get Apple credential token');
-        throw Exception('Failed to get Apple credential token');
+      if (isNewUser) {
+        final profile = userCredential.additionalUserInfo?.profile;
+        final newEmail = profile?['email'] as String;
+        debugPrint('newEmail : $newEmail');
+        await user.verifyBeforeUpdateEmail(newEmail);
       }
 
-      final fullname = firebase.AppleFullPersonName(
-        givenName: appleCredential.givenName,
-        familyName: appleCredential.familyName,
-      );
-      final credential = firebase.AppleAuthProvider.credentialWithIDToken(
-        appleCredential.identityToken!,
-        rawNonce,
-        fullname,
-      );
-
-      final userCredential = await _firebaseAuth.signInWithCredential(
-        credential,
-      );
-
-      if (userCredential.user != null) {
-        final user = userCredential.user!;
-        final displayName = _buildDisplayName(
-          appleCredential.givenName,
-          appleCredential.familyName,
-        );
-
-        // 이메일 업데이트 (기존 이메일이 없을 때만)
-        await _updateEmailIfNeeded(user, appleCredential);
-
-        if (displayName != null && displayName.isNotEmpty) {
-          await user.updateDisplayName(displayName);
-        }
-
-        await user.reload();
-        final updatedUser = _firebaseAuth.currentUser;
-        return Result.ok(updatedUser?.toDomain());
-      }
+      await user.reload();
 
       return Result.ok(userCredential.user?.toDomain());
     } catch (e) {
@@ -246,216 +200,40 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Result<void>> reauthenticateWithApple() async {
+  Future<Result<void>> deleteAccountWithApple() async {
     try {
       final user = _firebaseAuth.currentUser;
       if (user == null) {
         return Result.error(Exception('No user is currently logged in'));
       }
 
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
-
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID']!,
-          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
-        ),
+      final appleProvider = firebase.AppleAuthProvider();
+      final userCredential = await user.reauthenticateWithProvider(
+        appleProvider,
       );
+      final authCode = userCredential.additionalUserInfo?.authorizationCode;
 
-      if (appleCredential.identityToken == null) {
-        _log.severe(
-          'Failed to get Apple credential token for reauthentication',
+      if (authCode != null) {
+        await _firebaseAuth.revokeTokenWithAuthorizationCode(authCode);
+        _log.info('Apple token revoked successfully');
+      } else {
+        _log.warning(
+          'No authorization code received from Apple reauthentication',
         );
-        throw Exception('Failed to get Apple credential token');
-      }
-
-      final fullname = firebase.AppleFullPersonName(
-        givenName: appleCredential.givenName,
-        familyName: appleCredential.familyName,
-      );
-      final credential = firebase.AppleAuthProvider.credentialWithIDToken(
-        appleCredential.identityToken!,
-        rawNonce,
-        fullname,
-      );
-
-      await user.reauthenticateWithCredential(credential);
-      return Result.ok(null);
-    } catch (e) {
-      _log.severe('Failed to reauthenticate with Apple: $e');
-      return Result.error(Exception(e));
-    }
-  }
-
-  @override
-  Future<Result<void>> deleteAccount() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        return Result.error(Exception('No user is currently logged in'));
-      }
-
-      final isAppleUser = user.providerData.any(
-        (provider) => provider.providerId == 'apple.com',
-      );
-
-      if (isAppleUser) {
-        // Apple 사용자의 경우 재인증과 revoke를 한 번에 처리
-        final revokeResult = await _revokeAppleSignInWithReauth();
-        if (revokeResult is Error<void>) {
-          _log.warning(
-            'Failed to revoke Apple Sign In with reauth, but proceeding with account deletion',
-          );
-        }
       }
 
       await user.delete();
+      _log.info('Apple account deleted successfully');
       return Result.ok(null);
     } catch (e) {
-      _log.severe('Failed to delete account: $e');
-      return Result.error(Exception(e));
-    }
-  }
-
-  /// Apple 계정 삭제를 위한 재인증과 revoke를 한 번에 처리
-  Future<Result<void>> _revokeAppleSignInWithReauth() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        return Result.error(Exception('No user is currently logged in'));
-      }
-
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
-
-      // Apple 인증을 한 번만 요청하여 재인증과 revoke를 모두 처리
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID']!,
-          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
-        ),
-      );
-
-      // 1. 재인증 수행
-      final oauthCredential = firebase.AppleAuthProvider.credential(
-        appleCredential.identityToken!,
-      );
-
-      await user.reauthenticateWithCredential(oauthCredential);
-
-      // 2. Apple Sign In revoke 수행 (Firebase)
-      await _firebaseAuth.revokeTokenWithAuthorizationCode(
-        appleCredential.authorizationCode,
-      );
-
-      return Result.ok(null);
-    } catch (e) {
-      _log.severe('Failed to revoke Apple Sign In with reauth: $e');
+      _log.severe('Failed to delete Apple account: $e');
       return Result.error(Exception(e));
     }
   }
 
   @override
-  Future<Result<void>> revokeAppleSignIn() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        return Result.error(Exception('No user is currently logged in'));
-      }
-
-      final rawNonce = _generateNonce();
-      final nonce = _sha256ofString(rawNonce);
-
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: dotenv.env['AUTH_CLIENT_ID']!,
-          redirectUri: Uri.parse(dotenv.env['AUTH_REDIRECT_URI']!),
-        ),
-      );
-
-      await _firebaseAuth.revokeTokenWithAuthorizationCode(
-        appleCredential.authorizationCode,
-      );
-
-      _log.info('Successfully revoked Apple Sign In credentials');
-      return Result.ok(null);
-    } catch (e) {
-      _log.severe('Failed to revoke Apple Sign In: $e');
-      return Result.error(Exception(e));
-    }
-  }
-
-  String? _buildDisplayName(String? givenName, String? familyName) {
-    if (givenName == null && familyName == null) return null;
-
-    final parts = <String>[];
-    if (givenName?.isNotEmpty == true) parts.add(givenName!);
-    if (familyName?.isNotEmpty == true) parts.add(familyName!);
-
-    return parts.isEmpty ? null : parts.join(' ');
-  }
-
-  String _generateNonce([int length = 32]) {
-    final charset = dotenv.env['NONCE_CHAR']!;
-    final random = Random.secure();
-    return List.generate(
-      length,
-      (_) => charset[random.nextInt(charset.length)],
-    ).join();
-  }
-
-  /// Returns the sha256 hash of [input] in hex notation.
-  String _sha256ofString(String input) {
-    final bytes = utf8.encode(input);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
-  }
-
-  /// Apple credential revoked 알림을 처리합니다.
-  void handleAppleCredentialRevoked() {
-    _appleCredentialRevokedController.add(null);
-  }
-
-
-  /// Apple credential에서 이메일을 추출하여 필요시 업데이트합니다.
-  Future<void> _updateEmailIfNeeded(
-    firebase.User user,
-    AuthorizationCredentialAppleID credential,
-  ) async {
-    if (user.email != null && user.email!.isNotEmpty) {
-      return; // 이미 이메일이 있으면 보존
-    }
-
-    // Apple credential 또는 JWT에서 이메일 추출
-    final email = credential.email ??
-        JwtUtils.extractEmailFromJwt(credential.identityToken);
-
-    if (email != null && email.isNotEmpty) {
-      try {
-        await user.verifyBeforeUpdateEmail(email);
-      } catch (e) {
-        _log.warning('Failed to update email: $e');
-      }
-    }
-  }
-
-  void dispose() {
-    _appleCredentialRevokedController.close();
+  Future<Result<void>> deleteAccountWithGoogle() {
+    // TODO: implement deleteAccountWithGoogle
+    throw UnimplementedError();
   }
 }

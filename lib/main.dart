@@ -63,36 +63,35 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppStateProvider>(
-      builder: (context, appStateProvider, child) {
-        final appState = appStateProvider.appState;
-        if (appStateProvider.isLoading) {
-          return const Spinner(spinnerType: SpinnerType.center);
-        }
-        _router ??= router(context.read(), widget.analyticsObserver);
+    final appState = context.select((AppStateProvider v) => v.appState);
+    final isLoading = context.select((AppStateProvider v) => v.isLoading);
 
-        return KeyboardDismissOnTapOutside(
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [
-              Locale(LanguageCode.ko.value),
-              Locale(LanguageCode.en.value),
-              Locale(LanguageCode.ja.value),
-            ],
-            locale: Locale(appState.languageCode.value),
-            theme: AppTheme.lightTheme(appState.fontFamily),
-            darkTheme: AppTheme.darkTheme(appState.fontFamily),
-            themeMode: appState.themeMode.materialThemeMode,
-            routerConfig: _router!,
-          ),
-        );
-      },
+    if (isLoading) {
+      return const Spinner(spinnerType: SpinnerType.center);
+    }
+
+    _router ??= router(context.read(), widget.analyticsObserver);
+
+    return KeyboardDismissOnTapOutside(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale(LanguageCode.ko.value),
+          Locale(LanguageCode.en.value),
+          Locale(LanguageCode.ja.value),
+        ],
+        locale: Locale(appState.languageCode.value),
+        theme: AppTheme.lightTheme(appState.fontFamily),
+        darkTheme: AppTheme.darkTheme(appState.fontFamily),
+        themeMode: appState.themeMode.materialThemeMode,
+        routerConfig: _router!,
+      ),
     );
   }
 }

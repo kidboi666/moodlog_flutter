@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
+import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../domain/entities/user/user.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -25,37 +26,26 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
 
   bool get isAnonymousUser => _user?.isAnonymous == true;
 
-  bool get isGoogleUser {
-    if (_user == null) {
-      return false;
-    }
-    return _user!.providerData.any(
-      (provider) => provider.providerId == 'google.com',
-    );
-  }
-
-  bool get isAppleUser {
-    if (_user == null) {
-      return false;
-    }
-    return _user!.providerData.any(
-      (provider) => provider.providerId == 'apple.com',
-    );
-  }
-
-  String? get currentSignInMethod {
+  LoginMethod get currentSignInMethod {
     if (_user == null || _user!.providerData.isEmpty) {
-      return null;
+      return LoginMethod.anonymous;
     }
-    return _user!.providerData.first.providerId;
+    final provider = _user!.providerData.first.providerId;
+    if (provider == 'google.com') {
+      return LoginMethod.google;
+    } else if (provider == 'apple.com') {
+      return LoginMethod.apple;
+    } else {
+      return LoginMethod.anonymous;
+    }
   }
 
   bool get isCurrentGoogleUser {
-    return currentSignInMethod == 'google.com';
+    return currentSignInMethod == LoginMethod.google;
   }
 
   bool get isCurrentAppleUser {
-    return currentSignInMethod == 'apple.com';
+    return currentSignInMethod == LoginMethod.apple;
   }
 
   void _initializeUserStream() {

@@ -16,14 +16,14 @@ class OnboardingViewModel extends ChangeNotifier
   final AppStateProvider _appStateProvider;
   final AuthUseCase _authUseCase;
   final AuthRepository _authRepository;
-  final LoginType _loginType;
+  final LoginMethod _loginType;
 
   OnboardingViewModel({
     required int totalSteps,
     required AppStateProvider appStateProvider,
     required AuthUseCase authUseCase,
     required AuthRepository authRepository,
-    required LoginType loginType,
+    required LoginMethod loginType,
   }) : _appStateProvider = appStateProvider,
        _authUseCase = authUseCase,
        _authRepository = authRepository,
@@ -41,7 +41,7 @@ class OnboardingViewModel extends ChangeNotifier
 
   AiPersonality get selectedPersonality => _selectedPersonality;
 
-  LoginType get loginType => _loginType;
+  LoginMethod get loginType => _loginType;
 
   bool validateNickname(String? value) =>
       value != null && value.isNotEmpty && value.length <= 10;
@@ -61,7 +61,7 @@ class OnboardingViewModel extends ChangeNotifier
   Future<void> setOnboardingCompleted() async {
     setLoading();
     try {
-      if (_loginType == LoginType.anonymous) {
+      if (_loginType == LoginMethod.anonymous) {
         final signInResult = await _authRepository.signInAnonymously();
         switch (signInResult) {
           case Ok():
@@ -79,7 +79,7 @@ class OnboardingViewModel extends ChangeNotifier
 
       await _authUseCase.updateDisplayName(_nickname);
 
-      final updatedSettings = _loginType == LoginType.anonymous
+      final updatedSettings = _loginType == LoginMethod.anonymous
           ? appState.copyWith(
               isOnboardingComplete: true,
               aiPersonality: _selectedPersonality,

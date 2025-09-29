@@ -12,16 +12,16 @@ abstract class AppStateSharedPreferencesModel
   const AppStateSharedPreferencesModel._();
 
   const factory AppStateSharedPreferencesModel({
-    required bool hasNotificationEnabled,
-    required bool hasAutoSyncEnabled,
-    required String themeMode,
-    required String colorTheme,
-    required String languageCode,
-    required String aiPersonality,
-    required String fontFamily,
-    required String textAlign,
-    required bool isOnboardingComplete,
-    required bool isSocialOnboardingComplete,
+    @Default(false) bool hasNotificationEnabled,
+    @Default(false) bool hasAutoSyncEnabled,
+    @Default('ThemeMode.system') String themeMode,
+    @Default('ColorTheme.blue') String colorTheme,
+    @Default('LanguageCode.ko') String languageCode,
+    @Default('AiPersonality.balanced') String aiPersonality,
+    @Default('FontFamily.restart') String fontFamily,
+    @Default('SimpleTextAlign.left') String textAlign,
+    @Default(false) bool isOnboardingComplete,
+    @Default(false) bool isSocialOnboardingComplete,
   }) = _AppStateSharedPreferencesModel;
 
   factory AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) =>

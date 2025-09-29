@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/enum.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/routing/routes.dart';
@@ -17,8 +18,7 @@ class DeleteAccountFormDialog extends StatefulWidget {
 }
 
 class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
-  String? _loginMethod;
-  bool _isLoadingLoginMethod = true;
+  LoginMethod? _loginMethod;
 
   @override
   void initState() {
@@ -26,11 +26,10 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
     _loadLoginMethod();
   }
 
-  Future<void> _loadLoginMethod() async {
-    final loginMethod = await widget.viewModel.getUserLoginMethod();
+  void _loadLoginMethod() {
+    final loginMethod = widget.viewModel.getUserLoginMethod();
     setState(() {
       _loginMethod = loginMethod;
-      _isLoadingLoginMethod = false;
     });
   }
 
@@ -39,12 +38,6 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
-
-    if (_isLoadingLoginMethod) {
-      return const AlertDialog(
-        content: Center(child: CircularProgressIndicator()),
-      );
-    }
 
     return AlertDialog(
       title: Row(
@@ -63,13 +56,13 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
         children: [
           Text(t.profile_delete_account_reauthentication_required),
           const SizedBox(height: 16),
-          if (_loginMethod == 'google')
+          if (_loginMethod == LoginMethod.google)
             _buildReauthButton(
               context,
               t.profile_delete_account_reauthentication_google,
               Icons.login,
             )
-          else if (_loginMethod == 'apple')
+          else if (_loginMethod == LoginMethod.apple)
             _buildReauthButton(
               context,
               t.profile_delete_account_reauthentication_apple,
@@ -121,7 +114,7 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
     BuildContext context,
     ProfileViewModel viewModel,
   ) async {
-    final result = await viewModel.deleteAccount('');
+    final result = await viewModel.deleteAccount();
     if (context.mounted) {
       context.pop();
 
@@ -130,19 +123,10 @@ class _DeleteAccountFormDialogState extends State<DeleteAccountFormDialog> {
           final t = AppLocalizations.of(context)!;
           String message = t.profile_delete_account_success;
 
-          // Apple 사용자인 경우 수동 연동 해제 안내 추가
-          if (_loginMethod == 'apple') {
-            message += '\n\n${t.profile_delete_account_apple_manual_revoke_guide}';
-          }
-
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                message,
-                style: const TextStyle(fontSize: 13), // 긴 메시지를 위한 폰트 크기 조정
-              ),
+              content: Text(message),
               backgroundColor: Theme.of(context).colorScheme.primary,
-              duration: const Duration(seconds: 12), // 더 긴 메시지를 위해 시간 연장
               behavior: SnackBarBehavior.floating,
               margin: const EdgeInsets.all(16),
             ),

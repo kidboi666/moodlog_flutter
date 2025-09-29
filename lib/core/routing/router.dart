@@ -37,25 +37,26 @@ GoRouter router(
     GoRoute(
       path: Routes.onboarding,
       builder: (_, state) {
-        LoginType loginType = LoginType.anonymous;
+        LoginMethod loginType = LoginMethod.anonymous;
 
         // extra에서 loginType 확인
-        final extra = state.extra as Map<String, LoginType>?;
+        final extra = state.extra as Map<String, LoginMethod>?;
         if (extra?['loginType'] != null) {
           loginType = extra!['loginType']!;
         } else {
           // query parameter에서 loginType 확인
           final loginTypeStr = state.uri.queryParameters['loginType'];
+          debugPrint('login type string : $loginTypeStr');
           if (loginTypeStr != null) {
             switch (loginTypeStr) {
               case 'anonymous':
-                loginType = LoginType.anonymous;
+                loginType = LoginMethod.anonymous;
                 break;
               case 'google':
-                loginType = LoginType.google;
+                loginType = LoginMethod.google;
                 break;
               case 'apple':
-                loginType = LoginType.apple;
+                loginType = LoginMethod.apple;
                 break;
             }
           }
@@ -98,10 +99,7 @@ GoRouter router(
             final imageUrl = extra?['imageUrl'] as String? ?? '';
             final heroTag = extra?['heroTag'] as String?;
 
-            return ImageDetailScreen(
-              imageUrl: imageUrl,
-              heroTag: heroTag,
-            );
+            return ImageDetailScreen(imageUrl: imageUrl, heroTag: heroTag);
           },
         ),
       ],
@@ -165,11 +163,16 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final AppStateProvider appStateProvider = context.read<AppStateProvider>();
   final bool isAuthenticated = userProvider.isAuthenticated;
   final bool isAnonymousUser = userProvider.isAnonymousUser;
-  final bool shouldShowOnboarding =
-      appStateProvider.appState.shouldShowOnboarding(isAnonymousUser);
+  final bool shouldShowOnboarding = appStateProvider.appState
+      .shouldShowOnboarding(isAnonymousUser);
   final String location = state.matchedLocation;
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
+
+  debugPrint('userProvider : ${userProvider.user}');
+  debugPrint('isAuthenticated : $isAuthenticated');
+  debugPrint('isAnonymousUser : $isAnonymousUser');
+  debugPrint('shouldShowOnboarding : $shouldShowOnboarding');
 
   // 인증되지 않은 사용자는 무조건 로그인 화면으로
   if (!isAuthenticated) {
@@ -203,41 +206,13 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
 
   // 온보딩이 필요한 경우 온보딩 화면으로 리다이렉트
   if (shouldShowOnboarding) {
-    final loginType = _determineLoginType(userProvider, isAnonymousUser);
+    final loginMethod = userProvider.currentSignInMethod;
     return Uri(
       path: Routes.onboarding,
-      queryParameters: {'loginType': loginType.name},
+      queryParameters: {'loginType': loginMethod.value},
     ).toString();
   }
 
   // 모든 조건을 통과하면 현재 경로 유지
   return null;
-}
-
-LoginType _determineLoginType(UserProvider userProvider, bool isAnonymousUser) {
-  if (isAnonymousUser) {
-    return LoginType.anonymous;
-  }
-
-  final user = userProvider.user;
-  if (user == null) {
-    return LoginType.anonymous;
-  }
-
-  // 소셜 로그인 provider 확인
-  final isAppleUser = user.providerData.any(
-    (provider) => provider.providerId == 'apple.com',
-  );
-  final isGoogleUser = user.providerData.any(
-    (provider) => provider.providerId == 'google.com',
-  );
-
-  if (isAppleUser) {
-    return LoginType.apple;
-  } else if (isGoogleUser) {
-    return LoginType.google;
-  } else {
-    // 알 수 없는 provider인 경우 익명으로 처리
-    return LoginType.anonymous;
-  }
 }

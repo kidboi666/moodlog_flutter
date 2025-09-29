@@ -17,7 +17,7 @@ part 'onboarding_screen_content.dart';
 typedef PaginationDotProps = ({int current, int total});
 
 class OnboardingScreen extends StatelessWidget {
-  final LoginType loginType;
+  final LoginMethod loginType;
 
   const OnboardingScreen({super.key, required this.loginType});
 

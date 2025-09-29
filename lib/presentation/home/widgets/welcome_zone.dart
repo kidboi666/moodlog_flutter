@@ -16,7 +16,6 @@ class WelcomeZone extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final nickname = context.select((HomeViewModel vm) => vm.nickname);
 
-    debugPrint('닉네임: $nickname');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

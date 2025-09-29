@@ -9,13 +9,6 @@ import '../profile_viewmodel.dart';
 import 'apple_account_card.dart';
 import 'google_account_card.dart';
 
-typedef AccountCardValue = ({
-  bool isGoogleUser,
-  bool isAppleUser,
-  String? email,
-  bool isAnonymousUser,
-});
-
 class AccountCard extends StatelessWidget {
   const AccountCard({super.key});
 

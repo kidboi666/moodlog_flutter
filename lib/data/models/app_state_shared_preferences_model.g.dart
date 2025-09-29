@@ -9,16 +9,17 @@ part of 'app_state_shared_preferences_model.dart';
 _AppStateSharedPreferencesModel _$AppStateSharedPreferencesModelFromJson(
   Map<String, dynamic> json,
 ) => _AppStateSharedPreferencesModel(
-  hasNotificationEnabled: json['hasNotificationEnabled'] as bool,
-  hasAutoSyncEnabled: json['hasAutoSyncEnabled'] as bool,
-  themeMode: json['themeMode'] as String,
-  colorTheme: json['colorTheme'] as String,
-  languageCode: json['languageCode'] as String,
-  aiPersonality: json['aiPersonality'] as String,
-  fontFamily: json['fontFamily'] as String,
-  textAlign: json['textAlign'] as String,
-  isOnboardingComplete: json['isOnboardingComplete'] as bool,
-  isSocialOnboardingComplete: json['isSocialOnboardingComplete'] as bool,
+  hasNotificationEnabled: json['hasNotificationEnabled'] as bool? ?? false,
+  hasAutoSyncEnabled: json['hasAutoSyncEnabled'] as bool? ?? false,
+  themeMode: json['themeMode'] as String? ?? 'ThemeMode.system',
+  colorTheme: json['colorTheme'] as String? ?? 'ColorTheme.blue',
+  languageCode: json['languageCode'] as String? ?? 'LanguageCode.ko',
+  aiPersonality: json['aiPersonality'] as String? ?? 'AiPersonality.balanced',
+  fontFamily: json['fontFamily'] as String? ?? 'FontFamily.restart',
+  textAlign: json['textAlign'] as String? ?? 'SimpleTextAlign.left',
+  isOnboardingComplete: json['isOnboardingComplete'] as bool? ?? false,
+  isSocialOnboardingComplete:
+      json['isSocialOnboardingComplete'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$AppStateSharedPreferencesModelToJson(

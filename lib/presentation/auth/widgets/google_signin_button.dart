@@ -18,7 +18,9 @@ class GoogleSigninButton extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final viewModel = context.read<AuthViewModel>();
-    final isLoadingGoogle = context.select((AuthViewModel vm) => vm.isLoadingGoogle);
+    final isLoadingGoogle = context.select(
+      (AuthViewModel vm) => vm.isLoadingGoogle,
+    );
     final isAnyLoading = context.select((AuthViewModel vm) => vm.isLoading);
     final isDisabled = isAnyLoading && !isLoadingGoogle;
 
@@ -31,23 +33,27 @@ class GoogleSigninButton extends StatelessWidget {
         foregroundColor: isDisabled
             ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.onSurface,
-        disabledBackgroundColor: colorScheme.surfaceContainer.withValues(alpha: 0.12),
+        disabledBackgroundColor: colorScheme.surfaceContainer.withValues(
+          alpha: 0.12,
+        ),
         disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
       ),
-      onPressed: isDisabled ? null : () async {
-        final result = await viewModel.signInGoogle();
-        if (context.mounted) {
-          switch (result) {
-            case Ok():
-              context.push(
-                Routes.onboarding,
-                extra: {'loginType': LoginType.google},
-              );
-            case Error():
-              break;
-          }
-        }
-      },
+      onPressed: isDisabled
+          ? null
+          : () async {
+              final result = await viewModel.signInGoogle();
+              if (context.mounted) {
+                switch (result) {
+                  case Ok():
+                    context.push(
+                      Routes.onboarding,
+                      extra: {'loginType': LoginMethod.google},
+                    );
+                  case Error():
+                    break;
+                }
+              }
+            },
       children: [
         SvgPicture.asset('assets/svg/google-icon.svg', width: 24, height: 24),
         Text(

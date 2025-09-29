@@ -45,8 +45,8 @@ dependencies:
   sign_in_with_apple: ^7.0.1
   crypto: ^3.0.6
   flutter_quill: ^11.1.0
-  liquid_glass_renderer: ^0.1.1-dev.10
   flutter_dotenv: ^5.1.0
+  dart_jsonwebtoken: ^3.2.0
 
 dev_dependencies:
   flutter_test:

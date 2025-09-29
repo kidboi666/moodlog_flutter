@@ -33,7 +33,7 @@ class GuestSigninButton extends StatelessWidget {
                   case Ok():
                     context.push(
                       Routes.onboarding,
-                      extra: {'loginType': LoginType.anonymous},
+                      extra: {'loginType': LoginMethod.anonymous},
                     );
                   case Error():
                     break;

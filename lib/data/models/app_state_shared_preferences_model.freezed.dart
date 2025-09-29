@@ -218,19 +218,19 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 @JsonSerializable()
 
 class _AppStateSharedPreferencesModel extends AppStateSharedPreferencesModel {
-  const _AppStateSharedPreferencesModel({required this.hasNotificationEnabled, required this.hasAutoSyncEnabled, required this.themeMode, required this.colorTheme, required this.languageCode, required this.aiPersonality, required this.fontFamily, required this.textAlign, required this.isOnboardingComplete, required this.isSocialOnboardingComplete}): super._();
+  const _AppStateSharedPreferencesModel({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = 'ThemeMode.system', this.colorTheme = 'ColorTheme.blue', this.languageCode = 'LanguageCode.ko', this.aiPersonality = 'AiPersonality.balanced', this.fontFamily = 'FontFamily.restart', this.textAlign = 'SimpleTextAlign.left', this.isOnboardingComplete = false, this.isSocialOnboardingComplete = false}): super._();
   factory _AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) => _$AppStateSharedPreferencesModelFromJson(json);
 
-@override final  bool hasNotificationEnabled;
-@override final  bool hasAutoSyncEnabled;
-@override final  String themeMode;
-@override final  String colorTheme;
-@override final  String languageCode;
-@override final  String aiPersonality;
-@override final  String fontFamily;
-@override final  String textAlign;
-@override final  bool isOnboardingComplete;
-@override final  bool isSocialOnboardingComplete;
+@override@JsonKey() final  bool hasNotificationEnabled;
+@override@JsonKey() final  bool hasAutoSyncEnabled;
+@override@JsonKey() final  String themeMode;
+@override@JsonKey() final  String colorTheme;
+@override@JsonKey() final  String languageCode;
+@override@JsonKey() final  String aiPersonality;
+@override@JsonKey() final  String fontFamily;
+@override@JsonKey() final  String textAlign;
+@override@JsonKey() final  bool isOnboardingComplete;
+@override@JsonKey() final  bool isSocialOnboardingComplete;
 
 /// Create a copy of AppStateSharedPreferencesModel
 /// with the given fields replaced by the non-null parameter values.

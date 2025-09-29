@@ -77,7 +77,7 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
         padding: EdgeInsets.zero,
         onPressed: () {
           if (currentStep == 0) {
-            if (loginType == LoginType.anonymous) {
+            if (loginType == LoginMethod.anonymous) {
               context.pushReplacement(Routes.signIn);
             } else {
               Navigator.of(context).pop();

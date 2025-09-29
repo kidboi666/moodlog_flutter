@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:moodlog/core/constants/enum.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
@@ -48,10 +49,6 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  bool get isGoogleUser => _userProvider.isGoogleUser;
-
-  bool get isAppleUser => _userProvider.isAppleUser;
-
   bool get isCurrentGoogleUser => _userProvider.isCurrentGoogleUser;
 
   bool get isCurrentAppleUser => _userProvider.isCurrentAppleUser;
@@ -89,9 +86,10 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     _authUseCase.signOut();
   }
 
-  Future<Result<void>> deleteAccount(String password) async {
+  Future<Result<void>> deleteAccount() async {
     setLoading();
-    final result = await _authUseCase.deleteAccountWithReauthentication();
+    final loginMethod = getUserLoginMethod();
+    final result = await _authUseCase.deleteAccount(loginMethod);
 
     switch (result) {
       case Ok<void>():
@@ -104,8 +102,8 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  Future<String?> getUserLoginMethod() async {
-    return await _authUseCase.getUserLoginMethod();
+  LoginMethod getUserLoginMethod() {
+    return _userProvider.currentSignInMethod;
   }
 
   Future<Result<void>> _updateProfilePhoto(String photoURL) async {

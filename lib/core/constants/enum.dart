@@ -445,32 +445,32 @@ enum FontFamily {
   }
 }
 
-enum LoginType {
+enum LoginMethod {
   google,
   apple,
   anonymous;
 
   String get value {
     switch (this) {
-      case LoginType.google:
+      case LoginMethod.google:
         return 'google';
-      case LoginType.apple:
+      case LoginMethod.apple:
         return 'apple';
-      case LoginType.anonymous:
+      case LoginMethod.anonymous:
         return 'anonymous';
     }
   }
 
-  static LoginType fromString(String? value) {
+  static LoginMethod fromString(String? value) {
     switch (value) {
       case 'google':
-        return LoginType.google;
+        return LoginMethod.google;
       case 'apple':
-        return LoginType.apple;
+        return LoginMethod.apple;
       case 'anonymous':
-        return LoginType.anonymous;
+        return LoginMethod.anonymous;
       default:
-        return LoginType.anonymous;
+        return LoginMethod.anonymous;
     }
   }
 }

@@ -21,7 +21,6 @@ class AppleSigninButton extends StatelessWidget {
       builder: (context, viewModel, _) {
         final isLoadingApple = viewModel.isLoadingApple;
         final isAnyLoading = viewModel.isLoading;
-
         final isDisabled = isAnyLoading && !isLoadingApple;
 
         return SubmitButton(
@@ -33,23 +32,29 @@ class AppleSigninButton extends StatelessWidget {
             foregroundColor: isDisabled
                 ? colorScheme.onPrimary.withValues(alpha: 0.38)
                 : colorScheme.onPrimary,
-            disabledBackgroundColor: colorScheme.primaryContainer.withValues(alpha: 0.12),
-            disabledForegroundColor: colorScheme.onPrimary.withValues(alpha: 0.38),
+            disabledBackgroundColor: colorScheme.primaryContainer.withValues(
+              alpha: 0.12,
+            ),
+            disabledForegroundColor: colorScheme.onPrimary.withValues(
+              alpha: 0.38,
+            ),
           ),
-          onPressed: isDisabled ? null : () async {
-            final result = await viewModel.signInApple();
-            if (context.mounted) {
-              switch (result) {
-                case Ok():
-                  context.push(
-                    Routes.onboarding,
-                    extra: {'loginType': LoginType.apple},
-                  );
-                case Error():
-                  break;
-              }
-            }
-          },
+          onPressed: isDisabled
+              ? null
+              : () async {
+                  final result = await viewModel.signInApple();
+                  if (context.mounted) {
+                    switch (result) {
+                      case Ok():
+                        context.push(
+                          Routes.onboarding,
+                          extra: {'loginType': LoginMethod.apple},
+                        );
+                      case Error():
+                        break;
+                    }
+                  }
+                },
           children: [
             FixedSizeAppleLogo(),
             Text(
