@@ -150,14 +150,25 @@ class AuthRepositoryImpl extends AuthRepository {
       } else {
         userCredential = await _firebaseAuth.signInWithProvider(appleProvider);
       }
-      final user = userCredential.user!;
+
+      final user = userCredential.user;
+      if (user == null) {
+        _log.severe('Apple sign-in succeeded but user is null');
+        return Result.error(
+          Exception('Apple sign-in failed: no user returned'),
+        );
+      }
+
       final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
 
       if (isNewUser) {
         final profile = userCredential.additionalUserInfo?.profile;
-        final newEmail = profile?['email'] as String;
-        debugPrint('newEmail : $newEmail');
-        await user.verifyBeforeUpdateEmail(newEmail);
+        final newEmail = profile?['email'] as String?;
+        if (newEmail != null && newEmail.isNotEmpty) {
+          await user.verifyBeforeUpdateEmail(newEmail);
+        } else {
+          _log.warning('Apple profile email is null or empty for new user');
+        }
       }
 
       await user.reload();
