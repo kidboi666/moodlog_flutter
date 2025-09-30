@@ -7,7 +7,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodlog/main.dart';
+import 'package:moodlog/moodlog_app.dart';
 import 'package:provider/provider.dart';
 
 void main() {

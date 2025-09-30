@@ -40,6 +40,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761406625155:android:792f52dac1074c8ec712b6",
+        "android_client_info": {
+          "package_name": "com.kidboi666.moodlog.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodlog"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

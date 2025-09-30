@@ -1,0 +1,24 @@
+flavors:
+  development:
+    app:
+      name: "무드로그 Dev"
+    android:
+      applicationId: "com.kidboi666.moodlog.dev"
+    ios:
+      bundleId: "com.logmind.moodlog.dev"
+  staging:
+    app:
+      name: "무드로그 Staging"
+    android:
+      applicationId: "com.kidboi666.moodlog.staging"
+    ios:
+      bundleId: "com.logmind.moodlog.staging"
+  production:
+    app:
+      name: "무드로그"
+    android:
+      applicationId: "com.kidboi666.moodlog"
+    ios:
+      bundleId: "com.logmind.moodlog"
+
+ide: idea

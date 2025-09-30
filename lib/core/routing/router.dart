@@ -20,12 +20,12 @@ import 'routes.dart';
 
 GoRouter router(
   UserProvider userProvider,
-  NavigatorObserver analyticsObserver,
+  NavigatorObserver? analyticsObserver,
 ) => GoRouter(
   initialLocation: Routes.home,
   redirect: _redirect,
   refreshListenable: userProvider,
-  observers: [analyticsObserver],
+  observers: [?analyticsObserver],
   routes: [
     GoRoute(
       path: Routes.signIn,
