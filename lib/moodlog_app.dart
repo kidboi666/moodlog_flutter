@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/utils/flavor_config.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/enum.dart';
@@ -36,7 +37,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
     return KeyboardDismissOnTapOutside(
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: FlavorConfig.instance.showDebugBanner,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

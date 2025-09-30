@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/firebase_options_dev.dart';
+import 'package:moodlog/core/utils/flavor_config.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
-import 'core/utils/flavor_config.dart';
+import 'data/repositories/analytics_repository_impl.dart';
+import 'firebase_options_staging.dart';
 import 'moodlog_app.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -20,11 +21,19 @@ void main() async {
     await MobileAds.instance.initialize();
   }
 
-  FlavorConfig(flavor: Flavor.development, showDebugBanner: true);
+  final analyticsRepo = AnalyticsRepositoryImpl();
+  await analyticsRepo.initialize();
+
+  FlavorConfig(flavor: Flavor.staging, showDebugBanner: false);
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     debugPrint('${record.level.name}: ${record.time}: ${record.message}');
   });
 
-  runApp(MultiProvider(providers: createProviders(), child: MoodLogApp()));
+  runApp(
+    MultiProvider(
+      providers: createProviders(),
+      child: MoodLogApp(analyticsObserver: analyticsRepo.navigatorObserver),
+    ),
+  );
 }

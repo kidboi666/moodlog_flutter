@@ -22,16 +22,16 @@
     <string>$(FLUTTER_BUILD_NAME)</string>
     <key>CFBundleSignature</key>
     <string>????</string>
-    <key>GIDClientID</key>
-    <string>761406625155-71ur7920c8diata6dfgk0m8jhmir0l18.apps.googleusercontent.com</string>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>google</string>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.googleusercontent.apps.761406625155-71ur7920c8diata6dfgk0m8jhmir0l18</string>
+          <string>$(GOOGLE_SCHEME)</string>
         </array>
       </dict>
     </array>
@@ -39,6 +39,8 @@
     <string>$(FLUTTER_BUILD_NUMBER)</string>
     <key>GADApplicationIdentifier</key>
     <string>ca-app-pub-2882120764375432~9863050090</string>
+    <key>GIDClientID</key>
+    <string>761406625155-71ur7920c8diata6dfgk0m8jhmir0l18.apps.googleusercontent.com</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSCameraUsageDescription</key>

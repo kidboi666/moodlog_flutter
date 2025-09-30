@@ -50,7 +50,7 @@ app.*.map.json
 /android/app/release
 
 # Firebase
-lib/firebase_options.dart
+lib/firebase_options*.dart
 
 # Documentation plans (internal use only)
 docs/premium_features_plan.md

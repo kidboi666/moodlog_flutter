@@ -1,9 +1,8 @@
-enum Flavor { development, production }
+enum Flavor { development, staging, production }
 
 class FlavorConfig {
   final Flavor flavor;
   final bool showDebugBanner;
-
   static FlavorConfig? _instance;
 
   factory FlavorConfig({required Flavor flavor, bool showDebugBanner = true}) {
@@ -11,7 +10,6 @@ class FlavorConfig {
       flavor: flavor,
       showDebugBanner: showDebugBanner,
     );
-
     return _instance!;
   }
 
@@ -22,4 +20,6 @@ class FlavorConfig {
   static bool get isDevelopment => instance.flavor == Flavor.development;
 
   static bool get isProduction => instance.flavor == Flavor.production;
+
+  static bool get isStaging => instance.flavor == Flavor.staging;
 }
