@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>761406625155-82etogalqujes2bna2gv4sfrrm0ctgl4.apps.googleusercontent.com</string>
+	<string>761406625155-sjij099mp0blg070s5nror0lto9d1fbr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.761406625155-82etogalqujes2bna2gv4sfrrm0ctgl4</string>
+	<string>com.googleusercontent.apps.761406625155-sjij099mp0blg070s5nror0lto9d1fbr</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>761406625155-9gs74ltv95rd4euf8fqbjudgranfo38q.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.logmind.moodlog.dev</string>
+	<string>com.logmind.moodlog.staging</string>
 	<key>PROJECT_ID</key>
 	<string>moodlog-ba790</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:761406625155:ios:07590ff4decfb143c712b6</string>
+	<string>1:761406625155:ios:98995ddbf0876004c712b6</string>
 </dict>
 </plist>

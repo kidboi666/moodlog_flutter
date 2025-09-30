@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "761406625155",
+    "project_id": "moodlog-ba790",
+    "storage_bucket": "moodlog-ba790.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761406625155:android:0e75278d69dfc568c712b6",
+        "android_client_info": {
+          "package_name": "com.kidboi666.moodlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodlog"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761406625155:android:630e2ce685e14ce8c712b6",
+        "android_client_info": {
+          "package_name": "com.kidboi666.moodlog.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761406625155-qp94n0loq3cps07b8dpggh3rtjh32o2b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kidboi666.moodlog.dev",
+            "certificate_hash": "2048f8747c113151bae3be9efd67fe88cc804eff"
+          }
+        },
+        {
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodlog"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761406625155:android:4c55fb29fe61d20ec712b6",
+        "android_client_info": {
+          "package_name": "com.kidboi666.moodlog.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761406625155-ofd3q0uerld505pk87teovsc2hik1kkb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kidboi666.moodlog.staging",
+            "certificate_hash": "505d509b9420fb65b7d8c00912c9b779d87b3a58"
+          }
+        },
+        {
+          "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs-VZuNJwDjONr94fpJojpc52WRjuYZ0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "761406625155-59ofa10emkta6h38vmnummc9fr6014eg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.moodlog"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
