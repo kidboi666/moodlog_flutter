@@ -3,34 +3,34 @@ flavors:
     app:
       name: "무드로그 Dev"
     android:
-      applicationId: "com.kidboi666.moodlog.development"
+      applicationId: "com.kidboi666.moodlog.dev"
       firebase:
-        config: "./android/app/google-services.json"
+        config: "android/app/src/development/google-services.json"
     ios:
-      bundleId: "com.logmind.moodlog.development"
+      bundleId: "com.logmind.moodlog.dev"
       firebase:
-        config: "./ios/Firebase/development/GoogleService-Info.plist"
+        config: "ios/Runner/development/GoogleService-Info.plist"
   staging:
     app:
       name: "무드로그 Staging"
     android:
       applicationId: "com.kidboi666.moodlog.staging"
       firebase:
-        config: "./android/app/google-services.json"
+        config: "android/app/src/staging/google-services.json"
     ios:
       bundleId: "com.logmind.moodlog.staging"
       firebase:
-        config: "./ios/Firebase/staging/GoogleService-Info.plist"
+        config: "ios/Runner/staging/GoogleService-Info.plist"
   production:
     app:
       name: "무드로그"
     android:
       applicationId: "com.kidboi666.moodlog"
       firebase:
-        config: "./android/app/google-services.json"
+        config: "android/app/src/production/google-services.json"
     ios:
       bundleId: "com.logmind.moodlog"
       firebase:
-        config: "./ios/Firebase/production/GoogleService-Info.plist"
+        config: "ios/Runner/production/GoogleService-Info.plist"
 
 ide: idea

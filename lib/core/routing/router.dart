@@ -169,11 +169,6 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final bool isOnboarding = location == Routes.onboarding;
   final bool isSigning = location == Routes.signIn;
 
-  debugPrint('userProvider : ${userProvider.user}');
-  debugPrint('isAuthenticated : $isAuthenticated');
-  debugPrint('isAnonymousUser : $isAnonymousUser');
-  debugPrint('shouldShowOnboarding : $shouldShowOnboarding');
-
   // 인증되지 않은 사용자는 무조건 로그인 화면으로
   if (!isAuthenticated) {
     // 로그인 화면은 접근 허용

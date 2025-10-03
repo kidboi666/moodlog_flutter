@@ -8,7 +8,7 @@ android.apply {
     productFlavors {
         create("development") {
             dimension = "flavor-type"
-            applicationId = "com.kidboi666.moodlog.development"
+            applicationId = "com.kidboi666.moodlog.dev"
             resValue(type = "string", name = "app_name", value = "무드로그 Dev")
         }
         create("staging") {

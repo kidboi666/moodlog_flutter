@@ -51,6 +51,15 @@ app.*.map.json
 
 # Firebase
 lib/firebase_options*.dart
+ios/Runner/GoogleService-Info.plist
+ios/Runner/production/GoogleService-Info.plist
+ios/Runner/staging/GoogleService-Info.plist
+ios/Runner/development/GoogleService-Info.plist
+android/app/src/production/google-services.json
+android/app/src/staging/google-services.json
+android/app/src/development/google-services.json
+
+
 
 # Documentation plans (internal use only)
 docs/premium_features_plan.md

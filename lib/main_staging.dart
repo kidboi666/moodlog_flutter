@@ -10,13 +10,15 @@ import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
 import 'data/repositories/analytics_repository_impl.dart';
-import 'firebase_options_staging.dart';
+import 'firebase_options_staging.dart' as staging;
 import 'moodlog_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: staging.DefaultFirebaseOptions.currentPlatform,
+  );
   await dotenv.load(fileName: '.env');
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (Platform.isAndroid || Platform.isIOS) {
     await MobileAds.instance.initialize();
   }
