@@ -6,23 +6,27 @@ import '../../constants/enum.dart';
 
 class SubmitButton extends StatelessWidget {
   final bool isLoading;
+  final bool isDisabled;
   final VoidCallback? onPressed;
   final IconData? icon;
   final String? asset;
   final ButtonStyle? style;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
   final List<Widget> children;
 
   const SubmitButton({
     super.key,
     required this.isLoading,
     required this.onPressed,
+    required this.isDisabled,
     this.icon,
     this.asset,
     this.style,
+    this.backgroundColor,
+    this.foregroundColor,
     required this.children,
   });
-
-  bool get isDisabled => isLoading || onPressed == null;
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +41,18 @@ class SubmitButton extends StatelessWidget {
     if (style != null) return style!;
 
     final colorScheme = Theme.of(context).colorScheme;
-    const disabledAlpha = 0.12;
-    const disabledForegroundColorAlpha = 0.38;
+    const disabledAlpha = 0.60;
+    const disabledForegroundColorAlpha = 0.40;
 
     return FilledButton.styleFrom(
-      backgroundColor: colorScheme.surfaceContainer,
-      foregroundColor: colorScheme.onSurface,
-      disabledBackgroundColor: colorScheme.surfaceContainer.withValues(
-        alpha: disabledAlpha,
-      ),
-      disabledForegroundColor: colorScheme.onSurface.withValues(
-        alpha: disabledForegroundColorAlpha,
-      ),
+      backgroundColor: backgroundColor ?? colorScheme.surfaceContainer,
+      foregroundColor: foregroundColor ?? colorScheme.onSurface,
+      disabledBackgroundColor:
+          backgroundColor?.withValues(alpha: disabledAlpha) ??
+          colorScheme.surfaceContainer.withValues(alpha: disabledAlpha),
+      disabledForegroundColor:
+          foregroundColor?.withValues(alpha: disabledForegroundColorAlpha) ??
+          colorScheme.onSurface.withValues(alpha: disabledForegroundColorAlpha),
     );
   }
 

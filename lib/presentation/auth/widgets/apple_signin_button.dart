@@ -17,56 +17,44 @@ class AppleSigninButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-    return Consumer<AuthViewModel>(
-      builder: (context, viewModel, _) {
-        final isLoadingApple = viewModel.isLoadingApple;
-        final isAnyLoading = viewModel.isLoading;
-        final isDisabled = isAnyLoading && !isLoadingApple;
+    final isLoadingApple = context.select(
+      (AuthViewModel vm) => vm.isLoadingApple,
+    );
+    final isAnyLoading = context.select((AuthViewModel vm) => vm.isLoading);
+    final viewModel = context.read<AuthViewModel>();
+    final isDisabled = isAnyLoading && !isLoadingApple;
 
-        return SubmitButton(
-          isLoading: isLoadingApple,
-          style: FilledButton.styleFrom(
-            backgroundColor: isDisabled
-                ? colorScheme.primaryContainer.withValues(alpha: 0.12)
-                : colorScheme.primaryContainer,
-            foregroundColor: isDisabled
-                ? colorScheme.onPrimary.withValues(alpha: 0.38)
-                : colorScheme.onPrimary,
-            disabledBackgroundColor: colorScheme.primaryContainer.withValues(
-              alpha: 0.12,
-            ),
-            disabledForegroundColor: colorScheme.onPrimary.withValues(
-              alpha: 0.38,
-            ),
-          ),
-          onPressed: isDisabled
-              ? null
-              : () async {
-                  final result = await viewModel.signInApple();
-                  if (context.mounted) {
-                    switch (result) {
-                      case Ok():
-                        context.push(
-                          Routes.onboarding,
-                          extra: {'loginType': LoginMethod.apple},
-                        );
-                      case Error():
-                        debugPrint('Error: ${result.error}');
-                        break;
-                    }
-                  }
-                },
-          children: [
-            FixedSizeAppleLogo(),
-            Text(
-              t.signin_button_apple,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(color: colorScheme.onPrimary),
-            ),
-          ],
-        );
-      },
+    Future<void> signInApple() async {
+      final result = await viewModel.signInApple();
+      if (context.mounted) {
+        switch (result) {
+          case Ok():
+            context.push(
+              Routes.onboarding,
+              extra: {'loginType': LoginMethod.apple},
+            );
+          case Error():
+            debugPrint('Error: ${result.error}');
+            break;
+        }
+      }
+    }
+
+    return SubmitButton(
+      isLoading: isLoadingApple,
+      isDisabled: isDisabled,
+      backgroundColor: colorScheme.primaryContainer,
+      foregroundColor: colorScheme.onPrimary,
+      onPressed: signInApple,
+      children: [
+        FixedSizeAppleLogo(),
+        Text(
+          t.signin_button_apple,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(color: colorScheme.onPrimary),
+        ),
+      ],
     );
   }
 }

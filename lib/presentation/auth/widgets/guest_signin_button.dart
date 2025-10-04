@@ -23,31 +23,26 @@ class GuestSigninButton extends StatelessWidget {
     final viewModel = context.read<AuthViewModel>();
     final isDisabled = isAnyLoading && !isLoadingAnonymously;
 
+    Future<void> signInAnonymously() async {
+      final result = await viewModel.signInAnonymously();
+      if (context.mounted) {
+        switch (result) {
+          case Ok():
+            context.push(
+              Routes.onboarding,
+              extra: {'loginType': LoginMethod.anonymous},
+            );
+          case Error():
+            break;
+        }
+      }
+    }
+
     return SubmitButton(
-      onPressed: isDisabled
-          ? null
-          : () async {
-              final result = await viewModel.signInAnonymously();
-              if (context.mounted) {
-                switch (result) {
-                  case Ok():
-                    context.push(
-                      Routes.onboarding,
-                      extra: {'loginType': LoginMethod.anonymous},
-                    );
-                  case Error():
-                    break;
-                }
-              }
-            },
-      style: FilledButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: isDisabled
-            ? colorScheme.onSurface.withValues(alpha: 0.38)
-            : colorScheme.onSurface,
-        disabledBackgroundColor: Colors.transparent,
-        disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
-      ),
+      onPressed: signInAnonymously,
+      isDisabled: isDisabled,
+      backgroundColor: Colors.transparent,
+      foregroundColor: colorScheme.onSurface,
       isLoading: isLoadingAnonymously,
       children: [
         Text(
