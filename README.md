@@ -53,7 +53,7 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 - 대표 감정 및 평균 점수 계산
 
 ### 🌍 **글로벌 접근성**
-- **9개 언어 지원**: 한국어, 영어, 일본어, 중국어, 스페인어, 이탈리아어, 프랑스어, 베트남어, 태국어
+- 3개 언어 지원: 한국어, 영어, 일본어
 - 다양한 폰트 옵션 (프리텐다드, 이서윤체, 나눔손글씨 등)
 - 라이트/다크 테마 자동 전환
 
@@ -69,16 +69,14 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 - **Dart** - 프로그래밍 언어
 - **Provider** - 상태 관리
 - **Go Router** - 선언적 라우팅
+- **Freezed** - 객체 관련 유틸
 
 ### **Backend & Services**
 - **Firebase Auth** - 사용자 인증
-- **Firebase Firestore** - NoSQL 데이터베이스
 - **Firebase Analytics** - 사용자 분석
 - **Google Gemini AI** - AI 응답 생성
 
 ### **External APIs**
-- **Geolocator** - 위치 서비스
-- **Weather API** - 날씨 정보
 - **Image Picker** - 갤러리 접근
 
 ## 🏛️ 아키텍처
