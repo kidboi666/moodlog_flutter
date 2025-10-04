@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/routing/routes.dart';
-import '../../profile_viewmodel.dart';
+import '../../profile_view_model.dart';
 
 class SignOutDialog extends StatelessWidget {
   final ProfileViewModel viewModel;

@@ -1,4 +1,4 @@
-part of 'profile_screen.dart';
+part of 'profile_view.dart';
 
 class _ProfileScreenContent extends StatefulWidget {
   @override
@@ -48,6 +48,9 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final isAnonymousUser = context.select(
+      (ProfileViewModel vm) => vm.isAnonymousUser,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -65,11 +68,12 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
             children: [
               const ProfileAvatar(),
               const AccountCard(),
+              if (isAnonymousUser) const AnonymousUserCard(),
               const NicknameCard(),
               const CreationTimeCard(),
-              const DeleteAccountButton(),
+              if (!isAnonymousUser) const DeleteAccountButton(),
               const Expanded(child: SizedBox()),
-              const SignOutButton(),
+              if (!isAnonymousUser) const SignOutButton(),
               const UserIdCard(),
             ],
           ),

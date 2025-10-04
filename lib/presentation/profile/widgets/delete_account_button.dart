@@ -3,7 +3,7 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
-import '../profile_viewmodel.dart';
+import '../profile_view_model.dart';
 import 'dialog/delete_account_dialog.dart';
 
 class DeleteAccountButton extends StatelessWidget {

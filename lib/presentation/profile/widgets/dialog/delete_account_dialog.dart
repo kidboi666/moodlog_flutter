@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../profile_viewmodel.dart';
+import '../../profile_view_model.dart';
 import 'delete_account_form_dialog.dart';
 
 class DeleteAccountDialog extends StatelessWidget {

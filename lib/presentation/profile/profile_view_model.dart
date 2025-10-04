@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/constants/enum.dart';
 
+import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/user.dart';

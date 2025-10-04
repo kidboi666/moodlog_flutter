@@ -5,7 +5,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/utils/result.dart';
-import '../../profile_viewmodel.dart';
+import '../../profile_view_model.dart';
 
 class DeleteAccountFormDialog extends StatefulWidget {
   final ProfileViewModel viewModel;

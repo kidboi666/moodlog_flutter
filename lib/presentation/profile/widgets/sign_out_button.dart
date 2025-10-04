@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/l10n/app_localizations.dart';
-import '../profile_viewmodel.dart';
+import '../profile_view_model.dart';
 import 'dialog/sign_out_dialog.dart';
 
 class SignOutButton extends StatelessWidget {

@@ -9,7 +9,7 @@ import '../../presentation/home/home_screen.dart';
 import '../../presentation/journal/image_detail_screen.dart';
 import '../../presentation/journal/journal_screen.dart';
 import '../../presentation/onboarding/onboarding_screen.dart';
-import '../../presentation/profile/profile_screen.dart';
+import '../../presentation/profile/profile_view.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
 import '../../presentation/settings/settings_view.dart';

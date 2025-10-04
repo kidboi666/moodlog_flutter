@@ -13,6 +13,7 @@ class _SignInScreenContent extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(Spacing.md),
