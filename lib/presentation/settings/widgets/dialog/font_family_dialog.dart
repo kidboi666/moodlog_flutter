@@ -4,7 +4,7 @@ import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/localization.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/ui/widgets/base_settings_dialog.dart';
-import '../../settings_viewmodel.dart';
+import '../../settings_view_model.dart';
 
 class FontFamilyDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

@@ -1,4 +1,4 @@
-part of 'settings_screen.dart';
+part of 'settings_view.dart';
 
 class _SettingsScreenContent extends StatelessWidget {
   @override

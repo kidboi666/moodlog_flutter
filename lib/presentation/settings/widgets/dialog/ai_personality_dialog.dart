@@ -6,7 +6,7 @@ import '../../../../core/constants/enum.dart';
 import '../../../../core/extensions/snack_bar.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../onboarding/widgets/onboarding_personality_item.dart';
-import '../../settings_viewmodel.dart';
+import '../../settings_view_model.dart';
 
 class AiPersonalityDialog extends StatefulWidget {
   final SettingsViewModel viewModel;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../presentation/settings/settings_viewmodel.dart';
+import '../../../presentation/settings/settings_view_model.dart';
 
 class BaseSettingsDialog extends StatelessWidget {
   final SettingsViewModel viewModel;
@@ -46,9 +46,7 @@ class BaseSettingsDialog extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   'Error: ${viewModel.error}',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),

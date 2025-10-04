@@ -7,7 +7,7 @@ import '../../core/extensions/localization.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/glower.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import 'settings_viewmodel.dart';
+import 'settings_view_model.dart';
 import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';
 import 'widgets/dialog/app_info_dialog.dart';
@@ -23,7 +23,7 @@ import 'widgets/dialog_tile.dart';
 import 'widgets/section_header.dart';
 import 'widgets/switch_tile.dart';
 
-part 'settings_screen_content.dart';
+part 'settings_content.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

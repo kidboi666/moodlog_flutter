@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../settings_viewmodel.dart';
+import '../../settings_view_model.dart';
 
 class AppInfoDialog extends StatefulWidget {
   final SettingsViewModel viewModel;

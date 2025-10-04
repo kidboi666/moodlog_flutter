@@ -12,7 +12,7 @@ import '../../presentation/onboarding/onboarding_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
-import '../../presentation/settings/settings_screen.dart';
+import '../../presentation/settings/settings_view.dart';
 import '../../presentation/statistics/statistics_screen.dart';
 import '../../presentation/write/write_screen.dart';
 import '../constants/enum.dart';

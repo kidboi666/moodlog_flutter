@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../settings_viewmodel.dart';
+import '../../settings_view_model.dart';
 
 class TagManagementDialog extends StatelessWidget {
   final SettingsViewModel viewModel;
 
   const TagManagementDialog({super.key, required this.viewModel});
-
 
   @override
   Widget build(BuildContext context) {
