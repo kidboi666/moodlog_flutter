@@ -7,7 +7,7 @@ import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/utils/result.dart';
-import '../auth_viewmodel.dart';
+import '../auth_view_model.dart';
 
 class GuestSigninButton extends StatelessWidget {
   const GuestSigninButton({super.key});

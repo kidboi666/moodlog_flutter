@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
 import 'data/repositories/analytics_repository_impl.dart';
-import 'moodlog_app.dart';
+import 'app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

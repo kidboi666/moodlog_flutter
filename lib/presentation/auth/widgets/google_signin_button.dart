@@ -8,7 +8,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/ui/widgets/submit_button.dart';
 import '../../../core/utils/result.dart';
-import '../auth_viewmodel.dart';
+import '../auth_view_model.dart';
 
 class GoogleSigninButton extends StatelessWidget {
   const GoogleSigninButton({super.key});

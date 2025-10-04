@@ -6,7 +6,7 @@ import '../../constants/enum.dart';
 
 class SubmitButton extends StatelessWidget {
   final bool isLoading;
-  final Function? onPressed;
+  final VoidCallback? onPressed;
   final IconData? icon;
   final String? asset;
   final ButtonStyle? style;
@@ -22,38 +22,48 @@ class SubmitButton extends StatelessWidget {
     required this.children,
   });
 
+  bool get isDisabled => isLoading || onPressed == null;
+
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDisabled = isLoading || onPressed == null;
-
     return FilledButton(
-      style: style ??
-          FilledButton.styleFrom(
-            backgroundColor: isDisabled
-                ? colorScheme.surfaceContainer.withValues(alpha: 0.12)
-                : colorScheme.surfaceContainer,
-            foregroundColor: isDisabled
-                ? colorScheme.onSurface.withValues(alpha: 0.38)
-                : colorScheme.onSurface,
-            disabledBackgroundColor: colorScheme.surfaceContainer.withValues(alpha: 0.12),
-            disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
-          ),
-      onPressed: isDisabled
-          ? null
-          : () async {
-              await onPressed!();
-            },
-      child: isLoading
-          ? const Spinner(spinnerType: SpinnerType.button)
-          : Opacity(
-              opacity: isDisabled ? 0.38 : 1.0,
-              child: Row(
-                spacing: Spacing.md,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children,
-              ),
-            ),
+      style: _buildButtonStyle(context),
+      onPressed: isDisabled ? null : onPressed,
+      child: _buildButtonChild(context),
+    );
+  }
+
+  ButtonStyle _buildButtonStyle(BuildContext context) {
+    if (style != null) return style!;
+
+    final colorScheme = Theme.of(context).colorScheme;
+    const disabledAlpha = 0.12;
+    const disabledForegroundColorAlpha = 0.38;
+
+    return FilledButton.styleFrom(
+      backgroundColor: colorScheme.surfaceContainer,
+      foregroundColor: colorScheme.onSurface,
+      disabledBackgroundColor: colorScheme.surfaceContainer.withValues(
+        alpha: disabledAlpha,
+      ),
+      disabledForegroundColor: colorScheme.onSurface.withValues(
+        alpha: disabledForegroundColorAlpha,
+      ),
+    );
+  }
+
+  Widget _buildButtonChild(BuildContext context) {
+    if (isLoading) {
+      return Spinner(spinnerType: SpinnerType.button);
+    }
+
+    return Opacity(
+      opacity: isDisabled ? 0.38 : 1.0,
+      child: Row(
+        spacing: Spacing.md,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: children,
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-part of 'sign_in_screen.dart';
+part of 'auth_view.dart';
 
 class _SignInScreenContent extends StatelessWidget {
   final SignInSource? source;

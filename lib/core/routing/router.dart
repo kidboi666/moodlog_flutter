@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../presentation/auth/sign_in_screen.dart';
+import '../../presentation/auth/auth_view.dart';
 import '../../presentation/base_layout/base_layout_screen.dart';
 import '../../presentation/entries/entries_screen.dart';
 import '../../presentation/home/home_screen.dart';

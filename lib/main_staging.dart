@@ -8,10 +8,10 @@ import 'package:logging/logging.dart';
 import 'package:moodlog/core/utils/flavor_config.dart';
 import 'package:provider/provider.dart';
 
+import 'app.dart';
 import 'core/di/injection_container.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 import 'firebase_options_staging.dart' as staging;
-import 'moodlog_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'core/di/injection_container.dart';
 import 'core/utils/flavor_config.dart';
-import 'moodlog_app.dart';
+import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

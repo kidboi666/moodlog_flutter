@@ -8,7 +8,7 @@ import '../../../core/routing/routes.dart';
 import '../../../core/ui/widgets/apple_logo_painter.dart';
 import '../../../core/ui/widgets/submit_button.dart';
 import '../../../core/utils/result.dart';
-import '../auth_viewmodel.dart';
+import '../auth_view_model.dart';
 
 class AppleSigninButton extends StatelessWidget {
   const AppleSigninButton({super.key});
