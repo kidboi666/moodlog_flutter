@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/utils/flavor_config.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/enum.dart';
@@ -9,6 +8,7 @@ import 'core/l10n/app_localizations.dart';
 import 'core/routing/router.dart';
 import 'core/ui/theme/theme.dart';
 import 'core/ui/widgets/spinner.dart';
+import 'core/utils/flavor_config.dart';
 import 'core/utils/keyboard_utils.dart';
 import 'presentation/providers/app_state_provider.dart';
 
