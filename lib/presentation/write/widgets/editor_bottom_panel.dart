@@ -11,7 +11,6 @@ import '../write_view_model.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'bottom_sheet/weather_info_bottom_sheet.dart';
 import 'image_picker_button.dart';
-import 'markdown_button_section.dart';
 import 'tag_input_button.dart';
 import 'timestamp_button.dart';
 
@@ -26,24 +25,12 @@ class EditorBottomPanel extends StatefulWidget {
 
 class _EditorBottomPanelState extends State<EditorBottomPanel>
     with WidgetsBindingObserver {
-  late Map<String, bool> _currentFormattingStates;
   bool _isKeyboardVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _currentFormattingStates = {
-      'bold': false,
-      'italic': false,
-      'underline': false,
-      'strikeThrough': false,
-      'link': false,
-      'ul': false,
-      'ol': false,
-      'blockQuote': false,
-    };
     WidgetsBinding.instance.addObserver(this);
-    widget.quillController.addListener(_updateFormattingStates);
   }
 
   @override
@@ -61,47 +48,7 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    widget.quillController.removeListener(_updateFormattingStates);
     super.dispose();
-  }
-
-  void _updateFormattingStates() {
-    final controller = widget.quillController;
-    final selection = controller.selection;
-
-    if (selection.isCollapsed && selection.start > 0) {
-      final style = controller.document.collectStyle(
-        selection.start > 0 ? selection.start - 1 : 0,
-        1,
-      );
-
-      setState(() {
-        _currentFormattingStates['bold'] = style.containsKey(
-          Attribute.bold.key,
-        );
-        _currentFormattingStates['italic'] = style.containsKey(
-          Attribute.italic.key,
-        );
-        _currentFormattingStates['underline'] = style.containsKey(
-          Attribute.underline.key,
-        );
-        _currentFormattingStates['strikeThrough'] = style.containsKey(
-          Attribute.strikeThrough.key,
-        );
-        _currentFormattingStates['link'] = style.containsKey(
-          Attribute.link.key,
-        );
-        _currentFormattingStates['ul'] = style.containsKey(Attribute.ul.key);
-        _currentFormattingStates['ol'] = style.containsKey(Attribute.ol.key);
-        _currentFormattingStates['blockQuote'] = style.containsKey(
-          Attribute.blockQuote.key,
-        );
-      });
-    } else {
-      setState(() {
-        _currentFormattingStates.updateAll((key, value) => false);
-      });
-    }
   }
 
   Future<void> _showWeatherBottomSheet() async {
@@ -157,68 +104,6 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
     );
   }
 
-  void _toggleAttribute(Attribute attribute) {
-    final controller = widget.quillController;
-    final selection = controller.selection;
-
-    if (selection.isCollapsed) {
-      final text = controller.document.toPlainText();
-      final cursorPosition = selection.start;
-
-      int lineStart = cursorPosition;
-      int lineEnd = cursorPosition;
-
-      while (lineStart > 0 && text[lineStart - 1] != '\n') {
-        lineStart--;
-      }
-
-      while (lineEnd < text.length && text[lineEnd] != '\n') {
-        lineEnd++;
-      }
-
-      if (lineStart < lineEnd) {
-        final lineStyle = controller.document.collectStyle(
-          lineStart,
-          lineEnd - lineStart,
-        );
-        final isCurrentlyFormatted = lineStyle.containsKey(attribute.key);
-
-        controller.updateSelection(
-          TextSelection(baseOffset: lineStart, extentOffset: lineEnd),
-          ChangeSource.local,
-        );
-
-        if (isCurrentlyFormatted) {
-          controller.formatSelection(Attribute.clone(attribute, null));
-        } else {
-          controller.formatSelection(attribute);
-        }
-
-        controller.updateSelection(
-          TextSelection.collapsed(offset: cursorPosition),
-          ChangeSource.local,
-        );
-      }
-    } else {
-      final selectedLength = selection.end - selection.start;
-      final selectedStyle = controller.document.collectStyle(
-        selection.start,
-        selectedLength,
-      );
-      final isCurrentlyFormatted = selectedStyle.containsKey(attribute.key);
-
-      if (isCurrentlyFormatted) {
-        controller.formatSelection(Attribute.clone(attribute, null));
-      } else {
-        controller.formatSelection(attribute);
-      }
-    }
-  }
-
-  void _insertLink() {
-    _toggleAttribute(Attribute.link);
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -259,11 +144,6 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
                 const ImagePickerButton(),
                 const TagInputButton(),
                 TimestampButton(quillController: widget.quillController),
-                MarkdownButtonSection(
-                  toggleAttribute: _toggleAttribute,
-                  insertLink: _insertLink,
-                  currentFormattingStates: _currentFormattingStates,
-                ),
               ],
             ),
           ),

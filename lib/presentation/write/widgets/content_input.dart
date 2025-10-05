@@ -28,10 +28,7 @@ class _ContentInputState extends State<ContentInput> {
       height: 250,
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
