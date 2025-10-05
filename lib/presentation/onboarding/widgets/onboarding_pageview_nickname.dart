@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/fade_in.dart';
-import '../onboarding_viewmodel.dart';
+import '../onboarding_view_model.dart';
 
 class OnboardingPageViewNickName extends StatefulWidget {
   final void Function() onNext;

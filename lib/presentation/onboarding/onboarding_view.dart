@@ -6,13 +6,13 @@ import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
 import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/pagination_dot.dart';
-import 'onboarding_viewmodel.dart';
+import 'onboarding_view_model.dart';
 import 'widgets/onboarding_pageview_nickname.dart';
 import 'widgets/onboarding_pageview_personality.dart';
 import 'widgets/onboarding_pageview_success.dart';
 import 'widgets/onboarding_pageview_welcome.dart';
 
-part 'onboarding_screen_content.dart';
+part 'onboarding_content.dart';
 
 typedef PaginationDotProps = ({int current, int total});
 

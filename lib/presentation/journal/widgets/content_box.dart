@@ -8,7 +8,7 @@ import '../../../core/extensions/localization.dart';
 import '../../../core/ui/widgets/tag_section.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../../../domain/use_cases/weather_use_case.dart';
-import '../journal_viewmodel.dart';
+import '../journal_view_model.dart';
 import 'journal_cover_image.dart';
 import 'location_card.dart';
 

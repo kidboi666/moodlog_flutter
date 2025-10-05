@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../journal_viewmodel.dart';
+import '../../journal_view_model.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
   final int id;

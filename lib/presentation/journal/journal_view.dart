@@ -10,17 +10,18 @@ import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/pop_button.dart';
 import '../../domain/entities/journal/journal.dart';
-import 'journal_viewmodel.dart';
+import 'journal_view_model.dart';
 import 'widgets/ai_response_box.dart';
 import 'widgets/content_box.dart';
 import 'widgets/dialog/delete_confirm_dialog.dart';
 import 'widgets/mood_bar.dart';
 
-part 'journal_screen_content.dart';
+part 'journal_content.dart';
 
 class JournalScreen extends StatelessWidget {
   final JournalSource source;
   final int id;
+
   const JournalScreen({super.key, required this.source, required this.id});
 
   @override

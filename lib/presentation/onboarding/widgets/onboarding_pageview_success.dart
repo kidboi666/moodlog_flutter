@@ -7,7 +7,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/ui/widgets/fade_in.dart';
 import '../../../core/ui/widgets/spinner.dart';
-import '../onboarding_viewmodel.dart';
+import '../onboarding_view_model.dart';
 
 class OnboardingPageViewSuccess extends StatelessWidget {
   const OnboardingPageViewSuccess({super.key});

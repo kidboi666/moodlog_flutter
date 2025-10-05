@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/ui/widgets/image_screen_with_button.dart';
-import '../journal_viewmodel.dart';
+import '../journal_view_model.dart';
 import 'cover_image_button.dart';
 
 class JournalCoverImage extends StatelessWidget {

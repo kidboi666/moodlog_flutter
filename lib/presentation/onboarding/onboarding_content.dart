@@ -1,4 +1,4 @@
-part of 'onboarding_screen.dart';
+part of 'onboarding_view.dart';
 
 class _OnboardingScreenContent extends StatefulWidget {
   @override

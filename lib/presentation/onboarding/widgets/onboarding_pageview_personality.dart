@@ -5,7 +5,7 @@ import '../../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/fade_in.dart';
-import '../onboarding_viewmodel.dart';
+import '../onboarding_view_model.dart';
 import 'onboarding_personality_item.dart';
 
 class OnboardingPageViewPersonality extends StatelessWidget {
