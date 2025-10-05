@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/extensions/widget.dart';
-import '../write_viewmodel.dart';
+import '../write_view_model.dart';
 
 class ImagePickerButton extends StatelessWidget {
   const ImagePickerButton({super.key});

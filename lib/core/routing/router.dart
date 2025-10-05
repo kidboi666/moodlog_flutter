@@ -14,7 +14,7 @@ import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/providers/user_provider.dart';
 import '../../presentation/settings/settings_view.dart';
 import '../../presentation/statistics/statistics_screen.dart';
-import '../../presentation/write/write_screen.dart';
+import '../../presentation/write/write_view.dart';
 import '../constants/enum.dart';
 import 'routes.dart';
 

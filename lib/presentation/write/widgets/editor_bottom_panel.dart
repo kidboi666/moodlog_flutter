@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
+import '../../../domain/entities/journal/location_info.dart';
+import '../../../domain/entities/journal/weather_info.dart';
 import '../../journal/widgets/location_simple_bottom_sheet.dart';
-import '../write_viewmodel.dart';
+import '../write_view_model.dart';
 import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'bottom_sheet/weather_info_bottom_sheet.dart';
 import 'image_picker_button.dart';
@@ -104,46 +106,40 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
 
   Future<void> _showWeatherBottomSheet() async {
     final viewModel = context.read<WriteViewModel>();
-    final weatherInfo = viewModel.weatherInfo;
+    WeatherInfo? weatherInfo = viewModel.weatherInfo;
 
     if (weatherInfo == null) {
       await viewModel.getCurrentWeather();
-      final newWeatherInfo = viewModel.weatherInfo;
-      if (newWeatherInfo == null) return;
+      weatherInfo = viewModel.weatherInfo;
+    }
 
-      if (mounted) {
-        await showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (context) =>
-              WeatherInfoBottomSheet(weatherInfo: newWeatherInfo),
-        );
-      }
+    if (mounted) {
+      await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => WeatherInfoBottomSheet(weatherInfo: weatherInfo!),
+      );
     }
   }
 
   Future<void> _showLocationBottomSheet() async {
     final viewModel = context.read<WriteViewModel>();
-    final locationInfo = viewModel.locationInfo;
+    LocationInfo? locationInfo = viewModel.locationInfo;
 
     if (locationInfo == null) {
       await viewModel.getCurrentLocation();
-      final newLocationInfo = viewModel.locationInfo;
-      if (newLocationInfo == null) return;
+      locationInfo = viewModel.locationInfo;
+    }
 
-      if (mounted) {
-        await showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (context) => LocationSimpleBottomSheet(
-            latitude: newLocationInfo.latitude,
-            longitude: newLocationInfo.longitude,
-            address: newLocationInfo.address,
-          ),
-        );
-      }
+    if (mounted) {
+      await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) =>
+            LocationSimpleBottomSheet(locationInfo: locationInfo!),
+      );
     }
   }
 

@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../domain/entities/journal/location_info.dart';
 
 class LocationSimpleBottomSheet extends StatelessWidget {
-  final double latitude;
-  final double longitude;
-  final String? address;
+  final LocationInfo locationInfo;
 
-  const LocationSimpleBottomSheet({
-    super.key,
-    required this.latitude,
-    required this.longitude,
-    this.address,
-  });
+  const LocationSimpleBottomSheet({super.key, required this.locationInfo});
 
   Future<void> _openInGoogleMaps() async {
     final url =
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+        'https://www.google.com/maps/search/?api=1&query=${locationInfo.latitude},${locationInfo.longitude}';
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
     }
@@ -100,8 +94,11 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: Spacing.sm),
-                Text(address ?? '주소 정보 없음', style: textTheme.bodyLarge),
-                if (address != null) ...[
+                Text(
+                  locationInfo.address ?? '주소 정보 없음',
+                  style: textTheme.bodyLarge,
+                ),
+                if (locationInfo.address != null) ...[
                   const SizedBox(height: Spacing.sm),
                   Row(
                     children: [
@@ -121,7 +118,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                   ),
                   const SizedBox(height: Spacing.xs),
                   Text(
-                    '${latitude.toStringAsFixed(6)}, ${longitude.toStringAsFixed(6)}',
+                    '${locationInfo.latitude.toStringAsFixed(6)}, ${locationInfo.longitude.toStringAsFixed(6)}',
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontFamily: 'monospace',

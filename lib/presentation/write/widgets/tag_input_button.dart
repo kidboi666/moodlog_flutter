@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extensions/widget.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../write_viewmodel.dart';
+import '../write_view_model.dart';
 import 'bottom_sheet/tag_input_bottom_sheet.dart';
 
 class TagInputButton extends StatelessWidget {

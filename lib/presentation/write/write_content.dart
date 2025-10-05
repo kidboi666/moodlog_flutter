@@ -1,4 +1,4 @@
-part of 'write_screen.dart';
+part of 'write_view.dart';
 
 class _WriteScreenContent extends StatefulWidget {
   @override
