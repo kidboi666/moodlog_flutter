@@ -6,7 +6,7 @@ import '../../../core/extensions/date_time.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/fade_in.dart';
 import '../../../core/ui/widgets/gradient_box.dart';
-import '../home_viewmodel.dart';
+import '../home_view_model.dart';
 import 'date_and_day.dart';
 
 class HorizontalCalendar extends StatefulWidget {

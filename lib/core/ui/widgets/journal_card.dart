@@ -75,57 +75,58 @@ class JournalCard extends StatelessWidget {
                       ),
                       const SizedBox(height: Spacing.xs),
                       _buildContentPreview(content.trim(), textTheme),
-                      if (coverImg != null && coverImg!.isNotEmpty) ...[
-                        const SizedBox(height: Spacing.md),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(Roundness.xs),
-                          child: Image.file(
-                            File(coverImg!),
-                            height: 120,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                height: 120,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: colorScheme.surfaceContainerHighest,
-                                  borderRadius: BorderRadius.circular(
-                                    Roundness.xs,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.image_not_supported_outlined,
-                                      color: colorScheme.outline,
-                                      size: 32,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Image not found',
-                                      style: TextStyle(
-                                        color: colorScheme.outline,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
+                if (coverImg != null && coverImg!.isNotEmpty) ...[
+                  const SizedBox(height: Spacing.md),
+                  _buildCoverImage(context),
+                ],
               ],
             ),
           ),
         ),
       ),
     ).scale();
+  }
+
+  Widget _buildCoverImage(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(Roundness.xs),
+      child: Image.file(
+        File(coverImg!),
+        height: 120,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(Roundness.xs),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.image_not_supported_outlined,
+                  color: colorScheme.outline,
+                  size: 32,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Image not found',
+                  style: TextStyle(color: colorScheme.outline, fontSize: 12),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildContentPreview(String content, TextTheme textTheme) {

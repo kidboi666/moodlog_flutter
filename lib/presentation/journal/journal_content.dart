@@ -13,14 +13,12 @@ class _JournalScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final viewModel = context.read<JournalViewModel>();
-    final isLoading = context.select<JournalViewModel, bool>(
-      (vm) => vm.isLoading,
-    );
-    final journal = context.select<JournalViewModel, Journal?>(
-      (vm) => vm.journal,
-    );
-    final align = context.select<JournalViewModel, SimpleTextAlign>(
-      (vm) => vm.currentAlign,
+    final (:isLoading, :journal, :align) = context.select(
+      (JournalViewModel vm) => (
+        isLoading: vm.isLoading,
+        journal: vm.journal,
+        align: vm.currentAlign,
+      ),
     );
 
     if (isLoading) {

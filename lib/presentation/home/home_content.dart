@@ -1,4 +1,4 @@
-part of 'home_screen.dart';
+part of 'home_view.dart';
 
 class _HomeScreenContent extends StatelessWidget {
   @override

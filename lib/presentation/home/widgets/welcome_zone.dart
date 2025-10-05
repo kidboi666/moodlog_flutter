@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/fade_in.dart';
-import '../home_viewmodel.dart';
+import '../home_view_model.dart';
 
 class WelcomeZone extends StatelessWidget {
   const WelcomeZone({super.key});

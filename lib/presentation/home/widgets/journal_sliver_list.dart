@@ -6,7 +6,7 @@ import '../../../core/extensions/routing.dart';
 import '../../../core/ui/widgets/empty_entries_box.dart';
 import '../../../core/ui/widgets/fade_in.dart';
 import '../../../core/ui/widgets/journal_card.dart';
-import '../home_viewmodel.dart';
+import '../home_view_model.dart';
 
 class JournalSliverList extends StatelessWidget {
   const JournalSliverList({super.key});
