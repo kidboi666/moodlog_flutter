@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 
@@ -48,8 +49,11 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<User?>> linkWithCredential() async {
     try {
       final googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
-      final googleUser = await GoogleSignIn.instance.authenticate();
+      await googleSignIn.initialize(
+        serverClientId:
+            '761406625155-guquod97u7ic0hunfuqpv0qrq0kersr7.apps.googleusercontent.com',
+      );
+      final googleUser = await googleSignIn.authenticate();
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       if (googleAuth.idToken == null) {
@@ -103,7 +107,11 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Result<User?>> signInWithGoogle() async {
     try {
-      final googleUser = await GoogleSignIn.instance.authenticate();
+      final googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize(
+        serverClientId: dotenv.env['WEB_OAUTH_CLIENT_ID'],
+      );
+      final googleUser = await googleSignIn.authenticate();
       final googleAuth = googleUser.authentication;
       final credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
