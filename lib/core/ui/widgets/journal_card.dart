@@ -39,52 +39,56 @@ class JournalCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(Roundness.card),
       child: Container(
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Spacing.xl,
-            vertical: Spacing.xl,
-          ),
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Mood color indicator
-                Container(
-                  width: Spacing.sm,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Roundness.card),
-                    color: Color(moodType.colorValue),
-                  ),
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.xl,
+                  vertical: Spacing.xl,
                 ),
-                const SizedBox(width: Spacing.lg),
-
-                // Content section
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        createdAt.formatted(t),
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.outline,
-                        ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Mood color indicator
+                    Container(
+                      width: Spacing.sm,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Roundness.card),
+                        color: Color(moodType.colorValue),
                       ),
-                      const SizedBox(height: Spacing.xs),
-                      _buildContentPreview(content.trim(), textTheme),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: Spacing.lg),
+
+                    // Content section
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            createdAt.formatted(t),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.outline,
+                            ),
+                          ),
+                          const SizedBox(height: Spacing.xs),
+                          _buildContentPreview(content.trim(), textTheme),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                if (coverImg != null && coverImg!.isNotEmpty) ...[
-                  const SizedBox(height: Spacing.md),
-                  _buildCoverImage(context),
-                ],
-              ],
+              ),
             ),
-          ),
+            if (coverImg != null && coverImg!.isNotEmpty) ...[
+              _buildCoverImage(context),
+            ],
+          ],
         ),
       ),
     ).scale();
@@ -93,39 +97,36 @@ class JournalCard extends StatelessWidget {
   Widget _buildCoverImage(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(Roundness.xs),
-      child: Image.file(
-        File(coverImg!),
-        height: 120,
-        width: double.infinity,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            height: 120,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(Roundness.xs),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.image_not_supported_outlined,
-                  color: colorScheme.outline,
-                  size: 32,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Image not found',
-                  style: TextStyle(color: colorScheme.outline, fontSize: 12),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+    return Image.file(
+      File(coverImg!),
+      height: 120,
+      width: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          height: 120,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: colorScheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(Roundness.xs),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.image_not_supported_outlined,
+                color: colorScheme.outline,
+                size: 32,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Image not found',
+                style: TextStyle(color: colorScheme.outline, fontSize: 12),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

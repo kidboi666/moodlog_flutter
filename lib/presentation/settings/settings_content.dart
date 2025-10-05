@@ -4,7 +4,7 @@ class _SettingsScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final viewModel = Provider.of<SettingsViewModel>(context);
+    final viewModel = context.read<SettingsViewModel>();
     return Glower(
       child: CustomScrollView(
         slivers: [
