@@ -1,11 +1,5 @@
 part of 'entries_view.dart';
 
-typedef EntriesSelectorType = ({
-  bool isLoading,
-  List<Journal> entries,
-  EntriesViewMode viewMode,
-});
-
 class _EntriesScreenContent extends StatelessWidget {
   // 날짜별로 저널 그룹화
   Map<DateTime, List<Journal>> _groupJournalsByDate(List<Journal> journals) {
@@ -94,16 +88,15 @@ class _EntriesScreenContent extends StatelessWidget {
             const SliverToBoxAdapter(child: SizedBox(height: Spacing.md)),
             Builder(
               builder: (context) {
-                final entries = context.select<EntriesViewModel, List<Journal>>(
-                  (vm) => vm.entries,
+                final entries = context.select(
+                  (EntriesViewModel vm) => vm.entries,
                 );
-                final isLoading = context.select<EntriesViewModel, bool>(
-                  (vm) => vm.isLoading,
+                final isLoading = context.select(
+                  (EntriesViewModel vm) => vm.isLoading,
                 );
-                final viewMode = context
-                    .select<EntriesViewModel, EntriesViewMode>(
-                      (vm) => vm.viewMode,
-                    );
+                final viewMode = context.select(
+                  (EntriesViewModel vm) => vm.viewMode,
+                );
 
                 if (isLoading) {
                   return SliverToBoxAdapter(
