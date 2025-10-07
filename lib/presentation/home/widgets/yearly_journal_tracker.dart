@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/l10n/app_localizations.dart';
-import '../../statistics/statistics_viewmodel.dart';
+import '../../statistics/statistics_view_model.dart';
 import '../../statistics/widgets/base_card.dart';
 import 'yearly_tracker/yearly_grid.dart';
 

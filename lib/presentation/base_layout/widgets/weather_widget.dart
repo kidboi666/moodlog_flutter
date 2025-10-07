@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/ui/widgets/spinner.dart';
-import '../base_layout_viewmodel.dart';
+import '../base_layout_view_model.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key});
@@ -12,7 +12,6 @@ class WeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final viewmodel = context.read<BaseLayoutViewModel>();
     final isLoading = context.select((BaseLayoutViewModel vm) => vm.isLoading);
     final weatherInfo = context.select(
       (BaseLayoutViewModel vm) => vm.weatherInfo,
@@ -26,9 +25,12 @@ class WeatherWidget extends StatelessWidget {
           ..._buildWeatherWidget(
             colorScheme,
             textTheme,
-            viewmodel.getWeatherCondition(weatherInfo?.icon).icon,
+            context
+                .read<BaseLayoutViewModel>()
+                .getWeatherCondition(weatherInfo?.icon)
+                .icon,
             weatherInfo?.temperature ?? 0,
-            viewmodel.clearWeather,
+            context.read<BaseLayoutViewModel>().clearWeather,
           ),
       ],
     );

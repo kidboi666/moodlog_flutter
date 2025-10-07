@@ -6,7 +6,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/base_card.dart';
 import '../../../core/ui/widgets/statistic_display.dart';
 import '../../../domain/entities/journal/journal.dart';
-import '../statistics_viewmodel.dart';
+import '../statistics_view_model.dart';
 
 class TotalRecordsCard extends StatelessWidget {
   const TotalRecordsCard({super.key});
@@ -48,7 +48,8 @@ class TotalRecordsCard extends StatelessWidget {
                 children: [
                   InfoRow(
                     label: t.statistics_total_records_first_record,
-                    value: '${firstRecordDate.year}.${firstRecordDate.month.toString().padLeft(2, '0')}.${firstRecordDate.day.toString().padLeft(2, '0')}',
+                    value:
+                        '${firstRecordDate.year}.${firstRecordDate.month.toString().padLeft(2, '0')}.${firstRecordDate.day.toString().padLeft(2, '0')}',
                   ),
                   CommonSizedBox.heightSm,
                   InfoRow(

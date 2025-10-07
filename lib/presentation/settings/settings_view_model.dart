@@ -50,38 +50,32 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   User? get currentUser => _userProvider.user;
 
   void getAllTags() async {
-    final result = await executeAsync(
-      () async {
-        final result = await _tagUseCase.getAllTags();
-        switch (result) {
-          case Ok<List<Tag>>():
-            return result.value;
-          case Error<List<Tag>>():
-            throw result.error;
-        }
-      },
-      context: 'getAllTags',
-    );
+    final result = await executeAsync(() async {
+      final result = await _tagUseCase.getAllTags();
+      switch (result) {
+        case Ok<List<Tag>>():
+          return result.value;
+        case Error<List<Tag>>():
+          throw result.error;
+      }
+    }, context: 'getAllTags');
 
     if (result != null) {
       _tags = result;
     }
   }
 
-  void deleteTag(int id) async {
-    await executeAsync(
-      () async {
-        final result = await _tagUseCase.deleteTag(id);
-        switch (result) {
-          case Ok<void>():
-            getAllTags(); // 태그 목록 새로고침
-            return;
-          case Error<void>():
-            throw result.error;
-        }
-      },
-      context: 'deleteTag',
-    );
+  Future<void> deleteTag(int id) async {
+    await executeAsync(() async {
+      final result = await _tagUseCase.deleteTag(id);
+      switch (result) {
+        case Ok<void>():
+          getAllTags(); // 태그 목록 새로고침
+          return;
+        case Error<void>():
+          throw result.error;
+      }
+    }, context: 'deleteTag');
   }
 
   void setLanguage(LanguageCode? language) {
@@ -131,21 +125,18 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'ai_personality', personality.name);
   }
 
-  void _updateSettings(
+  Future<void> _updateSettings(
     Settings newSettings,
     String settingType,
     String value,
   ) async {
-    await executeAsync(
-      () async {
-        await _appStateProvider.update(newSettings);
-        _analyticsRepository.logSettingsChange(
-          settingType: settingType,
-          value: value,
-        );
-      },
-      context: 'updateSettings',
-    );
+    await executeAsync(() async {
+      await _appStateProvider.update(newSettings);
+      _analyticsRepository.logSettingsChange(
+        settingType: settingType,
+        value: value,
+      );
+    }, context: 'updateSettings');
   }
 
   void performBackup() {
@@ -158,13 +149,10 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> loadAppInfo() async {
-    final result = await executeAsync(
-      () async {
-        final appInfo = await _settingsRepository.getAppInfo();
-        return appInfo;
-      },
-      context: 'loadAppInfo',
-    );
+    final result = await executeAsync(() async {
+      final appInfo = await _settingsRepository.getAppInfo();
+      return appInfo;
+    }, context: 'loadAppInfo');
 
     if (result != null) {
       _appVersion = result.version;

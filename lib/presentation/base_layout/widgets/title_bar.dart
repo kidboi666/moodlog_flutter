@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/base_layout/widgets/weather_widget.dart';
 
 import '../../../core/constants/common.dart';
 import 'hello.dart';
+import 'weather_widget.dart';
 
 class TitleBar extends StatefulWidget {
   const TitleBar({super.key});

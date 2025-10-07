@@ -6,7 +6,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/ui/widgets/base_card.dart';
 import '../../../core/ui/widgets/statistic_display.dart';
 import '../../../domain/entities/journal/journal.dart';
-import '../statistics_viewmodel.dart';
+import '../statistics_view_model.dart';
 
 class CurrentStreakCard extends StatelessWidget {
   const CurrentStreakCard({super.key});
@@ -70,10 +70,7 @@ class CurrentStreakCard extends StatelessWidget {
                   ],
                 ),
                 CommonSizedBox.heightXs,
-                StatusIndicator(
-                  status: streakStatus,
-                  color: streakColor,
-                ),
+                StatusIndicator(status: streakStatus, color: streakColor),
               ],
             ),
           ),

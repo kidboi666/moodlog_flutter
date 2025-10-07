@@ -1,4 +1,4 @@
-part of 'base_layout_screen.dart';
+part of 'base_layout_view.dart';
 
 class _BaseLayoutScreenContent extends StatelessWidget {
   final List<Widget> children;

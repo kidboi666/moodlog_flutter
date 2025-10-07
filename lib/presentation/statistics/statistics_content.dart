@@ -1,4 +1,4 @@
-part of 'statistics_screen.dart';
+part of 'statistics_view.dart';
 
 class _StatisticsScreenContent extends StatelessWidget {
   @override

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../domain/entities/journal/journal.dart';
 import '../../home/widgets/yearly_tracker/yearly_grid.dart';
-import '../statistics_viewmodel.dart';
+import '../statistics_view_model.dart';
 import 'base_card.dart';
 
 class YearlyJournalTracker extends StatelessWidget {

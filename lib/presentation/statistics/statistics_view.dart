@@ -3,7 +3,7 @@ import 'package:moodlog/core/ui/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
-import 'statistics_viewmodel.dart';
+import 'statistics_view_model.dart';
 import 'widgets/average_mood_card.dart';
 import 'widgets/current_streak_card.dart';
 import 'widgets/max_streak_card.dart';
@@ -14,7 +14,7 @@ import 'widgets/total_records_card.dart';
 import 'widgets/writing_frequency_card.dart';
 import 'widgets/yearly_journal_tracker.dart';
 
-part 'statistics_screen_content.dart';
+part 'statistics_content.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});

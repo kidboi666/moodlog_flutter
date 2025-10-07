@@ -10,11 +10,11 @@ import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/glower.dart';
 import '../../core/ui/widgets/journal_card.dart';
 import '../../domain/entities/journal/journal.dart';
-import 'entries_viewmodel.dart';
+import 'entries_view_model.dart';
 import 'widgets/entries_calendar_view.dart';
 import 'widgets/tag_filter_section.dart';
 
-part 'entries_screen_content.dart';
+part 'entries_content.dart';
 
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({super.key});

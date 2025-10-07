@@ -1,4 +1,4 @@
-part of 'entries_screen.dart';
+part of 'entries_view.dart';
 
 typedef EntriesSelectorType = ({
   bool isLoading,

@@ -34,11 +34,12 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   @override
   void initState() {
     super.initState();
-    final viewModel = context.read<WriteViewModel>();
 
     _contentFocusNode = FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel = context.read<WriteViewModel>();
+
       if (!viewModel.isEditMode) {
         Future.delayed(DelayMS.oneSecond, _showMoodSelectionBottomSheet);
       }
@@ -53,12 +54,13 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
 
   @override
   Widget build(BuildContext context) {
-    final isSubmitted = context.select<WriteViewModel, bool>(
-      (vm) => vm.isSubmitted,
+    final (:isSubmitted, :submittedJournalId) = context.select(
+      (WriteViewModel vm) => (
+        isSubmitted: vm.isSubmitted,
+        submittedJournalId: vm.submittedJournalId,
+      ),
     );
-    final submittedJournalId = context.select<WriteViewModel, int?>(
-      (vm) => vm.submittedJournalId,
-    );
+
     if (isSubmitted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         context.goToJournalFromWrite(submittedJournalId!);
@@ -138,15 +140,12 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final viewModel = context.read<WriteViewModel>();
-    final isEditMode = context.select<WriteViewModel, bool>(
-      (vm) => vm.isEditMode,
-    );
-    final isFormValid = context.select<WriteViewModel, bool>(
-      (vm) => vm.isFormValid,
-    );
-    final selectedDate = context.select<WriteViewModel, DateTime>(
-      (vm) => vm.selectedDate,
+    final (:isEditMode, :isFormValid, :selectedDate) = context.select(
+      (WriteViewModel vm) => (
+        isEditMode: vm.isEditMode,
+        isFormValid: vm.isFormValid,
+        selectedDate: vm.selectedDate,
+      ),
     );
 
     return AppBar(
@@ -175,7 +174,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                 pickedTime.minute,
               );
               if (context.mounted) {
-                viewModel.updateSelectedDate(newDate);
+                context.read<WriteViewModel>().updateSelectedDate(newDate);
               }
             }
           }
@@ -196,7 +195,9 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
       ),
       actions: [
         IconButton(
-          onPressed: isFormValid ? viewModel.submitJournal : null,
+          onPressed: isFormValid
+              ? context.read<WriteViewModel>().submitJournal
+              : null,
           icon: Icon(isEditMode ? Icons.check : Icons.send),
         ),
       ],
