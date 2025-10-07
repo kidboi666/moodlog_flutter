@@ -26,53 +26,53 @@ class _ImagePickingSectionState extends State<ImagePickingSection> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, _) {
-        return SizedBox(
-          height: 60,
-          child: ListView(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            children: [
-              if (viewModel.selectedImageList.isNotEmpty)
-                ...viewModel.selectedImageList.map(
-                  (imageUri) => Card(
-                    elevation: 0,
-                    margin: Spacing.imagePickerBoxInnerPadding,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.file(
-                        File(imageUri),
-                        fit: BoxFit.cover,
-                        width: 60,
-                      ),
-                    ),
-                  ),
-                ),
-              Card(
+    final selectedImageList = context.select(
+      (WriteViewModel vm) => vm.selectedImageList,
+    );
+
+    return SizedBox(
+      height: 60,
+      child: ListView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        children: [
+          if (selectedImageList.isNotEmpty)
+            ...selectedImageList.map(
+              (imageUri) => Card(
                 elevation: 0,
-                color: colorScheme.surfaceContainer,
-                margin: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: InkWell(
-                  onTap: viewModel.pickImage,
-                  borderRadius: BorderRadius.circular(12.0),
-                  child: SizedBox(
+                margin: Spacing.imagePickerBoxInnerPadding,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.file(
+                    File(imageUri),
+                    fit: BoxFit.cover,
                     width: 60,
-                    height: 60,
-                    child: Icon(
-                      Icons.image_outlined,
-                      color: colorScheme.secondary,
-                    ),
                   ),
                 ),
-              ).scale(),
-            ],
-          ),
-        );
-      },
+              ),
+            ),
+          Card(
+            elevation: 0,
+            color: colorScheme.surfaceContainer,
+            margin: const EdgeInsets.all(0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: InkWell(
+              onTap: () => context.read<WriteViewModel>().pickImage(),
+              borderRadius: BorderRadius.circular(12.0),
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: Icon(
+                  Icons.image_outlined,
+                  color: colorScheme.secondary,
+                ),
+              ),
+            ),
+          ).scale(),
+        ],
+      ),
     );
   }
 }

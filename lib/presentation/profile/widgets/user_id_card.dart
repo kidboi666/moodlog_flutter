@@ -12,6 +12,10 @@ class UserIdCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final uid = context.select(
+      (ProfileViewModel vm) => vm.user?.uid ?? '',
+    );
+
     return SafeArea(
       bottom: true,
       child: Padding(
@@ -26,16 +30,11 @@ class UserIdCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
-            Selector<ProfileViewModel, String>(
-              selector: (context, viewModel) => viewModel.user?.uid ?? '',
-              builder: (context, uid, _) {
-                return Text(
-                  uid,
-                  style: textTheme.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                );
-              },
+            Text(
+              uid,
+              style: textTheme.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
           ],
         ),

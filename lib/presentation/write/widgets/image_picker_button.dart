@@ -9,14 +9,10 @@ class ImagePickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, _) {
-        return IconButton(
-          onPressed: viewModel.pickImage,
-          icon: Icon(Icons.image_outlined),
-          style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
-        ).scale();
-      },
-    );
+    return IconButton(
+      onPressed: () => context.read<WriteViewModel>().pickImage(),
+      icon: Icon(Icons.image_outlined),
+      style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
+    ).scale();
   }
 }

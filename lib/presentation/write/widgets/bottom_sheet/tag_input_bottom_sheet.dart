@@ -22,133 +22,139 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final (:selectedTags, :availableTags) = context.select(
+      (WriteViewModel vm) => (
+        selectedTags: vm.selectedTags,
+        availableTags: vm.availableTags,
+      ),
+    );
 
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, _) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Handle bar
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: colorScheme.outline,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Handle bar
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: colorScheme.outline,
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                const SizedBox(height: 20),
+              ),
+            ),
+            const SizedBox(height: 20),
 
-                // Title
-                Text(t.tags_add_new, style: textTheme.headlineSmall),
-                const SizedBox(height: 20),
+            // Title
+            Text(t.tags_add_new, style: textTheme.headlineSmall),
+            const SizedBox(height: 20),
 
-                // Selected tags
-                if (viewModel.selectedTags.isNotEmpty) ...[
-                  Text(t.tags_selected_title, style: textTheme.titleSmall),
-                  const SizedBox(height: Spacing.sm),
-                  Wrap(
+            // Selected tags
+            if (selectedTags.isNotEmpty) ...[
+              Text(t.tags_selected_title, style: textTheme.titleSmall),
+              const SizedBox(height: Spacing.sm),
+              Wrap(
+                spacing: Spacing.xs,
+                runSpacing: Spacing.xs,
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                children: selectedTags
+                    .map(
+                      (tag) => Chip(
+                        label: Text(tag.name),
+                        onDeleted: () {
+                          context.read<WriteViewModel>().removeTag(tag);
+                        },
+                        backgroundColor: tag.color != null
+                            ? Color(int.parse(tag.color!, radix: 16))
+                            : colorScheme.surfaceContainerHighest,
+                        deleteIcon: const Icon(Icons.close, size: 16),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: Spacing.md),
+            ],
+
+            // Add new tag
+            TextField(
+              controller: _tagController,
+              focusNode: _tagFocusNode,
+              decoration: InputDecoration(
+                labelText: t.tags_input_hint,
+                border: UnderlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () => _addNewTag(
+                    context.read<WriteViewModel>().addNewTag,
+                  ),
+                  icon: const Icon(Icons.add),
+                ),
+              ),
+              onSubmitted: (_) => _addNewTag(
+                context.read<WriteViewModel>().addNewTag,
+              ),
+            ),
+
+            // Available tags
+            if (availableTags.isNotEmpty) ...[
+              const SizedBox(height: Spacing.md),
+              Text(t.tags_suggested_title, style: textTheme.titleSmall),
+              const SizedBox(height: Spacing.sm),
+              SizedBox(
+                height: 120,
+                child: SingleChildScrollView(
+                  child: Wrap(
                     spacing: Spacing.xs,
                     runSpacing: Spacing.xs,
                     alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.start,
-                    children: viewModel.selectedTags
+                    children: availableTags
+                        .where(
+                          (tag) => !selectedTags.contains(tag),
+                        )
                         .map(
-                          (tag) => Chip(
+                          (tag) => ActionChip(
                             label: Text(tag.name),
-                            onDeleted: () {
-                              viewModel.removeTag(tag);
+                            onPressed: () {
+                              context.read<WriteViewModel>().addExistingTag(tag);
                             },
                             backgroundColor: tag.color != null
                                 ? Color(int.parse(tag.color!, radix: 16))
                                 : colorScheme.surfaceContainerHighest,
-                            deleteIcon: const Icon(Icons.close, size: 16),
                           ),
                         )
                         .toList(),
                   ),
-                  const SizedBox(height: Spacing.md),
-                ],
-
-                // Add new tag
-                TextField(
-                  controller: _tagController,
-                  focusNode: _tagFocusNode,
-                  decoration: InputDecoration(
-                    labelText: t.tags_input_hint,
-                    border: UnderlineInputBorder(),
-                    suffixIcon: IconButton(
-                      onPressed: () => _addNewTag(viewModel.addNewTag),
-                      icon: const Icon(Icons.add),
-                    ),
-                  ),
-                  onSubmitted: (_) => _addNewTag(viewModel.addNewTag),
                 ),
+              ),
+            ],
 
-                // Available tags
-                if (viewModel.availableTags.isNotEmpty) ...[
-                  const SizedBox(height: Spacing.md),
-                  Text(t.tags_suggested_title, style: textTheme.titleSmall),
-                  const SizedBox(height: Spacing.sm),
-                  SizedBox(
-                    height: 120,
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        spacing: Spacing.xs,
-                        runSpacing: Spacing.xs,
-                        alignment: WrapAlignment.start,
-                        runAlignment: WrapAlignment.start,
-                        children: viewModel.availableTags
-                            .where(
-                              (tag) => !viewModel.selectedTags.contains(tag),
-                            )
-                            .map(
-                              (tag) => ActionChip(
-                                label: Text(tag.name),
-                                onPressed: () {
-                                  viewModel.addExistingTag(tag);
-                                },
-                                backgroundColor: tag.color != null
-                                    ? Color(int.parse(tag.color!, radix: 16))
-                                    : colorScheme.surfaceContainerHighest,
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 20),
 
-                const SizedBox(height: 20),
-
-                // Close button
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: () => context.pop(),
-                    child: Text(t.common_confirm_ok),
-                  ),
-                ),
-
-                // Bottom padding for safe area
-                SizedBox(height: MediaQuery.of(context).viewPadding.bottom),
-              ],
+            // Close button
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () => context.pop(),
+                child: Text(t.common_confirm_ok),
+              ),
             ),
-          ),
-        );
-      },
+
+            // Bottom padding for safe area
+            SizedBox(height: MediaQuery.of(context).viewPadding.bottom),
+          ],
+        ),
+      ),
     );
   }
 

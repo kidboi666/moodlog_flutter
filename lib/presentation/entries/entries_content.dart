@@ -63,23 +63,27 @@ class _EntriesScreenContent extends StatelessWidget {
             onPressed: viewModel.setPreviousMonth,
           ),
           actions: [
-            Selector<EntriesViewModel, EntriesViewMode>(
-              selector: (_, viewModel) => viewModel.viewMode,
-              builder: (_, viewMode, _) => IconButton(
-                icon: Icon(
-                  viewMode == EntriesViewMode.list
-                      ? Icons.calendar_month
-                      : Icons.view_list,
-                ),
-                onPressed: viewModel.toggleViewMode,
-              ),
+            Builder(
+              builder: (context) {
+                final (:viewMode, :toggleViewMode) = context.select(
+                  (EntriesViewModel vm) => (
+                    viewMode: vm.viewMode,
+                    toggleViewMode: vm.toggleViewMode,
+                  ),
+                );
+                return IconButton(
+                  icon: Icon(
+                    viewMode == EntriesViewMode.list
+                        ? Icons.calendar_month
+                        : Icons.view_list,
+                  ),
+                  onPressed: toggleViewMode,
+                );
+              },
             ),
-            Selector<EntriesViewModel, Function>(
-              selector: (_, viewModel) => viewModel.setNextMonth,
-              builder: (_, setNextMonth, _) => IconButton(
-                icon: const Icon(Icons.arrow_forward),
-                onPressed: () => setNextMonth(),
-              ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward),
+              onPressed: () => context.read<EntriesViewModel>().setNextMonth(),
             ),
           ],
         ),

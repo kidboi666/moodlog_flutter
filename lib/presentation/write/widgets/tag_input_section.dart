@@ -19,21 +19,23 @@ class _TagInputSectionState extends State<TagInputSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, child) {
-        return Wrap(
-          spacing: Spacing.xs,
-          runSpacing: Spacing.xs,
-          alignment: WrapAlignment.start,
-          runAlignment: WrapAlignment.start,
-          children: [
-            ...viewModel.selectedTags.map(
-              (tag) =>
-                  _TagChip(tag: tag, onDeleted: () => viewModel.removeTag(tag)),
-            ),
-          ],
-        );
-      },
+    final selectedTags = context.select(
+      (WriteViewModel vm) => vm.selectedTags,
+    );
+
+    return Wrap(
+      spacing: Spacing.xs,
+      runSpacing: Spacing.xs,
+      alignment: WrapAlignment.start,
+      runAlignment: WrapAlignment.start,
+      children: [
+        ...selectedTags.map(
+          (tag) => _TagChip(
+            tag: tag,
+            onDeleted: () => context.read<WriteViewModel>().removeTag(tag),
+          ),
+        ),
+      ],
     );
   }
 

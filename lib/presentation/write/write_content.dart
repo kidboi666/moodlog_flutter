@@ -99,10 +99,13 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                         const SizedBox(height: Spacing.md),
                         FadeIn(
                           delay: DelayMS.quick * 2,
-                          child: Consumer<WriteViewModel>(
-                            builder: (context, viewModel, child) {
+                          child: Builder(
+                            builder: (context) {
+                              final quillController = context.select(
+                                (WriteViewModel vm) => vm.quillController,
+                              );
                               return ContentInput(
-                                quillController: viewModel.quillController,
+                                quillController: quillController,
                                 focusNode: _contentFocusNode,
                               );
                             },
@@ -124,10 +127,13 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: Consumer<WriteViewModel>(
-              builder: (context, viewModel, child) {
+            child: Builder(
+              builder: (context) {
+                final quillController = context.select(
+                  (WriteViewModel vm) => vm.quillController,
+                );
                 return EditorBottomPanel(
-                  quillController: viewModel.quillController,
+                  quillController: quillController,
                 );
               },
             ),

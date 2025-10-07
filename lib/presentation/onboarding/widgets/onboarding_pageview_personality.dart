@@ -44,9 +44,11 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
           FadeIn(
             delay: DelayMS.medium * 2,
-            child: Selector<OnboardingViewModel, AiPersonality>(
-              selector: (_, viewModel) => viewModel.selectedPersonality,
-              builder: (context, selectedPersonality, _) {
+            child: Builder(
+              builder: (context) {
+                final selectedPersonality = context.select(
+                  (OnboardingViewModel vm) => vm.selectedPersonality,
+                );
                 return Column(
                   children: AiPersonality.values.map((personality) {
                     final isSelected = personality == selectedPersonality;

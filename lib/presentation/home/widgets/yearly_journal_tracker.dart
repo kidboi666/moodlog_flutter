@@ -15,36 +15,33 @@ class YearlyJournalTracker extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final now = DateTime.now();
+    final yearlyJournals = context.select(
+      (StatisticsViewModel vm) => vm.yearlyJournals,
+    );
 
-    return Consumer<StatisticsViewModel>(
-      builder: (context, viewModel, child) {
-        final now = DateTime.now();
-        final yearlyJournals = viewModel.yearlyJournals;
-
-        return BaseCard(
-          title: t.home_yearly_tracker_title,
-          icon: Icons.grid_4x4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return BaseCard(
+      title: t.home_yearly_tracker_title,
+      icon: Icons.grid_4x4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Text(
-                    '${now.year}',
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+              Text(
+                '${now.year}',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              const SizedBox(height: Spacing.lg),
-
-              YearlyGrid(now: now, yearlyJournals: yearlyJournals),
             ],
           ),
-        );
-      },
+          const SizedBox(height: Spacing.lg),
+
+          YearlyGrid(now: now, yearlyJournals: yearlyJournals),
+        ],
+      ),
     );
   }
 }

@@ -77,9 +77,11 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
               const UserIdCard(),
             ],
           ),
-          Selector<ProfileViewModel, bool>(
-            selector: (context, viewModel) => viewModel.isLoading,
-            builder: (context, isLoading, _) {
+          Builder(
+            builder: (context) {
+              final isLoading = context.select(
+                (ProfileViewModel vm) => vm.isLoading,
+              );
               return Visibility(
                 visible: isLoading,
                 child: Container(

@@ -10,26 +10,21 @@ class LocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, child) {
-        final locationInfo = viewModel.locationInfo;
-
-        if (locationInfo == null) {
-          return IconButton(
-            onPressed: () {
-              viewModel.getCurrentLocation();
-            },
-            icon: Icon(Icons.location_on),
-          ).scale();
-        }
-
-        return IconButton(
-          onPressed: () => viewModel.clearLocation(),
-          icon: Icon(Icons.location_on, color: colorScheme.primary),
-          style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
-        ).scale();
-      },
+    final locationInfo = context.select(
+      (WriteViewModel vm) => vm.locationInfo,
     );
+
+    if (locationInfo == null) {
+      return IconButton(
+        onPressed: () => context.read<WriteViewModel>().getCurrentLocation(),
+        icon: Icon(Icons.location_on),
+      ).scale();
+    }
+
+    return IconButton(
+      onPressed: () => context.read<WriteViewModel>().clearLocation(),
+      icon: Icon(Icons.location_on, color: colorScheme.primary),
+      style: IconButton.styleFrom(padding: EdgeInsets.all(8)),
+    ).scale();
   }
 }

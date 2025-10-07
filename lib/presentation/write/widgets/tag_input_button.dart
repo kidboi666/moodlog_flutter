@@ -13,35 +13,35 @@ class TagInputButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final viewModel = context.read<WriteViewModel>();
+    final selectedTags = context.select(
+      (WriteViewModel vm) => vm.selectedTags,
+    );
 
-    return Consumer<WriteViewModel>(
-      builder: (context, viewModel, _) {
-        return IconButton(
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            builder: (bottomSheetContext) => ChangeNotifierProvider.value(
-              value: viewModel,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: colorScheme.surface,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(20),
-                  ),
-                ),
-                child: const TagInputBottomSheet(),
+    return IconButton(
+      onPressed: () => showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (bottomSheetContext) => ChangeNotifierProvider.value(
+          value: viewModel,
+          child: Container(
+            decoration: BoxDecoration(
+              color: colorScheme.surface,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
               ),
             ),
+            child: const TagInputBottomSheet(),
           ),
-          icon: Badge(
-            isLabelVisible: viewModel.selectedTags.isNotEmpty,
-            label: Text('${viewModel.selectedTags.length}'),
-            child: const Icon(Icons.label_outline),
-          ),
-          tooltip: t.tags_add_new,
-        ).scale();
-      },
-    );
+        ),
+      ),
+      icon: Badge(
+        isLabelVisible: selectedTags.isNotEmpty,
+        label: Text('${selectedTags.length}'),
+        child: const Icon(Icons.label_outline),
+      ),
+      tooltip: t.tags_add_new,
+    ).scale();
   }
 }

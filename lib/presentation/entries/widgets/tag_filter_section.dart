@@ -13,90 +13,96 @@ class TagFilterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    return Consumer<EntriesViewModel>(
-      builder: (context, viewModel, child) {
-        final bool hasFilters = viewModel.availableTags.isNotEmpty;
-
-        if (!hasFilters) {
-          return const SizedBox.shrink();
-        }
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 감정 필터 섹션
-            Padding(
-              padding: const EdgeInsets.only(left: Spacing.lg),
-              child: Text(
-                t.entries_mood_filter_title,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ),
-            const SizedBox(height: Spacing.sm),
-            SizedBox(
-              height: 40,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  const SizedBox(width: Spacing.lg),
-                  _FilterChip(
-                    label: t.tags_filter_all,
-                    isSelected: viewModel.selectedMoodFilter == null,
-                    onTap: () => viewModel.clearMoodFilter(),
-                  ),
-                  const SizedBox(width: Spacing.xs),
-                  ...MoodType.values.map(
-                    (mood) => Padding(
-                      padding: const EdgeInsets.only(right: Spacing.xs),
-                      child: _MoodFilterChip(
-                        mood: mood,
-                        isSelected: viewModel.selectedMoodFilter == mood,
-                        onTap: () => viewModel.setMoodFilter(mood),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: Spacing.md),
-
-            // 태그 필터 섹션
-            Padding(
-              padding: const EdgeInsets.only(left: Spacing.lg),
-              child: Text(
-                t.tags_filter_title,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ),
-            const SizedBox(height: Spacing.sm),
-            SizedBox(
-              height: 40,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  const SizedBox(width: Spacing.lg),
-                  _FilterChip(
-                    label: t.tags_filter_all,
-                    isSelected: viewModel.selectedTagFilter == null,
-                    onTap: () => viewModel.clearTagFilter(),
-                  ),
-                  const SizedBox(width: Spacing.xs),
-                  ...viewModel.availableTags.map(
-                    (tag) => Padding(
-                      padding: const EdgeInsets.only(right: Spacing.xs),
-                      child: _FilterChip(
-                        label: tag.name,
-                        isSelected: viewModel.selectedTagFilter?.id == tag.id,
-                        onTap: () => viewModel.setTagFilter(tag),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    final (:availableTags, :selectedMoodFilter, :selectedTagFilter) = context
+        .select(
+          (EntriesViewModel vm) => (
+            availableTags: vm.availableTags,
+            selectedMoodFilter: vm.selectedMoodFilter,
+            selectedTagFilter: vm.selectedTagFilter,
+          ),
         );
-      },
+
+    if (availableTags.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 감정 필터 섹션
+        Padding(
+          padding: const EdgeInsets.only(left: Spacing.lg),
+          child: Text(
+            t.entries_mood_filter_title,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+        const SizedBox(height: Spacing.sm),
+        SizedBox(
+          height: 40,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              const SizedBox(width: Spacing.lg),
+              _FilterChip(
+                label: t.tags_filter_all,
+                isSelected: selectedMoodFilter == null,
+                onTap: () =>
+                    context.read<EntriesViewModel>().clearMoodFilter(),
+              ),
+              const SizedBox(width: Spacing.xs),
+              ...MoodType.values.map(
+                (mood) => Padding(
+                  padding: const EdgeInsets.only(right: Spacing.xs),
+                  child: _MoodFilterChip(
+                    mood: mood,
+                    isSelected: selectedMoodFilter == mood,
+                    onTap: () =>
+                        context.read<EntriesViewModel>().setMoodFilter(mood),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: Spacing.md),
+
+        // 태그 필터 섹션
+        Padding(
+          padding: const EdgeInsets.only(left: Spacing.lg),
+          child: Text(
+            t.tags_filter_title,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+        const SizedBox(height: Spacing.sm),
+        SizedBox(
+          height: 40,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              const SizedBox(width: Spacing.lg),
+              _FilterChip(
+                label: t.tags_filter_all,
+                isSelected: selectedTagFilter == null,
+                onTap: () => context.read<EntriesViewModel>().clearTagFilter(),
+              ),
+              const SizedBox(width: Spacing.xs),
+              ...availableTags.map(
+                (tag) => Padding(
+                  padding: const EdgeInsets.only(right: Spacing.xs),
+                  child: _FilterChip(
+                    label: tag.name,
+                    isSelected: selectedTagFilter?.id == tag.id,
+                    onTap: () =>
+                        context.read<EntriesViewModel>().setTagFilter(tag),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
