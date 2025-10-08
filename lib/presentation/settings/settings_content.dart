@@ -37,13 +37,15 @@ class _SettingsScreenContent extends StatelessWidget {
 
               SectionHeader(title: t.settings_common_title),
 
-              SwitchTile(
-                title: t.settings_common_notification_title,
-                subtitle: t.settings_common_notification_subtitle,
-                icon: Icons.notifications,
-                value: viewModel.appState.hasNotificationEnabled,
-                onChanged: viewModel.setNotificationEnabled,
-              ),
+              if (kDebugMode) ...[
+                SwitchTile(
+                  title: t.settings_common_notification_title,
+                  subtitle: t.settings_common_notification_subtitle,
+                  icon: Icons.notifications,
+                  value: viewModel.appState.hasNotificationEnabled,
+                  onChanged: viewModel.setNotificationEnabled,
+                ),
+              ],
 
               DialogTile(
                 title: t.settings_common_theme_title,
@@ -86,33 +88,36 @@ class _SettingsScreenContent extends StatelessWidget {
               ),
               const SizedBox(height: Spacing.xl),
 
-              SectionHeader(title: t.settings_data_title),
-              SwitchTile(
-                title: t.settings_data_auto_sync_title,
-                subtitle: t.settings_data_auto_sync_subtitle,
-                icon: Icons.sync,
-                value: viewModel.appState.hasAutoSyncEnabled,
-                onChanged: viewModel.setAutoSyncEnabled,
-              ),
-              CardListTile(
-                title: t.settings_data_backup_title,
-                subtitle: t.settings_data_backup_subtitle,
-                icon: Icons.backup,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => BackupDialog(viewModel: viewModel),
+              if (kDebugMode) ...[
+                SectionHeader(title: t.settings_data_title),
+                SwitchTile(
+                  title: t.settings_data_auto_sync_title,
+                  subtitle: t.settings_data_auto_sync_subtitle,
+                  icon: Icons.sync,
+                  value: viewModel.appState.hasAutoSyncEnabled,
+                  onChanged: viewModel.setAutoSyncEnabled,
                 ),
-              ),
+                CardListTile(
+                  title: t.settings_data_backup_title,
+                  subtitle: t.settings_data_backup_subtitle,
+                  icon: Icons.backup,
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => BackupDialog(viewModel: viewModel),
+                  ),
+                ),
 
-              CardListTile(
-                title: t.tags_manage_title,
-                subtitle: t.tags_manage_subtitle,
-                icon: Icons.label,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => TagManagementDialog(viewModel: viewModel),
+                CardListTile(
+                  title: t.tags_manage_title,
+                  subtitle: t.tags_manage_subtitle,
+                  icon: Icons.label,
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => TagManagementDialog(viewModel: viewModel),
+                  ),
                 ),
-              ),
+              ],
+
               const SizedBox(height: Spacing.xl),
               SectionHeader(title: t.settings_information_title),
               CardListTile(
@@ -123,14 +128,6 @@ class _SettingsScreenContent extends StatelessWidget {
                   context: context,
                   builder: (_) => AppInfoDialog(viewModel: viewModel),
                 ),
-              ),
-              CardListTile(
-                title: t.settings_information_faq_title,
-                subtitle: t.settings_information_faq_subtitle,
-                icon: Icons.help,
-                onTap: () {
-                  // TODO: FAQ 웹뷰 구현 필요
-                },
               ),
 
               CardListTile(
