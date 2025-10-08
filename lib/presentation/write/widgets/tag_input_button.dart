@@ -12,33 +12,20 @@ class TagInputButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    final viewModel = context.read<WriteViewModel>();
-    final selectedTags = context.select(
-      (WriteViewModel vm) => vm.selectedTags,
-    );
+    final selectedTagsCount = context.select((WriteViewModel vm) => vm.selectedTags.length);
 
     return IconButton(
       onPressed: () => showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (bottomSheetContext) => ChangeNotifierProvider.value(
-          value: viewModel,
-          child: Container(
-            decoration: BoxDecoration(
-              color: colorScheme.surface,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-            ),
-            child: const TagInputBottomSheet(),
-          ),
-        ),
+        builder: (bottomSheetContext) {
+          return TagInputBottomSheet(viewModel: context.read<WriteViewModel>());
+        },
       ),
       icon: Badge(
-        isLabelVisible: selectedTags.isNotEmpty,
-        label: Text('${selectedTags.length}'),
+        isLabelVisible: selectedTagsCount > 0,
+        label: Text('$selectedTagsCount'),
         child: const Icon(Icons.label_outline),
       ),
       tooltip: t.tags_add_new,

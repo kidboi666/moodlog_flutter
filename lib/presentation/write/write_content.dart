@@ -22,11 +22,8 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => ChangeNotifierProvider.value(
-        value: context.read<WriteViewModel>(),
-        builder: (context, child) {
-          return MoodSliderSelectionBottomSheet();
-        },
+      builder: (bottomSheetContext) => MoodSliderSelectionBottomSheet(
+        viewModel: context.read<WriteViewModel>(),
       ),
     );
   }
@@ -132,9 +129,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                 final quillController = context.select(
                   (WriteViewModel vm) => vm.quillController,
                 );
-                return EditorBottomPanel(
-                  quillController: quillController,
-                );
+                return EditorBottomPanel(quillController: quillController);
               },
             ),
           ),

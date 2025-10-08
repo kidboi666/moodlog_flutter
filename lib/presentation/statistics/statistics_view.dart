@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/ui/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/ui/widgets/glower.dart';
 import 'statistics_view_model.dart';
 import 'widgets/average_mood_card.dart';
 import 'widgets/current_streak_card.dart';

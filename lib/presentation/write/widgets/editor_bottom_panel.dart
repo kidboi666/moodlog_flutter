@@ -95,11 +95,8 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => ChangeNotifierProvider.value(
-        value: context.read<WriteViewModel>(),
-        builder: (context, child) {
-          return MoodSliderSelectionBottomSheet();
-        },
+      builder: (bottomSheetContext) => MoodSliderSelectionBottomSheet(
+        viewModel: context.read<WriteViewModel>(),
       ),
     );
   }
