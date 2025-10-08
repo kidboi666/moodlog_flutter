@@ -22,6 +22,7 @@ class _ContentInputState extends State<ContentInput> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
@@ -37,7 +38,7 @@ class _ContentInputState extends State<ContentInput> {
           children: [
             Text(
               t.write_input_title,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              style: textTheme.labelLarge?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
             ),

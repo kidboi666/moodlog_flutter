@@ -204,6 +204,7 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
     WriteViewModel viewModel,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     final isSelected = viewModel.selectedMood == mood;
 
     return GestureDetector(
@@ -225,11 +226,12 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               mood.emoji,
-              style: TextStyle(
-                fontSize: 24,
+              style: textTheme.titleLarge?.copyWith(
+                letterSpacing: -5,
                 shadows: isSelected
                     ? [
                         Shadow(
@@ -243,8 +245,7 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               mood.getDisplayName(context),
-              style: TextStyle(
-                fontSize: 10,
+              style: textTheme.bodyMedium?.copyWith(
                 color: isSelected
                     ? Color(mood.colorValue)
                     : colorScheme.outline,
