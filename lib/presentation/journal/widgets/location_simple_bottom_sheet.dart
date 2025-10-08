@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/common.dart';
@@ -22,6 +23,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(Spacing.md),
@@ -49,14 +51,14 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               Icon(Icons.location_on, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
-                AppLocalizations.of(context)!.location_journal_location,
+                t.location_journal_location,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
               IconButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => context.pop(),
                 icon: const Icon(Icons.close),
               ),
             ],
@@ -87,7 +89,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                     ),
                     const SizedBox(width: Spacing.xs),
                     Text(
-                      AppLocalizations.of(context)!.location_address,
+                      t.location_address,
                       style: textTheme.labelMedium?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -96,8 +98,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacing.sm),
                 Text(
-                  locationInfo.address ??
-                      AppLocalizations.of(context)!.location_no_address,
+                  locationInfo.address ?? t.location_no_address,
                   style: textTheme.bodyLarge,
                 ),
                 if (locationInfo.address != null) ...[
@@ -111,7 +112,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: Spacing.xs),
                       Text(
-                        AppLocalizations.of(context)!.location_coordinates,
+                        t.location_coordinates,
                         style: textTheme.labelMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -123,7 +124,6 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                     '${locationInfo.latitude.toStringAsFixed(6)}, ${locationInfo.longitude.toStringAsFixed(6)}',
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
-                      fontFamily: 'monospace',
                     ),
                   ),
                 ],
@@ -140,9 +140,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: _openInGoogleMaps,
                   icon: const Icon(Icons.open_in_new, size: 18),
-                  label: Text(
-                    AppLocalizations.of(context)!.location_open_in_google_maps,
-                  ),
+                  label: Text(t.location_open_in_google_maps),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: Spacing.sm),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -36,6 +37,7 @@ class WeatherInfoBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(Spacing.md),
@@ -63,14 +65,14 @@ class WeatherInfoBottomSheet extends StatelessWidget {
               Icon(Icons.wb_sunny, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
-                AppLocalizations.of(context)!.weather_current_weather,
+                t.weather_current_weather,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
               IconButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => context.pop(),
                 icon: const Icon(Icons.close),
               ),
             ],
@@ -127,19 +129,19 @@ class WeatherInfoBottomSheet extends StatelessWidget {
                     _buildWeatherDetail(
                       context,
                       Icons.water_drop,
-                      AppLocalizations.of(context)!.weather_humidity,
+                      t.weather_humidity,
                       '${weatherInfo.humidity}%',
                     ),
                     _buildWeatherDetail(
                       context,
                       Icons.air,
-                      AppLocalizations.of(context)!.weather_wind,
+                      t.weather_wind,
                       '${weatherInfo.windSpeed.toStringAsFixed(1)} m/s',
                     ),
                     _buildWeatherDetail(
                       context,
                       Icons.compress,
-                      AppLocalizations.of(context)!.weather_pressure,
+                      t.weather_pressure,
                       '${weatherInfo.pressure.round()} hPa',
                     ),
                   ],
