@@ -50,6 +50,12 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   }
 
   @override
+  void dispose() {
+    _contentFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final (:isSubmitted, :submittedJournalId) = context.select(
       (WriteViewModel vm) => (
@@ -203,11 +209,5 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    _contentFocusNode.dispose();
-    super.dispose();
   }
 }
