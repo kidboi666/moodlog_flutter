@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../domain/entities/journal/weather_info.dart';
 
 class WeatherInfoBottomSheet extends StatelessWidget {
@@ -62,7 +63,7 @@ class WeatherInfoBottomSheet extends StatelessWidget {
               Icon(Icons.wb_sunny, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
-                '현재 날씨',
+                AppLocalizations.of(context)!.weather_current_weather,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -126,19 +127,19 @@ class WeatherInfoBottomSheet extends StatelessWidget {
                     _buildWeatherDetail(
                       context,
                       Icons.water_drop,
-                      '습도',
+                      AppLocalizations.of(context)!.weather_humidity,
                       '${weatherInfo.humidity}%',
                     ),
                     _buildWeatherDetail(
                       context,
                       Icons.air,
-                      '바람',
+                      AppLocalizations.of(context)!.weather_wind,
                       '${weatherInfo.windSpeed.toStringAsFixed(1)} m/s',
                     ),
                     _buildWeatherDetail(
                       context,
                       Icons.compress,
-                      '기압',
+                      AppLocalizations.of(context)!.weather_pressure,
                       '${weatherInfo.pressure.round()} hPa',
                     ),
                   ],

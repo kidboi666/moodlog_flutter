@@ -1058,4 +1058,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profile_delete_account_apple_manual_revoke_guide =>
       'For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login.';
+
+  @override
+  String get weather_current_weather => 'Current Weather';
+
+  @override
+  String get weather_humidity => 'Humidity';
+
+  @override
+  String get weather_wind => 'Wind';
+
+  @override
+  String get weather_pressure => 'Pressure';
+
+  @override
+  String get location_journal_location => 'Journal Location';
+
+  @override
+  String get location_tap_to_open => 'Tap to open';
+
+  @override
+  String get location_map_load_error => 'Unable to load map';
+
+  @override
+  String get location_address => 'Address';
+
+  @override
+  String get location_no_address => 'No address information';
+
+  @override
+  String get location_coordinates => 'Coordinates';
+
+  @override
+  String get location_open_in_google_maps => 'Open in Google Maps';
 }

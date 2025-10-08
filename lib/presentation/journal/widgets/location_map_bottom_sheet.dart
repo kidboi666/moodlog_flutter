@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
 
 class LocationMapBottomSheet extends StatefulWidget {
   final double latitude;
@@ -71,7 +72,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                 Icon(Icons.location_on, color: colorScheme.primary, size: 20),
                 const SizedBox(width: Spacing.sm),
                 Text(
-                  '일기 작성 위치',
+                  AppLocalizations.of(context)!.location_journal_location,
                   style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -134,7 +135,9 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                                   ),
                                   const SizedBox(height: Spacing.sm),
                                   Text(
-                                    '지도를 불러올 수 없습니다',
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.location_map_load_error,
                                     style: textTheme.bodyMedium?.copyWith(
                                       color: colorScheme.outline,
                                     ),
@@ -169,7 +172,9 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '탭하여 열기',
+                              AppLocalizations.of(
+                                context,
+                              )!.location_tap_to_open,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 10,
@@ -202,7 +207,7 @@ class _LocationMapBottomSheetState extends State<LocationMapBottomSheet> {
                       ),
                       const SizedBox(width: Spacing.sm),
                       Text(
-                        '주소',
+                        AppLocalizations.of(context)!.location_address,
                         style: textTheme.labelMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),

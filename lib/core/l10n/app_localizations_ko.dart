@@ -1029,4 +1029,37 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get profile_delete_account_apple_manual_revoke_guide =>
       '완전한 Apple 계정 연동 해제를 원하실 경우:\n\n1️⃣ 웹: appleid.apple.com → 로그인 및 보안 → 앱용 Apple ID → 해당 앱 삭제\n\n2️⃣ iPhone: 설정 → Apple ID → 암호 및 보안 → Apple ID 로그인 → 해당 앱 삭제\n\n이렇게 하면 다음 로그인 시 이메일 공개 여부를 다시 선택할 수 있습니다.';
+
+  @override
+  String get weather_current_weather => '현재 날씨';
+
+  @override
+  String get weather_humidity => '습도';
+
+  @override
+  String get weather_wind => '바람';
+
+  @override
+  String get weather_pressure => '기압';
+
+  @override
+  String get location_journal_location => '일기 작성 위치';
+
+  @override
+  String get location_tap_to_open => '탭하여 열기';
+
+  @override
+  String get location_map_load_error => '지도를 불러올 수 없습니다';
+
+  @override
+  String get location_address => '주소';
+
+  @override
+  String get location_no_address => '주소 정보 없음';
+
+  @override
+  String get location_coordinates => '좌표';
+
+  @override
+  String get location_open_in_google_maps => '구글 맵에서 열기';
 }

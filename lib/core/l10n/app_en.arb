@@ -462,5 +462,16 @@
   "profile_delete_account_error": "An error occurred while deleting your account.",
   "profile_delete_account_apple_revoke_failed": "Failed to revoke Apple account connection, but account deletion will proceed.",
   "profile_delete_account_apple_revoke_success": "Apple account connection has been revoked.",
-  "profile_delete_account_apple_manual_revoke_guide": "For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login."
+  "profile_delete_account_apple_manual_revoke_guide": "For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login.",
+  "weather_current_weather": "Current Weather",
+  "weather_humidity": "Humidity",
+  "weather_wind": "Wind",
+  "weather_pressure": "Pressure",
+  "location_journal_location": "Journal Location",
+  "location_tap_to_open": "Tap to open",
+  "location_map_load_error": "Unable to load map",
+  "location_address": "Address",
+  "location_no_address": "No address information",
+  "location_coordinates": "Coordinates",
+  "location_open_in_google_maps": "Open in Google Maps"
 }

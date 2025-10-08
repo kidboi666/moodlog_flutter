@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/common.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../../domain/entities/journal/location_info.dart';
 
 class LocationSimpleBottomSheet extends StatelessWidget {
@@ -48,7 +49,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
               Icon(Icons.location_on, color: colorScheme.primary, size: 24),
               const SizedBox(width: Spacing.sm),
               Text(
-                '일기 작성 위치',
+                AppLocalizations.of(context)!.location_journal_location,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -86,7 +87,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                     ),
                     const SizedBox(width: Spacing.xs),
                     Text(
-                      '주소',
+                      AppLocalizations.of(context)!.location_address,
                       style: textTheme.labelMedium?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -95,7 +96,8 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacing.sm),
                 Text(
-                  locationInfo.address ?? '주소 정보 없음',
+                  locationInfo.address ??
+                      AppLocalizations.of(context)!.location_no_address,
                   style: textTheme.bodyLarge,
                 ),
                 if (locationInfo.address != null) ...[
@@ -109,7 +111,7 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: Spacing.xs),
                       Text(
-                        '좌표',
+                        AppLocalizations.of(context)!.location_coordinates,
                         style: textTheme.labelMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -138,7 +140,9 @@ class LocationSimpleBottomSheet extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: _openInGoogleMaps,
                   icon: const Icon(Icons.open_in_new, size: 18),
-                  label: const Text('구글 맵에서 열기'),
+                  label: Text(
+                    AppLocalizations.of(context)!.location_open_in_google_maps,
+                  ),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: Spacing.sm),
                   ),

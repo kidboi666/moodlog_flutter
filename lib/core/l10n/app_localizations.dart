@@ -2025,6 +2025,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'For complete Apple account disconnection:\n\n1️⃣ Web: appleid.apple.com → Sign-In and Security → Apps using Apple ID → Delete the app\n\n2️⃣ iPhone: Settings → Apple ID → Password & Security → Apple ID logins → Delete the app\n\nThis will allow you to choose email sharing preferences on your next login.'**
   String get profile_delete_account_apple_manual_revoke_guide;
+
+  /// No description provided for @weather_current_weather.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Weather'**
+  String get weather_current_weather;
+
+  /// No description provided for @weather_humidity.
+  ///
+  /// In en, this message translates to:
+  /// **'Humidity'**
+  String get weather_humidity;
+
+  /// No description provided for @weather_wind.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind'**
+  String get weather_wind;
+
+  /// No description provided for @weather_pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Pressure'**
+  String get weather_pressure;
+
+  /// No description provided for @location_journal_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Location'**
+  String get location_journal_location;
+
+  /// No description provided for @location_tap_to_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to open'**
+  String get location_tap_to_open;
+
+  /// No description provided for @location_map_load_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load map'**
+  String get location_map_load_error;
+
+  /// No description provided for @location_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get location_address;
+
+  /// No description provided for @location_no_address.
+  ///
+  /// In en, this message translates to:
+  /// **'No address information'**
+  String get location_no_address;
+
+  /// No description provided for @location_coordinates.
+  ///
+  /// In en, this message translates to:
+  /// **'Coordinates'**
+  String get location_coordinates;
+
+  /// No description provided for @location_open_in_google_maps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Google Maps'**
+  String get location_open_in_google_maps;
 }
 
 class _AppLocalizationsDelegate

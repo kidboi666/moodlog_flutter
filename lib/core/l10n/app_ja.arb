@@ -462,5 +462,16 @@
   "profile_delete_account_error": "アカウント削除中にエラーが発生しました。",
   "profile_delete_account_apple_revoke_failed": "Apple アカウント連携の解除に失敗しましたが、アカウント削除は続行されます。",
   "profile_delete_account_apple_revoke_success": "Apple アカウント連携が解除されました。",
-  "profile_delete_account_apple_manual_revoke_guide": "完全なApple アカウント連携解除を行う場合：\n\n1️⃣ ウェブ: appleid.apple.com → サインインとセキュリティ → Apple IDを使用するApp → 該当アプリを削除\n\n2️⃣ iPhone: 設定 → Apple ID → パスワードとセキュリティ → Apple IDログイン → 該当アプリを削除\n\nこれにより次回ログイン時にメール共有設定を再選択できます。"
+  "profile_delete_account_apple_manual_revoke_guide": "完全なApple アカウント連携解除を行う場合：\n\n1️⃣ ウェブ: appleid.apple.com → サインインとセキュリティ → Apple IDを使用するApp → 該当アプリを削除\n\n2️⃣ iPhone: 設定 → Apple ID → パスワードとセキュリティ → Apple IDログイン → 該当アプリを削除\n\nこれにより次回ログイン時にメール共有設定を再選択できます。",
+  "weather_current_weather": "現在の天気",
+  "weather_humidity": "湿度",
+  "weather_wind": "風",
+  "weather_pressure": "気圧",
+  "location_journal_location": "日記作成場所",
+  "location_tap_to_open": "タップして開く",
+  "location_map_load_error": "地図を読み込めません",
+  "location_address": "住所",
+  "location_no_address": "住所情報なし",
+  "location_coordinates": "座標",
+  "location_open_in_google_maps": "Googleマップで開く"
 }

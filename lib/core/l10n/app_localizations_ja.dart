@@ -1030,4 +1030,37 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get profile_delete_account_apple_manual_revoke_guide =>
       '完全なApple アカウント連携解除を行う場合：\n\n1️⃣ ウェブ: appleid.apple.com → サインインとセキュリティ → Apple IDを使用するApp → 該当アプリを削除\n\n2️⃣ iPhone: 設定 → Apple ID → パスワードとセキュリティ → Apple IDログイン → 該当アプリを削除\n\nこれにより次回ログイン時にメール共有設定を再選択できます。';
+
+  @override
+  String get weather_current_weather => '現在の天気';
+
+  @override
+  String get weather_humidity => '湿度';
+
+  @override
+  String get weather_wind => '風';
+
+  @override
+  String get weather_pressure => '気圧';
+
+  @override
+  String get location_journal_location => '日記作成場所';
+
+  @override
+  String get location_tap_to_open => 'タップして開く';
+
+  @override
+  String get location_map_load_error => '地図を読み込めません';
+
+  @override
+  String get location_address => '住所';
+
+  @override
+  String get location_no_address => '住所情報なし';
+
+  @override
+  String get location_coordinates => '座標';
+
+  @override
+  String get location_open_in_google_maps => 'Googleマップで開く';
 }
