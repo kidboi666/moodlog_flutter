@@ -18,7 +18,9 @@ class _TitleBarState extends State<TitleBar> {
   void initState() {
     super.initState();
     Future.delayed(DelayMS.oneSecond * 3, () {
-      setState(() => crossFadeState = CrossFadeState.showSecond);
+      if (mounted) {
+        setState(() => crossFadeState = CrossFadeState.showSecond);
+      }
     });
   }
 

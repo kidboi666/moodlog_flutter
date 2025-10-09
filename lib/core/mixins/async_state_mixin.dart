@@ -21,35 +21,45 @@ mixin AsyncStateMixin on ChangeNotifier {
   void setAsyncState([AsyncState newState = AsyncState.idle, Object? error]) {
     _state = newState;
     _error = error;
-    notifyListeners();
+    if (hasListeners) {
+      notifyListeners();
+    }
   }
 
   void setLoading() {
     if (_state == AsyncState.loading) return;
     _state = AsyncState.loading;
     _error = null;
-    notifyListeners();
+    if (hasListeners) {
+      notifyListeners();
+    }
   }
 
   void setSuccess() {
     if (_state == AsyncState.success && _error == null) return;
     _state = AsyncState.success;
     _error = null;
-    notifyListeners();
+    if (hasListeners) {
+      notifyListeners();
+    }
   }
 
   void setError(Object error) {
     if (_state == AsyncState.error && _error == error) return;
     _state = AsyncState.error;
     _error = error;
-    notifyListeners();
+    if (hasListeners) {
+      notifyListeners();
+    }
   }
 
   void clearState() {
     if (_state == AsyncState.idle && _error == null) return;
     _error = null;
     _state = AsyncState.idle;
-    notifyListeners();
+    if (hasListeners) {
+      notifyListeners();
+    }
   }
 
   /// 비동기 작업을 안전하게 실행하는 헬퍼 메서드
