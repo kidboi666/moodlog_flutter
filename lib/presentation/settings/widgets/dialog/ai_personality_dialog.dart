@@ -18,7 +18,7 @@ class AiPersonalityDialog extends StatefulWidget {
 }
 
 class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
-  late AiPersonality _selectedPersonality;
+  AiPersonality? _selectedPersonality;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
     _selectedPersonality = widget.viewModel.appState.aiPersonality;
   }
 
-  void _setPersonality(AiPersonality personality) {
+  void _setPersonality(AiPersonality? personality) {
     setState(() {
       _selectedPersonality = personality;
     });
@@ -54,19 +54,25 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
                   style: textTheme.bodyMedium,
                 ),
                 const SizedBox(height: Spacing.lg),
-                ...AiPersonality.values.map((personality) {
-                  final isSelected = personality == _selectedPersonality;
+                RadioGroup<AiPersonality>(
+                  groupValue: _selectedPersonality,
+                  onChanged: _setPersonality,
+                  child: Column(
+                    children: [
+                      ...AiPersonality.values.map((personality) {
+                        final isSelected = personality == _selectedPersonality;
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: Spacing.sm),
-                    child: PersonalityItem(
-                      personality: personality,
-                      isSelected: isSelected,
-                      selectedPersonality: _selectedPersonality,
-                      setPersonality: _setPersonality,
-                    ),
-                  );
-                }),
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: Spacing.sm),
+                          child: PersonalityItem(
+                            personality: personality,
+                            isSelected: isSelected,
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -77,7 +83,7 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
             ),
             FilledButton(
               onPressed: () {
-                widget.viewModel.setAiPersonality(_selectedPersonality);
+                widget.viewModel.setAiPersonality(_selectedPersonality!);
                 context.pop();
                 context.showSnackBar(
                   SnackBar(

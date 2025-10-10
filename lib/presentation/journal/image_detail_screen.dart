@@ -82,8 +82,13 @@ class _ImageDetailScreenState extends State<ImageDetailScreen>
           Matrix4Tween(
             begin: _transformationController.value,
             end: Matrix4.identity()
-              ..translate(centerX * (1 - newScale), centerY * (1 - newScale))
-              ..scale(newScale),
+              ..translateByDouble(
+                centerX * (1 - newScale),
+                centerY * (1 - newScale),
+                0.0,
+                1.0,
+              )
+              ..scaleByDouble(newScale, newScale, newScale, 1.0),
           ).animate(
             CurvedAnimation(
               parent: _animationController,
@@ -201,16 +206,16 @@ class _ImageDetailScreenState extends State<ImageDetailScreen>
                     CircularProgressIndicator(
                       value: loadingProgress.expectedTotalBytes != null
                           ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
+                                loadingProgress.expectedTotalBytes!
                           : null,
                       color: Colors.white,
                     ),
                     const SizedBox(height: Spacing.md),
                     Text(
                       '이미지 로딩 중...',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.white),
                     ),
                   ],
                 ),

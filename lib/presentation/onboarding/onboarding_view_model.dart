@@ -46,8 +46,8 @@ class OnboardingViewModel extends ChangeNotifier
   bool validateNickname(String? value) =>
       value != null && value.isNotEmpty && value.length <= 10;
 
-  void setPersonality(AiPersonality personality) {
-    _selectedPersonality = personality;
+  void setPersonality(AiPersonality? personality) {
+    _selectedPersonality = personality!;
     notifyListeners();
   }
 

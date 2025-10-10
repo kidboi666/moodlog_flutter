@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/constants/common.dart';
 import '../../../../core/l10n/app_localizations.dart';
@@ -105,13 +104,11 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                   labelText: t.tags_input_hint,
                   border: UnderlineInputBorder(),
                   suffixIcon: IconButton(
-                    onPressed: () =>
-                        _addNewTag(widget.viewModel.addNewTag),
+                    onPressed: () => _addNewTag(widget.viewModel.addNewTag),
                     icon: const Icon(Icons.add),
                   ),
                 ),
-                onSubmitted: (_) =>
-                    _addNewTag(widget.viewModel.addNewTag),
+                onSubmitted: (_) => _addNewTag(widget.viewModel.addNewTag),
               ),
 
               // Available tags
@@ -136,9 +133,7 @@ class _TagInputBottomSheetState extends State<TagInputBottomSheet> {
                             (tag) => ActionChip(
                               label: Text(tag.name),
                               onPressed: () {
-                                widget.viewModel.addExistingTag(
-                                  tag,
-                                );
+                                widget.viewModel.addExistingTag(tag);
                               },
                               backgroundColor: tag.color != null
                                   ? Color(int.parse(tag.color!, radix: 16))

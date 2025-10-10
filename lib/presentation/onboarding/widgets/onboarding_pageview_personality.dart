@@ -18,7 +18,6 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final setPersonality = context.read<OnboardingViewModel>().setPersonality;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
@@ -49,17 +48,19 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                 final selectedPersonality = context.select(
                   (OnboardingViewModel vm) => vm.selectedPersonality,
                 );
-                return Column(
-                  children: AiPersonality.values.map((personality) {
-                    final isSelected = personality == selectedPersonality;
+                return RadioGroup(
+                  groupValue: selectedPersonality,
+                  onChanged: context.read<OnboardingViewModel>().setPersonality,
+                  child: Column(
+                    children: AiPersonality.values.map((personality) {
+                      final isSelected = personality == selectedPersonality;
 
-                    return PersonalityItem(
-                      personality: personality,
-                      isSelected: isSelected,
-                      selectedPersonality: selectedPersonality,
-                      setPersonality: setPersonality,
-                    );
-                  }).toList(),
+                      return PersonalityItem(
+                        personality: personality,
+                        isSelected: isSelected,
+                      );
+                    }).toList(),
+                  ),
                 );
               },
             ),

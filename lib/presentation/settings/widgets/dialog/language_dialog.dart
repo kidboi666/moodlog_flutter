@@ -16,37 +16,26 @@ class LanguageDialog extends StatelessWidget {
     return BaseSettingsDialog(
       viewModel: viewModel,
       title: t.settings_common_language_dialog_title,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Text(LanguageCode.ko.displayName),
-            leading: Radio<LanguageCode>(
+      content: RadioGroup<LanguageCode>(
+        groupValue: viewModel.appState.languageCode,
+        onChanged: viewModel.setLanguage,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile(
               value: LanguageCode.ko,
-              groupValue: viewModel.appState.languageCode,
-              onChanged: viewModel.setLanguage,
+              title: Text(LanguageCode.ko.displayName),
             ),
-            onTap: () => viewModel.setLanguage(LanguageCode.ko),
-          ),
-          ListTile(
-            title: Text(LanguageCode.en.displayName),
-            leading: Radio<LanguageCode>(
+            RadioListTile(
               value: LanguageCode.en,
-              groupValue: viewModel.appState.languageCode,
-              onChanged: viewModel.setLanguage,
+              title: Text(LanguageCode.en.displayName),
             ),
-            onTap: () => viewModel.setLanguage(LanguageCode.en),
-          ),
-          ListTile(
-            title: Text(LanguageCode.ja.displayName),
-            leading: Radio<LanguageCode>(
+            RadioListTile(
               value: LanguageCode.ja,
-              groupValue: viewModel.appState.languageCode,
-              onChanged: viewModel.setLanguage,
+              title: Text(LanguageCode.ja.displayName),
             ),
-            onTap: () => viewModel.setLanguage(LanguageCode.ja),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

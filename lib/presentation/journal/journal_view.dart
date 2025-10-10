@@ -9,7 +9,6 @@ import '../../core/extensions/widget.dart';
 import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/fade_in.dart';
 import '../../core/ui/widgets/pop_button.dart';
-import '../../domain/entities/journal/journal.dart';
 import 'journal_view_model.dart';
 import 'widgets/ai_response_box.dart';
 import 'widgets/content_box.dart';

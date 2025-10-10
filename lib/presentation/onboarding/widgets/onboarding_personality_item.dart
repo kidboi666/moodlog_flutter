@@ -1,79 +1,47 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/extensions/localization.dart';
+import '../../../core/constants/common.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/widget.dart';
 
 class PersonalityItem extends StatelessWidget {
   final AiPersonality personality;
   final bool isSelected;
-  final AiPersonality? selectedPersonality;
-  final Function setPersonality;
 
   const PersonalityItem({
     super.key,
     required this.personality,
     required this.isSelected,
-    required this.selectedPersonality,
-    required this.setPersonality,
   });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Card(
-      clipBehavior: Clip.hardEdge,
-      elevation: 0,
-      color: isSelected ? colorScheme.primaryContainer : null,
-      child: InkWell(
-        onTap: () => setPersonality(personality),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            spacing: 20,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 20.0,
-                ),
-                child: Text(personality.emoji, style: textTheme.titleLarge),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      personality.getTitle(context),
-                      style: textTheme.titleMedium?.copyWith(
-                        color: isSelected
-                            ? colorScheme.onPrimaryContainer
-                            : null,
-                      ),
-                    ),
-                    Text(
-                      personality.getDescription(context),
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: isSelected
-                            ? colorScheme.onPrimaryContainer
-                            : null,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Radio<AiPersonality>(
-                value: personality,
-                groupValue: selectedPersonality,
-                onChanged: (AiPersonality? value) => setPersonality(value),
-                fillColor: WidgetStateProperty.all(
-                  isSelected ? colorScheme.onPrimaryContainer : null,
-                ),
-              ),
-            ],
+    return RadioListTile(
+      value: personality,
+      selected: isSelected,
+      selectedTileColor: colorScheme.primaryContainer,
+      tileColor: colorScheme.surface,
+      controlAffinity: ListTileControlAffinity.trailing,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      secondary: Text(personality.emoji, style: textTheme.titleLarge),
+      title: Row(
+        spacing: Spacing.md,
+        children: [
+          Text(
+            personality.getTitle(context),
+            style: textTheme.titleMedium?.copyWith(
+              color: isSelected ? colorScheme.onPrimaryContainer : null,
+            ),
           ),
+        ],
+      ),
+      subtitle: Text(
+        personality.getDescription(context),
+        style: textTheme.bodyMedium?.copyWith(
+          color: isSelected ? colorScheme.onPrimaryContainer : null,
         ),
       ),
     ).scale();

@@ -18,37 +18,26 @@ class ThemeDialog extends StatelessWidget {
     return BaseSettingsDialog(
       viewModel: viewModel,
       title: t.settings_common_theme_title,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Text(ThemeMode.light.getDisplayName(context)),
-            leading: Radio<ThemeMode>(
+      content: RadioGroup(
+        groupValue: viewModel.appState.themeMode,
+        onChanged: viewModel.setTheme,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile(
+              title: Text(ThemeMode.light.getDisplayName(context)),
               value: ThemeMode.light,
-              groupValue: viewModel.appState.themeMode,
-              onChanged: viewModel.setTheme,
             ),
-            onTap: () => viewModel.setTheme(ThemeMode.light),
-          ),
-          ListTile(
-            title: Text(ThemeMode.dark.getDisplayName(context)),
-            leading: Radio<ThemeMode>(
+            RadioListTile(
+              title: Text(ThemeMode.dark.getDisplayName(context)),
               value: ThemeMode.dark,
-              groupValue: viewModel.appState.themeMode,
-              onChanged: viewModel.setTheme,
             ),
-            onTap: () => viewModel.setTheme(ThemeMode.dark),
-          ),
-          ListTile(
-            title: Text(ThemeMode.system.getDisplayName(context)),
-            leading: Radio<ThemeMode>(
+            RadioListTile(
+              title: Text(ThemeMode.system.getDisplayName(context)),
               value: ThemeMode.system,
-              groupValue: viewModel.appState.themeMode,
-              onChanged: viewModel.setTheme,
             ),
-            onTap: () => viewModel.setTheme(ThemeMode.system),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

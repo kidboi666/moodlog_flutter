@@ -17,25 +17,24 @@ class FontFamilyDialog extends StatelessWidget {
     return BaseSettingsDialog(
       viewModel: viewModel,
       title: t.settings_common_font_family_title,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: FontFamily.values.map((fontFamily) {
-          return ListTile(
-            title: Text(
-              fontFamily.getDisplayName(context),
-              style: TextStyle(
-                fontFamily: fontFamily.value,
-                fontSize: fontFamily.fixedFontSize,
+      content: RadioGroup(
+        groupValue: viewModel.appState.fontFamily,
+        onChanged: viewModel.setFontFamily,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: FontFamily.values.map((fontFamily) {
+            return ListTile(
+              title: Text(
+                fontFamily.getDisplayName(context),
+                style: TextStyle(
+                  fontFamily: fontFamily.value,
+                  fontSize: fontFamily.fixedFontSize,
+                ),
               ),
-            ),
-            leading: Radio<FontFamily>(
-              value: fontFamily,
-              groupValue: viewModel.appState.fontFamily,
-              onChanged: viewModel.setFontFamily,
-            ),
-            onTap: () => viewModel.setFontFamily(fontFamily),
-          );
-        }).toList(),
+              leading: Radio<FontFamily>(value: fontFamily),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
