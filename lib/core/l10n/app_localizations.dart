@@ -2091,6 +2091,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open in Google Maps'**
   String get location_open_in_google_maps;
+
+  /// No description provided for @profile_guest_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'You are in guest mode.'**
+  String get profile_guest_mode;
+
+  /// No description provided for @profile_guest_login_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Social Login'**
+  String get profile_guest_login_button;
+
+  /// No description provided for @profile_guest_login_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google or Apple and sync your data.'**
+  String get profile_guest_login_description;
 }
 
 class _AppLocalizationsDelegate

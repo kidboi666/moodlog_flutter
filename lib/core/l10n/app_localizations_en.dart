@@ -1091,4 +1091,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get location_open_in_google_maps => 'Open in Google Maps';
+
+  @override
+  String get profile_guest_mode => 'You are in guest mode.';
+
+  @override
+  String get profile_guest_login_button => 'Switch to Social Login';
+
+  @override
+  String get profile_guest_login_description =>
+      'Sign in with Google or Apple and sync your data.';
 }

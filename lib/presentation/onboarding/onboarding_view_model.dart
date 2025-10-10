@@ -32,14 +32,16 @@ class OnboardingViewModel extends ChangeNotifier
   }
 
   final Logger _log = Logger('OnboardingViewModel');
-  AiPersonality _selectedPersonality = AiPersonality.balanced;
+  AiPersonality? _selectedPersonality;
+
   String _nickname = '';
 
   String get nickname => _nickname;
 
   Settings get appState => _appStateProvider.appState;
 
-  AiPersonality get selectedPersonality => _selectedPersonality;
+  AiPersonality get selectedPersonality =>
+      _selectedPersonality ?? AiPersonality.balanced;
 
   LoginMethod get loginType => _loginType;
 
@@ -47,7 +49,7 @@ class OnboardingViewModel extends ChangeNotifier
       value != null && value.isNotEmpty && value.length <= 10;
 
   void setPersonality(AiPersonality? personality) {
-    _selectedPersonality = personality!;
+    _selectedPersonality = personality ?? AiPersonality.balanced;
     notifyListeners();
   }
 
@@ -80,11 +82,11 @@ class OnboardingViewModel extends ChangeNotifier
       final updatedSettings = _loginType == LoginMethod.anonymous
           ? appState.copyWith(
               isOnboardingComplete: true,
-              aiPersonality: _selectedPersonality,
+              aiPersonality: selectedPersonality,
             )
           : appState.copyWith(
               isSocialOnboardingComplete: true,
-              aiPersonality: _selectedPersonality,
+              aiPersonality: selectedPersonality,
             );
 
       await _appStateProvider.update(updatedSettings);

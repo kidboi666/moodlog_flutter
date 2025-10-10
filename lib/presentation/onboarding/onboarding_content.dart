@@ -80,7 +80,7 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
             if (loginType == LoginMethod.anonymous) {
               context.pushReplacement(Routes.signIn);
             } else {
-              Navigator.of(context).pop();
+              context.pop();
             }
           } else {
             onBack();

@@ -23,7 +23,8 @@ class FontFamilyDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: FontFamily.values.map((fontFamily) {
-            return ListTile(
+            return RadioListTile(
+              value: fontFamily,
               title: Text(
                 fontFamily.getDisplayName(context),
                 style: TextStyle(
@@ -31,7 +32,6 @@ class FontFamilyDialog extends StatelessWidget {
                   fontSize: fontFamily.fixedFontSize,
                 ),
               ),
-              leading: Radio<FontFamily>(value: fontFamily),
             );
           }).toList(),
         ),

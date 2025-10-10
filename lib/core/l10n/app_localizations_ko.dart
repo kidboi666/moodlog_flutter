@@ -1062,4 +1062,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get location_open_in_google_maps => '구글 맵에서 열기';
+
+  @override
+  String get profile_guest_mode => '게스트 모드 입니다.';
+
+  @override
+  String get profile_guest_login_button => '소셜 로그인으로 전환';
+
+  @override
+  String get profile_guest_login_description =>
+      'Google 또는 Apple 계정으로 로그인하고 데이터를 동기화하세요.';
 }

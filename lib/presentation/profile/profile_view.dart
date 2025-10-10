@@ -10,6 +10,7 @@ import 'widgets/account_card.dart';
 import 'widgets/anonymous_user_card.dart';
 import 'widgets/creation_time_card.dart';
 import 'widgets/delete_account_button.dart';
+import 'widgets/guest_login_button.dart';
 import 'widgets/nickname_card.dart';
 import 'widgets/profile_avatar.dart';
 import 'widgets/sign_out_button.dart';

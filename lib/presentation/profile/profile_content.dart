@@ -69,6 +69,7 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
               const ProfileAvatar(),
               const AccountCard(),
               if (isAnonymousUser) const AnonymousUserCard(),
+              if (isAnonymousUser) const GuestLoginButton(),
               const NicknameCard(),
               const CreationTimeCard(),
               if (!isAnonymousUser) const DeleteAccountButton(),

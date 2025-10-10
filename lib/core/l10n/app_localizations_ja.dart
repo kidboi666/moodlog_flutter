@@ -1063,4 +1063,14 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get location_open_in_google_maps => 'Googleマップで開く';
+
+  @override
+  String get profile_guest_mode => 'ゲストモードです。';
+
+  @override
+  String get profile_guest_login_button => 'ソーシャルログインに切り替え';
+
+  @override
+  String get profile_guest_login_description =>
+      'GoogleまたはAppleアカウントでログインしてデータを同期します。';
 }

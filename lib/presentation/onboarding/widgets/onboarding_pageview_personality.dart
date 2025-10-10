@@ -48,7 +48,8 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                 final selectedPersonality = context.select(
                   (OnboardingViewModel vm) => vm.selectedPersonality,
                 );
-                return RadioGroup(
+
+                return RadioGroup<AiPersonality>(
                   groupValue: selectedPersonality,
                   onChanged: context.read<OnboardingViewModel>().setPersonality,
                   child: Column(

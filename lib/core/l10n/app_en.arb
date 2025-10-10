@@ -473,5 +473,8 @@
   "location_address": "Address",
   "location_no_address": "No address information",
   "location_coordinates": "Coordinates",
-  "location_open_in_google_maps": "Open in Google Maps"
+  "location_open_in_google_maps": "Open in Google Maps",
+  "profile_guest_mode": "You are in guest mode.",
+  "profile_guest_login_button": "Switch to Social Login",
+  "profile_guest_login_description": "Sign in with Google or Apple and sync your data."
 }

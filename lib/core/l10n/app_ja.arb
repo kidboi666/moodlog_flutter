@@ -473,5 +473,8 @@
   "location_address": "住所",
   "location_no_address": "住所情報なし",
   "location_coordinates": "座標",
-  "location_open_in_google_maps": "Googleマップで開く"
+  "location_open_in_google_maps": "Googleマップで開く",
+  "profile_guest_mode": "ゲストモードです。",
+  "profile_guest_login_button": "ソーシャルログインに切り替え",
+  "profile_guest_login_description": "GoogleまたはAppleアカウントでログインしてデータを同期します。"
 }
