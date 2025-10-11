@@ -36,7 +36,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   final Map<DateTime, List<Journal>> _yearlyJournals = {};
   MoodType? _representativeMood;
 
-  String? get profileImage => _userProvider.user?.photoURL;
+  String? get profileImage => _userProvider.user?.profileImagePath;
 
   List<Journal> get allJournals => _allJournals;
 

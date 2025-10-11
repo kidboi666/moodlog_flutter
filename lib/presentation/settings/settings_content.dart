@@ -97,7 +97,7 @@ class _SettingsScreenContent extends StatelessWidget {
                   value: viewModel.appState.hasAutoSyncEnabled,
                   onChanged: viewModel.setAutoSyncEnabled,
                 ),
-                CardListTile(
+                MenuListTile(
                   title: t.settings_data_backup_title,
                   subtitle: t.settings_data_backup_subtitle,
                   icon: Icons.backup,
@@ -107,7 +107,7 @@ class _SettingsScreenContent extends StatelessWidget {
                   ),
                 ),
 
-                CardListTile(
+                MenuListTile(
                   title: t.tags_manage_title,
                   subtitle: t.tags_manage_subtitle,
                   icon: Icons.label,
@@ -120,7 +120,7 @@ class _SettingsScreenContent extends StatelessWidget {
 
               const SizedBox(height: Spacing.xl),
               SectionHeader(title: t.settings_information_title),
-              CardListTile(
+              MenuListTile(
                 title: t.settings_information_app_title,
                 subtitle: t.settings_information_app_subtitle,
                 icon: Icons.info,
@@ -129,8 +129,14 @@ class _SettingsScreenContent extends StatelessWidget {
                   builder: (_) => AppInfoDialog(viewModel: viewModel),
                 ),
               ),
+              MenuListTile(
+                title: t.settings_information_license_title,
+                subtitle: t.settings_information_license_subtitle,
+                icon: Icons.local_police,
+                onTap: () => showLicensePage(context: context),
+              ),
 
-              CardListTile(
+              MenuListTile(
                 title: t.settings_information_qna_title,
                 subtitle: t.settings_information_qna_subtitle,
                 icon: Icons.mail,
@@ -139,7 +145,7 @@ class _SettingsScreenContent extends StatelessWidget {
                   builder: (_) => ContactDialog(),
                 ),
               ),
-              const SizedBox(height: kBottomNavigationBarHeight * 3),
+              const SizedBox(height: kBottomNavigationBarHeight * 6),
             ]),
           ),
         ],

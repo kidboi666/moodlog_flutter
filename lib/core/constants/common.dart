@@ -60,6 +60,10 @@ abstract final class PreferenceKeys {
   static const appSettings = 'app_settings';
   static const onboardingCompleted = 'onboarding_completed';
   static const lastAiUsageDate = 'last_ai_usage_date';
+  static const localUserId = 'local_user_id';
+  static const localUserNickname = 'local_user_nickname';
+  static const localUserProfileImage = 'local_user_profile_image';
+  static const localUserCreatedAt = 'local_user_created_at';
 }
 
 abstract final class DebounceKeys {

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/firebase_options_dev.dart' as development;
 import 'package:provider/provider.dart';
 
+import 'app.dart';
 import 'core/di/injection_container.dart';
 import 'core/utils/flavor_config.dart';
-import 'app.dart';
+import 'firebase_options_dev.dart' as development;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -5,7 +5,30 @@
 - Flutter 앱 with Provider state management
 - Drift (SQLite) for local database
 - AdMob integration for ads
-- Firebase integration
+- Firebase integration (AI, Analytics only - Auth removed since v1.0.28)
+
+## Architecture Changes (v1.0.28+)
+
+### 로컬 우선 아키텍처 (Local-First Architecture)
+
+**개요**: v1.0.28부터 Firebase Authentication을 제거하고 로컬 우선 아키텍처로 전환했습니다.
+
+**주요 변경사항**:
+- 로그인 화면 제거 - 온보딩만으로 앱 사용 시작
+- Firebase Auth 대신 로컬 사용자 관리 (SharedPreferences)
+- 사용자 데이터는 모두 로컬에 저장 (Drift + SharedPreferences)
+
+**사용자 관리**:
+- `LocalUser` 엔티티: userId (UUID), nickname, profileImagePath, createdAt
+- `LocalUserRepository`: 로컬 사용자 CRUD 작업
+- `UserProvider`: LocalUserRepository 기반 상태 관리
+
+**인증 플로우**:
+1. 앱 최초 실행 → 온보딩 화면
+2. 온보딩 완료 → 로컬 사용자 자동 생성
+3. 재실행 → 바로 홈 화면 진입
+
+**참고 문서**: `docs/local_first_architecture_plan.md`
 
 ## Development Conventions
 
@@ -72,9 +95,11 @@
   <ja-JP>
   ja-JP 출시 노트를 여기에 입력하거나 붙여넣으세요.
   </ja-JP>
+- 모든 패치노트를 작성하고 반드시 pubspec.yaml의 version을 올려도 되냐는 질문을 할것.
   
 
 - 형식: 새로운 기능(🌍), 개선사항(🎨), 버그 수정(🔧)
+- 참조: 가장 마지막에 작성된 패치노트 이후부터의 커밋 내용들이 패치노트에 들어가야 함.
 - 길이: 각 지원 언어당 30자를 넘지 않음
 
 ### Supported Languages (v1.0.8+)

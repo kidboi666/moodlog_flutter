@@ -640,20 +640,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_information_title => 'Information';
 
   @override
-  String get settings_information_app_title => 'App Information';
+  String get settings_information_app_title => 'App Info';
 
   @override
   String get settings_information_app_subtitle =>
-      'Version and license information';
+      'Version and build information';
 
   @override
-  String get settings_information_app_version => 'Version';
+  String get settings_information_app_version => 'App Version';
 
   @override
-  String get settings_information_app_build => 'License';
+  String get settings_information_app_build => 'Build Version';
 
   @override
   String get settings_information_app_developer => 'Developer';
+
+  @override
+  String get settings_information_license_title => 'License';
+
+  @override
+  String get settings_information_license_subtitle => 'License information';
 
   @override
   String get settings_information_faq_title => 'Help';

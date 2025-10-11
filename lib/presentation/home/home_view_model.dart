@@ -41,11 +41,9 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   LocationInfo? _locationInfo;
   WeatherInfo? _weatherInfo;
 
-  String? get profileImage => _userProvider.user?.photoURL;
+  String? get profileImage => _userProvider.user?.profileImagePath;
 
-  String? get nickname =>
-      _userProvider.user?.displayName ??
-      _userProvider.user?.email?.split('@').first;
+  String? get nickname => _userProvider.user?.nickname;
 
   DateTime get selectedDate => _selectedDate;
 

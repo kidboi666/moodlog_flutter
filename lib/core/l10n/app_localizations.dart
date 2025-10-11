@@ -1255,25 +1255,25 @@ abstract class AppLocalizations {
   /// No description provided for @settings_information_app_title.
   ///
   /// In en, this message translates to:
-  /// **'App Information'**
+  /// **'App Info'**
   String get settings_information_app_title;
 
   /// No description provided for @settings_information_app_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Version and license information'**
+  /// **'Version and build information'**
   String get settings_information_app_subtitle;
 
   /// No description provided for @settings_information_app_version.
   ///
   /// In en, this message translates to:
-  /// **'Version'**
+  /// **'App Version'**
   String get settings_information_app_version;
 
   /// No description provided for @settings_information_app_build.
   ///
   /// In en, this message translates to:
-  /// **'License'**
+  /// **'Build Version'**
   String get settings_information_app_build;
 
   /// No description provided for @settings_information_app_developer.
@@ -1281,6 +1281,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Developer'**
   String get settings_information_app_developer;
+
+  /// No description provided for @settings_information_license_title.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get settings_information_license_title;
+
+  /// No description provided for @settings_information_license_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'License information'**
+  String get settings_information_license_subtitle;
 
   /// No description provided for @settings_information_faq_title.
   ///

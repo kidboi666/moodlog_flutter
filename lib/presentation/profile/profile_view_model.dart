@@ -6,7 +6,7 @@ import 'package:logging/logging.dart';
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
-import '../../domain/entities/user/user.dart';
+import '../../domain/entities/user/local_user.dart';
 import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
 import '../providers/user_provider.dart';
@@ -49,13 +49,14 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  bool get isCurrentGoogleUser => _userProvider.isCurrentGoogleUser;
+  // TODO: Phase 4에서 제거 예정 - Firebase Auth 관련 getter들
+  bool get isCurrentGoogleUser => false; // 로컬 사용자는 소셜 로그인 없음
 
-  bool get isCurrentAppleUser => _userProvider.isCurrentAppleUser;
+  bool get isCurrentAppleUser => false; // 로컬 사용자는 소셜 로그인 없음
 
-  User? get user => _userProvider.user;
+  LocalUser? get user => _userProvider.user;
 
-  bool get isAnonymousUser => _userProvider.isAnonymousUser;
+  bool get isAnonymousUser => false; // 로컬 사용자는 익명 로그인 없음
 
   Future<void> updateProfilePhoto(String photoURL) async {}
 
@@ -103,7 +104,8 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   LoginMethod getUserLoginMethod() {
-    return _userProvider.currentSignInMethod;
+    // TODO: Phase 4에서 제거 예정 - 로컬 사용자는 로그인 방식 없음
+    return LoginMethod.anonymous; // 임시 반환값
   }
 
   Future<Result<void>> _updateProfilePhoto(String photoURL) async {

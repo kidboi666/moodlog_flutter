@@ -11,7 +11,7 @@ class ProfileAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final photoUrl = context.select(
-      (ProfileViewModel vm) => vm.user?.photoURL,
+      (ProfileViewModel vm) => vm.user?.profileImagePath,
     );
 
     return Center(

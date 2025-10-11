@@ -16,7 +16,7 @@ class NicknameCard extends StatelessWidget {
         .read<ProfileViewModel>()
         .updateDisplayName;
     final nickname = context.select<ProfileViewModel, String>(
-      (vm) => vm.user?.displayName ?? '',
+      (vm) => vm.user?.nickname ?? '',
     );
 
     return InkWell(

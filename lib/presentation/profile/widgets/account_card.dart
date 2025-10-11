@@ -17,7 +17,7 @@ class AccountCard extends StatelessWidget {
       (ProfileViewModel vm) => (
         isCurrentGoogleUser: vm.isCurrentGoogleUser,
         isCurrentAppleUser: vm.isCurrentAppleUser,
-        email: vm.user?.email,
+        email: '', // TODO: Phase 4에서 제거 예정 - LocalUser는 email 없음
       ),
     );
 

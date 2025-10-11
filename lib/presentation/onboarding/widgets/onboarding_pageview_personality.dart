@@ -53,14 +53,13 @@ class OnboardingPageViewPersonality extends StatelessWidget {
                   groupValue: selectedPersonality,
                   onChanged: context.read<OnboardingViewModel>().setPersonality,
                   child: Column(
-                    children: AiPersonality.values.map((personality) {
-                      final isSelected = personality == selectedPersonality;
-
-                      return PersonalityItem(
-                        personality: personality,
-                        isSelected: isSelected,
-                      );
-                    }).toList(),
+                    spacing: Spacing.sm,
+                    children: [
+                      ...AiPersonality.values.map(
+                        (AiPersonality personality) =>
+                            OnboardingPersonalityItem(personality: personality),
+                      ),
+                    ],
                   ),
                 );
               },

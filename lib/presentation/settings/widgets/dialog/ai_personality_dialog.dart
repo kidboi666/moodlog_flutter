@@ -60,13 +60,10 @@ class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
                   child: Column(
                     children: [
                       ...AiPersonality.values.map((personality) {
-                        final isSelected = personality == _selectedPersonality;
-
                         return Padding(
                           padding: const EdgeInsets.only(bottom: Spacing.sm),
-                          child: PersonalityItem(
+                          child: OnboardingPersonalityItem(
                             personality: personality,
-                            isSelected: isSelected,
                           ),
                         );
                       }),

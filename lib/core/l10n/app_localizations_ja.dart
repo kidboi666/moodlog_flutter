@@ -625,16 +625,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_information_app_title => 'アプリ情報';
 
   @override
-  String get settings_information_app_subtitle => 'バージョンとライセンス情報';
+  String get settings_information_app_subtitle => 'バージョンとビルド情報';
 
   @override
-  String get settings_information_app_version => 'バージョン';
+  String get settings_information_app_version => 'アプリバージョン';
 
   @override
-  String get settings_information_app_build => 'ライセンス';
+  String get settings_information_app_build => 'ビルドバージョン';
 
   @override
   String get settings_information_app_developer => '開発者';
+
+  @override
+  String get settings_information_license_title => 'ライセンス';
+
+  @override
+  String get settings_information_license_subtitle => 'ライセンス情報';
 
   @override
   String get settings_information_faq_title => 'ヘルプ';

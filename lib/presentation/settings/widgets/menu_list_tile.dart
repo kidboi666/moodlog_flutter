@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+import '../../../core/constants/common.dart';
+
+class MenuListTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const MenuListTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      leading: _buildLeadingIcong(context),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: _buildTrailingIcon(context),
+    );
+  }
+
+  Widget _buildLeadingIcong(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(Spacing.sm),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, color: Theme.of(context).colorScheme.secondary),
+    );
+  }
+
+  Widget _buildTrailingIcon(BuildContext context) {
+    return Icon(
+      Icons.chevron_right,
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
+      size: 18,
+    );
+  }
+}

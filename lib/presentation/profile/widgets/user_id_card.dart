@@ -13,7 +13,7 @@ class UserIdCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final uid = context.select(
-      (ProfileViewModel vm) => vm.user?.uid ?? '',
+      (ProfileViewModel vm) => vm.user?.userId ?? '',
     );
 
     return SafeArea(

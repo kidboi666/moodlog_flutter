@@ -21,7 +21,6 @@ abstract class AppStateSharedPreferencesModel
     @Default('FontFamily.restart') String fontFamily,
     @Default('SimpleTextAlign.left') String textAlign,
     @Default(false) bool isOnboardingComplete,
-    @Default(false) bool isSocialOnboardingComplete,
   }) = _AppStateSharedPreferencesModel;
 
   factory AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) =>
@@ -38,7 +37,6 @@ abstract class AppStateSharedPreferencesModel
       fontFamily: entity.fontFamily.toString(),
       textAlign: entity.textAlign.toString(),
       isOnboardingComplete: entity.isOnboardingComplete,
-      isSocialOnboardingComplete: entity.isSocialOnboardingComplete,
     );
   }
 
@@ -71,7 +69,6 @@ abstract class AppStateSharedPreferencesModel
         orElse: () => SimpleTextAlign.left,
       ),
       isOnboardingComplete: isOnboardingComplete,
-      isSocialOnboardingComplete: isSocialOnboardingComplete,
     );
   }
 }

@@ -4,30 +4,26 @@ import 'package:logging/logging.dart';
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/mixins/step_mixin.dart';
-import '../../core/utils/result.dart';
-import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/entities/app/settings.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../../domain/use_cases/auth_use_case.dart';
+import '../../domain/repositories/local_user_repository.dart';
 import '../../presentation/providers/app_state_provider.dart';
+import '../../presentation/providers/user_provider.dart';
 
 class OnboardingViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {
   final AppStateProvider _appStateProvider;
-  final AuthUseCase _authUseCase;
-  final AuthRepository _authRepository;
-  final LoginMethod _loginType;
+  final LocalUserRepository _localUserRepository;
+  final UserProvider _userProvider;
 
   OnboardingViewModel({
     required int totalSteps,
     required AppStateProvider appStateProvider,
-    required AuthUseCase authUseCase,
-    required AuthRepository authRepository,
-    required LoginMethod loginType,
+    required LocalUserRepository localUserRepository,
+    required UserProvider userProvider,
   }) : _appStateProvider = appStateProvider,
-       _authUseCase = authUseCase,
-       _authRepository = authRepository,
-       _loginType = loginType {
+       _localUserRepository = localUserRepository,
+       _userProvider = userProvider,
+       _selectedPersonality = AiPersonality.balanced {
     initStep(totalSteps);
   }
 
@@ -43,8 +39,6 @@ class OnboardingViewModel extends ChangeNotifier
   AiPersonality get selectedPersonality =>
       _selectedPersonality ?? AiPersonality.balanced;
 
-  LoginMethod get loginType => _loginType;
-
   bool validateNickname(String? value) =>
       value != null && value.isNotEmpty && value.length <= 10;
 
@@ -58,41 +52,25 @@ class OnboardingViewModel extends ChangeNotifier
     notifyListeners();
   }
 
-  Future<void> setOnboardingCompleted() async {
+  Future<void> completeOnboarding() async {
     setLoading();
     try {
-      if (_loginType == LoginMethod.anonymous) {
-        final signInResult = await _authRepository.signInAnonymously();
-        switch (signInResult) {
-          case Ok():
-            AnalyticsRepositoryImpl().setUserId(signInResult.value?.uid);
-            AnalyticsRepositoryImpl().setUserProperty(
-              name: 'login_method',
-              value: 'anonymous',
-            );
-          case Error():
-            _log.warning('Failed to sign in anonymously', signInResult.error);
-            setError(signInResult.error);
-            return;
-        }
-      }
+      // 로컬 사용자 생성
+      await _localUserRepository.createUser(nickname: _nickname);
 
-      await _authUseCase.updateDisplayName(_nickname);
+      // UserProvider 갱신
+      await _userProvider.refresh();
 
-      final updatedSettings = _loginType == LoginMethod.anonymous
-          ? appState.copyWith(
-              isOnboardingComplete: true,
-              aiPersonality: selectedPersonality,
-            )
-          : appState.copyWith(
-              isSocialOnboardingComplete: true,
-              aiPersonality: selectedPersonality,
-            );
+      // 온보딩 완료 플래그 저장
+      final updatedSettings = appState.copyWith(
+        isOnboardingComplete: true,
+        aiPersonality: selectedPersonality,
+      );
 
       await _appStateProvider.update(updatedSettings);
       setSuccess();
     } catch (e) {
-      _log.warning('Failed to update base user info', e);
+      _log.warning('Failed to complete onboarding', e);
       setError(e);
     }
   }

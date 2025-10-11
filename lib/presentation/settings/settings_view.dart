@@ -8,7 +8,6 @@ import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/glower.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
 import 'settings_view_model.dart';
-import 'widgets/card_list_tile.dart';
 import 'widgets/dialog/ai_personality_dialog.dart';
 import 'widgets/dialog/app_info_dialog.dart';
 import 'widgets/dialog/backup_dialog.dart';
@@ -20,6 +19,7 @@ import 'widgets/dialog/language_dialog.dart';
 import 'widgets/dialog/tag_management_dialog.dart';
 import 'widgets/dialog/theme_dialog.dart';
 import 'widgets/dialog_tile.dart';
+import 'widgets/menu_list_tile.dart';
 import 'widgets/section_header.dart';
 import 'widgets/switch_tile.dart';
 

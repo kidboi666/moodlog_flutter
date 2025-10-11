@@ -5,7 +5,7 @@ import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/app/settings.dart';
 import '../../domain/entities/journal/tag.dart';
-import '../../domain/entities/user/user.dart';
+import '../../domain/entities/user/local_user.dart';
 import '../../domain/repositories/analytics_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/use_cases/tag_use_case.dart';
@@ -43,11 +43,11 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   String get appBuild => _appBuild;
 
-  String? get profileImage => _userProvider.user?.photoURL;
+  String? get profileImage => _userProvider.user?.profileImagePath;
 
   Settings get appState => _appStateProvider.appState;
 
-  User? get currentUser => _userProvider.user;
+  LocalUser? get currentUser => _userProvider.user;
 
   void getAllTags() async {
     final result = await executeAsync(() async {

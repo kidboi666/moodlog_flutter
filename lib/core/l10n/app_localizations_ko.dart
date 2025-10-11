@@ -624,16 +624,22 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_information_app_title => '앱 정보';
 
   @override
-  String get settings_information_app_subtitle => '버전 및 라이센스 정보';
+  String get settings_information_app_subtitle => '버전 및 빌드 정보';
 
   @override
-  String get settings_information_app_version => '버전';
+  String get settings_information_app_version => '앱 버전';
 
   @override
-  String get settings_information_app_build => '라이센스';
+  String get settings_information_app_build => '빌드 버전';
 
   @override
   String get settings_information_app_developer => '개발자';
+
+  @override
+  String get settings_information_license_title => '라이센스';
+
+  @override
+  String get settings_information_license_subtitle => '라이센스 정보';
 
   @override
   String get settings_information_faq_title => '도움말';

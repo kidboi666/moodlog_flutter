@@ -60,7 +60,7 @@ class OnboardingPageViewSuccess extends StatelessWidget {
                           onPressed: isLoading
                               ? null
                               : () async {
-                                  await viewModel.setOnboardingCompleted();
+                                  await viewModel.completeOnboarding();
                                   if (context.mounted) {
                                     context.go(Routes.home);
                                   }

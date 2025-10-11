@@ -69,7 +69,6 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
     final totalSteps = context.select(
       (OnboardingViewModel vm) => vm.totalSteps,
     );
-    final loginType = context.select((OnboardingViewModel vm) => vm.loginType);
 
     return AppBar(
       leading: IconButton(
@@ -77,11 +76,8 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
         padding: EdgeInsets.zero,
         onPressed: () {
           if (currentStep == 0) {
-            if (loginType == LoginMethod.anonymous) {
-              context.pushReplacement(Routes.signIn);
-            } else {
-              context.pop();
-            }
+            // 첫 페이지에서는 뒤로 가기 비활성화 (온보딩 필수)
+            return;
           } else {
             onBack();
           }

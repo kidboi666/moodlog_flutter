@@ -4,41 +4,29 @@ import '../../../../core/extensions/localization.dart';
 import '../../../core/constants/enum.dart';
 import '../../../core/extensions/widget.dart';
 
-class PersonalityItem extends StatelessWidget {
+class OnboardingPersonalityItem extends StatelessWidget {
   final AiPersonality personality;
-  final bool isSelected;
 
-  const PersonalityItem({
-    super.key,
-    required this.personality,
-    required this.isSelected,
-  });
+  const OnboardingPersonalityItem({super.key, required this.personality});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return RadioListTile(
+    return RadioListTile<AiPersonality>(
       value: personality,
-      selected: isSelected,
-      selectedTileColor: colorScheme.primaryContainer,
-      activeColor: colorScheme.onPrimaryContainer,
-      tileColor: colorScheme.surface,
+      tileColor: colorScheme.surfaceContainer,
       controlAffinity: ListTileControlAffinity.trailing,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       secondary: Text(personality.emoji, style: textTheme.titleLarge),
       title: Text(
         personality.getTitle(context),
-        style: textTheme.titleMedium?.copyWith(
-          color: isSelected ? colorScheme.onPrimaryContainer : null,
-        ),
+        style: textTheme.titleMedium?.copyWith(),
       ),
       subtitle: Text(
         personality.getDescription(context),
-        style: textTheme.bodyMedium?.copyWith(
-          color: isSelected ? colorScheme.onPrimaryContainer : null,
-        ),
+        style: textTheme.bodyMedium?.copyWith(),
       ),
     ).scale();
   }

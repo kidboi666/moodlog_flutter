@@ -1,69 +1,43 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
-import '../../domain/entities/user/user.dart';
-import '../../domain/repositories/auth_repository.dart';
+import '../../domain/entities/user/local_user.dart';
+import '../../domain/repositories/local_user_repository.dart';
 
 class UserProvider extends ChangeNotifier with AsyncStateMixin {
-  final AuthRepository _authRepository;
+  final LocalUserRepository _localUserRepository;
 
-  UserProvider({required AuthRepository authRepository})
-    : _authRepository = authRepository {
-    _initializeUserStream();
+  UserProvider({required LocalUserRepository localUserRepository})
+    : _localUserRepository = localUserRepository {
+    initialize();
   }
 
   final Logger _log = Logger('UserProvider');
-  StreamSubscription<User?>? _userSubscription;
-  User? _user;
+  LocalUser? _user;
 
-  User? get user => _user;
+  LocalUser? get user => _user;
 
-  bool get isAuthenticated => _authRepository.isAuthenticated;
+  bool get isAuthenticated => _user != null;
 
-  bool get isAnonymousUser => _user?.isAnonymous == true;
-
-  LoginMethod get currentSignInMethod {
-    if (_user == null || _user!.providerData.isEmpty) {
-      return LoginMethod.anonymous;
-    }
-    final provider = _user!.providerData.first.providerId;
-    if (provider == 'google.com') {
-      return LoginMethod.google;
-    } else if (provider == 'apple.com') {
-      return LoginMethod.apple;
-    } else {
-      return LoginMethod.anonymous;
+  Future<void> initialize() async {
+    setLoading();
+    try {
+      _user = await _localUserRepository.getUser();
+      setSuccess();
+      notifyListeners();
+    } catch (e) {
+      _log.severe('Failed to initialize user: $e');
+      setError(e);
     }
   }
 
-  bool get isCurrentGoogleUser {
-    return currentSignInMethod == LoginMethod.google;
-  }
-
-  bool get isCurrentAppleUser {
-    return currentSignInMethod == LoginMethod.apple;
-  }
-
-  void _initializeUserStream() {
-    _userSubscription = _authRepository.userChanges.listen(
-      (user) {
-        _user = user;
-        setSuccess();
-      },
-      onError: (error) {
-        _log.warning('Error in user stream: $error');
-        setError(error);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _userSubscription?.cancel();
-    super.dispose();
+  Future<void> refresh() async {
+    try {
+      _user = await _localUserRepository.getUser();
+      notifyListeners();
+    } catch (e) {
+      _log.severe('Failed to refresh user: $e');
+    }
   }
 }

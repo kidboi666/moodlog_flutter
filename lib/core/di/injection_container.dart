@@ -10,6 +10,7 @@ import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
 import '../../data/repositories/image_repository_impl.dart';
 import '../../data/repositories/journal_repository_impl.dart';
+import '../../data/repositories/local_user_repository_impl.dart';
 import '../../data/repositories/location_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/tag_repository_impl.dart';
@@ -19,6 +20,7 @@ import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/image_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
+import '../../domain/repositories/local_user_repository.dart';
 import '../../domain/repositories/location_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
@@ -79,6 +81,11 @@ List<SingleChildWidget> _createRepositories() {
           SettingsRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
+    Provider<LocalUserRepository>(
+      create: (context) =>
+          LocalUserRepositoryImpl(localDataSource: context.read()),
+      lazy: false,
+    ),
     Provider<AuthRepository>(create: (_) => AuthRepositoryImpl(), lazy: false),
     Provider<GeminiRepository>(
       create: (_) => GeminiRepositoryImpl.instance,
@@ -109,7 +116,7 @@ List<SingleChildWidget> _createStateProviders() {
       lazy: false,
     ),
     ChangeNotifierProvider<UserProvider>(
-      create: (context) => UserProvider(authRepository: context.read()),
+      create: (context) => UserProvider(localUserRepository: context.read()),
     ),
     ChangeNotifierProvider<AiGenerationProvider>(
       create: (context) => AiGenerationProvider(),
