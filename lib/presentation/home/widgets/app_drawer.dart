@@ -15,27 +15,20 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     return NavigationDrawer(
-      footer: Column(children: [const AppInfoFooter(), const BannerAdWidget()]),
+      footer: const Column(children: [AppInfoFooter(), BannerAdWidget()]),
       children: [
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SizedBox(height: 80, child: WeatherWidget()),
         ),
         const Divider(),
-        ListTile(
-          leading: const Icon(Icons.home_outlined),
-          title: Text(t.tab_home),
-          onTap: () {
-            context.go(Routes.home);
-            Navigator.pop(context);
-          },
-        ),
+
         ListTile(
           leading: const Icon(Icons.book_outlined),
           title: Text(t.tab_entries),
           onTap: () {
             context.push(Routes.entries);
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         ListTile(
@@ -43,7 +36,7 @@ class AppDrawer extends StatelessWidget {
           title: Text(t.tab_statistics),
           onTap: () {
             context.push(Routes.statistics);
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         ListTile(
@@ -51,11 +44,10 @@ class AppDrawer extends StatelessWidget {
           title: Text(t.tab_settings),
           onTap: () {
             context.push(Routes.settings);
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         const Divider(),
-
         ListTile(
           leading: const Icon(Icons.local_police_outlined),
           title: Text(t.settings_information_license_title),

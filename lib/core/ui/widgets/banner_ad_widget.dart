@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../utils/admob_helper.dart';
+import 'skeleton.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});
@@ -45,7 +46,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   Widget build(BuildContext context) {
     return _isBannerAdReady
         ? SizedBox(height: 50, child: AdWidget(ad: _bannerAd!))
-        : const SizedBox(height: 50);
+        : const Skeleton(height: 50);
   }
 
   @override

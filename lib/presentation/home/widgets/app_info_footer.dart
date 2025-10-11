@@ -8,6 +8,9 @@ class AppInfoFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(),
       builder: (context, snapshot) {
@@ -19,14 +22,25 @@ class AppInfoFooter extends StatelessWidget {
               children: [
                 Text(
                   '${AppLocalizations.of(context)!.settings_information_app_version}: ${packageInfo.version}',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   '${AppLocalizations.of(context)!.settings_information_app_build}: ${packageInfo.buildNumber}',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
                 ),
                 const SizedBox(height: 8),
-                const SizedBox(height: 8),
-                const Text('© 2024 All rights reserved'),
+
+                Text(
+                  '© 2025 All rights reserved',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
               ],
             ),
           );
