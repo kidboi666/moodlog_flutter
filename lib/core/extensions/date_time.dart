@@ -7,6 +7,27 @@ extension DateTimeExtension on DateTime {
 
   int get firstDateOfMonth => DateTime(year, month + 1, 1).day;
 
+  String getLocalizedWeekdayName(AppLocalizations localizations) {
+    switch (weekday) {
+      case DateTime.monday:
+        return localizations.common_weekday_mon;
+      case DateTime.tuesday:
+        return localizations.common_weekday_tue;
+      case DateTime.wednesday:
+        return localizations.common_weekday_wed;
+      case DateTime.thursday:
+        return localizations.common_weekday_thu;
+      case DateTime.friday:
+        return localizations.common_weekday_fri;
+      case DateTime.saturday:
+        return localizations.common_weekday_sat;
+      case DateTime.sunday:
+        return localizations.common_weekday_sun;
+      default:
+        return '';
+    }
+  }
+
   String getLocalizedWeekdayShortName(AppLocalizations localizations) {
     switch (weekday) {
       case DateTime.monday:

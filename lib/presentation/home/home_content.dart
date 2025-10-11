@@ -3,10 +3,7 @@ part of 'home_view.dart';
 class _HomeScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final (
-      :isSelectionMode,
-      :selectedJournalIds,
-    ) = context.select(
+    final (:isSelectionMode, :selectedJournalIds) = context.select(
       (HomeViewModel vm) => (
         isSelectionMode: vm.isSelectionMode,
         selectedJournalIds: vm.selectedJournalIds,
@@ -34,18 +31,19 @@ class _HomeScreenContent extends StatelessWidget {
                   onPressed: () async {
                     final shouldDelete = await showDialog(
                       context: context,
-                      builder: (context) {
+                      builder: (_) {
                         return AlertDialog(
                           title: const Text("Confirm Deletion"),
                           content: Text(
-                              "Are you sure you want to delete ${selectedJournalIds.length} journal entries?"),
+                            "Are you sure you want to delete ${selectedJournalIds.length} journal entries?",
+                          ),
                           actions: <Widget>[
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
+                              onPressed: () => context.pop(false),
                               child: const Text("Cancel"),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
+                              onPressed: () => context.pop(true),
                               child: const Text("Delete"),
                             ),
                           ],
@@ -53,7 +51,9 @@ class _HomeScreenContent extends StatelessWidget {
                       },
                     );
                     if (shouldDelete == true) {
-                      context.read<HomeViewModel>().deleteSelectedJournals();
+                      if (context.mounted) {
+                        context.read<HomeViewModel>().deleteSelectedJournals();
+                      }
                     }
                   },
                 ),

@@ -1,108 +1,153 @@
-# MoodLog Flutter Project - Claude Guidelines
+# MoodLog Flutter Project - Gemini Guidelines
+
+## Project Overview
+
+MoodLog is a mood tracking and journaling Flutter app with the following key features:
+- Local-first architecture (no login required)
+- Mood tracking with AI-powered insights
+- Private diary entries stored locally
+- Statistics and analytics
 
 ## Project Structure
 
-- Flutter 앱 with Provider state management
-- Drift (SQLite) for local database
-- AdMob integration for ads
-- Firebase integration (AI, Analytics only - Auth removed since v1.0.28)
+- **State Management**: Provider
+- **Routing**: go_router
+- **Database**: Drift (SQLite) for local storage
+- **AI Integration**: Firebase AI (Gemini)
+- **Analytics**: Firebase Analytics
+- **Ads**: Google Mobile Ads
 
-## Architecture Changes (v1.0.28+)
+## Architecture
 
-### 로컬 우선 아키텍처 (Local-First Architecture)
+### MVVM + Clean Architecture
 
-**개요**: v1.0.28부터 Firebase Authentication을 제거하고 로컬 우선 아키텍처로 전환했습니다.
+```
+lib/
+├── core/           # Common utilities, constants, themes
+├── data/           # Repositories, data sources, models
+├── domain/         # Entities, repository interfaces, use cases
+└── presentation/   # UI, ViewModels, widgets
+```
 
-**주요 변경사항**:
-- 로그인 화면 제거 - 온보딩만으로 앱 사용 시작
-- Firebase Auth 대신 로컬 사용자 관리 (SharedPreferences)
-- 사용자 데이터는 모두 로컬에 저장 (Drift + SharedPreferences)
+### File Patterns
 
-**사용자 관리**:
-- `LocalUser` 엔티티: userId (UUID), nickname, profileImagePath, createdAt
-- `LocalUserRepository`: 로컬 사용자 CRUD 작업
-- `UserProvider`: LocalUserRepository 기반 상태 관리
+- **ViewModels**: `lib/presentation/*/viewmodel/` or `lib/presentation/*/*_view_model.dart`
+- **Repositories**: `lib/data/repositories/*_repository_impl.dart`
+- **Widgets**: `lib/presentation/*/widgets/`
+- **Models**: `lib/data/models/`
+- **Entities**: `lib/domain/entities/`
 
-**인증 플로우**:
-1. 앱 최초 실행 → 온보딩 화면
-2. 온보딩 완료 → 로컬 사용자 자동 생성
-3. 재실행 → 바로 홈 화면 진입
+## Key Architectural Decisions (v1.0.28+)
 
-**참고 문서**: `docs/local_first_architecture_plan.md`
+### Local-First Architecture
+
+**No Authentication Required**:
+- Firebase Auth has been removed
+- Users are created locally on first app launch
+- All data is stored locally (Drift + SharedPreferences)
+
+**User Management**:
+- `LocalUser` entity with: userId (UUID), nickname, profileImagePath, createdAt
+- Stored in SharedPreferences
+- No email or external account linking
+
+**Onboarding Flow**:
+1. First launch → Show onboarding screens
+2. User sets nickname and AI personality
+3. Local user automatically created
+4. App ready to use
+
+**Data Storage**:
+- Journal entries: Drift (SQLite)
+- User info & settings: SharedPreferences
+- No cloud sync (future feature)
 
 ## Development Conventions
 
 ### Internationalization
 
-- `.arb` 파일에만 번역 텍스트 추가
-- 자동 생성되는 `.dart` 파일은 수정하지 않음
-- 지원 언어: ko, en, ja (총 3개 언어)
-- 기준 언어: ko (모든 다국어는 한국어를 우선 기준으로 두고 다른 언어를 번역해야함)
-- 새로운 언어 추가 시 순서:
-    1. `lib/common/l10n/app_{language_code}.arb` 파일 생성
-    2. `lib/common/constants/enum.dart`의 `LanguageCode` enum에 추가
-    3. `lib/presentation/settings/widgets/dialog/language_dialog.dart`에 UI 추가
-    4. `lib/main.dart`의 `supportedLocales`에 추가
-    5. `l10n.yaml`의 `supported-locales`에 추가
-    6. `flutter gen-l10n` 명령어로 자동 생성
+- **Supported Languages**: Korean (default), English, Japanese
+- **Translation Files**: `lib/core/l10n/app_{language_code}.arb`
+- Only edit `.arb` files; `.dart` files are auto-generated
+- Base language is Korean (ko)
 
-### Commands
+### Code Generation
 
-- Lint: `flutter analyze`
-- Test: `flutter test`
-- Build: `flutter build apk`
+```bash
+# Generate localization files
+flutter gen-l10n
 
-### Architecture
+# Generate freezed/json_serializable code
+dart run build_runner build --delete-conflicting-outputs
+```
 
-- MVVM + Clean Architecture
-    - Common: `lib/common`
-    - Data: `lib/data`
-    - Domain: `lib/domain`
-    - Presentation: `lib/presentation`
+### Common Commands
 
-### File Patterns
+```bash
+flutter analyze          # Lint check
+flutter test            # Run tests
+flutter build apk       # Build Android APK
+```
 
-- ViewModels: `lib/presentation/*/viewmodel/`
-- Repositories: `lib/data/repositories/`
-- Widgets: `lib/presentation/*/widgets/`
-- Models: `lib/data/models/`
+### Code Style
 
-### Dependencies
+- Use `withValues(alpha: ..)` instead of deprecated `withOpacity`
+- Follow MVVM pattern: View → ViewModel → UseCase → Repository
+- Use freezed for immutable entities and models
+- Use Provider for state management
 
-- State Management: Provider
-- Database: Drift
-- Charts: fl_chart
-- Ads: google_mobile_ads
+## Key Components
 
-### New Feature
+### User Management
+- `LocalUser`: User entity (domain/entities/user/)
+- `LocalUserRepository`: User data management (domain/repositories/)
+- `LocalUserRepositoryImpl`: SharedPreferences implementation (data/repositories/)
+- `UserProvider`: User state management (presentation/providers/)
 
-- colorScheme에서 deprecated된 api는 사용하지 않고 대체 api를 사용
-- withOpacity대신 withValues(alpha: ..)를 사용
+### Settings Management
+- `Settings`: App settings entity
+- `AppStateProvider`: Settings state management
+- Stored in SharedPreferences
+
+### Journal Management
+- `Journal`: Journal entry entity
+- `JournalRepository`: Journal CRUD operations
+- `JournalLocalDataSource`: Drift database operations
+- Stored in SQLite
+
+### AI Integration
+- Firebase AI (Gemini) for mood analysis
+- `GeminiRepository`: AI operations
+- `GeminiUseCase`: Business logic for AI features
+
+## Important Notes for AI Assistants
+
+1. **Do NOT reintroduce Firebase Auth** - The app is now local-first by design
+2. **Do NOT add login/signup screens** - Use onboarding only
+3. **LocalUser is NOT Firebase User** - Different entity with different fields
+4. **No email field** - LocalUser only has userId, nickname, profileImagePath, createdAt
+5. **All data is local** - No cloud sync currently implemented
 
 ## Release Management
 
 ### Patch Notes
 
-- 패치노트는 `docs/patch/{version}` 형식으로 저장
-- 모든 지원 언어로 작성 (en-US, ko-KR, ja-JP) 하고, 구글 플레이 콘솔에 새로운 버전 작성틀에 맞춰 한 파일안에 작성.
-- 작성 형식 :
-  <ko-KR>
-  ko-KR 출시 노트를 여기에 입력하거나 붙여넣으세요.
-  </ko-KR>
-  <en-US>
-  en-US 출시 노트를 여기에 입력하거나 붙여넣으세요.
-  </en-US>
-  <ja-JP>
-  ja-JP 출시 노트를 여기에 입력하거나 붙여넣으세요.
-  </ja-JP>
-- 모든 패치노트를 작성하고 반드시 pubspec.yaml의 version을 올려도 되냐는 질문을 할것.
-  
+- Location: `docs/patch/{version}`
+- Languages: ko-KR, en-US, ja-JP
+- Format: Use emoji categories (🌍 new feature, 🎨 improvement, 🔧 bug fix)
+- Length: Max 30 characters per language
 
-- 형식: 새로운 기능(🌍), 개선사항(🎨), 버그 수정(🔧)
-- 참조: 가장 마지막에 작성된 패치노트 이후부터의 커밋 내용들이 패치노트에 들어가야 함.
-- 길이: 각 지원 언어당 30자를 넘지 않음
+### Version Bump
 
-### Supported Languages (v1.0.8+)
+Always ask before bumping version in `pubspec.yaml`
+
+## Reference Documents
+
+- Architecture Plan: `docs/local_first_architecture_plan.md`
+- Refactoring Plan: `docs/REFACTORING_PLAN.md`
+- Code Analysis: `docs/code_analysis_report.md`
+
+## Supported Languages
 
 - Korean (한국어) - Default
 - English

@@ -42,6 +42,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   StreamSubscription? _journalSubscription;
   List<Journal> _journal = [];
   DateTime _selectedDate = DateTime.now();
+  DateTime _displayMonth = DateTime.now();
   List<DateTime>? _dateItems;
   bool _isFirstRender = true;
   final Map<DateTime, List<Journal>> _monthlyJournals = {};
@@ -52,13 +53,15 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   Set<int> _selectedJournalIds = {};
 
   bool get isSelectionMode => _isSelectionMode;
-  Set<int> get selectedJournalIds => _selectedJournalIds;
+  Set<int> get selectedJournalIds => Set.from(_selectedJournalIds);
 
   String? get profileImage => _userProvider.user?.profileImagePath;
 
   String? get nickname => _userProvider.user?.nickname;
 
   DateTime get selectedDate => _selectedDate;
+
+  DateTime get displayMonth => _displayMonth;
 
   List<DateTime>? get dateItems => _dateItems;
 
@@ -104,6 +107,17 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadJournals();
   }
 
+  void selectMonth(DateTime month) {
+    _displayMonth = DateTime(month.year, month.month, 1);
+    _calculateDateItemsForMonth(_displayMonth);
+
+    // 해당 월의 1일을 선택
+    _selectedDate = DateTime(month.year, month.month, 1);
+    _loadJournals();
+
+    notifyListeners();
+  }
+
   Future<void> setIsFirstRender(bool value) async {
     _isFirstRender = value;
     notifyListeners();
@@ -116,12 +130,15 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void _calculateDateItems() {
-    final currentDate = DateTime.now();
-    final lastDateOfMonth = currentDate.lastDateOfMonth;
+    _calculateDateItemsForMonth(_displayMonth);
+  }
+
+  void _calculateDateItemsForMonth(DateTime month) {
+    final lastDateOfMonth = month.lastDateOfMonth;
 
     List<DateTime> dates = List.generate(
       lastDateOfMonth,
-      (index) => DateTime(currentDate.year, currentDate.month, index + 1),
+      (index) => DateTime(month.year, month.month, index + 1),
     );
 
     _dateItems = dates;

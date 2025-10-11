@@ -40,7 +40,7 @@ class JournalCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return InkWell(
-      onTap: isSelectable ? onLongPress : onTap,
+      onTap: onTap,
       onLongPress: onLongPress,
       borderRadius: BorderRadius.circular(Roundness.card),
       child: Container(
@@ -104,11 +104,11 @@ class JournalCard extends StatelessWidget {
               Positioned(
                 top: Spacing.sm,
                 right: Spacing.sm,
-                child: Checkbox(
-                  value: isSelected,
-                  onChanged: (value) {
-                    onLongPress?.call();
-                  },
+                child: IgnorePointer(
+                  child: Checkbox(
+                    value: isSelected,
+                    onChanged: null,
+                  ),
                 ),
               ),
           ],

@@ -16,17 +16,34 @@ class HorizontalCalendar extends StatefulWidget {
   State<HorizontalCalendar> createState() => _HorizontalCalendarState();
 }
 
-class _HorizontalCalendarState extends State<HorizontalCalendar> {
+class _HorizontalCalendarState extends State<HorizontalCalendar>
+    with SingleTickerProviderStateMixin {
   late final ScrollController _scrollController;
+  late final AnimationController _animationController;
+  late Animation<Offset> _slideAnimation;
+  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    final selectedDateDay = context.read<HomeViewModel>().selectedDate.day;
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
 
+    _slideAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
+        .animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+    // 현재 날짜로 자동 스크롤
+    final selectedDateDay = context.read<HomeViewModel>().selectedDate.day;
     Future.delayed(DelayMS.oneSecond * 3, () {
-      if (context.mounted) {
+      if (context.mounted && _scrollController.hasClients) {
         _scrollController.animateTo(
           Spacing.calendarScrollSize * (selectedDateDay - 3),
           duration: DurationMS.lazy,
@@ -34,6 +51,64 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
         );
       }
     });
+  }
+
+  Future<void> _goToPreviousMonth(HomeViewModel viewModel) async {
+    if (_isAnimating) return;
+    _isAnimating = true;
+
+    // 오른쪽에서 왼쪽으로 슬라이드
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(-1.0, 0.0), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+    final currentMonth = viewModel.displayMonth;
+    final previousMonth = DateTime(
+      currentMonth.year,
+      currentMonth.month - 1,
+      1,
+    );
+    viewModel.selectMonth(previousMonth);
+
+    await _animationController.forward(from: 0.0);
+
+    // 스크롤을 처음으로 리셋
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
+
+    _isAnimating = false;
+  }
+
+  Future<void> _goToNextMonth(HomeViewModel viewModel) async {
+    if (_isAnimating) return;
+    _isAnimating = true;
+
+    // 왼쪽에서 오른쪽으로 슬라이드
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+    final currentMonth = viewModel.displayMonth;
+    final nextMonth = DateTime(currentMonth.year, currentMonth.month + 1, 1);
+    viewModel.selectMonth(nextMonth);
+
+    await _animationController.forward(from: 0.0);
+
+    // 스크롤을 처음으로 리셋
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
+
+    _isAnimating = false;
   }
 
   @override
@@ -46,43 +121,86 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
     final selectedDate = context.select<HomeViewModel, DateTime>(
       (vm) => vm.selectedDate,
     );
+    final displayMonth = context.select<HomeViewModel, DateTime>(
+      (vm) => vm.displayMonth,
+    );
     final dateItems = context.select<HomeViewModel, List<DateTime>>(
       (vm) => vm.dateItems!,
     );
+
     return FadeIn(
       delay: DelayMS.medium * 4,
       child: GradientBox(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: Spacing.md),
-              child: Text(
-                now.getLocalizedMonthName(t),
-                style: textTheme.displayMedium?.copyWith(
-                  color: colorScheme.surface,
-                ),
-              ),
-            ),
-            const SizedBox(height: Spacing.sm),
-            SizedBox(
-              height: Spacing.horCalendarDateHeight,
-              child: ListView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(width: Spacing.md),
-                  ...dateItems.map(
-                    (date) => DateAndDay(
-                      date: date,
-                      todayDate: now,
-                      selectedDate: selectedDate,
-                      selectDate: viewModel.selectDate,
-                      isFuture: date.day > now.day,
+                  // 이전 달 버튼
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                      color: colorScheme.surface,
+                    ),
+                    onPressed: () => _goToPreviousMonth(viewModel),
+                  ),
+                  // 월과 날짜 정보
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          '${displayMonth.getLocalizedMonthName(t)} ${displayMonth.year}',
+                          style: textTheme.titleLarge?.copyWith(
+                            color: colorScheme.surface,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        SizedBox(height: Spacing.xs),
+                        Text(
+                          '${selectedDate.getLocalizedWeekdayName(t)}, ${selectedDate.day}일',
+                          style: textTheme.titleMedium?.copyWith(
+                            color: colorScheme.surface.withValues(alpha: 0.8),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: Spacing.md),
+                  // 다음 달 버튼
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: colorScheme.surface,
+                    ),
+                    onPressed: () => _goToNextMonth(viewModel),
+                  ),
                 ],
+              ),
+            ),
+            SizedBox(height: Spacing.md),
+            SizedBox(
+              height: Spacing.horCalendarDateHeight,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: ListView(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    const SizedBox(width: Spacing.md),
+                    ...dateItems.map(
+                      (date) => DateAndDay(
+                        date: date,
+                        todayDate: now,
+                        selectedDate: selectedDate,
+                        selectDate: viewModel.selectDate,
+                        isFuture: date.isAfter(now),
+                      ),
+                    ),
+                    const SizedBox(width: Spacing.md),
+                  ],
+                ),
               ),
             ),
           ],
@@ -94,6 +212,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }
