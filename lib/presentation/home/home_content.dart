@@ -11,12 +11,12 @@ class _HomeScreenContent extends StatelessWidget {
           Builder(
             builder: (context) => IconButton(
               icon: const Icon(Icons.more_vert),
-              onPressed: () => Scaffold.of(context).openDrawer(),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
             ),
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      endDrawer: const AppDrawer(),
       body: Glower(
         child: CustomScrollView(
           slivers: [

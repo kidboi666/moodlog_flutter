@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/ui/widgets/spinner.dart';
-
+import '../home_view_model.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final isLoading = context.select((HomeViewModel vm) => vm.isLoading);
     final weatherInfo = context.select((HomeViewModel vm) => vm.weatherInfo);
 
@@ -22,8 +19,7 @@ class WeatherWidget extends StatelessWidget {
           const Spinner()
         else
           ..._buildWeatherWidget(
-            colorScheme,
-            textTheme,
+            context,
             context
                 .read<HomeViewModel>()
                 .getWeatherCondition(weatherInfo?.icon)
@@ -36,8 +32,7 @@ class WeatherWidget extends StatelessWidget {
   }
 
   List<Widget> _buildWeatherWidget(
-    ColorScheme colorScheme,
-    TextTheme textTheme,
+    BuildContext context,
     String conditionIcon,
     double temperature,
     VoidCallback clearWeather,
@@ -47,14 +42,16 @@ class WeatherWidget extends StatelessWidget {
       const SizedBox(width: Spacing.sm),
       Text(
         '${temperature.round()}°C',
-        style: textTheme.headlineMedium?.copyWith(color: colorScheme.onSurface),
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
       ),
       const SizedBox(width: Spacing.md),
       IconButton(
         onPressed: () => clearWeather(),
         icon: Icon(
           Icons.refresh,
-          color: colorScheme.secondary.withValues(alpha: 0.6),
+          color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.6),
         ),
       ),
     ];
