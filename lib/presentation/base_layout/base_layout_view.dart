@@ -7,12 +7,14 @@ import '../../core/constants/navigation.dart';
 import '../../core/l10n/app_localizations.dart';
 import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/animated_container.dart';
-import '../../core/ui/widgets/avatar.dart';
-import '../../core/ui/widgets/banner_ad_widget.dart';
+import '../settings/widgets/dialog/app_info_dialog.dart';
+import '../settings/widgets/dialog/contact_dialog.dart';
+
 import 'base_layout_view_model.dart';
-
-
 import 'widgets/title_bar.dart';
+import 'widgets/weather_widget.dart';
+
+import '../settings/widgets/section_header.dart';
 
 part 'base_layout_content.dart';
 
@@ -33,6 +35,7 @@ class BaseLayoutScreen extends StatelessWidget {
         userProvider: context.read(),
         getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
+        settingsRepository: context.read(),
       ),
       child: _BaseLayoutScreenContent(
         navigationShell: navigationShell,

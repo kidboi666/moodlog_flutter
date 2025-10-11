@@ -41,9 +41,8 @@ class _BaseLayoutScreenContent extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  DrawerHeader(
-                    child: Text(t.settings_title),
-                  ),
+                  DrawerHeader(child: Text(t.settings_title)),
+                  const WeatherWidget(),
                   ListTile(
                     leading: const Icon(Icons.home_outlined),
                     title: Text(t.tab_home),
@@ -76,12 +75,35 @@ class _BaseLayoutScreenContent extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
+                  const Divider(),
+                  SectionHeader(title: t.settings_information_title),
+                  ListTile(
+                    leading: const Icon(Icons.info_outline),
+                    title: Text(t.settings_information_app_title),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => AppInfoDialog(
+                        viewModel: context.read<BaseLayoutViewModel>(),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.local_police_outlined),
+                    title: Text(t.settings_information_license_title),
+                    onTap: () => showLicensePage(context: context),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.mail_outline),
+                    title: Text(t.settings_information_qna_title),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => ContactDialog(),
+                    ),
+                  ),
                 ],
               ),
             ),
-            SafeArea(
-              child: context.read<BaseLayoutViewModel>().bannerAdWidget,
-            ),
+            SafeArea(child: context.read<BaseLayoutViewModel>().bannerAdWidget),
           ],
         ),
       ),
@@ -107,15 +129,10 @@ class _BaseLayoutScreenContent extends StatelessWidget {
       actionsPadding: Spacing.containerHorizontalPadding,
       actions: [
         Builder(
-          builder: (context) {
-            final profileImage = context.select<BaseLayoutViewModel, String?>(
-              (vm) => vm.profileImage,
-            );
-            return Avatar(
-              photoUrl: profileImage,
-              onTap: () => Scaffold.of(context).openEndDrawer(),
-            );
-          },
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+          ),
         ),
       ],
     );

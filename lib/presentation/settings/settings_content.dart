@@ -118,33 +118,6 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
               ],
 
-              const SizedBox(height: Spacing.xl),
-              SectionHeader(title: t.settings_information_title),
-              MenuListTile(
-                title: t.settings_information_app_title,
-                subtitle: t.settings_information_app_subtitle,
-                icon: Icons.info,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => AppInfoDialog(viewModel: viewModel),
-                ),
-              ),
-              MenuListTile(
-                title: t.settings_information_license_title,
-                subtitle: t.settings_information_license_subtitle,
-                icon: Icons.local_police,
-                onTap: () => showLicensePage(context: context),
-              ),
-
-              MenuListTile(
-                title: t.settings_information_qna_title,
-                subtitle: t.settings_information_qna_subtitle,
-                icon: Icons.mail,
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => ContactDialog(),
-                ),
-              ),
               const SizedBox(height: kBottomNavigationBarHeight * 6),
             ]),
           ),

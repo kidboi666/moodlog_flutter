@@ -33,15 +33,9 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     getAllTags();
   }
 
-  String _appVersion = '';
-  String _appBuild = '';
   List<Tag> _tags = [];
 
   List<Tag> get tags => _tags;
-
-  String get appVersion => _appVersion;
-
-  String get appBuild => _appBuild;
 
   String? get profileImage => _userProvider.user?.profileImagePath;
 
@@ -146,17 +140,5 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   void clearSharedPreferences() {
     _settingsRepository.clearSharedPreferences();
     notifyListeners();
-  }
-
-  Future<void> loadAppInfo() async {
-    final result = await executeAsync(() async {
-      final appInfo = await _settingsRepository.getAppInfo();
-      return appInfo;
-    }, context: 'loadAppInfo');
-
-    if (result != null) {
-      _appVersion = result.version;
-      _appBuild = result.buildNumber;
-    }
   }
 }

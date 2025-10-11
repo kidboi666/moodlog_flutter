@@ -1,36 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/common.dart';
 import 'hello.dart';
-import 'weather_widget.dart';
 
-class TitleBar extends StatefulWidget {
+class TitleBar extends StatelessWidget {
   const TitleBar({super.key});
 
   @override
-  State<TitleBar> createState() => _TitleBarState();
-}
-
-class _TitleBarState extends State<TitleBar> {
-  CrossFadeState crossFadeState = CrossFadeState.showFirst;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(DelayMS.oneSecond * 3, () {
-      if (mounted) {
-        setState(() => crossFadeState = CrossFadeState.showSecond);
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      firstChild: Hello(key: const ValueKey('hello')),
-      secondChild: WeatherWidget(key: const ValueKey('weather')),
-      crossFadeState: crossFadeState,
-      duration: DurationMS.quick,
-    );
+    return Hello(key: const ValueKey('hello'));
   }
 }

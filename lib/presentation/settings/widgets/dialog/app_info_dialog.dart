@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
-import '../../settings_view_model.dart';
+import '../../../base_layout/base_layout_view_model.dart';
 
 class AppInfoDialog extends StatefulWidget {
-  final SettingsViewModel viewModel;
+  final BaseLayoutViewModel viewModel;
 
   const AppInfoDialog({super.key, required this.viewModel});
 

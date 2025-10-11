@@ -8,27 +8,34 @@ import '../../core/ui/widgets/banner_ad_widget.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/weather_info.dart';
+import '../../domain/repositories/settings_repository.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 
 class BaseLayoutViewModel extends ChangeNotifier with AsyncStateMixin {
   final UserProvider _userProvider;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
+  final SettingsRepository _settingsRepository;
   final BannerAdWidget bannerAdWidget = BannerAdWidget();
 
   BaseLayoutViewModel({
     required UserProvider userProvider,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
-  }) : _userProvider = userProvider,
-       _getCurrentLocationUseCase = getCurrentLocationUseCase,
-       _weatherUseCase = weatherUseCase {
+    required SettingsRepository settingsRepository,
+  })  : _userProvider = userProvider,
+        _getCurrentLocationUseCase = getCurrentLocationUseCase,
+        _weatherUseCase = weatherUseCase,
+        _settingsRepository = settingsRepository {
     _load();
+    loadAppInfo();
   }
 
   final Logger _log = Logger('BaseLayoutViewModel');
   LocationInfo? _locationInfo;
   WeatherInfo? _weatherInfo;
+  String _appVersion = '';
+  String _appBuild = '';
 
   String? get profileImage => _userProvider.user?.profileImagePath;
 
@@ -36,11 +43,27 @@ class BaseLayoutViewModel extends ChangeNotifier with AsyncStateMixin {
 
   WeatherInfo? get weatherInfo => _weatherInfo;
 
+  String get appVersion => _appVersion;
+
+  String get appBuild => _appBuild;
+
   Future<void> _load() async {
     setLoading();
     await getCurrentLocation();
     await getCurrentWeather();
     setSuccess();
+  }
+
+  Future<void> loadAppInfo() async {
+    final result = await executeAsync(() async {
+      final appInfo = await _settingsRepository.getAppInfo();
+      return appInfo;
+    }, context: 'loadAppInfo');
+
+    if (result != null) {
+      _appVersion = result.version;
+      _appBuild = result.buildNumber;
+    }
   }
 
   Future<void> getCurrentWeather() async {
