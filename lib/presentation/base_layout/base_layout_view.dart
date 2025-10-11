@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/navigation.dart';
+import '../../core/l10n/app_localizations.dart';
 import '../../core/routing/routes.dart';
 import '../../core/ui/widgets/animated_container.dart';
 import '../../core/ui/widgets/avatar.dart';
 import '../../core/ui/widgets/banner_ad_widget.dart';
 import 'base_layout_view_model.dart';
-import 'widgets/bottom_navigation.dart';
-import 'widgets/rail_navigation.dart';
+
+
 import 'widgets/title_bar.dart';
 
 part 'base_layout_content.dart';

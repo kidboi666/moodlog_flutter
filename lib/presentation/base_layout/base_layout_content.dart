@@ -24,52 +24,71 @@ class _BaseLayoutScreenContent extends StatelessWidget {
     );
   }
 
-  bool _shouldUseRailNavigation(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return width >= kBreakPoint;
-  }
-
-  int _getNavigationIndex(int shellIndex) {
-    return Navigation.navigationIndexMap[shellIndex] ?? 0;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final shouldUseRailNavigation = _shouldUseRailNavigation(context);
-
-    return shouldUseRailNavigation
-        ? _buildRailNavigation(context)
-        : _buildBottomNavigation(context);
-  }
-
-  Widget _buildRailNavigation(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      appBar: _buildAppBar(context),
-      persistentFooterButtons: [
-        Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
-      ],
-      body: RailNavigation(
-        navigationShell: navigationShell,
-        getNavigationIndex: _getNavigationIndex,
-        onTap: _onTap,
-        buildContent: _buildContent(context),
-      ),
-    );
+    return _buildBottomNavigation(context);
   }
 
   Widget _buildBottomNavigation(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
       extendBody: true,
       appBar: _buildAppBar(context),
-      persistentFooterButtons: [
-        Container(padding: EdgeInsets.zero, child: BannerAdWidget()),
-      ],
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    child: Text(t.settings_title),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.home_outlined),
+                    title: Text(t.tab_home),
+                    onTap: () {
+                      _onTap(context, 0);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.book_outlined),
+                    title: Text(t.tab_entries),
+                    onTap: () {
+                      _onTap(context, 1);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.query_stats_sharp),
+                    title: Text(t.tab_statistics),
+                    onTap: () {
+                      _onTap(context, 3);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings_outlined),
+                    title: Text(t.tab_settings),
+                    onTap: () {
+                      _onTap(context, 4);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SafeArea(
+              child: context.read<BaseLayoutViewModel>().bannerAdWidget,
+            ),
+          ],
+        ),
+      ),
       body: _buildContent(context),
-      bottomNavigationBar: BottomNavigation(
-        navigationShell: navigationShell,
-        getNavigationIndex: _getNavigationIndex,
-        onTap: _onTap,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onTap(context, 2),
+        child: const Icon(Icons.create),
       ),
     );
   }
@@ -94,7 +113,7 @@ class _BaseLayoutScreenContent extends StatelessWidget {
             );
             return Avatar(
               photoUrl: profileImage,
-              onTap: () => context.push(Routes.profile),
+              onTap: () => Scaffold.of(context).openEndDrawer(),
             );
           },
         ),

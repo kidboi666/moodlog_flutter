@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import '../../../../domain/use_cases/weather_use_case.dart';
 import '../../../../presentation/providers/user_provider.dart';
 import '../../core/mixins/async_state_mixin.dart';
+import '../../core/ui/widgets/banner_ad_widget.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/weather_info.dart';
@@ -13,6 +14,7 @@ class BaseLayoutViewModel extends ChangeNotifier with AsyncStateMixin {
   final UserProvider _userProvider;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
+  final BannerAdWidget bannerAdWidget = BannerAdWidget();
 
   BaseLayoutViewModel({
     required UserProvider userProvider,
