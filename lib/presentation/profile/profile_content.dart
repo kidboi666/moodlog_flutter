@@ -48,9 +48,6 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final isAnonymousUser = context.select(
-      (ProfileViewModel vm) => vm.isAnonymousUser,
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -67,14 +64,9 @@ class _ProfileScreenContentState extends State<_ProfileScreenContent> {
             spacing: Spacing.sm,
             children: [
               const ProfileAvatar(),
-              const AccountCard(),
-              if (isAnonymousUser) const AnonymousUserCard(),
-              if (isAnonymousUser) const GuestLoginButton(),
               const NicknameCard(),
               const CreationTimeCard(),
-              if (!isAnonymousUser) const DeleteAccountButton(),
               const Expanded(child: SizedBox()),
-              if (!isAnonymousUser) const SignOutButton(),
               const UserIdCard(),
             ],
           ),

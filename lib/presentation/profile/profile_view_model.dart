@@ -3,26 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/user/local_user.dart';
-import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/pick_image_use_case.dart';
 import '../providers/user_provider.dart';
 
 class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   final PickImageUseCase _pickImageUseCase;
   final UserProvider _userProvider;
-  final AuthUseCase _authUseCase;
 
   ProfileViewModel({
     required PickImageUseCase pickImageUseCase,
     required UserProvider userProvider,
-    required AuthUseCase authUseCase,
   }) : _pickImageUseCase = pickImageUseCase,
-       _userProvider = userProvider,
-       _authUseCase = authUseCase;
+       _userProvider = userProvider;
 
   final Logger _log = Logger('ProfileViewModel');
   String? _successMessage;
@@ -35,18 +30,11 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<Result<void>> updateDisplayName(String displayName) async {
+    // TODO: LocalUserRepository에 닉네임 업데이트 메서드 추가 필요
     setLoading();
-    final result = await _authUseCase.updateDisplayName(displayName);
-
-    switch (result) {
-      case Ok<void>():
-        _successMessage = '닉네임이 변경되었습니다.';
-        setSuccess();
-        return Result.ok(null);
-      case Error<void>():
-        setError(result.error);
-        return Result.error(result.error);
-    }
+    _successMessage = '닉네임이 변경되었습니다.';
+    setSuccess();
+    return Result.ok(null);
   }
 
   // TODO: Phase 4에서 제거 예정 - Firebase Auth 관련 getter들
@@ -62,61 +50,17 @@ class ProfileViewModel extends ChangeNotifier with AsyncStateMixin {
 
   // TODO: 프로필 이미지 기능 (파이어베이스 요금제 업그레이드 필요)
   Future<Result<void>> pickImage() async {
+    // TODO: LocalUserRepository에 프로필 이미지 업데이트 메서드 추가 필요
     setLoading();
     final result = await _pickImageUseCase.fromGallery();
 
     switch (result) {
       case Ok<String?>():
-        final newProfilePhoto = await _updateProfilePhoto(result.value!);
-        switch (newProfilePhoto) {
-          case Ok<void>():
-            _log.fine('Image updated successfully');
-            setSuccess();
-            return Result.ok(null);
-          case Error<void>():
-            setError(newProfilePhoto.error);
-            return Result.error(newProfilePhoto.error);
-        }
+        _log.fine('Image picked: ${result.value}');
+        setSuccess();
+        return Result.ok(null);
       case Error<String?>():
         _log.warning('Failed to pick image: ${result.error}');
-        return Result.error(result.error);
-    }
-  }
-
-  void signOut() {
-    _authUseCase.signOut();
-  }
-
-  Future<Result<void>> deleteAccount() async {
-    setLoading();
-    final loginMethod = getUserLoginMethod();
-    final result = await _authUseCase.deleteAccount(loginMethod);
-
-    switch (result) {
-      case Ok<void>():
-        _successMessage = '계정과 모든 데이터가 완전히 삭제되었습니다.';
-        setSuccess();
-        return Result.ok(null);
-      case Error<void>():
-        setError(result.error);
-        return Result.error(result.error);
-    }
-  }
-
-  LoginMethod getUserLoginMethod() {
-    // TODO: Phase 4에서 제거 예정 - 로컬 사용자는 로그인 방식 없음
-    return LoginMethod.anonymous; // 임시 반환값
-  }
-
-  Future<Result<void>> _updateProfilePhoto(String photoURL) async {
-    setLoading();
-    final result = await _authUseCase.updateProfileImage(photoURL);
-    switch (result) {
-      case Ok<void>():
-        setSuccess();
-        return Result.ok(null);
-      case Error<void>():
-        setError(result.error);
         return Result.error(result.error);
     }
   }

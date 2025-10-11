@@ -6,7 +6,6 @@ import '../../data/data_source/local/journal_local_data_source.dart';
 import '../../data/data_source/local/shared_preferences_local_data_source.dart';
 import '../../data/data_source/local/tag_local_data_source.dart';
 import '../../data/repositories/analytics_repository_impl.dart';
-import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/gemini_repository_impl.dart';
 import '../../data/repositories/image_repository_impl.dart';
 import '../../data/repositories/journal_repository_impl.dart';
@@ -16,7 +15,6 @@ import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/tag_repository_impl.dart';
 import '../../data/repositories/weather_repository_impl.dart';
 import '../../domain/repositories/analytics_repository.dart';
-import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/gemini_repository.dart';
 import '../../domain/repositories/image_repository.dart';
 import '../../domain/repositories/journal_repository.dart';
@@ -25,7 +23,6 @@ import '../../domain/repositories/location_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/auth_use_case.dart';
 import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
@@ -86,7 +83,6 @@ List<SingleChildWidget> _createRepositories() {
           LocalUserRepositoryImpl(localDataSource: context.read()),
       lazy: false,
     ),
-    Provider<AuthRepository>(create: (_) => AuthRepositoryImpl(), lazy: false),
     Provider<GeminiRepository>(
       create: (_) => GeminiRepositoryImpl.instance,
       lazy: false,
@@ -126,12 +122,6 @@ List<SingleChildWidget> _createStateProviders() {
 
 List<SingleChildWidget> _createUseCases() {
   return [
-    Provider<AuthUseCase>(
-      create: (context) => AuthUseCase(
-        authRepository: context.read(),
-        settingsRepository: context.read(),
-      ),
-    ),
     Provider<SettingsUseCase>(
       create: (context) => SettingsUseCase(settingsRepository: context.read()),
     ),

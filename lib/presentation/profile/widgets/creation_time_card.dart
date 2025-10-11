@@ -27,7 +27,7 @@ class CreationTimeCard extends StatelessWidget {
         spacing: Spacing.sm,
         children: [
           Text(t.profile_creation_time_title, style: textTheme.titleSmall),
-          Text(createdAt!, style: textTheme.bodyMedium),
+          Text(createdAt, style: textTheme.bodyMedium),
         ],
       ),
     );
