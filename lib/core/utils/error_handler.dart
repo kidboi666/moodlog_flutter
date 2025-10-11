@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/widgets/error_dialog.dart';
@@ -13,10 +12,6 @@ class ErrorHandler {
       return ErrorDialogFactory.network(
         customMessage: customMessage ?? '인터넷 연결을 확인해주세요.',
       );
-    }
-
-    if (error is FirebaseAuthException) {
-      return _handleFirebaseAuthError(error, customMessage);
     }
 
     if (error is FormatException) {
@@ -36,44 +31,6 @@ class ErrorHandler {
     return ErrorDialogFactory.general(
       message: customMessage ?? '예상치 못한 오류가 발생했습니다.',
       errorDetails: error.toString(),
-    );
-  }
-
-  /// Firebase Auth 에러 처리
-  static ErrorDialog _handleFirebaseAuthError(
-    FirebaseAuthException error,
-    String? customMessage,
-  ) {
-    String message;
-    switch (error.code) {
-      case 'user-not-found':
-        message = '등록된 사용자를 찾을 수 없습니다.';
-        break;
-      case 'wrong-password':
-        message = '비밀번호가 올바르지 않습니다.';
-        break;
-      case 'email-already-in-use':
-        message = '이미 사용 중인 이메일입니다.';
-        break;
-      case 'weak-password':
-        message = '비밀번호가 너무 약합니다.';
-        break;
-      case 'invalid-email':
-        message = '유효하지 않은 이메일 형식입니다.';
-        break;
-      case 'network-request-failed':
-        message = '네트워크 연결을 확인해주세요.';
-        break;
-      case 'too-many-requests':
-        message = '너무 많은 요청이 발생했습니다. 잠시 후 다시 시도해주세요.';
-        break;
-      default:
-        message = customMessage ?? '인증 과정에서 오류가 발생했습니다.';
-    }
-
-    return ErrorDialogFactory.general(
-      message: message,
-      errorDetails: '${error.code}: ${error.message}',
     );
   }
 
