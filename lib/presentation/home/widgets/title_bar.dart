@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'hello.dart';
+import '../../home/widgets/hello.dart';
 
 class TitleBar extends StatelessWidget {
   const TitleBar({super.key});

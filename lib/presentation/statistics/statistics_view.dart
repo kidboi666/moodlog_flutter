@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/l10n/app_localizations.dart';
 import '../../core/ui/widgets/glower.dart';
 import 'statistics_view_model.dart';
 import 'widgets/average_mood_card.dart';

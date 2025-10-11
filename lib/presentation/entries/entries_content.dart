@@ -43,43 +43,7 @@ class _EntriesScreenContent extends StatelessWidget {
     return Glower(
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: Builder(
-            builder: (context) {
-              final selectedMonth = context.select<EntriesViewModel, DateTime>(
-                (vm) => vm.selectedMonth,
-              );
-              return Text(selectedMonth.formattedDotNationWithMonth());
-            },
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: viewModel.setPreviousMonth,
-          ),
-          actions: [
-            Builder(
-              builder: (context) {
-                final (:viewMode, :toggleViewMode) = context.select(
-                  (EntriesViewModel vm) => (
-                    viewMode: vm.viewMode,
-                    toggleViewMode: vm.toggleViewMode,
-                  ),
-                );
-                return IconButton(
-                  icon: Icon(
-                    viewMode == EntriesViewMode.list
-                        ? Icons.calendar_month
-                        : Icons.view_list,
-                  ),
-                  onPressed: toggleViewMode,
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.arrow_forward),
-              onPressed: () => context.read<EntriesViewModel>().setNextMonth(),
-            ),
-          ],
+          title: Text(AppLocalizations.of(context)!.tab_entries),
         ),
         body: CustomScrollView(
           slivers: [

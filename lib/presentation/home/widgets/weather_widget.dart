@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/ui/widgets/spinner.dart';
-import '../base_layout_view_model.dart';
+
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key});
@@ -12,10 +13,8 @@ class WeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final isLoading = context.select((BaseLayoutViewModel vm) => vm.isLoading);
-    final weatherInfo = context.select(
-      (BaseLayoutViewModel vm) => vm.weatherInfo,
-    );
+    final isLoading = context.select((HomeViewModel vm) => vm.isLoading);
+    final weatherInfo = context.select((HomeViewModel vm) => vm.weatherInfo);
 
     return Row(
       children: [
@@ -26,11 +25,11 @@ class WeatherWidget extends StatelessWidget {
             colorScheme,
             textTheme,
             context
-                .read<BaseLayoutViewModel>()
+                .read<HomeViewModel>()
                 .getWeatherCondition(weatherInfo?.icon)
                 .icon,
             weatherInfo?.temperature ?? 0,
-            context.read<BaseLayoutViewModel>().clearWeather,
+            context.read<HomeViewModel>().clearWeather,
           ),
       ],
     );

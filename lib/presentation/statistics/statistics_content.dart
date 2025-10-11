@@ -3,9 +3,12 @@ part of 'statistics_view.dart';
 class _StatisticsScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Glower(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.tab_statistics),
+      ),
+      body: Glower(
+        child: CustomScrollView(
           slivers: [
             Builder(
               builder: (context) {
@@ -14,7 +17,7 @@ class _StatisticsScreenContent extends StatelessWidget {
                 );
 
                 if (isLoading) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 }

@@ -10,22 +10,30 @@ import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/weather_info.dart';
+import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/observe_journal_list_use_case.dart';
+import '../../domain/use_cases/weather_use_case.dart';
 import '../providers/user_provider.dart';
 
 class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final UserProvider _userProvider;
   final JournalUseCase _journalUseCase;
   final ObserveJournalListUseCase _observeJournalListUseCase;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
+  final WeatherUseCase _weatherUseCase;
 
   HomeViewModel({
     required UserProvider userProvider,
     required JournalUseCase journalUseCase,
     required ObserveJournalListUseCase observeJournalListUseCase,
-  }) : _userProvider = userProvider,
-       _journalUseCase = journalUseCase,
-       _observeJournalListUseCase = observeJournalListUseCase {
+    required GetCurrentLocationUseCase getCurrentLocationUseCase,
+    required WeatherUseCase weatherUseCase,
+  })  : _userProvider = userProvider,
+        _journalUseCase = journalUseCase,
+        _observeJournalListUseCase = observeJournalListUseCase,
+        _getCurrentLocationUseCase = getCurrentLocationUseCase,
+        _weatherUseCase = weatherUseCase {
     _load();
     _userProvider.addListener(_onUserChanged);
   }
@@ -72,13 +80,17 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Map<DateTime, List<Journal>> get yearlyJournals => _yearlyJournals;
 
-  void _load() {
+  void _load() async {
+    setLoading();
     _calculateDateItems();
-    _loadJournals();
-    _loadMonthlyJournals();
-    _loadYearlyJournals();
+    await _loadJournals();
+    await _loadMonthlyJournals();
+    await _loadYearlyJournals();
+    await getCurrentLocation();
+    await getCurrentWeather();
     _initializeDelayedRender();
     _subscribeToJournalChanges();
+    setSuccess();
   }
 
   void selectDate(DateTime date) {
@@ -229,6 +241,60 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
     _log.fine('Loaded yearly journals: ${_yearlyJournals.length} days');
     notifyListeners();
+  }
+
+  Future<void> getCurrentWeather() async {
+    double latitude = 37.5665; // 서울 기본 위치
+    double longitude = 126.9780;
+
+    if (_locationInfo == null) {
+      await getCurrentLocation();
+    }
+
+    // 위치 정보가 있으면 사용, 없으면 서울 기본 위치 사용
+    if (_locationInfo != null) {
+      latitude = _locationInfo!.latitude;
+      longitude = _locationInfo!.longitude;
+      _log.info('Using actual location: $latitude, $longitude');
+    } else {
+      _log.info('Using default location (Seoul): $latitude, $longitude');
+    }
+
+    final result = await _weatherUseCase.getCurrentWeather(
+      latitude: latitude,
+      longitude: longitude,
+    );
+
+    switch (result) {
+      case Ok<WeatherInfo>():
+        _log.fine('Weather retrieved successfully');
+        _weatherInfo = result.value;
+      case Error<WeatherInfo>():
+        _log.warning('Failed to get weather: ${result.error}');
+    }
+  }
+
+  Future<void> getCurrentLocation() async {
+    final result = await _getCurrentLocationUseCase();
+
+    switch (result) {
+      case Ok<LocationInfo>():
+        _log.fine('Location retrieved successfully');
+        _locationInfo = result.value;
+      case Error<LocationInfo>():
+        _log.warning('Failed to get location: ${result.error}');
+    }
+  }
+
+  WeatherCondition getWeatherCondition(String? iconCode) {
+    if (iconCode == null) {
+      return WeatherCondition.unknown;
+    }
+    return _weatherUseCase.getWeatherCondition(iconCode);
+  }
+
+  void clearWeather() {
+    _load();
   }
 
   void _onUserChanged() {
