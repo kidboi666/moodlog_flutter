@@ -33,10 +33,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
       return const Spinner(spinnerType: SpinnerType.center);
     }
 
-    _router ??= router(
-      context.read(),
-      widget.analyticsObserver,
-    );
+    _router ??= router(context.read(), widget.analyticsObserver);
 
     return KeyboardDismissOnTapOutside(
       child: MaterialApp.router(

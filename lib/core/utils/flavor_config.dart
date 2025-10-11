@@ -1,3 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
+
+import '../../firebase_options.dart' as production;
+import '../../firebase_options_dev.dart' as development;
+import '../../firebase_options_staging.dart' as staging;
+
 enum Flavor { development, staging, production }
 
 class FlavorConfig {
@@ -5,7 +11,10 @@ class FlavorConfig {
   final bool showDebugBanner;
   static FlavorConfig? _instance;
 
-  factory FlavorConfig({required Flavor flavor, bool showDebugBanner = true}) {
+  factory FlavorConfig({
+    required Flavor flavor,
+    required bool showDebugBanner,
+  }) {
     _instance ??= FlavorConfig._internal(
       flavor: flavor,
       showDebugBanner: showDebugBanner,
@@ -22,4 +31,27 @@ class FlavorConfig {
   static bool get isProduction => instance.flavor == Flavor.production;
 
   static bool get isStaging => instance.flavor == Flavor.staging;
+
+  static FirebaseOptions get firebaseOptions {
+    switch (instance.flavor) {
+      case Flavor.development:
+        return development.DefaultFirebaseOptions.currentPlatform;
+      case Flavor.staging:
+        return staging.DefaultFirebaseOptions.currentPlatform;
+      case Flavor.production:
+        return production.DefaultFirebaseOptions.currentPlatform;
+    }
+  }
+
+  static String get dotEnvSurfix {
+    return '.env';
+    // switch (instance.flavor) {
+    //   case Flavor.development:
+    //     return '.env.development';
+    //   case Flavor.staging:
+    //     return '.env.staging';
+    //   case Flavor.production:
+    //     return '.env.production';
+    // }
+  }
 }

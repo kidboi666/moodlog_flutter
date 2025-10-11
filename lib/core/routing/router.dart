@@ -131,12 +131,10 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final String location = state.matchedLocation;
   final bool isOnboarding = location == Routes.onboarding;
 
-  // 온보딩 미완료 시 온보딩 화면으로
   if (!isOnboardingComplete && !isOnboarding) {
     return Routes.onboarding;
   }
 
-  // 온보딩 완료 시 온보딩 화면 접근 차단
   if (isOnboardingComplete && isOnboarding) {
     return Routes.home;
   }

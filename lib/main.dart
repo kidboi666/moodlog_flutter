@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,22 +9,19 @@ import 'app.dart';
 import 'core/di/injection_container.dart';
 import 'core/utils/flavor_config.dart';
 import 'data/repositories/analytics_repository_impl.dart';
-import 'firebase_options.dart' as production;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: production.DefaultFirebaseOptions.currentPlatform,
-  );
-  await dotenv.load(fileName: '.env');
-  if (Platform.isAndroid || Platform.isIOS) {
-    await MobileAds.instance.initialize();
-  }
+  final firebaseOptions = FlavorConfig.firebaseOptions;
+  final fileName = FlavorConfig.dotEnvSurfix;
+
+  await Firebase.initializeApp(options: firebaseOptions);
+  await dotenv.load(fileName: fileName);
+  await MobileAds.instance.initialize();
 
   final analyticsRepo = AnalyticsRepositoryImpl();
   await analyticsRepo.initialize();
 
-  FlavorConfig(flavor: Flavor.production, showDebugBanner: false);
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     debugPrint('${record.level.name}: ${record.time}: ${record.message}');
