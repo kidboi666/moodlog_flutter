@@ -6,6 +6,7 @@ import 'package:moodlog/domain/entities/app/settings.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../core/constants/common.dart';
+import '../../domain/entities/ai/ai_usage.dart';
 import '../../domain/entities/app/app_info.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../data_source/local/shared_preferences_local_data_source.dart';
@@ -59,20 +60,25 @@ class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
-  Future<DateTime?> getLastAiUsageDate() async {
-    final dateString = await _prefs.getString(PreferenceKeys.lastAiUsageDate);
-    if (dateString != null) {
-      return DateTime.tryParse(dateString);
+  Future<AiUsage?> getAiUsage() async {
+    final usageString = await _prefs.getString(PreferenceKeys.aiUsage);
+    if (usageString != null) {
+      final usageMap = jsonDecode(usageString);
+      return AiUsage(
+        date: DateTime.parse(usageMap['date']),
+        count: usageMap['count'],
+      );
     }
     return null;
   }
 
   @override
-  Future<void> updateLastAiUsageDate(DateTime date) async {
-    await _prefs.setString(
-      PreferenceKeys.lastAiUsageDate,
-      date.toIso8601String(),
-    );
+  Future<void> updateAiUsage(AiUsage usage) async {
+    final usageMap = {
+      'date': usage.date.toIso8601String(),
+      'count': usage.count,
+    };
+    await _prefs.setString(PreferenceKeys.aiUsage, jsonEncode(usageMap));
   }
 
   @override

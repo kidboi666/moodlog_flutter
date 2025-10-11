@@ -11,6 +11,7 @@ MoodLog is a mood tracking and journaling Flutter app with the following key fea
 ## Project Structure
 
 - **State Management**: Provider
+- **Routing**: go_router
 - **Database**: Drift (SQLite) for local storage
 - **AI Integration**: Firebase AI (Gemini)
 - **Analytics**: Firebase Analytics

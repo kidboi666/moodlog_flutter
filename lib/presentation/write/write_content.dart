@@ -104,11 +104,11 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                           delay: DelayMS.quick * 2,
                           child: Builder(
                             builder: (context) {
-                              final quillController = context.select(
-                                (WriteViewModel vm) => vm.quillController,
+                              final textEditingController = context.select(
+                                (WriteViewModel vm) => vm.textEditingController,
                               );
                               return ContentInput(
-                                quillController: quillController,
+                                textEditingController: textEditingController,
                                 focusNode: _contentFocusNode,
                               );
                             },
@@ -132,10 +132,10 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
             bottom: 0,
             child: Builder(
               builder: (context) {
-                final quillController = context.select(
-                  (WriteViewModel vm) => vm.quillController,
+                final textEditingController = context.select(
+                  (WriteViewModel vm) => vm.textEditingController,
                 );
-                return EditorBottomPanel(quillController: quillController);
+                return EditorBottomPanel(textEditingController: textEditingController);
               },
             ),
           ),

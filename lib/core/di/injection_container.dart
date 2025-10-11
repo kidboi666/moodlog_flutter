@@ -23,7 +23,7 @@ import '../../domain/repositories/location_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/repositories/tag_repository.dart';
 import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/check_ai_usage_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
@@ -139,9 +139,9 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) =>
           GetCurrentLocationUseCase(locationRepository: context.read()),
     ),
-    Provider<CheckAiUsageLimitUseCase>(
+    Provider<CheckAiUsageUseCase>(
       create: (context) =>
-          CheckAiUsageLimitUseCase(settingsRepository: context.read()),
+          CheckAiUsageUseCase(settingsRepository: context.read()),
     ),
     Provider<WeatherUseCase>(
       create: (context) => WeatherUseCase(repository: context.read()),

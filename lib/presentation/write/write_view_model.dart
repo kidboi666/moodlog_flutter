@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
+
 import 'package:logging/logging.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
+import '../../domain/entities/ai/ai_usage.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/entities/journal/location_info.dart';
 import '../../domain/entities/journal/tag.dart';
@@ -12,7 +13,7 @@ import '../../domain/entities/journal/weather_info.dart';
 import '../../domain/models/create_journal_request.dart';
 import '../../domain/models/update_journal_ai_response_request.dart';
 import '../../domain/models/update_journal_request.dart';
-import '../../domain/use_cases/check_ai_usage_limit_use_case.dart';
+import '../../domain/use_cases/check_ai_usage_use_case.dart';
 import '../../domain/use_cases/gemini_use_case.dart';
 import '../../domain/use_cases/get_current_location_use_case.dart';
 import '../../domain/use_cases/journal_use_case.dart';
@@ -33,7 +34,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
   final JournalUseCase _journalUseCase;
-  final CheckAiUsageLimitUseCase _checkAiUsageLimitUseCase;
+  final CheckAiUsageUseCase _checkAiUsageUseCase;
   final LogMoodEntryUseCase _logMoodEntryUseCase;
   final TagUseCase _tagUseCase;
 
@@ -46,7 +47,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
     required JournalUseCase journalUseCase,
-    required CheckAiUsageLimitUseCase checkAiUsageLimitUseCase,
+    required CheckAiUsageUseCase checkAiUsageUseCase,
     required TagUseCase tagUseCase,
     required LogMoodEntryUseCase logMoodEntryUseCase,
     DateTime? selectedDate,
@@ -60,7 +61,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
        _weatherUseCase = weatherUseCase,
        _journalUseCase = journalUseCase,
        _logMoodEntryUseCase = logMoodEntryUseCase,
-       _checkAiUsageLimitUseCase = checkAiUsageLimitUseCase,
+       _checkAiUsageUseCase = checkAiUsageUseCase,
        _tagUseCase = tagUseCase,
        _selectedDate = selectedDate ?? DateTime.now(),
        _editJournalId = editJournalId,
@@ -69,7 +70,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   final Logger _log = Logger('WriteViewModel');
-  late QuillController _quillController;
+  late TextEditingController _textEditingController;
   String? _content;
   MoodType _selectedMood = MoodType.neutral;
   List<String> _selectedImageList = [];
@@ -78,6 +79,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   bool _aiEnabled = true;
   DateTime _selectedDate;
   bool _canUseAiToday = true;
+  int _aiUsageCount = 0;
+
   LocationInfo? _locationInfo;
   bool _isLoadingLocation = false;
   WeatherInfo? _weatherInfo;
@@ -87,7 +90,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final bool _isEditMode;
   final int? _editJournalId;
 
-  QuillController get quillController => _quillController;
+  TextEditingController get textEditingController => _textEditingController;
 
   String? get content => _content;
 
@@ -104,6 +107,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   int? get submittedJournalId => _submittedJournalId;
 
   bool get canUseAiToday => _canUseAiToday;
+
+  int get aiUsageCount => _aiUsageCount;
 
   bool get isAiAvailable => _aiEnabled && _canUseAiToday;
 
@@ -122,15 +127,13 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   List<Tag> get selectedTags => _selectedTags;
 
   bool get isFormValid {
-    return _content != null &&
-        _content!.trim().isNotEmpty &&
-        !_isLoadingLocation;
+    return true;
   }
 
   void _initialize() {
-    _quillController = QuillController.basic();
-    _quillController.addListener(_onQuillTextChanged);
-    _checkAiUsageLimit();
+    _textEditingController = TextEditingController();
+    _textEditingController.addListener(_onTextChanged);
+    _checkAiUsage();
     _loadCurrentLocationOnInit();
     _loadCurrentWeatherOnInit();
     _loadAllTags();
@@ -139,131 +142,9 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  void _onQuillTextChanged() {
-    try {
-      // QuillDocument에서 마크다운 형태의 텍스트를 생성하여 저장
-      final markdownText = _convertDocumentToMarkdown(
-        _quillController.document,
-      );
-      updateContent(markdownText);
-    } catch (e) {
-      _log.warning('Failed to convert document to markdown: $e');
-      // 실패 시 plain text만 저장
-      final plainText = _quillController.document.toPlainText();
-      updateContent(plainText);
-    }
-  }
-
-  String _convertDocumentToMarkdown(Document document) {
-    final buffer = StringBuffer();
-    final operations = document.toDelta().operations;
-
-    for (final op in operations) {
-      if (op.data is String) {
-        String text = op.data as String;
-
-        // 포맷팅 적용
-        if (op.attributes != null) {
-          final attributes = op.attributes!;
-
-          // 볼드 처리
-          if (attributes.containsKey('bold') && attributes['bold'] == true) {
-            text = '**$text**';
-          }
-          // 이탤릭 처리
-          else if (attributes.containsKey('italic') &&
-              attributes['italic'] == true) {
-            text = '*$text*';
-          }
-          // 밑줄 처리
-          else if (attributes.containsKey('underline') &&
-              attributes['underline'] == true) {
-            text = '__${text}__';
-          }
-          // 취소선 처리
-          else if (attributes.containsKey('strike') &&
-              attributes['strike'] == true) {
-            text = '~~$text~~';
-          }
-        }
-
-        buffer.write(text);
-      }
-    }
-
-    return buffer.toString();
-  }
-
-  Document _parseMarkdownToDocument(String content) {
-    final document = Document();
-
-    // 마크다운 패턴을 순서대로 처리
-    final patterns = [
-      {'pattern': r'\*\*(.*?)\*\*', 'attribute': Attribute.bold},
-      {'pattern': r'__(.*?)__', 'attribute': Attribute.underline},
-      {'pattern': r'~~(.*?)~~', 'attribute': Attribute.strikeThrough},
-      {'pattern': r'(?<!\*)\*([^*]+?)\*(?!\*)', 'attribute': Attribute.italic},
-    ];
-
-    String processedContent = content;
-    final List<Map<String, dynamic>> formatRanges = [];
-
-    // 각 패턴에 대해 매치 찾기
-    for (final patternData in patterns) {
-      final pattern = patternData['pattern'] as String;
-      final attribute = patternData['attribute'] as Attribute;
-      final regex = RegExp(pattern);
-
-      final matches = regex.allMatches(processedContent).toList();
-
-      // 역순으로 처리하여 인덱스 변화 방지
-      for (final match in matches.reversed) {
-        final matchText = match.group(1) ?? '';
-        final start = match.start;
-        final end = match.end;
-
-        // 포맷 정보 저장
-        formatRanges.add({
-          'start': start,
-          'length': matchText.length,
-          'attribute': attribute,
-        });
-
-        // 마크다운 마커 제거하고 텍스트만 남기기
-        processedContent =
-            processedContent.substring(0, start) +
-            matchText +
-            processedContent.substring(end);
-      }
-    }
-
-    // 텍스트 삽입
-    document.insert(0, processedContent);
-
-    // 포맷 적용 (시작 위치 기준으로 정렬)
-    formatRanges.sort((a, b) => a['start'].compareTo(b['start']));
-
-    int offset = 0;
-    for (final range in formatRanges) {
-      final start = range['start'] as int;
-      final length = range['length'] as int;
-      final attribute = range['attribute'] as Attribute;
-
-      document.format(start - offset, length, attribute);
-
-      // 제거된 마커 길이만큼 오프셋 조정
-      offset += _getMarkerLength(attribute) * 2; // 시작/끝 마커
-    }
-
-    return document;
-  }
-
-  int _getMarkerLength(Attribute attribute) {
-    if (attribute == Attribute.bold) return 2; // **
-    if (attribute == Attribute.underline) return 2; // __
-    if (attribute == Attribute.strikeThrough) return 2; // ~~
-    if (attribute == Attribute.italic) return 1; // *
-    return 0;
+  void _onTextChanged() {
+    final plainText = _textEditingController.text;
+    updateContent(plainText);
   }
 
   void updateAiEnabled(bool value) {
@@ -296,7 +177,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void resetForm() {
     _content = null;
-    _quillController.clear();
+    _textEditingController.clear();
     _selectedMood = MoodType.neutral;
     _selectedImageList = [];
     _isSubmitted = false;
@@ -307,7 +188,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _weatherInfo = null;
     _isLoadingWeather = false;
     _selectedTags.clear();
-    _checkAiUsageLimit();
+    _checkAiUsage();
     clearState();
     notifyListeners();
   }
@@ -545,34 +426,54 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
   }
 
-  Future<void> _checkAiUsageLimit() async {
-    final result = await _checkAiUsageLimitUseCase();
+  Future<void> _checkAiUsage() async {
+    _canUseAiToday = await _checkAiUsageUseCase();
+    final usage = await _settingsUseCase.getAiUsage();
+    final now = DateTime.now();
 
-    switch (result) {
-      case Ok<bool>():
-        _canUseAiToday = result.value;
-        _log.info('AI usage check result: canUseAiToday = $_canUseAiToday');
-
-        if (!_canUseAiToday) {
-          _aiEnabled = false;
-        }
-
-        notifyListeners();
-      case Error<bool>():
-        _log.warning('Failed to check AI usage limit: ${result.error}');
-        _canUseAiToday = false;
-        _aiEnabled = false;
-        notifyListeners();
+    if (usage != null) {
+      final isSameDay =
+          usage.date.year == now.year &&
+          usage.date.month == now.month &&
+          usage.date.day == now.day;
+      if (isSameDay) {
+        _aiUsageCount = usage.count;
+      } else {
+        _aiUsageCount = 0;
+      }
+    } else {
+      _aiUsageCount = 0;
     }
+
+    if (!_canUseAiToday) {
+      _aiEnabled = false;
+    }
+
+    notifyListeners();
   }
 
   void _generateAiResponse() async {
     _aiGenerationProvider.setGeneratingAiResponse();
 
     // Record AI usage
-    await _settingsUseCase.updateLastAiUsageDate(DateTime.now());
-    _canUseAiToday = false;
-    notifyListeners();
+    final now = DateTime.now();
+    final usage = await _settingsUseCase.getAiUsage();
+    if (usage != null) {
+      final isSameDay =
+          usage.date.year == now.year &&
+          usage.date.month == now.month &&
+          usage.date.day == now.day;
+      if (isSameDay) {
+        await _settingsUseCase.updateAiUsage(
+          AiUsage(date: now, count: usage.count + 1),
+        );
+      } else {
+        await _settingsUseCase.updateAiUsage(AiUsage(date: now, count: 1));
+      }
+    } else {
+      await _settingsUseCase.updateAiUsage(AiUsage(date: now, count: 1));
+    }
+    _checkAiUsage();
 
     final aiPersonality = _appStateProvider.appState.aiPersonality;
     await _geminiUseCase.initialize(aiPersonality);
@@ -644,9 +545,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           _log.info('Journal loaded successfully: ${journal.content}');
           _content = journal.content;
           if (journal.content != null) {
-            // 저장된 마크다운 텍스트를 QuillDocument로 변환
-            final document = _parseMarkdownToDocument(journal.content!);
-            _quillController.document = document;
+            _textEditingController.text = journal.content!;
           }
           _selectedMood = journal.moodType;
           _selectedImageList = journal.imageUri ?? [];
@@ -686,8 +585,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   @override
   void dispose() {
-    _quillController.removeListener(_onQuillTextChanged);
-    _quillController.dispose();
+    _textEditingController.removeListener(_onTextChanged);
+    _textEditingController.dispose();
     _selectedImageList.clear();
     super.dispose();
   }

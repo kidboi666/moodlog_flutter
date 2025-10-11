@@ -24,6 +24,15 @@ class AiEnableCard extends StatelessWidget {
         builder: (context) {
           return InkWell(
             onTap: () {
+              if (viewModel.content == null || viewModel.content!.trim().isEmpty) {
+                context.showSnackBar(
+                  const SnackBar(
+                    content: Text('Please write something first.'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+                return;
+              }
               if (viewModel.canUseAiToday) {
                 viewModel.updateAiEnabled(!viewModel.aiEnabled);
               } else {
@@ -48,7 +57,18 @@ class AiEnableCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(t.write_ai_title, style: textTheme.titleMedium),
+                        Row(
+                          children: [
+                            Text(t.write_ai_title, style: textTheme.titleMedium),
+                            const Spacer(),
+                            Text(
+                              '(${3 - viewModel.aiUsageCount}/3)',
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colorScheme.onSurface.withValues(alpha: 0.6),
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(t.write_ai_description),
                       ],
                     ),
@@ -57,7 +77,7 @@ class AiEnableCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Switch(
                       value: viewModel.aiEnabled,
-                      onChanged: viewModel.canUseAiToday
+                      onChanged: (viewModel.canUseAiToday && viewModel.content != null && viewModel.content!.trim().isNotEmpty)
                           ? viewModel.updateAiEnabled
                           : null,
                     ),

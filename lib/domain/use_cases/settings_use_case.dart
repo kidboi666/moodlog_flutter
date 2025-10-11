@@ -1,16 +1,17 @@
+import '../entities/ai/ai_usage.dart';
 import '../repositories/settings_repository.dart';
 
 class SettingsUseCase {
   final SettingsRepository _settingsRepository;
 
   SettingsUseCase({required SettingsRepository settingsRepository})
-    : _settingsRepository = settingsRepository;
+      : _settingsRepository = settingsRepository;
 
-  Future<DateTime?> getLastAiUsageDate() async {
-    return await _settingsRepository.getLastAiUsageDate();
+  Future<AiUsage?> getAiUsage() async {
+    return await _settingsRepository.getAiUsage();
   }
 
-  Future<void> updateLastAiUsageDate(DateTime date) async {
-    return await _settingsRepository.updateLastAiUsageDate(date);
+  Future<void> updateAiUsage(AiUsage usage) async {
+    return await _settingsRepository.updateAiUsage(usage);
   }
 }

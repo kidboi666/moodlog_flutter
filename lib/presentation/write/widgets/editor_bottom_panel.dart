@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/common.dart';
@@ -15,9 +15,9 @@ import 'tag_input_button.dart';
 import 'timestamp_button.dart';
 
 class EditorBottomPanel extends StatefulWidget {
-  final QuillController quillController;
+  final TextEditingController textEditingController;
 
-  const EditorBottomPanel({super.key, required this.quillController});
+  const EditorBottomPanel({super.key, required this.textEditingController});
 
   @override
   State<EditorBottomPanel> createState() => _EditorBottomPanelState();
@@ -140,7 +140,7 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
                 ),
                 const ImagePickerButton(),
                 const TagInputButton(),
-                TimestampButton(quillController: widget.quillController),
+                TimestampButton(textEditingController: widget.textEditingController),
               ],
             ),
           ),
