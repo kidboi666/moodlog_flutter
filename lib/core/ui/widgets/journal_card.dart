@@ -16,7 +16,9 @@ class JournalCard extends StatelessWidget {
   final String? coverImg;
   final DateTime createdAt;
   final void Function() onTap;
-  final void Function() onDismissed;
+  final void Function()? onLongPress;
+  final bool isSelectable;
+  final bool isSelected;
 
   const JournalCard({
     super.key,
@@ -25,8 +27,10 @@ class JournalCard extends StatelessWidget {
     required this.moodType,
     required this.createdAt,
     required this.onTap,
-    required this.onDismissed,
+    this.onLongPress,
     this.coverImg,
+    this.isSelectable = false,
+    this.isSelected = false,
   });
 
   @override
@@ -36,58 +40,77 @@ class JournalCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return InkWell(
-      onTap: onTap,
+      onTap: isSelectable ? onLongPress : onTap,
+      onLongPress: onLongPress,
       borderRadius: BorderRadius.circular(Roundness.card),
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
+          border: isSelected
+              ? Border.all(color: colorScheme.primary, width: 2)
+              : null,
         ),
-        child: Column(
+        child: Stack(
           children: [
-            IntrinsicHeight(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.xl,
-                  vertical: Spacing.xl,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Mood color indicator
-                    Container(
-                      width: Spacing.sm,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Roundness.card),
-                        color: Color(moodType.colorValue),
-                      ),
+            Column(
+              children: [
+                IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Spacing.xl,
+                      vertical: Spacing.xl,
                     ),
-                    const SizedBox(width: Spacing.lg),
-
-                    // Content section
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            createdAt.formatted(t),
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.outline,
-                            ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Mood color indicator
+                        Container(
+                          width: Spacing.sm,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Roundness.card),
+                            color: Color(moodType.colorValue),
                           ),
-                          const SizedBox(height: Spacing.xs),
-                          _buildContentPreview(content.trim(), textTheme),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(width: Spacing.lg),
+
+                        // Content section
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                createdAt.formatted(t),
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: colorScheme.outline,
+                                ),
+                              ),
+                              const SizedBox(height: Spacing.xs),
+                              _buildContentPreview(content.trim(), textTheme),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
+                ),
+                if (coverImg != null && coverImg!.isNotEmpty) ...[
+                  _buildCoverImage(context),
+                ],
+              ],
+            ),
+            if (isSelectable)
+              Positioned(
+                top: Spacing.sm,
+                right: Spacing.sm,
+                child: Checkbox(
+                  value: isSelected,
+                  onChanged: (value) {
+                    onLongPress?.call();
+                  },
                 ),
               ),
-            ),
-            if (coverImg != null && coverImg!.isNotEmpty) ...[
-              _buildCoverImage(context),
-            ],
           ],
         ),
       ),

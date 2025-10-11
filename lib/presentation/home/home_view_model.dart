@@ -48,6 +48,11 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   final Map<DateTime, List<Journal>> _yearlyJournals = {};
   LocationInfo? _locationInfo;
   WeatherInfo? _weatherInfo;
+  bool _isSelectionMode = false;
+  Set<int> _selectedJournalIds = {};
+
+  bool get isSelectionMode => _isSelectionMode;
+  Set<int> get selectedJournalIds => _selectedJournalIds;
 
   String? get profileImage => _userProvider.user?.profileImagePath;
 
@@ -295,6 +300,39 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
   void clearWeather() {
     _load();
+  }
+
+  void toggleSelectionMode() {
+    _isSelectionMode = !_isSelectionMode;
+    if (!_isSelectionMode) {
+      _selectedJournalIds.clear();
+    }
+    notifyListeners();
+  }
+
+  void toggleJournalSelection(int id) {
+    if (_selectedJournalIds.contains(id)) {
+      _selectedJournalIds.remove(id);
+    } else {
+      _selectedJournalIds.add(id);
+    }
+    notifyListeners();
+  }
+
+  void clearSelection() {
+    _isSelectionMode = false;
+    _selectedJournalIds.clear();
+    notifyListeners();
+  }
+
+  Future<void> deleteSelectedJournals() async {
+    setLoading();
+    for (final id in _selectedJournalIds) {
+      await _journalUseCase.deleteJournal(id);
+    }
+    _selectedJournalIds.clear();
+    _isSelectionMode = false;
+    setSuccess();
   }
 
   void _onUserChanged() {

@@ -145,19 +145,51 @@ class _EntriesScreenContent extends StatelessWidget {
 
                               return Column(
                                 children: [
-                                  JournalCard(
-                                    id: journal.id,
-                                    content: journal.content ?? '',
-                                    moodType: journal.moodType,
-                                    coverImg:
-                                        journal.imageUri?.isNotEmpty == true
-                                        ? journal.imageUri!.first
-                                        : null,
-                                    createdAt: journal.createdAt,
-                                    onTap: () => context
-                                        .pushToJournalFromEntries(journal.id),
-                                    onDismissed: () =>
-                                        viewModel.deleteJournal(journal.id),
+                                  Dismissible(
+                                    key: ValueKey(journal.id),
+                                    direction: DismissDirection.endToStart,
+                                    background: Container(
+                                      color: Theme.of(context).colorScheme.error,
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+                                      child: const Icon(Icons.delete, color: Colors.white),
+                                    ),
+                                    confirmDismiss: (direction) async {
+                                      return await showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text("Confirm Deletion"),
+                                            content: const Text("Are you sure you want to delete this journal entry?"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.of(context).pop(false),
+                                                child: const Text("Cancel"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.of(context).pop(true),
+                                                child: const Text("Delete"),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    onDismissed: (direction) {
+                                      viewModel.deleteJournal(journal.id);
+                                    },
+                                    child: JournalCard(
+                                      id: journal.id,
+                                      content: journal.content ?? '',
+                                      moodType: journal.moodType,
+                                      coverImg:
+                                          journal.imageUri?.isNotEmpty == true
+                                          ? journal.imageUri!.first
+                                          : null,
+                                      createdAt: journal.createdAt,
+                                      onTap: () => context
+                                          .pushToJournalFromEntries(journal.id),
+                                    ),
                                   ),
                                   if (journalIndex < journalsForDate.length - 1)
                                     const SizedBox(height: Spacing.lg),

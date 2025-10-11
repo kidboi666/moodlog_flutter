@@ -27,24 +27,24 @@ class AppDrawer extends StatelessWidget {
           leading: const Icon(Icons.book_outlined),
           title: Text(t.tab_entries),
           onTap: () {
-            context.push(Routes.entries);
             context.pop();
+            context.push(Routes.entries);
           },
         ),
         ListTile(
           leading: const Icon(Icons.query_stats_sharp),
           title: Text(t.tab_statistics),
           onTap: () {
-            context.push(Routes.statistics);
             context.pop();
+            context.push(Routes.statistics);
           },
         ),
         ListTile(
           leading: const Icon(Icons.settings_outlined),
           title: Text(t.tab_settings),
           onTap: () {
-            context.push(Routes.settings);
             context.pop();
+            context.push(Routes.settings);
           },
         ),
         const Divider(),
