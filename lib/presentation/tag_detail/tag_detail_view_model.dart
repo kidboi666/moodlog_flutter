@@ -36,8 +36,13 @@ class TagDetailViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> _loadTagDetails() async {
     final result = await _tagUseCase.getTagById(_tagId);
-    if (result is Ok<Tag>) {
-      _tag = result.value;
+    switch (result) {
+      case Ok(value: final tag):
+        _tag = tag;
+        break;
+      case Error():
+        // Handle or log error if necessary
+        break;
     }
   }
 

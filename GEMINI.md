@@ -57,6 +57,13 @@ lib/
 - **Models**: `lib/data/models/`
 - **Entities**: `lib/domain/entities/`
 
+#### View File Structure (`part`/`part of`)
+To ensure consistency and separation of concerns within the presentation layer, all view files should follow the `part`/`part of` convention:
+- **`*_view.dart`**: This file should contain only one `StatelessWidget` (the main screen widget) which is responsible for providing the `ViewModel` to the widget tree.
+- **`*_content.dart`**: This file, marked with `part of '*_view.dart'`, contains the `_Content` widget which builds the actual UI of the screen.
+
+This structure separates the DI setup from the UI implementation, making the code cleaner and easier to navigate.
+
 ## Key Architectural Decisions (v1.0.28+)
 
 ### Local-First Architecture
