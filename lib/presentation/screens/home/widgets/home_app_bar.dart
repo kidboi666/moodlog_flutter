@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/constants/enum.dart';
+
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/title_bar.dart';
 import 'package:provider/provider.dart';
+
+import 'package:moodlog/presentation/screens/home/widgets/calendar_bottom_sheet.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
@@ -11,14 +13,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
-    final (:isSelectionMode, :selectedJournalIds, :calendarViewMode) = context
-        .select(
-          (HomeViewModel vm) => (
-            isSelectionMode: vm.isSelectionMode,
-            selectedJournalIds: vm.selectedJournalIds,
-            calendarViewMode: vm.calendarViewMode,
-          ),
-        );
+    final (:isSelectionMode, :selectedJournalIds) = context.select(
+      (HomeViewModel vm) => (
+        isSelectionMode: vm.isSelectionMode,
+        selectedJournalIds: vm.selectedJournalIds,
+      ),
+    );
 
     return AppBar(
       title: isSelectionMode
@@ -32,12 +32,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? const [_CancelSelectionButton(), _DeleteSelectionButton()]
           : [
               IconButton(
-                icon: Icon(
-                  calendarViewMode == CalendarViewMode.horizontal
-                      ? Icons.calendar_view_month_outlined
-                      : Icons.view_week_outlined,
-                ),
-                onPressed: () => viewModel.toggleCalendarView(),
+                icon: const Icon(Icons.calendar_today_outlined),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => ChangeNotifierProvider.value(
+                      value: viewModel,
+                      child: const CalendarBottomSheet(),
+                    ),
+                  );
+                },
               ),
               Builder(
                 builder: (context) => IconButton(

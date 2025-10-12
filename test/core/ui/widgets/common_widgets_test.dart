@@ -54,20 +54,50 @@ void main() {
 
     test('should provide correct horizontal padding values', () {
       // Assert
-      expect(CommonPadding.horizontalXs, const EdgeInsets.symmetric(horizontal: Spacing.xs));
-      expect(CommonPadding.horizontalSm, const EdgeInsets.symmetric(horizontal: Spacing.sm));
-      expect(CommonPadding.horizontalMd, const EdgeInsets.symmetric(horizontal: Spacing.md));
-      expect(CommonPadding.horizontalLg, const EdgeInsets.symmetric(horizontal: Spacing.lg));
-      expect(CommonPadding.horizontalXl, const EdgeInsets.symmetric(horizontal: Spacing.xl));
+      expect(
+        CommonPadding.horizontalXs,
+        const EdgeInsets.symmetric(horizontal: Spacing.xs),
+      );
+      expect(
+        CommonPadding.horizontalSm,
+        const EdgeInsets.symmetric(horizontal: Spacing.sm),
+      );
+      expect(
+        CommonPadding.horizontalMd,
+        const EdgeInsets.symmetric(horizontal: Spacing.md),
+      );
+      expect(
+        CommonPadding.horizontalLg,
+        const EdgeInsets.symmetric(horizontal: Spacing.lg),
+      );
+      expect(
+        CommonPadding.horizontalXl,
+        const EdgeInsets.symmetric(horizontal: Spacing.xl),
+      );
     });
 
     test('should provide correct vertical padding values', () {
       // Assert
-      expect(CommonPadding.verticalXs, const EdgeInsets.symmetric(vertical: Spacing.xs));
-      expect(CommonPadding.verticalSm, const EdgeInsets.symmetric(vertical: Spacing.sm));
-      expect(CommonPadding.verticalMd, const EdgeInsets.symmetric(vertical: Spacing.md));
-      expect(CommonPadding.verticalLg, const EdgeInsets.symmetric(vertical: Spacing.lg));
-      expect(CommonPadding.verticalXl, const EdgeInsets.symmetric(vertical: Spacing.xl));
+      expect(
+        CommonPadding.verticalXs,
+        const EdgeInsets.symmetric(vertical: Spacing.xs),
+      );
+      expect(
+        CommonPadding.verticalSm,
+        const EdgeInsets.symmetric(vertical: Spacing.sm),
+      );
+      expect(
+        CommonPadding.verticalMd,
+        const EdgeInsets.symmetric(vertical: Spacing.md),
+      );
+      expect(
+        CommonPadding.verticalLg,
+        const EdgeInsets.symmetric(vertical: Spacing.lg),
+      );
+      expect(
+        CommonPadding.verticalXl,
+        const EdgeInsets.symmetric(vertical: Spacing.xl),
+      );
     });
   });
 
@@ -75,11 +105,7 @@ void main() {
     testWidgets('should display loading indicator', (tester) async {
       // Act
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: LoadingWidget(),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: LoadingWidget())),
       );
 
       // Assert
@@ -93,9 +119,7 @@ void main() {
       // Act
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: LoadingWidget(message: message),
-          ),
+          home: Scaffold(body: LoadingWidget(message: message)),
         ),
       );
 
@@ -111,18 +135,18 @@ void main() {
       // Act
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: LoadingWidget(size: customSize),
-          ),
+          home: Scaffold(body: LoadingWidget(size: customSize)),
         ),
       );
 
       // Assert
       final sizedBox = tester.widget<SizedBox>(
-        find.ancestor(
-          of: find.byType(CircularProgressIndicator),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .ancestor(
+              of: find.byType(CircularProgressIndicator),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
       expect(sizedBox.width, customSize);
       expect(sizedBox.height, customSize);
@@ -139,10 +163,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: EmptyStateWidget(
-              icon: icon,
-              title: title,
-            ),
+            body: EmptyStateWidget(icon: icon, title: title),
           ),
         ),
       );
@@ -179,20 +200,13 @@ void main() {
       // Arrange
       const icon = Icons.inbox;
       const title = 'No data available';
-      const action = ElevatedButton(
-        onPressed: null,
-        child: Text('Add Data'),
-      );
+      const action = ElevatedButton(onPressed: null, child: Text('Add Data'));
 
       // Act
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: EmptyStateWidget(
-              icon: icon,
-              title: title,
-              action: action,
-            ),
+            body: EmptyStateWidget(icon: icon, title: title, action: action),
           ),
         ),
       );

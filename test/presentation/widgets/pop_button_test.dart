@@ -6,9 +6,7 @@ void main() {
   testWidgets('PopButton has callback', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(
-          body: PopButton(onTap: () {}),
-        ),
+        home: Scaffold(body: PopButton(onTap: () {})),
       ),
     );
     expect(find.byType(IconButton), findsOneWidget);

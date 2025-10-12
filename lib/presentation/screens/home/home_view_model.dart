@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/constants/enum.dart';
+
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
@@ -67,17 +67,6 @@ class HomeViewModel extends ChangeNotifier
   LocationInfo? get locationInfo => _locationInfo;
 
   WeatherInfo? get weatherInfo => _weatherInfo;
-
-  CalendarViewMode _calendarViewMode = CalendarViewMode.horizontal;
-
-  CalendarViewMode get calendarViewMode => _calendarViewMode;
-
-  void toggleCalendarView() {
-    _calendarViewMode = _calendarViewMode == CalendarViewMode.horizontal
-        ? CalendarViewMode.grid
-        : CalendarViewMode.horizontal;
-    notifyListeners();
-  }
 
   bool get isSelectedDateInFuture {
     final today = DateTime.now();

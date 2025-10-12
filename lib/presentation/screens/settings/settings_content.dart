@@ -64,7 +64,8 @@ class _SettingsScreenContent extends StatelessWidget {
                           title: t.settings_common_app_lock_title,
                           subtitle: t.settings_common_app_lock_subtitle,
                           icon: Icons.lock,
-                          value: isProUser && viewModel.appState.isAppLockEnabled,
+                          value:
+                              isProUser && viewModel.appState.isAppLockEnabled,
                           onChanged: (value) {
                             if (isProUser) {
                               viewModel.setAppLockEnabled(value);
@@ -72,7 +73,10 @@ class _SettingsScreenContent extends StatelessWidget {
                           },
                           trailing: isProUser
                               ? null
-                              : const Icon(Icons.workspace_premium, color: Colors.amber),
+                              : const Icon(
+                                  Icons.workspace_premium,
+                                  color: Colors.amber,
+                                ),
                         ),
                       ),
                     );

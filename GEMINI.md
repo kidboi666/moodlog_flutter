@@ -192,6 +192,7 @@ flutter build apk       # Build Android APK
 3. **LocalUser is NOT Firebase User** - Different entity with different fields
 4. **No email field** - LocalUser only has userId, nickname, profileImagePath, createdAt
 5. **All data is local** - No cloud sync currently implemented
+6. **All design documents must be written in Korean.**
 
 ## Release Management
 

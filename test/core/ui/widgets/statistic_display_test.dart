@@ -13,10 +13,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: StatisticDisplay(
-              value: value,
-              unit: unit,
-            ),
+            body: StatisticDisplay(value: value, unit: unit),
           ),
         ),
       );
@@ -57,7 +54,9 @@ void main() {
   });
 
   group('StatusIndicator', () {
-    testWidgets('should display status text with correct color', (tester) async {
+    testWidgets('should display status text with correct color', (
+      tester,
+    ) async {
       // Arrange
       const status = 'Active';
       const color = Colors.green;
@@ -66,10 +65,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: StatusIndicator(
-              status: status,
-              color: color,
-            ),
+            body: StatusIndicator(status: status, color: color),
           ),
         ),
       );
@@ -91,11 +87,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: StatusIndicator(
-              status: status,
-              color: color,
-              icon: icon,
-            ),
+            body: StatusIndicator(status: status, color: color, icon: icon),
           ),
         ),
       );
@@ -118,10 +110,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: InfoRow(
-              label: label,
-              value: value,
-            ),
+            body: InfoRow(label: label, value: value),
           ),
         ),
       );
@@ -170,11 +159,7 @@ void main() {
       // Act
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: InfoContainer(
-              child: child,
-            ),
-          ),
+          home: Scaffold(body: InfoContainer(child: child)),
         ),
       );
 
@@ -183,7 +168,9 @@ void main() {
       expect(find.byType(Container), findsOneWidget);
     });
 
-    testWidgets('should apply custom background color when provided', (tester) async {
+    testWidgets('should apply custom background color when provided', (
+      tester,
+    ) async {
       // Arrange
       const childText = 'Test Content';
       const child = Text(childText);
@@ -193,10 +180,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: InfoContainer(
-              backgroundColor: backgroundColor,
-              child: child,
-            ),
+            body: InfoContainer(backgroundColor: backgroundColor, child: child),
           ),
         ),
       );
