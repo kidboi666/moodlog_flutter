@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/l10n/app_localizations.dart';
-import '../write_view_model.dart';
 
 class LocationSection extends StatelessWidget {
   const LocationSection({super.key});
@@ -11,15 +10,14 @@ class LocationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final locationInfo = context.select(
-      (WriteViewModel vm) => vm.locationInfo,
-    );
+    final locationInfo = context.select((WriteViewModel vm) => vm.locationInfo);
 
     if (locationInfo == null) {
       return Row(
         children: [
           TextButton.icon(
-            onPressed: () => context.read<WriteViewModel>().getCurrentLocation(),
+            onPressed: () =>
+                context.read<WriteViewModel>().getCurrentLocation(),
             icon: Icon(Icons.location_on, size: 16),
             label: Text(t.write_location_add),
             style: TextButton.styleFrom(

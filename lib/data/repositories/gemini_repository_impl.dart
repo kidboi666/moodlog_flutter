@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:firebase_ai/firebase_ai.dart';
-
-import '../../core/constants/enum.dart';
-import '../../core/constants/prompt.dart';
-import '../../core/utils/result.dart';
-import '../../domain/repositories/gemini_repository.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/constants/prompt.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/repositories/gemini_repository.dart';
 
 class GeminiRepositoryImpl implements GeminiRepository {
   static GeminiRepositoryImpl? _instance;

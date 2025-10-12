@@ -3,9 +3,5 @@ class LocationInfo {
   final double longitude;
   final String? address;
 
-  LocationInfo({
-    required this.latitude,
-    required this.longitude,
-    this.address,
-  });
+  LocationInfo({required this.latitude, required this.longitude, this.address});
 }

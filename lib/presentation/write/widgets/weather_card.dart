@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
+import 'package:moodlog/domain/use_cases/weather_use_case.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../domain/entities/journal/weather_info.dart';
-import '../../../domain/use_cases/weather_use_case.dart';
-import '../write_view_model.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({super.key});

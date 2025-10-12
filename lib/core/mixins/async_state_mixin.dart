@@ -1,9 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-
-import '../constants/enum.dart';
-import '../utils/error_handler.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/error_handler.dart';
 
 mixin AsyncStateMixin on ChangeNotifier {
   AsyncState _state = AsyncState.idle;

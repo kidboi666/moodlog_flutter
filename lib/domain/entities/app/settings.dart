@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../../core/constants/enum.dart';
+import 'package:moodlog/core/constants/enum.dart';
 
 part 'settings.freezed.dart';
 

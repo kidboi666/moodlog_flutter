@@ -1,7 +1,6 @@
-import '../../core/utils/result.dart';
-import '../entities/journal/tag.dart';
-
-import '../entities/journal/tag_with_count.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
 
 abstract class TagRepository {
   Future<Result<List<TagWithCount>>> getTagsWithCount();

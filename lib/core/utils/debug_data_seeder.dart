@@ -6,8 +6,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
-
-import '../../../domain/use_cases/journal_use_case.dart';
+import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 
 class DebugDataSeeder {
   final JournalUseCase _journalUseCase;
@@ -47,14 +46,16 @@ class DebugDataSeeder {
     if (isEmpty) {
       _log.info('No journals found. Seeding sample data...');
       try {
-        final jsonString =
-            await rootBundle.loadString('assets/data/sample_journals.json');
+        final jsonString = await rootBundle.loadString(
+          'assets/data/sample_journals.json',
+        );
         final List<dynamic> jsonList = json.decode(jsonString);
 
         for (final json in jsonList) {
           final tagKeys = (json['tags'] as List<dynamic>).cast<String>();
-          final localizedTags =
-              tagKeys.map((key) => _getLocalizedTagName(key, t)).toList();
+          final localizedTags = tagKeys
+              .map((key) => _getLocalizedTagName(key, t))
+              .toList();
 
           final request = CreateJournalRequest(
             moodType: MoodType.values.byName(json['moodType']),

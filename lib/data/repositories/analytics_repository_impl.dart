@@ -1,11 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
-
-import '../../domain/entities/analytics/analytics_event.dart';
-import '../../domain/entities/analytics/analytics_observer.dart';
-import '../../domain/entities/analytics/mood_analytics.dart';
-import '../../domain/entities/analytics/screen_view.dart';
-import '../../domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/entities/analytics/analytics_event.dart';
+import 'package:moodlog/domain/entities/analytics/analytics_observer.dart';
+import 'package:moodlog/domain/entities/analytics/mood_analytics.dart';
+import 'package:moodlog/domain/entities/analytics/screen_view.dart';
+import 'package:moodlog/domain/repositories/analytics_repository.dart';
 
 class AnalyticsRepositoryImpl implements AnalyticsRepository {
   final FirebaseAnalytics _analytics;
@@ -105,7 +104,7 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
       name: 'user_engagement',
       parameters: {
         'engagement_type': engagementType,
-        if (duration != null) 'duration_seconds': duration,
+        'duration_seconds': ?duration,
       },
     );
     await logEvent(event);

@@ -1,17 +1,15 @@
 import 'package:drift/native.dart';
-
-import '../../core/utils/result.dart';
-import '../../domain/entities/journal/tag.dart';
-import '../../domain/repositories/tag_repository.dart';
-import '../data_source/local/tag_local_data_source.dart';
-
-import '../../domain/entities/journal/tag_with_count.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
+import 'package:moodlog/domain/repositories/tag_repository.dart';
 
 class TagRepositoryImpl implements TagRepository {
   final TagLocalDataSource _localDataSource;
 
   TagRepositoryImpl({required TagLocalDataSource localDataSource})
-      : _localDataSource = localDataSource;
+    : _localDataSource = localDataSource;
 
   @override
   Future<Result<List<TagWithCount>>> getTagsWithCount() async {
@@ -26,7 +24,8 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Result<List<Tag>>> getAllTags() async {
     try {
-      final tags = await _localDataSource.getAllTags();      return Result.ok(tags);
+      final tags = await _localDataSource.getAllTags();
+      return Result.ok(tags);
     } catch (e) {
       return Result.error(Exception('태그 목록을 가져오는데 실패했습니다: $e'));
     }

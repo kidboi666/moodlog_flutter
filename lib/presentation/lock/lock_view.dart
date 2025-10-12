@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
-
 import 'package:go_router/go_router.dart';
-
-import '../../core/l10n/app_localizations.dart';
-import '../../core/routing/routes.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({super.key});
+
   @override
   State<LockScreen> createState() => _LockScreenState();
 }

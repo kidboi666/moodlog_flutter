@@ -1,6 +1,6 @@
-import '../../core/utils/result.dart';
-import '../entities/journal/location_info.dart';
-import '../repositories/location_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/location_info.dart';
+import 'package:moodlog/domain/repositories/location_repository.dart';
 
 class GetCurrentLocationUseCase {
   final LocationRepository _locationRepository;

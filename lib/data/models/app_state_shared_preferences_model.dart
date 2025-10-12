@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../core/constants/enum.dart';
-import '../../domain/entities/app/settings.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/app/settings.dart';
 
 part 'app_state_shared_preferences_model.freezed.dart';
 part 'app_state_shared_preferences_model.g.dart';

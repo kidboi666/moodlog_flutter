@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
-import '../../../core/constants/common.dart';
+import 'package:moodlog/core/constants/common.dart';
 
 class PreviewImageItem extends StatelessWidget {
   final String imageUri;

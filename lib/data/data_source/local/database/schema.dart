@@ -1,11 +1,10 @@
 import 'package:drift/drift.dart';
-
-import '../../../../core/constants/enum.dart';
-import '../../../../core/utils/converter.dart';
-import '../../../../domain/entities/app/stat.dart';
-import '../../../../domain/entities/journal/journal.dart';
-import '../../../../domain/entities/journal/journal_tag.dart';
-import '../../../../domain/entities/journal/tag.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/converter.dart';
+import 'package:moodlog/domain/entities/app/stat.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/journal_tag.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 // Drift 어노테이션: 이 테이블에서 생성되는 행 데이터를 Tag 클래스로 매핑
 @UseRowClass(Journal)

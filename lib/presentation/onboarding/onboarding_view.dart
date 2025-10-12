@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/ui/widgets/pagination_dot.dart';
+import 'package:moodlog/presentation/onboarding/onboarding_view_model.dart';
+import 'package:moodlog/presentation/onboarding/widgets/onboarding_pageview_nickname.dart';
+import 'package:moodlog/presentation/onboarding/widgets/onboarding_pageview_personality.dart';
+import 'package:moodlog/presentation/onboarding/widgets/onboarding_pageview_success.dart';
+import 'package:moodlog/presentation/onboarding/widgets/onboarding_pageview_welcome.dart';
 import 'package:provider/provider.dart';
-
-import '../../core/constants/common.dart';
-import '../../core/ui/widgets/pagination_dot.dart';
-import 'onboarding_view_model.dart';
-import 'widgets/onboarding_pageview_nickname.dart';
-import 'widgets/onboarding_pageview_personality.dart';
-import 'widgets/onboarding_pageview_success.dart';
-import 'widgets/onboarding_pageview_welcome.dart';
 
 part 'onboarding_content.dart';
 

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/constants/common.dart';
-import '../../../../core/l10n/app_localizations.dart';
-import '../../../../domain/entities/journal/weather_info.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
 
 class WeatherInfoBottomSheet extends StatelessWidget {
   final WeatherInfo weatherInfo;

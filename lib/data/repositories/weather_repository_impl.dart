@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
-import '../../core/utils/result.dart';
-import '../../domain/entities/journal/weather_info.dart';
-import '../../domain/repositories/weather_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
+import 'package:moodlog/domain/repositories/weather_repository.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
   static const String _baseUrl = 'https://api.openweathermap.org/data/2.5';

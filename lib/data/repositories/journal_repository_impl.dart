@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:logging/logging.dart';
-
-import '../../core/utils/result.dart';
-import '../../domain/entities/journal/journal.dart';
-import '../../domain/models/create_journal_request.dart';
-import '../../domain/models/update_journal_ai_response_request.dart';
-import '../../domain/models/update_journal_request.dart';
-import '../../domain/repositories/journal_repository.dart';
-import '../data_source/local/journal_local_data_source.dart';
-import '../data_source/local/tag_local_data_source.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/models/create_journal_request.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
+import 'package:moodlog/domain/models/update_journal_request.dart';
+import 'package:moodlog/domain/repositories/journal_repository.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final JournalLocalDataSource _journalLocalDataSource;
@@ -84,8 +83,7 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<Result<List<Journal>>> getJournalsByTagId(int tagId) async {
     try {
-      final journals =
-          await _journalLocalDataSource.getJournalsByTagId(tagId);
+      final journals = await _journalLocalDataSource.getJournalsByTagId(tagId);
       final journalsWithTags = <Journal>[];
       for (final journal in journals) {
         final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);

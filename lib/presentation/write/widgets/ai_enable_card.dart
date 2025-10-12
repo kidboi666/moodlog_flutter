@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/snack_bar.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/extensions/snack_bar.dart';
-import '../../../core/extensions/widget.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../write_view_model.dart';
 
 class AiEnableCard extends StatelessWidget {
   const AiEnableCard({super.key});
@@ -24,7 +23,8 @@ class AiEnableCard extends StatelessWidget {
         builder: (context) {
           return InkWell(
             onTap: () {
-              if (viewModel.content == null || viewModel.content!.trim().isEmpty) {
+              if (viewModel.content == null ||
+                  viewModel.content!.trim().isEmpty) {
                 context.showSnackBar(
                   const SnackBar(
                     content: Text('Please write something first.'),
@@ -59,12 +59,17 @@ class AiEnableCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(t.write_ai_title, style: textTheme.titleMedium),
+                            Text(
+                              t.write_ai_title,
+                              style: textTheme.titleMedium,
+                            ),
                             const Spacer(),
                             Text(
                               '(${3 - viewModel.aiUsageCount}/3)',
                               style: textTheme.bodySmall?.copyWith(
-                                color: colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: colorScheme.onSurface.withValues(
+                                  alpha: 0.6,
+                                ),
                               ),
                             ),
                           ],
@@ -77,7 +82,10 @@ class AiEnableCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Switch(
                       value: viewModel.aiEnabled,
-                      onChanged: (viewModel.canUseAiToday && viewModel.content != null && viewModel.content!.trim().isNotEmpty)
+                      onChanged:
+                          (viewModel.canUseAiToday &&
+                              viewModel.content != null &&
+                              viewModel.content!.trim().isNotEmpty)
                           ? viewModel.updateAiEnabled
                           : null,
                     ),

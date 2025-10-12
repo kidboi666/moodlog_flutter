@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/extensions/widget.dart';
-import '../write_view_model.dart';
 
 class LocationButton extends StatelessWidget {
   const LocationButton({super.key});
@@ -10,9 +9,7 @@ class LocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final locationInfo = context.select(
-      (WriteViewModel vm) => vm.locationInfo,
-    );
+    final locationInfo = context.select((WriteViewModel vm) => vm.locationInfo);
 
     if (locationInfo == null) {
       return IconButton(

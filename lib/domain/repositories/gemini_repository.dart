@@ -1,5 +1,5 @@
-import '../../core/constants/enum.dart';
-import '../../core/utils/result.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/result.dart';
 
 abstract class GeminiRepository {
   bool get isInitialized;

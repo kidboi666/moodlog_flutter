@@ -1,6 +1,6 @@
-import '../../core/constants/enum.dart' show AiPersonality, MoodType;
-import '../../core/utils/result.dart';
-import '../repositories/gemini_repository.dart';
+import 'package:moodlog/core/constants/enum.dart' show AiPersonality, MoodType;
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/repositories/gemini_repository.dart';
 
 class GeminiUseCase {
   final GeminiRepository _geminiRepository;

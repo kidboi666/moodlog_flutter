@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/l10n/app_localizations.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 class ContentInput extends StatefulWidget {
   final TextEditingController textEditingController;

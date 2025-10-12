@@ -1,6 +1,6 @@
-import '../entities/ai/ai_usage.dart';
-import '../entities/app/app_info.dart';
-import '../entities/app/settings.dart';
+import 'package:moodlog/domain/entities/ai/ai_usage.dart';
+import 'package:moodlog/domain/entities/app/app_info.dart';
+import 'package:moodlog/domain/entities/app/settings.dart';
 
 abstract class SettingsRepository {
   Future<Settings> loadSettings();

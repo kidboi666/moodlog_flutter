@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../l10n/app_localizations.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 /// 에러를 표시하는 공통 다이얼로그
 class ErrorDialog extends StatelessWidget {
@@ -29,25 +28,16 @@ class ErrorDialog extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AlertDialog(
-      icon: Icon(
-        Icons.error_outline,
-        color: colorScheme.error,
-        size: 32,
-      ),
+      icon: Icon(Icons.error_outline, color: colorScheme.error, size: 32),
       title: Text(
         title,
-        style: textTheme.titleLarge?.copyWith(
-          color: colorScheme.error,
-        ),
+        style: textTheme.titleLarge?.copyWith(color: colorScheme.error),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            message,
-            style: textTheme.bodyMedium,
-          ),
+          Text(message, style: textTheme.bodyMedium),
           if (showDetails && errorDetails != null) ...[
             const SizedBox(height: 16),
             ExpansionTile(
@@ -99,10 +89,7 @@ class ErrorDialog extends StatelessWidget {
 /// 에러 유형별 팩토리 메서드
 extension ErrorDialogFactory on ErrorDialog {
   /// 네트워크 에러 다이얼로그
-  static ErrorDialog network({
-    String? customMessage,
-    VoidCallback? onRetry,
-  }) {
+  static ErrorDialog network({String? customMessage, VoidCallback? onRetry}) {
     return ErrorDialog(
       title: '연결 오류',
       message: customMessage ?? '네트워크 연결을 확인해주세요.',

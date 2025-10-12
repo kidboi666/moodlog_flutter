@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
+import 'package:moodlog/core/ui/widgets/fade_in.dart';
+import 'package:moodlog/core/ui/widgets/spinner.dart';
+import 'package:moodlog/presentation/onboarding/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/routing/routes.dart';
-import '../../../core/ui/widgets/fade_in.dart';
-import '../../../core/ui/widgets/spinner.dart';
-import '../onboarding_view_model.dart';
 
 class OnboardingPageViewSuccess extends StatelessWidget {
   const OnboardingPageViewSuccess({super.key});

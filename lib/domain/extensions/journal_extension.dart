@@ -1,5 +1,5 @@
-import '../entities/journal/journal.dart';
-import '../entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 extension JournalExtension on Journal {
   Journal attachTags(List<Tag> tags) {

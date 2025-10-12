@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/common.dart';
-import '../../extensions/widget.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/widget.dart';
 
 class Avatar extends StatelessWidget {
   final String? photoUrl;

@@ -1,11 +1,10 @@
-
-import '../repositories/settings_repository.dart';
+import 'package:moodlog/domain/repositories/settings_repository.dart';
 
 class CheckAiUsageUseCase {
   final SettingsRepository _settingsRepository;
 
   CheckAiUsageUseCase({required SettingsRepository settingsRepository})
-      : _settingsRepository = settingsRepository;
+    : _settingsRepository = settingsRepository;
 
   Future<bool> call() async {
     final usage = await _settingsRepository.getAiUsage();

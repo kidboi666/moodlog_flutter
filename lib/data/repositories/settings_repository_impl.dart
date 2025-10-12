@@ -11,25 +11,31 @@ class SettingsRepositoryImpl implements SettingsRepository {
   final SharedPreferencesLocalDataSource _localDataSource;
   final MoodLogDatabase _db;
 
-  SettingsRepositoryImpl(
-      {required SharedPreferencesLocalDataSource localDataSource,
-      required MoodLogDatabase db})
-      : _localDataSource = localDataSource,
-        _db = db;
+  SettingsRepositoryImpl({
+    required SharedPreferencesLocalDataSource localDataSource,
+    required MoodLogDatabase db,
+  }) : _localDataSource = localDataSource,
+       _db = db;
 
   @override
   Future<Settings> loadSettings() async {
-    final hasNotificationEnabled =
-        await _localDataSource.getBool('hasNotificationEnabled');
-    final hasAutoSyncEnabled = await _localDataSource.getBool('hasAutoSyncEnabled');
+    final hasNotificationEnabled = await _localDataSource.getBool(
+      'hasNotificationEnabled',
+    );
+    final hasAutoSyncEnabled = await _localDataSource.getBool(
+      'hasAutoSyncEnabled',
+    );
     final themeModeString = await _localDataSource.getString('themeMode');
     final colorThemeString = await _localDataSource.getString('colorTheme');
     final languageCodeString = await _localDataSource.getString('languageCode');
-    final aiPersonalityString = await _localDataSource.getString('aiPersonality');
+    final aiPersonalityString = await _localDataSource.getString(
+      'aiPersonality',
+    );
     final fontFamilyString = await _localDataSource.getString('fontFamily');
     final textAlignString = await _localDataSource.getString('textAlign');
-    final isOnboardingComplete =
-        await _localDataSource.getBool('isOnboardingComplete');
+    final isOnboardingComplete = await _localDataSource.getBool(
+      'isOnboardingComplete',
+    );
 
     return Settings(
       hasNotificationEnabled: hasNotificationEnabled,
@@ -47,20 +53,29 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<Settings> updateSettings(Settings newSettings) async {
     await _localDataSource.setBool(
-        'hasNotificationEnabled', newSettings.hasNotificationEnabled);
+      'hasNotificationEnabled',
+      newSettings.hasNotificationEnabled,
+    );
     await _localDataSource.setBool(
-        'hasAutoSyncEnabled', newSettings.hasAutoSyncEnabled);
+      'hasAutoSyncEnabled',
+      newSettings.hasAutoSyncEnabled,
+    );
     await _localDataSource.setString('themeMode', newSettings.themeMode.name);
+    await _localDataSource.setString('colorTheme', newSettings.colorTheme.name);
     await _localDataSource.setString(
-        'colorTheme', newSettings.colorTheme.name);
+      'languageCode',
+      newSettings.languageCode.name,
+    );
     await _localDataSource.setString(
-        'languageCode', newSettings.languageCode.name);
-    await _localDataSource.setString(
-        'aiPersonality', newSettings.aiPersonality.name);
+      'aiPersonality',
+      newSettings.aiPersonality.name,
+    );
     await _localDataSource.setString('fontFamily', newSettings.fontFamily.name);
     await _localDataSource.setString('textAlign', newSettings.textAlign.name);
     await _localDataSource.setBool(
-        'isOnboardingComplete', newSettings.isOnboardingComplete);
+      'isOnboardingComplete',
+      newSettings.isOnboardingComplete,
+    );
     return newSettings;
   }
 
@@ -81,17 +96,16 @@ class SettingsRepositoryImpl implements SettingsRepository {
     final lastUsedString = await _localDataSource.getString('aiUsageLastUsed');
     if (lastUsedString == null) return null;
 
-    return AiUsage(
-      count: usageCount,
-      date: DateTime.parse(lastUsedString),
-    );
+    return AiUsage(count: usageCount, date: DateTime.parse(lastUsedString));
   }
 
   @override
   Future<void> updateAiUsage(AiUsage usage) async {
     await _localDataSource.setInt('aiUsageCount', usage.count);
     await _localDataSource.setString(
-        'aiUsageLastUsed', usage.date.toIso8601String());
+      'aiUsageLastUsed',
+      usage.date.toIso8601String(),
+    );
   }
 
   @override

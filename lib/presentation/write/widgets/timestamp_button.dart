@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
-
-import '../../../core/extensions/widget.dart';
+import 'package:moodlog/core/extensions/widget.dart';
 
 class TimestampButton extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -16,7 +14,11 @@ class TimestampButton extends StatelessWidget {
     final currentText = textEditingController.text;
     final selection = textEditingController.selection;
 
-    final newText = currentText.replaceRange(selection.start, selection.end, text);
+    final newText = currentText.replaceRange(
+      selection.start,
+      selection.end,
+      text,
+    );
     textEditingController.value = textEditingController.value.copyWith(
       text: newText,
       selection: TextSelection.collapsed(offset: selection.start + text.length),

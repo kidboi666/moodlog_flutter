@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/constants/enum.dart';
-import '../../core/mixins/async_state_mixin.dart';
-import '../../core/mixins/step_mixin.dart';
-import '../../domain/entities/app/settings.dart';
-import '../../domain/repositories/local_user_repository.dart';
-import '../../presentation/providers/app_state_provider.dart';
-import '../../presentation/providers/user_provider.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/core/mixins/step_mixin.dart';
+import 'package:moodlog/domain/entities/app/settings.dart';
+import 'package:moodlog/domain/repositories/local_user_repository.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class OnboardingViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {

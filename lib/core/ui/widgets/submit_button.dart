@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/ui/widgets/spinner.dart';
-
-import '../../constants/common.dart';
-import '../../constants/enum.dart';
 
 class SubmitButton extends StatelessWidget {
   final bool isLoading;

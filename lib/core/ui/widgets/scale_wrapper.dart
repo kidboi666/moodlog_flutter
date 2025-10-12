@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/common.dart';
+import 'package:moodlog/core/constants/common.dart';
 
 class ScaleWrapper extends StatefulWidget {
   final Widget child;

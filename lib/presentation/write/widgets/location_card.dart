@@ -1,9 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../write_view_model.dart';
 
 class LocationCard extends StatelessWidget {
   const LocationCard({super.key});

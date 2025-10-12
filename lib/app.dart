@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/observers/app_lifecycle_observer.dart';
+import 'package:moodlog/core/routing/router.dart';
+import 'package:moodlog/core/services/flavor_service.dart';
+import 'package:moodlog/core/ui/theme/theme.dart';
+import 'package:moodlog/core/utils/keyboard_utils.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:provider/provider.dart';
-
-import 'core/constants/enum.dart';
-import 'core/l10n/app_localizations.dart';
-import 'core/observers/app_lifecycle_observer.dart';
-import 'core/routing/router.dart';
-import 'core/services/flavor_service.dart';
-import 'core/ui/theme/theme.dart';
-import 'core/utils/keyboard_utils.dart';
-import 'presentation/providers/app_state_provider.dart';
 
 class MoodLogApp extends StatefulWidget {
   final NavigatorObserver? analyticsObserver;

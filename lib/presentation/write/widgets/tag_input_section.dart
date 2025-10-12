@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/widget.dart';
-import '../../../domain/entities/journal/tag.dart';
-import '../write_view_model.dart';
 
 class TagInputSection extends StatefulWidget {
   const TagInputSection({super.key});
@@ -19,9 +18,7 @@ class _TagInputSectionState extends State<TagInputSection> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTags = context.select(
-      (WriteViewModel vm) => vm.selectedTags,
-    );
+    final selectedTags = context.select((WriteViewModel vm) => vm.selectedTags);
 
     return Wrap(
       spacing: Spacing.xs,

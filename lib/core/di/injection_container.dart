@@ -1,42 +1,41 @@
 import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
+import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
+import 'package:moodlog/data/repositories/gemini_repository_impl.dart';
+import 'package:moodlog/data/repositories/image_repository_impl.dart';
+import 'package:moodlog/data/repositories/journal_repository_impl.dart';
+import 'package:moodlog/data/repositories/local_user_repository_impl.dart';
+import 'package:moodlog/data/repositories/location_repository_impl.dart';
+import 'package:moodlog/data/repositories/settings_repository_impl.dart';
+import 'package:moodlog/data/repositories/tag_repository_impl.dart';
+import 'package:moodlog/data/repositories/weather_repository_impl.dart';
+import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/repositories/gemini_repository.dart';
+import 'package:moodlog/domain/repositories/image_repository.dart';
+import 'package:moodlog/domain/repositories/journal_repository.dart';
+import 'package:moodlog/domain/repositories/local_user_repository.dart';
+import 'package:moodlog/domain/repositories/location_repository.dart';
+import 'package:moodlog/domain/repositories/settings_repository.dart';
+import 'package:moodlog/domain/repositories/tag_repository.dart';
+import 'package:moodlog/domain/repositories/weather_repository.dart';
+import 'package:moodlog/domain/use_cases/check_ai_usage_use_case.dart';
+import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
+import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
+import 'package:moodlog/domain/use_cases/journal_use_case.dart';
+import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
+import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
+import 'package:moodlog/domain/use_cases/pick_image_use_case.dart';
+import 'package:moodlog/domain/use_cases/settings_use_case.dart';
+import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/domain/use_cases/weather_use_case.dart';
+import 'package:moodlog/presentation/providers/ai_generation_provider.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:moodlog/presentation/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
-import '../../data/data_source/local/database/database.dart';
-import '../../data/data_source/local/journal_local_data_source.dart';
-import '../../data/data_source/local/shared_preferences_local_data_source.dart';
-import '../../data/data_source/local/tag_local_data_source.dart';
-import '../../data/repositories/analytics_repository_impl.dart';
-import '../../data/repositories/gemini_repository_impl.dart';
-import '../../data/repositories/image_repository_impl.dart';
-import '../../data/repositories/journal_repository_impl.dart';
-import '../../data/repositories/local_user_repository_impl.dart';
-import '../../data/repositories/location_repository_impl.dart';
-import '../../data/repositories/settings_repository_impl.dart';
-import '../../data/repositories/tag_repository_impl.dart';
-import '../../data/repositories/weather_repository_impl.dart';
-import '../../domain/repositories/analytics_repository.dart';
-import '../../domain/repositories/gemini_repository.dart';
-import '../../domain/repositories/image_repository.dart';
-import '../../domain/repositories/journal_repository.dart';
-import '../../domain/repositories/local_user_repository.dart';
-import '../../domain/repositories/location_repository.dart';
-import '../../domain/repositories/settings_repository.dart';
-import '../../domain/repositories/tag_repository.dart';
-import '../../domain/repositories/weather_repository.dart';
-import '../../domain/use_cases/check_ai_usage_use_case.dart';
-import '../../domain/use_cases/gemini_use_case.dart';
-import '../../domain/use_cases/get_current_location_use_case.dart';
-import '../../domain/use_cases/journal_use_case.dart';
-import '../../domain/use_cases/log_mood_entry_use_case.dart';
-import '../../domain/use_cases/observe_journal_list_use_case.dart';
-import '../../domain/use_cases/pick_image_use_case.dart';
-import '../../domain/use_cases/settings_use_case.dart';
-import '../../domain/use_cases/tag_use_case.dart';
-import '../../domain/use_cases/weather_use_case.dart';
-import '../../presentation/providers/ai_generation_provider.dart';
-import '../../presentation/providers/app_state_provider.dart';
-import '../../presentation/providers/user_provider.dart';
 
 List<SingleChildWidget> createProviders() {
   return [
@@ -55,9 +54,7 @@ List<SingleChildWidget> _createInfrastructures() {
       dispose: (_, db) => db.close(),
       lazy: false,
     ),
-    Provider<LocalAuthentication>(
-      create: (_) => LocalAuthentication(),
-    ),
+    Provider<LocalAuthentication>(create: (_) => LocalAuthentication()),
   ];
 }
 

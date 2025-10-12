@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/constants/enum.dart';
-import '../../../../core/extensions/localization.dart';
-import '../../../../core/l10n/app_localizations.dart';
-import '../../write_view_model.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/localization.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 
 class MoodSliderSelectionBottomSheet extends StatelessWidget {
   final WriteViewModel viewModel;

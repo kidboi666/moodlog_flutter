@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'user_metadata.dart';
-import 'user_provider_data.dart';
+import 'package:moodlog/domain/entities/user/user_metadata.dart';
+import 'package:moodlog/domain/entities/user/user_provider_data.dart';
 
 part 'user.freezed.dart';
 

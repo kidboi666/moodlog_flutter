@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/localization.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/localization.dart';
-import '../../../core/extensions/widget.dart';
-import '../write_view_model.dart';
 
 class MoodButton extends StatelessWidget {
   final MoodType mood;
@@ -22,9 +21,7 @@ class MoodButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final selectedMood = context.select(
-      (WriteViewModel vm) => vm.selectedMood,
-    );
+    final selectedMood = context.select((WriteViewModel vm) => vm.selectedMood);
     final isSelected = selectedMood == mood;
 
     return ElevatedButton(

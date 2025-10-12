@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/extensions/localization.dart';
-import '../../../core/constants/enum.dart';
-import '../../../core/extensions/widget.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/localization.dart';
+import 'package:moodlog/core/extensions/widget.dart';
 
 class OnboardingPersonalityItem extends StatelessWidget {
   final AiPersonality personality;

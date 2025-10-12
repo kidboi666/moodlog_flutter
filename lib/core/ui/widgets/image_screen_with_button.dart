@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../extensions/widget.dart';
-import '../../routing/routes.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/routing/routes.dart';
 
 class ImageScreenWithButton extends StatelessWidget {
   final String? image;

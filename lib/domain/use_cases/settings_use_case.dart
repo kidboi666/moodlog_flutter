@@ -1,11 +1,11 @@
-import '../entities/ai/ai_usage.dart';
-import '../repositories/settings_repository.dart';
+import 'package:moodlog/domain/entities/ai/ai_usage.dart';
+import 'package:moodlog/domain/repositories/settings_repository.dart';
 
 class SettingsUseCase {
   final SettingsRepository _settingsRepository;
 
   SettingsUseCase({required SettingsRepository settingsRepository})
-      : _settingsRepository = settingsRepository;
+    : _settingsRepository = settingsRepository;
 
   Future<AiUsage?> getAiUsage() async {
     return await _settingsRepository.getAiUsage();

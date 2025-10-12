@@ -1,11 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:logging/logging.dart';
-
-import '../../../domain/entities/journal/journal_tag.dart';
-import '../../../domain/entities/journal/tag.dart';
-import '../../../domain/entities/journal/tag_with_count.dart';
-import 'database/database.dart';
+import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/domain/entities/journal/journal_tag.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
 
 class TagLocalDataSource {
   final MoodLogDatabase _db;

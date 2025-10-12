@@ -7,7 +7,9 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $JournalsTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -162,6 +164,7 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -179,11 +182,14 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     weatherIcon,
     weatherDescription,
   ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'journals';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<Journal> instance, {
@@ -273,6 +279,7 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   Journal map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -370,6 +377,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<double?> temperature;
   final Value<String?> weatherIcon;
   final Value<String?> weatherDescription;
+
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.moodType = const Value.absent(),
@@ -386,6 +394,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.weatherIcon = const Value.absent(),
     this.weatherDescription = const Value.absent(),
   });
+
   JournalsCompanion.insert({
     this.id = const Value.absent(),
     required MoodType moodType,
@@ -403,6 +412,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.weatherDescription = const Value.absent(),
   }) : moodType = Value(moodType),
        aiResponseEnabled = Value(aiResponseEnabled);
+
   static Insertable<Journal> custom({
     Expression<int>? id,
     Expression<int>? moodType,
@@ -551,7 +561,9 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $StatsTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -601,6 +613,7 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
         type: DriftSqlType.dateTime,
         requiredDuringInsert: true,
       );
+
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -608,11 +621,14 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
     maxStreak,
     lastActiveDate,
   ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'stats';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<Stat> instance, {
@@ -654,6 +670,7 @@ class $StatsTable extends Stats with TableInfo<$StatsTable, Stat> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   Stat map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -688,18 +705,21 @@ class StatsCompanion extends UpdateCompanion<Stat> {
   final Value<int> currentStreak;
   final Value<int> maxStreak;
   final Value<DateTime> lastActiveDate;
+
   const StatsCompanion({
     this.id = const Value.absent(),
     this.currentStreak = const Value.absent(),
     this.maxStreak = const Value.absent(),
     this.lastActiveDate = const Value.absent(),
   });
+
   StatsCompanion.insert({
     this.id = const Value.absent(),
     this.currentStreak = const Value.absent(),
     this.maxStreak = const Value.absent(),
     required DateTime lastActiveDate,
   }) : lastActiveDate = Value(lastActiveDate);
+
   static Insertable<Stat> custom({
     Expression<int>? id,
     Expression<int>? currentStreak,
@@ -762,7 +782,9 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TagsTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -807,13 +829,17 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+
   @override
   List<GeneratedColumn> get $columns => [id, name, color, createdAt];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'tags';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<Tag> instance, {
@@ -849,6 +875,7 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   Tag map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -883,18 +910,21 @@ class TagsCompanion extends UpdateCompanion<Tag> {
   final Value<String> name;
   final Value<String?> color;
   final Value<DateTime> createdAt;
+
   const TagsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.color = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
+
   TagsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     this.color = const Value.absent(),
     this.createdAt = const Value.absent(),
   }) : name = Value(name);
+
   static Insertable<Tag> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -958,7 +988,9 @@ class $JournalTagsTable extends JournalTags
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $JournalTagsTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1010,13 +1042,17 @@ class $JournalTagsTable extends JournalTags
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+
   @override
   List<GeneratedColumn> get $columns => [id, journalId, tagId, createdAt];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'journal_tags';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<JournalTag> instance, {
@@ -1054,10 +1090,12 @@ class $JournalTagsTable extends JournalTags
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   List<Set<GeneratedColumn>> get uniqueKeys => [
     {journalId, tagId},
   ];
+
   @override
   JournalTag map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -1092,12 +1130,14 @@ class JournalTagsCompanion extends UpdateCompanion<JournalTag> {
   final Value<int> journalId;
   final Value<int> tagId;
   final Value<DateTime> createdAt;
+
   const JournalTagsCompanion({
     this.id = const Value.absent(),
     this.journalId = const Value.absent(),
     this.tagId = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
+
   JournalTagsCompanion.insert({
     this.id = const Value.absent(),
     required int journalId,
@@ -1105,6 +1145,7 @@ class JournalTagsCompanion extends UpdateCompanion<JournalTag> {
     this.createdAt = const Value.absent(),
   }) : journalId = Value(journalId),
        tagId = Value(tagId);
+
   static Insertable<JournalTag> custom({
     Expression<int>? id,
     Expression<int>? journalId,
@@ -1165,6 +1206,7 @@ class JournalTagsCompanion extends UpdateCompanion<JournalTag> {
 
 abstract class _$MoodLogDatabase extends GeneratedDatabase {
   _$MoodLogDatabase(QueryExecutor e) : super(e);
+
   $MoodLogDatabaseManager get managers => $MoodLogDatabaseManager(this);
   late final $JournalsTable journals = $JournalsTable(this);
   late final $StatsTable stats = $StatsTable(this);
@@ -1186,9 +1228,11 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     'journal_tags_tag_id',
     'CREATE INDEX journal_tags_tag_id ON journal_tags (tag_id)',
   );
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     journals,
@@ -1200,6 +1244,7 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     journalTagsJournalId,
     journalTagsTagId,
   ];
+
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
     WritePropagation(
@@ -1286,6 +1331,7 @@ class $$JournalsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -1394,6 +1440,7 @@ class $$JournalsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -1474,6 +1521,7 @@ class $$JournalsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -1721,6 +1769,7 @@ class $$StatsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -1751,6 +1800,7 @@ class $$StatsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -1781,6 +1831,7 @@ class $$StatsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -1917,6 +1968,7 @@ class $$TagsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -1972,6 +2024,7 @@ class $$TagsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -2002,6 +2055,7 @@ class $$TagsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -2202,6 +2256,7 @@ class $$JournalTagsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -2268,6 +2323,7 @@ class $$JournalTagsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -2334,6 +2390,7 @@ class $$JournalTagsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -2520,12 +2577,17 @@ typedef $$JournalTagsTableProcessedTableManager =
 
 class $MoodLogDatabaseManager {
   final _$MoodLogDatabase _db;
+
   $MoodLogDatabaseManager(this._db);
+
   $$JournalsTableTableManager get journals =>
       $$JournalsTableTableManager(_db, _db.journals);
+
   $$StatsTableTableManager get stats =>
       $$StatsTableTableManager(_db, _db.stats);
+
   $$TagsTableTableManager get tags => $$TagsTableTableManager(_db, _db.tags);
+
   $$JournalTagsTableTableManager get journalTags =>
       $$JournalTagsTableTableManager(_db, _db.journalTags);
 }

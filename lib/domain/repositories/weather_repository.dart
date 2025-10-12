@@ -1,5 +1,5 @@
-import '../../core/utils/result.dart';
-import '../entities/journal/weather_info.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
 
 abstract class WeatherRepository {
   Future<Result<WeatherInfo>> getCurrentWeather({

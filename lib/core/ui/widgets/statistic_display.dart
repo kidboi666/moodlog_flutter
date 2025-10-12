@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/common.dart';
+import 'package:moodlog/core/constants/common.dart';
 
 /// 통계 수치를 표시하는 공통 위젯
 class StatisticDisplay extends StatelessWidget {
@@ -30,7 +29,8 @@ class StatisticDisplay extends StatelessWidget {
       children: [
         Text(
           value,
-          style: valueStyle ??
+          style:
+              valueStyle ??
               textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: valueColor ?? colorScheme.primary,
@@ -38,7 +38,8 @@ class StatisticDisplay extends StatelessWidget {
         ),
         Text(
           unit,
-          style: unitStyle ??
+          style:
+              unitStyle ??
               textTheme.bodyLarge?.copyWith(
                 color: unitColor ?? colorScheme.onSurfaceVariant,
               ),
@@ -157,7 +158,8 @@ class InfoContainer extends StatelessWidget {
     return Container(
       padding: padding ?? const EdgeInsets.all(Spacing.lg),
       decoration: BoxDecoration(
-        color: backgroundColor ??
+        color:
+            backgroundColor ??
             colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(Roundness.cardInner),
       ),

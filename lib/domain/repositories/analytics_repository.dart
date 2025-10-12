@@ -1,7 +1,7 @@
-import '../entities/analytics/analytics_event.dart';
-import '../entities/analytics/mood_analytics.dart';
-import '../entities/analytics/analytics_observer.dart';
-import '../entities/analytics/screen_view.dart';
+import 'package:moodlog/domain/entities/analytics/analytics_event.dart';
+import 'package:moodlog/domain/entities/analytics/analytics_observer.dart';
+import 'package:moodlog/domain/entities/analytics/mood_analytics.dart';
+import 'package:moodlog/domain/entities/analytics/screen_view.dart';
 
 abstract class AnalyticsRepository {
   AnalyticsObserver get observer;

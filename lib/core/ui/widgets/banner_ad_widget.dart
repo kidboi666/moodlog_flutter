@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import '../../services/admob_service.dart';
-import 'skeleton.dart';
+import 'package:moodlog/core/services/admob_service.dart';
+import 'package:moodlog/core/ui/widgets/skeleton.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});
@@ -18,20 +17,20 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   void _loadBannerAd() {
     _bannerAd ??= BannerAd(
-        size: AdSize.banner,
-        adUnitId: AdmobService.bannerAdUnitId!,
-        request: const AdRequest(),
-        listener: BannerAdListener(
-          onAdLoaded: (_) {
-            setState(() {
-              _isBannerAdReady = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {
-            debugPrint('NativeAd failed to load: $error');
-          },
-        ),
-      );
+      size: AdSize.banner,
+      adUnitId: AdmobService.bannerAdUnitId!,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('NativeAd failed to load: $error');
+        },
+      ),
+    );
 
     _bannerAd!.load();
   }

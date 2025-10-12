@@ -1,5 +1,5 @@
-import '../../../core/constants/enum.dart';
-import 'tag.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class Journal {
   final int id;

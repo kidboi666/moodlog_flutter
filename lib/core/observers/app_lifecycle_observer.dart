@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/presentation/lock/lock_view.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
-
-import '../../presentation/lock/lock_view.dart';
 
 class AppLifecycleObserver with WidgetsBindingObserver {
   final BuildContext context;

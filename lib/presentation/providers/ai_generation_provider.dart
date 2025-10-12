@@ -5,6 +5,7 @@ class AiGenerationProvider extends ChangeNotifier {
   Object? _errorGeneratingAiResponse;
 
   bool get isGeneratingAiResponse => _isGeneratingAiResponse;
+
   Object? get errorGeneratingAiResponse => _errorGeneratingAiResponse;
 
   void setGeneratingAiResponse() {

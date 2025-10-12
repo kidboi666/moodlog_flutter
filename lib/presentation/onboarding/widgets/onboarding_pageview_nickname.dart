@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/ui/widgets/fade_in.dart';
+import 'package:moodlog/presentation/onboarding/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/ui/widgets/fade_in.dart';
-import '../onboarding_view_model.dart';
 
 class OnboardingPageViewNickName extends StatefulWidget {
   final void Function() onNext;

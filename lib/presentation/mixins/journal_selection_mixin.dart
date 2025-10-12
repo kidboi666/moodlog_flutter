@@ -9,6 +9,7 @@ mixin JournalSelectionMixin on ChangeNotifier, AsyncStateMixin {
   final Set<int> _selectedJournalIds = {};
 
   bool get isSelectionMode => _isSelectionMode;
+
   Set<int> get selectedJournalIds => Set.from(_selectedJournalIds);
 
   void toggleSelectionMode() {

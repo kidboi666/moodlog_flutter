@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/mixins/async_state_mixin.dart';
-import '../../domain/entities/user/local_user.dart';
-import '../../domain/repositories/local_user_repository.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/domain/entities/user/local_user.dart';
+import 'package:moodlog/domain/repositories/local_user_repository.dart';
 
 class UserProvider extends ChangeNotifier with AsyncStateMixin {
   final LocalUserRepository _localUserRepository;

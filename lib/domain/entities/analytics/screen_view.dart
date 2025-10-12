@@ -4,8 +4,6 @@ part 'screen_view.freezed.dart';
 
 @freezed
 abstract class ScreenView with _$ScreenView {
-  const factory ScreenView({
-    required String screenName,
-    String? screenClass,
-  }) = _ScreenView;
+  const factory ScreenView({required String screenName, String? screenClass}) =
+      _ScreenView;
 }

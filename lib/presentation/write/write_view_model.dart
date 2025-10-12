@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-
-import '../../core/constants/enum.dart';
-import '../../core/mixins/async_state_mixin.dart';
-import '../../core/utils/result.dart';
-import '../../domain/entities/ai/ai_usage.dart';
-import '../../domain/entities/journal/journal.dart';
-import '../../domain/entities/journal/location_info.dart';
-import '../../domain/entities/journal/tag.dart';
-import '../../domain/entities/journal/weather_info.dart';
-import '../../domain/models/create_journal_request.dart';
-import '../../domain/models/update_journal_ai_response_request.dart';
-import '../../domain/models/update_journal_request.dart';
-import '../../domain/use_cases/check_ai_usage_use_case.dart';
-import '../../domain/use_cases/gemini_use_case.dart';
-import '../../domain/use_cases/get_current_location_use_case.dart';
-import '../../domain/use_cases/journal_use_case.dart';
-import '../../domain/use_cases/log_mood_entry_use_case.dart';
-import '../../domain/use_cases/pick_image_use_case.dart';
-import '../../domain/use_cases/settings_use_case.dart';
-import '../../domain/use_cases/tag_use_case.dart';
-import '../../domain/use_cases/weather_use_case.dart';
-import '../../presentation/providers/app_state_provider.dart';
-import '../providers/ai_generation_provider.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/ai/ai_usage.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/location_info.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
+import 'package:moodlog/domain/models/create_journal_request.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
+import 'package:moodlog/domain/models/update_journal_request.dart';
+import 'package:moodlog/domain/use_cases/check_ai_usage_use_case.dart';
+import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
+import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
+import 'package:moodlog/domain/use_cases/journal_use_case.dart';
+import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
+import 'package:moodlog/domain/use_cases/pick_image_use_case.dart';
+import 'package:moodlog/domain/use_cases/settings_use_case.dart';
+import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/domain/use_cases/weather_use_case.dart';
+import 'package:moodlog/presentation/providers/ai_generation_provider.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiUseCase _geminiUseCase;
@@ -50,20 +49,20 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required LogMoodEntryUseCase logMoodEntryUseCase,
     DateTime? selectedDate,
     int? editJournalId,
-  })  : _geminiUseCase = geminiUseCase,
-        _appStateProvider = appStateProvider,
-        _aiGenerationProvider = aiGenerationProvider,
-        _pickImageUseCase = pickImageUseCase,
-        _settingsUseCase = settingsUseCase,
-        _getCurrentLocationUseCase = getCurrentLocationUseCase,
-        _weatherUseCase = weatherUseCase,
-        _journalUseCase = journalUseCase,
-        _logMoodEntryUseCase = logMoodEntryUseCase,
-        _checkAiUsageUseCase = checkAiUsageUseCase,
-        _tagUseCase = tagUseCase,
-        _selectedDate = selectedDate ?? DateTime.now(),
-        _editJournalId = editJournalId,
-        _isEditMode = editJournalId != null {
+  }) : _geminiUseCase = geminiUseCase,
+       _appStateProvider = appStateProvider,
+       _aiGenerationProvider = aiGenerationProvider,
+       _pickImageUseCase = pickImageUseCase,
+       _settingsUseCase = settingsUseCase,
+       _getCurrentLocationUseCase = getCurrentLocationUseCase,
+       _weatherUseCase = weatherUseCase,
+       _journalUseCase = journalUseCase,
+       _logMoodEntryUseCase = logMoodEntryUseCase,
+       _checkAiUsageUseCase = checkAiUsageUseCase,
+       _tagUseCase = tagUseCase,
+       _selectedDate = selectedDate ?? DateTime.now(),
+       _editJournalId = editJournalId,
+       _isEditMode = editJournalId != null {
     _initialize();
   }
 

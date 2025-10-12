@@ -1,9 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
-import '../../core/utils/result.dart';
-import '../../domain/entities/journal/location_info.dart';
-import '../../domain/repositories/location_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/location_info.dart';
+import 'package:moodlog/domain/repositories/location_repository.dart';
 
 class LocationRepositoryImpl implements LocationRepository {
   @override

@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/widget.dart';
-import '../write_view_model.dart';
 
 class ImagePickingSection extends StatefulWidget {
   const ImagePickingSection({super.key});
@@ -64,10 +63,7 @@ class _ImagePickingSectionState extends State<ImagePickingSection> {
               child: SizedBox(
                 width: 60,
                 height: 60,
-                child: Icon(
-                  Icons.image_outlined,
-                  color: colorScheme.secondary,
-                ),
+                child: Icon(Icons.image_outlined, color: colorScheme.secondary),
               ),
             ),
           ).scale(),

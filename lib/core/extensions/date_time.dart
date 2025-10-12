@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
-
-import '../l10n/app_localizations.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 extension DateTimeExtension on DateTime {
   int get lastDateOfMonth => DateTime(year, month + 1, 0).day;

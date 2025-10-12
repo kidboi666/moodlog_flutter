@@ -19,10 +19,7 @@ class TagChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      label: Text(
-        tag.name,
-        style: TextStyle(fontSize: fontSize),
-      ),
+      label: Text(tag.name, style: TextStyle(fontSize: fontSize)),
       padding: padding ?? EdgeInsets.zero,
       labelPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       visualDensity: VisualDensity.compact,

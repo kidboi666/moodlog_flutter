@@ -1,7 +1,6 @@
 import 'package:image_picker/image_picker.dart';
-
-import '../../core/utils/result.dart';
-import '../../domain/repositories/image_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/repositories/image_repository.dart';
 
 class ImageRepositoryImpl implements ImageRepository {
   final ImagePicker _imagePicker;

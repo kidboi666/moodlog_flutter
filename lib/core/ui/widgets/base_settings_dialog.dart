@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../presentation/settings/settings_view_model.dart';
+import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 
 class BaseSettingsDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

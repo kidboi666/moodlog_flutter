@@ -1,13 +1,12 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:logging/logging.dart';
-
-import '../../../core/utils/result.dart';
-import '../../../domain/entities/journal/journal.dart';
-import '../../../domain/models/create_journal_request.dart';
-import '../../../domain/models/update_journal_ai_response_request.dart';
-import '../../../domain/models/update_journal_request.dart';
-import 'database/database.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/models/create_journal_request.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
+import 'package:moodlog/domain/models/update_journal_request.dart';
 
 class JournalLocalDataSource {
   final MoodLogDatabase _db;
@@ -77,14 +76,15 @@ class JournalLocalDataSource {
 
   Future<List<Journal>> getJournalsByTagId(int tagId) async {
     try {
-      final query = _db.select(_db.journals).join([
-        innerJoin(
-          _db.journalTags,
-          _db.journalTags.journalId.equalsExp(_db.journals.id),
-        ),
-      ])
-        ..where(_db.journalTags.tagId.equals(tagId))
-        ..orderBy([OrderingTerm.desc(_db.journals.createdAt)]);
+      final query =
+          _db.select(_db.journals).join([
+              innerJoin(
+                _db.journalTags,
+                _db.journalTags.journalId.equalsExp(_db.journals.id),
+              ),
+            ])
+            ..where(_db.journalTags.tagId.equals(tagId))
+            ..orderBy([OrderingTerm.desc(_db.journals.createdAt)]);
 
       return await query.map((row) => row.readTable(_db.journals)).get();
     } on SqliteException catch (e) {

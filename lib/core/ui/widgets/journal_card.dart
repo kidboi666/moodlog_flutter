@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/ui/widgets/tag_chip.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
-
-import '../../constants/common.dart';
-import '../../constants/enum.dart';
-import '../../extensions/date_time.dart';
-import '../../extensions/widget.dart';
-import '../../l10n/app_localizations.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;

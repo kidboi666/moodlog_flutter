@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
-import '../ui/widgets/error_dialog.dart';
+import 'package:moodlog/core/ui/widgets/error_dialog.dart';
 
 /// 에러 처리를 위한 유틸리티 클래스
 class ErrorHandler {
@@ -35,7 +34,9 @@ class ErrorHandler {
   }
 
   /// 에러를 로깅하는 메서드
-  static void logError(Object error, StackTrace? stackTrace, {
+  static void logError(
+    Object error,
+    StackTrace? stackTrace, {
     String? context,
     Map<String, dynamic>? additionalData,
   }) {

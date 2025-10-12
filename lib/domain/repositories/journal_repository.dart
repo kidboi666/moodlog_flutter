@@ -1,8 +1,8 @@
-import '../../core/utils/result.dart';
-import '../entities/journal/journal.dart';
-import '../models/create_journal_request.dart';
-import '../models/update_journal_ai_response_request.dart';
-import '../models/update_journal_request.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/models/create_journal_request.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
+import 'package:moodlog/domain/models/update_journal_request.dart';
 
 abstract class JournalRepository {
   Stream<List<Journal>> get journalStream;
@@ -17,9 +17,7 @@ abstract class JournalRepository {
 
   Future<Result<Journal>> getJournalById(int id);
 
-  Future<Result<Map<String, dynamic>>> createJournal(
-    CreateJournalRequest dto,
-  );
+  Future<Result<Map<String, dynamic>>> createJournal(CreateJournalRequest dto);
 
   Future<Result<int>> updateJournal(UpdateJournalRequest dto);
 

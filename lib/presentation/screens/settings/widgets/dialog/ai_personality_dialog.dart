@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/snack_bar.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/onboarding/widgets/onboarding_personality_item.dart';
+import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
+
+class AiPersonalityDialog extends StatefulWidget {
+  final SettingsViewModel viewModel;
+
+  const AiPersonalityDialog({super.key, required this.viewModel});
+
+  @override
+  State<AiPersonalityDialog> createState() => _AiPersonalityDialogState();
+}
+
+class _AiPersonalityDialogState extends State<AiPersonalityDialog> {
+  AiPersonality? _selectedPersonality;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedPersonality = widget.viewModel.appState.aiPersonality;
+  }
+
+  void _setPersonality(AiPersonality? personality) {
+    setState(() {
+      _selectedPersonality = personality;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder: (context, _) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+          title: Text(t.onboarding_personality_title),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.onboarding_personality_description,
+                  style: textTheme.bodyMedium,
+                ),
+                const SizedBox(height: Spacing.lg),
+                RadioGroup<AiPersonality>(
+                  groupValue: _selectedPersonality,
+                  onChanged: _setPersonality,
+                  child: Column(
+                    children: [
+                      ...AiPersonality.values.map((personality) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: Spacing.sm),
+                          child: OnboardingPersonalityItem(
+                            personality: personality,
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: Text(t.common_confirm_cancel),
+            ),
+            FilledButton(
+              onPressed: () {
+                widget.viewModel.setAiPersonality(_selectedPersonality!);
+                context.pop();
+                context.showSnackBar(
+                  SnackBar(
+                    content: Text(t.settings_ai_personality_changed),
+                    duration: const Duration(seconds: 2),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              child: Text(t.common_confirm_save),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

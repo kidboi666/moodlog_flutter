@@ -1,5 +1,5 @@
-import '../../core/utils/result.dart';
-import '../repositories/image_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/repositories/image_repository.dart';
 
 class PickImageUseCase {
   final ImageRepository _imageRepository;

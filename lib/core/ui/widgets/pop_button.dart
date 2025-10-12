@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/extensions/widget.dart';
+import 'package:moodlog/core/extensions/widget.dart';
 
 class PopButton extends StatelessWidget {
   final GestureTapCallback? onTap;

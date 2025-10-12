@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../core/constants/common.dart';
-import '../../../../core/l10n/app_localizations.dart';
-import '../../write_view_model.dart';
 
 class TagInputDialog extends StatefulWidget {
   const TagInputDialog({super.key});
@@ -31,10 +30,8 @@ class _TagInputDialogState extends State<TagInputDialog> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final (:selectedTags, :availableTags) = context.select(
-      (WriteViewModel vm) => (
-        selectedTags: vm.selectedTags,
-        availableTags: vm.availableTags,
-      ),
+      (WriteViewModel vm) =>
+          (selectedTags: vm.selectedTags, availableTags: vm.availableTags),
     );
 
     return AlertDialog(
@@ -78,15 +75,13 @@ class _TagInputDialogState extends State<TagInputDialog> {
                 labelText: t.tags_input_hint,
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  onPressed: () => _addNewTag(
-                    context.read<WriteViewModel>().addNewTag,
-                  ),
+                  onPressed: () =>
+                      _addNewTag(context.read<WriteViewModel>().addNewTag),
                   icon: const Icon(Icons.add),
                 ),
               ),
-              onSubmitted: (_) => _addNewTag(
-                context.read<WriteViewModel>().addNewTag,
-              ),
+              onSubmitted: (_) =>
+                  _addNewTag(context.read<WriteViewModel>().addNewTag),
             ),
 
             // Available tags
@@ -101,14 +96,14 @@ class _TagInputDialogState extends State<TagInputDialog> {
                     spacing: Spacing.xs,
                     runSpacing: Spacing.xs,
                     children: availableTags
-                        .where(
-                          (tag) => !selectedTags.contains(tag),
-                        )
+                        .where((tag) => !selectedTags.contains(tag))
                         .map(
                           (tag) => ActionChip(
                             label: Text(tag.name),
                             onPressed: () {
-                              context.read<WriteViewModel>().addExistingTag(tag);
+                              context.read<WriteViewModel>().addExistingTag(
+                                tag,
+                              );
                             },
                             backgroundColor: tag.color != null
                                 ? Color(int.parse(tag.color!, radix: 16))

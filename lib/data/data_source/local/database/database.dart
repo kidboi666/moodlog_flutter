@@ -2,16 +2,15 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/converter.dart';
+import 'package:moodlog/data/data_source/local/database/schema.dart';
+import 'package:moodlog/domain/entities/app/stat.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/journal_tag.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-
-import '../../../../core/constants/enum.dart';
-import '../../../../core/utils/converter.dart';
-import '../../../../domain/entities/app/stat.dart';
-import '../../../../domain/entities/journal/journal.dart';
-import '../../../../domain/entities/journal/journal_tag.dart';
-import '../../../../domain/entities/journal/tag.dart';
-import 'schema.dart';
 
 part 'database.g.dart';
 

@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:logging/logging.dart';
-
-import '../../firebase_options.dart' as production;
-import '../../firebase_options_dev.dart' as development;
-import '../../firebase_options_staging.dart' as staging;
+import 'package:moodlog/firebase_options.dart' as production;
+import 'package:moodlog/firebase_options_dev.dart' as development;
+import 'package:moodlog/firebase_options_staging.dart' as staging;
 
 enum Flavor { development, staging, production }
 
@@ -23,7 +22,10 @@ class FlavorService {
     return _instance!;
   }
 
-  FlavorService._internal({required this.flavor, required this.showDebugBanner});
+  FlavorService._internal({
+    required this.flavor,
+    required this.showDebugBanner,
+  });
 
   static FlavorService get instance => _instance!;
 

@@ -1,9 +1,9 @@
-import '../../core/utils/result.dart';
-import '../entities/journal/journal.dart';
-import '../models/create_journal_request.dart';
-import '../models/update_journal_ai_response_request.dart';
-import '../models/update_journal_request.dart';
-import '../repositories/journal_repository.dart';
+import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/models/create_journal_request.dart';
+import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
+import 'package:moodlog/domain/models/update_journal_request.dart';
+import 'package:moodlog/domain/repositories/journal_repository.dart';
 
 class JournalUseCase {
   final JournalRepository _journalRepository;

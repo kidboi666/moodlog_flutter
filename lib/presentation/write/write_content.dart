@@ -135,7 +135,9 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                 final textEditingController = context.select(
                   (WriteViewModel vm) => vm.textEditingController,
                 );
-                return EditorBottomPanel(textEditingController: textEditingController);
+                return EditorBottomPanel(
+                  textEditingController: textEditingController,
+                );
               },
             ),
           ),

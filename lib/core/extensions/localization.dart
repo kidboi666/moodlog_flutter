@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide ThemeMode;
-
-import '../constants/enum.dart';
-import '../l10n/app_localizations.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 extension MoodTypeExtension on MoodType {
   String getDisplayName(BuildContext context) {

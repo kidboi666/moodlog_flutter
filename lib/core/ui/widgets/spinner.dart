@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/enum.dart';
+import 'package:moodlog/core/constants/enum.dart';
 
 class Spinner extends StatelessWidget {
   final SpinnerType spinnerType;

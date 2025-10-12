@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/common.dart';
+import 'package:moodlog/core/constants/common.dart';
 
 /// 로딩 인디케이터 위젯
 class LoadingWidget extends StatelessWidget {
   final String? message;
   final double? size;
 
-  const LoadingWidget({
-    super.key,
-    this.message,
-    this.size,
-  });
+  const LoadingWidget({super.key, this.message, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +90,7 @@ class EmptyStateWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ],
-            if (action != null) ...[
-              CommonSizedBox.heightLg,
-              action!,
-            ],
+            if (action != null) ...[CommonSizedBox.heightLg, action!],
           ],
         ),
       ),

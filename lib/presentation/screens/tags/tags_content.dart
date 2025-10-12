@@ -1,0 +1,194 @@
+part of 'tags_view.dart';
+
+class _TagsScreenContent extends StatelessWidget {
+  const _TagsScreenContent();
+
+  Future<void> _showAddTagDialog(
+    BuildContext context,
+    TagsViewModel viewModel,
+  ) async {
+    final TextEditingController controller = TextEditingController();
+    final t = AppLocalizations.of(context)!;
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(t.tags_add_new),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: t.tags_input_hint),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(t.common_confirm_cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(t.common_confirm_ok),
+              onPressed: () {
+                if (controller.text.isNotEmpty) {
+                  viewModel.addTag(controller.text);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showEditTagDialog(
+    BuildContext context,
+    TagsViewModel viewModel,
+    Tag tag,
+  ) async {
+    final TextEditingController controller = TextEditingController(
+      text: tag.name,
+    );
+    final t = AppLocalizations.of(context)!;
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(t.tags_menu_edit),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: t.tags_input_hint),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(t.common_confirm_cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(t.common_confirm_save),
+              onPressed: () {
+                if (controller.text.isNotEmpty) {
+                  viewModel.updateTag(tag.id, controller.text);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<TagsViewModel>();
+    final t = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(t.drawer_tags),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _showAddTagDialog(context, viewModel),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (value) => viewModel.searchTags(value),
+              decoration: InputDecoration(
+                labelText: t.tags_filter_title,
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Builder(
+              builder: (context) {
+                if (viewModel.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (viewModel.hasError) {
+                  return Center(
+                    child: Text(t.tags_error(viewModel.error.toString())),
+                  );
+                }
+                if (viewModel.tags.isEmpty) {
+                  return Center(child: Text(t.tags_empty));
+                }
+                return ListView.builder(
+                  itemCount: viewModel.tags.length,
+                  itemBuilder: (context, index) {
+                    final tagWithCount = viewModel.tags[index];
+                    final tag = tagWithCount.tag;
+                    return ListTile(
+                      title: Text(tag.name),
+                      subtitle: Text(
+                        t.tags_journal_count(tagWithCount.count),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      onTap: () => context.push(Routes.tag(tag.id)),
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) async {
+                          if (value == 'edit') {
+                            _showEditTagDialog(context, viewModel, tag);
+                          } else if (value == 'delete') {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(t.tags_delete_title),
+                                content: Text(t.tags_delete_message(tag.name)),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: Text(t.common_confirm_cancel),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: Text(t.common_confirm_delete),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirm == true) {
+                              viewModel.deleteTag(tag.id);
+                            }
+                          }
+                        },
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
+                              PopupMenuItem<String>(
+                                value: 'edit',
+                                child: Text(t.tags_menu_edit),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'delete',
+                                child: Text(t.tags_menu_delete),
+                              ),
+                            ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

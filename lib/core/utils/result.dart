@@ -15,6 +15,7 @@ sealed class Result<T> {
   const Result();
 
   const factory Result.ok(T value) = Ok._;
+
   const factory Result.error(Exception error) = Error._;
 }
 

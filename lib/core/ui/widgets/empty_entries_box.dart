@@ -1,12 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../../constants/common.dart';
-import '../../extensions/date_time.dart';
-import '../../extensions/routing.dart';
-import '../../extensions/widget.dart';
-import '../../l10n/app_localizations.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/extensions/routing.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 class EmptyEntriesBox extends StatelessWidget {
   final bool isDisabled;
@@ -28,9 +27,7 @@ class EmptyEntriesBox extends StatelessWidget {
     final buttonStyle = ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return colorScheme.surfaceContainer.withValues(
-            alpha: 0.5,
-          );
+          return colorScheme.surfaceContainer.withValues(alpha: 0.5);
         }
         return colorScheme.surfaceContainer;
       }),
@@ -47,10 +44,7 @@ class EmptyEntriesBox extends StatelessWidget {
         child: Row(
           spacing: Spacing.md,
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon),
-            Text(label),
-          ],
+          children: [Icon(icon), Text(label)],
         ),
       ).scale();
     }

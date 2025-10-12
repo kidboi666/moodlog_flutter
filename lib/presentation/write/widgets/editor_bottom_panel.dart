@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/journal/location_info.dart';
+import 'package:moodlog/domain/entities/journal/weather_info.dart';
+import 'package:moodlog/presentation/screens/journal/widgets/location_simple_bottom_sheet.dart';
+import 'package:moodlog/presentation/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
+import 'package:moodlog/presentation/write/widgets/bottom_sheet/weather_info_bottom_sheet.dart';
+import 'package:moodlog/presentation/write/widgets/image_picker_button.dart';
+import 'package:moodlog/presentation/write/widgets/tag_input_button.dart';
+import 'package:moodlog/presentation/write/widgets/timestamp_button.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/constants/enum.dart';
-import '../../../domain/entities/journal/location_info.dart';
-import '../../../domain/entities/journal/weather_info.dart';
-import '../../journal/widgets/location_simple_bottom_sheet.dart';
-import '../write_view_model.dart';
-import 'bottom_sheet/mood_slider_selection_bottom_sheet.dart';
-import 'bottom_sheet/weather_info_bottom_sheet.dart';
-import 'image_picker_button.dart';
-import 'tag_input_button.dart';
-import 'timestamp_button.dart';
 
 class EditorBottomPanel extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -140,7 +138,9 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
                 ),
                 const ImagePickerButton(),
                 const TagInputButton(),
-                TimestampButton(textEditingController: widget.textEditingController),
+                TimestampButton(
+                  textEditingController: widget.textEditingController,
+                ),
               ],
             ),
           ),

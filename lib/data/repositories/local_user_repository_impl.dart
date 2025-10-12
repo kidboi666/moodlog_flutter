@@ -1,11 +1,10 @@
 import 'dart:math';
 
 import 'package:logging/logging.dart';
-
-import '../../core/constants/common.dart';
-import '../../domain/entities/user/local_user.dart';
-import '../../domain/repositories/local_user_repository.dart';
-import '../data_source/local/shared_preferences_local_data_source.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
+import 'package:moodlog/domain/entities/user/local_user.dart';
+import 'package:moodlog/domain/repositories/local_user_repository.dart';
 
 class LocalUserRepositoryImpl implements LocalUserRepository {
   final SharedPreferencesLocalDataSource _prefs;

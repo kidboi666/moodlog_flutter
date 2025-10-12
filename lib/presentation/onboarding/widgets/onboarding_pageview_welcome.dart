@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/constants/common.dart';
-import '../../../core/extensions/widget.dart';
-import '../../../core/l10n/app_localizations.dart';
-import '../../../core/ui/widgets/fade_in.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/ui/widgets/fade_in.dart';
 
 class OnboardingPageViewWelcome extends StatelessWidget {
   final void Function() onNext;

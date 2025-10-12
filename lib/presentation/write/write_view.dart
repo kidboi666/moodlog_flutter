@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/extensions/routing.dart';
+import 'package:moodlog/core/ui/widgets/fade_in.dart';
+import 'package:moodlog/core/ui/widgets/pop_button.dart';
+import 'package:moodlog/presentation/write/widgets/ai_enable_card.dart';
+import 'package:moodlog/presentation/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
+import 'package:moodlog/presentation/write/widgets/content_input.dart';
+import 'package:moodlog/presentation/write/widgets/editor_bottom_panel.dart';
+import 'package:moodlog/presentation/write/widgets/image_preview_section.dart';
+import 'package:moodlog/presentation/write/write_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../core/constants/common.dart';
-import '../../core/constants/enum.dart';
-import '../../core/extensions/date_time.dart';
-import '../../core/extensions/routing.dart';
-import '../../core/ui/widgets/fade_in.dart';
-import '../../core/ui/widgets/pop_button.dart';
-import 'widgets/ai_enable_card.dart';
-import 'widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
-import 'widgets/content_input.dart';
-import 'widgets/editor_bottom_panel.dart';
-import 'widgets/image_preview_section.dart';
-import 'write_view_model.dart';
 
 part 'write_content.dart';
 
