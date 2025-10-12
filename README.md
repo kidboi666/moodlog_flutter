@@ -100,11 +100,13 @@ lib/
 │   ├── repositories/      # Repository 인터페이스
 │   └── use_cases/         # 비즈니스 로직
 └── presentation/          # 프레젠테이션 계층
-    ├── home/              # 홈 화면
-    ├── entries/           # 일기 목록
-    ├── write/             # 일기 작성
-    ├── statistics/        # 통계 화면
-    └── settings/          # 설정 화면
+    ├── screens/           # 각 화면(View)을 구성
+    │   ├── home/
+    │   ├── write/
+    │   └── ...
+    ├── providers/         # 상태 관리 (ViewModel)
+    ├── widgets/           # 공통 위젯
+    └── mixins/            # 공통 Mixin
 ```
 
 ### **Design Patterns**

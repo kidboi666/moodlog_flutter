@@ -46,14 +46,18 @@ lib/
 ├── core/           # Common utilities, constants, themes
 ├── data/           # Repositories, data sources, models
 ├── domain/         # Entities, repository interfaces, use cases
-└── presentation/   # UI, ViewModels, widgets
+└── presentation/   # Presentation Layer
+    ├── screens/      # UI (View)
+    ├── providers/    # State Management (ViewModel)
+    ├── widgets/      # Common Widgets
+    └── ...
 ```
 
 ### File Patterns
 
-- **ViewModels**: `lib/presentation/*/viewmodel/` or `lib/presentation/*/*_view_model.dart`
-- **Repositories**: `lib/data/repositories/*_repository_impl.dart`
-- **Widgets**: `lib/presentation/*/widgets/`
+- **Views (Screens)**: `lib/presentation/screens/*/*_view.dart`
+- **ViewModels**: `lib/presentation/providers/*_view_model.dart` or `lib/presentation/screens/*/*_view_model.dart`
+- **Widgets**: `lib/presentation/widgets/` or `lib/presentation/screens/*/widgets/`
 - **Models**: `lib/data/models/`
 - **Entities**: `lib/domain/entities/`
 
