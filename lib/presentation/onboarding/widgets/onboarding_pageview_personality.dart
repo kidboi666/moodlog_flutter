@@ -18,6 +18,9 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final selectedPersonality = context.select(
+      (OnboardingViewModel vm) => vm.selectedPersonality,
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
@@ -43,26 +46,23 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
           FadeIn(
             delay: DelayMS.medium * 2,
-            child: Builder(
-              builder: (context) {
-                final selectedPersonality = context.select(
-                  (OnboardingViewModel vm) => vm.selectedPersonality,
-                );
-
-                return RadioGroup<AiPersonality>(
-                  groupValue: selectedPersonality,
-                  onChanged: context.read<OnboardingViewModel>().setPersonality,
-                  child: Column(
-                    spacing: Spacing.sm,
-                    children: [
-                      ...AiPersonality.values.map(
-                        (AiPersonality personality) =>
-                            OnboardingPersonalityItem(personality: personality),
-                      ),
-                    ],
+            child: RadioGroup<AiPersonality>(
+              groupValue: selectedPersonality,
+              onChanged: context.read<OnboardingViewModel>().setPersonality,
+              child: Column(
+                spacing: Spacing.sm,
+                children: [
+                  OnboardingPersonalityItem(
+                    personality: AiPersonality.compassionate,
                   ),
-                );
-              },
+                  OnboardingPersonalityItem(
+                    personality: AiPersonality.balanced,
+                  ),
+                  OnboardingPersonalityItem(
+                    personality: AiPersonality.rational,
+                  ),
+                ],
+              ),
             ),
           ),
           FadeIn(

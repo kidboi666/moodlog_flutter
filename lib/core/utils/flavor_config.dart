@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:logging/logging.dart';
 
 import '../../firebase_options.dart' as production;
 import '../../firebase_options_dev.dart' as development;
@@ -12,8 +13,8 @@ class FlavorConfig {
   static FlavorConfig? _instance;
 
   factory FlavorConfig({
-    required Flavor flavor,
-    required bool showDebugBanner,
+    Flavor flavor = Flavor.production,
+    bool showDebugBanner = false,
   }) {
     _instance ??= FlavorConfig._internal(
       flavor: flavor,
@@ -40,6 +41,17 @@ class FlavorConfig {
         return staging.DefaultFirebaseOptions.currentPlatform;
       case Flavor.production:
         return production.DefaultFirebaseOptions.currentPlatform;
+    }
+  }
+
+  static Level get logLevel {
+    switch (instance.flavor) {
+      case Flavor.development:
+        return Level.ALL;
+      case Flavor.staging:
+        return Level.SEVERE;
+      case Flavor.production:
+        return Level.SEVERE;
     }
   }
 

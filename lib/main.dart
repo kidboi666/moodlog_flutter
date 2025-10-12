@@ -12,8 +12,10 @@ import 'data/repositories/analytics_repository_impl.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlavorConfig();
   final firebaseOptions = FlavorConfig.firebaseOptions;
   final fileName = FlavorConfig.dotEnvSurfix;
+  final logLevel = FlavorConfig.logLevel;
 
   await Firebase.initializeApp(options: firebaseOptions);
   await dotenv.load(fileName: fileName);
@@ -22,7 +24,7 @@ Future<void> main() async {
   final analyticsRepo = AnalyticsRepositoryImpl();
   await analyticsRepo.initialize();
 
-  Logger.root.level = Level.ALL;
+  Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
     debugPrint('${record.level.name}: ${record.time}: ${record.message}');
   });
