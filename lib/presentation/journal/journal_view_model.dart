@@ -83,7 +83,8 @@ class JournalViewModel extends ChangeNotifier
         setSuccess();
         return Result.ok(null);
       case Error<Journal>():
-        _log.warning('Failed to load Journal', journal.error);
+        _log.warning(
+            'Failed to load Journal. Error: ${journal.error}, Type: ${journal.error.runtimeType}');
         setError(journal.error);
         return Result.error(journal.error);
     }
