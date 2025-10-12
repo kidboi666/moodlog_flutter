@@ -29,7 +29,6 @@ class _MoodLogAppState extends State<MoodLogApp> {
   Widget build(BuildContext context) {
     final appStateProvider = context.watch<AppStateProvider>();
 
-    // While the app state is loading, show a spinner.
     if (appStateProvider.isLoading) {
       return const MaterialApp(
         home: Scaffold(body: Center(child: CircularProgressIndicator())),

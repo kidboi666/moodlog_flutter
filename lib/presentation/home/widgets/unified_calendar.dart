@@ -19,26 +19,41 @@ class UnifiedCalendarWidget extends StatefulWidget {
 class _UnifiedCalendarWidgetState extends State<UnifiedCalendarWidget> {
   @override
   Widget build(BuildContext context) {
-    final calendarViewMode = context.watch<HomeViewModel>().calendarViewMode;
+    final calendarViewMode =
+        context.watch<HomeViewModel>().calendarViewMode;
 
-    return GradientBox(
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (child, animation) {
-          return SizeTransition(sizeFactor: animation, child: child);
-        },
-        child: calendarViewMode == CalendarViewMode.horizontal
-            ? _HorizontalView()
-            : _GridView(),
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      child: GradientBox(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) {
+            // Determine slide direction based on which child is being brought in
+            final isGridView = child.key == const ValueKey('grid');
+            final slideTween = Tween<Offset>(
+              begin: Offset(isGridView ? 1.0 : -1.0, 0.0),
+              end: Offset.zero,
+            );
+            return ClipRect(
+              child: SlideTransition(
+                position: slideTween.animate(animation),
+                child: child,
+              ),
+            );
+          },
+          child: calendarViewMode == CalendarViewMode.horizontal
+              ? const _HorizontalView(key: ValueKey('horizontal'))
+              : const _GridView(key: ValueKey('grid')),
+        ),
       ),
     );
   }
 }
 
 // 가로 스크롤 뷰
-
 class _HorizontalView extends StatefulWidget {
-  const _HorizontalView();
+  const _HorizontalView({super.key});
 
   @override
   State<_HorizontalView> createState() => _HorizontalViewState();
@@ -121,7 +136,8 @@ class _HorizontalViewState extends State<_HorizontalView> {
 // 그리드 뷰 (월 단위)
 
 class _GridView extends StatelessWidget {
-  const _GridView();
+
+  const _GridView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +148,7 @@ class _GridView extends StatelessWidget {
     return Column(
       children: [
         _CalendarHeader(),
+        const SizedBox(height: Spacing.md),
         TableCalendar(
           locale: t.localeName,
           focusedDay: viewModel.selectedDate,
@@ -154,34 +171,39 @@ class _GridView extends StatelessWidget {
             ),
           ),
           calendarStyle: CalendarStyle(
-            defaultTextStyle: TextStyle(
-              color: theme.colorScheme.surface,
-              fontWeight: FontWeight.bold,
+            defaultTextStyle: TextStyle(color: theme.colorScheme.surface, fontWeight: FontWeight.bold),
+            weekendTextStyle: TextStyle(color: theme.colorScheme.surface, fontWeight: FontWeight.bold),
+            outsideTextStyle: TextStyle(color: theme.colorScheme.surface.withAlpha(102), fontWeight: FontWeight.bold),
+            
+            // Decorations
+            defaultDecoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            weekendTextStyle: TextStyle(
-              color: theme.colorScheme.surface,
-              fontWeight: FontWeight.bold,
+            weekendDecoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            outsideTextStyle: TextStyle(
-              color: theme.colorScheme.surface.withAlpha(102),
-              fontWeight: FontWeight.bold,
+            outsideDecoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            disabledDecoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8.0),
             ),
             todayDecoration: BoxDecoration(
               color: theme.colorScheme.primary.withAlpha(204),
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            todayTextStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ).copyWith(color: theme.colorScheme.onPrimary),
+            todayTextStyle: const TextStyle(fontWeight: FontWeight.bold).copyWith(color: theme.colorScheme.onPrimary),
             selectedDecoration: BoxDecoration(
               color: theme.colorScheme.surface,
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            selectedTextStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ).copyWith(color: theme.colorScheme.onSurface),
+            selectedTextStyle: const TextStyle(fontWeight: FontWeight.bold).copyWith(color: theme.colorScheme.onSurface),
           ),
           calendarBuilders: CalendarBuilders(
             markerBuilder: (context, day, events) {
@@ -227,9 +249,9 @@ class _CalendarHeader extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
     final displayMonth = context.select((HomeViewModel vm) => vm.displayMonth);
-    final currentViewMode = context.select(
-      (HomeViewModel vm) => vm.calendarViewMode,
-    );
+    final selectedDate = context.select((HomeViewModel vm) => vm.selectedDate);
+    final currentViewMode =
+        context.select((HomeViewModel vm) => vm.calendarViewMode);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
@@ -239,11 +261,8 @@ class _CalendarHeader extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.chevron_left, color: colorScheme.surface),
             onPressed: () {
-              final newMonth = DateTime(
-                displayMonth.year,
-                displayMonth.month - 1,
-                1,
-              );
+              final newMonth =
+                  DateTime(displayMonth.year, displayMonth.month - 1, 1);
               viewModel.selectMonth(newMonth);
             },
           ),
@@ -257,30 +276,23 @@ class _CalendarHeader extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
+                const SizedBox(height: Spacing.xs),
+                Text(
+                  '${selectedDate.getLocalizedWeekdayName(t)}, ${selectedDate.day}${t.common_unit_day}',
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.surface.withAlpha(204),
+                  ),
+                ),
               ],
             ),
           ),
           Row(
             children: [
               IconButton(
-                icon: Icon(
-                  currentViewMode == CalendarViewMode.horizontal
-                      ? Icons.calendar_view_month_outlined
-                      : Icons.view_week_outlined,
-                  color: colorScheme.surface,
-                ),
-                onPressed: () {
-                  viewModel.toggleCalendarView();
-                },
-              ),
-              IconButton(
                 icon: Icon(Icons.chevron_right, color: colorScheme.surface),
                 onPressed: () {
-                  final newMonth = DateTime(
-                    displayMonth.year,
-                    displayMonth.month + 1,
-                    1,
-                  );
+                  final newMonth =
+                      DateTime(displayMonth.year, displayMonth.month + 1, 1);
                   viewModel.selectMonth(newMonth);
                 },
               ),

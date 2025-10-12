@@ -4,15 +4,20 @@ import 'package:moodlog/presentation/home/home_view_model.dart';
 import 'package:moodlog/presentation/home/widgets/title_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants/enum.dart';
+
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final (:isSelectionMode, :selectedJournalIds) = context.select(
+    final viewModel = context.watch<HomeViewModel>();
+    final (:isSelectionMode, :selectedJournalIds, :calendarViewMode) =
+        context.select(
       (HomeViewModel vm) => (
         isSelectionMode: vm.isSelectionMode,
         selectedJournalIds: vm.selectedJournalIds,
+        calendarViewMode: vm.calendarViewMode,
       ),
     );
 
@@ -27,6 +32,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: isSelectionMode
           ? const [_CancelSelectionButton(), _DeleteSelectionButton()]
           : [
+              IconButton(
+                icon: Icon(
+                  calendarViewMode == CalendarViewMode.horizontal
+                      ? Icons.calendar_view_month_outlined
+                      : Icons.view_week_outlined,
+                ),
+                onPressed: () => viewModel.toggleCalendarView(),
+              ),
               Builder(
                 builder: (context) => IconButton(
                   icon: const Icon(Icons.more_vert),

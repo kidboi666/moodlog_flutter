@@ -63,11 +63,17 @@ class JournalSliverList extends StatelessWidget {
           child: Dismissible(
             key: ValueKey(e.id),
             direction: DismissDirection.endToStart,
-            background: Container(
-              color: Theme.of(context).colorScheme.error,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
-              child: const Icon(Icons.delete, color: Colors.white),
+            background: Padding(
+              padding: const EdgeInsets.only(bottom: Spacing.xl),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.error,
+                  borderRadius: BorderRadius.circular(Roundness.card),
+                ),
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+                child: const Icon(Icons.delete, color: Colors.white),
+              ),
             ),
             confirmDismiss: (direction) async {
               return await showDialog(

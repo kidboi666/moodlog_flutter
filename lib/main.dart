@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:moodlog/core/services/data_seeding_service.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
@@ -33,7 +36,9 @@ Future<void> main({
       child: MoodLogApp(
         analyticsObserver: analyticsRepo.navigatorObserver,
         onAppStarted: (context) async {
-          if (FlavorService.isDevelopment && onAppStartedDev != null) {
+          await DataSeedingService(context).run();
+
+          if (onAppStartedDev != null) {
             await onAppStartedDev(context);
           }
         },
