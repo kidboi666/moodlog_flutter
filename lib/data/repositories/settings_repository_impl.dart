@@ -1,56 +1,72 @@
-import 'dart:convert';
-
-import 'package:logging/logging.dart';
-import '../../../core/services/flavor_service.dart';
+import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
+import 'package:moodlog/domain/entities/ai/ai_usage.dart';
+import 'package:moodlog/domain/entities/app/app_info.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
+import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../core/constants/common.dart';
-import '../../domain/entities/ai/ai_usage.dart';
-import '../../domain/entities/app/app_info.dart';
-import '../../domain/repositories/settings_repository.dart';
-import '../data_source/local/shared_preferences_local_data_source.dart';
-import '../models/app_state_shared_preferences_model.dart';
+class SettingsRepositoryImpl implements SettingsRepository {
+  final SharedPreferencesLocalDataSource _localDataSource;
+  final MoodLogDatabase _db;
 
-class SettingsRepositoryImpl extends SettingsRepository {
-  final SharedPreferencesLocalDataSource _prefs;
-
-  SettingsRepositoryImpl({
-    required SharedPreferencesLocalDataSource localDataSource,
-  }) : _prefs = localDataSource;
-
-  final Logger _log = Logger('SettingsRepositoryImpl');
+  SettingsRepositoryImpl(
+      {required SharedPreferencesLocalDataSource localDataSource,
+      required MoodLogDatabase db})
+      : _localDataSource = localDataSource,
+        _db = db;
 
   @override
   Future<Settings> loadSettings() async {
-    final settings = await _prefs.getString(PreferenceKeys.appSettings);
-    _log.info('Loaded settings: $settings');
+    final hasNotificationEnabled =
+        await _localDataSource.getBool('hasNotificationEnabled');
+    final hasAutoSyncEnabled = await _localDataSource.getBool('hasAutoSyncEnabled');
+    final themeModeString = await _localDataSource.getString('themeMode');
+    final colorThemeString = await _localDataSource.getString('colorTheme');
+    final languageCodeString = await _localDataSource.getString('languageCode');
+    final aiPersonalityString = await _localDataSource.getString('aiPersonality');
+    final fontFamilyString = await _localDataSource.getString('fontFamily');
+    final textAlignString = await _localDataSource.getString('textAlign');
+    final isOnboardingComplete =
+        await _localDataSource.getBool('isOnboardingComplete');
 
-    if (settings == null) {
-      _log.info('No settings found, creating default settings');
-      final defaultSettings = Settings();
-      await updateSettings(defaultSettings);
-      return defaultSettings;
-    }
-
-    final settingMap = jsonDecode(settings);
-    final settingsModel = AppStateSharedPreferencesModel.fromJson(settingMap);
-    return settingsModel.toDomain();
+    return Settings(
+      hasNotificationEnabled: hasNotificationEnabled,
+      hasAutoSyncEnabled: hasAutoSyncEnabled,
+      themeMode: ThemeMode.fromString(themeModeString),
+      colorTheme: ColorTheme.fromString(colorThemeString),
+      languageCode: LanguageCode.fromString(languageCodeString),
+      aiPersonality: AiPersonality.fromString(aiPersonalityString),
+      fontFamily: FontFamily.fromString(fontFamilyString),
+      textAlign: SimpleTextAlign.fromString(textAlignString),
+      isOnboardingComplete: isOnboardingComplete,
+    );
   }
 
   @override
   Future<Settings> updateSettings(Settings newSettings) async {
-    final settingsModel = AppStateSharedPreferencesModel.fromDomain(
-      newSettings,
-    );
-    final settings = settingsModel.toJson();
-    await _prefs.setString(PreferenceKeys.appSettings, jsonEncode(settings));
+    await _localDataSource.setBool(
+        'hasNotificationEnabled', newSettings.hasNotificationEnabled);
+    await _localDataSource.setBool(
+        'hasAutoSyncEnabled', newSettings.hasAutoSyncEnabled);
+    await _localDataSource.setString('themeMode', newSettings.themeMode.name);
+    await _localDataSource.setString(
+        'colorTheme', newSettings.colorTheme.name);
+    await _localDataSource.setString(
+        'languageCode', newSettings.languageCode.name);
+    await _localDataSource.setString(
+        'aiPersonality', newSettings.aiPersonality.name);
+    await _localDataSource.setString('fontFamily', newSettings.fontFamily.name);
+    await _localDataSource.setString('textAlign', newSettings.textAlign.name);
+    await _localDataSource.setBool(
+        'isOnboardingComplete', newSettings.isOnboardingComplete);
     return newSettings;
   }
 
   @override
   Future<AppInfo> getAppInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
     return AppInfo(
       appName: packageInfo.appName,
       packageName: packageInfo.packageName,
@@ -61,35 +77,31 @@ class SettingsRepositoryImpl extends SettingsRepository {
 
   @override
   Future<AiUsage?> getAiUsage() async {
-    final usageString = await _prefs.getString(PreferenceKeys.aiUsage);
-    if (usageString != null) {
-      final usageMap = jsonDecode(usageString);
-      return AiUsage(
-        date: DateTime.parse(usageMap['date']),
-        count: usageMap['count'],
-      );
-    }
-    return null;
+    final usageCount = await _localDataSource.getInt('aiUsageCount');
+    final lastUsedString = await _localDataSource.getString('aiUsageLastUsed');
+    if (lastUsedString == null) return null;
+
+    return AiUsage(
+      count: usageCount,
+      date: DateTime.parse(lastUsedString),
+    );
   }
 
   @override
   Future<void> updateAiUsage(AiUsage usage) async {
-    final usageMap = {
-      'date': usage.date.toIso8601String(),
-      'count': usage.count,
-    };
-    await _prefs.setString(PreferenceKeys.aiUsage, jsonEncode(usageMap));
+    await _localDataSource.setInt('aiUsageCount', usage.count);
+    await _localDataSource.setString(
+        'aiUsageLastUsed', usage.date.toIso8601String());
   }
 
   @override
   Future<void> clearSharedPreferences() async {
-    if (FlavorService.isDevelopment) {
-      await _prefs.clear();
-    }
+    await _localDataSource.clear();
   }
 
   @override
   Future<void> clearAllData() async {
-    await _prefs.clear();
+    await _db.clearAllTables();
+    await _localDataSource.clear();
   }
 }

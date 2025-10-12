@@ -1,46 +1,37 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-import '../../core/mixins/async_state_mixin.dart';
-import '../../domain/entities/app/settings.dart';
-import '../../domain/repositories/settings_repository.dart';
+import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/domain/entities/app/settings.dart';
+import 'package:moodlog/domain/repositories/settings_repository.dart';
 
 class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   final SettingsRepository _settingsRepository;
 
   AppStateProvider({required SettingsRepository settingsRepository})
-    : _settingsRepository = settingsRepository {
-    load();
+      : _settingsRepository = settingsRepository {
+    _load();
   }
 
-  Settings? _appState;
+  late Settings _appState;
+  Settings get appState => _appState;
 
-  Settings get appState {
-    if (isLoading && _appState != null) {
-      return _appState!;
-    }
-    return _appState ?? Settings();
-  }
-
-  Future<void> load() async {
+  Future<void> _load() async {
     setLoading();
     try {
-      final settings = await _settingsRepository.loadSettings();
-      _appState = settings;
+      _appState = await _settingsRepository.loadSettings();
       setSuccess();
     } catch (e) {
-      setError(e);
-      _appState = Settings();
+      setError(Exception('Failed to load settings'));
     }
   }
 
   Future<void> update(Settings settings) async {
     setLoading();
     try {
-      final newSettings = await _settingsRepository.updateSettings(settings);
-      _appState = newSettings;
+      _appState = await _settingsRepository.updateSettings(settings);
       setSuccess();
     } catch (e) {
-      setError(e);
+      setError(Exception('Failed to update settings'));
     }
   }
 }

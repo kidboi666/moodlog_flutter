@@ -22,6 +22,11 @@ class SharedPreferencesLocalDataSource {
     return p.getBool(key) ?? false;
   }
 
+  Future<int> getInt(String key) async {
+    final p = await _instance;
+    return p.getInt(key) ?? 0;
+  }
+
   Future<bool> setString(String key, String value) async {
     final p = await _instance;
     return p.setString(key, value);
@@ -35,6 +40,11 @@ class SharedPreferencesLocalDataSource {
   Future<bool> setBool(String key, bool value) async {
     final p = await _instance;
     return p.setBool(key, value);
+  }
+
+  Future<bool> setInt(String key, int value) async {
+    final p = await _instance;
+    return p.setInt(key, value);
   }
 
   Future<bool> remove(String key) async {

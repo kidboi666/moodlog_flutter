@@ -8,7 +8,6 @@ import 'core/l10n/app_localizations.dart';
 import 'core/routing/router.dart';
 import 'core/services/flavor_service.dart';
 import 'core/ui/theme/theme.dart';
-import 'core/ui/widgets/spinner.dart';
 import 'core/utils/keyboard_utils.dart';
 import 'presentation/providers/app_state_provider.dart';
 
@@ -28,14 +27,24 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.select((AppStateProvider v) => v.appState);
-    final isLoading = context.select((AppStateProvider v) => v.isLoading);
+    final appStateProvider = context.watch<AppStateProvider>();
 
-    if (isLoading) {
-      return const Spinner(spinnerType: SpinnerType.center);
+    // While the app state is loading, show a spinner.
+    if (appStateProvider.isLoading) {
+      return const MaterialApp(
+        home: Scaffold(body: Center(child: CircularProgressIndicator())),
+      );
     }
 
+    final appState = appStateProvider.appState;
     _router ??= router(context.read(), widget.analyticsObserver);
+
+    if (widget.onAppStarted != null && !_startupLogicExecuted) {
+      _startupLogicExecuted = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onAppStarted!(context);
+      });
+    }
 
     return KeyboardDismissOnTapOutside(
       child: MaterialApp.router(
@@ -56,16 +65,6 @@ class _MoodLogAppState extends State<MoodLogApp> {
         darkTheme: AppTheme.darkTheme(appState.fontFamily),
         themeMode: appState.themeMode.materialThemeMode,
         routerConfig: _router,
-        builder: (context, child) {
-          if (widget.onAppStarted != null && !_startupLogicExecuted) {
-            _startupLogicExecuted = true;
-            // Use a post-frame callback to ensure the widget tree is built.
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              widget.onAppStarted!(context);
-            });
-          }
-          return child ?? const SizedBox.shrink();
-        },
       ),
     );
   }

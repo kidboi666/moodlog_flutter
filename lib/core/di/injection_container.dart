@@ -74,8 +74,10 @@ List<SingleChildWidget> _createDataSources() {
 List<SingleChildWidget> _createRepositories() {
   return [
     Provider<SettingsRepository>(
-      create: (context) =>
-          SettingsRepositoryImpl(localDataSource: context.read()),
+      create: (context) => SettingsRepositoryImpl(
+        localDataSource: context.read(),
+        db: context.read(),
+      ),
       lazy: false,
     ),
     Provider<LocalUserRepository>(

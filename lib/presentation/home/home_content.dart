@@ -20,7 +20,10 @@ class _HomeScreenContent extends StatelessWidget {
                   children: [
                     const WelcomeZone(),
                     const SizedBox(height: Spacing.xl),
-                    const HorizontalCalendar(),
+                    FadeIn(
+                      delay: DelayMS.medium * 4,
+                      child: const UnifiedCalendarWidget(),
+                    ),
                     const SizedBox(height: Spacing.xl),
                   ],
                 ),
@@ -36,26 +39,9 @@ class _HomeScreenContent extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: isSelectionMode ? null : const _HomeActionButtons(),
+      floatingActionButton: isSelectionMode
+          ? null
+          : const HomeFloatingActionButton(),
     );
   }
 }
-
-class _HomeActionButtons extends StatelessWidget {
-  const _HomeActionButtons();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 32.0), // This handles the FAB's default start margin
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const CalendarButton(),
-          const HomeFloatingActionButton(),
-        ],
-      ),
-    );
-  }
-}
-

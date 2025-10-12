@@ -128,7 +128,15 @@ flutter build apk       # Build Android APK
 - **Use Relative Paths**: For all internal imports (referencing files within the `lib` directory), always use relative paths (e.g., `../models/user.dart`, `../../core/utils.dart`).
 - **Avoid Absolute Paths**: Do not use absolute paths starting with `package:moodlog/`. This helps maintain consistency and reduces verbosity.
 
-## Key Components
+### Logging Conventions
+
+- **`presentation` Layer**: Use `debugPrint()` for UI-related, temporary debugging only. Avoid committing `debugPrint` statements.
+- **Other Layers (`core`, `data`, `domain`)**: Use the `logging` package. Create a `Logger` instance (`final Logger _log = Logger('ClassName');`) and use its methods (`_log.info`, `_log.warning`, `_log.severe`) for structured logging.
+
+### Key Components
+
+- **`UnifiedCalendarWidget`**: A stateful widget on the home screen that provides two switchable views (horizontal list and grid) for date selection. Its state is persisted on the device.
+- **`CalendarViewMode` Enum**: Manages the display state of the `UnifiedCalendarWidget` (`horizontal` or `grid`).
 
 ### User Management
 - `LocalUser`: User entity (domain/entities/user/)

@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
 
 import '../../core/constants/common.dart';
+import '../../core/constants/enum.dart';
+import '../../core/extensions/date_time.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
@@ -53,14 +54,33 @@ class HomeViewModel extends ChangeNotifier
   WeatherInfo? _weatherInfo;
 
   String? get profileImage => _userProvider.user?.profileImagePath;
+
   String? get nickname => _userProvider.user?.nickname;
+
   DateTime get selectedDate => _selectedDate;
+
   DateTime get displayMonth => _displayMonth;
+
   List<DateTime>? get dateItems => _dateItems;
+
   bool get isFirstRender => _isFirstRender;
+
   List<Journal> get journal => _journal;
+
   LocationInfo? get locationInfo => _locationInfo;
+
   WeatherInfo? get weatherInfo => _weatherInfo;
+
+  CalendarViewMode _calendarViewMode = CalendarViewMode.horizontal;
+
+  CalendarViewMode get calendarViewMode => _calendarViewMode;
+
+  void toggleCalendarView() {
+    _calendarViewMode = _calendarViewMode == CalendarViewMode.horizontal
+        ? CalendarViewMode.grid
+        : CalendarViewMode.horizontal;
+    notifyListeners();
+  }
 
   bool get isSelectedDateInFuture {
     final today = DateTime.now();
@@ -68,6 +88,7 @@ class HomeViewModel extends ChangeNotifier
   }
 
   Map<DateTime, List<Journal>> get monthlyJournals => _monthlyJournals;
+
   Map<DateTime, List<Journal>> get yearlyJournals => _yearlyJournals;
 
   void _load() async {

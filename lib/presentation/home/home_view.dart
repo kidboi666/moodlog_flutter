@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/ui/widgets/glower.dart';
-import 'package:moodlog/presentation/home/widgets/app_drawer.dart';
-import 'package:moodlog/presentation/home/widgets/calendar_button.dart';
-import 'package:moodlog/presentation/home/widgets/home_app_bar.dart';
-import 'package:moodlog/presentation/home/widgets/home_floating_action_button.dart';
-import 'package:moodlog/presentation/home/widgets/horizontal_calendar.dart';
-import 'package:moodlog/presentation/home/widgets/journal_sliver_list.dart';
-import 'package:moodlog/presentation/home/widgets/welcome_zone.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/constants/common.dart';
+import '../../core/ui/widgets/fade_in.dart';
+import '../../core/ui/widgets/glower.dart';
 import 'home_view_model.dart';
+import 'widgets/app_drawer.dart';
+import 'widgets/home_app_bar.dart';
+import 'widgets/home_floating_action_button.dart';
+import 'widgets/journal_sliver_list.dart';
+import 'widgets/unified_calendar.dart';
+import 'widgets/welcome_zone.dart';
 
 part 'home_content.dart';
 

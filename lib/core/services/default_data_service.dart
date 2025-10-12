@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/utils/result.dart';
@@ -9,7 +10,8 @@ class DefaultDataService {
 
   DefaultDataService(this._tagUseCase);
 
-  Future<void> seedDefaultTagsIfEmpty(AppLocalizations t) async {
+  Future<void> seedDefaultTagsIfEmpty(BuildContext context) async {
+    final t = AppLocalizations.of(context)!;
     final List<String> defaultTags = [
       t.default_tag_daily,
       t.default_tag_work,

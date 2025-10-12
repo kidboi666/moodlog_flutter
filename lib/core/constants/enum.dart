@@ -496,6 +496,8 @@ enum JournalSource {
 
 enum SpinnerType { button, center, expanded }
 
+enum CalendarViewMode { horizontal, grid }
+
 enum Emoji {
   shakeHand,
   pencil,

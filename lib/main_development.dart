@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,8 @@ Future<void> main() async {
 
       await db.clearAllTables();
 
-      await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty(t);
+      // 3. Seed default tags
+      await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty(context);
 
       // 4. Seed sample journals
       final seeder = DebugDataSeeder(journalUseCase);
