@@ -5,18 +5,20 @@ import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/presentation/viewmodels/journal_selection_mixin.dart';
 
-class TagDetailViewModel extends ChangeNotifier with AsyncStateMixin {
-  final JournalUseCase _journalUseCase;
+class TagDetailViewModel extends ChangeNotifier
+    with AsyncStateMixin, JournalSelectionMixin {
+  @override
+  final JournalUseCase journalUseCase;
   final TagUseCase _tagUseCase;
   final int _tagId;
 
   TagDetailViewModel({
-    required JournalUseCase journalUseCase,
+    required this.journalUseCase,
     required TagUseCase tagUseCase,
     required int tagId,
-  })  : _journalUseCase = journalUseCase,
-        _tagUseCase = tagUseCase,
+  })  : _tagUseCase = tagUseCase,
         _tagId = tagId {
     _load();
   }
@@ -47,7 +49,7 @@ class TagDetailViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadJournals() async {
-    final result = await _journalUseCase.getJournalsByTagId(_tagId);
+    final result = await journalUseCase.getJournalsByTagId(_tagId);
     if (result is Ok<List<Journal>>) {
       _journals = result.value;
     }

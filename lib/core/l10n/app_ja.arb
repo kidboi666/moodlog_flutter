@@ -434,6 +434,8 @@
   "tags_no_tags": "タグがありません",
   "tags_load_failed": "タグの読み込みに失敗しました",
   "tags_delete_failed": "タグの削除に失敗しました",
+  "tags_menu_edit": "編集",
+  "tags_menu_delete": "削除",
   "home_monthly_tracker_title": "今月の日記作成",
   "home_yearly_tracker_title": "今年の日記作成",
   "home_monthly_tracker_legend_less": "少ない",

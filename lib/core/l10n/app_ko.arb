@@ -434,6 +434,8 @@
   "tags_no_tags": "태그 없음",
   "tags_load_failed": "태그를 불러오지 못했습니다",
   "tags_delete_failed": "태그 삭제에 실패했습니다",
+  "tags_menu_edit": "수정",
+  "tags_menu_delete": "삭제",
   "home_monthly_tracker_title": "이번 달 일기 작성",
   "home_yearly_tracker_title": "올해 일기 작성",
   "home_monthly_tracker_legend_less": "적음",

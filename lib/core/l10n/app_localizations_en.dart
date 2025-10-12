@@ -947,7 +947,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tags_delete_failed => 'Failed to delete tag';
 
   @override
-  String get home_monthly_tracker_title => 'This Month\'s Diary Writing';
+  String get tags_menu_edit => 'Edit';
+
+  @override
+  String get tags_menu_delete => 'Delete';
+
+  @override
+  String get home_monthly_tracker_title => 'Monthly Journaling';
 
   @override
   String get home_yearly_tracker_title => 'This Year\'s Diary Writing';

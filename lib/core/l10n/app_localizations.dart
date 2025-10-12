@@ -1810,10 +1810,22 @@ abstract class AppLocalizations {
   /// **'Failed to delete tag'**
   String get tags_delete_failed;
 
+  /// No description provided for @tags_menu_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get tags_menu_edit;
+
+  /// No description provided for @tags_menu_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get tags_menu_delete;
+
   /// No description provided for @home_monthly_tracker_title.
   ///
   /// In en, this message translates to:
-  /// **'This Month\'s Diary Writing'**
+  /// **'Monthly Journaling'**
   String get home_monthly_tracker_title;
 
   /// No description provided for @home_yearly_tracker_title.

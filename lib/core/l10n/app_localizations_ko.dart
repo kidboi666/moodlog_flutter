@@ -917,6 +917,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tags_delete_failed => '태그 삭제에 실패했습니다';
 
   @override
+  String get tags_menu_edit => '수정';
+
+  @override
+  String get tags_menu_delete => '삭제';
+
+  @override
   String get home_monthly_tracker_title => '이번 달 일기 작성';
 
   @override

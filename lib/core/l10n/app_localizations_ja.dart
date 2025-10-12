@@ -918,6 +918,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tags_delete_failed => 'タグの削除に失敗しました';
 
   @override
+  String get tags_menu_edit => '編集';
+
+  @override
+  String get tags_menu_delete => '削除';
+
+  @override
   String get home_monthly_tracker_title => '今月の日記作成';
 
   @override

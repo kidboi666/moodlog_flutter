@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/routing/routes.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/presentation/tags/tags_view_model.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,43 @@ class _TagsScreenContent extends StatelessWidget {
               onPressed: () {
                 if (controller.text.isNotEmpty) {
                   viewModel.addTag(controller.text);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showEditTagDialog(
+      BuildContext context, TagsViewModel viewModel, Tag tag) async {
+    final TextEditingController controller = TextEditingController(text: tag.name);
+    final t = AppLocalizations.of(context)!;
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(t.tags_menu_edit),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: t.tags_input_hint),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(t.common_confirm_cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(t.common_confirm_save),
+              onPressed: () {
+                if (controller.text.isNotEmpty) {
+                  viewModel.updateTag(tag.id, controller.text);
                   Navigator.of(context).pop();
                 }
               },
@@ -113,34 +151,48 @@ class _TagsScreenContent extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       onTap: () => context.push(Routes.tag(tag.id)),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete_outline),
-                        onPressed: () async {
-                          final confirm = await showDialog<bool>(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text(t.tags_delete_title),
-                              content: Text(
-                                t.tags_delete_message(tag.name),
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) async {
+                          if (value == 'edit') {
+                            _showEditTagDialog(context, viewModel, tag);
+                          } else if (value == 'delete') {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(t.tags_delete_title),
+                                content: Text(
+                                  t.tags_delete_message(tag.name),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: Text(t.common_confirm_cancel),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: Text(t.common_confirm_delete),
+                                  ),
+                                ],
                               ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(false),
-                                  child: Text(t.common_confirm_cancel),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(true),
-                                  child: Text(t.common_confirm_delete),
-                                ),
-                              ],
-                            ),
-                          );
-                          if (confirm == true) {
-                            viewModel.deleteTag(tag.id);
+                            );
+                            if (confirm == true) {
+                              viewModel.deleteTag(tag.id);
+                            }
                           }
                         },
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
+                          PopupMenuItem<String>(
+                            value: 'edit',
+                            child: Text(t.tags_menu_edit),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'delete',
+                            child: Text(t.tags_menu_delete),
+                          ),
+                        ],
                       ),
                     );
                   },

@@ -61,4 +61,13 @@ class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
       // Handle error if needed
     }
   }
+
+  Future<void> updateTag(int id, String newName) async {
+    final result = await _tagUseCase.updateTag(id, newName, null);
+    if (result is Ok) {
+      await _loadTags();
+    } else {
+      // Handle error if needed
+    }
+  }
 }
