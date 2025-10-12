@@ -6,7 +6,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/tag_chip.dart';
+
 import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class JournalCard extends StatelessWidget {
@@ -20,6 +20,7 @@ class JournalCard extends StatelessWidget {
   final bool isSelectable;
   final bool isSelected;
   final List<Tag>? tags;
+  final bool isCompact;
 
   const JournalCard({
     super.key,
@@ -33,6 +34,7 @@ class JournalCard extends StatelessWidget {
     this.isSelectable = false,
     this.isSelected = false,
     this.tags,
+    this.isCompact = false,
   });
 
   @override
@@ -40,6 +42,16 @@ class JournalCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+
+    final double horizontalPadding = isCompact ? Spacing.lg : Spacing.xl;
+    final double verticalPadding = isCompact ? Spacing.lg : Spacing.xl;
+    final double imageHeight = isCompact ? 80 : 120;
+    final TextStyle? titleStyle = isCompact
+        ? textTheme.bodySmall
+        : textTheme.bodyMedium;
+    final TextStyle? contentStyle = isCompact
+        ? textTheme.bodySmall
+        : textTheme.bodyMedium;
 
     return InkWell(
       onTap: onTap,
@@ -60,9 +72,9 @@ class JournalCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Spacing.xl,
-                    vertical: Spacing.xl,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                    vertical: verticalPadding,
                   ),
                   child: IntrinsicHeight(
                     child: Row(
@@ -85,12 +97,15 @@ class JournalCard extends StatelessWidget {
                             children: [
                               Text(
                                 createdAt.formatted(t),
-                                style: textTheme.bodyMedium?.copyWith(
+                                style: titleStyle?.copyWith(
                                   color: colorScheme.outline,
                                 ),
                               ),
                               const SizedBox(height: Spacing.xs),
-                              _buildContentPreview(content.trim(), textTheme),
+                              _buildContentPreview(
+                                content.trim(),
+                                contentStyle,
+                              ),
                             ],
                           ),
                         ),
@@ -100,16 +115,16 @@ class JournalCard extends StatelessWidget {
                 ),
                 if (tags != null && tags!.isNotEmpty) ...[
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: Spacing.xl,
-                      right: Spacing.xl,
+                    padding: EdgeInsets.only(
+                      left: horizontalPadding,
+                      right: horizontalPadding,
                       bottom: Spacing.lg,
                     ),
                     child: _buildTags(context, tags!),
                   ),
                 ],
                 if (coverImg != null && coverImg!.isNotEmpty) ...[
-                  _buildCoverImage(context),
+                  _buildCoverImage(context, imageHeight),
                 ],
               ],
             ),
@@ -131,21 +146,23 @@ class JournalCard extends StatelessWidget {
     return Wrap(
       spacing: Spacing.sm,
       runSpacing: Spacing.sm,
-      children: tags.map((tag) => TagChip(tag: tag)).toList(),
+      children: tags
+          .map((tag) => TagChip(tag: tag, isCompact: isCompact))
+          .toList(),
     );
   }
 
-  Widget _buildCoverImage(BuildContext context) {
+  Widget _buildCoverImage(BuildContext context, double height) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Image.file(
       File(coverImg!),
-      height: 120,
+      height: height,
       width: double.infinity,
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
         return Container(
-          height: 120,
+          height: height,
           width: double.infinity,
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerHighest,
@@ -157,12 +174,15 @@ class JournalCard extends StatelessWidget {
               Icon(
                 Icons.image_not_supported_outlined,
                 color: colorScheme.outline,
-                size: 32,
+                size: isCompact ? 24 : 32,
               ),
               const SizedBox(height: 4),
               Text(
                 'Image not found',
-                style: TextStyle(color: colorScheme.outline, fontSize: 12),
+                style: TextStyle(
+                  color: colorScheme.outline,
+                  fontSize: isCompact ? 10 : 12,
+                ),
               ),
             ],
           ),
@@ -171,21 +191,50 @@ class JournalCard extends StatelessWidget {
     );
   }
 
-  Widget _buildContentPreview(String content, TextTheme textTheme) {
+  Widget _buildContentPreview(String content, TextStyle? style) {
     if (content.isEmpty) {
       return const SizedBox.shrink();
     }
 
     return ConstrainedBox(
-      constraints: const BoxConstraints(
+      constraints: BoxConstraints(
         minHeight: 0,
-        maxHeight: 100, // 카드에서는 높이 제한
+        maxHeight: isCompact ? 60 : 100, // 카드에서는 높이 제한
       ),
       child: Text(
         content,
-        maxLines: 5,
+        maxLines: isCompact ? 3 : 5,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyMedium,
+        style: style,
+      ),
+    );
+  }
+}
+
+class TagChip extends StatelessWidget {
+  final Tag tag;
+  final bool isCompact;
+
+  const TagChip({super.key, required this.tag, this.isCompact = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isCompact ? Spacing.sm : Spacing.md,
+        vertical: isCompact ? Spacing.xs : Spacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(Roundness.chip),
+      ),
+      child: Text(
+        '#${tag.name}',
+        style: (isCompact ? textTheme.labelSmall : textTheme.labelMedium)
+            ?.copyWith(color: colorScheme.primary),
       ),
     );
   }

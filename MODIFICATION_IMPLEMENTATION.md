@@ -1,36 +1,35 @@
-# 수정 구현 계획: 확장된 캘린더를 바텀시트로 이동
+# 수정 구현 계획 (v2): 캘린더 바텀시트 기능 확장
 
-이 문서는 확장된 캘린더 뷰를 홈 화면에서 모달 바텀시트로 이동하는 리팩토링 작업의 단계별 구현 계획을 설명합니다.
+이 문서는 `CalendarBottomSheet`에 선택된 날짜의 일기 목록을 표시하고, 홈 화면과 상태를 분리하는 기능 확장의 단계별 구현 계획을 설명합니다.
 
-## 1단계: 사전 준비 및 테스트
+## 1단계: `JournalCard` 위젯 수정
 
-- [x] 모든 테스트를 실행하여 프로젝트가 수정 시작 전에 안정적인 상태인지 확인합니다.
+- [x] `lib/core/ui/widgets/journal_card.dart` 파일을 엽니다.
+- [x] `JournalCard` 생성자에 `final bool isCompact;` 필드를 추가하고, 기본값을 `false`로 설정합니다.
+- [x] `build` 메서드 내에서 `isCompact` 값에 따라 패딩, 폰트 크기, 이미지 높이 등 UI 요소들의 크기를 조건부로 조절하는 로직을 추가합니다.
+    - 예: `padding: isCompact ? Spacing.md : Spacing.xl`
+    - 예: `style: isCompact ? textTheme.bodySmall : textTheme.bodyMedium`
+- [x] 기존에 `JournalCard`를 사용하던 홈 화면(`journal_sliver_list.dart`)에서는 `isCompact` 값을 설정하지 않아도 기본값(`false`)으로 동작하는지 확인합니다.
 
-## 2단계: `CalendarBottomSheet` 위젯 생성
+## 2단계: `CalendarBottomSheet` 상태 및 UI 변경
 
-- [x] `lib/presentation/screens/home/widgets/calendar_bottom_sheet.dart` 파일을 생성합니다.
-- [x] `unified_calendar.dart`의 `_GridView`와 `_CalendarHeader` 위젯 코드를 새 파일로 이동하여 `CalendarBottomSheet`라는 이름의 `StatelessWidget`으로 만듭니다.
-- [x] `HomeViewModel`에서 필요한 데이터를 `Provider`를 통해 가져오도록 연결합니다.
+- [x] `lib/presentation/screens/home/widgets/calendar_bottom_sheet.dart` 파일을 엽니다.
+- [x] `CalendarBottomSheet`를 `StatelessWidget`에서 `StatefulWidget`으로 변경합니다.
+- [x] `_CalendarBottomSheetState`를 생성하고, 내부에 `late DateTime _selectedInSheet;` 상태 변수를 선언합니다.
+- [x] `initState`에서 `_selectedInSheet = context.read<HomeViewModel>().selectedDate;` 코드로 상태를 초기화합니다.
+- [x] `TableCalendar`의 `onDaySelected` 콜백이 `setState(() { _selectedInSheet = selectedDay; });`를 호출하도록 수정합니다. `focusedDay`도 `_selectedInSheet`를 사용하도록 변경합니다.
+- [x] `build` 메서드의 `Column` 위젯 내부에 `TableCalendar` 아래로 `Expanded`와 `ListView.builder`를 사용하여 일기 목록을 표시할 UI를 추가합니다.
+- [x] `HomeViewModel`의 `yearlyJournals`에서 `_selectedInSheet` 날짜에 해당하는 일기 목록을 가져옵니다.
+- [x] 가져온 일기 목록을 `ListView.builder`를 통해 `JournalCard(isCompact: true, ...)` 위젯으로 렌더링합니다.
+- [x] 선택된 날짜에 일기가 없을 경우를 대비하여 `EmptyEntriesBox`와 유사한 위젯이나 간단한 텍스트 메시지를 표시하는 로직을 추가합니다.
 
-## 3단계: `HomeAppBar` 수정
+## 3단계: 검증 및 마무리
 
-- [x] `home_app_bar.dart` 파일을 엽니다.
-- [x] 기존 캘린더 뷰 토글 `IconButton`의 `onPressed` 콜백을 `showModalBottomSheet`를 호출하도록 수정합니다.
-- [x] `showModalBottomSheet`의 `builder`에서 `CalendarBottomSheet` 위젯을 반환하도록 구현합니다.
-- [x] 아이콘을 `Icons.calendar_today_outlined`로 고정합니다.
-- [x] `HomeViewModel`의 `toggleCalendarView()` 호출 코드를 제거합니다.
-
-## 4단계: `UnifiedCalendarWidget` 및 `HomeViewModel` 리팩토링
-
-- [x] `unified_calendar.dart` 파일에서 `_GridView` 위젯과 관련 로직을 모두 제거합니다.
-- [x] `AnimatedSwitcher`와 `AnimatedSize`를 제거하고, `_HorizontalView`만 남도록 구조를 단순화합니다.
-- [x] `home_view_model.dart` 파일에서 `calendarViewMode` 상태 변수와 `toggleCalendarView()` 메서드를 제거합니다.
-- [x] `CalendarViewMode` 열거형(`lib/core/constants/enum.dart`)을 삭제하거나 주석 처리합니다.
-
-## 5단계: 검증 및 마무리
-
-- [x] 앱을 실행하여 `AppBar`의 캘린더 아이콘을 탭했을 때 바텀시트가 정상적으로 나타나는지 확인합니다.
-- [x] 바텀시트 내의 캘린더가 날짜 선택 및 월 이동과 같은 기존 기능을 모두 정상적으로 수행하는지 테스트합니다.
+- [x] 앱을 실행하여 `AppBar`의 캘린더 아이콘을 탭하여 바텀시트를 엽니다.
+- [x] 바텀시트 내에서 날짜를 선택했을 때, 하단에 해당 날짜의 일기 목록이 작은 카드 형태로 정상적으로 표시되는지 확인합니다.
+- [x] 일기가 없는 날짜를 선택했을 때 "일기가 없습니다"와 같은 메시지가 잘 보이는지 확인합니다.
+- [x] 바텀시트 내에서 날짜를 변경해도 홈 화면의 날짜나 일기 목록은 변경되지 않는지 확인합니다.
+- [x] 바텀시트를 닫고 다시 열었을 때, 처음에는 홈 화면의 날짜를 기준으로 열리는지 확인합니다.
 - [x] `dart_fix` 및 `flutter analyze`를 실행하여 코드 문제를 확인하고 수정합니다.
 - [x] 모든 테스트를 다시 실행하여 회귀 오류가 없는지 확인합니다.
 - [x] `dart_format`으로 코드 서식을 지정합니다.
@@ -38,7 +37,7 @@
 ## 최종 단계: 문서화 및 최종 검토
 
 - [ ] `README.md` 또는 기타 관련 문서에 변경 사항이 있다면 업데이트합니다.
-- [x] `GEMINI.md` 파일을 검토하여 `UnifiedCalendarWidget` 및 `CalendarViewMode`에 대한 설명이 현재 구현과 일치하는지 확인하고, 필요하다면 수정합니다.
+- [ ] `GEMINI.md` 파일을 검토하여 `CalendarBottomSheet`의 새로운 기능과 상태 관리에 대한 설명이 추가되었는지 확인하고, 필요하다면 수정합니다.
 - [ ] 사용자에게 수정된 앱을 검토하고 최종 만족 여부를 확인해달라고 요청합니다.
 
 ---
@@ -46,11 +45,9 @@
 ## 작업 일지 (Journal)
 
 *   **2025-10-12**:
-    *   1단계 완료: `flutter test`를 실행하여 모든 테스트가 통과함을 확인했습니다.
-    *   2단계 완료: `CalendarBottomSheet` 위젯을 생성하고 기존 `_GridView` 코드를 이전했습니다.
-    *   3단계 완료: `HomeAppBar`를 수정하여 바텀시트를 열도록 변경했습니다.
-    *   4단계 완료: `UnifiedCalendarWidget`, `HomeViewModel`, `enum.dart`에서 불필요해진 코드를 모두 제거했습니다.
-    *   5단계 시작: `flutter analyze` 실행 후 발생한 `unused_import` 및 `deprecated_member_use` 경고를 수정했습니다. 수정 과정에서 실수로 필요한 import 문까지 제거하여 빌드 오류가 발생했으나, 다시 복원하여 해결했습니다. 모든 정적 분석 문제를 해결하고, 다시 테스트를 실행하여 통과함을 확인했습니다. `dart format`으로 코드 서식을 정리했습니다.
+    *   1단계 완료: `JournalCard`에 `isCompact` 옵션을 추가하여 작은 버전의 카드를 만들 수 있도록 수정했습니다. `TagChip`도 함께 수정했습니다.
+    *   2단계 완료: `CalendarBottomSheet`를 `StatefulWidget`으로 변환하고, 독립적인 날짜 상태(`_selectedInSheet`)를 추가했습니다. 캘린더 하단에 `isCompact: true`가 적용된 `JournalCard` 목록을 표시하는 UI를 구현했습니다.
+    *   3단계 시작: `flutter analyze`를 실행하여 발생한 `unused_import` 경고를 수정했습니다. 모든 테스트가 통과하는 것을 확인하고, `dart format`으로 코드 서식을 정리했습니다.
 
 ---
 
