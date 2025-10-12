@@ -57,7 +57,7 @@ class AppDrawer extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.local_police_outlined),
+          leading: const Icon(Icons.policy_outlined),
           title: Text(t.settings_information_license_title),
           onTap: () => showLicensePage(context: context),
         ),

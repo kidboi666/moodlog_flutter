@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/presentation/home/widgets/mood_markers.dart';
 
 import '../../../core/constants/common.dart';
 import '../../../core/extensions/date_time.dart';
@@ -8,8 +10,9 @@ class DateAndDay extends StatelessWidget {
   final DateTime date;
   final DateTime todayDate;
   final DateTime selectedDate;
-  final Function selectDate;
+  final Function(DateTime) selectDate;
   final bool isFuture;
+  final List<Journal>? journals;
 
   const DateAndDay({
     super.key,
@@ -18,48 +21,67 @@ class DateAndDay extends StatelessWidget {
     required this.selectedDate,
     required this.selectDate,
     required this.isFuture,
+    this.journals,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool isSelected = date.isSameDay(selectedDate);
+    final bool isToday = date.isSameDay(todayDate);
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
-    return GestureDetector(
+    final Color weekdayColor = isSelected
+        ? colorScheme.onSurface.withAlpha(153)
+        : isFuture
+            ? colorScheme.surface.withAlpha(51)
+            : colorScheme.surface.withAlpha(153);
+    final Color backgroundColor = isSelected
+        ? colorScheme.surface
+        : isToday
+            ? colorScheme.primary.withAlpha(204)
+            : Colors.transparent;
+
+    return InkWell(
       onTap: isFuture ? null : () => selectDate(date),
+      borderRadius: BorderRadius.circular(Roundness.lg),
       child: AnimatedContainer(
-        duration: DurationMS.quick,
-        curve: Curves.easeInOutQuad,
-        height: Spacing.horCalendarDateHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Spacing.md),
-          color: date.isSameDay(selectedDate)
-              ? colorScheme.primary
-              : Colors.transparent,
-          border: BoxBorder.all(
-            width: 1,
-            color: date.isSameDay(todayDate)
-                ? colorScheme.outline
-                : Colors.transparent,
-          ),
-        ),
+        duration: const Duration(milliseconds: 250),
         width: Spacing.calendarScrollSize,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        padding: const EdgeInsets.symmetric(vertical: Spacing.sm),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(Roundness.lg),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            Text(
-              date.getLocalizedWeekdayShortName(t),
-              style: textTheme.titleMedium?.copyWith(
-                color: isFuture ? colorScheme.secondary : colorScheme.surface,
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  date.getLocalizedWeekdayShortName(t),
+                  style: TextStyle(color: weekdayColor, fontSize: 12),
+                ),
+                const SizedBox(height: Spacing.sm),
+                Text(
+                  '${date.day}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isSelected
+                        ? colorScheme.onSurface
+                        : isFuture
+                            ? colorScheme.surface.withAlpha(51)
+                            : colorScheme.surface,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              date.day.toString(),
-              style: textTheme.titleMedium?.copyWith(
-                color: isFuture ? colorScheme.secondary : colorScheme.surface,
+            if (journals != null && journals!.isNotEmpty)
+              Positioned(
+                bottom: 0,
+                child: MoodMarkers(journals: journals!),
               ),
-            ),
           ],
         ),
       ),

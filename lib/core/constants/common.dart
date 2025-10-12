@@ -38,7 +38,7 @@ abstract final class Spacing {
   );
   static const calendarScrollSize = 44.0;
   static const aiResponseGap = 26.0;
-  static const horCalendarDateHeight = 60.0;
+  static const horCalendarDateHeight = 68.0;
 }
 
 abstract final class DelayMS {
