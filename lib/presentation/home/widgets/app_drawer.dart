@@ -24,14 +24,6 @@ class AppDrawer extends StatelessWidget {
         const Divider(),
 
         ListTile(
-          leading: const Icon(Icons.book_outlined),
-          title: Text(t.tab_entries),
-          onTap: () {
-            context.pop();
-            context.push(Routes.entries);
-          },
-        ),
-        ListTile(
           leading: const Icon(Icons.query_stats_sharp),
           title: Text(t.tab_statistics),
           onTap: () {

@@ -22,12 +22,12 @@ class WelcomeZone extends StatelessWidget {
         FadeIn(
           delay: DelayMS.medium * 2,
           child: Row(
-            spacing: Spacing.md,
             children: [
               Text(
                 t.home_welcome(nickname ?? ''),
                 style: textTheme.headlineSmall,
               ),
+              const SizedBox(width: Spacing.md),
             ],
           ),
         ),

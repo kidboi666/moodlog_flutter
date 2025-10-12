@@ -39,7 +39,7 @@ class OnboardingPageViewWelcome extends StatelessWidget {
                 FadeIn(
                   child: Text(
                     t.onboarding_welcome_title,
-                    style: textTheme.displaySmall,
+                    style: textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
