@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:logging/logging.dart';
+
 import '../../core/utils/result.dart';
 import '../../domain/entities/journal/journal.dart';
 import '../../domain/models/create_journal_request.dart';
@@ -12,6 +14,7 @@ import '../data_source/local/tag_local_data_source.dart';
 class JournalRepositoryImpl implements JournalRepository {
   final JournalLocalDataSource _journalLocalDataSource;
   final TagLocalDataSource _tagLocalDataSource;
+  final Logger _log = Logger('JournalRepositoryImpl');
 
   JournalRepositoryImpl({
     required JournalLocalDataSource localDataSource,
@@ -88,7 +91,8 @@ class JournalRepositoryImpl implements JournalRepository {
       final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
       final journalWithTags = journal.attachTags(tags);
       return Result.ok(journalWithTags);
-    } catch (e) {
+    } catch (e, s) {
+      _log.severe('Failed to get journal by id', e, s);
       return Result.error(Exception('Failed to get journal: $e'));
     }
   }

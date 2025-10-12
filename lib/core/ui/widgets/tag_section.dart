@@ -47,7 +47,7 @@ class TagSection extends StatelessWidget {
           runSpacing: runSpacing ?? Spacing.sm,
           children: displayTags.map((tag) {
             return TagChip(
-              name: tag.name,
+              tag: tag,
               fontSize: chipFontSize,
               padding: chipPadding,
               borderRadius: chipBorderRadius,

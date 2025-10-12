@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/ui/widgets/tag_chip.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 
 import '../../constants/common.dart';
@@ -118,10 +119,7 @@ class JournalCard extends StatelessWidget {
                 top: Spacing.sm,
                 right: Spacing.sm,
                 child: IgnorePointer(
-                  child: Checkbox(
-                    value: isSelected,
-                    onChanged: null,
-                  ),
+                  child: Checkbox(value: isSelected, onChanged: null),
                 ),
               ),
           ],
@@ -134,15 +132,7 @@ class JournalCard extends StatelessWidget {
     return Wrap(
       spacing: Spacing.sm,
       runSpacing: Spacing.sm,
-      children: tags
-          .map((tag) => Chip(
-                label: Text(tag.name),
-                padding: EdgeInsets.zero,
-                labelPadding:
-                    const EdgeInsets.symmetric(horizontal: Spacing.md),
-                visualDensity: VisualDensity.compact,
-              ))
-          .toList(),
+      children: tags.map((tag) => TagChip(tag: tag)).toList(),
     );
   }
 
@@ -192,54 +182,12 @@ class JournalCard extends StatelessWidget {
         minHeight: 0,
         maxHeight: 100, // 카드에서는 높이 제한
       ),
-      child: Text.rich(
-        TextSpan(
-          children: _parseMarkdownToTextSpans(content, textTheme),
-        ),
+      child: Text(
+        content,
         maxLines: 5,
         overflow: TextOverflow.ellipsis,
         style: textTheme.bodyMedium,
       ),
     );
-  }
-
-  List<TextSpan> _parseMarkdownToTextSpans(String text, TextTheme textTheme) {
-    final List<TextSpan> spans = [];
-    final RegExp exp = RegExp(
-        r'(\*\*.*?\*\*)|(__.*?__)|(~~.*?~~)|(\*.*?\*)',
-        caseSensitive: false);
-    int currentPosition = 0;
-
-    for (RegExpMatch match in exp.allMatches(text)) {
-      if (match.start > currentPosition) {
-        spans.add(TextSpan(text: text.substring(currentPosition, match.start)));
-      }
-
-      String matchedText = match.group(0)!;
-      TextStyle? style = textTheme.bodyMedium;
-
-      if (matchedText.startsWith('**') && matchedText.endsWith('**')) {
-        style = style?.copyWith(fontWeight: FontWeight.bold);
-        matchedText = matchedText.substring(2, matchedText.length - 2);
-      } else if (matchedText.startsWith('__') && matchedText.endsWith('__')) {
-        style = style?.copyWith(decoration: TextDecoration.underline);
-        matchedText = matchedText.substring(2, matchedText.length - 2);
-      } else if (matchedText.startsWith('~~') && matchedText.endsWith('~~')) {
-        style = style?.copyWith(decoration: TextDecoration.lineThrough);
-        matchedText = matchedText.substring(2, matchedText.length - 2);
-      } else if (matchedText.startsWith('*') && matchedText.endsWith('*')) {
-        style = style?.copyWith(fontStyle: FontStyle.italic);
-        matchedText = matchedText.substring(1, matchedText.length - 1);
-      }
-
-      spans.add(TextSpan(text: matchedText, style: style));
-      currentPosition = match.end;
-    }
-
-    if (currentPosition < text.length) {
-      spans.add(TextSpan(text: text.substring(currentPosition)));
-    }
-
-    return spans;
   }
 }

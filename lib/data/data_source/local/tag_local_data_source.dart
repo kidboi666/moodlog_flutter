@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:logging/logging.dart';
 
 import '../../../domain/entities/journal/journal_tag.dart';
 import '../../../domain/entities/journal/tag.dart';
@@ -7,6 +8,7 @@ import 'database/database.dart';
 
 class TagLocalDataSource {
   final MoodLogDatabase _db;
+  final Logger _log = Logger('TagLocalDataSource');
 
   TagLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
 
@@ -46,9 +48,11 @@ class TagLocalDataSource {
             ..orderBy([OrderingTerm.asc(_db.tags.name)]))
           .map((row) => row.readTable(_db.tags))
           .get();
-    } on SqliteException catch (e) {
+    } on SqliteException catch (e, s) {
+      _log.severe('Error in getTagsByJournalId', e, s);
       throw Exception(e);
-    } catch (e) {
+    } catch (e, s) {
+      _log.severe('Error in getTagsByJournalId', e, s);
       throw Exception(e);
     }
   }

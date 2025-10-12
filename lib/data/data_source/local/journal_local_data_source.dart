@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:logging/logging.dart';
 
 import '../../../core/utils/result.dart';
 import '../../../domain/entities/journal/journal.dart';
@@ -10,6 +11,7 @@ import 'database/database.dart';
 
 class JournalLocalDataSource {
   final MoodLogDatabase _db;
+  final Logger _log = Logger('JournalLocalDataSource');
 
   JournalLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
 
@@ -28,9 +30,11 @@ class JournalLocalDataSource {
       return await (_db.select(
         _db.journals,
       )..where((t) => t.id.equals(journalId))).getSingleOrNull();
-    } on SqliteException catch (e) {
+    } on SqliteException catch (e, s) {
+      _log.severe('Error in getJournalById', e, s);
       throw Exception(e);
-    } catch (e) {
+    } catch (e, s) {
+      _log.severe('Error in getJournalById', e, s);
       throw Exception(e);
     }
   }
@@ -90,8 +94,9 @@ class JournalLocalDataSource {
           tagNames: Value(request.tagNames),
         );
 
-        final newJournal =
-            await _db.into(_db.journals).insertReturning(journalCompanion);
+        final newJournal = await _db
+            .into(_db.journals)
+            .insertReturning(journalCompanion);
 
         // 2. Handle tags
         if (request.tagNames != null && request.tagNames!.isNotEmpty) {
@@ -99,9 +104,9 @@ class JournalLocalDataSource {
 
           for (final tagName in request.tagNames!) {
             // Find existing tag or create a new one
-            var existingTag = await (_db.select(_db.tags)
-                  ..where((t) => t.name.equals(tagName)))
-                .getSingleOrNull();
+            var existingTag = await (_db.select(
+              _db.tags,
+            )..where((t) => t.name.equals(tagName))).getSingleOrNull();
 
             int tagId;
             if (existingTag != null) {
@@ -116,7 +121,9 @@ class JournalLocalDataSource {
 
           // 3. Link tags to the journal in the join table
           for (final tagId in tagIds) {
-            await _db.into(_db.journalTags).insert(
+            await _db
+                .into(_db.journalTags)
+                .insert(
                   JournalTagsCompanion(
                     journalId: Value(newJournal.id),
                     tagId: Value(tagId),

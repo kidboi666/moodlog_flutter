@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/common.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class TagChip extends StatelessWidget {
-  final String name;
+  final Tag tag;
   final double? fontSize;
   final EdgeInsets? padding;
   final double? borderRadius;
 
   const TagChip({
     super.key,
-    required this.name,
+    required this.tag,
     this.fontSize,
     this.padding,
     this.borderRadius,
@@ -18,28 +18,16 @@ class TagChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      padding:
-          padding ??
-          const EdgeInsets.symmetric(
-            horizontal: Spacing.sm,
-            vertical: Spacing.xs,
-          ),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(borderRadius ?? 16),
-        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
+    return Chip(
+      label: Text(
+        tag.name,
+        style: TextStyle(fontSize: fontSize),
       ),
-      child: Text(
-        name,
-        style: textTheme.bodySmall?.copyWith(
-          fontSize: fontSize,
-          color: colorScheme.onSurfaceVariant,
-          fontWeight: FontWeight.w500,
-        ),
+      padding: padding ?? EdgeInsets.zero,
+      labelPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+      visualDensity: VisualDensity.compact,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
       ),
     );
   }
