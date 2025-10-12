@@ -46,7 +46,7 @@ class OnboardingPageViewPersonality extends StatelessWidget {
           ),
           FadeIn(
             delay: DelayMS.medium * 2,
-            child: RadioGroup<AiPersonality>(
+            child: RadioGroup(
               groupValue: selectedPersonality,
               onChanged: context.read<OnboardingViewModel>().setPersonality,
               child: Column(

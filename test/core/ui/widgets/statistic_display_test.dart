@@ -194,8 +194,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: InfoContainer(
-              child: child,
               backgroundColor: backgroundColor,
+              child: child,
             ),
           ),
         ),

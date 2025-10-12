@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/presentation/onboarding/onboarding_view_model.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/extensions/localization.dart';
 import '../../../core/constants/enum.dart';
@@ -13,15 +11,8 @@ class OnboardingPersonalityItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedPersonality = context.select(
-      (OnboardingViewModel vm) => vm.selectedPersonality,
-    );
-
-    return RadioListTile<AiPersonality>(
+    return RadioListTile(
       value: personality,
-      selected: personality == selectedPersonality,
-      tileColor: Theme.of(context).colorScheme.surfaceContainer,
-      selectedTileColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       controlAffinity: ListTileControlAffinity.trailing,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       secondary: Text(
