@@ -263,6 +263,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tab_home => 'Home';
 
   @override
+  String get drawer_tags => 'Manage Tags';
+
+  @override
+  String get empty_box_write_options_title =>
+      'Which date would you like to write for?';
+
+  @override
+  String empty_box_write_for_selected_date(String date) {
+    return 'Write for $date';
+  }
+
+  @override
+  String get empty_box_write_for_today => 'Write for today';
+
+  @override
+  String get tags_empty => 'No tags found.';
+
+  @override
+  String tags_error(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get default_tag_daily => 'Daily';
+
+  @override
+  String get default_tag_work => 'Work';
+
+  @override
+  String get default_tag_health => 'Health';
+
+  @override
+  String get default_tag_relationships => 'Relationships';
+
+  @override
+  String get default_tag_hobby => 'Hobby';
+
+  @override
+  String get default_tag_emotions => 'Emotions';
+
+  @override
   String get tab_entries => 'Entries';
 
   @override

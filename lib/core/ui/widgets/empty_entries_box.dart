@@ -100,14 +100,15 @@ class EmptyEntriesBox extends StatelessWidget {
                       onPressed: () =>
                           context.pushToWriteFromSelectedDate(selectedDate),
                       icon: Icons.calendar_today,
-                      label:
-                          '${DateFormat.yMMMd().format(selectedDate)} 일기 쓰기',
+                      label: t.empty_box_write_for_selected_date(
+                        DateFormat.yMMMd().format(selectedDate),
+                      ),
                     ),
                     buildButton(
                       onPressed: () =>
                           context.pushToWriteFromSelectedDate(DateTime.now()),
                       icon: Icons.today,
-                      label: '오늘 일기 쓰기',
+                      label: t.empty_box_write_for_today,
                     ),
                   ],
                 ),

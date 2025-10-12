@@ -79,6 +79,32 @@
   "entries_calendar_legend_has_journal": "日記あり",
   "entries_calendar_legend_today": "今日",
   "tab_home": "ホーム",
+  "drawer_tags": "タグ管理",
+  "empty_box_write_options_title": "どの日付で日記を作成しますか？",
+  "empty_box_write_for_selected_date": "{date} の日記を作成",
+  "@empty_box_write_for_selected_date": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "empty_box_write_for_today": "今日の日記を作成",
+  "tags_empty": "タグがありません。",
+  "tags_error": "エラー: {error}",
+  "@tags_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "default_tag_daily": "日常",
+  "default_tag_work": "仕事",
+  "default_tag_health": "健康",
+  "default_tag_relationships": "関係",
+  "default_tag_hobby": "趣味",
+  "default_tag_emotions": "感情",
   "tab_entries": "記録",
   "tab_settings": "設定",
   "tab_write": "書く",

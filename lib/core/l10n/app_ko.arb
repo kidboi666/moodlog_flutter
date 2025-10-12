@@ -79,7 +79,33 @@
   "entries_calendar_legend_has_journal": "일기 있음",
   "entries_calendar_legend_today": "오늘",
   "tab_home": "홈",
-  "tab_entries": "일기",
+  "drawer_tags": "태그 관리",
+  "empty_box_write_options_title": "어떤 날짜의 일기를 작성하시겠어요?",
+  "empty_box_write_for_selected_date": "{date} 일기 쓰기",
+  "@empty_box_write_for_selected_date": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "empty_box_write_for_today": "오늘 일기 쓰기",
+  "tags_empty": "태그가 없습니다.",
+  "tags_error": "오류 발생: {error}",
+  "@tags_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "default_tag_daily": "일상",
+  "default_tag_work": "업무",
+  "default_tag_health": "건강",
+  "default_tag_relationships": "관계",
+  "default_tag_hobby": "취미",
+  "default_tag_emotions": "감정",
+  "tab_entries": "일기 목록",
   "tab_settings": "설정",
   "tab_write": "쓰기",
   "tab_statistics": "통계",

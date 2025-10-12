@@ -255,7 +255,47 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_home => '홈';
 
   @override
-  String get tab_entries => '일기';
+  String get drawer_tags => '태그 관리';
+
+  @override
+  String get empty_box_write_options_title => '어떤 날짜의 일기를 작성하시겠어요?';
+
+  @override
+  String empty_box_write_for_selected_date(String date) {
+    return '$date 일기 쓰기';
+  }
+
+  @override
+  String get empty_box_write_for_today => '오늘 일기 쓰기';
+
+  @override
+  String get tags_empty => '태그가 없습니다.';
+
+  @override
+  String tags_error(String error) {
+    return '오류 발생: $error';
+  }
+
+  @override
+  String get default_tag_daily => '일상';
+
+  @override
+  String get default_tag_work => '업무';
+
+  @override
+  String get default_tag_health => '건강';
+
+  @override
+  String get default_tag_relationships => '관계';
+
+  @override
+  String get default_tag_hobby => '취미';
+
+  @override
+  String get default_tag_emotions => '감정';
+
+  @override
+  String get tab_entries => '일기 목록';
 
   @override
   String get tab_settings => '설정';

@@ -256,6 +256,46 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tab_home => 'ホーム';
 
   @override
+  String get drawer_tags => 'タグ管理';
+
+  @override
+  String get empty_box_write_options_title => 'どの日付で日記を作成しますか？';
+
+  @override
+  String empty_box_write_for_selected_date(String date) {
+    return '$date の日記を作成';
+  }
+
+  @override
+  String get empty_box_write_for_today => '今日の日記を作成';
+
+  @override
+  String get tags_empty => 'タグがありません。';
+
+  @override
+  String tags_error(String error) {
+    return 'エラー: $error';
+  }
+
+  @override
+  String get default_tag_daily => '日常';
+
+  @override
+  String get default_tag_work => '仕事';
+
+  @override
+  String get default_tag_health => '健康';
+
+  @override
+  String get default_tag_relationships => '関係';
+
+  @override
+  String get default_tag_hobby => '趣味';
+
+  @override
+  String get default_tag_emotions => '感情';
+
+  @override
   String get tab_entries => '記録';
 
   @override

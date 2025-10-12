@@ -580,6 +580,78 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get tab_home;
 
+  /// No description provided for @drawer_tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Tags'**
+  String get drawer_tags;
+
+  /// No description provided for @empty_box_write_options_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Which date would you like to write for?'**
+  String get empty_box_write_options_title;
+
+  /// No description provided for @empty_box_write_for_selected_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Write for {date}'**
+  String empty_box_write_for_selected_date(String date);
+
+  /// No description provided for @empty_box_write_for_today.
+  ///
+  /// In en, this message translates to:
+  /// **'Write for today'**
+  String get empty_box_write_for_today;
+
+  /// No description provided for @tags_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags found.'**
+  String get tags_empty;
+
+  /// No description provided for @tags_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String tags_error(String error);
+
+  /// No description provided for @default_tag_daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get default_tag_daily;
+
+  /// No description provided for @default_tag_work.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get default_tag_work;
+
+  /// No description provided for @default_tag_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get default_tag_health;
+
+  /// No description provided for @default_tag_relationships.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationships'**
+  String get default_tag_relationships;
+
+  /// No description provided for @default_tag_hobby.
+  ///
+  /// In en, this message translates to:
+  /// **'Hobby'**
+  String get default_tag_hobby;
+
+  /// No description provided for @default_tag_emotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotions'**
+  String get default_tag_emotions;
+
   /// No description provided for @tab_entries.
   ///
   /// In en, this message translates to:

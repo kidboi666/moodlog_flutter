@@ -40,6 +40,14 @@ class AppDrawer extends StatelessWidget {
           },
         ),
         ListTile(
+          leading: const Icon(Icons.tag),
+          title: Text(t.drawer_tags),
+          onTap: () {
+            context.pop();
+            context.push(Routes.tags);
+          },
+        ),
+        ListTile(
           leading: const Icon(Icons.settings_outlined),
           title: Text(t.tab_settings),
           onTap: () {

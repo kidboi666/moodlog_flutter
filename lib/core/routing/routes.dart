@@ -8,6 +8,7 @@ abstract final class Routes {
   static const String settings = '/settings';
   static const String journalPage = '/journal/:id';
   static const String profile = '/profile';
+  static const String tags = '/tags';
 
   static String journalImageDetail(int id) => '/journal/$id/image';
 

@@ -12,6 +12,7 @@ import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/settings/settings_view.dart';
 import '../../presentation/statistics/statistics_view.dart';
 import '../../presentation/write/write_view.dart';
+import '../../presentation/tags/tags_view.dart';
 import '../constants/enum.dart';
 import 'routes.dart';
 
@@ -91,6 +92,12 @@ GoRouter router(
           path: Routes.settings,
           builder: (_, _) {
             return const SettingsScreen();
+          },
+        ),
+        GoRoute(
+          path: Routes.tags,
+          builder: (_, _) {
+            return const TagsScreen();
           },
         ),
       ],
