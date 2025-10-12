@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/enum.dart';
 import 'core/l10n/app_localizations.dart';
+import 'core/observers/app_lifecycle_observer.dart';
 import 'core/routing/router.dart';
 import 'core/services/flavor_service.dart';
 import 'core/ui/theme/theme.dart';
@@ -24,17 +26,30 @@ class MoodLogApp extends StatefulWidget {
 class _MoodLogAppState extends State<MoodLogApp> {
   GoRouter? _router;
   bool _startupLogicExecuted = false;
+  AppLifecycleObserver? _lifecycleObserver;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_lifecycleObserver == null) {
+      final appStateProvider = context.read<AppStateProvider>();
+      _lifecycleObserver = AppLifecycleObserver(
+        context: context,
+        appStateProvider: appStateProvider,
+        auth: context.read<LocalAuthentication>(),
+      )..init();
+    }
+  }
+
+  @override
+  void dispose() {
+    _lifecycleObserver?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final appStateProvider = context.watch<AppStateProvider>();
-
-    if (appStateProvider.isLoading) {
-      return const MaterialApp(
-        home: Scaffold(body: Center(child: CircularProgressIndicator())),
-      );
-    }
-
     final appState = appStateProvider.appState;
     _router ??= router(context.read(), widget.analyticsObserver);
 

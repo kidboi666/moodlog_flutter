@@ -606,6 +606,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Receive push notifications.';
 
   @override
+  String get settings_common_app_lock_title => 'App Lock';
+
+  @override
+  String get settings_common_app_lock_subtitle =>
+      'Lock the app with biometrics or a passcode.';
+
+  @override
   String get settings_common_theme_title => 'Theme';
 
   @override

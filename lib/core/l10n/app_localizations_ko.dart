@@ -581,6 +581,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_notification_subtitle => '푸시 알림을 받습니다.';
 
   @override
+  String get settings_common_app_lock_title => '앱 잠금';
+
+  @override
+  String get settings_common_app_lock_subtitle => '생체인증 또는 비밀번호로 앱을 잠급니다.';
+
+  @override
   String get settings_common_theme_title => '테마';
 
   @override

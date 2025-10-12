@@ -1,3 +1,4 @@
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -53,6 +54,9 @@ List<SingleChildWidget> _createInfrastructures() {
       create: (_) => MoodLogDatabase(),
       dispose: (_, db) => db.close(),
       lazy: false,
+    ),
+    Provider<LocalAuthentication>(
+      create: (_) => LocalAuthentication(),
     ),
   ];
 }

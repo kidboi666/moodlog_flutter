@@ -5,7 +5,7 @@ import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
-import 'package:moodlog/presentation/viewmodels/journal_selection_mixin.dart';
+import 'package:moodlog/presentation/mixins/journal_selection_mixin.dart';
 
 class TagDetailViewModel extends ChangeNotifier
     with AsyncStateMixin, JournalSelectionMixin {

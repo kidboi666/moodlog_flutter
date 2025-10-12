@@ -1162,6 +1162,18 @@ abstract class AppLocalizations {
   /// **'Receive push notifications.'**
   String get settings_common_notification_subtitle;
 
+  /// No description provided for @settings_common_app_lock_title.
+  ///
+  /// In en, this message translates to:
+  /// **'App Lock'**
+  String get settings_common_app_lock_title;
+
+  /// No description provided for @settings_common_app_lock_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock the app with biometrics or a passcode.'**
+  String get settings_common_app_lock_subtitle;
+
   /// No description provided for @settings_common_theme_title.
   ///
   /// In en, this message translates to:

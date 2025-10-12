@@ -15,7 +15,7 @@ import '../../domain/use_cases/journal_use_case.dart';
 import '../../domain/use_cases/observe_journal_list_use_case.dart';
 import '../../domain/use_cases/weather_use_case.dart';
 import '../providers/user_provider.dart';
-import '../viewmodels/journal_selection_mixin.dart';
+import '../mixins/journal_selection_mixin.dart';
 
 class HomeViewModel extends ChangeNotifier
     with AsyncStateMixin, JournalSelectionMixin {

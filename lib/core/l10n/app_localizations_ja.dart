@@ -579,7 +579,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_common_notification_title => '通知';
 
   @override
-  String get settings_common_notification_subtitle => 'プッシュ通知を受け取ります。';
+  String get settings_common_notification_subtitle => 'プッシュ通知を受け取る。';
+
+  @override
+  String get settings_common_app_lock_title => 'アプリロック';
+
+  @override
+  String get settings_common_app_lock_subtitle => '生体認証またはパスコードでアプリをロックします。';
 
   @override
   String get settings_common_theme_title => 'テーマ';

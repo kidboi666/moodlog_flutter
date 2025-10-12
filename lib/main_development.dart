@@ -1,5 +1,4 @@
-import 'package:moodlog/core/services/data_seeding_service.dart';
-
+import 'core/services/data_seeding_service.dart';
 import 'core/services/flavor_service.dart';
 import 'main.dart' as app;
 

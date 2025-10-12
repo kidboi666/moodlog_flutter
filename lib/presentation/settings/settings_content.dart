@@ -6,9 +6,7 @@ class _SettingsScreenContent extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final viewModel = context.read<SettingsViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.settings_title),
-      ),
+      appBar: AppBar(title: Text(t.settings_title)),
       body: Glower(
         child: CustomScrollView(
           slivers: [
@@ -51,6 +49,13 @@ class _SettingsScreenContent extends StatelessWidget {
                   ),
                 ],
 
+                SwitchTile(
+                  title: t.settings_common_app_lock_title,
+                  subtitle: t.settings_common_app_lock_subtitle,
+                  icon: Icons.lock,
+                  value: viewModel.appState.isAppLockEnabled,
+                  onChanged: viewModel.setAppLockEnabled,
+                ),
                 DialogTile(
                   title: t.settings_common_theme_title,
                   subtitle: t.settings_common_theme_subtitle,
@@ -71,7 +76,9 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
                 DialogTile(
                   title: t.settings_common_font_family_title,
-                  subtitle: viewModel.appState.fontFamily.getDisplayName(context),
+                  subtitle: viewModel.appState.fontFamily.getDisplayName(
+                    context,
+                  ),
                   icon: Icons.text_format,
                   onTap: () => showDialog(
                     context: context,

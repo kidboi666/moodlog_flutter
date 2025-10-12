@@ -5,9 +5,11 @@ import 'package:provider/provider.dart';
 import '../../presentation/home/home_view.dart';
 import '../../presentation/journal/image_detail_screen.dart';
 import '../../presentation/journal/journal_view.dart';
+import '../../presentation/lock/lock_view.dart';
 import '../../presentation/onboarding/onboarding_view.dart';
 import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/settings/settings_view.dart';
+import '../../presentation/splash/splash_view.dart';
 import '../../presentation/statistics/statistics_view.dart';
 import '../../presentation/tag_detail/tag_detail_view.dart';
 import '../../presentation/tags/tags_view.dart';
@@ -18,15 +20,28 @@ import 'routes.dart';
 GoRouter router(
   AppStateProvider appStateProvider,
   NavigatorObserver? analyticsObserver,
-) => GoRouter(
-  initialLocation: Routes.home,
-  redirect: _redirect,
-  refreshListenable: appStateProvider,
-  observers: [?analyticsObserver],
-  routes: [
-    GoRoute(
-      path: Routes.onboarding,
-      builder: (_, state) {
+) =>
+    GoRouter(
+      initialLocation: Routes.splash,
+      redirect: _redirect,
+      refreshListenable: appStateProvider,
+      observers: [?analyticsObserver],
+      routes: [
+        GoRoute(
+          path: Routes.splash,
+          builder: (_, state) {
+            return const SplashScreen();
+          },
+        ),
+        GoRoute(
+          path: Routes.lock,
+          builder: (_, state) {
+            return const LockScreen();
+          },
+        ),
+        GoRoute(
+          path: Routes.onboarding,
+          builder: (_, state) {
         return const OnboardingScreen();
       },
     ),

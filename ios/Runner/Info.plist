@@ -53,8 +53,9 @@
     <string>일기 커버 이미지를 선택하기 위해 앨범에 접근해야 합니다.</string>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
+    	<key>NSFaceIDUsageDescription</key>
+    	<string>앱을 잠금 해제하기 위해 Face ID를 사용합니다.</string>
+    	<key>UILaunchStoryboardName</key>    <string>LaunchScreen</string>
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
     <key>UIStatusBarHidden</key>
