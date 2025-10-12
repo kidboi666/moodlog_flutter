@@ -123,6 +123,11 @@ flutter build apk       # Build Android APK
 - Use freezed for immutable entities and models
 - Use Provider for state management
 
+### Import Conventions
+
+- **Use Relative Paths**: For all internal imports (referencing files within the `lib` directory), always use relative paths (e.g., `../models/user.dart`, `../../core/utils.dart`).
+- **Avoid Absolute Paths**: Do not use absolute paths starting with `package:moodlog/`. This helps maintain consistency and reduces verbosity.
+
 ## Key Components
 
 ### User Management
