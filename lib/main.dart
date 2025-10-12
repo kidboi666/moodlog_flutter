@@ -10,7 +10,9 @@ import 'core/di/injection_container.dart';
 import 'core/utils/flavor_config.dart';
 import 'data/repositories/analytics_repository_impl.dart';
 
-Future<void> main() async {
+Future<void> main({
+  Future<void> Function(BuildContext context)? onAppStartedDev,
+}) async {
   WidgetsFlutterBinding.ensureInitialized();
   FlavorConfig();
   final firebaseOptions = FlavorConfig.firebaseOptions;
@@ -31,7 +33,10 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: createProviders(),
-      child: MoodLogApp(analyticsObserver: analyticsRepo.navigatorObserver),
+      child: MoodLogApp(
+        analyticsObserver: analyticsRepo.navigatorObserver,
+        onAppStarted: FlavorConfig.isDevelopment ? onAppStartedDev : null,
+      ),
     ),
   );
 }

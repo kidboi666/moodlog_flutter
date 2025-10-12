@@ -83,7 +83,7 @@ class _EntriesScreenContent extends StatelessWidget {
                       delay: DelayMS.medium,
                       child: Padding(
                         padding: Spacing.containerHorizontalPadding,
-                        child: EmptyEntriesBox(),
+                        child: EmptyEntriesBox(selectedDate: DateTime.now()),
                       ),
                     ),
                   );

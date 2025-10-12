@@ -1,28 +1,64 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants/common.dart';
+import '../../extensions/date_time.dart';
+import '../../extensions/routing.dart';
 import '../../extensions/widget.dart';
 import '../../l10n/app_localizations.dart';
-import '../../routing/routes.dart';
 
 class EmptyEntriesBox extends StatelessWidget {
-  final void Function()? onPressed;
   final bool isDisabled;
+  final DateTime selectedDate;
 
-  const EmptyEntriesBox({super.key, this.onPressed, this.isDisabled = false});
+  const EmptyEntriesBox({
+    super.key,
+    this.isDisabled = false,
+    required this.selectedDate,
+  });
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final isToday = selectedDate.isSameDay(DateTime.now());
+
+    final buttonStyle = ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return colorScheme.surfaceContainer.withValues(
+            alpha: 0.5,
+          );
+        }
+        return colorScheme.surfaceContainer;
+      }),
+    );
+
+    Widget buildButton({
+      required VoidCallback? onPressed,
+      required IconData icon,
+      required String label,
+    }) {
+      return FilledButton.tonal(
+        onPressed: isDisabled ? null : onPressed,
+        style: buttonStyle,
+        child: Row(
+          spacing: Spacing.md,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon),
+            Text(label),
+          ],
+        ),
+      ).scale();
+    }
 
     return DottedBorder(
       options: RoundedRectDottedBorderOptions(
-        radius: Radius.circular(24),
-        dashPattern: [5, 5],
+        radius: const Radius.circular(24),
+        dashPattern: const [5, 5],
         strokeWidth: 1,
         color: colorScheme.outlineVariant,
       ),
@@ -49,29 +85,32 @@ class EmptyEntriesBox extends StatelessWidget {
                   ),
                 ],
               ),
-              FilledButton.tonal(
-                onPressed: isDisabled
-                    ? null
-                    : (onPressed ?? () => context.push(Routes.write)),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith((states) {
-                    if (states.contains(WidgetState.disabled)) {
-                      return colorScheme.surfaceContainer.withValues(
-                        alpha: 0.5,
-                      );
-                    }
-                    return colorScheme.surfaceContainer;
-                  }),
-                ),
-                child: Row(
-                  spacing: Spacing.md,
-                  mainAxisSize: MainAxisSize.min,
+              if (isToday)
+                buildButton(
+                  onPressed: () =>
+                      context.pushToWriteFromSelectedDate(DateTime.now()),
+                  icon: Icons.add,
+                  label: t.entries_empty_box_button,
+                )
+              else
+                Column(
+                  spacing: Spacing.sm,
                   children: [
-                    const Icon(Icons.add),
-                    Text(t.entries_empty_box_button),
+                    buildButton(
+                      onPressed: () =>
+                          context.pushToWriteFromSelectedDate(selectedDate),
+                      icon: Icons.calendar_today,
+                      label:
+                          '${DateFormat.yMMMd().format(selectedDate)} 일기 쓰기',
+                    ),
+                    buildButton(
+                      onPressed: () =>
+                          context.pushToWriteFromSelectedDate(DateTime.now()),
+                      icon: Icons.today,
+                      label: '오늘 일기 쓰기',
+                    ),
                   ],
                 ),
-              ).scale(),
             ],
           ),
         ),

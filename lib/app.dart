@@ -14,8 +14,13 @@ import 'presentation/providers/app_state_provider.dart';
 
 class MoodLogApp extends StatefulWidget {
   final NavigatorObserver? analyticsObserver;
+  final Future<void> Function(BuildContext context)? onAppStarted;
 
-  const MoodLogApp({this.analyticsObserver, super.key});
+  const MoodLogApp({
+    this.analyticsObserver,
+    this.onAppStarted,
+    super.key,
+  });
 
   @override
   State<MoodLogApp> createState() => _MoodLogAppState();
@@ -23,6 +28,16 @@ class MoodLogApp extends StatefulWidget {
 
 class _MoodLogAppState extends State<MoodLogApp> {
   GoRouter? _router;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.onAppStarted != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onAppStarted!(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

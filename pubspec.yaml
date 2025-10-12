@@ -74,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/data/sample_journals.json
     - .env
 
   fonts:

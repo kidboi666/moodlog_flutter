@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import '../constants/enum.dart';
@@ -123,6 +125,7 @@ mixin AsyncStateMixin on ChangeNotifier {
       }
 
       if (attempt < maxRetries) {
+        if (dialogContext?.mounted == false) return null;
         await Future.delayed(delay);
         clearState(); // 다음 시도를 위해 에러 상태 초기화
       }

@@ -10,12 +10,12 @@ class Skeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      highlightColor: Theme.of(context).colorScheme.surfaceContainer,
       child: Container(
         height: height,
         width: width,
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
       ),
     );
   }

@@ -48,7 +48,7 @@ class JournalSliverList extends StatelessWidget {
           delay: isFirstRender ? DelayMS.medium * 5 : DelayMS.medium,
           child: EmptyEntriesBox(
             isDisabled: isSelectedDateInFuture,
-            onPressed: () => context.pushToWriteFromSelectedDate(selectedDate),
+            selectedDate: selectedDate,
           ),
         ),
       );

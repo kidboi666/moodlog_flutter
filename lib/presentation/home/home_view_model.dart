@@ -50,7 +50,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   LocationInfo? _locationInfo;
   WeatherInfo? _weatherInfo;
   bool _isSelectionMode = false;
-  Set<int> _selectedJournalIds = {};
+  final Set<int> _selectedJournalIds = {};
 
   bool get isSelectionMode => _isSelectionMode;
   Set<int> get selectedJournalIds => Set.from(_selectedJournalIds);

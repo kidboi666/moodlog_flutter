@@ -152,3 +152,10 @@ Always ask before bumping version in `pubspec.yaml`
 - Korean (한국어) - Default
 - English
 - Japanese (日本語)
+
+---
+
+## Recent Changes
+
+- **`home_content` Refactoring**: Refactored the `_HomeScreenContent` widget by separating the `AppBar` and `FloatingActionButton` into their own widgets to improve code readability and maintainability.
+- **Skeleton UI Dark Mode Fix**: Modified the `Skeleton` widget to use theme colors instead of hardcoded ones, fixing an issue where the UI appeared too bright in dark mode.
