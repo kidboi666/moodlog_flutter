@@ -154,8 +154,7 @@ flutter build apk       # Build Android APK
 
 ### Key Components
 
-- **`UnifiedCalendarWidget`**: A stateless widget on the home screen that displays a horizontal list for date selection, reflecting the main state.
-- **`CalendarBottomSheet`**: A stateful widget that provides an expanded calendar view. It manages its own independent date selection state, allowing users to browse journals from different dates without affecting the home screen's state. It also displays a list of compact journal cards for the selected date within the sheet.
+- **`UnifiedCalendarWidget`**: A stateless widget on the home screen that displays a horizontal list for date selection. The expanded grid view is now shown in a `CalendarBottomSheet`.
 
 ### User Management
 
