@@ -7,15 +7,13 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   final SettingsRepository _settingsRepository;
 
   AppStateProvider({required SettingsRepository settingsRepository})
-    : _settingsRepository = settingsRepository {
-    _load();
-  }
+      : _settingsRepository = settingsRepository;
 
-  late Settings _appState;
+  Settings _appState = const Settings();
 
   Settings get appState => _appState;
 
-  Future<void> _load() async {
+  Future<void> loadSettings() async {
     setLoading();
     try {
       _appState = await _settingsRepository.loadSettings();

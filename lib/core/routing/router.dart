@@ -9,7 +9,6 @@ import 'package:moodlog/presentation/screens/journal/journal_view.dart';
 import 'package:moodlog/presentation/screens/lock/lock_view.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view.dart';
-import 'package:moodlog/presentation/screens/splash/splash_view.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
 import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
 import 'package:moodlog/presentation/screens/tags/tags_view.dart';
@@ -20,17 +19,11 @@ GoRouter router(
   AppStateProvider appStateProvider,
   NavigatorObserver? analyticsObserver,
 ) => GoRouter(
-  initialLocation: Routes.splash,
+  initialLocation: Routes.home,
   redirect: _redirect,
   refreshListenable: appStateProvider,
   observers: [?analyticsObserver],
   routes: [
-    GoRoute(
-      path: Routes.splash,
-      builder: (_, state) {
-        return const SplashScreen();
-      },
-    ),
     GoRoute(
       path: Routes.lock,
       builder: (_, state) {
