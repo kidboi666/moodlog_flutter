@@ -99,6 +99,14 @@
       }
     }
   },
+  "tags_journal_count": "{count}개의 일기",
+  "@tags_journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "default_tag_daily": "일상",
   "default_tag_work": "업무",
   "default_tag_health": "건강",

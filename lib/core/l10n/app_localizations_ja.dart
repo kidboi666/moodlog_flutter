@@ -278,6 +278,11 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String tags_journal_count(int count) {
+    return '$count個の日記';
+  }
+
+  @override
   String get default_tag_daily => '日常';
 
   @override

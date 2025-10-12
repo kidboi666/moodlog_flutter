@@ -1,7 +1,11 @@
 import '../../core/utils/result.dart';
 import '../entities/journal/tag.dart';
 
+import '../entities/journal/tag_with_count.dart';
+
 abstract class TagRepository {
+  Future<Result<List<TagWithCount>>> getTagsWithCount();
+
   Future<Result<List<Tag>>> getAllTags();
 
   Future<Result<Tag?>> getTagById(int id);

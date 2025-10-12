@@ -2,10 +2,16 @@ import '../../core/utils/result.dart';
 import '../entities/journal/tag.dart';
 import '../repositories/tag_repository.dart';
 
+import '../entities/journal/tag_with_count.dart';
+
 class TagUseCase {
   final TagRepository _tagRepository;
 
   TagUseCase(this._tagRepository);
+
+  Future<Result<List<TagWithCount>>> getTagsWithCount() async {
+    return await _tagRepository.getTagsWithCount();
+  }
 
   Future<Result<Tag>> addTag(String name, String? color) async {
     return await _tagRepository.addTag(name, color);
@@ -17,6 +23,10 @@ class TagUseCase {
 
   Future<Result<List<Tag>>> getAllTags() async {
     return await _tagRepository.getAllTags();
+  }
+
+  Future<Result<Tag?>> getTagById(int id) async {
+    return await _tagRepository.getTagById(id);
   }
 
   Future<Result<List<Tag>>> getTagsByJournalId(int journalId) async {

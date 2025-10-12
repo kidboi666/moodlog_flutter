@@ -9,8 +9,11 @@ abstract final class Routes {
   static const String journalPage = '/journal/:id';
   static const String profile = '/profile';
   static const String tags = '/tags';
+  static const String tagDetail = '/tags/:id';
 
   static String journalImageDetail(int id) => '/journal/$id/image';
 
   static String journal(int id) => '/journal/$id';
+
+  static String tag(int id) => '/tags/$id';
 }

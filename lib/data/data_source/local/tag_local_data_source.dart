@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 
 import '../../../domain/entities/journal/journal_tag.dart';
 import '../../../domain/entities/journal/tag.dart';
+import '../../../domain/entities/journal/tag_with_count.dart';
 import 'database/database.dart';
 
 class TagLocalDataSource {
@@ -11,6 +12,24 @@ class TagLocalDataSource {
   final Logger _log = Logger('TagLocalDataSource');
 
   TagLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
+
+  Future<List<TagWithCount>> getTagsWithCount() async {
+    final query = _db.customSelect(
+      'SELECT t.*, COUNT(jt.tag_id) AS journal_count FROM tags AS t LEFT JOIN journal_tags AS jt ON t.id = jt.tag_id GROUP BY t.id ORDER BY t.created_at ASC',
+      readsFrom: {_db.tags, _db.journalTags},
+    );
+
+    return query.map((row) {
+      final tag = Tag(
+        id: row.read<int>('id'),
+        name: row.read<String>('name'),
+        color: row.read<String?>('color'),
+        createdAt: row.read<DateTime>('created_at'),
+      );
+      final count = row.read<int>('journal_count');
+      return TagWithCount(tag: tag, count: count);
+    }).get();
+  }
 
   Future<List<Tag>> getAllTags() async {
     try {

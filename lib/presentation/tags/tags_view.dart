@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/presentation/tags/tags_view_model.dart';
 import 'package:provider/provider.dart';
@@ -102,9 +104,15 @@ class _TagsScreenContent extends StatelessWidget {
                 return ListView.builder(
                   itemCount: viewModel.tags.length,
                   itemBuilder: (context, index) {
-                    final tag = viewModel.tags[index];
+                    final tagWithCount = viewModel.tags[index];
+                    final tag = tagWithCount.tag;
                     return ListTile(
                       title: Text(tag.name),
+                      subtitle: Text(
+                        t.tags_journal_count(tagWithCount.count),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      onTap: () => context.push(Routes.tag(tag.id)),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete_outline),
                         onPressed: () async {

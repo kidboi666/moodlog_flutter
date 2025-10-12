@@ -82,6 +82,22 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
+  Future<Result<List<Journal>>> getJournalsByTagId(int tagId) async {
+    try {
+      final journals =
+          await _journalLocalDataSource.getJournalsByTagId(tagId);
+      final journalsWithTags = <Journal>[];
+      for (final journal in journals) {
+        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
+        journalsWithTags.add(journal.attachTags(tags));
+      }
+      return Result.ok(journalsWithTags);
+    } catch (e) {
+      return Result.error(Exception('Failed to get journals by tag: $e'));
+    }
+  }
+
+  @override
   Future<Result<Journal>> getJournalById(int id) async {
     try {
       final journal = await _journalLocalDataSource.getJournalById(id);

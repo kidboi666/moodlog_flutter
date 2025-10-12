@@ -13,9 +13,13 @@ abstract class JournalRepository {
 
   Future<Result<List<Journal>>> getJournalsByDate(DateTime date);
 
+  Future<Result<List<Journal>>> getJournalsByTagId(int tagId);
+
   Future<Result<Journal>> getJournalById(int id);
 
-  Future<Result<Map<String, dynamic>>> createJournal(CreateJournalRequest dto);
+  Future<Result<Map<String, dynamic>>> createJournal(
+    CreateJournalRequest dto,
+  );
 
   Future<Result<int>> updateJournal(UpdateJournalRequest dto);
 

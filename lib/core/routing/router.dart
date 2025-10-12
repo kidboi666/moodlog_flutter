@@ -12,6 +12,7 @@ import '../../presentation/providers/app_state_provider.dart';
 import '../../presentation/settings/settings_view.dart';
 import '../../presentation/statistics/statistics_view.dart';
 import '../../presentation/write/write_view.dart';
+import '../../presentation/tag_detail/tag_detail_view.dart';
 import '../../presentation/tags/tags_view.dart';
 import '../constants/enum.dart';
 import 'routes.dart';
@@ -98,6 +99,13 @@ GoRouter router(
           path: Routes.tags,
           builder: (_, _) {
             return const TagsScreen();
+          },
+        ),
+        GoRoute(
+          path: Routes.tagDetail,
+          builder: (context, state) {
+            final id = int.parse(state.pathParameters['id']!);
+            return TagDetailScreen(tagId: id);
           },
         ),
       ],

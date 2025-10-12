@@ -616,6 +616,12 @@ abstract class AppLocalizations {
   /// **'Error: {error}'**
   String tags_error(String error);
 
+  /// No description provided for @tags_journal_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, =1{1 journal}other{{count} journals}}'**
+  String tags_journal_count(int count);
+
   /// No description provided for @default_tag_daily.
   ///
   /// In en, this message translates to:

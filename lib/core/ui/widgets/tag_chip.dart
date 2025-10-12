@@ -27,7 +27,7 @@ class TagChip extends StatelessWidget {
       labelPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       visualDensity: VisualDensity.compact,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+        borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
       ),
     );
   }

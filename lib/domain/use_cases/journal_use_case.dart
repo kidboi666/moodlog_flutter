@@ -49,6 +49,10 @@ class JournalUseCase {
     return await _journalRepository.getJournalsByDate(date);
   }
 
+  Future<Result<List<Journal>>> getJournalsByTagId(int tagId) async {
+    return await _journalRepository.getJournalsByTagId(tagId);
+  }
+
   Future<Result<void>> deleteJournalById(int id) async {
     return await _journalRepository.deleteJournalById(id);
   }

@@ -277,6 +277,11 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String tags_journal_count(int count) {
+    return '$count개의 일기';
+  }
+
+  @override
   String get default_tag_daily => '일상';
 
   @override

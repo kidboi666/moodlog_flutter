@@ -99,6 +99,14 @@
       }
     }
   },
+  "tags_journal_count": "{count}個の日記",
+  "@tags_journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "default_tag_daily": "日常",
   "default_tag_work": "仕事",
   "default_tag_health": "健康",

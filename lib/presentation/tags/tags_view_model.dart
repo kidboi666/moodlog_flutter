@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 
 class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
@@ -11,15 +11,15 @@ class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadTags();
   }
 
-  List<Tag> _tags = [];
-  List<Tag> get tags => _filteredTags; // UI는 필터링된 리스트를 사용
+  List<TagWithCount> _tags = [];
+  List<TagWithCount> get tags => _filteredTags; // UI는 필터링된 리스트를 사용
 
-  List<Tag> _filteredTags = [];
+  List<TagWithCount> _filteredTags = [];
   String _searchQuery = '';
 
   Future<void> _loadTags() async {
     setLoading();
-    final result = await _tagUseCase.getAllTags();
+    final result = await _tagUseCase.getTagsWithCount();
     switch (result) {
       case Ok(value: final tags):
         _tags = tags;
@@ -36,8 +36,9 @@ class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
       _filteredTags = _tags;
     } else {
       _filteredTags = _tags
-          .where((tag) =>
-              tag.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .where((tagWithCount) => tagWithCount.tag.name
+              .toLowerCase()
+              .contains(_searchQuery.toLowerCase()))
           .toList();
     }
     notifyListeners();

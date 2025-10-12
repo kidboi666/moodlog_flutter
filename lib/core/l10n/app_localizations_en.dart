@@ -286,6 +286,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String tags_journal_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count journals',
+      one: '1 journal',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get default_tag_daily => 'Daily';
 
   @override

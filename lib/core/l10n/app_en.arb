@@ -99,6 +99,14 @@
       }
     }
   },
+  "tags_journal_count": "{count,plural, =1{1 journal}other{{count} journals}}",
+  "@tags_journal_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "default_tag_daily": "Daily",
   "default_tag_work": "Work",
   "default_tag_health": "Health",

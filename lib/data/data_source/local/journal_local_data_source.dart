@@ -75,6 +75,25 @@ class JournalLocalDataSource {
     }
   }
 
+  Future<List<Journal>> getJournalsByTagId(int tagId) async {
+    try {
+      final query = _db.select(_db.journals).join([
+        innerJoin(
+          _db.journalTags,
+          _db.journalTags.journalId.equalsExp(_db.journals.id),
+        ),
+      ])
+        ..where(_db.journalTags.tagId.equals(tagId))
+        ..orderBy([OrderingTerm.desc(_db.journals.createdAt)]);
+
+      return await query.map((row) => row.readTable(_db.journals)).get();
+    } on SqliteException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Journal?> addJournal(CreateJournalRequest request) async {
     try {
       return await _db.transaction(() async {
