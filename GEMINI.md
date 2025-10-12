@@ -154,10 +154,7 @@ flutter build apk       # Build Android APK
 
 ### Key Components
 
-- **`UnifiedCalendarWidget`**: A stateful widget on the home screen that provides two switchable
-  views (horizontal list and grid) for date selection. Its state is persisted on the device.
-- **`CalendarViewMode` Enum**: Manages the display state of the `UnifiedCalendarWidget` (
-  `horizontal` or `grid`).
+- **`UnifiedCalendarWidget`**: A stateless widget on the home screen that displays a horizontal list for date selection. The expanded grid view is now shown in a `CalendarBottomSheet`.
 
 ### User Management
 

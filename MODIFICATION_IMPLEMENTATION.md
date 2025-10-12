@@ -38,7 +38,7 @@
 ## 최종 단계: 문서화 및 최종 검토
 
 - [ ] `README.md` 또는 기타 관련 문서에 변경 사항이 있다면 업데이트합니다.
-- [ ] `GEMINI.md` 파일을 검토하여 `UnifiedCalendarWidget` 및 `CalendarViewMode`에 대한 설명이 현재 구현과 일치하는지 확인하고, 필요하다면 수정합니다.
+- [x] `GEMINI.md` 파일을 검토하여 `UnifiedCalendarWidget` 및 `CalendarViewMode`에 대한 설명이 현재 구현과 일치하는지 확인하고, 필요하다면 수정합니다.
 - [ ] 사용자에게 수정된 앱을 검토하고 최종 만족 여부를 확인해달라고 요청합니다.
 
 ---
