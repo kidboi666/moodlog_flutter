@@ -56,10 +56,10 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 - 다양한 폰트 옵션 (프리텐다드, 이서윤체, 나눔손글씨 등)
 - 라이트/다크 테마 자동 전환
 
-### 🔐 **안전한 데이터 관리**
-- Firebase 기반 클라우드 동기화
-- Google 소셜 로그인
-- 게스트 모드 지원
+### 🔐 **100% 프라이빗 & 로컬 데이터**
+- **로그인 불필요**: 계정 생성 없이 바로 사용 시작
+- **로컬 우선 아키텍처**: 모든 데이터는 사용자의 기기에만 안전하게 저장
+- **인터넷 연결 없이 사용**: 오프라인 상태에서도 모든 기능 정상 작동
 
 ## 🏗️ 기술 스택
 
@@ -68,31 +68,32 @@ MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 �
 - **Dart** - 프로그래밍 언어
 - **Provider** - 상태 관리
 - **Go Router** - 선언적 라우팅
+- **Drift (SQLite)** - 로컬 데이터베이스
 - **Freezed** - 객체 관련 유틸
 
-### **Backend & Services**
-- **Firebase Auth** - 사용자 인증
-- **Firebase Analytics** - 사용자 분석
+### **Services**
 - **Google Gemini AI** - AI 응답 생성
+- **Google Mobile Ads** - 광고 수익화
+- **Firebase Analytics** - 사용자 분석
 
 ### **External APIs**
 - **Image Picker** - 갤러리 접근
 
 ## 🏛️ 아키텍처
 
-MoodLog는 **Clean Architecture** 패턴을 적용하여 확장 가능하고 유지보수가 용이한 구조로 설계되었습니다.
+MoodLog는 **Clean Architecture**와 **MVVM** 패턴을 적용하여 확장 가능하고 유지보수가 용이한 구조로 설계되었습니다.
 
 ```
 lib/
-├── core/                    # 공통 유틸리티 및 상수
+├── core/                    # 공통 모듈
 │   ├── constants/          # 앱 전역 상수
 │   ├── l10n/              # 다국어 지원
-│   ├── providers/         # 글로벌 상태 관리
+│   ├── services/          # 앱 전역 서비스 (로깅, Flavor 등)
 │   ├── routing/           # 라우팅 설정
 │   ├── ui/                # 공통 UI 컴포넌트
-│   └── utils/             # 헬퍼 함수들
+│   └── utils/             # 상태 없는 헬퍼 함수
 ├── data/                   # 데이터 계층
-│   ├── data_source/       # 로컬/원격 데이터 소스
+│   ├── data_source/       # 로컬 데이터 소스 (Drift, SharedPreferences)
 │   └── repositories/      # Repository 구현체
 ├── domain/                 # 도메인 계층
 │   ├── entities/          # 비즈니스 엔티티

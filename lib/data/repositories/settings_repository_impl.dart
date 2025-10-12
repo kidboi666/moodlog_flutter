@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/utils/flavor_config.dart';
+import '../../../core/services/flavor_service.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -83,7 +83,7 @@ class SettingsRepositoryImpl extends SettingsRepository {
 
   @override
   Future<void> clearSharedPreferences() async {
-    if (FlavorConfig.isDevelopment) {
+    if (FlavorService.isDevelopment) {
       await _prefs.clear();
     }
   }

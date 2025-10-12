@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'core/constants/enum.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/routing/router.dart';
+import 'core/services/flavor_service.dart';
 import 'core/ui/theme/theme.dart';
 import 'core/ui/widgets/spinner.dart';
-import 'core/utils/flavor_config.dart';
 import 'core/utils/keyboard_utils.dart';
 import 'presentation/providers/app_state_provider.dart';
 
@@ -16,11 +16,7 @@ class MoodLogApp extends StatefulWidget {
   final NavigatorObserver? analyticsObserver;
   final Future<void> Function(BuildContext context)? onAppStarted;
 
-  const MoodLogApp({
-    this.analyticsObserver,
-    this.onAppStarted,
-    super.key,
-  });
+  const MoodLogApp({this.analyticsObserver, this.onAppStarted, super.key});
 
   @override
   State<MoodLogApp> createState() => _MoodLogAppState();
@@ -52,7 +48,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
     return KeyboardDismissOnTapOutside(
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: FlavorConfig.instance.showDebugBanner,
+        debugShowCheckedModeBanner: FlavorService.instance.showDebugBanner,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

@@ -7,25 +7,25 @@ import '../../firebase_options_staging.dart' as staging;
 
 enum Flavor { development, staging, production }
 
-class FlavorConfig {
+class FlavorService {
   final Flavor flavor;
   final bool showDebugBanner;
-  static FlavorConfig? _instance;
+  static FlavorService? _instance;
 
-  factory FlavorConfig({
+  factory FlavorService({
     Flavor flavor = Flavor.production,
     bool showDebugBanner = false,
   }) {
-    _instance ??= FlavorConfig._internal(
+    _instance ??= FlavorService._internal(
       flavor: flavor,
       showDebugBanner: showDebugBanner,
     );
     return _instance!;
   }
 
-  FlavorConfig._internal({required this.flavor, required this.showDebugBanner});
+  FlavorService._internal({required this.flavor, required this.showDebugBanner});
 
-  static FlavorConfig get instance => _instance!;
+  static FlavorService get instance => _instance!;
 
   static bool get isDevelopment => instance.flavor == Flavor.development;
 

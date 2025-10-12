@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../utils/admob_helper.dart';
+import '../../services/admob_service.dart';
 import 'skeleton.dart';
 
 class BannerAdWidget extends StatefulWidget {
@@ -19,7 +19,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   void _loadBannerAd() {
     _bannerAd ??= BannerAd(
         size: AdSize.banner,
-        adUnitId: AdmobHelper.bannerAdUnitId!,
+        adUnitId: AdmobService.bannerAdUnitId!,
         request: const AdRequest(),
         listener: BannerAdListener(
           onAdLoaded: (_) {

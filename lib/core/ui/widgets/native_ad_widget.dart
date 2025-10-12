@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../utils/admob_helper.dart';
+import '../../services/admob_service.dart';
 
 class NativeAdWidget extends StatefulWidget {
   const NativeAdWidget({super.key});
@@ -16,7 +16,7 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
 
   void _loadNativeAd() {
     _nativeAd = NativeAd(
-      adUnitId: AdmobHelper.nativeAdUnitId!,
+      adUnitId: AdmobService.nativeAdUnitId!,
       request: const AdRequest(),
       listener: NativeAdListener(
         onAdLoaded: (_) {

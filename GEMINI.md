@@ -17,6 +17,26 @@ MoodLog is a mood tracking and journaling Flutter app with the following key fea
 - **Analytics**: Firebase Analytics
 - **Ads**: Google Mobile Ads
 
+### Directory Guidelines: `services` vs. `utils`
+
+To maintain a clean and scalable architecture, it's important to differentiate between `services` and `utils`.
+
+#### `core/services`
+This directory contains classes that provide core functionalities or manage interactions with external systems. They often have a lifecycle and maintain state.
+
+- **Role**: Manages a specific app-wide service (e.g., logging, flavor management, ads).
+- **State**: Often stateful and may be managed as singletons.
+- **Lifecycle**: Typically initialized once when the app starts.
+- **Examples**: `LoggingService`, `FlavorService`, `AdmobService`.
+
+#### `core/utils`
+This directory contains stateless helper functions or classes that perform common, reusable tasks.
+
+- **Role**: Provides simple, reusable tools and helper functions (e.g., formatters, converters, keyboard management).
+- **State**: Should be stateless.
+- **Lifecycle**: No specific lifecycle; used on-demand.
+- **Examples**: `ErrorHandler`, `KeyboardUtils`, `StringListConverter`.
+
 ## Architecture
 
 ### MVVM + Clean Architecture
