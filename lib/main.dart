@@ -14,11 +14,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlavorConfig();
   final firebaseOptions = FlavorConfig.firebaseOptions;
-  final fileName = FlavorConfig.dotEnvSurfix;
   final logLevel = FlavorConfig.logLevel;
 
   await Firebase.initializeApp(options: firebaseOptions);
-  await dotenv.load(fileName: fileName);
+  await dotenv.load(fileName: '.env');
   await MobileAds.instance.initialize();
 
   final analyticsRepo = AnalyticsRepositoryImpl();

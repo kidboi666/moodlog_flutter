@@ -54,16 +54,4 @@ class FlavorConfig {
         return Level.SEVERE;
     }
   }
-
-  static String get dotEnvSurfix {
-    return '.env';
-    // switch (instance.flavor) {
-    //   case Flavor.development:
-    //     return '.env.development';
-    //   case Flavor.staging:
-    //     return '.env.staging';
-    //   case Flavor.production:
-    //     return '.env.production';
-    // }
-  }
 }

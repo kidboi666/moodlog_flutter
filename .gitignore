@@ -1,6 +1,6 @@
 
 # Common
-*.env
+*.env*
 
 # Miscellaneous
 *.class
@@ -58,8 +58,6 @@ ios/Runner/development/GoogleService-Info.plist
 android/app/src/production/google-services.json
 android/app/src/staging/google-services.json
 android/app/src/development/google-services.json
-
-
 
 # Documentation plans (internal use only)
 docs/premium_features_plan.md
