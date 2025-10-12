@@ -73,24 +73,61 @@ class JournalLocalDataSource {
 
   Future<Journal?> addJournal(CreateJournalRequest request) async {
     try {
-      return await _db
-          .into(_db.journals)
-          .insertReturningOrNull(
-            JournalsCompanion(
-              content: Value(request.content),
-              moodType: Value(request.moodType),
-              imageUri: Value(request.imageUri),
-              createdAt: Value(request.createdAt),
-              aiResponseEnabled: Value(request.aiResponseEnabled),
-              latitude: Value(request.latitude),
-              longitude: Value(request.longitude),
-              address: Value(request.address),
-              temperature: Value(request.temperature),
-              weatherIcon: Value(request.weatherIcon),
-              weatherDescription: Value(request.weatherDescription),
-              tagNames: Value(request.tagNames),
-            ),
-          );
+      return await _db.transaction(() async {
+        // 1. Insert the journal
+        final journalCompanion = JournalsCompanion(
+          content: Value(request.content),
+          moodType: Value(request.moodType),
+          imageUri: Value(request.imageUri),
+          createdAt: Value(request.createdAt),
+          aiResponseEnabled: Value(request.aiResponseEnabled),
+          latitude: Value(request.latitude),
+          longitude: Value(request.longitude),
+          address: Value(request.address),
+          temperature: Value(request.temperature),
+          weatherIcon: Value(request.weatherIcon),
+          weatherDescription: Value(request.weatherDescription),
+          tagNames: Value(request.tagNames),
+        );
+
+        final newJournal =
+            await _db.into(_db.journals).insertReturning(journalCompanion);
+
+        // 2. Handle tags
+        if (request.tagNames != null && request.tagNames!.isNotEmpty) {
+          final List<int> tagIds = [];
+
+          for (final tagName in request.tagNames!) {
+            // Find existing tag or create a new one
+            var existingTag = await (_db.select(_db.tags)
+                  ..where((t) => t.name.equals(tagName)))
+                .getSingleOrNull();
+
+            int tagId;
+            if (existingTag != null) {
+              tagId = existingTag.id;
+            } else {
+              tagId = await _db
+                  .into(_db.tags)
+                  .insert(TagsCompanion(name: Value(tagName)));
+            }
+            tagIds.add(tagId);
+          }
+
+          // 3. Link tags to the journal in the join table
+          for (final tagId in tagIds) {
+            await _db.into(_db.journalTags).insert(
+                  JournalTagsCompanion(
+                    journalId: Value(newJournal.id),
+                    tagId: Value(tagId),
+                  ),
+                  mode: InsertMode.insertOrIgnore, // Ignore if already linked
+                );
+          }
+        }
+
+        return newJournal;
+      });
     } on SqliteException catch (e) {
       throw Exception(e);
     } catch (e) {

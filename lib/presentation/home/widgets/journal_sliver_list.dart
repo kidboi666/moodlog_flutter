@@ -107,6 +107,7 @@ class JournalSliverList extends StatelessWidget {
                                 ? () => context.read<HomeViewModel>().toggleJournalSelection(e.id)
                                 : () => context.pushToJournalFromHome(e.id),
                             onLongPress: () => context.read<HomeViewModel>().toggleSelectionMode(),
+                            tags: e.tags,
                           ),            ),
           ),
         );

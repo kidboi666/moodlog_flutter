@@ -91,20 +91,20 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
   void _load() async {
     setLoading();
     _calculateDateItems();
-    await _loadJournals();
+    _subscribeToJournalChanges(); // 스트림 구독을 먼저 설정
     await _loadMonthlyJournals();
     await _loadYearlyJournals();
     await getCurrentLocation();
     await getCurrentWeather();
     _initializeDelayedRender();
-    _subscribeToJournalChanges();
     setSuccess();
   }
 
   void selectDate(DateTime date) {
     _selectedDate = date;
+    // 스트림에서 받은 전체 데이터로 필터링만 다시 수행
+    _journalUseCase.notifyJournalUpdate();
     notifyListeners();
-    _loadJournals();
   }
 
   void selectMonth(DateTime month) {
@@ -113,7 +113,7 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
 
     // 해당 월의 1일을 선택
     _selectedDate = DateTime(month.year, month.month, 1);
-    _loadJournals();
+    _journalUseCase.notifyJournalUpdate();
 
     notifyListeners();
   }
@@ -144,32 +144,22 @@ class HomeViewModel extends ChangeNotifier with AsyncStateMixin {
     _dateItems = dates;
   }
 
-  Future<void> _loadJournals() async {
-    setLoading();
-    final result = await _journalUseCase.getJournalsByDate(_selectedDate);
-    switch (result) {
-      case Ok<List<Journal>>():
-        _log.fine('Loaded journals');
-        _journal = result.value;
-        setSuccess();
-      case Error<List<Journal>>():
-        _log.warning('Failed to load journals', result.error);
-        _journal = [];
-        setError(result.error);
-    }
-  }
-
   Future<void> _initializeDelayedRender() async {
     await Future.delayed(DelayMS.medium * 4);
     setIsFirstRender(false);
   }
 
   void _subscribeToJournalChanges() {
-    _journalSubscription = _observeJournalListUseCase.call().listen((journals) {
+    _journalSubscription =
+        _observeJournalListUseCase.call().listen((allJournals) {
       // 전체 일기 목록이 변경되었을 때, 현재 선택된 날짜의 일기만 필터링
-      _filterJournalsForSelectedDate(journals);
+      _filterJournalsForSelectedDate(allJournals);
     });
+
+    // 구독 직후 데이터 로드를 트리거하여 초기 데이터를 가져옴
+    _journalUseCase.notifyJournalUpdate();
   }
+
 
   void _filterJournalsForSelectedDate(List<Journal> allJournals) {
     final startOfDay = DateTime(

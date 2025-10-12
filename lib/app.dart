@@ -24,16 +24,7 @@ class MoodLogApp extends StatefulWidget {
 
 class _MoodLogAppState extends State<MoodLogApp> {
   GoRouter? _router;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.onAppStarted != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.onAppStarted!(context);
-      });
-    }
-  }
+  bool _startupLogicExecuted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +56,16 @@ class _MoodLogAppState extends State<MoodLogApp> {
         darkTheme: AppTheme.darkTheme(appState.fontFamily),
         themeMode: appState.themeMode.materialThemeMode,
         routerConfig: _router,
+        builder: (context, child) {
+          if (widget.onAppStarted != null && !_startupLogicExecuted) {
+            _startupLogicExecuted = true;
+            // Use a post-frame callback to ensure the widget tree is built.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              widget.onAppStarted!(context);
+            });
+          }
+          return child ?? const SizedBox.shrink();
+        },
       ),
     );
   }

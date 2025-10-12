@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
+import 'package:moodlog/domain/entities/journal/tag.dart';
 
 import '../../constants/common.dart';
 import '../../constants/enum.dart';
@@ -19,6 +19,7 @@ class JournalCard extends StatelessWidget {
   final void Function()? onLongPress;
   final bool isSelectable;
   final bool isSelected;
+  final List<Tag>? tags;
 
   const JournalCard({
     super.key,
@@ -31,6 +32,7 @@ class JournalCard extends StatelessWidget {
     this.coverImg,
     this.isSelectable = false,
     this.isSelected = false,
+    this.tags,
   });
 
   @override
@@ -55,13 +57,14 @@ class JournalCard extends StatelessWidget {
         child: Stack(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IntrinsicHeight(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Spacing.xl,
-                      vertical: Spacing.xl,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Spacing.xl,
+                    vertical: Spacing.xl,
+                  ),
+                  child: IntrinsicHeight(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -95,6 +98,16 @@ class JournalCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (tags != null && tags!.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: Spacing.xl,
+                      right: Spacing.xl,
+                      bottom: Spacing.lg,
+                    ),
+                    child: _buildTags(context, tags!),
+                  ),
+                ],
                 if (coverImg != null && coverImg!.isNotEmpty) ...[
                   _buildCoverImage(context),
                 ],
@@ -115,6 +128,22 @@ class JournalCard extends StatelessWidget {
         ),
       ),
     ).scale();
+  }
+
+  Widget _buildTags(BuildContext context, List<Tag> tags) {
+    return Wrap(
+      spacing: Spacing.sm,
+      runSpacing: Spacing.sm,
+      children: tags
+          .map((tag) => Chip(
+                label: Text(tag.name),
+                padding: EdgeInsets.zero,
+                labelPadding:
+                    const EdgeInsets.symmetric(horizontal: Spacing.md),
+                visualDensity: VisualDensity.compact,
+              ))
+          .toList(),
+    );
   }
 
   Widget _buildCoverImage(BuildContext context) {
@@ -213,6 +242,4 @@ class JournalCard extends StatelessWidget {
 
     return spans;
   }
-
-
 }
