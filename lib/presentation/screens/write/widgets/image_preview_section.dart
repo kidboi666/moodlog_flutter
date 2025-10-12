@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/presentation/write/widgets/preview_image_item.dart';
+import 'package:moodlog/presentation/screens/write/widgets/preview_image_item.dart';
 
 class ImagePreviewSection extends StatelessWidget {
   final Function(String) onTap;

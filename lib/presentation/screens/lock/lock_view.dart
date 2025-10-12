@@ -40,7 +40,6 @@ class _LockScreenState extends State<LockScreen> {
   @override
   void initState() {
     super.initState();
-    // 위젯이 빌드된 후 바로 인증 시도
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _authenticate(context);
     });

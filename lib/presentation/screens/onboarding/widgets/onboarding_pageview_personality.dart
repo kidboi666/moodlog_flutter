@@ -3,8 +3,8 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/presentation/onboarding/onboarding_view_model.dart';
-import 'package:moodlog/presentation/onboarding/widgets/onboarding_personality_item.dart';
+import 'package:moodlog/presentation/screens/onboarding/onboarding_view_model.dart';
+import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_personality_item.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingPageViewPersonality extends StatelessWidget {

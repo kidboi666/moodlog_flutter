@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/extensions/widget.dart';
-import 'package:moodlog/presentation/write/write_view_model.dart';
+import 'package:moodlog/presentation/screens/write/write_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ImagePickerButton extends StatelessWidget {

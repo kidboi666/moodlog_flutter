@@ -4,7 +4,7 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/snack_bar.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/presentation/onboarding/widgets/onboarding_personality_item.dart';
+import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_personality_item.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 
 class AiPersonalityDialog extends StatefulWidget {

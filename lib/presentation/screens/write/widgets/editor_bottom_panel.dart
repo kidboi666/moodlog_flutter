@@ -4,12 +4,12 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/domain/entities/journal/location_info.dart';
 import 'package:moodlog/domain/entities/journal/weather_info.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/location_simple_bottom_sheet.dart';
-import 'package:moodlog/presentation/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
-import 'package:moodlog/presentation/write/widgets/bottom_sheet/weather_info_bottom_sheet.dart';
-import 'package:moodlog/presentation/write/widgets/image_picker_button.dart';
-import 'package:moodlog/presentation/write/widgets/tag_input_button.dart';
-import 'package:moodlog/presentation/write/widgets/timestamp_button.dart';
-import 'package:moodlog/presentation/write/write_view_model.dart';
+import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
+import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/weather_info_bottom_sheet.dart';
+import 'package:moodlog/presentation/screens/write/widgets/image_picker_button.dart';
+import 'package:moodlog/presentation/screens/write/widgets/tag_input_button.dart';
+import 'package:moodlog/presentation/screens/write/widgets/timestamp_button.dart';
+import 'package:moodlog/presentation/screens/write/write_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EditorBottomPanel extends StatefulWidget {
