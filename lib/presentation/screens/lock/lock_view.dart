@@ -16,10 +16,11 @@ class _LockScreenState extends State<LockScreen> {
   final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> _authenticate(BuildContext context) async {
+    final t = AppLocalizations.of(context)!;
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-        localizedReason: '앱을 잠금 해제하려면 인증하세요.',
+        localizedReason: t.lockScreenReason,
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: false,
@@ -56,14 +57,14 @@ class _LockScreenState extends State<LockScreen> {
             const Icon(Icons.lock_outline, size: 80),
             const SizedBox(height: 20),
             Text(
-              '인증이 필요합니다', // TODO: 다국어 처리
+              t.lockScreenTitle,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(
               onPressed: () => _authenticate(context),
               icon: const Icon(Icons.refresh),
-              label: const Text('재시도'), // TODO: 다국어 처리
+              label: Text(t.lockScreenRetry),
             ),
           ],
         ),

@@ -3,6 +3,7 @@
 ## Project Overview
 
 MoodLog is a mood tracking and journaling Flutter app with the following key features:
+
 - Local-first architecture (no login required)
 - Mood tracking with AI-powered insights
 - Private diary entries stored locally
@@ -19,10 +20,13 @@ MoodLog is a mood tracking and journaling Flutter app with the following key fea
 
 ### Directory Guidelines: `services` vs. `utils`
 
-To maintain a clean and scalable architecture, it's important to differentiate between `services` and `utils`.
+To maintain a clean and scalable architecture, it's important to differentiate between `services`
+and `utils`.
 
 #### `core/services`
-This directory contains classes that provide core functionalities or manage interactions with external systems. They often have a lifecycle and maintain state.
+
+This directory contains classes that provide core functionalities or manage interactions with
+external systems. They often have a lifecycle and maintain state.
 
 - **Role**: Manages a specific app-wide service (e.g., logging, flavor management, ads).
 - **State**: Often stateful and may be managed as singletons.
@@ -30,9 +34,11 @@ This directory contains classes that provide core functionalities or manage inte
 - **Examples**: `LoggingService`, `FlavorService`, `AdmobService`.
 
 #### `core/utils`
+
 This directory contains stateless helper functions or classes that perform common, reusable tasks.
 
-- **Role**: Provides simple, reusable tools and helper functions (e.g., formatters, converters, keyboard management).
+- **Role**: Provides simple, reusable tools and helper functions (e.g., formatters, converters,
+  keyboard management).
 - **State**: Should be stateless.
 - **Lifecycle**: No specific lifecycle; used on-demand.
 - **Examples**: `ErrorHandler`, `KeyboardUtils`, `StringListConverter`.
@@ -56,39 +62,50 @@ lib/
 ### File Patterns
 
 - **Views (Screens)**: `lib/presentation/screens/*/*_view.dart`
-- **ViewModels**: `lib/presentation/providers/*_view_model.dart` or `lib/presentation/screens/*/*_view_model.dart`
+- **ViewModels**: `lib/presentation/providers/*_view_model.dart` or
+  `lib/presentation/screens/*/*_view_model.dart`
 - **Widgets**: `lib/presentation/widgets/` or `lib/presentation/screens/*/widgets/`
 - **Models**: `lib/data/models/`
 - **Entities**: `lib/domain/entities/`
 
 #### View File Structure (`part`/`part of`)
-To ensure consistency and separation of concerns within the presentation layer, all view files should follow the `part`/`part of` convention:
-- **`*_view.dart`**: This file should contain only one `StatelessWidget` (the main screen widget) which is responsible for providing the `ViewModel` to the widget tree.
-- **`*_content.dart`**: This file, marked with `part of '*_view.dart'`, contains the `_Content` widget which builds the actual UI of the screen.
 
-This structure separates the DI setup from the UI implementation, making the code cleaner and easier to navigate.
+To ensure consistency and separation of concerns within the presentation layer, all view files
+should follow the `part`/`part of` convention:
+
+- **`*_view.dart`**: This file should contain only one `StatelessWidget` (the main screen widget)
+  which is responsible for providing the `ViewModel` to the widget tree.
+- **`*_content.dart`**: This file, marked with `part of '*_view.dart'`, contains the `_Content`
+  widget which builds the actual UI of the screen.
+
+This structure separates the DI setup from the UI implementation, making the code cleaner and easier
+to navigate.
 
 ## Key Architectural Decisions (v1.0.28+)
 
 ### Local-First Architecture
 
 **No Authentication Required**:
+
 - Firebase Auth has been removed
 - Users are created locally on first app launch
 - All data is stored locally (Drift + SharedPreferences)
 
 **User Management**:
+
 - `LocalUser` entity with: userId (UUID), nickname, profileImagePath, createdAt
 - Stored in SharedPreferences
 - No email or external account linking
 
 **Onboarding Flow**:
+
 1. First launch → Show onboarding screens
 2. User sets nickname and AI personality
 3. Local user automatically created
 4. App ready to use
 
 **Data Storage**:
+
 - Journal entries: Drift (SQLite)
 - User info & settings: SharedPreferences
 - No cloud sync (future feature)
@@ -127,39 +144,43 @@ flutter build apk       # Build Android APK
 - Use freezed for immutable entities and models
 - Use Provider for state management
 
-### Import Conventions
-
-- **Use Relative Paths**: For all internal imports (referencing files within the `lib` directory), always use relative paths (e.g., `../models/user.dart`, `../../core/utils.dart`).
-- **Avoid Absolute Paths**: Do not use absolute paths starting with `package:moodlog/`. This helps maintain consistency and reduces verbosity.
-
 ### Logging Conventions
 
-- **`presentation` Layer**: Use `debugPrint()` for UI-related, temporary debugging only. Avoid committing `debugPrint` statements.
-- **Other Layers (`core`, `data`, `domain`)**: Use the `logging` package. Create a `Logger` instance (`final Logger _log = Logger('ClassName');`) and use its methods (`_log.info`, `_log.warning`, `_log.severe`) for structured logging.
+- **`presentation` Layer**: Use `debugPrint()` for UI-related, temporary debugging only. Avoid
+  committing `debugPrint` statements.
+- **Other Layers (`core`, `data`, `domain`)**: Use the `logging` package. Create a `Logger`
+  instance (`final Logger _log = Logger('ClassName');`) and use its methods (`_log.info`,
+  `_log.warning`, `_log.severe`) for structured logging.
 
 ### Key Components
 
-- **`UnifiedCalendarWidget`**: A stateful widget on the home screen that provides two switchable views (horizontal list and grid) for date selection. Its state is persisted on the device.
-- **`CalendarViewMode` Enum**: Manages the display state of the `UnifiedCalendarWidget` (`horizontal` or `grid`).
+- **`UnifiedCalendarWidget`**: A stateful widget on the home screen that provides two switchable
+  views (horizontal list and grid) for date selection. Its state is persisted on the device.
+- **`CalendarViewMode` Enum**: Manages the display state of the `UnifiedCalendarWidget` (
+  `horizontal` or `grid`).
 
 ### User Management
+
 - `LocalUser`: User entity (domain/entities/user/)
 - `LocalUserRepository`: User data management (domain/repositories/)
 - `LocalUserRepositoryImpl`: SharedPreferences implementation (data/repositories/)
 - `UserProvider`: User state management (presentation/providers/)
 
 ### Settings Management
+
 - `Settings`: App settings entity
 - `AppStateProvider`: Settings state management
 - Stored in SharedPreferences
 
 ### Journal Management
+
 - `Journal`: Journal entry entity
 - `JournalRepository`: Journal CRUD operations
 - `JournalLocalDataSource`: Drift database operations
 - Stored in SQLite
 
 ### AI Integration
+
 - Firebase AI (Gemini) for mood analysis
 - `GeminiRepository`: AI operations
 - `GeminiUseCase`: Business logic for AI features
@@ -201,5 +222,8 @@ Always ask before bumping version in `pubspec.yaml`
 
 ## Recent Changes
 
-- **`home_content` Refactoring**: Refactored the `_HomeScreenContent` widget by separating the `AppBar` and `FloatingActionButton` into their own widgets to improve code readability and maintainability.
-- **Skeleton UI Dark Mode Fix**: Modified the `Skeleton` widget to use theme colors instead of hardcoded ones, fixing an issue where the UI appeared too bright in dark mode.
+- **`home_content` Refactoring**: Refactored the `_HomeScreenContent` widget by separating the
+  `AppBar` and `FloatingActionButton` into their own widgets to improve code readability and
+  maintainability.
+- **Skeleton UI Dark Mode Fix**: Modified the `Skeleton` widget to use theme colors instead of
+  hardcoded ones, fixing an issue where the UI appeared too bright in dark mode.

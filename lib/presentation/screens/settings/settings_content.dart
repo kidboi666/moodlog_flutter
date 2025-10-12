@@ -49,12 +49,34 @@ class _SettingsScreenContent extends StatelessWidget {
                   ),
                 ],
 
-                SwitchTile(
-                  title: t.settings_common_app_lock_title,
-                  subtitle: t.settings_common_app_lock_subtitle,
-                  icon: Icons.lock,
-                  value: viewModel.appState.isAppLockEnabled,
-                  onChanged: viewModel.setAppLockEnabled,
+                Consumer<SettingsViewModel>(
+                  builder: (context, viewModel, child) {
+                    final isProUser = viewModel.appState.isProUser;
+                    return GestureDetector(
+                      onTap: () {
+                        if (!isProUser) {
+                          _showProFeatureDialog(context);
+                        }
+                      },
+                      child: AbsorbPointer(
+                        absorbing: !isProUser,
+                        child: SwitchTile(
+                          title: t.settings_common_app_lock_title,
+                          subtitle: t.settings_common_app_lock_subtitle,
+                          icon: Icons.lock,
+                          value: isProUser && viewModel.appState.isAppLockEnabled,
+                          onChanged: (value) {
+                            if (isProUser) {
+                              viewModel.setAppLockEnabled(value);
+                            }
+                          },
+                          trailing: isProUser
+                              ? null
+                              : const Icon(Icons.workspace_premium, color: Colors.amber),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 DialogTile(
                   title: t.settings_common_theme_title,
@@ -137,4 +159,28 @@ class _SettingsScreenContent extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showProFeatureDialog(BuildContext context) {
+  final t = AppLocalizations.of(context)!;
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('👑 ${t.proFeatureDialogTitle}'),
+      content: Text(t.proFeatureDialogContent),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(t.common_confirm_cancel),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            // TODO: Navigate to purchase screen
+            Navigator.of(context).pop();
+          },
+          child: Text(t.proFeatureDialogUpgradeButton),
+        ),
+      ],
+    ),
+  );
 }

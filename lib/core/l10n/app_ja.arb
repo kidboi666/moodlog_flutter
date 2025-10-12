@@ -516,5 +516,11 @@
   "location_open_in_google_maps": "Googleマップで開く",
   "profile_guest_mode": "ゲストモードです。",
   "profile_guest_login_button": "ソーシャルログインに切り替え",
-  "profile_guest_login_description": "GoogleまたはAppleアカウントでログインしてデータを同期します。"
+  "profile_guest_login_description": "GoogleまたはAppleアカウントでログインしてデータを同期します。",
+  "lockScreenTitle": "認証が必要です",
+  "lockScreenReason": "アプリのロックを解除するには認証してください。",
+  "lockScreenRetry": "再試行",
+  "proFeatureDialogTitle": "プロ機能のご案内",
+  "proFeatureDialogContent": "アプリロックはプロプラン専用機能です。アップグレードして、すべてのプレミアム機能をご利用ください！",
+  "proFeatureDialogUpgradeButton": "アップグレード"
 }

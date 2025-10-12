@@ -29,6 +29,8 @@ class FlavorService {
 
   static FlavorService get instance => _instance!;
 
+  static bool get isDebug => instance.showDebugBanner;
+
   static bool get isDevelopment => instance.flavor == Flavor.development;
 
   static bool get isProduction => instance.flavor == Flavor.production;

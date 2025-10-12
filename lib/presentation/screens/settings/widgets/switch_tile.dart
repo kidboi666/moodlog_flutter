@@ -7,6 +7,7 @@ class SwitchTile extends StatelessWidget {
   final IconData icon;
   final bool value;
   final ValueChanged<bool> onChanged;
+  final Widget? trailing;
 
   const SwitchTile({
     super.key,
@@ -15,6 +16,7 @@ class SwitchTile extends StatelessWidget {
     required this.icon,
     required this.value,
     required this.onChanged,
+    this.trailing,
   });
 
   @override
@@ -56,6 +58,10 @@ class SwitchTile extends StatelessWidget {
               onChanged: onChanged,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
+            if (trailing != null) ...[
+              const SizedBox(width: Spacing.sm),
+              trailing!,
+            ],
           ],
         ),
       ),

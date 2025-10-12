@@ -1135,4 +1135,23 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get profile_guest_login_description =>
       'Google 또는 Apple 계정으로 로그인하고 데이터를 동기화하세요.';
+
+  @override
+  String get lockScreenTitle => '인증이 필요합니다';
+
+  @override
+  String get lockScreenReason => '앱을 잠금 해제하려면 인증하세요.';
+
+  @override
+  String get lockScreenRetry => '재시도';
+
+  @override
+  String get proFeatureDialogTitle => 'Pro 기능 안내';
+
+  @override
+  String get proFeatureDialogContent =>
+      '앱 잠금은 Pro 플랜 사용자 전용 기능입니다. 업그레이드하고 모든 프리미엄 기능을 이용해보세요!';
+
+  @override
+  String get proFeatureDialogUpgradeButton => '업그레이드';
 }

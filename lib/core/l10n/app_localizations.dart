@@ -2223,6 +2223,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign in with Google or Apple and sync your data.'**
   String get profile_guest_login_description;
+
+  /// No description provided for @lockScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Required'**
+  String get lockScreenTitle;
+
+  /// No description provided for @lockScreenReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Please authenticate to unlock the app.'**
+  String get lockScreenReason;
+
+  /// No description provided for @lockScreenRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get lockScreenRetry;
+
+  /// No description provided for @proFeatureDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Feature'**
+  String get proFeatureDialogTitle;
+
+  /// No description provided for @proFeatureDialogContent.
+  ///
+  /// In en, this message translates to:
+  /// **'App Lock is a Pro feature. Upgrade to enjoy all premium features!'**
+  String get proFeatureDialogContent;
+
+  /// No description provided for @proFeatureDialogUpgradeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade'**
+  String get proFeatureDialogUpgradeButton;
 }
 
 class _AppLocalizationsDelegate

@@ -516,5 +516,11 @@
   "location_open_in_google_maps": "Open in Google Maps",
   "profile_guest_mode": "You are in guest mode.",
   "profile_guest_login_button": "Switch to Social Login",
-  "profile_guest_login_description": "Sign in with Google or Apple and sync your data."
+  "profile_guest_login_description": "Sign in with Google or Apple and sync your data.",
+  "lockScreenTitle": "Authentication Required",
+  "lockScreenReason": "Please authenticate to unlock the app.",
+  "lockScreenRetry": "Retry",
+  "proFeatureDialogTitle": "Pro Feature",
+  "proFeatureDialogContent": "App Lock is a Pro feature. Upgrade to enjoy all premium features!",
+  "proFeatureDialogUpgradeButton": "Upgrade"
 }

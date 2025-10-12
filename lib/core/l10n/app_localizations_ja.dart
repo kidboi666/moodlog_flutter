@@ -1136,4 +1136,23 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get profile_guest_login_description =>
       'GoogleまたはAppleアカウントでログインしてデータを同期します。';
+
+  @override
+  String get lockScreenTitle => '認証が必要です';
+
+  @override
+  String get lockScreenReason => 'アプリのロックを解除するには認証してください。';
+
+  @override
+  String get lockScreenRetry => '再試行';
+
+  @override
+  String get proFeatureDialogTitle => 'プロ機能のご案内';
+
+  @override
+  String get proFeatureDialogContent =>
+      'アプリロックはプロプラン専用機能です。アップグレードして、すべてのプレミアム機能をご利用ください！';
+
+  @override
+  String get proFeatureDialogUpgradeButton => 'アップグレード';
 }

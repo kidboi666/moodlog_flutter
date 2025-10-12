@@ -61,7 +61,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
     return KeyboardDismissOnTapOutside(
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: FlavorService.instance.showDebugBanner,
+        debugShowCheckedModeBanner: FlavorService.isDebug,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

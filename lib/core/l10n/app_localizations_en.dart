@@ -1172,4 +1172,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profile_guest_login_description =>
       'Sign in with Google or Apple and sync your data.';
+
+  @override
+  String get lockScreenTitle => 'Authentication Required';
+
+  @override
+  String get lockScreenReason => 'Please authenticate to unlock the app.';
+
+  @override
+  String get lockScreenRetry => 'Retry';
+
+  @override
+  String get proFeatureDialogTitle => 'Pro Feature';
+
+  @override
+  String get proFeatureDialogContent =>
+      'App Lock is a Pro feature. Upgrade to enjoy all premium features!';
+
+  @override
+  String get proFeatureDialogUpgradeButton => 'Upgrade';
 }
