@@ -14,8 +14,9 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     return NavigationDrawer(
-      footer: const Column(children: [AppInfoFooter(), BannerAdWidget()]),
+      footer: const AppInfoFooter(),
       children: [
+        const BannerAdWidget(),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SizedBox(height: 80, child: WeatherWidget()),
