@@ -11,9 +11,7 @@ class TagSection extends StatelessWidget {
   final int? maxTags;
   final double? spacing;
   final double? runSpacing;
-  final double? chipFontSize;
-  final EdgeInsets? chipPadding;
-  final double? chipBorderRadius;
+  final bool isCompact;
 
   const TagSection({
     super.key,
@@ -23,9 +21,7 @@ class TagSection extends StatelessWidget {
     this.maxTags,
     this.spacing,
     this.runSpacing,
-    this.chipFontSize,
-    this.chipPadding,
-    this.chipBorderRadius,
+    this.isCompact = false,
   });
 
   @override
@@ -45,12 +41,7 @@ class TagSection extends StatelessWidget {
           spacing: spacing ?? Spacing.sm,
           runSpacing: runSpacing ?? Spacing.sm,
           children: displayTags.map((tag) {
-            return TagChip(
-              tag: tag,
-              fontSize: chipFontSize,
-              padding: chipPadding,
-              borderRadius: chipBorderRadius,
-            );
+            return TagChip(tag: tag, isCompact: isCompact);
           }).toList(),
         ),
       ],

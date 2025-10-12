@@ -6,7 +6,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-
+import 'package:moodlog/core/ui/widgets/tag_chip.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class JournalCard extends StatelessWidget {
@@ -40,18 +40,16 @@ class JournalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
     final double horizontalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double verticalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double imageHeight = isCompact ? 80 : 120;
     final TextStyle? titleStyle = isCompact
-        ? textTheme.bodySmall
-        : textTheme.bodyMedium;
+        ? TextTheme.of(context).bodySmall
+        : TextTheme.of(context).bodyMedium;
     final TextStyle? contentStyle = isCompact
-        ? textTheme.bodySmall
-        : textTheme.bodyMedium;
+        ? TextTheme.of(context).bodySmall
+        : TextTheme.of(context).bodyMedium;
 
     return InkWell(
       onTap: onTap,
@@ -60,10 +58,10 @@ class JournalCard extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainer,
+          color: ColorScheme.of(context).surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
           border: isSelected
-              ? Border.all(color: colorScheme.primary, width: 2)
+              ? Border.all(color: ColorScheme.of(context).primary, width: 2)
               : null,
         ),
         child: Stack(
@@ -98,7 +96,7 @@ class JournalCard extends StatelessWidget {
                               Text(
                                 createdAt.formatted(t),
                                 style: titleStyle?.copyWith(
-                                  color: colorScheme.outline,
+                                  color: ColorScheme.of(context).outline,
                                 ),
                               ),
                               const SizedBox(height: Spacing.xs),
@@ -206,35 +204,6 @@ class JournalCard extends StatelessWidget {
         maxLines: isCompact ? 3 : 5,
         overflow: TextOverflow.ellipsis,
         style: style,
-      ),
-    );
-  }
-}
-
-class TagChip extends StatelessWidget {
-  final Tag tag;
-  final bool isCompact;
-
-  const TagChip({super.key, required this.tag, this.isCompact = false});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: isCompact ? Spacing.sm : Spacing.md,
-        vertical: isCompact ? Spacing.xs : Spacing.sm,
-      ),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(Roundness.chip),
-      ),
-      child: Text(
-        '#${tag.name}',
-        style: (isCompact ? textTheme.labelSmall : textTheme.labelMedium)
-            ?.copyWith(color: colorScheme.primary),
       ),
     );
   }

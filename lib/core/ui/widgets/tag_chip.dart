@@ -4,27 +4,28 @@ import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class TagChip extends StatelessWidget {
   final Tag tag;
-  final double? fontSize;
-  final EdgeInsets? padding;
-  final double? borderRadius;
+  final bool isCompact;
 
-  const TagChip({
-    super.key,
-    required this.tag,
-    this.fontSize,
-    this.padding,
-    this.borderRadius,
-  });
+  const TagChip({super.key, required this.tag, this.isCompact = false});
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      label: Text(tag.name, style: TextStyle(fontSize: fontSize)),
-      padding: padding ?? EdgeInsets.zero,
-      labelPadding: const EdgeInsets.symmetric(horizontal: Spacing.md),
-      visualDensity: VisualDensity.compact,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isCompact ? Spacing.sm : Spacing.md,
+        vertical: isCompact ? Spacing.xs : Spacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(Roundness.chip),
+      ),
+      child: Text(
+        '#${tag.name}',
+        style: (isCompact ? textTheme.labelSmall : textTheme.labelMedium)
+            ?.copyWith(color: colorScheme.primary),
       ),
     );
   }
