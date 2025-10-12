@@ -25,7 +25,7 @@ class TagChip extends StatelessWidget {
       child: Text(
         '#${tag.name}',
         style: (isCompact ? textTheme.labelSmall : textTheme.labelMedium)
-            ?.copyWith(color: colorScheme.outline),
+            ?.copyWith(color: colorScheme.primary),
       ),
     );
   }
