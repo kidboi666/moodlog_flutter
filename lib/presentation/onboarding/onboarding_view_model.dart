@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
@@ -27,7 +27,6 @@ class OnboardingViewModel extends ChangeNotifier
     initStep(totalSteps);
   }
 
-  final Logger _log = Logger('OnboardingViewModel');
   AiPersonality? _selectedPersonality;
 
   String _nickname = '';
@@ -70,7 +69,7 @@ class OnboardingViewModel extends ChangeNotifier
       await _appStateProvider.update(updatedSettings);
       setSuccess();
     } catch (e) {
-      _log.warning('Failed to complete onboarding', e);
+      debugPrint('Failed to complete onboarding $e');
       setError(e);
     }
   }

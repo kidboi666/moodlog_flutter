@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
@@ -24,7 +21,6 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     _loadStatistics();
   }
 
-  final Logger _log = Logger('StatisticsViewModel');
   List<Journal> _allJournals = [];
   Map<MoodType, int> _moodCounts = {};
   int _totalJournals = 0;
@@ -209,9 +205,8 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         notifyListeners();
 
       case Error<List<Journal>>():
-        _log.warning(
-          'Failed to load recent journals for representative mood',
-          result.error,
+        debugPrint(
+          'Failed to load recent journals for representative mood ${result.error}',
         );
         _recentJournals = [];
         _representativeMood = null;
@@ -295,14 +290,11 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
             }
           }
         case Error<List<Journal>>():
-          _log.warning(
-            'Failed to load journals for month $month',
-            result.error,
-          );
+          debugPrint('Failed to load journals for month $month');
       }
     }
 
-    _log.fine('Loaded yearly journals: ${_yearlyJournals.length} days');
+    debugPrint('Loaded yearly journals: ${_yearlyJournals.length} days');
     notifyListeners();
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 
 import '../../core/constants/common.dart';
 import '../../core/constants/enum.dart';
@@ -41,7 +40,6 @@ class HomeViewModel extends ChangeNotifier
     _userProvider.addListener(_onUserChanged);
   }
 
-  final Logger _log = Logger('HomeViewModel');
   StreamSubscription? _journalSubscription;
   List<Journal> _journal = [];
   DateTime _selectedDate = DateTime.now();
@@ -166,7 +164,7 @@ class HomeViewModel extends ChangeNotifier
     final result = await journalUseCase.getJournalsByMonth(now);
     switch (result) {
       case Ok(value: final journals):
-        _log.fine('Loaded monthly journals: ${journals.length}');
+        debugPrint('Loaded monthly journals: ${journals.length}');
         _monthlyJournals.clear();
         for (final journal in journals) {
           final dateKey = DateTime(
@@ -182,7 +180,7 @@ class HomeViewModel extends ChangeNotifier
         }
         notifyListeners();
       case Error(error: final e):
-        _log.warning('Failed to load monthly journals', e);
+        debugPrint('Failed to load monthly journals $e');
         _monthlyJournals.clear();
         notifyListeners();
     }
@@ -209,10 +207,10 @@ class HomeViewModel extends ChangeNotifier
             }
           }
         case Error(error: final e):
-          _log.warning('Failed to load journals for month $month', e);
+          debugPrint('Failed to load journals for month $month, $e');
       }
     }
-    _log.fine('Loaded yearly journals: ${_yearlyJournals.length} days');
+    debugPrint('Loaded yearly journals: ${_yearlyJournals.length} days');
     notifyListeners();
   }
 
@@ -225,9 +223,9 @@ class HomeViewModel extends ChangeNotifier
     if (_locationInfo != null) {
       latitude = _locationInfo!.latitude;
       longitude = _locationInfo!.longitude;
-      _log.info('Using actual location: $latitude, $longitude');
+      debugPrint('Using actual location: $latitude, $longitude');
     } else {
-      _log.info('Using default location (Seoul): $latitude, $longitude');
+      debugPrint('Using default location (Seoul): $latitude, $longitude');
     }
     final result = await _weatherUseCase.getCurrentWeather(
       latitude: latitude,
@@ -235,10 +233,10 @@ class HomeViewModel extends ChangeNotifier
     );
     switch (result) {
       case Ok(value: final weatherInfo):
-        _log.fine('Weather retrieved successfully');
+        debugPrint('Weather retrieved successfully');
         _weatherInfo = weatherInfo;
       case Error(error: final e):
-        _log.warning('Failed to get weather: $e');
+        debugPrint('Failed to get weather: $e');
     }
   }
 
@@ -246,10 +244,10 @@ class HomeViewModel extends ChangeNotifier
     final result = await _getCurrentLocationUseCase();
     switch (result) {
       case Ok(value: final locationInfo):
-        _log.fine('Location retrieved successfully');
+        debugPrint('Location retrieved successfully');
         _locationInfo = locationInfo;
       case Error(error: final e):
-        _log.warning('Failed to get location: $e');
+        debugPrint('Failed to get location: $e');
     }
   }
 

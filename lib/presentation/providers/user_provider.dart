@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/mixins/async_state_mixin.dart';
 import '../../domain/entities/user/local_user.dart';
@@ -13,7 +13,6 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
     initialize();
   }
 
-  final Logger _log = Logger('UserProvider');
   LocalUser? _user;
 
   LocalUser? get user => _user;
@@ -27,7 +26,7 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
       setSuccess();
       notifyListeners();
     } catch (e) {
-      _log.severe('Failed to initialize user: $e');
+      debugPrint('Failed to initialize user: $e');
       setError(e);
     }
   }
@@ -37,7 +36,7 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
       _user = await _localUserRepository.getUser();
       notifyListeners();
     } catch (e) {
-      _log.severe('Failed to refresh user: $e');
+      debugPrint('Failed to refresh user: $e');
     }
   }
 }

@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
@@ -31,7 +31,6 @@ class JournalViewModel extends ChangeNotifier
     _aiGenerationProvider.addListener(_load);
   }
 
-  final Logger _log = Logger('JournalViewModel');
   Journal? _journal;
   SimpleTextAlign? _pendingAlign; // 로컬 상태
 
@@ -63,11 +62,11 @@ class JournalViewModel extends ChangeNotifier
     final result = await _journalUseCase.deleteJournalById(id);
     switch (result) {
       case Ok<void>():
-        _log.fine('Deleted Journal', journal?.id);
+        debugPrint('Deleted Journal ${journal?.id}');
         setSuccess();
         return Result.ok(null);
       case Error<void>():
-        _log.warning('Failed to delete Journal', result.error);
+        debugPrint('Failed to delete Journal ${result.error}');
         setError(result.error);
         return Result.error(result.error);
     }
@@ -79,12 +78,13 @@ class JournalViewModel extends ChangeNotifier
     switch (journal) {
       case Ok<Journal>():
         _journal = journal.value;
-        _log.fine('Loaded Journal', journal.value.id);
+        debugPrint('Loaded Journal ${journal.value.id}');
         setSuccess();
         return Result.ok(null);
       case Error<Journal>():
-        _log.warning(
-            'Failed to load Journal. Error: ${journal.error}, Type: ${journal.error.runtimeType}');
+        debugPrint(
+          'Failed to load Journal. Error: ${journal.error}, Type: ${journal.error.runtimeType}',
+        );
         setError(journal.error);
         return Result.error(journal.error);
     }

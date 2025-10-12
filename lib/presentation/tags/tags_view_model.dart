@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/mixins/async_state_mixin.dart';
-import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
-import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+
+import '../../core/mixins/async_state_mixin.dart';
+import '../../core/utils/result.dart';
+import '../../domain/entities/journal/tag_with_count.dart';
+import '../../domain/use_cases/tag_use_case.dart';
 
 class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
   final TagUseCase _tagUseCase;
@@ -36,9 +37,11 @@ class TagsViewModel extends ChangeNotifier with AsyncStateMixin {
       _filteredTags = _tags;
     } else {
       _filteredTags = _tags
-          .where((tagWithCount) => tagWithCount.tag.name
-              .toLowerCase()
-              .contains(_searchQuery.toLowerCase()))
+          .where(
+            (tagWithCount) => tagWithCount.tag.name.toLowerCase().contains(
+              _searchQuery.toLowerCase(),
+            ),
+          )
           .toList();
     }
     notifyListeners();

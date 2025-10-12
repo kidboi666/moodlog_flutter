@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:logging/logging.dart';
-
 import '../../core/constants/enum.dart';
 import '../../core/mixins/async_state_mixin.dart';
 import '../../core/utils/result.dart';
@@ -52,24 +50,23 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required LogMoodEntryUseCase logMoodEntryUseCase,
     DateTime? selectedDate,
     int? editJournalId,
-  }) : _geminiUseCase = geminiUseCase,
-       _appStateProvider = appStateProvider,
-       _aiGenerationProvider = aiGenerationProvider,
-       _pickImageUseCase = pickImageUseCase,
-       _settingsUseCase = settingsUseCase,
-       _getCurrentLocationUseCase = getCurrentLocationUseCase,
-       _weatherUseCase = weatherUseCase,
-       _journalUseCase = journalUseCase,
-       _logMoodEntryUseCase = logMoodEntryUseCase,
-       _checkAiUsageUseCase = checkAiUsageUseCase,
-       _tagUseCase = tagUseCase,
-       _selectedDate = selectedDate ?? DateTime.now(),
-       _editJournalId = editJournalId,
-       _isEditMode = editJournalId != null {
+  })  : _geminiUseCase = geminiUseCase,
+        _appStateProvider = appStateProvider,
+        _aiGenerationProvider = aiGenerationProvider,
+        _pickImageUseCase = pickImageUseCase,
+        _settingsUseCase = settingsUseCase,
+        _getCurrentLocationUseCase = getCurrentLocationUseCase,
+        _weatherUseCase = weatherUseCase,
+        _journalUseCase = journalUseCase,
+        _logMoodEntryUseCase = logMoodEntryUseCase,
+        _checkAiUsageUseCase = checkAiUsageUseCase,
+        _tagUseCase = tagUseCase,
+        _selectedDate = selectedDate ?? DateTime.now(),
+        _editJournalId = editJournalId,
+        _isEditMode = editJournalId != null {
     _initialize();
   }
 
-  final Logger _log = Logger('WriteViewModel');
   late TextEditingController _textEditingController;
   String? _content;
   MoodType _selectedMood = MoodType.neutral;
@@ -198,11 +195,11 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _pickImageUseCase.fromGallery();
     switch (result) {
       case Ok<String?>():
-        _log.fine('Image picked successfully');
+        debugPrint('Image picked successfully');
         _selectedImageList = [..._selectedImageList, result.value!];
         setSuccess();
       case Error<String?>():
-        _log.warning('Failed to pick image: ${result.error}');
+        debugPrint('Failed to pick image: ${result.error}');
         setError(result.error);
     }
   }
@@ -221,9 +218,9 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     if (_locationInfo != null) {
       latitude = _locationInfo!.latitude;
       longitude = _locationInfo!.longitude;
-      _log.info('Using actual location: $latitude, $longitude');
+      debugPrint('Using actual location: $latitude, $longitude');
     } else {
-      _log.info('Using default location (Seoul): $latitude, $longitude');
+      debugPrint('Using default location (Seoul): $latitude, $longitude');
     }
 
     _isLoadingWeather = true;
@@ -236,10 +233,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<WeatherInfo>():
-        _log.fine('Weather retrieved successfully');
+        debugPrint('Weather retrieved successfully');
         _weatherInfo = result.value;
       case Error<WeatherInfo>():
-        _log.warning('Failed to get weather: ${result.error}');
+        debugPrint('Failed to get weather: ${result.error}');
         setError(result.error);
     }
 
@@ -272,7 +269,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _availableTags.add(result.value);
         addExistingTag(result.value);
       case Error<Tag>():
-        _log.warning('Failed to add tag: ${result.error}');
+        debugPrint('Failed to add tag: ${result.error}');
         setError(result.error);
     }
   }
@@ -302,10 +299,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<LocationInfo>():
-        _log.fine('Location retrieved successfully');
+        debugPrint('Location retrieved successfully');
         _locationInfo = result.value;
       case Error<LocationInfo>():
-        _log.warning('Failed to get location: ${result.error}');
+        debugPrint('Failed to get location: ${result.error}');
         setError(result.error);
     }
 
@@ -315,7 +312,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<Result<void>> submitJournal() async {
     if (!isFormValid) {
-      _log.warning('Content is required');
+      debugPrint('Content is required');
       return Result.error(Exception('Content is required'));
     }
 
@@ -349,7 +346,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<Map<String, dynamic>>():
-        _log.fine('Journal added successfully');
+        debugPrint('Journal added successfully');
         _isSubmitted = true;
         _submittedJournalId = result.value['id'];
         final aiResponseEnabled = result.value['aiResponseEnabled'];
@@ -374,7 +371,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         setSuccess();
         return Result.ok(null);
       case Error<Map<String, dynamic>>():
-        _log.warning('Failed to add journal: ${result.error}');
+        debugPrint('Failed to add journal: ${result.error}');
         setError(result.error);
         return Result.error(result.error);
     }
@@ -397,7 +394,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<int>():
-        _log.fine('Journal updated successfully');
+        debugPrint('Journal updated successfully');
         _isSubmitted = true;
         _submittedJournalId = _editJournalId;
 
@@ -420,7 +417,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         setSuccess();
         return Result.ok(null);
       case Error<int>():
-        _log.warning('Failed to update journal: ${result.error}');
+        debugPrint('Failed to update journal: ${result.error}');
         setError(result.error);
         return Result.error(result.error);
     }
@@ -484,7 +481,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (aiResponse) {
       case Ok<String>():
-        _log.fine('AI response generated successfully');
+        debugPrint('AI response generated successfully');
         final dto = UpdateJournalAiResponseRequest(
           id: _submittedJournalId!,
           aiResponseEnabled: true,
@@ -493,7 +490,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         await _journalUseCase.updateJournalAiResponse(dto);
         _aiGenerationProvider.setSuccessGeneratingAiResponse();
       case Error<String>():
-        _log.warning('Failed to add AI response: ${aiResponse.error}');
+        debugPrint('Failed to add AI response: ${aiResponse.error}');
         _aiGenerationProvider.setErrorGeneratingAiResponse(aiResponse.error);
     }
   }
@@ -506,12 +503,12 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
     switch (result) {
       case Ok<LocationInfo>():
-        _log.fine('Location retrieved successfully on init');
+        debugPrint('Location retrieved successfully on init');
         _locationInfo = result.value;
         // 위치 정보가 로드되면 자동으로 날씨 정보도 로드
         await getCurrentWeather();
       case Error<LocationInfo>():
-        _log.info('Failed to get location on init: ${result.error}');
+        debugPrint('Failed to get location on init: ${result.error}');
     }
 
     _isLoadingLocation = false;
@@ -531,18 +528,18 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         _availableTags = result.value;
         notifyListeners();
       case Error<List<Tag>>():
-        _log.warning('Failed to load tags: ${result.error}');
+        debugPrint('Failed to load tags: ${result.error}');
     }
   }
 
   Future<void> _loadJournalForEdit(int journalId) async {
     try {
-      _log.info('Loading journal for edit: $journalId');
+      debugPrint('Loading journal for edit: $journalId');
       final result = await _journalUseCase.getJournalById(journalId);
       switch (result) {
         case Ok<Journal>():
           final journal = result.value;
-          _log.info('Journal loaded successfully: ${journal.content}');
+          debugPrint('Journal loaded successfully: ${journal.content}');
           _content = journal.content;
           if (journal.content != null) {
             _textEditingController.text = journal.content!;
@@ -576,10 +573,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
           notifyListeners();
         case Error<Journal>():
-          _log.warning('Failed to load journal for edit: ${result.error}');
+          debugPrint('Failed to load journal for edit: ${result.error}');
       }
     } catch (e) {
-      _log.warning('Error loading journal for edit: $e');
+      debugPrint('Error loading journal for edit: $e');
     }
   }
 
