@@ -21,11 +21,41 @@ class CalendarBottomSheet extends StatefulWidget {
 
 class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
   late DateTime _selectedInSheet;
+  late DateTime _displayMonthInSheet;
 
   @override
   void initState() {
     super.initState();
-    _selectedInSheet = context.read<HomeViewModel>().selectedDate;
+    final viewModel = context.read<HomeViewModel>();
+    _selectedInSheet = viewModel.selectedDate;
+    _displayMonthInSheet = viewModel.displayMonth;
+  }
+
+  void _onPageChanged(DateTime focusedDay) {
+    setState(() {
+      _displayMonthInSheet = focusedDay;
+      _selectedInSheet = focusedDay;
+    });
+  }
+
+  void _onPreviousMonth() {
+    setState(() {
+      _displayMonthInSheet = DateTime(
+        _displayMonthInSheet.year,
+        _displayMonthInSheet.month - 1,
+      );
+      _selectedInSheet = _displayMonthInSheet;
+    });
+  }
+
+  void _onNextMonth() {
+    setState(() {
+      _displayMonthInSheet = DateTime(
+        _displayMonthInSheet.year,
+        _displayMonthInSheet.month + 1,
+      );
+      _selectedInSheet = _displayMonthInSheet;
+    });
   }
 
   @override
@@ -42,84 +72,113 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
         [];
 
     return GradientBox(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.8,
-        child: Column(
-          children: [
-            const _CalendarHeader(),
-            const SizedBox(height: Spacing.md),
-            TableCalendar(
-              locale: t.localeName,
-              focusedDay: _selectedInSheet,
-              firstDay: DateTime.utc(2010, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              selectedDayPredicate: (day) => isSameDay(_selectedInSheet, day),
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedInSheet = selectedDay;
-                });
-              },
-              onPageChanged: (focusedDay) => viewModel.selectMonth(focusedDay),
-              headerVisible: false,
-              daysOfWeekStyle: DaysOfWeekStyle(
-                weekdayStyle: theme.textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.surface,
-                ),
-                weekendStyle: theme.textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.surface,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          Spacing.md,
+          Spacing.md,
+          Spacing.md,
+          Spacing.lg,
+        ),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.8,
+          child: Column(
+            children: [
+              _CalendarHeader(
+                displayMonth: _displayMonthInSheet,
+                selectedDate: _selectedInSheet,
+                onPreviousMonth: _onPreviousMonth,
+                onNextMonth: _onNextMonth,
               ),
-              calendarStyle: CalendarStyle(
-                defaultTextStyle: TextStyle(
-                  color: theme.colorScheme.surface,
-                  fontWeight: FontWeight.bold,
-                ),
-                weekendTextStyle: TextStyle(
-                  color: theme.colorScheme.surface,
-                  fontWeight: FontWeight.bold,
-                ),
-                outsideTextStyle: TextStyle(
-                  color: theme.colorScheme.surface.withAlpha(102),
-                  fontWeight: FontWeight.bold,
-                ),
-                todayDecoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withAlpha(204),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                todayTextStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ).copyWith(color: theme.colorScheme.onPrimary),
-                selectedDecoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                selectedTextStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ).copyWith(color: theme.colorScheme.onSurface),
-              ),
-              calendarBuilders: CalendarBuilders(
-                markerBuilder: (context, day, events) {
-                  final journalsForDay = viewModel
-                      .yearlyJournals[DateTime(day.year, day.month, day.day)];
-                  if (journalsForDay != null && journalsForDay.isNotEmpty) {
-                    return Positioned(
-                      bottom: 8,
-                      left: 0,
-                      right: 0,
-                      child: MoodMarkers(journals: journalsForDay),
-                    );
-                  }
-                  return null;
+              const SizedBox(height: Spacing.md),
+              TableCalendar(
+                locale: t.localeName,
+                focusedDay: _selectedInSheet,
+                firstDay: DateTime.utc(2010, 1, 1),
+                lastDay: DateTime.utc(2030, 12, 31),
+                selectedDayPredicate: (day) => isSameDay(_selectedInSheet, day),
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedInSheet = selectedDay;
+                  });
                 },
+                onPageChanged: _onPageChanged,
+                headerVisible: false,
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: theme.textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.surface,
+                  ),
+                  weekendStyle: theme.textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.surface,
+                  ),
+                ),
+                calendarStyle: CalendarStyle(
+                  defaultTextStyle: TextStyle(
+                    color: theme.colorScheme.surface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  weekendTextStyle: TextStyle(
+                    color: theme.colorScheme.surface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  outsideTextStyle: TextStyle(
+                    color: theme.colorScheme.surface.withAlpha(102),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  defaultDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  weekendDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  outsideDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  disabledDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  todayDecoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withAlpha(204),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  todayTextStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ).copyWith(color: theme.colorScheme.onPrimary),
+                  selectedDecoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  selectedTextStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ).copyWith(color: theme.colorScheme.onSurface),
+                ),
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, day, events) {
+                    final journalsForDay = viewModel
+                        .yearlyJournals[DateTime(day.year, day.month, day.day)];
+                    if (journalsForDay != null && journalsForDay.isNotEmpty) {
+                      return Positioned(
+                        bottom: 8,
+                        left: 0,
+                        right: 0,
+                        child: MoodMarkers(journals: journalsForDay),
+                      );
+                    }
+                    return null;
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: Spacing.lg),
-            Expanded(child: _buildJournalList(journalsForSelectedDay)),
-          ],
+              const SizedBox(height: Spacing.lg),
+              Expanded(child: _buildJournalList(journalsForSelectedDay)),
+            ],
+          ),
         ),
       ),
     );
@@ -156,16 +215,23 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
 }
 
 class _CalendarHeader extends StatelessWidget {
-  const _CalendarHeader();
+  final DateTime displayMonth;
+  final DateTime selectedDate;
+  final VoidCallback onPreviousMonth;
+  final VoidCallback onNextMonth;
+
+  const _CalendarHeader({
+    required this.displayMonth,
+    required this.selectedDate,
+    required this.onPreviousMonth,
+    required this.onNextMonth,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<HomeViewModel>();
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
-    final displayMonth = context.select((HomeViewModel vm) => vm.displayMonth);
-    final selectedDate = context.select((HomeViewModel vm) => vm.selectedDate);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
@@ -174,14 +240,7 @@ class _CalendarHeader extends StatelessWidget {
         children: [
           IconButton(
             icon: Icon(Icons.chevron_left, color: colorScheme.surface),
-            onPressed: () {
-              final newMonth = DateTime(
-                displayMonth.year,
-                displayMonth.month - 1,
-                1,
-              );
-              viewModel.selectMonth(newMonth);
-            },
+            onPressed: onPreviousMonth,
           ),
           Expanded(
             child: Column(
@@ -205,14 +264,7 @@ class _CalendarHeader extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.chevron_right, color: colorScheme.surface),
-            onPressed: () {
-              final newMonth = DateTime(
-                displayMonth.year,
-                displayMonth.month + 1,
-                1,
-              );
-              viewModel.selectMonth(newMonth);
-            },
+            onPressed: onNextMonth,
           ),
         ],
       ),

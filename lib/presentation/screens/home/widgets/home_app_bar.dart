@@ -37,6 +37,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
                     builder: (_) => ChangeNotifierProvider.value(
                       value: viewModel,
                       child: const CalendarBottomSheet(),
