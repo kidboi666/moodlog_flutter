@@ -41,6 +41,16 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
           padding: const EdgeInsets.all(Spacing.md),
           child: Column(
             children: [
+              // Drag Handle
+              Container(
+                width: 40,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: Spacing.md),
               const _CalendarHeader(),
               const SizedBox(height: Spacing.md),
               TableCalendar(
@@ -67,6 +77,14 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   ),
                 ),
                 calendarStyle: CalendarStyle(
+                  defaultDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  weekendDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   defaultTextStyle: TextStyle(
                     color: theme.colorScheme.surface,
                     fontWeight: FontWeight.bold,
