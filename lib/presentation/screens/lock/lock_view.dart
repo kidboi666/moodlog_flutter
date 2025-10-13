@@ -98,10 +98,7 @@ class _LockScreenState extends State<LockScreen> {
           children: [
             const Icon(Icons.lock_outline, size: 80),
             const SizedBox(height: 20),
-            Text(
-              t.lockScreenTitle,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text(t.lockScreenTitle, style: TextTheme.of(context).headlineSmall),
           ],
         ),
       ),

@@ -64,6 +64,7 @@ class _SettingsScreenContent extends StatelessWidget {
                     }
                   },
                 ),
+
                 DialogTile(
                   title: t.settings_common_theme_title,
                   subtitle: t.settings_common_theme_subtitle,

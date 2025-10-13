@@ -25,6 +25,7 @@ class SwitchTile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
+      onTap: () => onChanged(!value),
       child: Padding(
         padding: const EdgeInsets.all(Spacing.lg),
         child: Row(

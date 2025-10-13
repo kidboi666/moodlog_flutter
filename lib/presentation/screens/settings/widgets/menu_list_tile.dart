@@ -32,17 +32,17 @@ class MenuListTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(Spacing.sm),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: ColorScheme.of(context).surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Icon(icon, color: Theme.of(context).colorScheme.secondary),
+      child: Icon(icon, color: ColorScheme.of(context).secondary),
     );
   }
 
   Widget _buildTrailingIcon(BuildContext context) {
     return Icon(
       Icons.chevron_right,
-      color: Theme.of(context).colorScheme.onSurfaceVariant,
+      color: ColorScheme.of(context).onSurfaceVariant,
       size: 18,
     );
   }
