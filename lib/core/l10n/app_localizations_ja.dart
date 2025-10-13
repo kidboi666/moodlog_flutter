@@ -642,13 +642,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_data_auto_sync_title => '自動同期';
 
   @override
-  String get settings_data_auto_sync_subtitle => 'データを自動で同期します。';
+  String get settings_data_auto_sync_subtitle => 'データを自動的に同期します。';
 
   @override
   String get settings_data_backup_title => 'データバックアップ';
 
   @override
-  String get settings_data_backup_subtitle => 'データをバックアップします。';
+  String get settings_data_backup_subtitle => 'データをクラウドに安全にバックアップします。';
+
+  @override
+  String get settings_data_restore_title => 'データ復元';
+
+  @override
+  String get settings_data_restore_subtitle => 'クラウドからデータを復元します。';
 
   @override
   String get settings_data_backup_confirm => 'データをバックアップしますか？';
@@ -657,7 +663,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_data_backup_confirm_ok => 'バックアップ';
 
   @override
-  String get settings_data_cache_cleanup_title => 'キャッシュクリア';
+  String get settings_data_cache_cleanup_title => 'キャッシュの消去';
 
   @override
   String get settings_data_cache_cleanup_subtitle => '一時ファイルを削除します。';

@@ -647,7 +647,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_data_backup_title => '데이터 백업';
 
   @override
-  String get settings_data_backup_subtitle => '데이터를 백업합니다.';
+  String get settings_data_backup_subtitle => '데이터를 안전하게 클라우드에 백업합니다.';
+
+  @override
+  String get settings_data_restore_title => '데이터 복원';
+
+  @override
+  String get settings_data_restore_subtitle => '클라우드에서 데이터를 복원합니다.';
 
   @override
   String get settings_data_backup_confirm => '데이터를 백업하시겠습니까?';

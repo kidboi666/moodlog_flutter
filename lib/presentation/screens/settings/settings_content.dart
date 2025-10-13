@@ -134,16 +134,68 @@ class _SettingsScreenContent extends StatelessWidget {
                     value: viewModel.appState.hasAutoSyncEnabled,
                     onChanged: viewModel.setAutoSyncEnabled,
                   ),
-                  MenuListTile(
-                    title: t.settings_data_backup_title,
-                    subtitle: t.settings_data_backup_subtitle,
-                    icon: Icons.backup,
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (_) => BackupDialog(viewModel: viewModel),
-                    ),
+                  Consumer<SettingsViewModel>(
+                    builder: (context, viewModel, child) {
+                      final isProUser = viewModel.appState.isProUser;
+                      return GestureDetector(
+                        onTap: () {
+                          if (!isProUser) {
+                            _showProFeatureDialog(context);
+                          }
+                        },
+                        child: AbsorbPointer(
+                          absorbing: !isProUser,
+                          child: MenuListTile(
+                            title: t.settings_data_backup_title,
+                            subtitle: t.settings_data_backup_subtitle,
+                            icon: Icons.backup,
+                            onTap: () {
+                              if (isProUser) {
+                                // TODO: Implement backup logic
+                              }
+                            },
+                            trailing: isProUser
+                                ? null
+                                : const Icon(
+                                    Icons.workspace_premium,
+                                    color: Colors.amber,
+                                  ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-
+                  Consumer<SettingsViewModel>(
+                    builder: (context, viewModel, child) {
+                      final isProUser = viewModel.appState.isProUser;
+                      return GestureDetector(
+                        onTap: () {
+                          if (!isProUser) {
+                            _showProFeatureDialog(context);
+                          }
+                        },
+                        child: AbsorbPointer(
+                          absorbing: !isProUser,
+                          child: MenuListTile(
+                            title: t.settings_data_restore_title,
+                            subtitle: t.settings_data_restore_subtitle,
+                            icon: Icons.restore,
+                            onTap: () {
+                              if (isProUser) {
+                                // TODO: Implement restore logic
+                              }
+                            },
+                            trailing: isProUser
+                                ? null
+                                : const Icon(
+                                    Icons.workspace_premium,
+                                    color: Colors.amber,
+                                  ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                   MenuListTile(
                     title: t.tags_manage_title,
                     subtitle: t.tags_manage_subtitle,

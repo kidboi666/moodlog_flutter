@@ -1285,7 +1285,7 @@ abstract class AppLocalizations {
   /// No description provided for @settings_data_auto_sync_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Automatically sync data.'**
+  /// **'Automatically sync your data.'**
   String get settings_data_auto_sync_subtitle;
 
   /// No description provided for @settings_data_backup_title.
@@ -1297,13 +1297,25 @@ abstract class AppLocalizations {
   /// No description provided for @settings_data_backup_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Backup your data.'**
+  /// **'Securely back up your data to the cloud.'**
   String get settings_data_backup_subtitle;
+
+  /// No description provided for @settings_data_restore_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Restore'**
+  String get settings_data_restore_title;
+
+  /// No description provided for @settings_data_restore_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore your data from the cloud.'**
+  String get settings_data_restore_subtitle;
 
   /// No description provided for @settings_data_backup_confirm.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to backup your data?'**
+  /// **'Are you sure you want to back up your data?'**
   String get settings_data_backup_confirm;
 
   /// No description provided for @settings_data_backup_confirm_ok.

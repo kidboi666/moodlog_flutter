@@ -667,16 +667,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_data_auto_sync_title => 'Auto Sync';
 
   @override
-  String get settings_data_auto_sync_subtitle => 'Automatically sync data.';
+  String get settings_data_auto_sync_subtitle =>
+      'Automatically sync your data.';
 
   @override
   String get settings_data_backup_title => 'Data Backup';
 
   @override
-  String get settings_data_backup_subtitle => 'Backup your data.';
+  String get settings_data_backup_subtitle =>
+      'Securely back up your data to the cloud.';
 
   @override
-  String get settings_data_backup_confirm => 'Do you want to backup your data?';
+  String get settings_data_restore_title => 'Data Restore';
+
+  @override
+  String get settings_data_restore_subtitle =>
+      'Restore your data from the cloud.';
+
+  @override
+  String get settings_data_backup_confirm =>
+      'Are you sure you want to back up your data?';
 
   @override
   String get settings_data_backup_confirm_ok => 'Backup';
