@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/screens/lock/lock_view.dart';
 
@@ -46,9 +47,10 @@ class AppLifecycleObserver with WidgetsBindingObserver {
   }
 
   Future<bool> _authenticate() async {
+    final t = AppLocalizations.of(context)!;
     try {
       return await auth.authenticate(
-        localizedReason: '앱에 접근하려면 인증이 필요합니다.',
+        localizedReason: t.lockScreenReason, // Use localized string
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: false,
