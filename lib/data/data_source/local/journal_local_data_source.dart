@@ -250,4 +250,32 @@ class JournalLocalDataSource {
       throw Exception(e);
     }
   }
+
+  Future<void> clearAllData() async {
+    try {
+      await _db.transaction(() async {
+        await _db.delete(_db.journalTags).go();
+        await _db.delete(_db.journals).go();
+        await _db.delete(_db.tags).go();
+      });
+    } catch (e, s) {
+      _log.severe('Error clearing all data', e, s);
+      throw Exception(e);
+    }
+  }
+
+  Future<void> insertJournalsAndTags(
+      List<JournalsCompanion> journals, List<TagsCompanion> tags) async {
+    try {
+      await _db.batch((batch) {
+        batch.insertAll(_db.journals, journals, mode: InsertMode.replace);
+        batch.insertAll(_db.tags, tags, mode: InsertMode.replace);
+        // Note: Journal-Tag relationships must be rebuilt separately
+        // if they are not included in the journal/tag data itself.
+      });
+    } catch (e, s) {
+      _log.severe('Error inserting journals and tags', e, s);
+      throw Exception(e);
+    }
+  }
 }

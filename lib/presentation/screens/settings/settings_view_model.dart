@@ -144,7 +144,27 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> backupData() async {
-    await executeAsync(() => _backupRepository.backup(), context: 'backupData');
+    final userId = _userProvider.user?.userId;
+    if (userId == null) {
+      // Handle error: user not logged in
+      return;
+    }
+    await executeAsync(
+      () => _backupRepository.backup(userId: userId),
+      context: 'backupData',
+    );
+  }
+
+  Future<void> restoreData() async {
+    final userId = _userProvider.user?.userId;
+    if (userId == null) {
+      // Handle error: user not logged in
+      return;
+    }
+    await executeAsync(
+      () => _backupRepository.restore(userId: userId),
+      context: 'restoreData',
+    );
   }
 
   void clearSharedPreferences() {

@@ -190,7 +190,13 @@ class _SettingsScreenContent extends StatelessWidget {
                             icon: Icons.restore,
                             onTap: () {
                               if (isProUser) {
-                                // TODO: Implement restore logic
+                                viewModel.restoreData().then((_) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("데이터가 복원되었습니다."), // TODO: Add localization
+                                    ),
+                                  );
+                                });
                               }
                             },
                             trailing: isProUser
