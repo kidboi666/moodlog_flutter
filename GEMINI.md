@@ -143,6 +143,7 @@ flutter build apk       # Build Android APK
 - Follow MVVM pattern: View → ViewModel → UseCase → Repository
 - Use freezed for immutable entities and models
 - Use Provider for state management
+- **Avoid unnecessary comments**: Write self-explanatory code. Only add comments for complex logic, important business rules, or non-obvious implementations
 
 ### Provider Usage Convention
 

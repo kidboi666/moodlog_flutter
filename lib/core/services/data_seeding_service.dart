@@ -16,6 +16,11 @@ class DataSeedingService {
   DataSeedingService(this.context);
 
   Future<void> run() async {
+    // Clear database first in development mode
+    if (FlavorService.isDevelopment) {
+      await clearDatabaseForDevelopment();
+    }
+
     // Always seed default tags if empty
     final tagUseCase = context.read<TagUseCase>();
     await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty(context);

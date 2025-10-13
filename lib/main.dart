@@ -12,10 +12,8 @@ import 'package:provider/provider.dart';
 Future<void> main({
   Future<void> Function(BuildContext context)? onAppStartedDev,
 }) async {
-  // 1. Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Initialize services that don't depend on providers
   FlavorService();
   final firebaseOptions = FlavorService.firebaseOptions;
   final logLevel = FlavorService.logLevel;
@@ -29,10 +27,8 @@ Future<void> main({
 
   LoggingService.initialize(logLevel);
 
-  // 3. Create all providers
   final providers = createProviders();
 
-  // 4. Run the app with an initializer widget that will handle async setup
   runApp(
     MultiProvider(
       providers: providers,
