@@ -56,57 +56,62 @@ class EmptyEntriesBox extends StatelessWidget {
         strokeWidth: 1,
         color: colorScheme.outlineVariant,
       ),
-      child: Center(
+      child: SizedBox(
+        width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Spacing.md),
-          child: Column(
-            spacing: Spacing.sm,
-            children: [
-              Column(
-                spacing: Spacing.sm,
-                children: [
-                  Icon(
-                    Icons.book_outlined,
-                    size: 64,
-                    color: colorScheme.outlineVariant.withValues(alpha: 0.6),
-                  ),
-                  Text(
-                    t.entries_empty_box_title,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.outlineVariant,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              if (isToday)
-                buildButton(
-                  onPressed: () =>
-                      context.pushToWriteFromSelectedDate(DateTime.now()),
-                  icon: Icons.add,
-                  label: t.entries_empty_box_button,
-                )
-              else
+          padding: const EdgeInsets.symmetric(vertical: Spacing.xl * 2),
+          child: Center(
+            child: Column(
+              spacing: Spacing.sm,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Column(
                   spacing: Spacing.sm,
                   children: [
-                    buildButton(
-                      onPressed: () =>
-                          context.pushToWriteFromSelectedDate(selectedDate),
-                      icon: Icons.calendar_today,
-                      label: t.empty_box_write_for_selected_date(
-                        DateFormat.yMMMd().format(selectedDate),
-                      ),
+                    Icon(
+                      Icons.book_outlined,
+                      size: 64,
+                      color: colorScheme.outlineVariant.withValues(alpha: 0.6),
                     ),
-                    buildButton(
-                      onPressed: () =>
-                          context.pushToWriteFromSelectedDate(DateTime.now()),
-                      icon: Icons.today,
-                      label: t.empty_box_write_for_today,
+                    Text(
+                      t.entries_empty_box_title,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.outlineVariant,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
-            ],
+                if (isToday)
+                  buildButton(
+                    onPressed: () =>
+                        context.pushToWriteFromSelectedDate(DateTime.now()),
+                    icon: Icons.add,
+                    label: t.entries_empty_box_button,
+                  )
+                else
+                  Column(
+                    spacing: Spacing.sm,
+                    children: [
+                      buildButton(
+                        onPressed: () =>
+                            context.pushToWriteFromSelectedDate(selectedDate),
+                        icon: Icons.calendar_today,
+                        label: t.empty_box_write_for_selected_date(
+                          DateFormat.yMMMd().format(selectedDate),
+                        ),
+                      ),
+                      buildButton(
+                        onPressed: () =>
+                            context.pushToWriteFromSelectedDate(DateTime.now()),
+                        icon: Icons.today,
+                        label: t.empty_box_write_for_today,
+                      ),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),

@@ -34,7 +34,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
         [];
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
+      height: MediaQuery.of(context).size.height * 0.9,
       decoration: BoxDecoration(color: theme.colorScheme.surface),
       child: Padding(
         padding: const EdgeInsets.all(Spacing.md),
