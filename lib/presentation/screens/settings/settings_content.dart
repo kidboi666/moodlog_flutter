@@ -220,7 +220,7 @@ void _showPinCreateToEnableLock(
       await viewModel.savePin(pin);
       await viewModel.setAppLockWithType(true, LockType.pin);
       if (context.mounted) {
-        Navigator.of(context).pop();
+        context.pop();
         context.read<AppStateProvider>().setAuthenticated(true);
       }
     },
@@ -238,9 +238,9 @@ void _showPinVerifyToDisableLock(
     correctString: '0000',
     title: Text(t.lockScreenTitle),
     canCancel: true,
-    onCancelled: () => Navigator.of(context).pop(),
+    onCancelled: () => context.pop(),
     onUnlocked: () async {
-      Navigator.of(context).pop();
+      context.pop();
       await viewModel.setAppLockWithType(false, LockType.none);
       await viewModel.deletePin();
       if (context.mounted) {
