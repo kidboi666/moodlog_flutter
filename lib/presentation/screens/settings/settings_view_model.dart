@@ -6,6 +6,7 @@ import 'package:moodlog/domain/entities/app/settings.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/repositories/backup_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
@@ -17,6 +18,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   final UserProvider _userProvider;
   final TagUseCase _tagUseCase;
   final AnalyticsRepository _analyticsRepository;
+  final BackupRepository _backupRepository;
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
@@ -24,11 +26,13 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     required UserProvider userProvider,
     required TagUseCase tagUseCase,
     required AnalyticsRepository analyticsRepository,
+    required BackupRepository backupRepository,
   }) : _appStateProvider = appStateProvider,
        _settingsRepository = settingsRepository,
        _userProvider = userProvider,
        _tagUseCase = tagUseCase,
-       _analyticsRepository = analyticsRepository {
+       _analyticsRepository = analyticsRepository,
+       _backupRepository = backupRepository {
     getAllTags();
   }
 
@@ -139,8 +143,8 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     }, context: 'updateSettings');
   }
 
-  void performBackup() {
-    // TODO: 백업 기능
+  Future<void> backupData() async {
+    await executeAsync(() => _backupRepository.backup(), context: 'backupData');
   }
 
   void clearSharedPreferences() {

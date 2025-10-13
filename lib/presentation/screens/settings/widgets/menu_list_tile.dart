@@ -6,6 +6,7 @@ class MenuListTile extends StatelessWidget {
   final String subtitle;
   final IconData icon;
   final VoidCallback onTap;
+  final Widget? trailing;
 
   const MenuListTile({
     super.key,
@@ -13,6 +14,7 @@ class MenuListTile extends StatelessWidget {
     required this.subtitle,
     required this.icon,
     required this.onTap,
+    this.trailing,
   });
 
   @override
@@ -22,7 +24,7 @@ class MenuListTile extends StatelessWidget {
       leading: _buildLeadingIcong(context),
       title: Text(title),
       subtitle: Text(subtitle),
-      trailing: _buildTrailingIcon(context),
+      trailing: trailing ?? _buildTrailingIcon(context),
     );
   }
 

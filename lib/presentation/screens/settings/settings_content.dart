@@ -151,7 +151,15 @@ class _SettingsScreenContent extends StatelessWidget {
                             icon: Icons.backup,
                             onTap: () {
                               if (isProUser) {
-                                // TODO: Implement backup logic
+                                viewModel.backupData().then((_) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        t.snackbar_backup_completed,
+                                      ),
+                                    ),
+                                  );
+                                });
                               }
                             },
                             trailing: isProUser

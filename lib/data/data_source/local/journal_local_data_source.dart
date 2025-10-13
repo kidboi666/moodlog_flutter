@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
 import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 import 'package:moodlog/domain/models/update_journal_request.dart';
@@ -17,6 +18,16 @@ class JournalLocalDataSource {
   Future<List<Journal>> getJournals() async {
     try {
       return await _db.select(_db.journals).get();
+    } on SqliteException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<List<Tag>> getAllTags() async {
+    try {
+      return await _db.select(_db.tags).get();
     } on SqliteException catch (e) {
       throw Exception(e);
     } catch (e) {
