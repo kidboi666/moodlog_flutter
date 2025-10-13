@@ -62,7 +62,7 @@ class _StatisticsScreenContent extends StatelessWidget {
                     if (!isProUser) {
                       _showProFeatureDialog(context);
                     } else {
-                      // TODO: Navigate to AI Analysis Report Screen
+                      context.push(Routes.aiAnalysisReport);
                     }
                   },
                   trailing: isProUser

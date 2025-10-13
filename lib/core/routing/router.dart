@@ -14,6 +14,7 @@ import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
 import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
 import 'package:moodlog/presentation/screens/tags/tags_view.dart';
 import 'package:moodlog/presentation/screens/write/write_view.dart';
+import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
 import 'package:provider/provider.dart';
 
 GoRouter router(
@@ -106,6 +107,12 @@ GoRouter router(
       path: Routes.purchase,
       builder: (_, _) {
         return const PurchaseScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.aiAnalysisReport,
+      builder: (_, _) {
+        return const AiAnalysisReportScreen();
       },
     ),
   ],
