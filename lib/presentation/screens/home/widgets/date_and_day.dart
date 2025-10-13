@@ -58,25 +58,37 @@ class DateAndDay extends StatelessWidget {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(Roundness.lg),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Stack(
           children: [
-            Text(
-              date.getLocalizedWeekdayShortName(t),
-              style: TextStyle(
-                color: weekdayColor,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    date.getLocalizedWeekdayShortName(t),
+                    style: TextStyle(
+                      color: weekdayColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '${date.day}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Text(
-              '${date.day}',
-              style: TextStyle(fontWeight: FontWeight.bold, color: textColor),
-            ),
             if (journals != null && journals!.isNotEmpty)
-              MoodMarkers(journals: journals!)
-            else
-              const SizedBox(height: 6), // Placeholder to maintain alignment
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: MoodMarkers(journals: journals!),
+              ),
           ],
         ),
       ),
