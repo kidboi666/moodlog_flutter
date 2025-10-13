@@ -12,6 +12,7 @@ import 'package:moodlog/domain/repositories/journal_repository.dart';
 
 // Mocks
 class MockJournalRepository extends Mock implements JournalRepository {}
+
 class MockGeminiRepository extends Mock implements GeminiRepository {}
 
 void main() {
@@ -53,11 +54,15 @@ void main() {
         "emotionalPattern": "Pattern text",
         "tagCorrelation": "Correlation text",
       };
-      when(() => mockJournalRepository.getJournals())
-          .thenAnswer((_) async => Result.ok(testJournals));
-      when(() => mockGeminiRepository.generateResponse(
+      when(
+        () => mockJournalRepository.getJournals(),
+      ).thenAnswer((_) async => Result.ok(testJournals));
+      when(
+        () => mockGeminiRepository.generateResponse(
           prompt: any(named: 'prompt'),
-          moodType: any(named: 'moodType'))).thenAnswer((_) async => Result.ok(jsonEncode(aiResponse)));
+          moodType: any(named: 'moodType'),
+        ),
+      ).thenAnswer((_) async => Result.ok(jsonEncode(aiResponse)));
 
       // Act
       final result = await aiAnalysisRepository.getAnalysisReport();
@@ -68,23 +73,28 @@ void main() {
       expect(result.positiveKeywords, ["positive"]);
     });
 
-    test('should throw NotEnoughDataException when journals are less than 10', () async {
-      // Arrange
-      final notEnoughJournals = testJournals.sublist(0, 5);
-      when(() => mockJournalRepository.getJournals())
-          .thenAnswer((_) async => Result.ok(notEnoughJournals));
+    test(
+      'should throw NotEnoughDataException when journals are less than 10',
+      () async {
+        // Arrange
+        final notEnoughJournals = testJournals.sublist(0, 5);
+        when(
+          () => mockJournalRepository.getJournals(),
+        ).thenAnswer((_) async => Result.ok(notEnoughJournals));
 
-      // Act & Assert
-      expect(
-        () => aiAnalysisRepository.getAnalysisReport(),
-        throwsA(isA<NotEnoughDataException>()),
-      );
-    });
+        // Act & Assert
+        expect(
+          () => aiAnalysisRepository.getAnalysisReport(),
+          throwsA(isA<NotEnoughDataException>()),
+        );
+      },
+    );
 
     test('should throw exception when journal repository fails', () async {
       // Arrange
-      when(() => mockJournalRepository.getJournals())
-          .thenAnswer((_) async => Result.error(Exception('DB Error')));
+      when(
+        () => mockJournalRepository.getJournals(),
+      ).thenAnswer((_) async => Result.error(Exception('DB Error')));
 
       // Act & Assert
       expect(
@@ -95,11 +105,15 @@ void main() {
 
     test('should throw exception when gemini repository fails', () async {
       // Arrange
-      when(() => mockJournalRepository.getJournals())
-          .thenAnswer((_) async => Result.ok(testJournals));
-      when(() => mockGeminiRepository.generateResponse(
+      when(
+        () => mockJournalRepository.getJournals(),
+      ).thenAnswer((_) async => Result.ok(testJournals));
+      when(
+        () => mockGeminiRepository.generateResponse(
           prompt: any(named: 'prompt'),
-          moodType: any(named: 'moodType'))).thenAnswer((_) async => Result.error(Exception('AI Error')));
+          moodType: any(named: 'moodType'),
+        ),
+      ).thenAnswer((_) async => Result.error(Exception('AI Error')));
 
       // Act & Assert
       expect(

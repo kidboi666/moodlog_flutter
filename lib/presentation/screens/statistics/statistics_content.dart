@@ -54,28 +54,14 @@ class _StatisticsScreenContent extends StatelessWidget {
               child: SectionHeader(title: t.statistics_ai_report_title),
             ),
             SliverToBoxAdapter(
-              child: Consumer<StatisticsViewModel>(
-                builder: (context, viewModel, child) {
-                  final isProUser = viewModel.isProUser;
-                  return MenuListTile(
-                    title: t.statistics_ai_report_title,
-                    subtitle: t.statistics_ai_report_subtitle,
-                    icon: Icons.auto_awesome,
-                    onTap: () {
-                      if (!isProUser) {
-                        _showProFeatureDialog(context);
-                      } else {
-                        context.push(Routes.aiAnalysisReport);
-                      }
-                    },
-                    trailing: isProUser
-                        ? const Icon(Icons.arrow_forward_ios)
-                        : const Icon(
-                            Icons.workspace_premium,
-                            color: Colors.amber,
-                          ),
-                  );
+              child: MenuListTile(
+                title: t.statistics_ai_report_title,
+                subtitle: t.statistics_ai_report_subtitle,
+                icon: Icons.auto_awesome,
+                onTap: () {
+                  context.push(Routes.aiAnalysisReport);
                 },
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
             ),
             const SliverToBoxAdapter(
@@ -86,28 +72,4 @@ class _StatisticsScreenContent extends StatelessWidget {
       ),
     );
   }
-}
-
-void _showProFeatureDialog(BuildContext context) {
-  final t = AppLocalizations.of(context)!;
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('👑 ${t.proFeatureDialogTitle}'),
-      content: Text(t.proFeatureDialogContent),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(t.common_confirm_cancel),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            context.push(Routes.purchase);
-          },
-          child: Text(t.proFeatureDialogUpgradeButton),
-        ),
-      ],
-    ),
-  );
 }

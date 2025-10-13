@@ -6,9 +6,7 @@ class PurchaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MoodLog Pro'),
-      ),
+      appBar: AppBar(title: const Text('MoodLog Pro')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

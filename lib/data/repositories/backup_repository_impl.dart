@@ -123,7 +123,7 @@ class BackupRepositoryImpl implements BackupRepository {
       final map = data as Map<String, dynamic>;
       final journalId = map['id'] as int;
       final tagNames = (map['tagNames'] as List<dynamic>?)?.cast<String>();
-      if (journalId != null && tagNames != null && tagNames.isNotEmpty) {
+      if (tagNames != null && tagNames.isNotEmpty) {
         journalToTagsMap[journalId] = tagNames;
       }
     }

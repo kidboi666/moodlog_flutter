@@ -49,7 +49,9 @@ class DebugDataSeeder {
         final languageCode = t.localeName.split('_').first;
         final jsonFileName = 'assets/data/sample_journals_$languageCode.json';
 
-        _log.info('Loading seed data from: $jsonFileName (locale: ${t.localeName})');
+        _log.info(
+          'Loading seed data from: $jsonFileName (locale: ${t.localeName})',
+        );
         final jsonString = await rootBundle.loadString(jsonFileName);
         final List<dynamic> jsonList = json.decode(jsonString);
 

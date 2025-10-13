@@ -9,9 +9,7 @@ class _AiAnalysisReportContent extends StatelessWidget {
     final viewModel = context.watch<AiAnalysisReportViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.statistics_ai_report_title),
-      ),
+      appBar: AppBar(title: Text(t.statistics_ai_report_title)),
       body: _buildBody(context, viewModel),
     );
   }
@@ -27,10 +25,13 @@ class _AiAnalysisReportContent extends StatelessWidget {
         return _buildNotEnoughDataWidget(context);
       }
       return Center(
-          child: Text('Error: ${viewModel.error ?? 'Report not available.'}'));
+        child: Text('Error: ${viewModel.error ?? 'Report not available.'}'),
+      );
     }
     if (viewModel.report == null) {
-      return const Center(child: Text('Report not available.')); // Should not happen if not loading/error
+      return const Center(
+        child: Text('Report not available.'),
+      ); // Should not happen if not loading/error
     }
 
     final report = viewModel.report!;
@@ -117,17 +118,15 @@ class _AiAnalysisReportContent extends StatelessWidget {
               children: [
                 Icon(icon, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text(title, style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
             const Divider(height: 24),
             Text(
               content,
-              style:
-                  Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
           ],
         ),
@@ -155,10 +154,7 @@ class _AiAnalysisReportContent extends StatelessWidget {
               children: [
                 Icon(icon, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text(title, style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
             const Divider(height: 24),
@@ -172,11 +168,13 @@ class _AiAnalysisReportContent extends StatelessWidget {
                 spacing: 8.0,
                 runSpacing: 4.0,
                 children: keywords
-                    .map((keyword) => Chip(
-                          label: Text(keyword),
-                          backgroundColor: color,
-                          side: BorderSide.none,
-                        ))
+                    .map(
+                      (keyword) => Chip(
+                        label: Text(keyword),
+                        backgroundColor: color,
+                        side: BorderSide.none,
+                      ),
+                    )
                     .toList(),
               ),
           ],

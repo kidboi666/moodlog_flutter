@@ -19,7 +19,7 @@ class UnifiedCalendarWidget extends StatelessWidget {
 // 가로 스크롤 뷰
 
 class _HorizontalView extends StatefulWidget {
-  const _HorizontalView({super.key});
+  const _HorizontalView();
 
   @override
   State<_HorizontalView> createState() => _HorizontalViewState();

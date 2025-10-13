@@ -49,38 +49,16 @@ class _SettingsScreenContent extends StatelessWidget {
                   ),
                 ],
 
-                Consumer<SettingsViewModel>(
-                  builder: (context, viewModel, child) {
-                    final isProUser = viewModel.appState.isProUser;
-                    return GestureDetector(
-                      onTap: () {
-                        if (!isProUser) {
-                          _showProFeatureDialog(context);
-                        }
-                      },
-                      child: AbsorbPointer(
-                        absorbing: !isProUser,
-                        child: SwitchTile(
-                          title: t.settings_common_app_lock_title,
-                          subtitle: t.settings_common_app_lock_subtitle,
-                          icon: Icons.lock,
-                          value:
-                              isProUser && viewModel.appState.isAppLockEnabled,
-                          onChanged: (value) {
-                            if (isProUser) {
-                              viewModel.setAppLockEnabled(value);
-                            }
-                          },
-                          trailing: isProUser
-                              ? null
-                              : const Icon(
-                                  Icons.workspace_premium,
-                                  color: Colors.amber,
-                                ),
-                        ),
-                      ),
-                    );
-                  },
+                SwitchTile(
+                  title: t.settings_common_app_lock_title,
+                  subtitle: t.settings_common_app_lock_subtitle,
+                  icon: Icons.lock,
+                  value: context.select(
+                    (SettingsViewModel vm) => vm.appState.isAppLockEnabled,
+                  ),
+                  onChanged: context
+                      .read<SettingsViewModel>()
+                      .setAppLockEnabled,
                 ),
                 DialogTile(
                   title: t.settings_common_theme_title,
@@ -134,147 +112,70 @@ class _SettingsScreenContent extends StatelessWidget {
                     value: viewModel.appState.hasAutoSyncEnabled,
                     onChanged: viewModel.setAutoSyncEnabled,
                   ),
-                  Consumer<SettingsViewModel>(
-                    builder: (context, viewModel, child) {
-                      final isProUser = viewModel.appState.isProUser;
-                      return GestureDetector(
-                        onTap: () {
-                          if (!isProUser) {
-                            _showProFeatureDialog(context);
-                          }
-                        },
-                        child: AbsorbPointer(
-                          absorbing: !isProUser,
-                          child: MenuListTile(
-                            title: t.settings_data_backup_title,
-                            subtitle: t.settings_data_backup_subtitle,
-                            icon: Icons.backup,
-                            onTap: () async {
-                              if (isProUser) {
-                                _showLoadingDialog(
-                                    context, t.backup_in_progress);
-                                try {
-                                  await viewModel.backupData();
-                                  Navigator.of(context).pop(); // Close dialog
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content:
-                                          Text(t.snackbar_backup_completed),
-                                    ),
-                                  );
-                                } catch (e) {
-                                  Navigator.of(context).pop(); // Close dialog
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(t.backup_failed),
-                                      backgroundColor:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                                  );
-                                }
-                              }
-                            },
-                            trailing: isProUser
-                                ? null
-                                : const Icon(
-                                    Icons.workspace_premium,
-                                    color: Colors.amber,
-                                  ),
+                  MenuListTile(
+                    title: t.settings_data_backup_title,
+                    subtitle: t.settings_data_backup_subtitle,
+                    icon: Icons.backup,
+                    onTap: () async {
+                      _showLoadingDialog(context, t.backup_in_progress);
+                      try {
+                        await viewModel.backupData();
+                        Navigator.of(context).pop(); // Close dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(t.snackbar_backup_completed)),
+                        );
+                      } catch (e) {
+                        Navigator.of(context).pop(); // Close dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(t.backup_failed),
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.error,
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
-                  Consumer<SettingsViewModel>(
-                    builder: (context, viewModel, child) {
-                      final isProUser = viewModel.appState.isProUser;
-                      return GestureDetector(
-                        onTap: () {
-                          if (!isProUser) {
-                            _showProFeatureDialog(context);
-                          }
-                        },
-                        child: AbsorbPointer(
-                          absorbing: !isProUser,
-                          child: MenuListTile(
-                            title: t.settings_data_restore_title,
-                            subtitle: t.settings_data_restore_subtitle,
-                            icon: Icons.restore,
-                            onTap: () async {
-                              if (isProUser) {
-                                _showLoadingDialog(
-                                    context, t.restore_in_progress);
-                                try {
-                                  await viewModel.restoreData();
-                                  Navigator.of(context).pop(); // Close dialog
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content:
-                                          Text(t.snackbar_restore_completed),
-                                    ),
-                                  );
-                                } catch (e) {
-                                  Navigator.of(context).pop(); // Close dialog
-                                  final errorMessage = e
-                                          .toString()
-                                          .contains('No backup found')
-                                      ? t.restore_failed_no_backup
-                                      : t.restore_failed_general;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(errorMessage),
-                                      backgroundColor:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                                  );
-                                }
-                              }
-                            },
-                            trailing: isProUser
-                                ? null
-                                : const Icon(
-                                    Icons.workspace_premium,
-                                    color: Colors.amber,
-                                  ),
+                  MenuListTile(
+                    title: t.settings_data_restore_title,
+                    subtitle: t.settings_data_restore_subtitle,
+                    icon: Icons.restore,
+                    onTap: () async {
+                      _showLoadingDialog(context, t.restore_in_progress);
+                      try {
+                        await viewModel.restoreData();
+                        Navigator.of(context).pop(); // Close dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(t.snackbar_restore_completed)),
+                        );
+                      } catch (e) {
+                        Navigator.of(context).pop(); // Close dialog
+                        final errorMessage =
+                            e.toString().contains('No backup found')
+                            ? t.restore_failed_no_backup
+                            : t.restore_failed_general;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(errorMessage),
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.error,
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
-                                    ),
-                                  ],
-                  
-                                  const SizedBox(height: kBottomNavigationBarHeight * 6),
-                                ]),
-                              ),
+                  ),
+                ],
+
+                const SizedBox(height: kBottomNavigationBarHeight * 6),
+              ]),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-void _showProFeatureDialog(BuildContext context) {
-  final t = AppLocalizations.of(context)!;
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('👑 ${t.proFeatureDialogTitle}'),
-      content: Text(t.proFeatureDialogContent),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(t.common_confirm_cancel),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            context.push(Routes.purchase);
-          },
-          child: Text(t.proFeatureDialogUpgradeButton),
-        ),
-      ],
-    ),
-  );
 }
 
 void _showLoadingDialog(BuildContext context, String message) {

@@ -265,7 +265,9 @@ class JournalLocalDataSource {
   }
 
   Future<void> insertJournalsAndTags(
-      List<JournalsCompanion> journals, List<TagsCompanion> tags) async {
+    List<JournalsCompanion> journals,
+    List<TagsCompanion> tags,
+  ) async {
     try {
       await _db.batch((batch) {
         batch.insertAll(_db.journals, journals, mode: InsertMode.replace);
@@ -279,7 +281,9 @@ class JournalLocalDataSource {
     }
   }
 
-  Future<void> linkJournalsToTags(Map<int, List<String>> journalToTagsMap) async {
+  Future<void> linkJournalsToTags(
+    Map<int, List<String>> journalToTagsMap,
+  ) async {
     try {
       await _db.batch((batch) async {
         for (final entry in journalToTagsMap.entries) {
@@ -288,7 +292,9 @@ class JournalLocalDataSource {
 
           if (tagNames.isEmpty) continue;
 
-          final tags = await (_db.select(_db.tags)..where((t) => t.name.isIn(tagNames))).get();
+          final tags = await (_db.select(
+            _db.tags,
+          )..where((t) => t.name.isIn(tagNames))).get();
           final tagIds = tags.map((t) => t.id).toList();
 
           for (final tagId in tagIds) {

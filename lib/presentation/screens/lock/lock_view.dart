@@ -70,8 +70,8 @@ class _LockScreenState extends State<LockScreen> {
             Text(
               t.lockScreenProFeature,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).hintColor,
-                  ),
+                color: Theme.of(context).hintColor,
+              ),
             ),
           ],
         ),
