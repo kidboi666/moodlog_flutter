@@ -40,7 +40,6 @@ class JournalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    debugPrint(tags?[0].name);
     final double horizontalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double verticalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double imageHeight = isCompact ? 80 : 120;

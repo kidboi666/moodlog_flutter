@@ -49,24 +49,26 @@ class _StatisticsScreenContent extends StatelessWidget {
                 );
               },
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
-            SliverToBoxAdapter(
-              child: SectionHeader(title: t.statistics_ai_report_title),
-            ),
-            SliverToBoxAdapter(
-              child: MenuListTile(
-                title: t.statistics_ai_report_title,
-                subtitle: t.statistics_ai_report_subtitle,
-                icon: Icons.auto_awesome,
-                onTap: () {
-                  context.push(Routes.aiAnalysisReport);
-                },
-                trailing: const Icon(Icons.arrow_forward_ios),
+            if (kDebugMode) ...[
+              const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
+              SliverToBoxAdapter(
+                child: SectionHeader(title: t.statistics_ai_report_title),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: kBottomNavigationBarHeight),
-            ),
+              SliverToBoxAdapter(
+                child: MenuListTile(
+                  title: t.statistics_ai_report_title,
+                  subtitle: t.statistics_ai_report_subtitle,
+                  icon: Icons.auto_awesome,
+                  onTap: () {
+                    context.push(Routes.aiAnalysisReport);
+                  },
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: kBottomNavigationBarHeight),
+              ),
+            ],
           ],
         ),
       ),
