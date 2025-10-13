@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
+import 'package:moodlog/presentation/screens/home/widgets/calendar_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/home/widgets/title_bar.dart';
 import 'package:provider/provider.dart';
-
-import 'package:moodlog/presentation/screens/home/widgets/calendar_bottom_sheet.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
@@ -37,6 +35,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
+                    clipBehavior: Clip.hardEdge,
                     builder: (_) => ChangeNotifierProvider.value(
                       value: viewModel,
                       child: const CalendarBottomSheet(),

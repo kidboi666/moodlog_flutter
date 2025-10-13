@@ -51,7 +51,12 @@ class JournalRepositoryImpl implements JournalRepository {
         startOfMonth,
         endOfMonth,
       );
-      return Result.ok(journals);
+      final journalsWithTags = <Journal>[];
+      for (final journal in journals) {
+        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
+        journalsWithTags.add(journal.attachTags(tags));
+      }
+      return Result.ok(journalsWithTags);
     } catch (e) {
       return Result.error(Exception('Failed to get journals: $e'));
     }
