@@ -146,6 +146,30 @@ flutter build apk       # Build Android APK
 - Use Provider for state management
 - **Avoid unnecessary comments**: Write self-explanatory code. Only add comments for complex logic, important business rules, or non-obvious implementations
 
+### Freezed Usage Convention
+
+When creating a class using the `freezed` package, it must be defined as an `abstract class` with a `mixin`. Using a plain class can lead to unexpected build errors.
+
+```dart
+// ✅ Good
+@freezed
+abstract class User with _$User {
+  const factory User({
+    required String name,
+    required int age,
+  }) = _User;
+}
+
+// ❌ Avoid
+@freezed
+class User with _$User {
+  const factory User({
+    required String name,
+    required int age,
+  }) = _User;
+}
+```
+
 ### Provider Usage Convention
 
 When using Provider for state management, prefer `context.select` over `context.watch` to optimize widget rebuilds:

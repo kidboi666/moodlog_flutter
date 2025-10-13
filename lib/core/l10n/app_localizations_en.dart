@@ -1033,6 +1033,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Let AI analyze your mood patterns in depth.';
 
   @override
+  String get ai_report_positive_keywords => 'Positive Keywords';
+
+  @override
+  String get ai_report_negative_keywords => 'Negative Keywords';
+
+  @override
   String get home_representative_mood_title => 'My Current Emotion';
 
   @override

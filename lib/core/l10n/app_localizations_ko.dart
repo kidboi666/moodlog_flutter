@@ -995,6 +995,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_ai_report_subtitle => 'AI가 당신의 감정 패턴을 심도있게 분석해드려요.';
 
   @override
+  String get ai_report_positive_keywords => '긍정 키워드';
+
+  @override
+  String get ai_report_negative_keywords => '부정 키워드';
+
+  @override
   String get home_representative_mood_title => '나의 현재 감정';
 
   @override

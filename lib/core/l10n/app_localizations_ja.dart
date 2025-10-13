@@ -996,6 +996,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_ai_report_subtitle => 'AIがあなたの感情パターンを深く分析します。';
 
   @override
+  String get ai_report_positive_keywords => 'ポジティブキーワード';
+
+  @override
+  String get ai_report_negative_keywords => 'ネガティブキーワード';
+
+  @override
   String get home_representative_mood_title => '私の現在の感情';
 
   @override

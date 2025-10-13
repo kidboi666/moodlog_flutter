@@ -1966,6 +1966,18 @@ abstract class AppLocalizations {
   /// **'Let AI analyze your mood patterns in depth.'**
   String get statistics_ai_report_subtitle;
 
+  /// No description provided for @ai_report_positive_keywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Positive Keywords'**
+  String get ai_report_positive_keywords;
+
+  /// No description provided for @ai_report_negative_keywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Negative Keywords'**
+  String get ai_report_negative_keywords;
+
   /// No description provided for @home_representative_mood_title.
   ///
   /// In en, this message translates to:
