@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/gradient_box.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/date_and_day.dart';
+import 'package:moodlog/presentation/widgets/gradient_box.dart';
 import 'package:provider/provider.dart';
 
 class UnifiedCalendarWidget extends StatelessWidget {

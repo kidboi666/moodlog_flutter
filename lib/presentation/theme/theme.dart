@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/ui/theme/colors.dart';
+import 'package:moodlog/presentation/theme/colors.dart';
 
 abstract final class AppTheme {
   static ThemeData lightTheme(FontFamily fontFamily) {

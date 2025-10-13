@@ -5,13 +5,13 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/routing/routes.dart';
-import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/core/ui/widgets/pop_button.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view_model.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/ai_response_box.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/content_box.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/dialog/delete_confirm_dialog.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/mood_bar.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
+import 'package:moodlog/presentation/widgets/pop_button.dart';
 import 'package:provider/provider.dart';
 
 part 'journal_content.dart';

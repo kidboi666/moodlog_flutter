@@ -6,8 +6,8 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/tag_chip.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/presentation/widgets/tag_chip.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;

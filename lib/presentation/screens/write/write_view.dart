@@ -3,14 +3,14 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing.dart';
-import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/core/ui/widgets/pop_button.dart';
 import 'package:moodlog/presentation/screens/write/widgets/ai_enable_card.dart';
 import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/write/widgets/content_input.dart';
 import 'package:moodlog/presentation/screens/write/widgets/editor_bottom_panel.dart';
 import 'package:moodlog/presentation/screens/write/widgets/image_preview_section.dart';
 import 'package:moodlog/presentation/screens/write/write_view_model.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
+import 'package:moodlog/presentation/widgets/pop_button.dart';
 import 'package:provider/provider.dart';
 
 part 'write_content.dart';

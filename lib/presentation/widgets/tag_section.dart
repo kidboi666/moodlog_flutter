@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/ui/widgets/tag_chip.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/presentation/widgets/tag_chip.dart';
 
 class TagSection extends StatelessWidget {
   final List<Tag> tags;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:moodlog/core/services/admob_service.dart';
-import 'package:moodlog/core/ui/widgets/skeleton.dart';
+import 'package:moodlog/presentation/widgets/skeleton.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});

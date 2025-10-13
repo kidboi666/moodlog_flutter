@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/ui/widgets/spinner.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
+import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 class WeatherWidget extends StatelessWidget {

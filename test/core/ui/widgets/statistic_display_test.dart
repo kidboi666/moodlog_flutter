@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodlog/core/ui/widgets/statistic_display.dart';
+import 'package:moodlog/presentation/widgets/statistic_display.dart';
 
 void main() {
   group('StatisticDisplay', () {

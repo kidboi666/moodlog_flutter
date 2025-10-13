@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/routing.dart';
-import 'package:moodlog/core/ui/widgets/empty_entries_box.dart';
-import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/core/ui/widgets/journal_card.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
+import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
+import 'package:moodlog/presentation/widgets/journal_card.dart';
 import 'package:provider/provider.dart';
 
 class JournalSliverList extends StatelessWidget {
@@ -33,7 +33,7 @@ class JournalSliverList extends StatelessWidget {
     if (journal.isEmpty) {
       return SliverToBoxAdapter(
         child: FadeIn(
-          delay: isFirstRender ? DelayMS.medium * 5 : DelayMS.medium,
+          delay: isFirstRender ? DelayMS.medium * 4 : DelayMS.medium,
           child: EmptyEntriesBox(
             isDisabled: isSelectedDateInFuture,
             selectedDate: selectedDate,

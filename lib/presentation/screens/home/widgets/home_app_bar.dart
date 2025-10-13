@@ -5,6 +5,7 @@ import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/calendar_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/home/widgets/waving_hand.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -27,12 +28,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               t.home_selection_count(selectedJournalIds.length),
               style: Theme.of(context).textTheme.titleLarge,
             )
-          : Row(
-              spacing: Spacing.sm,
-              children: [
-                Text(t.home_hello, style: TextTheme.of(context).displaySmall),
-                const WavingHand(),
-              ],
+          : FadeIn(
+              child: Row(
+                spacing: Spacing.sm,
+                children: [
+                  Text(t.home_hello, style: TextTheme.of(context).displaySmall),
+                  const WavingHand(),
+                ],
+              ),
             ),
       automaticallyImplyLeading: false,
       actions: isSelectionMode

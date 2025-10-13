@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/routing/routes.dart';
-import 'package:moodlog/core/ui/widgets/fade_in.dart';
-import 'package:moodlog/core/ui/widgets/spinner.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view_model.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
+import 'package:moodlog/presentation/widgets/spinner.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingPageViewSuccess extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/base_settings_dialog.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
+import 'package:moodlog/presentation/widgets/base_settings_dialog.dart';
 
 class LanguageDialog extends StatelessWidget {
   final SettingsViewModel viewModel;

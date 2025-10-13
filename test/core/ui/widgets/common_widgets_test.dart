@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/ui/widgets/common_widgets.dart';
+import 'package:moodlog/presentation/widgets/common_widgets.dart';
 
 void main() {
   group('CommonSizedBox', () {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/ui/widgets/scale_wrapper.dart';
+import 'package:moodlog/presentation/widgets/scale_wrapper.dart';
 
 extension WidgetScaleExtension on Widget {
   Widget scale({

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/ui/widgets/fade_in.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/app_drawer.dart';
 import 'package:moodlog/presentation/screens/home/widgets/home_app_bar.dart';
@@ -8,6 +7,7 @@ import 'package:moodlog/presentation/screens/home/widgets/home_floating_action_b
 import 'package:moodlog/presentation/screens/home/widgets/journal_sliver_list.dart';
 import 'package:moodlog/presentation/screens/home/widgets/unified_calendar.dart';
 import 'package:moodlog/presentation/screens/home/widgets/welcome_zone.dart';
+import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 
 part 'home_content.dart';

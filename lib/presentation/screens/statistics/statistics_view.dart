@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/glower.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view_model.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/average_mood_card.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/current_streak_card.dart';
@@ -12,6 +11,7 @@ import 'package:moodlog/presentation/screens/statistics/widgets/representative_m
 import 'package:moodlog/presentation/screens/statistics/widgets/total_records_card.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/writing_frequency_card.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/yearly_journal_tracker.dart';
+import 'package:moodlog/presentation/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
 part 'statistics_content.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/ui/widgets/error_dialog.dart';
+import 'package:moodlog/presentation/widgets/error_dialog.dart';
 
 /// 에러 처리를 위한 유틸리티 클래스
 class ErrorHandler {

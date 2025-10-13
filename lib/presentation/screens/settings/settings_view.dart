@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/glower.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/ai_personality_dialog.dart';
@@ -18,6 +17,7 @@ import 'package:moodlog/presentation/screens/settings/widgets/dialog_tile.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/menu_list_tile.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/section_header.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/switch_tile.dart';
+import 'package:moodlog/presentation/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
 part 'settings_content.dart';

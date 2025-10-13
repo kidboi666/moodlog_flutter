@@ -1,1 +1,1 @@
-export '../../../../core/ui/widgets/base_card.dart';
+export '../../../widgets/base_card.dart';

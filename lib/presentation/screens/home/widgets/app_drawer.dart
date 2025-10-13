@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/routing/routes.dart';
-import 'package:moodlog/core/ui/widgets/banner_ad_widget.dart';
 import 'package:moodlog/presentation/screens/home/widgets/app_info_footer.dart';
 import 'package:moodlog/presentation/screens/home/widgets/weather_widget.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/contact_dialog.dart';
+import 'package:moodlog/presentation/widgets/banner_ad_widget.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

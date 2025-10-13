@@ -3,11 +3,11 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/core/ui/widgets/empty_entries_box.dart';
-import 'package:moodlog/core/ui/widgets/journal_card.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/mood_markers.dart';
+import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
+import 'package:moodlog/presentation/widgets/journal_card.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -76,14 +76,6 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                 ),
               ),
               calendarStyle: CalendarStyle(
-                defaultDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                weekendDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
                 defaultTextStyle: TextStyle(
                   color: theme.colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
@@ -98,16 +90,14 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                 ),
                 todayDecoration: BoxDecoration(
                   color: theme.colorScheme.primary.withAlpha(204),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
+                  shape: BoxShape.circle,
                 ),
                 todayTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ).copyWith(color: theme.colorScheme.onPrimary),
                 selectedDecoration: BoxDecoration(
                   color: theme.colorScheme.onSurface,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8.0),
+                  shape: BoxShape.circle,
                 ),
                 selectedTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold,

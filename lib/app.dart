@@ -7,9 +7,9 @@ import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/observers/app_lifecycle_observer.dart';
 import 'package:moodlog/core/routing/router.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
-import 'package:moodlog/core/ui/theme/theme.dart';
 import 'package:moodlog/core/utils/keyboard_utils.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:moodlog/presentation/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class MoodLogApp extends StatefulWidget {
@@ -47,11 +47,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
   @override
   Widget build(BuildContext context) {
-    final (
-      :languageCode,
-      :fontFamily,
-      :themeMode,
-    ) = context.select(
+    final (:languageCode, :fontFamily, :themeMode) = context.select(
       (AppStateProvider provider) => (
         languageCode: provider.appState.languageCode,
         fontFamily: provider.appState.fontFamily,
