@@ -522,5 +522,21 @@
   "lockScreenRetry": "Retry",
   "proFeatureDialogTitle": "Pro Feature",
   "proFeatureDialogContent": "App Lock is a Pro feature. Upgrade to enjoy all premium features!",
-  "proFeatureDialogUpgradeButton": "Upgrade"
+  "proFeatureDialogUpgradeButton": "Upgrade",
+  "home_selection_count": "{count} selected",
+  "@home_selection_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "home_delete_journals_confirm_message": "Are you sure you want to delete {count} journal entries?",
+  "@home_delete_journals_confirm_message": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

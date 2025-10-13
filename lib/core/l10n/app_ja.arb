@@ -522,5 +522,21 @@
   "lockScreenRetry": "再試行",
   "proFeatureDialogTitle": "プロ機能のご案内",
   "proFeatureDialogContent": "アプリロックはプロプラン専用機能です。アップグレードして、すべてのプレミアム機能をご利用ください！",
-  "proFeatureDialogUpgradeButton": "アップグレード"
+  "proFeatureDialogUpgradeButton": "アップグレード",
+  "home_selection_count": "{count}件選択",
+  "@home_selection_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "home_delete_journals_confirm_message": "{count}件の日記を削除しますか？",
+  "@home_delete_journals_confirm_message": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

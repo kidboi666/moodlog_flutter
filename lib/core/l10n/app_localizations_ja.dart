@@ -1155,4 +1155,14 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get proFeatureDialogUpgradeButton => 'アップグレード';
+
+  @override
+  String home_selection_count(int count) {
+    return '$count件選択';
+  }
+
+  @override
+  String home_delete_journals_confirm_message(int count) {
+    return '$count件の日記を削除しますか？';
+  }
 }

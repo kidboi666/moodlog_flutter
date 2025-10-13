@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/screens/home/widgets/calendar_bottom_sheet.dart';
-import 'package:moodlog/presentation/screens/home/widgets/title_bar.dart';
+import 'package:moodlog/presentation/screens/home/widgets/waving_hand.dart';
 import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,6 +12,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final viewModel = context.watch<HomeViewModel>();
     final (:isSelectionMode, :selectedJournalIds) = context.select(
       (HomeViewModel vm) => (
@@ -21,10 +24,16 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: isSelectionMode
           ? Text(
-              '${selectedJournalIds.length} selected',
+              t.home_selection_count(selectedJournalIds.length),
               style: Theme.of(context).textTheme.titleLarge,
             )
-          : const TitleBar(),
+          : Row(
+              spacing: Spacing.sm,
+              children: [
+                Text(t.home_hello, style: TextTheme.of(context).displaySmall),
+                const WavingHand(),
+              ],
+            ),
       automaticallyImplyLeading: false,
       actions: isSelectionMode
           ? const [_CancelSelectionButton(), _DeleteSelectionButton()]
@@ -74,6 +83,7 @@ class _DeleteSelectionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final viewModel = context.read<HomeViewModel>();
     return IconButton(
       icon: const Icon(Icons.delete),
@@ -82,18 +92,20 @@ class _DeleteSelectionButton extends StatelessWidget {
           context: context,
           builder: (_) {
             return AlertDialog(
-              title: const Text("Confirm Deletion"),
+              title: Text(t.journal_delete_confirm_title),
               content: Text(
-                "Are you sure you want to delete ${viewModel.selectedJournalIds.length} journal entries?",
+                t.home_delete_journals_confirm_message(
+                  viewModel.selectedJournalIds.length,
+                ),
               ),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => context.pop(false),
-                  child: const Text("Cancel"),
+                  child: Text(t.common_confirm_cancel),
                 ),
                 TextButton(
                   onPressed: () => context.pop(true),
-                  child: const Text("Delete"),
+                  child: Text(t.common_confirm_delete),
                 ),
               ],
             );

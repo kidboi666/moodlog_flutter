@@ -1154,4 +1154,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get proFeatureDialogUpgradeButton => '업그레이드';
+
+  @override
+  String home_selection_count(int count) {
+    return '$count개 선택됨';
+  }
+
+  @override
+  String home_delete_journals_confirm_message(int count) {
+    return '$count개의 일기를 삭제하시겠습니까?';
+  }
 }

@@ -522,5 +522,21 @@
   "lockScreenRetry": "재시도",
   "proFeatureDialogTitle": "Pro 기능 안내",
   "proFeatureDialogContent": "앱 잠금은 Pro 플랜 사용자 전용 기능입니다. 업그레이드하고 모든 프리미엄 기능을 이용해보세요!",
-  "proFeatureDialogUpgradeButton": "업그레이드"
+  "proFeatureDialogUpgradeButton": "업그레이드",
+  "home_selection_count": "{count}개 선택됨",
+  "@home_selection_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "home_delete_journals_confirm_message": "{count}개의 일기를 삭제하시겠습니까?",
+  "@home_delete_journals_confirm_message": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

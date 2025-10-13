@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum WavingHandAnimationType {
-  shake, // Shakes a few times
-  wave, // Waves continuously
-}
+enum WavingHandAnimationType { shake, wave }
 
 class WavingHand extends StatefulWidget {
   final String emoji;
@@ -71,7 +68,7 @@ class _WavingHandState extends State<WavingHand>
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: Tween<double>(
-        begin: -0.1,
+        begin: 0,
         end: 0.15,
       ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut)),
       child: Text(widget.emoji, style: TextStyle(fontSize: widget.size)),

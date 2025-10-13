@@ -2259,6 +2259,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade'**
   String get proFeatureDialogUpgradeButton;
+
+  /// No description provided for @home_selection_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String home_selection_count(int count);
+
+  /// No description provided for @home_delete_journals_confirm_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} journal entries?'**
+  String home_delete_journals_confirm_message(int count);
 }
 
 class _AppLocalizationsDelegate
