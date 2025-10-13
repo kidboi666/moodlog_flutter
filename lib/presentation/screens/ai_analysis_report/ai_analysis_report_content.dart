@@ -1,21 +1,7 @@
 part of 'ai_analysis_report_view.dart';
 
-class _AiAnalysisReportContent extends StatefulWidget {
+class _AiAnalysisReportContent extends StatelessWidget {
   const _AiAnalysisReportContent();
-
-  @override
-  State<_AiAnalysisReportContent> createState() =>
-      _AiAnalysisReportContentState();
-}
-
-class _AiAnalysisReportContentState extends State<_AiAnalysisReportContent> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AiAnalysisReportViewModel>().fetchReport(context);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +17,23 @@ class _AiAnalysisReportContentState extends State<_AiAnalysisReportContent> {
   }
 
   Widget _buildBody(BuildContext context, AiAnalysisReportViewModel viewModel) {
+    final t = AppLocalizations.of(context)!;
+
     if (viewModel.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (viewModel.hasError || viewModel.report == null) {
+    if (viewModel.hasError) {
+      if (viewModel.errorMessage != null) {
+        return _buildNotEnoughDataWidget(context);
+      }
       return Center(
           child: Text('Error: ${viewModel.error ?? 'Report not available.'}'));
     }
+    if (viewModel.report == null) {
+      return const Center(child: Text('Report not available.')); // Should not happen if not loading/error
+    }
 
     final report = viewModel.report!;
-    final t = AppLocalizations.of(context)!;
-
-    // Check if there is enough data for analysis
-    if (report.summary == t.ai_report_not_enough_data) {
-      return _buildNotEnoughDataWidget(context);
-    }
 
     return ListView(
       padding: const EdgeInsets.all(16.0),

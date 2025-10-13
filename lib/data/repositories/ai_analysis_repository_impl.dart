@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/ai_analysis_report.dart';
+import 'package:moodlog/domain/exceptions/not_enough_data_exception.dart';
 import 'package:moodlog/domain/repositories/ai_analysis_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
@@ -19,8 +18,7 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
         _geminiRepository = geminiRepository;
 
   @override
-  Future<AiAnalysisReport> getAnalysisReport(BuildContext context) async {
-    final t = AppLocalizations.of(context)!;
+  Future<AiAnalysisReport> getAnalysisReport() async {
     final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
     final journalsResult = await _journalRepository.getJournals();
 
@@ -34,20 +32,13 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
         .toList();
 
     if (journals.length < 10) {
-      // Not enough data to analyze
-      return AiAnalysisReport(
-        summary: t.ai_report_not_enough_data,
-        positiveKeywords: [],
-        negativeKeywords: [],
-        emotionalPattern: '',
-        tagCorrelation: '',
-      );
+      throw NotEnoughDataException('Not enough journals to analyze.');
     }
 
     final prompt = _buildPrompt(journals);
     final aiResult = await _geminiRepository.generateResponse(
       prompt: prompt,
-      moodType: journals.first.moodType, // MoodType is required, but not critical for this prompt
+      moodType: journals.first.moodType,
     );
 
     switch (aiResult) {
