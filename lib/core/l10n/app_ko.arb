@@ -462,6 +462,8 @@
   "statistics_ai_report_subtitle": "AI가 당신의 감정 패턴을 심도있게 분석해드려요.",
   "ai_report_positive_keywords": "긍정 키워드",
   "ai_report_negative_keywords": "부정 키워드",
+  "ai_report_no_keywords": "발견된 키워드가 없습니다.",
+  "ai_report_not_enough_data": "분석할 데이터가 충분하지 않습니다. 30일 동안 10개 이상의 일기를 작성해주세요.",
   "home_representative_mood_title": "나의 현재 감정",
   "home_representative_mood_description": "최근 30일 감정 분석 결과",
   "home_representative_mood_empty": "감정 기록 없음",

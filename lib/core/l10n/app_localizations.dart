@@ -1978,6 +1978,18 @@ abstract class AppLocalizations {
   /// **'Negative Keywords'**
   String get ai_report_negative_keywords;
 
+  /// No description provided for @ai_report_no_keywords.
+  ///
+  /// In en, this message translates to:
+  /// **'No keywords found.'**
+  String get ai_report_no_keywords;
+
+  /// No description provided for @ai_report_not_enough_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough data to analyze. Please write more than 10 journals in 30 days.'**
+  String get ai_report_not_enough_data;
+
   /// No description provided for @home_representative_mood_title.
   ///
   /// In en, this message translates to:

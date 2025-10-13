@@ -1039,6 +1039,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ai_report_negative_keywords => 'Negative Keywords';
 
   @override
+  String get ai_report_no_keywords => 'No keywords found.';
+
+  @override
+  String get ai_report_not_enough_data =>
+      'Not enough data to analyze. Please write more than 10 journals in 30 days.';
+
+  @override
   String get home_representative_mood_title => 'My Current Emotion';
 
   @override

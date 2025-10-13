@@ -1001,6 +1001,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get ai_report_negative_keywords => '부정 키워드';
 
   @override
+  String get ai_report_no_keywords => '발견된 키워드가 없습니다.';
+
+  @override
+  String get ai_report_not_enough_data =>
+      '분석할 데이터가 충분하지 않습니다. 30일 동안 10개 이상의 일기를 작성해주세요.';
+
+  @override
   String get home_representative_mood_title => '나의 현재 감정';
 
   @override

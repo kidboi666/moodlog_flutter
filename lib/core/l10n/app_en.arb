@@ -462,6 +462,8 @@
   "statistics_ai_report_subtitle": "Let AI analyze your mood patterns in depth.",
   "ai_report_positive_keywords": "Positive Keywords",
   "ai_report_negative_keywords": "Negative Keywords",
+  "ai_report_no_keywords": "No keywords found.",
+  "ai_report_not_enough_data": "Not enough data to analyze. Please write more than 10 journals in 30 days.",
   "home_representative_mood_title": "My Current Emotion",
   "home_representative_mood_description": "Analysis of the last 30 days of emotions",
   "home_representative_mood_empty": "No emotional record",

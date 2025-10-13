@@ -1002,6 +1002,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get ai_report_negative_keywords => 'ネガティブキーワード';
 
   @override
+  String get ai_report_no_keywords => 'キーワードが見つかりませんでした。';
+
+  @override
+  String get ai_report_not_enough_data =>
+      '分析するのに十分なデータがありません。30日間に10件以上の日記を書いてください。';
+
+  @override
   String get home_representative_mood_title => '私の現在の感情';
 
   @override
