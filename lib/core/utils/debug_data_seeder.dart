@@ -46,9 +46,11 @@ class DebugDataSeeder {
     if (isEmpty) {
       _log.info('No journals found. Seeding sample data...');
       try {
-        final jsonString = await rootBundle.loadString(
-          'assets/data/sample_journals.json',
-        );
+        final languageCode = t.localeName.split('_').first;
+        final jsonFileName = 'assets/data/sample_journals_$languageCode.json';
+
+        _log.info('Loading seed data from: $jsonFileName (locale: ${t.localeName})');
+        final jsonString = await rootBundle.loadString(jsonFileName);
         final List<dynamic> jsonList = json.decode(jsonString);
 
         for (final json in jsonList) {

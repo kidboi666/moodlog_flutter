@@ -1,0 +1,26 @@
+[
+  {
+    "moodType": "veryHappy",
+    "content": "Today was such an amazing day! I had a wonderful time at the park with friends, and the weather was perfect. Ended the day with delicious food and lots of happiness. Grateful for everything today.",
+    "createdAt": "2025-10-12T10:00:00.000Z",
+    "tags": ["default_tag_daily", "default_tag_relationships", "default_tag_hobby"]
+  },
+  {
+    "moodType": "happy",
+    "content": "Woke up to fresh air and felt great. Everything I planned went smoothly throughout the day, and I enjoyed reading my favorite book in the evening. It was an ordinary but satisfying day.",
+    "createdAt": "2025-10-11T11:30:00.000Z",
+    "tags": ["default_tag_daily", "default_tag_health", "default_tag_hobby"]
+  },
+  {
+    "moodType": "neutral",
+    "content": "Today was okay. Nothing particularly good or bad happened. It was a quiet day where I could organize my thoughts. Hope tomorrow will be more energetic.",
+    "createdAt": "2025-10-10T15:00:00.000Z",
+    "tags": ["default_tag_daily", "default_tag_emotions"]
+  },
+  {
+    "moodType": "sad",
+    "content": "Things didn't go well from the morning and it was a bit tough. Unexpected problems kept occurring and I was quite stressed. But I calmed myself down by listening to my favorite music in the evening. Tomorrow will be better.",
+    "createdAt": "2025-10-09T18:20:00.000Z",
+    "tags": ["default_tag_work", "default_tag_emotions"]
+  }
+]

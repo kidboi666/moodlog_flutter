@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/services/default_data_service.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
@@ -12,26 +13,38 @@ import 'package:provider/provider.dart';
 
 class DataSeedingService {
   final BuildContext context;
+  final Logger _log = Logger('DataSeedingService');
 
   DataSeedingService(this.context);
 
   Future<void> run() async {
-    // Clear database first in development mode
+    _log.info('DataSeedingService started');
+    _log.info('Flavor: ${FlavorService.instance.flavor}');
+    _log.info('isDevelopment: ${FlavorService.isDevelopment}');
+
     if (FlavorService.isDevelopment) {
+      _log.info('Development mode: Clearing database...');
       await clearDatabaseForDevelopment();
+      _log.info('Database cleared');
     }
 
-    // Always seed default tags if empty
+    _log.info('Seeding default tags...');
     final tagUseCase = context.read<TagUseCase>();
     await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty(context);
+    _log.info('Default tags seeding completed');
 
-    // Seed sample journals only in development
     if (FlavorService.isDevelopment) {
+      _log.info('Development mode: Seeding sample journals...');
       final journalUseCase = context.read<JournalUseCase>();
       final t = AppLocalizations.of(context)!;
       final seeder = DebugDataSeeder(journalUseCase);
       await seeder.seedJournalsIfEmpty(t);
+      _log.info('Sample journals seeding completed');
+    } else {
+      _log.info('Production mode: Skipping sample journals seeding');
     }
+
+    _log.info('DataSeedingService completed');
   }
 
   Future<void> clearDatabaseForDevelopment() async {

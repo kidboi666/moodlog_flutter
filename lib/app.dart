@@ -47,8 +47,17 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
   @override
   Widget build(BuildContext context) {
-    final appStateProvider = context.watch<AppStateProvider>();
-    final appState = appStateProvider.appState;
+    final (
+      :languageCode,
+      :fontFamily,
+      :themeMode,
+    ) = context.select(
+      (AppStateProvider provider) => (
+        languageCode: provider.appState.languageCode,
+        fontFamily: provider.appState.fontFamily,
+        themeMode: provider.appState.themeMode,
+      ),
+    );
     _router ??= router(context.read(), widget.analyticsObserver);
 
     return KeyboardDismissOnTapOutside(
@@ -65,14 +74,12 @@ class _MoodLogAppState extends State<MoodLogApp> {
           Locale(LanguageCode.en.value),
           Locale(LanguageCode.ja.value),
         ],
-        locale: Locale(appState.languageCode.value),
-        theme: AppTheme.lightTheme(appState.fontFamily),
-        darkTheme: AppTheme.darkTheme(appState.fontFamily),
-        themeMode: appState.themeMode.materialThemeMode,
+        locale: Locale(languageCode.value),
+        theme: AppTheme.lightTheme(fontFamily),
+        darkTheme: AppTheme.darkTheme(fontFamily),
+        themeMode: themeMode.materialThemeMode,
         routerConfig: _router,
         builder: (context, child) {
-          // This builder provides a context that is a descendant of MaterialApp,
-          // which is required for services that need access to Localizations.
           return AppStartupLogic(
             onAppStarted: widget.onAppStarted,
             child: child ?? const SizedBox.shrink(),
@@ -83,14 +90,8 @@ class _MoodLogAppState extends State<MoodLogApp> {
   }
 }
 
-/// A helper widget to run one-time startup logic using a context that is
-/// available inside the MaterialApp.
 class AppStartupLogic extends StatefulWidget {
-  const AppStartupLogic({
-    super.key,
-    required this.child,
-    this.onAppStarted,
-  });
+  const AppStartupLogic({super.key, required this.child, this.onAppStarted});
 
   final Widget child;
   final Future<void> Function(BuildContext context)? onAppStarted;
@@ -111,8 +112,6 @@ class _AppStartupLogicState extends State<AppStartupLogic> {
   void _runStartupLogic() {
     if (widget.onAppStarted != null && !_startupLogicExecuted) {
       _startupLogicExecuted = true;
-      // The context here is from the AppStartupLogic widget, which is INSIDE
-      // MaterialApp, so it has access to AppLocalizations.
       widget.onAppStarted!(context);
     }
   }
