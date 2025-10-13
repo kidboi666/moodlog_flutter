@@ -154,6 +154,16 @@ enum MoodType {
   sad,
   verySad;
 
+  String get value {
+    return switch (this) {
+      MoodType.veryHappy => 'veryHappy',
+      MoodType.happy => 'happy',
+      MoodType.neutral => 'neutral',
+      MoodType.sad => 'sad',
+      MoodType.verySad => 'verySad',
+    };
+  }
+
   String get emoji {
     switch (this) {
       case MoodType.veryHappy:

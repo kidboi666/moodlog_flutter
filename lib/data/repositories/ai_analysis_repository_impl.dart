@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/ai_analysis_report.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/exceptions/not_enough_data_exception.dart';
 import 'package:moodlog/domain/repositories/ai_analysis_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
-import 'package:moodlog/core/utils/result.dart';
 
 class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
   final JournalRepository _journalRepository;
@@ -14,8 +15,8 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
   AiAnalysisRepositoryImpl({
     required JournalRepository journalRepository,
     required GeminiRepository geminiRepository,
-  })  : _journalRepository = journalRepository,
-        _geminiRepository = geminiRepository;
+  }) : _journalRepository = journalRepository,
+       _geminiRepository = geminiRepository;
 
   @override
   Future<AiAnalysisReport> getAnalysisReport() async {
@@ -26,8 +27,7 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
       throw Exception('Failed to fetch journals for AI analysis.');
     }
 
-    final journals = (journalsResult as Ok)
-        .value
+    final journals = (journalsResult as Ok<List<Journal>>).value
         .where((j) => j.createdAt.isAfter(thirtyDaysAgo))
         .toList();
 
@@ -54,11 +54,11 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
     }
   }
 
-  String _buildPrompt(List<dynamic> journals) {
+  String _buildPrompt(List<Journal> journals) {
     final journalEntries = journals.map((j) {
       return {
         "date": j.createdAt.toIso8601String().substring(0, 10),
-        "mood": j.moodType.name,
+        "mood": j.moodType.value,
         "content": j.content ?? "",
       };
     }).toList();
