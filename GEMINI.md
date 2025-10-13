@@ -232,8 +232,9 @@ final isLoading = viewModel.isLoading;
 2. **Do NOT add login/signup screens** - Use onboarding only
 3. **LocalUser is NOT Firebase User** - Different entity with different fields
 4. **No email field** - LocalUser only has userId, nickname, profileImagePath, createdAt
-5. **All data is local** - No cloud sync currently implemented
-6. **All design documents must be written in Korean.**
+5. **All data is local** - Cloud backup/restore is a manual user-triggered action, not automatic sync.
+6. **App Lock and Cloud Backup/Restore are FREE features.** Do not attempt to re-implement them as premium features.
+7. **All design documents must be written in Korean.**
 
 ## Release Management
 
