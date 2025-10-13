@@ -1183,6 +1183,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lockScreenRetry => 'Retry';
 
   @override
+  String get lockScreenProFeature =>
+      'This feature is available in the Pro version.';
+
+  @override
   String get proFeatureDialogTitle => 'Pro Feature';
 
   @override

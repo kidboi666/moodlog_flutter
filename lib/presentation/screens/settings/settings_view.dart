@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/ai_personality_dialog.dart';

@@ -520,6 +520,7 @@
   "lockScreenTitle": "Authentication Required",
   "lockScreenReason": "Please authenticate to unlock the app.",
   "lockScreenRetry": "Retry",
+  "lockScreenProFeature": "This feature is available in the Pro version.",
   "proFeatureDialogTitle": "Pro Feature",
   "proFeatureDialogContent": "App Lock is a Pro feature. Upgrade to enjoy all premium features!",
   "proFeatureDialogUpgradeButton": "Upgrade",

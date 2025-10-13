@@ -179,8 +179,8 @@ void _showProFeatureDialog(BuildContext context) {
         ),
         ElevatedButton(
           onPressed: () {
-            // TODO: Navigate to purchase screen
             Navigator.of(context).pop();
+            context.push(Routes.purchase);
           },
           child: Text(t.proFeatureDialogUpgradeButton),
         ),

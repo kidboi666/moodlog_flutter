@@ -66,6 +66,13 @@ class _LockScreenState extends State<LockScreen> {
               icon: const Icon(Icons.refresh),
               label: Text(t.lockScreenRetry),
             ),
+            const SizedBox(height: 20),
+            Text(
+              t.lockScreenProFeature,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).hintColor,
+                  ),
+            ),
           ],
         ),
       ),

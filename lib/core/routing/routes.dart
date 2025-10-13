@@ -12,6 +12,7 @@ abstract final class Routes {
   static const String profile = '/profile';
   static const String tags = '/tags';
   static const String tagDetail = '/tags/:id';
+  static const String purchase = '/purchase';
 
   static String journalImageDetail(int id) => '/journal/$id/image';
 

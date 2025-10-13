@@ -2242,6 +2242,12 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get lockScreenRetry;
 
+  /// No description provided for @lockScreenProFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is available in the Pro version.'**
+  String get lockScreenProFeature;
+
   /// No description provided for @proFeatureDialogTitle.
   ///
   /// In en, this message translates to:

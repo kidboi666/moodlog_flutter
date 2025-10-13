@@ -1146,6 +1146,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lockScreenRetry => '재시도';
 
   @override
+  String get lockScreenProFeature => '이 기능은 Pro 버전에서 제공됩니다.';
+
+  @override
   String get proFeatureDialogTitle => 'Pro 기능 안내';
 
   @override

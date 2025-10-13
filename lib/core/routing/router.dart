@@ -8,6 +8,7 @@ import 'package:moodlog/presentation/screens/journal/image_detail_screen.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view.dart';
 import 'package:moodlog/presentation/screens/lock/lock_view.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view.dart';
+import 'package:moodlog/presentation/screens/purchase/purchase_view.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
 import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
@@ -99,6 +100,12 @@ GoRouter router(
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
         return TagDetailScreen(tagId: id);
+      },
+    ),
+    GoRoute(
+      path: Routes.purchase,
+      builder: (_, _) {
+        return const PurchaseScreen();
       },
     ),
   ],

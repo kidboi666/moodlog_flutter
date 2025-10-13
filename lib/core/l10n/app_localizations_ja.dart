@@ -1147,7 +1147,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lockScreenRetry => '再試行';
 
   @override
-  String get proFeatureDialogTitle => 'プロ機能のご案内';
+  String get lockScreenProFeature => 'この機能はPro版で利用できます。';
+
+  @override
+  String get proFeatureDialogTitle => 'Pro機能のご案内';
 
   @override
   String get proFeatureDialogContent =>
