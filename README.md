@@ -90,7 +90,6 @@ lib/
 │   ├── l10n/              # 다국어 지원
 │   ├── services/          # 앱 전역 서비스 (로깅, Flavor 등)
 │   ├── routing/           # 라우팅 설정
-│   ├── ui/                # 공통 UI 컴포넌트
 │   └── utils/             # 상태 없는 헬퍼 함수
 ├── data/                   # 데이터 계층
 │   ├── data_source/       # 로컬 데이터 소스 (Drift, SharedPreferences)
@@ -106,6 +105,7 @@ lib/
     │   └── ...
     ├── providers/         # 상태 관리 (ViewModel)
     ├── widgets/           # 공통 위젯
+    ├── theme/             # 앱 테마
     └── mixins/            # 공통 Mixin
 ```
 

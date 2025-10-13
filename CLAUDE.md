@@ -49,13 +49,14 @@ This directory contains stateless helper functions or classes that perform commo
 
 ```
 lib/
-├── core/           # Common utilities, constants, themes
+├── core/           # Common utilities, constants
 ├── data/           # Repositories, data sources, models
 ├── domain/         # Entities, repository interfaces, use cases
 └── presentation/   # Presentation Layer
     ├── screens/      # UI (View)
     ├── providers/    # State Management (ViewModel)
     ├── widgets/      # Common Widgets
+    ├── theme/        # App themes
     └── ...
 ```
 
