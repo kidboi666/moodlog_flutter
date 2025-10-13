@@ -136,8 +136,24 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'lock_type', lockType.value);
   }
 
+  Future<void> setAppLockWithType(bool enabled, LockType lockType) async {
+    final updatedState = _appStateProvider.appState.copyWith(
+      isAppLockEnabled: enabled,
+      lockType: lockType,
+    );
+    await _updateSettings(updatedState, 'app_lock', enabled.toString());
+  }
+
   Future<void> deletePin() async {
     await _settingsRepository.deletePin();
+  }
+
+  Future<bool> verifyPin(String pin) async {
+    return await _settingsRepository.verifyPin(pin);
+  }
+
+  Future<void> savePin(String pin) async {
+    await _settingsRepository.savePin(pin);
   }
 
   Future<void> _updateSettings(
@@ -151,6 +167,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
         settingType: settingType,
         value: value,
       );
+      notifyListeners();
     }, context: 'updateSettings');
   }
 

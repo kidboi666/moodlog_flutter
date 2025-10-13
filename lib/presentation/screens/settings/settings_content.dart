@@ -57,13 +57,10 @@ class _SettingsScreenContent extends StatelessWidget {
                     (SettingsViewModel vm) => vm.appState.isAppLockEnabled,
                   ),
                   onChanged: (enabled) async {
-                    viewModel.setAppLockEnabled(enabled);
                     if (enabled) {
-                      viewModel.setLockType(LockType.pin);
+                      _showPinCreateToEnableLock(context, viewModel);
                     } else {
-                      viewModel.setLockType(LockType.none);
-                      await viewModel.deletePin();
-                      context.read<AppStateProvider>().setAuthenticated(true);
+                      _showPinVerifyToDisableLock(context, viewModel);
                     }
                   },
                 ),
@@ -204,5 +201,55 @@ void _showLoadingDialog(BuildContext context, String message) {
         ),
       );
     },
+  );
+}
+
+void _showPinCreateToEnableLock(
+  BuildContext context,
+  SettingsViewModel viewModel,
+) {
+  final t = AppLocalizations.of(context)!;
+
+  screenLockCreate(
+    context: context,
+    title: Text(t.lockScreenTitle),
+    confirmTitle: Text(t.lockScreenConfirmTitle),
+    digits: 4,
+    onConfirmed: (pin) async {
+      await viewModel.savePin(pin);
+      await viewModel.setAppLockWithType(true, LockType.pin);
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        context.read<AppStateProvider>().setAuthenticated(true);
+      }
+    },
+  );
+}
+
+void _showPinVerifyToDisableLock(
+  BuildContext context,
+  SettingsViewModel viewModel,
+) {
+  final t = AppLocalizations.of(context)!;
+
+  screenLock(
+    context: context,
+    correctString: '0000',
+    title: Text(t.lockScreenTitle),
+    canCancel: true,
+    onCancelled: () => Navigator.of(context).pop(),
+    onUnlocked: () async {
+      Navigator.of(context).pop();
+      await viewModel.setAppLockWithType(false, LockType.none);
+      await viewModel.deletePin();
+      if (context.mounted) {
+        context.read<AppStateProvider>().setAuthenticated(true);
+      }
+    },
+    onValidate: (pin) async {
+      final isValid = await viewModel.verifyPin(pin);
+      return isValid;
+    },
+    onError: (_) {},
   );
 }
