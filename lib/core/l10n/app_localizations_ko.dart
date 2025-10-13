@@ -1001,6 +1001,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get ai_report_negative_keywords => '부정 키워드';
 
   @override
+  String get ai_report_emotional_pattern => '감정 패턴 분석';
+
+  @override
+  String get ai_report_tag_correlation => '태그-감정 연관성';
+
+  @override
   String get ai_report_no_keywords => '발견된 키워드가 없습니다.';
 
   @override

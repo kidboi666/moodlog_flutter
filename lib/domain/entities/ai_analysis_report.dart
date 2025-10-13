@@ -9,7 +9,8 @@ abstract class AiAnalysisReport with _$AiAnalysisReport {
     required String summary,
     required List<String> positiveKeywords,
     required List<String> negativeKeywords,
-    // TODO: Add more fields for patterns and correlations
+    required String emotionalPattern,
+    required String tagCorrelation,
   }) = _AiAnalysisReport;
 
   factory AiAnalysisReport.fromJson(Map<String, dynamic> json) =>

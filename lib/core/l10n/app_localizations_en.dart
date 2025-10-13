@@ -1039,6 +1039,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ai_report_negative_keywords => 'Negative Keywords';
 
   @override
+  String get ai_report_emotional_pattern => 'Emotional Pattern Analysis';
+
+  @override
+  String get ai_report_tag_correlation => 'Tag-Emotion Correlation';
+
+  @override
   String get ai_report_no_keywords => 'No keywords found.';
 
   @override

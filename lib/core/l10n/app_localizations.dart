@@ -1978,6 +1978,18 @@ abstract class AppLocalizations {
   /// **'Negative Keywords'**
   String get ai_report_negative_keywords;
 
+  /// No description provided for @ai_report_emotional_pattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Pattern Analysis'**
+  String get ai_report_emotional_pattern;
+
+  /// No description provided for @ai_report_tag_correlation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag-Emotion Correlation'**
+  String get ai_report_tag_correlation;
+
   /// No description provided for @ai_report_no_keywords.
   ///
   /// In en, this message translates to:

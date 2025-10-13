@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AiAnalysisReport {
 
- String get summary; List<String> get positiveKeywords; List<String> get negativeKeywords;
+ String get summary; List<String> get positiveKeywords; List<String> get negativeKeywords; String get emotionalPattern; String get tagCorrelation;
 /// Create a copy of AiAnalysisReport
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AiAnalysisReportCopyWith<AiAnalysisReport> get copyWith => _$AiAnalysisReportCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiAnalysisReport&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.positiveKeywords, positiveKeywords)&&const DeepCollectionEquality().equals(other.negativeKeywords, negativeKeywords));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiAnalysisReport&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.positiveKeywords, positiveKeywords)&&const DeepCollectionEquality().equals(other.negativeKeywords, negativeKeywords)&&(identical(other.emotionalPattern, emotionalPattern) || other.emotionalPattern == emotionalPattern)&&(identical(other.tagCorrelation, tagCorrelation) || other.tagCorrelation == tagCorrelation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,summary,const DeepCollectionEquality().hash(positiveKeywords),const DeepCollectionEquality().hash(negativeKeywords));
+int get hashCode => Object.hash(runtimeType,summary,const DeepCollectionEquality().hash(positiveKeywords),const DeepCollectionEquality().hash(negativeKeywords),emotionalPattern,tagCorrelation);
 
 @override
 String toString() {
-  return 'AiAnalysisReport(summary: $summary, positiveKeywords: $positiveKeywords, negativeKeywords: $negativeKeywords)';
+  return 'AiAnalysisReport(summary: $summary, positiveKeywords: $positiveKeywords, negativeKeywords: $negativeKeywords, emotionalPattern: $emotionalPattern, tagCorrelation: $tagCorrelation)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AiAnalysisReportCopyWith<$Res>  {
   factory $AiAnalysisReportCopyWith(AiAnalysisReport value, $Res Function(AiAnalysisReport) _then) = _$AiAnalysisReportCopyWithImpl;
 @useResult
 $Res call({
- String summary, List<String> positiveKeywords, List<String> negativeKeywords
+ String summary, List<String> positiveKeywords, List<String> negativeKeywords, String emotionalPattern, String tagCorrelation
 });
 
 
@@ -65,12 +65,14 @@ class _$AiAnalysisReportCopyWithImpl<$Res>
 
 /// Create a copy of AiAnalysisReport
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? summary = null,Object? positiveKeywords = null,Object? negativeKeywords = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? summary = null,Object? positiveKeywords = null,Object? negativeKeywords = null,Object? emotionalPattern = null,Object? tagCorrelation = null,}) {
   return _then(_self.copyWith(
 summary: null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as String,positiveKeywords: null == positiveKeywords ? _self.positiveKeywords : positiveKeywords // ignore: cast_nullable_to_non_nullable
 as List<String>,negativeKeywords: null == negativeKeywords ? _self.negativeKeywords : negativeKeywords // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,emotionalPattern: null == emotionalPattern ? _self.emotionalPattern : emotionalPattern // ignore: cast_nullable_to_non_nullable
+as String,tagCorrelation: null == tagCorrelation ? _self.tagCorrelation : tagCorrelation // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -155,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords,  String emotionalPattern,  String tagCorrelation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AiAnalysisReport() when $default != null:
-return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);case _:
+return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords,_that.emotionalPattern,_that.tagCorrelation);case _:
   return orElse();
 
 }
@@ -176,10 +178,10 @@ return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords,  String emotionalPattern,  String tagCorrelation)  $default,) {final _that = this;
 switch (_that) {
 case _AiAnalysisReport():
-return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);case _:
+return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords,_that.emotionalPattern,_that.tagCorrelation);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +198,10 @@ return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String summary,  List<String> positiveKeywords,  List<String> negativeKeywords,  String emotionalPattern,  String tagCorrelation)?  $default,) {final _that = this;
 switch (_that) {
 case _AiAnalysisReport() when $default != null:
-return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);case _:
+return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords,_that.emotionalPattern,_that.tagCorrelation);case _:
   return null;
 
 }
@@ -211,7 +213,7 @@ return $default(_that.summary,_that.positiveKeywords,_that.negativeKeywords);cas
 @JsonSerializable()
 
 class _AiAnalysisReport implements AiAnalysisReport {
-  const _AiAnalysisReport({required this.summary, required final  List<String> positiveKeywords, required final  List<String> negativeKeywords}): _positiveKeywords = positiveKeywords,_negativeKeywords = negativeKeywords;
+  const _AiAnalysisReport({required this.summary, required final  List<String> positiveKeywords, required final  List<String> negativeKeywords, required this.emotionalPattern, required this.tagCorrelation}): _positiveKeywords = positiveKeywords,_negativeKeywords = negativeKeywords;
   factory _AiAnalysisReport.fromJson(Map<String, dynamic> json) => _$AiAnalysisReportFromJson(json);
 
 @override final  String summary;
@@ -229,6 +231,8 @@ class _AiAnalysisReport implements AiAnalysisReport {
   return EqualUnmodifiableListView(_negativeKeywords);
 }
 
+@override final  String emotionalPattern;
+@override final  String tagCorrelation;
 
 /// Create a copy of AiAnalysisReport
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiAnalysisReport&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other._positiveKeywords, _positiveKeywords)&&const DeepCollectionEquality().equals(other._negativeKeywords, _negativeKeywords));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiAnalysisReport&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other._positiveKeywords, _positiveKeywords)&&const DeepCollectionEquality().equals(other._negativeKeywords, _negativeKeywords)&&(identical(other.emotionalPattern, emotionalPattern) || other.emotionalPattern == emotionalPattern)&&(identical(other.tagCorrelation, tagCorrelation) || other.tagCorrelation == tagCorrelation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,summary,const DeepCollectionEquality().hash(_positiveKeywords),const DeepCollectionEquality().hash(_negativeKeywords));
+int get hashCode => Object.hash(runtimeType,summary,const DeepCollectionEquality().hash(_positiveKeywords),const DeepCollectionEquality().hash(_negativeKeywords),emotionalPattern,tagCorrelation);
 
 @override
 String toString() {
-  return 'AiAnalysisReport(summary: $summary, positiveKeywords: $positiveKeywords, negativeKeywords: $negativeKeywords)';
+  return 'AiAnalysisReport(summary: $summary, positiveKeywords: $positiveKeywords, negativeKeywords: $negativeKeywords, emotionalPattern: $emotionalPattern, tagCorrelation: $tagCorrelation)';
 }
 
 
@@ -263,7 +267,7 @@ abstract mixin class _$AiAnalysisReportCopyWith<$Res> implements $AiAnalysisRepo
   factory _$AiAnalysisReportCopyWith(_AiAnalysisReport value, $Res Function(_AiAnalysisReport) _then) = __$AiAnalysisReportCopyWithImpl;
 @override @useResult
 $Res call({
- String summary, List<String> positiveKeywords, List<String> negativeKeywords
+ String summary, List<String> positiveKeywords, List<String> negativeKeywords, String emotionalPattern, String tagCorrelation
 });
 
 
@@ -280,12 +284,14 @@ class __$AiAnalysisReportCopyWithImpl<$Res>
 
 /// Create a copy of AiAnalysisReport
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? summary = null,Object? positiveKeywords = null,Object? negativeKeywords = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? summary = null,Object? positiveKeywords = null,Object? negativeKeywords = null,Object? emotionalPattern = null,Object? tagCorrelation = null,}) {
   return _then(_AiAnalysisReport(
 summary: null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as String,positiveKeywords: null == positiveKeywords ? _self._positiveKeywords : positiveKeywords // ignore: cast_nullable_to_non_nullable
 as List<String>,negativeKeywords: null == negativeKeywords ? _self._negativeKeywords : negativeKeywords // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,emotionalPattern: null == emotionalPattern ? _self.emotionalPattern : emotionalPattern // ignore: cast_nullable_to_non_nullable
+as String,tagCorrelation: null == tagCorrelation ? _self.tagCorrelation : tagCorrelation // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/ai_analysis_report.dart';
 import 'package:moodlog/domain/repositories/ai_analysis_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
@@ -17,7 +19,8 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
         _geminiRepository = geminiRepository;
 
   @override
-  Future<AiAnalysisReport> getAnalysisReport() async {
+  Future<AiAnalysisReport> getAnalysisReport(BuildContext context) async {
+    final t = AppLocalizations.of(context)!;
     final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
     final journalsResult = await _journalRepository.getJournals();
 
@@ -25,16 +28,19 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
       throw Exception('Failed to fetch journals for AI analysis.');
     }
 
-    final journals = (journalsResult as Ok).value
+    final journals = (journalsResult as Ok)
+        .value
         .where((j) => j.createdAt.isAfter(thirtyDaysAgo))
         .toList();
 
     if (journals.length < 10) {
       // Not enough data to analyze
-      return const AiAnalysisReport(
-        summary: '분석할 데이터가 충분하지 않습니다. 30일 동안 10개 이상의 일기를 작성해주세요.', // TODO: Localize
+      return AiAnalysisReport(
+        summary: t.ai_report_not_enough_data,
         positiveKeywords: [],
         negativeKeywords: [],
+        emotionalPattern: '',
+        tagCorrelation: '',
       );
     }
 
@@ -77,7 +83,9 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
     {
       "summary": "Provide a comprehensive but concise summary of the user's emotional state and patterns over the last 30 days. Analyze the overall flow of emotions, identify recurring themes, and offer warm, supportive insights. The summary must be in Korean.",
       "positiveKeywords": ["Extract 3-5 main positive keywords from the journals. Keywords must be in Korean."],
-      "negativeKeywords": ["Extract 3-5 main negative keywords from the journals. Keywords must be in Korean."]
+      "negativeKeywords": ["Extract 3-5 main negative keywords from the journals. Keywords must be in Korean."],
+      "emotionalPattern": "Analyze the user's emotional patterns based on the day of the week or time of day (e.g., 'You tend to feel more positive on weekend mornings, but experience negative emotions on Monday afternoons.'). This must be in Korean.",
+      "tagCorrelation": "Analyze the correlation between tags and emotions (e.g., 'When the 'work' tag is present, there is a tendency for 'anxiety' to appear as well.'). This must be in Korean."
     }
     """;
   }

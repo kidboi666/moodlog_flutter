@@ -8,17 +8,15 @@ class AiAnalysisReportViewModel extends ChangeNotifier with AsyncStateMixin {
 
   AiAnalysisReportViewModel({
     required GetAiAnalysisReportUseCase getAiAnalysisReportUseCase,
-  }) : _getAiAnalysisReportUseCase = getAiAnalysisReportUseCase {
-    fetchReport();
-  }
+  }) : _getAiAnalysisReportUseCase = getAiAnalysisReportUseCase;
 
   AiAnalysisReport? _report;
   AiAnalysisReport? get report => _report;
 
-  Future<void> fetchReport() async {
+  Future<void> fetchReport(BuildContext context) async {
     setLoading();
     try {
-      _report = await _getAiAnalysisReportUseCase();
+      _report = await _getAiAnalysisReportUseCase(context);
       setSuccess();
     } catch (e) {
       setError(e);

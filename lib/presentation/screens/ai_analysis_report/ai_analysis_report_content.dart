@@ -1,7 +1,21 @@
 part of 'ai_analysis_report_view.dart';
 
-class _AiAnalysisReportContent extends StatelessWidget {
+class _AiAnalysisReportContent extends StatefulWidget {
   const _AiAnalysisReportContent();
+
+  @override
+  State<_AiAnalysisReportContent> createState() =>
+      _AiAnalysisReportContentState();
+}
+
+class _AiAnalysisReportContentState extends State<_AiAnalysisReportContent> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AiAnalysisReportViewModel>().fetchReport(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +35,41 @@ class _AiAnalysisReportContent extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
     if (viewModel.hasError || viewModel.report == null) {
-      return Center(child: Text('Error: ${viewModel.error ?? 'Report not available.'}'));
+      return Center(
+          child: Text('Error: ${viewModel.error ?? 'Report not available.'}'));
     }
 
     final report = viewModel.report!;
     final t = AppLocalizations.of(context)!;
 
     // Check if there is enough data for analysis
-    if (report.summary.isNotEmpty &&
-        report.positiveKeywords.isEmpty &&
-        report.negativeKeywords.isEmpty) {
+    if (report.summary == t.ai_report_not_enough_data) {
       return _buildNotEnoughDataWidget(context);
     }
 
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
-        _buildSummaryCard(context, report.summary),
+        _buildAnalysisCard(
+          context,
+          title: t.statistics_ai_report_title,
+          content: report.summary,
+          icon: Icons.auto_awesome,
+        ),
+        const SizedBox(height: 16),
+        _buildAnalysisCard(
+          context,
+          title: t.ai_report_emotional_pattern,
+          content: report.emotionalPattern,
+          icon: Icons.insights,
+        ),
+        const SizedBox(height: 16),
+        _buildAnalysisCard(
+          context,
+          title: t.ai_report_tag_correlation,
+          content: report.tagCorrelation,
+          icon: Icons.link,
+        ),
         const SizedBox(height: 16),
         _buildKeywordsCard(
           context,
@@ -79,7 +111,12 @@ class _AiAnalysisReportContent extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryCard(BuildContext context, String summary) {
+  Widget _buildAnalysisCard(
+    BuildContext context, {
+    required String title,
+    required String content,
+    required IconData icon,
+  }) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -90,18 +127,19 @@ class _AiAnalysisReportContent extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.auto_awesome, color: Colors.amber),
+                Icon(icon, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
                 Text(
-                  AppLocalizations.of(context)!.statistics_ai_report_title,
+                  title,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
             ),
             const Divider(height: 24),
             Text(
-              summary,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+              content,
+              style:
+                  Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
           ],
         ),

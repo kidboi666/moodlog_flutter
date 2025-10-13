@@ -108,8 +108,8 @@ MoodLog의 핵심 정체성은 **"개인화된 AI 기반의 로컬 우선(Local-
         -   리포트 화면 UI, ViewModel, 라우팅 설정 완료.
         -   `AiAnalysisRepository` 및 `GetAiAnalysisReportUseCase`를 포함한 데이터/도메인 계층 설계.
         -   `GeminiRepository`를 사용하여 실제 사용자 데이터(최근 30일 일기) 기반으로 동적 리포트(요약, 키워드)를 생성하는 로직 구현.
+        -   리포트 UI/UX 고도화: 데이터 부족 시 UI 처리, 카드 디자인 개선 등.
     -   **남은 작업:**
-        -   리포트 UI/UX 고도화.
         -   주간/월간 감정 패턴, 태그-감정 연관성 등 추가 분석 로직 구현.
         -   테스트 및 안정화.
 

@@ -462,6 +462,8 @@
   "statistics_ai_report_subtitle": "AIがあなたの感情パターンを深く分析します。",
   "ai_report_positive_keywords": "ポジティブキーワード",
   "ai_report_negative_keywords": "ネガティブキーワード",
+  "ai_report_emotional_pattern": "感情パターン分析",
+  "ai_report_tag_correlation": "タグと感情の相関関係",
   "ai_report_no_keywords": "キーワードが見つかりませんでした。",
   "ai_report_not_enough_data": "分析するのに十分なデータがありません。30日間に10件以上の日記を書いてください。",
   "home_representative_mood_title": "私の現在の感情",
