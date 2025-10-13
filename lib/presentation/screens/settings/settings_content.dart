@@ -120,12 +120,12 @@ class _SettingsScreenContent extends StatelessWidget {
                       _showLoadingDialog(context, t.backup_in_progress);
                       try {
                         await viewModel.backupData();
-                        Navigator.of(context).pop(); // Close dialog
+                        context.pop(); // Close dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(t.snackbar_backup_completed)),
                         );
                       } catch (e) {
-                        Navigator.of(context).pop(); // Close dialog
+                        context.pop(); // Close dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(t.backup_failed),
@@ -145,12 +145,12 @@ class _SettingsScreenContent extends StatelessWidget {
                       _showLoadingDialog(context, t.restore_in_progress);
                       try {
                         await viewModel.restoreData();
-                        Navigator.of(context).pop(); // Close dialog
+                        context.pop(); // Close dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(t.snackbar_restore_completed)),
                         );
                       } catch (e) {
-                        Navigator.of(context).pop(); // Close dialog
+                        context.pop(); // Close dialog
                         final errorMessage =
                             e.toString().contains('No backup found')
                             ? t.restore_failed_no_backup

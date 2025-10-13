@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
