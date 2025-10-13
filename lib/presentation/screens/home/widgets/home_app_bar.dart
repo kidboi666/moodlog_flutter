@@ -42,7 +42,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? const [_CancelSelectionButton(), _DeleteSelectionButton()]
           : [
               IconButton(
-                icon: const Icon(Icons.calendar_today_outlined),
+                icon: const Icon(Icons.calendar_month_outlined),
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,

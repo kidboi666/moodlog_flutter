@@ -11,54 +11,47 @@ part of 'user_provider_data.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$UserProviderData {
 
-  String get providerId;
-
-  /// Create a copy of UserProviderData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $UserProviderDataCopyWith<UserProviderData> get copyWith =>
-      _$UserProviderDataCopyWithImpl<UserProviderData>(
-          this as UserProviderData, _$identity);
+ String get providerId;
+/// Create a copy of UserProviderData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserProviderDataCopyWith<UserProviderData> get copyWith => _$UserProviderDataCopyWithImpl<UserProviderData>(this as UserProviderData, _$identity);
 
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is UserProviderData &&
-            (identical(other.providerId, providerId) ||
-                other.providerId == providerId));
-  }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProviderData&&(identical(other.providerId, providerId) || other.providerId == providerId));
+}
 
 
-  @override
-  int get hashCode => Object.hash(runtimeType, providerId);
+@override
+int get hashCode => Object.hash(runtimeType,providerId);
 
-  @override
-  String toString() {
-    return 'UserProviderData(providerId: $providerId)';
-  }
+@override
+String toString() {
+  return 'UserProviderData(providerId: $providerId)';
+}
 
 
 }
 
 /// @nodoc
-abstract mixin class $UserProviderDataCopyWith<$Res> {
-  factory $UserProviderDataCopyWith(UserProviderData value,
-      $Res Function(UserProviderData) _then) = _$UserProviderDataCopyWithImpl;
+abstract mixin class $UserProviderDataCopyWith<$Res>  {
+  factory $UserProviderDataCopyWith(UserProviderData value, $Res Function(UserProviderData) _then) = _$UserProviderDataCopyWithImpl;
+@useResult
+$Res call({
+ String providerId
+});
 
-  @useResult
-  $Res call({
-    String providerId
-  });
+
 
 
 }
-
 /// @nodoc
 class _$UserProviderDataCopyWithImpl<$Res>
     implements $UserProviderDataCopyWith<$Res> {
@@ -67,163 +60,145 @@ class _$UserProviderDataCopyWithImpl<$Res>
   final UserProviderData _self;
   final $Res Function(UserProviderData) _then;
 
-  /// Create a copy of UserProviderData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? providerId = null,}) {
-    return _then(_self.copyWith(
-      providerId: null == providerId
-          ? _self.providerId
-          : providerId // ignore: cast_nullable_to_non_nullable
-      as String,
-    ));
-  }
+/// Create a copy of UserProviderData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? providerId = null,}) {
+  return _then(_self.copyWith(
+providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
 
 }
 
 
 /// Adds pattern-matching-related methods to [UserProviderData].
 extension UserProviderDataPatterns on UserProviderData {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs TResult maybeMap
-
-  <
-
-  TResult
-
-  extends
-
-  Object?
-
-  >
-
-  (
-
-  TResult Function( _UserProviderData value)? $default,{required TResult orElse(),}){
-  final _that = this;
-  switch (_that) {
-  case _UserProviderData() when $default != null:
-  return $default(_that);case _:
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserProviderData value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UserProviderData() when $default != null:
+return $default(_that);case _:
   return orElse();
 
-  }
-  }
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserProviderData value) $default,){
-  final _that = this;
-  switch (_that) {
-  case _UserProviderData():
-  return $default(_that);case _:
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserProviderData value)  $default,){
+final _that = this;
+switch (_that) {
+case _UserProviderData():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
-  }
-  }
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserProviderData value)? $default,){
-  final _that = this;
-  switch (_that) {
-  case _UserProviderData() when $default != null:
-  return $default(_that);case _:
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserProviderData value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UserProviderData() when $default != null:
+return $default(_that);case _:
   return null;
 
-  }
-  }
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String providerId)? $default,{required TResult orElse(),}) {final _that = this;
-  switch (_that) {
-  case _UserProviderData() when $default != null:
-  return $default(_that.providerId);case _:
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String providerId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UserProviderData() when $default != null:
+return $default(_that.providerId);case _:
   return orElse();
 
-  }
-  }
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String providerId) $default,) {final _that = this;
-  switch (_that) {
-  case _UserProviderData():
-  return $default(_that.providerId);case _:
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String providerId)  $default,) {final _that = this;
+switch (_that) {
+case _UserProviderData():
+return $default(_that.providerId);case _:
   throw StateError('Unexpected subclass');
 
-  }
-  }
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String providerId)? $default,) {final _that = this;
-  switch (_that) {
-  case _UserProviderData() when $default != null:
-  return $default(_that.providerId);case _:
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String providerId)?  $default,) {final _that = this;
+switch (_that) {
+case _UserProviderData() when $default != null:
+return $default(_that.providerId);case _:
   return null;
 
-  }
-  }
+}
+}
 
 }
 
@@ -232,54 +207,47 @@ extension UserProviderDataPatterns on UserProviderData {
 
 class _UserProviderData implements UserProviderData {
   const _UserProviderData({required this.providerId});
+  
+
+@override final  String providerId;
+
+/// Create a copy of UserProviderData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UserProviderDataCopyWith<_UserProviderData> get copyWith => __$UserProviderDataCopyWithImpl<_UserProviderData>(this, _$identity);
 
 
-  @override final String providerId;
 
-  /// Create a copy of UserProviderData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$UserProviderDataCopyWith<_UserProviderData> get copyWith =>
-      __$UserProviderDataCopyWithImpl<_UserProviderData>(this, _$identity);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProviderData&&(identical(other.providerId, providerId) || other.providerId == providerId));
+}
 
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _UserProviderData &&
-            (identical(other.providerId, providerId) ||
-                other.providerId == providerId));
-  }
+@override
+int get hashCode => Object.hash(runtimeType,providerId);
 
-
-  @override
-  int get hashCode => Object.hash(runtimeType, providerId);
-
-  @override
-  String toString() {
-    return 'UserProviderData(providerId: $providerId)';
-  }
+@override
+String toString() {
+  return 'UserProviderData(providerId: $providerId)';
+}
 
 
 }
 
 /// @nodoc
-abstract mixin class _$UserProviderDataCopyWith<$Res>
-    implements $UserProviderDataCopyWith<$Res> {
-  factory _$UserProviderDataCopyWith(_UserProviderData value,
-      $Res Function(_UserProviderData) _then) = __$UserProviderDataCopyWithImpl;
+abstract mixin class _$UserProviderDataCopyWith<$Res> implements $UserProviderDataCopyWith<$Res> {
+  factory _$UserProviderDataCopyWith(_UserProviderData value, $Res Function(_UserProviderData) _then) = __$UserProviderDataCopyWithImpl;
+@override @useResult
+$Res call({
+ String providerId
+});
 
-  @override
-  @useResult
-  $Res call({
-    String providerId
-  });
+
 
 
 }
-
 /// @nodoc
 class __$UserProviderDataCopyWithImpl<$Res>
     implements _$UserProviderDataCopyWith<$Res> {
@@ -288,18 +256,14 @@ class __$UserProviderDataCopyWithImpl<$Res>
   final _UserProviderData _self;
   final $Res Function(_UserProviderData) _then;
 
-  /// Create a copy of UserProviderData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({Object? providerId = null,}) {
-    return _then(_UserProviderData(
-      providerId: null == providerId
-          ? _self.providerId
-          : providerId // ignore: cast_nullable_to_non_nullable
-      as String,
-    ));
-  }
+/// Create a copy of UserProviderData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? providerId = null,}) {
+  return _then(_UserProviderData(
+providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
 
 
 }

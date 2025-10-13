@@ -240,21 +240,12 @@ class _SettingsScreenContent extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
-                  MenuListTile(
-                    title: t.tags_manage_title,
-                    subtitle: t.tags_manage_subtitle,
-                    icon: Icons.label,
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (_) => TagManagementDialog(viewModel: viewModel),
-                    ),
-                  ),
-                ],
-
-                const SizedBox(height: kBottomNavigationBarHeight * 6),
-              ]),
-            ),
+                                    ),
+                                  ],
+                  
+                                  const SizedBox(height: kBottomNavigationBarHeight * 6),
+                                ]),
+                              ),
           ],
         ),
       ),
