@@ -1023,17 +1023,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statistics_mood_trend_recent_7days_average =>
-      'Recent 7-day Average';
+      'Recent 7-day average';
+
+  @override
+  String get statistics_ai_report_title => 'AI Analysis Report';
+
+  @override
+  String get statistics_ai_report_subtitle =>
+      'Let AI analyze your mood patterns in depth.';
 
   @override
   String get home_representative_mood_title => 'My Current Emotion';
 
   @override
   String get home_representative_mood_description =>
-      'Recent 30-day emotion analysis result';
+      'Analysis of the last 30 days of emotions';
 
   @override
-  String get home_representative_mood_empty => 'No emotion records';
+  String get home_representative_mood_empty => 'No emotional record';
 
   @override
   String get home_representative_mood_empty_description =>

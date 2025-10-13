@@ -458,6 +458,8 @@
   "statistics_mood_trend_daily_records": "일별 기분 기록",
   "statistics_mood_trend_overall_average": "전체 평균 점수",
   "statistics_mood_trend_recent_7days_average": "최근 7일 평균",
+  "statistics_ai_report_title": "AI 분석 리포트",
+  "statistics_ai_report_subtitle": "AI가 당신의 감정 패턴을 심도있게 분석해드려요.",
   "home_representative_mood_title": "나의 현재 감정",
   "home_representative_mood_description": "최근 30일 감정 분석 결과",
   "home_representative_mood_empty": "감정 기록 없음",

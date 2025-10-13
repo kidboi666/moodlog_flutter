@@ -987,7 +987,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_mood_trend_overall_average => '全体平均スコア';
 
   @override
-  String get statistics_mood_trend_recent_7days_average => '最近7日間平均';
+  String get statistics_mood_trend_recent_7days_average => '最近7日間の平均';
+
+  @override
+  String get statistics_ai_report_title => 'AI分析レポート';
+
+  @override
+  String get statistics_ai_report_subtitle => 'AIがあなたの感情パターンを深く分析します。';
 
   @override
   String get home_representative_mood_title => '私の現在の感情';

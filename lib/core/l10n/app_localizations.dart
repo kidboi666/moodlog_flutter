@@ -1951,8 +1951,20 @@ abstract class AppLocalizations {
   /// No description provided for @statistics_mood_trend_recent_7days_average.
   ///
   /// In en, this message translates to:
-  /// **'Recent 7-day Average'**
+  /// **'Recent 7-day average'**
   String get statistics_mood_trend_recent_7days_average;
+
+  /// No description provided for @statistics_ai_report_title.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Analysis Report'**
+  String get statistics_ai_report_title;
+
+  /// No description provided for @statistics_ai_report_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let AI analyze your mood patterns in depth.'**
+  String get statistics_ai_report_subtitle;
 
   /// No description provided for @home_representative_mood_title.
   ///
@@ -1963,13 +1975,13 @@ abstract class AppLocalizations {
   /// No description provided for @home_representative_mood_description.
   ///
   /// In en, this message translates to:
-  /// **'Recent 30-day emotion analysis result'**
+  /// **'Analysis of the last 30 days of emotions'**
   String get home_representative_mood_description;
 
   /// No description provided for @home_representative_mood_empty.
   ///
   /// In en, this message translates to:
-  /// **'No emotion records'**
+  /// **'No emotional record'**
   String get home_representative_mood_empty;
 
   /// No description provided for @home_representative_mood_empty_description.

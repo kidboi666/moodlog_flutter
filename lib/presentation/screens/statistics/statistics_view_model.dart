@@ -6,19 +6,25 @@ import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   final JournalRepository _journalRepository;
   final UserProvider _userProvider;
+  final AppStateProvider _appStateProvider;
 
   StatisticsViewModel({
     required JournalRepository journalRepository,
     required UserProvider userProvider,
+    required AppStateProvider appStateProvider,
   }) : _journalRepository = journalRepository,
-       _userProvider = userProvider {
+       _userProvider = userProvider,
+       _appStateProvider = appStateProvider {
     _loadStatistics();
   }
+
+  bool get isProUser => _appStateProvider.appState.isProUser;
 
   List<Journal> _allJournals = [];
   Map<MoodType, int> _moodCounts = {};

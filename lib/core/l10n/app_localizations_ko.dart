@@ -989,6 +989,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_mood_trend_recent_7days_average => '최근 7일 평균';
 
   @override
+  String get statistics_ai_report_title => 'AI 분석 리포트';
+
+  @override
+  String get statistics_ai_report_subtitle => 'AI가 당신의 감정 패턴을 심도있게 분석해드려요.';
+
+  @override
   String get home_representative_mood_title => '나의 현재 감정';
 
   @override

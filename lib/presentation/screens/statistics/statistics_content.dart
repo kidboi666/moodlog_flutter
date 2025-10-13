@@ -3,8 +3,9 @@ part of 'statistics_view.dart';
 class _StatisticsScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.tab_statistics)),
+      appBar: AppBar(title: Text(t.tab_statistics)),
       body: Glower(
         child: CustomScrollView(
           slivers: [
@@ -48,9 +49,58 @@ class _StatisticsScreenContent extends StatelessWidget {
                 );
               },
             ),
+            const SizedBox(height: Spacing.xl),
+            SectionHeader(title: t.statistics_ai_report_title),
+            Consumer<StatisticsViewModel>(
+              builder: (context, viewModel, child) {
+                final isProUser = viewModel.isProUser;
+                return MenuListTile(
+                  title: t.statistics_ai_report_title,
+                  subtitle: t.statistics_ai_report_subtitle,
+                  icon: Icons.auto_awesome,
+                  onTap: () {
+                    if (!isProUser) {
+                      _showProFeatureDialog(context);
+                    } else {
+                      // TODO: Navigate to AI Analysis Report Screen
+                    }
+                  },
+                  trailing: isProUser
+                      ? const Icon(Icons.arrow_forward_ios)
+                      : const Icon(
+                          Icons.workspace_premium,
+                          color: Colors.amber,
+                        ),
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+void _showProFeatureDialog(BuildContext context) {
+  final t = AppLocalizations.of(context)!;
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('👑 ${t.proFeatureDialogTitle}'),
+      content: Text(t.proFeatureDialogContent),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(t.common_confirm_cancel),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            context.push(Routes.purchase);
+          },
+          child: Text(t.proFeatureDialogUpgradeButton),
+        ),
+      ],
+    ),
+  );
 }
