@@ -69,6 +69,7 @@ mixin AsyncStateMixin on ChangeNotifier {
     bool showErrorDialog = false,
     BuildContext? dialogContext,
     VoidCallback? onError,
+    bool rethrowError = false,
   }) async {
     try {
       setLoading();
@@ -97,6 +98,10 @@ mixin AsyncStateMixin on ChangeNotifier {
 
       // 커스텀 에러 핸들러 실행
       onError?.call();
+
+      if (rethrowError) {
+        rethrow;
+      }
 
       return null;
     }

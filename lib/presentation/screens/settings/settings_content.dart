@@ -149,17 +149,29 @@ class _SettingsScreenContent extends StatelessWidget {
                             title: t.settings_data_backup_title,
                             subtitle: t.settings_data_backup_subtitle,
                             icon: Icons.backup,
-                            onTap: () {
+                            onTap: () async {
                               if (isProUser) {
-                                viewModel.backupData().then((_) {
+                                _showLoadingDialog(
+                                    context, t.backup_in_progress);
+                                try {
+                                  await viewModel.backupData();
+                                  Navigator.of(context).pop(); // Close dialog
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
-                                        t.snackbar_backup_completed,
-                                      ),
+                                      content:
+                                          Text(t.snackbar_backup_completed),
                                     ),
                                   );
-                                });
+                                } catch (e) {
+                                  Navigator.of(context).pop(); // Close dialog
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(t.backup_failed),
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.error,
+                                    ),
+                                  );
+                                }
                               }
                             },
                             trailing: isProUser
@@ -188,15 +200,34 @@ class _SettingsScreenContent extends StatelessWidget {
                             title: t.settings_data_restore_title,
                             subtitle: t.settings_data_restore_subtitle,
                             icon: Icons.restore,
-                            onTap: () {
+                            onTap: () async {
                               if (isProUser) {
-                                viewModel.restoreData().then((_) {
+                                _showLoadingDialog(
+                                    context, t.restore_in_progress);
+                                try {
+                                  await viewModel.restoreData();
+                                  Navigator.of(context).pop(); // Close dialog
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(t.snackbar_restore_completed),
+                                      content:
+                                          Text(t.snackbar_restore_completed),
                                     ),
                                   );
-                                });
+                                } catch (e) {
+                                  Navigator.of(context).pop(); // Close dialog
+                                  final errorMessage = e
+                                          .toString()
+                                          .contains('No backup found')
+                                      ? t.restore_failed_no_backup
+                                      : t.restore_failed_general;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(errorMessage),
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.error,
+                                    ),
+                                  );
+                                }
                               }
                             },
                             trailing: isProUser
@@ -252,5 +283,27 @@ void _showProFeatureDialog(BuildContext context) {
         ),
       ],
     ),
+  );
+}
+
+void _showLoadingDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(message),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }

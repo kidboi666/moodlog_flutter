@@ -152,6 +152,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     await executeAsync(
       () => _backupRepository.backup(userId: userId),
       context: 'backupData',
+      rethrowError: true,
     );
   }
 
@@ -164,6 +165,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     await executeAsync(
       () => _backupRepository.restore(userId: userId),
       context: 'restoreData',
+      rethrowError: true,
     );
   }
 

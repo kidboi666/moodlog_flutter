@@ -858,6 +858,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snackbar_cache_cleared => 'Cache cleared.';
 
   @override
+  String get backup_in_progress => 'Backing up data...';
+
+  @override
+  String get restore_in_progress => 'Restoring data...';
+
+  @override
+  String get backup_failed => 'Backup failed. Please try again.';
+
+  @override
+  String get restore_failed_no_backup => 'Restore failed. No backup found.';
+
+  @override
+  String get restore_failed_general => 'Restore failed. Please try again.';
+
+  @override
   String auth_terms_message(String terms, String privacy) {
     return 'By continuing, you agree to the $terms and $privacy.';
   }

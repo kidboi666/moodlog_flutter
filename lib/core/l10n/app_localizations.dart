@@ -1648,6 +1648,36 @@ abstract class AppLocalizations {
   /// **'Cache cleared.'**
   String get snackbar_cache_cleared;
 
+  /// No description provided for @backup_in_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Backing up data...'**
+  String get backup_in_progress;
+
+  /// No description provided for @restore_in_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring data...'**
+  String get restore_in_progress;
+
+  /// No description provided for @backup_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup failed. Please try again.'**
+  String get backup_failed;
+
+  /// No description provided for @restore_failed_no_backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. No backup found.'**
+  String get restore_failed_no_backup;
+
+  /// No description provided for @restore_failed_general.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. Please try again.'**
+  String get restore_failed_general;
+
   /// No description provided for @auth_terms_message.
   ///
   /// In en, this message translates to:

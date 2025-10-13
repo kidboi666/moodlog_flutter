@@ -376,6 +376,11 @@
   "snackbar_backup_completed": "バックアップが完了しました。",
   "snackbar_restore_completed": "データの復元が完了しました。",
   "snackbar_cache_cleared": "キャッシュが消去されました。",
+  "backup_in_progress": "データをバックアップ中...",
+  "restore_in_progress": "データを復元中...",
+  "backup_failed": "バックアップに失敗しました。もう一度お試しください。",
+  "restore_failed_no_backup": "復元に失敗しました。バックアップが見つかりません。",
+  "restore_failed_general": "復元に失敗しました。もう一度お試しください。",
   "auth_terms_message": "続行することにより、{terms}および{privacy}に同意したことになります。",
   "@auth_terms_message": {
     "placeholders": {

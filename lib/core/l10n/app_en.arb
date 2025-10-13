@@ -376,6 +376,11 @@
   "snackbar_backup_completed": "Backup completed.",
   "snackbar_restore_completed": "Data restore completed.",
   "snackbar_cache_cleared": "Cache cleared.",
+  "backup_in_progress": "Backing up data...",
+  "restore_in_progress": "Restoring data...",
+  "backup_failed": "Backup failed. Please try again.",
+  "restore_failed_no_backup": "Restore failed. No backup found.",
+  "restore_failed_general": "Restore failed. Please try again.",
   "auth_terms_message": "By continuing, you agree to the {terms} and {privacy}.",
   "@auth_terms_message": {
     "placeholders": {

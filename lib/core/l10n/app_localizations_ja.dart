@@ -826,6 +826,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snackbar_cache_cleared => 'キャッシュが消去されました。';
 
   @override
+  String get backup_in_progress => 'データをバックアップ中...';
+
+  @override
+  String get restore_in_progress => 'データを復元中...';
+
+  @override
+  String get backup_failed => 'バックアップに失敗しました。もう一度お試しください。';
+
+  @override
+  String get restore_failed_no_backup => '復元に失敗しました。バックアップが見つかりません。';
+
+  @override
+  String get restore_failed_general => '復元に失敗しました。もう一度お試しください。';
+
+  @override
   String auth_terms_message(String terms, String privacy) {
     return '続行することにより、$termsおよび$privacyに同意したことになります。';
   }

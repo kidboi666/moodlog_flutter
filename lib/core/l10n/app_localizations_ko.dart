@@ -825,6 +825,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snackbar_cache_cleared => '캐시가 정리되었습니다.';
 
   @override
+  String get backup_in_progress => '데이터를 백업하는 중...';
+
+  @override
+  String get restore_in_progress => '데이터를 복원하는 중...';
+
+  @override
+  String get backup_failed => '백업에 실패했습니다. 다시 시도해주세요.';
+
+  @override
+  String get restore_failed_no_backup => '복원에 실패했습니다. 백업 파일을 찾을 수 없습니다.';
+
+  @override
+  String get restore_failed_general => '복원에 실패했습니다. 다시 시도해주세요.';
+
+  @override
   String auth_terms_message(String terms, String privacy) {
     return '계속하면 $terms 및 $privacy에 동의하는 것으로 간주됩니다.';
   }
