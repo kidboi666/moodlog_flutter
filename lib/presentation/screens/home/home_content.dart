@@ -11,32 +11,35 @@ class _HomeScreenContent extends StatelessWidget {
       appBar: const HomeAppBar(),
       endDrawer: const AppDrawer(),
       body: Glower(
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: Spacing.containerHorizontalPadding,
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const WelcomeZone(),
-                    const SizedBox(height: Spacing.xl),
-                    FadeIn(
-                      delay: DelayMS.medium * 4,
-                      child: const UnifiedCalendarWidget(),
-                    ),
-                    const SizedBox(height: Spacing.xl),
-                  ],
+        child: RefreshIndicator(
+          onRefresh: () => context.read<HomeViewModel>().refresh(),
+          child: CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: Spacing.containerHorizontalPadding,
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const WelcomeZone(),
+                      const SizedBox(height: Spacing.xl),
+                      FadeIn(
+                        delay: DelayMS.medium * 4,
+                        child: const UnifiedCalendarWidget(),
+                      ),
+                      const SizedBox(height: Spacing.xl),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverPadding(
-              padding: Spacing.containerHorizontalPadding,
-              sliver: JournalSliverList(),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: kBottomNavigationBarHeight * 3),
-            ),
-          ],
+              SliverPadding(
+                padding: Spacing.containerHorizontalPadding,
+                sliver: JournalSliverList(),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: kBottomNavigationBarHeight * 3),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: isSelectionMode

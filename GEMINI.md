@@ -144,6 +144,24 @@ flutter build apk       # Build Android APK
 - Use freezed for immutable entities and models
 - Use Provider for state management
 
+### Provider Usage Convention
+
+When using Provider for state management, prefer `context.select` over `context.watch` to optimize widget rebuilds:
+
+```dart
+// ✅ Good - Only rebuilds when isLoading changes
+final isLoading = context.select((HomeViewModel vm) => vm.isLoading);
+
+// ❌ Avoid - Rebuilds on any ViewModel change
+final viewModel = context.watch<HomeViewModel>();
+final isLoading = viewModel.isLoading;
+```
+
+**Guidelines**:
+- Use `context.select((ViewModelType vm) => vm.property)` for reading specific properties
+- Use `context.read<ViewModelType>()` for calling methods (actions)
+- Only use `context.watch<ViewModelType>()` when you need the entire ViewModel instance
+
 ### Logging Conventions
 
 - **`presentation` Layer**: Use `debugPrint()` for UI-related, temporary debugging only. Avoid

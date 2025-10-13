@@ -15,7 +15,6 @@ class JournalSliverList extends StatelessWidget {
     final (
       :isFirstRender,
       :journal,
-      :isLoading,
       :selectedDate,
       :isSelectedDateInFuture,
       :isSelectionMode,
@@ -24,22 +23,12 @@ class JournalSliverList extends StatelessWidget {
       (HomeViewModel vm) => (
         isFirstRender: vm.isFirstRender,
         journal: vm.journal,
-        isLoading: vm.isLoading,
         selectedDate: vm.selectedDate,
         isSelectedDateInFuture: vm.isSelectedDateInFuture,
         isSelectionMode: vm.isSelectionMode,
         selectedJournalIds: vm.selectedJournalIds,
       ),
     );
-
-    if (isLoading) {
-      return SliverToBoxAdapter(
-        child: FadeIn(
-          delay: isFirstRender ? DelayMS.medium * 5 : DelayMS.medium,
-          child: const CircularProgressIndicator(),
-        ),
-      );
-    }
 
     if (journal.isEmpty) {
       return SliverToBoxAdapter(

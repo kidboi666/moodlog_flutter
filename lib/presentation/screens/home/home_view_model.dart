@@ -250,6 +250,14 @@ class HomeViewModel extends ChangeNotifier
     _load();
   }
 
+  Future<void> refresh() async {
+    await _loadMonthlyJournals();
+    await _loadYearlyJournals();
+    await getCurrentLocation();
+    await getCurrentWeather();
+    journalUseCase.notifyJournalUpdate();
+  }
+
   void _onUserChanged() {
     notifyListeners();
   }
