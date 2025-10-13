@@ -18,6 +18,7 @@ abstract class Settings with _$Settings {
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
     @Default(false) bool isOnboardingComplete,
     @Default(false) bool isAppLockEnabled,
+    @Default(LockType.none) LockType lockType,
     @Default(false) bool isProUser,
   }) = _Settings;
 

@@ -27,7 +27,9 @@ class AppLifecycleObserver with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.paused) {
+      appStateProvider.setAuthenticated(false);
+    } else if (state == AppLifecycleState.resumed) {
       _handleAppResumed();
     }
   }
@@ -37,9 +39,8 @@ class AppLifecycleObserver with WidgetsBindingObserver {
       _isAuthenticating = true;
       final didAuthenticate = await _authenticate();
       if (didAuthenticate) {
-        // 인증 성공 시 특별한 동작 없음
+        appStateProvider.setAuthenticated(true);
       } else {
-        // 인증 실패 또는 취소 시 잠금 화면 표시
         _showLockScreen();
       }
       _isAuthenticating = false;

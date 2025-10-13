@@ -129,6 +129,17 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'app_lock', enabled.toString());
   }
 
+  void setLockType(LockType lockType) {
+    final updatedState = _appStateProvider.appState.copyWith(
+      lockType: lockType,
+    );
+    _updateSettings(updatedState, 'lock_type', lockType.value);
+  }
+
+  Future<void> deletePin() async {
+    await _settingsRepository.deletePin();
+  }
+
   Future<void> _updateSettings(
     Settings newSettings,
     String settingType,

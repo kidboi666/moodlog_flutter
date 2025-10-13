@@ -10,8 +10,10 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
     : _settingsRepository = settingsRepository;
 
   Settings _appState = const Settings();
+  bool _isAuthenticated = false;
 
   Settings get appState => _appState;
+  bool get isAuthenticated => _isAuthenticated;
 
   Future<void> loadSettings() async {
     setLoading();
@@ -31,5 +33,10 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
     } catch (e) {
       setError(Exception('Failed to update settings'));
     }
+  }
+
+  void setAuthenticated(bool value) {
+    _isAuthenticated = value;
+    notifyListeners();
   }
 }

@@ -41,7 +41,7 @@
   "common_weekday_fri_short": "金",
   "common_weekday_sat_short": "土",
   "common_weekday_sun_short": "日",
-  "onboarding_welcome_title": "ムードログへようこそ！",
+  "onboarding_welcome_title": "ようこそ！",
   "onboarding_welcome_description1": "ムードログは、日常の感情を記録し、AIからの返信を受け取ることができるアプリです。",
   "onboarding_welcome_description2": "毎日感情を記録して、AIからの返信を読んでみましょう。",
   "onboarding_welcome_next": "一緒に準備してみませんか？",
@@ -555,5 +555,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "lockScreenConfirmTitle": "PINを再入力してください",
+  "lockScreenCancel": "キャンセル",
+  "settings_common_lock_type_title": "ロック方式",
+  "settings_common_lock_type_subtitle": "生体認証またはPIN",
+  "lock_type_none": "使用しない",
+  "lock_type_biometric": "生体認証",
+  "lock_type_pin": "PIN（4桁）"
 }

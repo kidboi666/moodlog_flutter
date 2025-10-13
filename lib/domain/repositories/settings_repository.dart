@@ -16,4 +16,12 @@ abstract class SettingsRepository {
   Future<void> clearSharedPreferences();
 
   Future<void> clearAllData();
+
+  Future<void> savePin(String pin);
+
+  Future<bool> verifyPin(String pin);
+
+  Future<bool> hasPin();
+
+  Future<void> deletePin();
 }

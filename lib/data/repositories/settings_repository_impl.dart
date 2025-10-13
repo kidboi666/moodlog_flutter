@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
@@ -36,6 +39,8 @@ class SettingsRepositoryImpl implements SettingsRepository {
     final isOnboardingComplete = await _localDataSource.getBool(
       'isOnboardingComplete',
     );
+    final isAppLockEnabled = await _localDataSource.getBool('isAppLockEnabled');
+    final lockTypeString = await _localDataSource.getString('lockType');
 
     return Settings(
       hasNotificationEnabled: hasNotificationEnabled,
@@ -47,6 +52,8 @@ class SettingsRepositoryImpl implements SettingsRepository {
       fontFamily: FontFamily.fromString(fontFamilyString),
       textAlign: SimpleTextAlign.fromString(textAlignString),
       isOnboardingComplete: isOnboardingComplete,
+      isAppLockEnabled: isAppLockEnabled,
+      lockType: LockType.fromString(lockTypeString),
     );
   }
 
@@ -76,6 +83,11 @@ class SettingsRepositoryImpl implements SettingsRepository {
       'isOnboardingComplete',
       newSettings.isOnboardingComplete,
     );
+    await _localDataSource.setBool(
+      'isAppLockEnabled',
+      newSettings.isAppLockEnabled,
+    );
+    await _localDataSource.setString('lockType', newSettings.lockType.value);
     return newSettings;
   }
 
@@ -117,5 +129,37 @@ class SettingsRepositoryImpl implements SettingsRepository {
   Future<void> clearAllData() async {
     await _db.clearAllTables();
     await _localDataSource.clear();
+  }
+
+  String _hashPin(String pin) {
+    final bytes = utf8.encode(pin);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  @override
+  Future<void> savePin(String pin) async {
+    final hashedPin = _hashPin(pin);
+    await _localDataSource.setString('pin_hash', hashedPin);
+  }
+
+  @override
+  Future<bool> verifyPin(String pin) async {
+    final storedHash = await _localDataSource.getString('pin_hash');
+    if (storedHash == null) return false;
+
+    final hashedPin = _hashPin(pin);
+    return hashedPin == storedHash;
+  }
+
+  @override
+  Future<bool> hasPin() async {
+    final storedHash = await _localDataSource.getString('pin_hash');
+    return storedHash != null;
+  }
+
+  @override
+  Future<void> deletePin() async {
+    await _localDataSource.remove('pin_hash');
   }
 }

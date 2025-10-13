@@ -56,9 +56,16 @@ class _SettingsScreenContent extends StatelessWidget {
                   value: context.select(
                     (SettingsViewModel vm) => vm.appState.isAppLockEnabled,
                   ),
-                  onChanged: context
-                      .read<SettingsViewModel>()
-                      .setAppLockEnabled,
+                  onChanged: (enabled) async {
+                    viewModel.setAppLockEnabled(enabled);
+                    if (enabled) {
+                      viewModel.setLockType(LockType.pin);
+                    } else {
+                      viewModel.setLockType(LockType.none);
+                      await viewModel.deletePin();
+                      context.read<AppStateProvider>().setAuthenticated(true);
+                    }
+                  },
                 ),
                 DialogTile(
                   title: t.settings_common_theme_title,

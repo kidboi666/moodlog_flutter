@@ -42,12 +42,17 @@ class OnboardingPageViewWelcome extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                const SizedBox(height: Spacing.md),
+                FadeIn(
+                  delay: DelayMS.medium * 3,
+                  child: Text(
+                    t.onboarding_welcome_next,
+                    style: textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
-          ),
-          FadeIn(
-            delay: DelayMS.medium * 3,
-            child: Text(t.onboarding_welcome_next, style: textTheme.titleLarge),
           ),
           const SizedBox(height: Spacing.md),
           FadeIn(

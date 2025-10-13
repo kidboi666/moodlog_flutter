@@ -355,7 +355,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_welcome_title.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to MoodLog!'**
+  /// **'Welcome!'**
   String get onboarding_welcome_title;
 
   /// No description provided for @onboarding_welcome_description1.
@@ -2338,11 +2338,53 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get lockScreenRetry;
 
+  /// No description provided for @lockScreenConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your PIN'**
+  String get lockScreenConfirmTitle;
+
+  /// No description provided for @lockScreenCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get lockScreenCancel;
+
   /// No description provided for @lockScreenProFeature.
   ///
   /// In en, this message translates to:
   /// **'This feature is available in the Pro version.'**
   String get lockScreenProFeature;
+
+  /// No description provided for @settings_common_lock_type_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock Type'**
+  String get settings_common_lock_type_title;
+
+  /// No description provided for @settings_common_lock_type_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric or PIN'**
+  String get settings_common_lock_type_subtitle;
+
+  /// No description provided for @lock_type_none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get lock_type_none;
+
+  /// No description provided for @lock_type_biometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric'**
+  String get lock_type_biometric;
+
+  /// No description provided for @lock_type_pin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN (4 digits)'**
+  String get lock_type_pin;
 
   /// No description provided for @proFeatureDialogTitle.
   ///

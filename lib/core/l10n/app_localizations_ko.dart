@@ -135,7 +135,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get common_weekday_sun_short => '일';
 
   @override
-  String get onboarding_welcome_title => 'MoodLog에 오신 것을 환영합니다!';
+  String get onboarding_welcome_title => '환영합니다!';
 
   @override
   String get onboarding_welcome_description1 =>
@@ -1195,7 +1195,28 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lockScreenRetry => '재시도';
 
   @override
+  String get lockScreenConfirmTitle => 'PIN을 다시 입력하세요';
+
+  @override
+  String get lockScreenCancel => '취소';
+
+  @override
   String get lockScreenProFeature => '이 기능은 Pro 버전에서 제공됩니다.';
+
+  @override
+  String get settings_common_lock_type_title => '잠금 방식';
+
+  @override
+  String get settings_common_lock_type_subtitle => '생체 인증 또는 PIN 선택';
+
+  @override
+  String get lock_type_none => '사용 안함';
+
+  @override
+  String get lock_type_biometric => '생체 인증';
+
+  @override
+  String get lock_type_pin => 'PIN (4자리)';
 
   @override
   String get proFeatureDialogTitle => 'Pro 기능 안내';

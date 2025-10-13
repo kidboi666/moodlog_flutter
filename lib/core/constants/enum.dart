@@ -506,6 +506,31 @@ enum JournalSource {
 
 enum SpinnerType { button, center, expanded }
 
+enum LockType {
+  none,
+  pin;
+
+  static LockType fromString(String? value) {
+    switch (value) {
+      case 'none':
+        return LockType.none;
+      case 'pin':
+        return LockType.pin;
+      default:
+        return LockType.none;
+    }
+  }
+
+  String get value {
+    switch (this) {
+      case LockType.none:
+        return 'none';
+      case LockType.pin:
+        return 'pin';
+    }
+  }
+}
+
 enum Emoji {
   shakeHand,
   pencil,

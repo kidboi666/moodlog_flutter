@@ -135,7 +135,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_weekday_sun_short => '日';
 
   @override
-  String get onboarding_welcome_title => 'ムードログへようこそ！';
+  String get onboarding_welcome_title => 'ようこそ！';
 
   @override
   String get onboarding_welcome_description1 =>
@@ -1196,7 +1196,28 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lockScreenRetry => '再試行';
 
   @override
+  String get lockScreenConfirmTitle => 'PINを再入力してください';
+
+  @override
+  String get lockScreenCancel => 'キャンセル';
+
+  @override
   String get lockScreenProFeature => 'この機能はPro版で利用できます。';
+
+  @override
+  String get settings_common_lock_type_title => 'ロック方式';
+
+  @override
+  String get settings_common_lock_type_subtitle => '生体認証またはPIN';
+
+  @override
+  String get lock_type_none => '使用しない';
+
+  @override
+  String get lock_type_biometric => '生体認証';
+
+  @override
+  String get lock_type_pin => 'PIN（4桁）';
 
   @override
   String get proFeatureDialogTitle => 'Pro機能のご案内';

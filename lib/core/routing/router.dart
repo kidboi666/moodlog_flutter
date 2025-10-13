@@ -122,14 +122,25 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final AppStateProvider appStateProvider = context.read<AppStateProvider>();
   final bool isOnboardingComplete =
       appStateProvider.appState.isOnboardingComplete;
+  final bool isAppLockEnabled = appStateProvider.appState.isAppLockEnabled;
+  final bool isAuthenticated = appStateProvider.isAuthenticated;
   final String location = state.matchedLocation;
   final bool isOnboarding = location == Routes.onboarding;
+  final bool isLockScreen = location == Routes.lock;
 
   if (!isOnboardingComplete && !isOnboarding) {
     return Routes.onboarding;
   }
 
   if (isOnboardingComplete && isOnboarding) {
+    return Routes.home;
+  }
+
+  if (isAppLockEnabled && !isAuthenticated && !isLockScreen && !isOnboarding) {
+    return Routes.lock;
+  }
+
+  if (isAuthenticated && isLockScreen) {
     return Routes.home;
   }
 

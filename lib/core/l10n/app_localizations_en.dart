@@ -135,7 +135,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_weekday_sun_short => 'Sun';
 
   @override
-  String get onboarding_welcome_title => 'Welcome to MoodLog!';
+  String get onboarding_welcome_title => 'Welcome!';
 
   @override
   String get onboarding_welcome_description1 =>
@@ -1237,8 +1237,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lockScreenRetry => 'Retry';
 
   @override
+  String get lockScreenConfirmTitle => 'Confirm your PIN';
+
+  @override
+  String get lockScreenCancel => 'Cancel';
+
+  @override
   String get lockScreenProFeature =>
       'This feature is available in the Pro version.';
+
+  @override
+  String get settings_common_lock_type_title => 'Lock Type';
+
+  @override
+  String get settings_common_lock_type_subtitle => 'Biometric or PIN';
+
+  @override
+  String get lock_type_none => 'None';
+
+  @override
+  String get lock_type_biometric => 'Biometric';
+
+  @override
+  String get lock_type_pin => 'PIN (4 digits)';
 
   @override
   String get proFeatureDialogTitle => 'Pro Feature';
