@@ -814,17 +814,20 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_ai_section_title => 'AI設定';
 
   @override
-  String get settings_ai_personality_title => 'AI性格';
+  String get settings_ai_personality_title => 'AIの性格';
 
   @override
   String get snackbar_backup_completed => 'バックアップが完了しました。';
 
   @override
-  String get snackbar_cache_cleared => 'キャッシュが削除されました。';
+  String get snackbar_restore_completed => 'データの復元が完了しました。';
+
+  @override
+  String get snackbar_cache_cleared => 'キャッシュが消去されました。';
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return '続行することで$termsと$privacyに同意します。';
+    return '続行することにより、$termsおよび$privacyに同意したことになります。';
   }
 
   @override

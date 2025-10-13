@@ -193,7 +193,7 @@ class _SettingsScreenContent extends StatelessWidget {
                                 viewModel.restoreData().then((_) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text("데이터가 복원되었습니다."), // TODO: Add localization
+                                      content: Text(t.snackbar_restore_completed),
                                     ),
                                   );
                                 });

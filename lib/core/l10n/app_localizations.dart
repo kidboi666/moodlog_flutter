@@ -1636,6 +1636,12 @@ abstract class AppLocalizations {
   /// **'Backup completed.'**
   String get snackbar_backup_completed;
 
+  /// No description provided for @snackbar_restore_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Data restore completed.'**
+  String get snackbar_restore_completed;
+
   /// No description provided for @snackbar_cache_cleared.
   ///
   /// In en, this message translates to:
@@ -1645,7 +1651,7 @@ abstract class AppLocalizations {
   /// No description provided for @auth_terms_message.
   ///
   /// In en, this message translates to:
-  /// **'By continuing, you agree to {terms} and {privacy}.'**
+  /// **'By continuing, you agree to the {terms} and {privacy}.'**
   String auth_terms_message(String terms, String privacy);
 
   /// No description provided for @auth_terms_of_service.

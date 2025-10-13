@@ -374,6 +374,7 @@
   "settings_ai_section_title": "AI 설정",
   "settings_ai_personality_title": "AI 성격",
   "snackbar_backup_completed": "백업이 완료되었습니다.",
+  "snackbar_restore_completed": "데이터 복원이 완료되었습니다.",
   "snackbar_cache_cleared": "캐시가 정리되었습니다.",
   "auth_terms_message": "계속하면 {terms} 및 {privacy}에 동의하는 것으로 간주됩니다.",
   "@auth_terms_message": {

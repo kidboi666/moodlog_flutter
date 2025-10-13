@@ -278,4 +278,34 @@ class JournalLocalDataSource {
       throw Exception(e);
     }
   }
+
+  Future<void> linkJournalsToTags(Map<int, List<String>> journalToTagsMap) async {
+    try {
+      await _db.batch((batch) async {
+        for (final entry in journalToTagsMap.entries) {
+          final journalId = entry.key;
+          final tagNames = entry.value;
+
+          if (tagNames.isEmpty) continue;
+
+          final tags = await (_db.select(_db.tags)..where((t) => t.name.isIn(tagNames))).get();
+          final tagIds = tags.map((t) => t.id).toList();
+
+          for (final tagId in tagIds) {
+            batch.insert(
+              _db.journalTags,
+              JournalTagsCompanion(
+                journalId: Value(journalId),
+                tagId: Value(tagId),
+              ),
+              mode: InsertMode.insertOrIgnore,
+            );
+          }
+        }
+      });
+    } catch (e, s) {
+      _log.severe('Error linking journals to tags', e, s);
+      throw Exception(e);
+    }
+  }
 }

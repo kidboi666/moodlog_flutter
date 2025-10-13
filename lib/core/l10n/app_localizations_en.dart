@@ -852,11 +852,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snackbar_backup_completed => 'Backup completed.';
 
   @override
+  String get snackbar_restore_completed => 'Data restore completed.';
+
+  @override
   String get snackbar_cache_cleared => 'Cache cleared.';
 
   @override
   String auth_terms_message(String terms, String privacy) {
-    return 'By continuing, you agree to $terms and $privacy.';
+    return 'By continuing, you agree to the $terms and $privacy.';
   }
 
   @override

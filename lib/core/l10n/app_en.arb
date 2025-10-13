@@ -374,8 +374,9 @@
   "settings_ai_section_title": "AI Settings",
   "settings_ai_personality_title": "AI Personality",
   "snackbar_backup_completed": "Backup completed.",
+  "snackbar_restore_completed": "Data restore completed.",
   "snackbar_cache_cleared": "Cache cleared.",
-  "auth_terms_message": "By continuing, you agree to {terms} and {privacy}.",
+  "auth_terms_message": "By continuing, you agree to the {terms} and {privacy}.",
   "@auth_terms_message": {
     "placeholders": {
       "terms": {

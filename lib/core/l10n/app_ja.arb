@@ -372,10 +372,11 @@
   "settings_developer_options": "開発者オプション",
   "settings_developer_mode_only": "開発モード専用動作",
   "settings_ai_section_title": "AI設定",
-  "settings_ai_personality_title": "AI性格",
+  "settings_ai_personality_title": "AIの性格",
   "snackbar_backup_completed": "バックアップが完了しました。",
-  "snackbar_cache_cleared": "キャッシュが削除されました。",
-  "auth_terms_message": "続行することで{terms}と{privacy}に同意します。",
+  "snackbar_restore_completed": "データの復元が完了しました。",
+  "snackbar_cache_cleared": "キャッシュが消去されました。",
+  "auth_terms_message": "続行することにより、{terms}および{privacy}に同意したことになります。",
   "@auth_terms_message": {
     "placeholders": {
       "terms": {

@@ -118,6 +118,16 @@ class BackupRepositoryImpl implements BackupRepository {
     // 4. Insert restored data
     await _localDataSource.insertJournalsAndTags(journals, tags);
 
-    // TODO: Rebuild journal-tag relationships
+    // 5. Rebuild journal-tag relationships
+    final journalToTagsMap = <int, List<String>>{};
+    for (final data in journalsData) {
+      final map = data as Map<String, dynamic>;
+      final journalId = map['id'] as int;
+      final tagNames = (map['tagNames'] as List<dynamic>?)?.cast<String>();
+      if (journalId != null && tagNames != null && tagNames.isNotEmpty) {
+        journalToTagsMap[journalId] = tagNames;
+      }
+    }
+    await _localDataSource.linkJournalsToTags(journalToTagsMap);
   }
 }

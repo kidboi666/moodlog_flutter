@@ -819,6 +819,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snackbar_backup_completed => '백업이 완료되었습니다.';
 
   @override
+  String get snackbar_restore_completed => '데이터 복원이 완료되었습니다.';
+
+  @override
   String get snackbar_cache_cleared => '캐시가 정리되었습니다.';
 
   @override
