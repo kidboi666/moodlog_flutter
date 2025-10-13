@@ -49,30 +49,37 @@ class _StatisticsScreenContent extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: Spacing.xl),
-            SectionHeader(title: t.statistics_ai_report_title),
-            Consumer<StatisticsViewModel>(
-              builder: (context, viewModel, child) {
-                final isProUser = viewModel.isProUser;
-                return MenuListTile(
-                  title: t.statistics_ai_report_title,
-                  subtitle: t.statistics_ai_report_subtitle,
-                  icon: Icons.auto_awesome,
-                  onTap: () {
-                    if (!isProUser) {
-                      _showProFeatureDialog(context);
-                    } else {
-                      context.push(Routes.aiAnalysisReport);
-                    }
-                  },
-                  trailing: isProUser
-                      ? const Icon(Icons.arrow_forward_ios)
-                      : const Icon(
-                          Icons.workspace_premium,
-                          color: Colors.amber,
-                        ),
-                );
-              },
+            const SliverToBoxAdapter(child: SizedBox(height: Spacing.xl)),
+            SliverToBoxAdapter(
+              child: SectionHeader(title: t.statistics_ai_report_title),
+            ),
+            SliverToBoxAdapter(
+              child: Consumer<StatisticsViewModel>(
+                builder: (context, viewModel, child) {
+                  final isProUser = viewModel.isProUser;
+                  return MenuListTile(
+                    title: t.statistics_ai_report_title,
+                    subtitle: t.statistics_ai_report_subtitle,
+                    icon: Icons.auto_awesome,
+                    onTap: () {
+                      if (!isProUser) {
+                        _showProFeatureDialog(context);
+                      } else {
+                        context.push(Routes.aiAnalysisReport);
+                      }
+                    },
+                    trailing: isProUser
+                        ? const Icon(Icons.arrow_forward_ios)
+                        : const Icon(
+                            Icons.workspace_premium,
+                            color: Colors.amber,
+                          ),
+                  );
+                },
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: kBottomNavigationBarHeight),
             ),
           ],
         ),

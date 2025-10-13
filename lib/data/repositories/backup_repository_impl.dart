@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drift/drift.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/data/data_source/local/database/database.dart';
-import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
