@@ -46,28 +46,22 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
       final backupData = await createBackupData();
 
       final jsonString = jsonEncode(backupData.toJson());
-
-      final directory = await getTemporaryDirectory();
+      final bytes = utf8.encode(jsonString);
       final fileName =
           'moodlog_backup_${DateTime.now().millisecondsSinceEpoch}.json';
-      final tempFile = File('${directory.path}/$fileName');
-      await tempFile.writeAsString(jsonString);
 
       final result = await FilePicker.platform.saveFile(
         dialogTitle: 'Save Backup File',
         fileName: fileName,
         type: FileType.custom,
         allowedExtensions: ['json'],
+        bytes: bytes,
       );
 
       if (result != null) {
-        await tempFile.copy(result);
-        await tempFile.delete();
-
         _log.info('Backup exported successfully to: $result');
         return result;
       } else {
-        await tempFile.delete();
         throw Exception('Backup export cancelled by user');
       }
     } catch (e, s) {
