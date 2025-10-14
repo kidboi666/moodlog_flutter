@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
 import 'package:moodlog/presentation/screens/home/home_view.dart';
 import 'package:moodlog/presentation/screens/journal/image_detail_screen.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view.dart';
@@ -14,7 +15,6 @@ import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
 import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
 import 'package:moodlog/presentation/screens/tags/tags_view.dart';
 import 'package:moodlog/presentation/screens/write/write_view.dart';
-import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
 import 'package:provider/provider.dart';
 
 GoRouter router(
@@ -77,7 +77,6 @@ GoRouter router(
         return const HomeScreen();
       },
     ),
-
     GoRoute(
       path: Routes.statistics,
       builder: (_, _) {

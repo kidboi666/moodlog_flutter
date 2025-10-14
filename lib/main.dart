@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:moodlog/core/di/injection_container.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
@@ -12,7 +13,8 @@ import 'package:provider/provider.dart';
 Future<void> main({
   Future<void> Function(BuildContext context)? onAppStartedDev,
 }) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   FlavorService();
   final firebaseOptions = FlavorService.firebaseOptions;
