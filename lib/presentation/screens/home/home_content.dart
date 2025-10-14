@@ -10,6 +10,7 @@ class _HomeScreenContent extends StatelessWidget {
     return Scaffold(
       appBar: const HomeAppBar(),
       endDrawer: const AppDrawer(),
+      bottomNavigationBar: const BannerAdWidget(),
       body: RefreshIndicator(
         onRefresh: () => context.read<HomeViewModel>().refresh(),
         child: CustomScrollView(

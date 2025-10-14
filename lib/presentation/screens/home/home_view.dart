@@ -7,6 +7,7 @@ import 'package:moodlog/presentation/screens/home/widgets/home_floating_action_b
 import 'package:moodlog/presentation/screens/home/widgets/journal_sliver_list.dart';
 import 'package:moodlog/presentation/screens/home/widgets/unified_calendar.dart';
 import 'package:moodlog/presentation/screens/home/widgets/welcome_zone.dart';
+import 'package:moodlog/presentation/widgets/banner_ad_widget.dart';
 import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 

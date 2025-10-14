@@ -89,19 +89,8 @@ class _LockScreenState extends State<LockScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.lock_outline, size: 80),
-            const SizedBox(height: 20),
-            Text(t.lockScreenTitle, style: TextTheme.of(context).headlineSmall),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: SizedBox.shrink(),
     );
   }
 }

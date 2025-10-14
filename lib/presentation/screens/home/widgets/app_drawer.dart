@@ -5,7 +5,6 @@ import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/screens/home/widgets/app_info_footer.dart';
 import 'package:moodlog/presentation/screens/home/widgets/weather_widget.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/contact_dialog.dart';
-import 'package:moodlog/presentation/widgets/banner_ad_widget.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -16,7 +15,6 @@ class AppDrawer extends StatelessWidget {
     return NavigationDrawer(
       footer: const AppInfoFooter(),
       children: [
-        const BannerAdWidget(),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SizedBox(height: 80, child: WeatherWidget()),
