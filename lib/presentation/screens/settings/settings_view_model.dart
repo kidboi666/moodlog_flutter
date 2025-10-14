@@ -6,8 +6,8 @@ import 'package:moodlog/domain/entities/app/settings.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
-import 'package:moodlog/domain/repositories/backup_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
+import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
@@ -18,7 +18,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   final UserProvider _userProvider;
   final TagUseCase _tagUseCase;
   final AnalyticsRepository _analyticsRepository;
-  final BackupRepository _backupRepository;
+  final LocalBackupUseCase _localBackupUseCase;
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
@@ -26,13 +26,13 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     required UserProvider userProvider,
     required TagUseCase tagUseCase,
     required AnalyticsRepository analyticsRepository,
-    required BackupRepository backupRepository,
+    required LocalBackupUseCase localBackupUseCase,
   }) : _appStateProvider = appStateProvider,
        _settingsRepository = settingsRepository,
        _userProvider = userProvider,
        _tagUseCase = tagUseCase,
        _analyticsRepository = analyticsRepository,
-       _backupRepository = backupRepository {
+       _localBackupUseCase = localBackupUseCase {
     getAllTags();
   }
 
@@ -171,34 +171,25 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     }, context: 'updateSettings');
   }
 
-  Future<void> backupData() async {
-    final userId = _userProvider.user?.userId;
-    if (userId == null) {
-      // Handle error: user not logged in
-      return;
-    }
-    await executeAsync(
-      () => _backupRepository.backup(userId: userId),
-      context: 'backupData',
-      rethrowError: true,
-    );
-  }
-
-  Future<void> restoreData() async {
-    final userId = _userProvider.user?.userId;
-    if (userId == null) {
-      // Handle error: user not logged in
-      return;
-    }
-    await executeAsync(
-      () => _backupRepository.restore(userId: userId),
-      context: 'restoreData',
-      rethrowError: true,
-    );
-  }
-
   void clearSharedPreferences() {
     _settingsRepository.clearSharedPreferences();
     notifyListeners();
+  }
+
+  Future<String> exportLocalBackup() async {
+    final result = await executeAsync(
+      () => _localBackupUseCase.exportBackup(),
+      context: 'exportLocalBackup',
+      rethrowError: true,
+    );
+    return result ?? '';
+  }
+
+  Future<void> importLocalBackup(String filePath) async {
+    await executeAsync(
+      () => _localBackupUseCase.importBackup(filePath),
+      context: 'importLocalBackup',
+      rethrowError: true,
+    );
   }
 }

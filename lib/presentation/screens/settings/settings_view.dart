@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
@@ -7,9 +7,10 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
-import 'package:moodlog/data/repositories/backup_repository_impl.dart';
+import 'package:moodlog/data/repositories/local_backup_repository_impl.dart';
+import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/ai_personality_dialog.dart';
@@ -39,9 +40,14 @@ class SettingsScreen extends StatelessWidget {
         userProvider: context.read(),
         tagUseCase: context.read(),
         analyticsRepository: AnalyticsRepositoryImpl(),
-        backupRepository: BackupRepositoryImpl(
-          firestore: FirebaseFirestore.instance,
-          localDataSource: context.read<JournalLocalDataSource>(),
+        localBackupUseCase: LocalBackupUseCase(
+          localBackupRepository: LocalBackupRepositoryImpl(
+            journalRepository: context.read(),
+            tagRepository: context.read(),
+            localUserRepository: context.read(),
+            settingsRepository: context.read(),
+            database: context.read<MoodLogDatabase>(),
+          ),
         ),
       ),
       child: _SettingsScreenContent(),

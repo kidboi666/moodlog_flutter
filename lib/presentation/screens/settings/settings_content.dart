@@ -108,70 +108,82 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacing.xl),
 
-                if (kDebugMode) ...[
-                  SectionHeader(title: t.settings_data_title),
-                  SwitchTile(
-                    title: t.settings_data_auto_sync_title,
-                    subtitle: t.settings_data_auto_sync_subtitle,
-                    icon: Icons.sync,
-                    value: viewModel.appState.hasAutoSyncEnabled,
-                    onChanged: viewModel.setAutoSyncEnabled,
-                  ),
-                  MenuListTile(
-                    title: t.settings_data_backup_title,
-                    subtitle: t.settings_data_backup_subtitle,
-                    icon: Icons.backup,
-                    onTap: () async {
-                      _showLoadingDialog(context, t.backup_in_progress);
-                      try {
-                        await viewModel.backupData();
-                        context.pop(); // Close dialog
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(t.snackbar_backup_completed)),
-                        );
-                      } catch (e) {
-                        context.pop(); // Close dialog
+                SectionHeader(title: t.settings_data_title),
+                MenuListTile(
+                  title: '백업 내보내기',
+                  subtitle: '데이터를 JSON 파일로 내보내기',
+                  icon: Icons.download,
+                  onTap: () async {
+                    _showLoadingDialog(context, '백업 파일 생성 중...');
+                    try {
+                      final filePath = await viewModel.exportLocalBackup();
+                      if (context.mounted) {
+                        context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(t.backup_failed),
+                            content: Text('백업 파일이 저장되었습니다: ${filePath.split('/').last}'),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        context.pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('백업 실패: ${e.toString()}'),
                             backgroundColor: Theme.of(
                               context,
                             ).colorScheme.error,
                           ),
                         );
                       }
-                    },
-                  ),
-                  MenuListTile(
-                    title: t.settings_data_restore_title,
-                    subtitle: t.settings_data_restore_subtitle,
-                    icon: Icons.restore,
-                    onTap: () async {
-                      _showLoadingDialog(context, t.restore_in_progress);
-                      try {
-                        await viewModel.restoreData();
-                        context.pop(); // Close dialog
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(t.snackbar_restore_completed)),
-                        );
-                      } catch (e) {
-                        context.pop(); // Close dialog
-                        final errorMessage =
-                            e.toString().contains('No backup found')
-                            ? t.restore_failed_no_backup
-                            : t.restore_failed_general;
+                    }
+                  },
+                ),
+                MenuListTile(
+                  title: '백업 가져오기',
+                  subtitle: 'JSON 파일에서 데이터 복원',
+                  icon: Icons.upload,
+                  onTap: () async {
+                    try {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['json'],
+                      );
+
+                      if (result != null && result.files.single.path != null) {
+                        final filePath = result.files.single.path!;
+
+                        if (context.mounted) {
+                          _showLoadingDialog(context, '복원 중...');
+                        }
+
+                        await viewModel.importLocalBackup(filePath);
+
+                        if (context.mounted) {
+                          context.pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('백업 데이터가 복원되었습니다'),
+                            ),
+                          );
+                        }
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(errorMessage),
+                            content: Text('복원 실패: ${e.toString()}'),
                             backgroundColor: Theme.of(
                               context,
                             ).colorScheme.error,
                           ),
                         );
                       }
-                    },
-                  ),
-                ],
+                    }
+                  },
+                ),
 
                 const SizedBox(height: kBottomNavigationBarHeight * 6),
               ]),
