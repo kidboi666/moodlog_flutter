@@ -14,6 +14,7 @@ class AiEnableCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final viewModel = context.watch<WriteViewModel>();
+
     return Card(
       elevation: 0,
       color: colorScheme.surfaceContainer,
@@ -26,8 +27,8 @@ class AiEnableCard extends StatelessWidget {
               if (viewModel.content == null ||
                   viewModel.content!.trim().isEmpty) {
                 context.showSnackBar(
-                  const SnackBar(
-                    content: Text('Please write something first.'),
+                  SnackBar(
+                    content: Text(t.write_ai_content_required),
                     behavior: SnackBarBehavior.floating,
                   ),
                 );

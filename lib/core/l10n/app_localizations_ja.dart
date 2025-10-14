@@ -346,7 +346,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get journal_delete_confirm_description => 'この項目を削除しますか？';
 
   @override
-  String get journal_ai_generating_response_title => 'AIが返信を作成中です。';
+  String get journal_ai_generating_response_title => 'AIがあなたの日記を分析しています...';
+
+  @override
+  String get journal_ai_generating_response_error => 'AI応答の生成に失敗しました。';
 
   @override
   String get statistics_total_title => '全体統計';
@@ -1238,4 +1241,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String home_delete_journals_confirm_message(int count) {
     return '$count件の日記を削除しますか？';
   }
+
+  @override
+  String get write_ai_content_required => 'まず日記を書いてください。';
 }

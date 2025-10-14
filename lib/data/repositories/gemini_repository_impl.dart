@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:moodlog/core/constants/enum.dart';
@@ -42,13 +44,27 @@ class GeminiRepositoryImpl implements GeminiRepository {
   Future<Result<String>> generateResponse({
     required String prompt,
     required MoodType moodType,
+    List<String>? imagePaths,
   }) async {
     if (!isInitialized) {
       return Result.error(Exception('Gemini model is not initialized'));
     }
-    final response = await _model!.generateContent([
-      Content.text(Prompt.generateAnswerPrompt(prompt, moodType)),
-    ]);
+
+    final parts = <Part>[];
+    parts.add(TextPart(Prompt.generateAnswerPrompt(prompt, moodType)));
+
+    if (imagePaths != null && imagePaths.isNotEmpty) {
+      for (final path in imagePaths) {
+        final file = File(path);
+        if (await file.exists()) {
+          final bytes = await file.readAsBytes();
+          final mimeType = path.endsWith('.png') ? 'image/png' : 'image/jpeg';
+          parts.add(InlineDataPart(mimeType, bytes));
+        }
+      }
+    }
+
+    final response = await _model!.generateContent([Content.multi(parts)]);
     return Result.ok(response.text ?? '');
   }
 

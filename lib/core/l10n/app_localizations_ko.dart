@@ -345,7 +345,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_description => '이 일기를 삭제하시겠습니까?';
 
   @override
-  String get journal_ai_generating_response_title => 'AI가 응답을 작성하고 있습니다.';
+  String get journal_ai_generating_response_title => 'AI가 일기를 분석하고 있어요...';
+
+  @override
+  String get journal_ai_generating_response_error => 'AI 응답 생성에 실패했습니다.';
 
   @override
   String get statistics_total_title => '전체 통계';
@@ -1237,4 +1240,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String home_delete_journals_confirm_message(int count) {
     return '$count개의 일기를 삭제하시겠습니까?';
   }
+
+  @override
+  String get write_ai_content_required => '먼저 일기를 작성해주세요.';
 }

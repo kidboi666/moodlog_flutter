@@ -24,7 +24,6 @@ import 'package:moodlog/presentation/providers/app_state_provider.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiUseCase _geminiUseCase;
-  final AppStateProvider _appStateProvider;
   final AiGenerationProvider _aiGenerationProvider;
   final PickAndSaveImageUseCase _pickAndSaveImageUseCase;
   final SettingsUseCase _settingsUseCase;
@@ -50,7 +49,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     DateTime? selectedDate,
     int? editJournalId,
   }) : _geminiUseCase = geminiUseCase,
-       _appStateProvider = appStateProvider,
        _aiGenerationProvider = aiGenerationProvider,
        _pickAndSaveImageUseCase = pickAndSaveImageUseCase,
        _settingsUseCase = settingsUseCase,
@@ -85,6 +83,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   List<Tag> _selectedTags = [];
   final bool _isEditMode;
   final int? _editJournalId;
+  String? _originalAiResponse;
 
   TextEditingController get textEditingController => _textEditingController;
 
@@ -415,6 +414,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           hasTag: _selectedTags.isNotEmpty,
         );
 
+        if (_aiEnabled && _originalAiResponse == null) {
+          _generateAiResponse();
+        }
+
         setSuccess();
         return Result.ok(null);
       case Error<int>():
@@ -473,11 +476,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     }
     _checkAiUsage();
 
-    final aiPersonality = _appStateProvider.appState.aiPersonality;
-    await _geminiUseCase.initialize(aiPersonality);
     final aiResponse = await _geminiUseCase.generateResponse(
       prompt: content!,
       moodType: selectedMood,
+      imagePaths: _selectedImageList,
     );
 
     switch (aiResponse) {
@@ -550,6 +552,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           _aiEnabled = journal.aiResponseEnabled;
           _selectedDate = journal.createdAt;
           _selectedTags = journal.tags ?? [];
+          _originalAiResponse = journal.aiResponse;
 
           if (journal.latitude != null && journal.longitude != null) {
             _locationInfo = LocationInfo(

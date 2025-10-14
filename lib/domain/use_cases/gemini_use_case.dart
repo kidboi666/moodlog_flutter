@@ -15,10 +15,12 @@ class GeminiUseCase {
   Future<Result<String>> generateResponse({
     required String prompt,
     required MoodType moodType,
+    List<String>? imagePaths,
   }) {
     return _geminiRepository.generateResponse(
       prompt: prompt,
       moodType: moodType,
+      imagePaths: imagePaths,
     );
   }
 }

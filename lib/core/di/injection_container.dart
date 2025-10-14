@@ -111,7 +111,10 @@ List<SingleChildWidget> _createRepositories() {
 List<SingleChildWidget> _createStateProviders() {
   return [
     ChangeNotifierProvider<AppStateProvider>(
-      create: (context) => AppStateProvider(settingsRepository: context.read()),
+      create: (context) => AppStateProvider(
+        settingsRepository: context.read(),
+        geminiUseCase: context.read(),
+      ),
       lazy: false,
     ),
     ChangeNotifierProvider<UserProvider>(

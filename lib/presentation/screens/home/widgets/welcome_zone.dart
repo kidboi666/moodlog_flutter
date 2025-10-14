@@ -19,16 +19,16 @@ class WelcomeZone extends StatelessWidget {
           children: [
             Text(
               t.home_welcome(nickname ?? ''),
-              style: TextTheme.of(context).headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(width: Spacing.md),
           ],
         ),
         Text(
           t.home_howareyou,
-          style: TextTheme.of(
-            context,
-          ).headlineSmall?.copyWith(color: ColorScheme.of(context).secondary),
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
       ],
     );

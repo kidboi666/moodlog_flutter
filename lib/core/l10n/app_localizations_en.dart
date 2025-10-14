@@ -363,7 +363,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get journal_ai_generating_response_title =>
-      'AI is writing a response.';
+      'AI is analyzing your journal...';
+
+  @override
+  String get journal_ai_generating_response_error =>
+      'Failed to generate AI response.';
 
   @override
   String get statistics_total_title => 'Overall Statistics';
@@ -1280,4 +1284,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String home_delete_journals_confirm_message(int count) {
     return 'Are you sure you want to delete $count journal entries?';
   }
+
+  @override
+  String get write_ai_content_required => 'Please write something first.';
 }

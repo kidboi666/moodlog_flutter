@@ -751,8 +751,14 @@ abstract class AppLocalizations {
   /// No description provided for @journal_ai_generating_response_title.
   ///
   /// In en, this message translates to:
-  /// **'AI is writing a response.'**
+  /// **'AI is analyzing your journal...'**
   String get journal_ai_generating_response_title;
+
+  /// No description provided for @journal_ai_generating_response_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate AI response.'**
+  String get journal_ai_generating_response_error;
 
   /// No description provided for @statistics_total_title.
   ///
@@ -2415,6 +2421,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete {count} journal entries?'**
   String home_delete_journals_confirm_message(int count);
+
+  /// No description provided for @write_ai_content_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please write something first.'**
+  String get write_ai_content_required;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view_model.dart';
 
 class AiResponseBox extends StatefulWidget {
@@ -34,6 +35,7 @@ class _AiResponseBoxState extends State<AiResponseBox>
   @override
   Widget build(BuildContext context) {
     final journal = widget.viewModel.journal;
+    final aiError = widget.viewModel.aiGenerationError;
 
     if (journal == null) {
       return const SizedBox.shrink();
@@ -46,45 +48,69 @@ class _AiResponseBoxState extends State<AiResponseBox>
         margin: const EdgeInsets.all(Spacing.md),
         child: Padding(
           padding: const EdgeInsets.all(Spacing.md),
-          child: AnimatedCrossFade(
-            crossFadeState: journal.aiResponse != null
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            duration: DurationMS.lazy,
-            firstChild: Column(
-              spacing: Spacing.xl,
-              children: [
-                Row(
-                  spacing: Spacing.md,
-                  children: [
-                    Icon(Icons.psychology),
-                    Text(
-                      AppLocalizations.of(context)!.write_ai_title,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ],
-                ),
-                Text(
-                  journal.aiResponse ?? '',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ],
-            ),
-            secondChild: Center(
-              child: Column(
-                spacing: Spacing.xl,
-                children: [
-                  Text(
-                    AppLocalizations.of(
-                      context,
-                    )!.journal_ai_generating_response_title,
-                  ),
-                  _buildTypingAnimation(),
-                ],
-              ),
-            ),
-          ),
+          child: _buildContent(context, journal, aiError),
         ),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, Journal journal, Object? aiError) {
+    if (journal.aiResponse != null) {
+      return _buildResponseContent(context, journal.aiResponse!);
+    } else if (aiError != null) {
+      return _buildError(context, aiError.toString());
+    } else {
+      return _buildLoading(context);
+    }
+  }
+
+  Widget _buildResponseContent(BuildContext context, String response) {
+    return Column(
+      spacing: Spacing.xl,
+      children: [
+        Row(
+          spacing: Spacing.md,
+          children: [
+            Icon(Icons.psychology),
+            Text(
+              AppLocalizations.of(context)!.write_ai_title,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
+        Text(response, style: Theme.of(context).textTheme.bodyLarge),
+      ],
+    );
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return Center(
+      child: Column(
+        spacing: Spacing.xl,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.journal_ai_generating_response_title,
+          ),
+          _buildTypingAnimation(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildError(BuildContext context, String error) {
+    return Center(
+      child: Column(
+        spacing: Spacing.xl,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.journal_ai_generating_response_error,
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
+          ),
+          Text(
+            error,
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
+          ),
+        ],
       ),
     );
   }
