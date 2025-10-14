@@ -123,9 +123,7 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
       };
 
       final statsList = await _database.select(_database.stats).get();
-      final stat = statsList.isNotEmpty
-          ? statsList.first
-          : throw Exception('No stats found');
+      final stat = statsList.isNotEmpty ? statsList.first : null;
 
       final images = <String, String>{};
       for (final journal in journals) {
@@ -150,7 +148,7 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
         backupDate: DateTime.now(),
         user: BackupUser.fromLocalUser(user),
         settings: BackupSettings.fromSettings(settings),
-        stat: BackupStat.fromStat(stat),
+        stat: stat != null ? BackupStat.fromStat(stat) : null,
         journals: journals.map((j) => BackupJournal.fromJournal(j)).toList(),
         tags: tags.map((t) => BackupTag.fromTag(t)).toList(),
         images: images,
@@ -172,16 +170,18 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
         backupData.settings.toSettings(),
       );
 
-      await _database
-          .into(_database.stats)
-          .insert(
-            StatsCompanion.insert(
-              id: Value(backupData.stat.id),
-              currentStreak: Value(backupData.stat.currentStreak),
-              maxStreak: Value(backupData.stat.maxStreak),
-              lastActiveDate: backupData.stat.lastActiveDate,
-            ),
-          );
+      if (backupData.stat != null) {
+        await _database
+            .into(_database.stats)
+            .insert(
+              StatsCompanion.insert(
+                id: Value(backupData.stat!.id),
+                currentStreak: Value(backupData.stat!.currentStreak),
+                maxStreak: Value(backupData.stat!.maxStreak),
+                lastActiveDate: backupData.stat!.lastActiveDate,
+              ),
+            );
+      }
 
       final tagMap = <int, int>{};
       for (final backupTag in backupData.tags) {

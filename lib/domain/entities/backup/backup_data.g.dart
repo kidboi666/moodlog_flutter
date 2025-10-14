@@ -11,7 +11,9 @@ _BackupData _$BackupDataFromJson(Map<String, dynamic> json) => _BackupData(
   backupDate: DateTime.parse(json['backupDate'] as String),
   user: BackupUser.fromJson(json['user'] as Map<String, dynamic>),
   settings: BackupSettings.fromJson(json['settings'] as Map<String, dynamic>),
-  stat: BackupStat.fromJson(json['stat'] as Map<String, dynamic>),
+  stat: json['stat'] == null
+      ? null
+      : BackupStat.fromJson(json['stat'] as Map<String, dynamic>),
   journals: (json['journals'] as List<dynamic>)
       .map((e) => BackupJournal.fromJson(e as Map<String, dynamic>))
       .toList(),

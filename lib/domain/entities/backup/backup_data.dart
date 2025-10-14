@@ -15,7 +15,7 @@ abstract class BackupData with _$BackupData {
     required DateTime backupDate,
     required BackupUser user,
     required BackupSettings settings,
-    required BackupStat stat,
+    BackupStat? stat,
     required List<BackupJournal> journals,
     required List<BackupTag> tags,
     required Map<String, String> images,

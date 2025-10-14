@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BackupData {
 
- String get version; DateTime get backupDate; BackupUser get user; BackupSettings get settings; BackupStat get stat; List<BackupJournal> get journals; List<BackupTag> get tags; Map<String, String> get images;
+ String get version; DateTime get backupDate; BackupUser get user; BackupSettings get settings; BackupStat? get stat; List<BackupJournal> get journals; List<BackupTag> get tags; Map<String, String> get images;
 /// Create a copy of BackupData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $BackupDataCopyWith<$Res>  {
   factory $BackupDataCopyWith(BackupData value, $Res Function(BackupData) _then) = _$BackupDataCopyWithImpl;
 @useResult
 $Res call({
- String version, DateTime backupDate, BackupUser user, BackupSettings settings, BackupStat stat, List<BackupJournal> journals, List<BackupTag> tags, Map<String, String> images
+ String version, DateTime backupDate, BackupUser user, BackupSettings settings, BackupStat? stat, List<BackupJournal> journals, List<BackupTag> tags, Map<String, String> images
 });
 
 
-$BackupUserCopyWith<$Res> get user;$BackupSettingsCopyWith<$Res> get settings;$BackupStatCopyWith<$Res> get stat;
+$BackupUserCopyWith<$Res> get user;$BackupSettingsCopyWith<$Res> get settings;$BackupStatCopyWith<$Res>? get stat;
 
 }
 /// @nodoc
@@ -65,14 +65,14 @@ class _$BackupDataCopyWithImpl<$Res>
 
 /// Create a copy of BackupData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? version = null,Object? backupDate = null,Object? user = null,Object? settings = null,Object? stat = null,Object? journals = null,Object? tags = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? version = null,Object? backupDate = null,Object? user = null,Object? settings = null,Object? stat = freezed,Object? journals = null,Object? tags = null,Object? images = null,}) {
   return _then(_self.copyWith(
 version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String,backupDate: null == backupDate ? _self.backupDate : backupDate // ignore: cast_nullable_to_non_nullable
 as DateTime,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as BackupUser,settings: null == settings ? _self.settings : settings // ignore: cast_nullable_to_non_nullable
-as BackupSettings,stat: null == stat ? _self.stat : stat // ignore: cast_nullable_to_non_nullable
-as BackupStat,journals: null == journals ? _self.journals : journals // ignore: cast_nullable_to_non_nullable
+as BackupSettings,stat: freezed == stat ? _self.stat : stat // ignore: cast_nullable_to_non_nullable
+as BackupStat?,journals: null == journals ? _self.journals : journals // ignore: cast_nullable_to_non_nullable
 as List<BackupJournal>,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
 as List<BackupTag>,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,
@@ -100,9 +100,12 @@ $BackupSettingsCopyWith<$Res> get settings {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$BackupStatCopyWith<$Res> get stat {
-  
-  return $BackupStatCopyWith<$Res>(_self.stat, (value) {
+$BackupStatCopyWith<$Res>? get stat {
+    if (_self.stat == null) {
+    return null;
+  }
+
+  return $BackupStatCopyWith<$Res>(_self.stat!, (value) {
     return _then(_self.copyWith(stat: value));
   });
 }
@@ -187,7 +190,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat? stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BackupData() when $default != null:
 return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.stat,_that.journals,_that.tags,_that.images);case _:
@@ -208,7 +211,7 @@ return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat? stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)  $default,) {final _that = this;
 switch (_that) {
 case _BackupData():
 return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.stat,_that.journals,_that.tags,_that.images);case _:
@@ -228,7 +231,7 @@ return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String version,  DateTime backupDate,  BackupUser user,  BackupSettings settings,  BackupStat? stat,  List<BackupJournal> journals,  List<BackupTag> tags,  Map<String, String> images)?  $default,) {final _that = this;
 switch (_that) {
 case _BackupData() when $default != null:
 return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.stat,_that.journals,_that.tags,_that.images);case _:
@@ -243,14 +246,14 @@ return $default(_that.version,_that.backupDate,_that.user,_that.settings,_that.s
 @JsonSerializable()
 
 class _BackupData implements BackupData {
-  const _BackupData({required this.version, required this.backupDate, required this.user, required this.settings, required this.stat, required final  List<BackupJournal> journals, required final  List<BackupTag> tags, required final  Map<String, String> images}): _journals = journals,_tags = tags,_images = images;
+  const _BackupData({required this.version, required this.backupDate, required this.user, required this.settings, this.stat, required final  List<BackupJournal> journals, required final  List<BackupTag> tags, required final  Map<String, String> images}): _journals = journals,_tags = tags,_images = images;
   factory _BackupData.fromJson(Map<String, dynamic> json) => _$BackupDataFromJson(json);
 
 @override final  String version;
 @override final  DateTime backupDate;
 @override final  BackupUser user;
 @override final  BackupSettings settings;
-@override final  BackupStat stat;
+@override final  BackupStat? stat;
  final  List<BackupJournal> _journals;
 @override List<BackupJournal> get journals {
   if (_journals is EqualUnmodifiableListView) return _journals;
@@ -306,11 +309,11 @@ abstract mixin class _$BackupDataCopyWith<$Res> implements $BackupDataCopyWith<$
   factory _$BackupDataCopyWith(_BackupData value, $Res Function(_BackupData) _then) = __$BackupDataCopyWithImpl;
 @override @useResult
 $Res call({
- String version, DateTime backupDate, BackupUser user, BackupSettings settings, BackupStat stat, List<BackupJournal> journals, List<BackupTag> tags, Map<String, String> images
+ String version, DateTime backupDate, BackupUser user, BackupSettings settings, BackupStat? stat, List<BackupJournal> journals, List<BackupTag> tags, Map<String, String> images
 });
 
 
-@override $BackupUserCopyWith<$Res> get user;@override $BackupSettingsCopyWith<$Res> get settings;@override $BackupStatCopyWith<$Res> get stat;
+@override $BackupUserCopyWith<$Res> get user;@override $BackupSettingsCopyWith<$Res> get settings;@override $BackupStatCopyWith<$Res>? get stat;
 
 }
 /// @nodoc
@@ -323,14 +326,14 @@ class __$BackupDataCopyWithImpl<$Res>
 
 /// Create a copy of BackupData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? version = null,Object? backupDate = null,Object? user = null,Object? settings = null,Object? stat = null,Object? journals = null,Object? tags = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? version = null,Object? backupDate = null,Object? user = null,Object? settings = null,Object? stat = freezed,Object? journals = null,Object? tags = null,Object? images = null,}) {
   return _then(_BackupData(
 version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String,backupDate: null == backupDate ? _self.backupDate : backupDate // ignore: cast_nullable_to_non_nullable
 as DateTime,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as BackupUser,settings: null == settings ? _self.settings : settings // ignore: cast_nullable_to_non_nullable
-as BackupSettings,stat: null == stat ? _self.stat : stat // ignore: cast_nullable_to_non_nullable
-as BackupStat,journals: null == journals ? _self._journals : journals // ignore: cast_nullable_to_non_nullable
+as BackupSettings,stat: freezed == stat ? _self.stat : stat // ignore: cast_nullable_to_non_nullable
+as BackupStat?,journals: null == journals ? _self._journals : journals // ignore: cast_nullable_to_non_nullable
 as List<BackupJournal>,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
 as List<BackupTag>,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,
@@ -359,9 +362,12 @@ $BackupSettingsCopyWith<$Res> get settings {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$BackupStatCopyWith<$Res> get stat {
-  
-  return $BackupStatCopyWith<$Res>(_self.stat, (value) {
+$BackupStatCopyWith<$Res>? get stat {
+    if (_self.stat == null) {
+    return null;
+  }
+
+  return $BackupStatCopyWith<$Res>(_self.stat!, (value) {
     return _then(_self.copyWith(stat: value));
   });
 }
