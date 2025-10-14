@@ -25,17 +25,12 @@ class WriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => WriteViewModel(
-        geminiUseCase: context.read(),
-        appStateProvider: context.read(),
-        settingsUseCase: context.read(),
-        aiGenerationProvider: context.read(),
-        pickAndSaveImageUseCase: context.read(),
+        writeJournalUseCase: context.read(),
+        journalUseCase: context.read(),
         getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
-        journalUseCase: context.read(),
-        checkAiUsageUseCase: context.read(),
-        logMoodEntryUseCase: context.read(),
         tagUseCase: context.read(),
+        aiGenerationProvider: context.read(),
         selectedDate: date,
         editJournalId: editJournalId,
       ),

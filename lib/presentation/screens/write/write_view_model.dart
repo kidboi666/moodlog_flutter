@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/entities/ai/ai_usage.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/location_info.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
@@ -10,54 +9,36 @@ import 'package:moodlog/domain/entities/journal/weather_info.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
 import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 import 'package:moodlog/domain/models/update_journal_request.dart';
-import 'package:moodlog/domain/use_cases/check_ai_usage_use_case.dart';
-import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
-import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
-import 'package:moodlog/domain/use_cases/pick_and_save_image_use_case.dart';
-import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
+import 'package:moodlog/domain/use_cases/write_journal_use_case.dart';
 import 'package:moodlog/presentation/providers/ai_generation_provider.dart';
-import 'package:moodlog/presentation/providers/app_state_provider.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
-  final GeminiUseCase _geminiUseCase;
-  final AiGenerationProvider _aiGenerationProvider;
-  final PickAndSaveImageUseCase _pickAndSaveImageUseCase;
-  final SettingsUseCase _settingsUseCase;
+  final WriteJournalUseCase _writeJournalUseCase;
+  final JournalUseCase _journalUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
-  final JournalUseCase _journalUseCase;
-  final CheckAiUsageUseCase _checkAiUsageUseCase;
-  final LogMoodEntryUseCase _logMoodEntryUseCase;
   final TagUseCase _tagUseCase;
+  final AiGenerationProvider _aiGenerationProvider;
 
   WriteViewModel({
-    required GeminiUseCase geminiUseCase,
-    required AppStateProvider appStateProvider,
-    required AiGenerationProvider aiGenerationProvider,
-    required PickAndSaveImageUseCase pickAndSaveImageUseCase,
-    required SettingsUseCase settingsUseCase,
+    required WriteJournalUseCase writeJournalUseCase,
+    required JournalUseCase journalUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
-    required JournalUseCase journalUseCase,
-    required CheckAiUsageUseCase checkAiUsageUseCase,
     required TagUseCase tagUseCase,
-    required LogMoodEntryUseCase logMoodEntryUseCase,
+    required AiGenerationProvider aiGenerationProvider,
     DateTime? selectedDate,
     int? editJournalId,
-  }) : _geminiUseCase = geminiUseCase,
-       _aiGenerationProvider = aiGenerationProvider,
-       _pickAndSaveImageUseCase = pickAndSaveImageUseCase,
-       _settingsUseCase = settingsUseCase,
+  }) : _writeJournalUseCase = writeJournalUseCase,
+       _journalUseCase = journalUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
-       _journalUseCase = journalUseCase,
-       _logMoodEntryUseCase = logMoodEntryUseCase,
-       _checkAiUsageUseCase = checkAiUsageUseCase,
        _tagUseCase = tagUseCase,
+       _aiGenerationProvider = aiGenerationProvider,
        _selectedDate = selectedDate ?? DateTime.now(),
        _editJournalId = editJournalId,
        _isEditMode = editJournalId != null {
@@ -74,7 +55,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   DateTime _selectedDate;
   bool _canUseAiToday = true;
   int _aiUsageCount = 0;
-
   LocationInfo? _locationInfo;
   bool _isLoadingLocation = false;
   WeatherInfo? _weatherInfo;
@@ -190,7 +170,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> pickImage() async {
     setLoading();
-    final result = await _pickAndSaveImageUseCase();
+    final result = await _writeJournalUseCase.pickAndSaveImage();
     switch (result) {
       case Ok<String?>():
         if (result.value != null) {
@@ -358,7 +338,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
           );
         }
 
-        _logMoodEntryUseCase(
+        _writeJournalUseCase.logMoodEntry(
           moodType: _selectedMood.name,
           entryType: 'manual',
           hasImage: _selectedImageList.isNotEmpty,
@@ -407,7 +387,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         // 태그 업데이트 후 journal stream에 변경사항 알림
         await _journalUseCase.notifyJournalUpdate();
 
-        _logMoodEntryUseCase.call(
+        _writeJournalUseCase.logMoodEntry(
           moodType: _selectedMood.name,
           entryType: 'edit',
           hasImage: _selectedImageList.isNotEmpty,
@@ -428,8 +408,8 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _checkAiUsage() async {
-    _canUseAiToday = await _checkAiUsageUseCase();
-    final usage = await _settingsUseCase.getAiUsage();
+    _canUseAiToday = await _writeJournalUseCase.canUseAiToday();
+    final usage = await _writeJournalUseCase.getAiUsage();
     final now = DateTime.now();
 
     if (usage != null) {
@@ -457,26 +437,10 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     _aiGenerationProvider.setGeneratingAiResponse();
 
     // Record AI usage
-    final now = DateTime.now();
-    final usage = await _settingsUseCase.getAiUsage();
-    if (usage != null) {
-      final isSameDay =
-          usage.date.year == now.year &&
-          usage.date.month == now.month &&
-          usage.date.day == now.day;
-      if (isSameDay) {
-        await _settingsUseCase.updateAiUsage(
-          AiUsage(date: now, count: usage.count + 1),
-        );
-      } else {
-        await _settingsUseCase.updateAiUsage(AiUsage(date: now, count: 1));
-      }
-    } else {
-      await _settingsUseCase.updateAiUsage(AiUsage(date: now, count: 1));
-    }
-    _checkAiUsage();
+    await _writeJournalUseCase.recordAiUsage();
+    await _checkAiUsage();
 
-    final aiResponse = await _geminiUseCase.generateResponse(
+    final aiResponse = await _writeJournalUseCase.generateAiResponse(
       prompt: content!,
       moodType: selectedMood,
       imagePaths: _selectedImageList,

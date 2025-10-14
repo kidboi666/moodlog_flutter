@@ -21,16 +21,14 @@ import 'package:moodlog/domain/repositories/location_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/repositories/tag_repository.dart';
 import 'package:moodlog/domain/repositories/weather_repository.dart';
-import 'package:moodlog/domain/use_cases/check_ai_usage_use_case.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
-import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
-import 'package:moodlog/domain/use_cases/pick_and_save_image_use_case.dart';
 import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
+import 'package:moodlog/domain/use_cases/write_journal_use_case.dart';
 import 'package:moodlog/presentation/providers/ai_generation_provider.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
@@ -134,9 +132,6 @@ List<SingleChildWidget> _createUseCases() {
     Provider<GeminiUseCase>(
       create: (context) => GeminiUseCase(geminiRepository: context.read()),
     ),
-    Provider<PickAndSaveImageUseCase>(
-      create: (context) => PickAndSaveImageUseCase(imageRepository: context.read()),
-    ),
     Provider<JournalUseCase>(
       create: (context) => JournalUseCase(journalRepository: context.read()),
     ),
@@ -145,20 +140,20 @@ List<SingleChildWidget> _createUseCases() {
       create: (context) =>
           GetCurrentLocationUseCase(locationRepository: context.read()),
     ),
-    Provider<CheckAiUsageUseCase>(
-      create: (context) =>
-          CheckAiUsageUseCase(settingsRepository: context.read()),
-    ),
     Provider<WeatherUseCase>(
       create: (context) => WeatherUseCase(repository: context.read()),
-    ),
-    Provider<LogMoodEntryUseCase>(
-      create: (context) =>
-          LogMoodEntryUseCase(analyticsRepository: context.read()),
     ),
     Provider<ObserveJournalListUseCase>(
       create: (context) =>
           ObserveJournalListUseCase(journalRepository: context.read()),
+    ),
+    Provider<WriteJournalUseCase>(
+      create: (context) => WriteJournalUseCase(
+        geminiRepository: context.read(),
+        settingsRepository: context.read(),
+        imageRepository: context.read(),
+        analyticsRepository: context.read(),
+      ),
     ),
   ];
 }
