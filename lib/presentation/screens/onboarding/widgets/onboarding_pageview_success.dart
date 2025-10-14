@@ -15,27 +15,37 @@ class OnboardingPageViewSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       child: Column(
-        spacing: Spacing.xl * 2,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FadeIn(
-            child: Text(
-              t.onboarding_success_title,
-              style: textTheme.displaySmall,
-            ),
-          ),
           Expanded(
-            flex: 1,
-            child: FadeIn(
-              delay: DelayMS.medium,
-              child: Text(
-                t.onboarding_success_description,
-                style: textTheme.titleLarge,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  child: Text(
+                    t.onboarding_success_title,
+                    style: textTheme.displaySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: Spacing.md),
+                FadeIn(
+                  delay: DelayMS.medium,
+                  child: Text(
+                    t.onboarding_success_description,
+                    style: textTheme.titleMedium?.copyWith(
+                      color: colorScheme.secondary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
           ),
           FadeIn(

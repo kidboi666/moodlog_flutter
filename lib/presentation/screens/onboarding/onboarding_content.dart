@@ -51,7 +51,6 @@ class _OnboardingScreenContentState extends State<_OnboardingScreenContent> {
               onPageChanged: viewModel.setStep,
               children: [
                 OnboardingPageViewWelcome(onNext: onNext),
-                OnboardingPageViewNickName(onNext: onNext),
                 OnboardingPageViewPersonality(onNext: onNext),
                 const OnboardingPageViewSuccess(),
               ],

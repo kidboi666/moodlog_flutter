@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view_model.dart';
-import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_pageview_nickname.dart';
+
 import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_pageview_personality.dart';
 import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_pageview_success.dart';
 import 'package:moodlog/presentation/screens/onboarding/widgets/onboarding_pageview_welcome.dart';
@@ -17,7 +17,7 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => OnboardingViewModel(
-        totalSteps: 4,
+        totalSteps: 3,
         appStateProvider: context.read(),
         localUserRepository: context.read(),
         userProvider: context.read(),

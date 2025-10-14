@@ -24,57 +24,68 @@ class OnboardingPageViewPersonality extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: Spacing.xl,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FadeIn(
-            child: Text(
-              t.onboarding_personality_title,
-              style: textTheme.displaySmall,
-            ),
-          ),
-          FadeIn(
-            delay: DelayMS.medium,
-            child: Text(
-              t.onboarding_personality_description,
-              style: textTheme.titleLarge?.copyWith(
-                color: colorScheme.secondary,
-              ),
-            ),
-          ),
-          FadeIn(
-            delay: DelayMS.medium * 2,
-            child: RadioGroup(
-              groupValue: selectedPersonality,
-              onChanged: context.read<OnboardingViewModel>().setPersonality,
-              child: Column(
-                spacing: Spacing.sm,
-                children: [
-                  OnboardingPersonalityItem(
-                    personality: AiPersonality.compassionate,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  child: Text(
+                    t.onboarding_personality_title,
+                    style: textTheme.displaySmall,
+                    textAlign: TextAlign.center,
                   ),
-                  OnboardingPersonalityItem(
-                    personality: AiPersonality.balanced,
+                ),
+                const SizedBox(height: Spacing.md),
+                FadeIn(
+                  delay: DelayMS.medium,
+                  child: Text(
+                    t.onboarding_personality_description,
+                    style: textTheme.titleMedium?.copyWith(
+                      color: colorScheme.secondary,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  OnboardingPersonalityItem(
-                    personality: AiPersonality.rational,
+                ),
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  delay: DelayMS.medium * 2,
+                  child: RadioGroup(
+                    groupValue: selectedPersonality,
+                    onChanged: context.read<OnboardingViewModel>().setPersonality,
+                    child: Column(
+                      spacing: Spacing.sm,
+                      children: [
+                        OnboardingPersonalityItem(
+                          personality: AiPersonality.compassionate,
+                        ),
+                        OnboardingPersonalityItem(
+                          personality: AiPersonality.balanced,
+                        ),
+                        OnboardingPersonalityItem(
+                          personality: AiPersonality.rational,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: Spacing.lg),
+                FadeIn(
+                  delay: DelayMS.medium * 3,
+                  child: Text(
+                    t.onboarding_personality_hint,
+                    style: textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.secondary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
           ),
-          FadeIn(
-            delay: DelayMS.medium * 3,
-            child: Text(
-              t.onboarding_personality_hint,
-              style: textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colorScheme.secondary,
-              ),
-            ),
-          ),
-          const Expanded(child: SizedBox()),
           FadeIn(
             delay: DelayMS.medium * 4,
             child: SafeArea(
