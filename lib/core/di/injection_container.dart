@@ -27,7 +27,7 @@ import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
-import 'package:moodlog/domain/use_cases/pick_image_use_case.dart';
+import 'package:moodlog/domain/use_cases/pick_and_save_image_use_case.dart';
 import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -131,8 +131,8 @@ List<SingleChildWidget> _createUseCases() {
     Provider<GeminiUseCase>(
       create: (context) => GeminiUseCase(geminiRepository: context.read()),
     ),
-    Provider<PickImageUseCase>(
-      create: (context) => PickImageUseCase(imageRepository: context.read()),
+    Provider<PickAndSaveImageUseCase>(
+      create: (context) => PickAndSaveImageUseCase(imageRepository: context.read()),
     ),
     Provider<JournalUseCase>(
       create: (context) => JournalUseCase(journalRepository: context.read()),

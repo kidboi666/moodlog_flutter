@@ -15,7 +15,7 @@ import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/log_mood_entry_use_case.dart';
-import 'package:moodlog/domain/use_cases/pick_image_use_case.dart';
+import 'package:moodlog/domain/use_cases/pick_and_save_image_use_case.dart';
 import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -26,7 +26,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   final GeminiUseCase _geminiUseCase;
   final AppStateProvider _appStateProvider;
   final AiGenerationProvider _aiGenerationProvider;
-  final PickImageUseCase _pickImageUseCase;
+  final PickAndSaveImageUseCase _pickAndSaveImageUseCase;
   final SettingsUseCase _settingsUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
@@ -39,7 +39,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     required GeminiUseCase geminiUseCase,
     required AppStateProvider appStateProvider,
     required AiGenerationProvider aiGenerationProvider,
-    required PickImageUseCase pickImageUseCase,
+    required PickAndSaveImageUseCase pickAndSaveImageUseCase,
     required SettingsUseCase settingsUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
@@ -52,7 +52,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
   }) : _geminiUseCase = geminiUseCase,
        _appStateProvider = appStateProvider,
        _aiGenerationProvider = aiGenerationProvider,
-       _pickImageUseCase = pickImageUseCase,
+       _pickAndSaveImageUseCase = pickAndSaveImageUseCase,
        _settingsUseCase = settingsUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
@@ -191,11 +191,13 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> pickImage() async {
     setLoading();
-    final result = await _pickImageUseCase.fromGallery();
+    final result = await _pickAndSaveImageUseCase();
     switch (result) {
       case Ok<String?>():
-        debugPrint('Image picked successfully');
-        _selectedImageList = [..._selectedImageList, result.value!];
+        if (result.value != null) {
+          debugPrint('Image picked successfully');
+          _selectedImageList = [..._selectedImageList, result.value!];
+        }
         setSuccess();
       case Error<String?>():
         debugPrint('Failed to pick image: ${result.error}');

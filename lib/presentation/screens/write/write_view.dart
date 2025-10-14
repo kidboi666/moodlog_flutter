@@ -29,7 +29,7 @@ class WriteScreen extends StatelessWidget {
         appStateProvider: context.read(),
         settingsUseCase: context.read(),
         aiGenerationProvider: context.read(),
-        pickImageUseCase: context.read(),
+        pickAndSaveImageUseCase: context.read(),
         getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
         journalUseCase: context.read(),
