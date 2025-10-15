@@ -14,9 +14,8 @@ import 'package:provider/provider.dart';
 
 class MoodLogApp extends StatefulWidget {
   final NavigatorObserver? analyticsObserver;
-  final Future<void> Function(BuildContext context)? onAppStarted;
 
-  const MoodLogApp({this.analyticsObserver, this.onAppStarted, super.key});
+  const MoodLogApp({this.analyticsObserver, super.key});
 
   @override
   State<MoodLogApp> createState() => _MoodLogAppState();
@@ -75,45 +74,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
         darkTheme: AppTheme.darkTheme(fontFamily),
         themeMode: themeMode.materialThemeMode,
         routerConfig: _router,
-        builder: (context, child) {
-          return AppStartupLogic(
-            onAppStarted: widget.onAppStarted,
-            child: child ?? const SizedBox.shrink(),
-          );
-        },
       ),
     );
-  }
-}
-
-class AppStartupLogic extends StatefulWidget {
-  const AppStartupLogic({super.key, required this.child, this.onAppStarted});
-
-  final Widget child;
-  final Future<void> Function(BuildContext context)? onAppStarted;
-
-  @override
-  State<AppStartupLogic> createState() => _AppStartupLogicState();
-}
-
-class _AppStartupLogicState extends State<AppStartupLogic> {
-  bool _startupLogicExecuted = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _runStartupLogic();
-  }
-
-  void _runStartupLogic() {
-    if (widget.onAppStarted != null && !_startupLogicExecuted) {
-      _startupLogicExecuted = true;
-      widget.onAppStarted!(context);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
   }
 }

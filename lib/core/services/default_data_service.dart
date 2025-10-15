@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 
@@ -10,15 +8,14 @@ class DefaultDataService {
 
   DefaultDataService(this._tagUseCase);
 
-  Future<void> seedDefaultTagsIfEmpty(BuildContext context) async {
-    final t = AppLocalizations.of(context)!;
-    final List<String> defaultTags = [
-      t.default_tag_daily,
-      t.default_tag_work,
-      t.default_tag_health,
-      t.default_tag_relationships,
-      t.default_tag_hobby,
-      t.default_tag_emotions,
+  Future<void> seedDefaultTagsIfEmpty() async {
+    const List<String> defaultTags = [
+      'Daily',
+      'Work',
+      'Health',
+      'Relationships',
+      'Hobby',
+      'Emotions',
     ];
 
     final tagsResult = await _tagUseCase.getAllTags();

@@ -35,10 +35,16 @@ class _AppInitializerState extends State<AppInitializer> {
   }
 
   Future<void> _initializeApp() async {
-    // Access provider and load settings.
     await context.read<AppStateProvider>().loadSettings();
 
-    // If the widget is still in the tree, update the state to show the main app.
+    if (mounted) {
+      await DataSeedingService(context).run();
+    }
+
+    if (mounted && widget.onAppStartedDev != null) {
+      await widget.onAppStartedDev!(context);
+    }
+
     if (mounted) {
       setState(() {
         _isInitialized = true;
@@ -63,12 +69,6 @@ class _AppInitializerState extends State<AppInitializer> {
 
     return MoodLogApp(
       analyticsObserver: widget.analyticsRepo.navigatorObserver,
-      onAppStarted: (context) async {
-        await DataSeedingService(context).run();
-        if (widget.onAppStartedDev != null) {
-          await widget.onAppStartedDev!(context);
-        }
-      },
     );
   }
 }

@@ -26,78 +26,74 @@ class OnboardingPageViewPersonality extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: Spacing.xl * 2),
-                FadeIn(
-                  child: Text(
-                    t.onboarding_personality_title,
-                    style: textTheme.displaySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: Spacing.md),
-                FadeIn(
-                  delay: DelayMS.medium,
-                  child: Text(
-                    t.onboarding_personality_description,
-                    style: textTheme.titleMedium?.copyWith(
-                      color: colorScheme.secondary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: Spacing.xl * 2),
-                FadeIn(
-                  delay: DelayMS.medium * 2,
-                  child: RadioGroup(
-                    groupValue: selectedPersonality,
-                    onChanged: context.read<OnboardingViewModel>().setPersonality,
-                    child: Column(
-                      spacing: Spacing.sm,
-                      children: [
-                        OnboardingPersonalityItem(
-                          personality: AiPersonality.compassionate,
-                        ),
-                        OnboardingPersonalityItem(
-                          personality: AiPersonality.balanced,
-                        ),
-                        OnboardingPersonalityItem(
-                          personality: AiPersonality.rational,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: Spacing.lg),
-                FadeIn(
-                  delay: DelayMS.medium * 3,
-                  child: Text(
-                    t.onboarding_personality_hint,
-                    style: textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.secondary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FadeIn(
-            delay: DelayMS.medium * 4,
-            child: SafeArea(
-              bottom: true,
-              child: SizedBox(
-                width: double.infinity,
-                child: IconButton.filled(
-                  onPressed: onNext,
-                  icon: const Icon(Icons.arrow_forward),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: Spacing.xl * 2),
+              FadeIn(
+                child: Text(
+                  t.onboarding_personality_title,
+                  style: textTheme.displaySmall,
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
+              const SizedBox(height: Spacing.md),
+              FadeIn(
+                delay: DelayMS.medium,
+                child: Text(
+                  t.onboarding_personality_description,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.secondary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: Spacing.xl * 2),
+              FadeIn(
+                delay: DelayMS.medium * 2,
+                child: RadioGroup(
+                  groupValue: selectedPersonality,
+                  onChanged: context.read<OnboardingViewModel>().setPersonality,
+                  child: Column(
+                    spacing: Spacing.sm,
+                    children: [
+                      OnboardingPersonalityItem(
+                        personality: AiPersonality.compassionate,
+                      ),
+                      OnboardingPersonalityItem(
+                        personality: AiPersonality.balanced,
+                      ),
+                      OnboardingPersonalityItem(
+                        personality: AiPersonality.rational,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: Spacing.lg),
+              FadeIn(
+                delay: DelayMS.medium * 3,
+                child: Text(
+                  t.onboarding_personality_hint,
+                  style: textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.secondary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: Spacing.xl * 2),
+              FadeIn(
+                delay: DelayMS.medium * 4,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: IconButton.filled(
+                    onPressed: onNext,
+                    icon: const Icon(Icons.arrow_forward),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

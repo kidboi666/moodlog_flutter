@@ -47,79 +47,74 @@ class _OnboardingPageViewWelcomeState extends State<OnboardingPageViewWelcome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: Spacing.xl * 2),
-                  FadeIn(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/images/app-icon.png',
-                        width: 96,
-                        height: 96,
-                      ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Image.asset(
+                      'assets/images/app-icon.png',
+                      width: 96,
+                      height: 96,
                     ),
                   ),
-                  const SizedBox(height: Spacing.xl * 2),
-                  FadeIn(
-                    child: Text(
-                      t.onboarding_welcome_title,
-                      style: textTheme.headlineMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: Spacing.md),
-                  FadeIn(
-                    delay: DelayMS.medium,
-                    child: Text(
-                      t.onboarding_nickname_description,
-                      style: textTheme.titleMedium?.copyWith(
-                        color: colorScheme.secondary,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: Spacing.xl),
-                  FadeIn(
-                    delay: DelayMS.medium * 2,
-                    child: TextFormField(
-                      maxLength: 10,
-                      controller: inputController,
-                      onChanged: viewModel.setNickname,
-                      validator: _validateNickname,
-                      decoration: InputDecoration(
-                        labelText: t.onboarding_nickname_input_title,
-                        hintText: t.onboarding_nickname_input_hint,
-                        filled: true,
-                        fillColor: colorScheme.secondaryContainer,
-                        border: const UnderlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: Spacing.md),
-            FadeIn(
-              delay: DelayMS.medium * 4,
-              child: SafeArea(
-                bottom: true,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: IconButton.filled(
-                    alignment: Alignment.center,
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      if (formKey.currentState!.validate()) {
-                        widget.onNext();
-                      }
-                    },
-                    icon: const Icon(Icons.arrow_forward),
-                  ).scale(),
                 ),
-              ),
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  child: Text(
+                    t.onboarding_welcome_title,
+                    style: textTheme.headlineMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: Spacing.md),
+                FadeIn(
+                  delay: DelayMS.medium,
+                  child: Text(
+                    t.onboarding_nickname_description,
+                    style: textTheme.titleMedium?.copyWith(
+                      color: colorScheme.secondary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: Spacing.xl),
+                FadeIn(
+                  delay: DelayMS.medium * 2,
+                  child: TextFormField(
+                    maxLength: 10,
+                    controller: inputController,
+                    onChanged: viewModel.setNickname,
+                    validator: _validateNickname,
+                    decoration: InputDecoration(
+                      labelText: t.onboarding_nickname_input_title,
+                      hintText: t.onboarding_nickname_input_hint,
+                      filled: true,
+                      fillColor: colorScheme.secondaryContainer,
+                      border: const UnderlineInputBorder(),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: Spacing.xl * 2),
+                FadeIn(
+                  delay: DelayMS.medium * 4,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: IconButton.filled(
+                      alignment: Alignment.center,
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (formKey.currentState!.validate()) {
+                          widget.onNext();
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_forward),
+                    ).scale(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

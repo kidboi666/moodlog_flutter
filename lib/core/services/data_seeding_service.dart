@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/services/default_data_service.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
 import 'package:moodlog/core/utils/debug_data_seeder.dart';
@@ -26,22 +25,19 @@ class DataSeedingService {
       _log.info('Development mode: Clearing database...');
       await clearDatabaseForDevelopment();
       _log.info('Database cleared');
-    }
 
-    _log.info('Seeding default tags...');
-    final tagUseCase = context.read<TagUseCase>();
-    await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty(context);
-    _log.info('Default tags seeding completed');
+      _log.info('Development mode: Seeding default tags...');
+      final tagUseCase = context.read<TagUseCase>();
+      await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty();
+      _log.info('Default tags seeding completed');
 
-    if (FlavorService.isDevelopment) {
       _log.info('Development mode: Seeding sample journals...');
       final journalUseCase = context.read<JournalUseCase>();
-      final t = AppLocalizations.of(context)!;
       final seeder = DebugDataSeeder(journalUseCase);
-      await seeder.seedJournalsIfEmpty(t);
+      await seeder.seedJournalsIfEmpty();
       _log.info('Sample journals seeding completed');
     } else {
-      _log.info('Production mode: Skipping sample journals seeding');
+      _log.info('Production mode: Skipping all seed data');
     }
 
     _log.info('DataSeedingService completed');
