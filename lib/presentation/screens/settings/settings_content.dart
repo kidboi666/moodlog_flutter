@@ -83,16 +83,13 @@ class _SettingsScreenContent extends StatelessWidget {
                     builder: (_) => LanguageDialog(viewModel: viewModel),
                   ),
                 ),
-                DialogTile(
+                MenuListTile(
                   title: t.settings_common_font_family_title,
                   subtitle: viewModel.appState.fontFamily.getDisplayName(
                     context,
                   ),
                   icon: Icons.text_format,
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => FontFamilyDialog(viewModel: viewModel),
-                  ),
+                  onTap: () => context.push(Routes.fontSettings),
                 ),
                 const SizedBox(height: Spacing.xl),
 
@@ -121,7 +118,9 @@ class _SettingsScreenContent extends StatelessWidget {
                         context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('백업 파일이 저장되었습니다: ${filePath.split('/').last}'),
+                            content: Text(
+                              '백업 파일이 저장되었습니다: ${filePath.split('/').last}',
+                            ),
                           ),
                         );
                       }
@@ -163,9 +162,7 @@ class _SettingsScreenContent extends StatelessWidget {
                         if (context.mounted) {
                           context.pop();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('백업 데이터가 복원되었습니다'),
-                            ),
+                            const SnackBar(content: Text('백업 데이터가 복원되었습니다')),
                           );
                         }
                       }

@@ -394,12 +394,32 @@ enum ThemeMode {
 }
 
 enum FontFamily {
-  pretendard,
-  leeSeoyun,
-  orbitOfTheMoon,
-  restart,
-  overcome,
-  system;
+  pretendard(isLocal: true),
+  leeSeoyun(isLocal: true),
+  orbitOfTheMoon(isLocal: true),
+  restart(isLocal: true),
+  overcome(isLocal: true),
+  system(isLocal: true),
+
+  notoSansKR(isLocal: false, googleName: 'Noto Sans KR'),
+  notoSerifKR(isLocal: false, googleName: 'Noto Serif KR'),
+  blackHanSans(isLocal: false, googleName: 'Black Han Sans'),
+  doHyeon(isLocal: false, googleName: 'Do Hyeon'),
+  jua(isLocal: false, googleName: 'Jua'),
+  roboto(isLocal: false, googleName: 'Roboto'),
+  openSans(isLocal: false, googleName: 'Open Sans'),
+  lora(isLocal: false, googleName: 'Lora'),
+  notoSansJP(isLocal: false, googleName: 'Noto Sans JP');
+
+  const FontFamily({
+    required this.isLocal,
+    this.googleName,
+  });
+
+  final bool isLocal;
+  final String? googleName;
+
+  bool get isGoogleFont => !isLocal;
 
   static FontFamily fromString(String? value) {
     switch (value) {
@@ -415,26 +435,49 @@ enum FontFamily {
         return FontFamily.overcome;
       case 'system':
         return FontFamily.system;
+      case 'notoSansKR':
+        return FontFamily.notoSansKR;
+      case 'notoSerifKR':
+        return FontFamily.notoSerifKR;
+      case 'blackHanSans':
+        return FontFamily.blackHanSans;
+      case 'doHyeon':
+        return FontFamily.doHyeon;
+      case 'jua':
+        return FontFamily.jua;
+      case 'roboto':
+        return FontFamily.roboto;
+      case 'openSans':
+        return FontFamily.openSans;
+      case 'lora':
+        return FontFamily.lora;
+      case 'notoSansJP':
+        return FontFamily.notoSansJP;
       default:
         return FontFamily.pretendard;
     }
   }
 
   String get value {
-    switch (this) {
-      case FontFamily.pretendard:
-        return 'pretendard';
-      case FontFamily.leeSeoyun:
-        return 'leeSeoyun';
-      case FontFamily.orbitOfTheMoon:
-        return 'orbitOfTheMoon';
-      case FontFamily.restart:
-        return 'restart';
-      case FontFamily.overcome:
-        return 'overcome';
-      case FontFamily.system:
-        return 'system';
+    if (isLocal) {
+      switch (this) {
+        case FontFamily.pretendard:
+          return 'pretendard';
+        case FontFamily.leeSeoyun:
+          return 'leeSeoyun';
+        case FontFamily.orbitOfTheMoon:
+          return 'orbitOfTheMoon';
+        case FontFamily.restart:
+          return 'restart';
+        case FontFamily.overcome:
+          return 'overcome';
+        case FontFamily.system:
+          return 'system';
+        default:
+          return name;
+      }
     }
+    return name;
   }
 
   double? get fixedFontSize {
@@ -451,6 +494,8 @@ enum FontFamily {
         return 16.0;
       case FontFamily.system:
         return 16.0;
+      default:
+        return null;
     }
   }
 }

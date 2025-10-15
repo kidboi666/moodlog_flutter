@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/presentation/theme/colors.dart';
 
@@ -17,7 +18,7 @@ abstract final class AppTheme {
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
       ),
-      fontFamily: fontFamily.value,
+      fontFamily: fontFamily.isLocal ? fontFamily.value : null,
       brightness: Brightness.light,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
@@ -38,7 +39,7 @@ abstract final class AppTheme {
           systemNavigationBarIconBrightness: Brightness.light,
         ),
       ),
-      fontFamily: fontFamily.value,
+      fontFamily: fontFamily.isLocal ? fontFamily.value : null,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
@@ -66,6 +67,17 @@ abstract final class AppTheme {
       labelMedium: TextStyle(fontSize: 12, fontWeight: _boldFontWeight),
       labelSmall: TextStyle(fontSize: 11, fontWeight: _boldFontWeight),
     );
+
+    if (fontFamily.isGoogleFont) {
+      try {
+        return GoogleFonts.getTextTheme(
+          fontFamily.googleName!,
+          baseTheme,
+        );
+      } catch (e) {
+        return baseTheme;
+      }
+    }
 
     if (fontFamily == FontFamily.orbitOfTheMoon) {
       return baseTheme.apply(fontSizeFactor: 1.2);

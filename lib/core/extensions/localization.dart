@@ -62,6 +62,24 @@ extension FontFamilyExtension on FontFamily {
         return t.settings_common_font_family_overcome;
       case FontFamily.system:
         return t.settings_common_font_family_system;
+      case FontFamily.notoSansKR:
+        return 'Noto Sans KR';
+      case FontFamily.notoSerifKR:
+        return 'Noto Serif KR';
+      case FontFamily.blackHanSans:
+        return 'Black Han Sans';
+      case FontFamily.doHyeon:
+        return 'Do Hyeon';
+      case FontFamily.jua:
+        return 'Jua';
+      case FontFamily.roboto:
+        return 'Roboto';
+      case FontFamily.openSans:
+        return 'Open Sans';
+      case FontFamily.lora:
+        return 'Lora';
+      case FontFamily.notoSansJP:
+        return 'Noto Sans JP';
     }
   }
 }

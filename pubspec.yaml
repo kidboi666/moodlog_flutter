@@ -48,6 +48,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   crypto: ^3.0.6
   file_picker: ^8.1.6
+  google_fonts: ^6.3.0
 
 dev_dependencies:
   flutter_test:
