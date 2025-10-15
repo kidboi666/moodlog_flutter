@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/extensions/localization.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/data/data_source/remote/google_fonts_api_client.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
+import 'package:moodlog/data/repositories/google_fonts_repository_impl.dart';
 import 'package:moodlog/data/repositories/local_backup_repository_impl.dart';
+import 'package:moodlog/domain/entities/font/font_type.dart';
+import 'package:moodlog/domain/repositories/google_fonts_repository.dart';
 import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +18,14 @@ class FontSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apiKey = dotenv.env['GOOGLE_FONTS_API_KEY'];
+    final useApi = apiKey != null && apiKey.isNotEmpty && apiKey != 'YOUR_API_KEY_HERE';
+
+    final googleFontsRepository = GoogleFontsRepositoryImpl(
+      apiClient: useApi ? GoogleFontsApiClient(apiKey: apiKey) : null,
+      useApi: useApi,
+    );
+
     return ChangeNotifierProvider(
       create: (context) => SettingsViewModel(
         appStateProvider: context.read(),
@@ -32,7 +43,7 @@ class FontSettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-      child: _FontSettingsContent(),
+      child: _FontSettingsContent(googleFontsRepository: googleFontsRepository),
     );
   }
 }

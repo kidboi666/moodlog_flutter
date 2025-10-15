@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/font_type_serializer.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
 
 part 'app_state_shared_preferences_model.freezed.dart';
@@ -17,7 +18,7 @@ abstract class AppStateSharedPreferencesModel
     @Default('ColorTheme.blue') String colorTheme,
     @Default('LanguageCode.ko') String languageCode,
     @Default('AiPersonality.balanced') String aiPersonality,
-    @Default('FontFamily.restart') String fontFamily,
+    @Default('local:restart') String fontType,
     @Default('SimpleTextAlign.left') String textAlign,
     @Default(false) bool isOnboardingComplete,
   }) = _AppStateSharedPreferencesModel;
@@ -33,7 +34,7 @@ abstract class AppStateSharedPreferencesModel
       colorTheme: entity.colorTheme.toString(),
       languageCode: entity.languageCode.toString(),
       aiPersonality: entity.aiPersonality.toString(),
-      fontFamily: entity.fontFamily.toString(),
+      fontType: FontTypeSerializer.serialize(entity.fontType),
       textAlign: entity.textAlign.toString(),
       isOnboardingComplete: entity.isOnboardingComplete,
     );
@@ -59,10 +60,7 @@ abstract class AppStateSharedPreferencesModel
         (element) => element.toString() == aiPersonality,
         orElse: () => AiPersonality.balanced,
       ),
-      fontFamily: FontFamily.values.firstWhere(
-        (element) => element.toString() == fontFamily,
-        orElse: () => FontFamily.restart,
-      ),
+      fontType: FontTypeSerializer.deserialize(fontType),
       textAlign: SimpleTextAlign.values.firstWhere(
         (element) => element.toString() == textAlign,
         orElse: () => SimpleTextAlign.left,

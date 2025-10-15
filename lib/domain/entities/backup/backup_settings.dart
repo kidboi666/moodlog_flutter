@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/font_type_serializer.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
 
 part 'backup_settings.freezed.dart';
@@ -14,7 +15,7 @@ abstract class BackupSettings with _$BackupSettings {
     required String colorTheme,
     required String languageCode,
     required String aiPersonality,
-    required String fontFamily,
+    required String fontType,
     required String textAlign,
     required bool isOnboardingComplete,
     required bool isAppLockEnabled,
@@ -33,7 +34,7 @@ abstract class BackupSettings with _$BackupSettings {
       colorTheme: settings.colorTheme.name,
       languageCode: settings.languageCode.name,
       aiPersonality: settings.aiPersonality.name,
-      fontFamily: settings.fontFamily.name,
+      fontType: FontTypeSerializer.serialize(settings.fontType),
       textAlign: settings.textAlign.name,
       isOnboardingComplete: settings.isOnboardingComplete,
       isAppLockEnabled: settings.isAppLockEnabled,
@@ -52,7 +53,7 @@ extension BackupSettingsX on BackupSettings {
       colorTheme: ColorTheme.values.byName(colorTheme),
       languageCode: LanguageCode.values.byName(languageCode),
       aiPersonality: AiPersonality.values.byName(aiPersonality),
-      fontFamily: FontFamily.values.byName(fontFamily),
+      fontType: FontTypeSerializer.deserialize(fontType),
       textAlign: SimpleTextAlign.values.byName(textAlign),
       isOnboardingComplete: isOnboardingComplete,
       isAppLockEnabled: isAppLockEnabled,

@@ -15,7 +15,7 @@ _AppStateSharedPreferencesModel _$AppStateSharedPreferencesModelFromJson(
   colorTheme: json['colorTheme'] as String? ?? 'ColorTheme.blue',
   languageCode: json['languageCode'] as String? ?? 'LanguageCode.ko',
   aiPersonality: json['aiPersonality'] as String? ?? 'AiPersonality.balanced',
-  fontFamily: json['fontFamily'] as String? ?? 'FontFamily.restart',
+  fontType: json['fontType'] as String? ?? 'local:restart',
   textAlign: json['textAlign'] as String? ?? 'SimpleTextAlign.left',
   isOnboardingComplete: json['isOnboardingComplete'] as bool? ?? false,
 );
@@ -29,7 +29,7 @@ Map<String, dynamic> _$AppStateSharedPreferencesModelToJson(
   'colorTheme': instance.colorTheme,
   'languageCode': instance.languageCode,
   'aiPersonality': instance.aiPersonality,
-  'fontFamily': instance.fontFamily,
+  'fontType': instance.fontType,
   'textAlign': instance.textAlign,
   'isOnboardingComplete': instance.isOnboardingComplete,
 };

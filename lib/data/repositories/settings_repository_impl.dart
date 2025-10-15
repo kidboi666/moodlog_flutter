@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/core/utils/font_type_serializer.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/domain/entities/ai/ai_usage.dart';
 import 'package:moodlog/domain/entities/app/app_info.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
+import 'package:moodlog/domain/entities/font/font_type.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -34,13 +36,25 @@ class SettingsRepositoryImpl implements SettingsRepository {
     final aiPersonalityString = await _localDataSource.getString(
       'aiPersonality',
     );
-    final fontFamilyString = await _localDataSource.getString('fontFamily');
+    final fontTypeString = await _localDataSource.getString('fontType');
+    final legacyFontFamilyString = await _localDataSource.getString(
+      'fontFamily',
+    );
     final textAlignString = await _localDataSource.getString('textAlign');
     final isOnboardingComplete = await _localDataSource.getBool(
       'isOnboardingComplete',
     );
     final isAppLockEnabled = await _localDataSource.getBool('isAppLockEnabled');
     final lockTypeString = await _localDataSource.getString('lockType');
+
+    FontType fontType;
+    if (fontTypeString != null) {
+      fontType = FontTypeSerializer.deserialize(fontTypeString);
+    } else if (legacyFontFamilyString != null) {
+      fontType = _migrateLegacyFontFamily(legacyFontFamilyString);
+    } else {
+      fontType = LocalFont.restart;
+    }
 
     return Settings(
       hasNotificationEnabled: hasNotificationEnabled,
@@ -49,7 +63,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       colorTheme: ColorTheme.fromString(colorThemeString),
       languageCode: LanguageCode.fromString(languageCodeString),
       aiPersonality: AiPersonality.fromString(aiPersonalityString),
-      fontFamily: FontFamily.fromString(fontFamilyString),
+      fontType: fontType,
       textAlign: SimpleTextAlign.fromString(textAlignString),
       isOnboardingComplete: isOnboardingComplete,
       isAppLockEnabled: isAppLockEnabled,
@@ -77,7 +91,10 @@ class SettingsRepositoryImpl implements SettingsRepository {
       'aiPersonality',
       newSettings.aiPersonality.name,
     );
-    await _localDataSource.setString('fontFamily', newSettings.fontFamily.name);
+    await _localDataSource.setString(
+      'fontType',
+      FontTypeSerializer.serialize(newSettings.fontType),
+    );
     await _localDataSource.setString('textAlign', newSettings.textAlign.name);
     await _localDataSource.setBool(
       'isOnboardingComplete',
@@ -161,5 +178,24 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<void> deletePin() async {
     await _localDataSource.remove('pin_hash');
+  }
+
+  FontType _migrateLegacyFontFamily(String fontFamilyString) {
+    switch (fontFamilyString) {
+      case 'pretendard':
+        return LocalFont.pretendard;
+      case 'leeSeoyun':
+        return LocalFont.leeSeoyun;
+      case 'orbitOfTheMoon':
+        return LocalFont.orbitOfTheMoon;
+      case 'restart':
+        return LocalFont.restart;
+      case 'overcome':
+        return LocalFont.overcome;
+      case 'system':
+        return LocalFont.system;
+      default:
+        return LocalFont.restart;
+    }
   }
 }

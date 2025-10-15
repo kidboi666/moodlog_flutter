@@ -3,6 +3,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
+import 'package:moodlog/domain/entities/font/font_type.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
@@ -108,11 +109,14 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'color_theme', colorTheme.name);
   }
 
-  void setFontFamily(FontFamily? fontType) {
+  void setFontType(FontType fontType) {
     final updatedState = _appStateProvider.appState.copyWith(
-      fontFamily: fontType!,
+      fontType: fontType,
     );
-    _updateSettings(updatedState, 'font_family', fontType.name);
+    String fontName = fontType is LocalFont
+        ? fontType.key
+        : (fontType as GoogleFontEntity).family;
+    _updateSettings(updatedState, 'font_type', fontName);
   }
 
   void setAiPersonality(AiPersonality personality) {

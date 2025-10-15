@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/font/font_type.dart';
 import 'package:moodlog/presentation/theme/colors.dart';
 
 abstract final class AppTheme {
-  static ThemeData lightTheme(FontFamily fontFamily) {
+  static ThemeData lightTheme(FontType fontType) {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColors.lightTheme.primaryColor,
       brightness: Brightness.light,
@@ -18,15 +18,15 @@ abstract final class AppTheme {
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
       ),
-      fontFamily: fontFamily.isLocal ? fontFamily.value : null,
+      fontFamily: fontType is LocalFont ? fontType.fontName : null,
       brightness: Brightness.light,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
-      textTheme: _getTextTheme(fontFamily),
+      textTheme: _getTextTheme(fontType),
       colorScheme: AppColors.lightGrayColorScheme,
     );
   }
 
-  static ThemeData darkTheme(FontFamily fontFamily) {
+  static ThemeData darkTheme(FontType fontType) {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColors.darkTheme.primaryColor,
       brightness: Brightness.dark,
@@ -39,17 +39,17 @@ abstract final class AppTheme {
           systemNavigationBarIconBrightness: Brightness.light,
         ),
       ),
-      fontFamily: fontFamily.isLocal ? fontFamily.value : null,
+      fontFamily: fontType is LocalFont ? fontType.fontName : null,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
-      textTheme: _getTextTheme(fontFamily),
+      textTheme: _getTextTheme(fontType),
       colorScheme: AppColors.darkGrayColorScheme,
     );
   }
 
   static const _boldFontWeight = FontWeight.bold;
 
-  static TextTheme _getTextTheme(FontFamily fontFamily) {
+  static TextTheme _getTextTheme(FontType fontType) {
     const baseTheme = TextTheme(
       displayLarge: TextStyle(fontSize: 57, fontWeight: _boldFontWeight),
       displayMedium: TextStyle(fontSize: 45, fontWeight: _boldFontWeight),
@@ -68,10 +68,10 @@ abstract final class AppTheme {
       labelSmall: TextStyle(fontSize: 11, fontWeight: _boldFontWeight),
     );
 
-    if (fontFamily.isGoogleFont) {
+    if (fontType is GoogleFontEntity) {
       try {
         return GoogleFonts.getTextTheme(
-          fontFamily.googleName!,
+          fontType.family,
           baseTheme,
         );
       } catch (e) {
@@ -79,16 +79,18 @@ abstract final class AppTheme {
       }
     }
 
-    if (fontFamily == FontFamily.orbitOfTheMoon) {
-      return baseTheme.apply(fontSizeFactor: 1.2);
-    }
+    if (fontType is LocalFont) {
+      if (fontType == LocalFont.orbitOfTheMoon) {
+        return baseTheme.apply(fontSizeFactor: 1.2);
+      }
 
-    if (fontFamily == FontFamily.restart) {
-      return baseTheme.apply(fontSizeFactor: 1.2);
-    }
+      if (fontType == LocalFont.restart) {
+        return baseTheme.apply(fontSizeFactor: 1.2);
+      }
 
-    if (fontFamily == FontFamily.overcome) {
-      return baseTheme.apply(fontSizeFactor: 1.2);
+      if (fontType == LocalFont.overcome) {
+        return baseTheme.apply(fontSizeFactor: 1.2);
+      }
     }
 
     return baseTheme;

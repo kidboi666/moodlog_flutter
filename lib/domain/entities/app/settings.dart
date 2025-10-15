@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/font/font_type.dart';
 
 part 'settings.freezed.dart';
 
@@ -14,7 +15,7 @@ abstract class Settings with _$Settings {
     @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
-    @Default(FontFamily.restart) FontFamily fontFamily,
+    @Default(LocalFont.restart) FontType fontType,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
     @Default(false) bool isOnboardingComplete,
     @Default(false) bool isAppLockEnabled,

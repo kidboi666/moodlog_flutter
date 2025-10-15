@@ -1,31 +1,35 @@
 part of 'font_settings_view.dart';
 
 class _FontSettingsContent extends StatelessWidget {
+  final GoogleFontsRepository googleFontsRepository;
+
+  const _FontSettingsContent({required this.googleFontsRepository});
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<SettingsViewModel>();
-    final localFonts = FontFamily.values.where((f) => f.isLocal).toList();
+    final localFonts = LocalFont.values;
 
     return Scaffold(
       appBar: AppBar(title: Text('폰트 설정')),
       body: Column(
         children: [
           Expanded(
-            child: RadioGroup(
-              groupValue: viewModel.appState.fontFamily,
+            child: RadioGroup<FontType>(
+              groupValue: viewModel.appState.fontType,
               onChanged: (value) {
-                viewModel.setFontFamily(value);
+                viewModel.setFontType(value);
                 Navigator.of(context).pop();
               },
               child: ListView(
-                children: localFonts.map((fontFamily) {
-                  return RadioListTile(
-                    value: fontFamily,
+                children: localFonts.map((localFont) {
+                  return RadioListTile<FontType>(
+                    value: localFont,
                     title: Text(
-                      fontFamily.getDisplayName(context),
+                      localFont.displayName,
                       style: TextStyle(
-                        fontFamily: fontFamily.value,
-                        fontSize: fontFamily.fixedFontSize,
+                        fontFamily: localFont.fontName,
+                        fontSize: localFont.fixedFontSize,
                       ),
                     ),
                   );
@@ -39,7 +43,11 @@ class _FontSettingsContent extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  _showGoogleFontsBottomSheet(context, viewModel);
+                  _showGoogleFontsBottomSheet(
+                    context,
+                    viewModel,
+                    googleFontsRepository,
+                  );
                 },
                 icon: Icon(Icons.cloud_download),
                 label: Text('폰트 더보기'),
@@ -57,6 +65,7 @@ class _FontSettingsContent extends StatelessWidget {
   void _showGoogleFontsBottomSheet(
     BuildContext context,
     SettingsViewModel viewModel,
+    GoogleFontsRepository googleFontsRepository,
   ) {
     showModalBottomSheet(
       context: context,
@@ -64,15 +73,22 @@ class _FontSettingsContent extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => _GoogleFontsBottomSheet(viewModel: viewModel),
+      builder: (context) => _GoogleFontsBottomSheet(
+        viewModel: viewModel,
+        googleFontsRepository: googleFontsRepository,
+      ),
     );
   }
 }
 
 class _GoogleFontsBottomSheet extends StatefulWidget {
   final SettingsViewModel viewModel;
+  final GoogleFontsRepository googleFontsRepository;
 
-  const _GoogleFontsBottomSheet({required this.viewModel});
+  const _GoogleFontsBottomSheet({
+    required this.viewModel,
+    required this.googleFontsRepository,
+  });
 
   @override
   State<_GoogleFontsBottomSheet> createState() =>
@@ -82,25 +98,49 @@ class _GoogleFontsBottomSheet extends StatefulWidget {
 class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
   String _searchQuery = '';
   bool _isLoading = false;
-  FontFamily? _loadingFont;
+  bool _isInitialLoading = true;
+  GoogleFontEntity? _loadingFont;
   String? _errorMessage;
+  List<GoogleFontEntity> _allFonts = [];
 
-  List<FontFamily> get _googleFonts =>
-      FontFamily.values.where((f) => f.isGoogleFont).toList();
+  @override
+  void initState() {
+    super.initState();
+    _loadFonts();
+  }
 
-  List<FontFamily> get _filteredFonts {
-    if (_searchQuery.isEmpty) return _googleFonts;
-    return _googleFonts
+  Future<void> _loadFonts() async {
+    try {
+      final fonts = await widget.googleFontsRepository.getAllFonts();
+      if (mounted) {
+        setState(() {
+          _allFonts = fonts;
+          _isInitialLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = '폰트 목록을 불러오는데 실패했습니다';
+          _isInitialLoading = false;
+        });
+        _showErrorDialog();
+      }
+    }
+  }
+
+  List<GoogleFontEntity> get _filteredFonts {
+    if (_searchQuery.isEmpty) return _allFonts;
+    return _allFonts
         .where(
-          (font) => font
-              .getDisplayName(context)
-              .toLowerCase()
-              .contains(_searchQuery.toLowerCase()),
+          (font) => font.family.toLowerCase().contains(
+                _searchQuery.toLowerCase(),
+              ),
         )
         .toList();
   }
 
-  Future<void> _selectFont(FontFamily font) async {
+  Future<void> _selectFont(GoogleFontEntity font) async {
     setState(() {
       _isLoading = true;
       _loadingFont = font;
@@ -109,7 +149,7 @@ class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
 
     try {
       await Future.delayed(Duration(milliseconds: 500));
-      widget.viewModel.setFontFamily(font);
+      widget.viewModel.setFontType(font);
       if (mounted) {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
@@ -117,7 +157,7 @@ class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = '폰트 다운로드에 실패했습니다';
+          _errorMessage = '폰트 적용에 실패했습니다';
         });
         _showErrorDialog();
       }
@@ -136,7 +176,7 @@ class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('오류'),
-        content: Text(_errorMessage ?? '폰트 다운로드 중 오류가 발생했습니다.'),
+        content: Text(_errorMessage ?? '오류가 발생했습니다.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -194,33 +234,37 @@ class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: _filteredFonts.length,
-                itemBuilder: (context, index) {
-                  final font = _filteredFonts[index];
-                  final isLoading = _isLoading && _loadingFont == font;
+              child: _isInitialLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      controller: scrollController,
+                      itemCount: _filteredFonts.length,
+                      itemBuilder: (context, index) {
+                        final font = _filteredFonts[index];
+                        final isLoading = _isLoading && _loadingFont == font;
 
-                  return ListTile(
-                    title: Text(
-                      font.getDisplayName(context),
-                      style: TextStyle(fontSize: 16),
+                        return ListTile(
+                          title: Text(
+                            font.family,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          subtitle: Text(
+                            'ABC 가나다 あいう',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          trailing: isLoading
+                              ? SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Icon(Icons.download),
+                          onTap: isLoading ? null : () => _selectFont(font),
+                        );
+                      },
                     ),
-                    subtitle: Text(
-                      'ABC 가나다 あいう',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    trailing: isLoading
-                        ? SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : Icon(Icons.download),
-                    onTap: isLoading ? null : () => _selectFont(font),
-                  );
-                },
-              ),
             ),
           ],
         );

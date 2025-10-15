@@ -85,9 +85,7 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
                 MenuListTile(
                   title: t.settings_common_font_family_title,
-                  subtitle: viewModel.appState.fontFamily.getDisplayName(
-                    context,
-                  ),
+                  subtitle: viewModel.appState.fontType.displayName,
                   icon: Icons.text_format,
                   onTap: () => context.push(Routes.fontSettings),
                 ),

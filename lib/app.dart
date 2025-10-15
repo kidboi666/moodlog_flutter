@@ -46,10 +46,10 @@ class _MoodLogAppState extends State<MoodLogApp> {
 
   @override
   Widget build(BuildContext context) {
-    final (:languageCode, :fontFamily, :themeMode) = context.select(
+    final (:languageCode, :fontType, :themeMode) = context.select(
       (AppStateProvider provider) => (
         languageCode: provider.appState.languageCode,
-        fontFamily: provider.appState.fontFamily,
+        fontType: provider.appState.fontType,
         themeMode: provider.appState.themeMode,
       ),
     );
@@ -70,8 +70,8 @@ class _MoodLogAppState extends State<MoodLogApp> {
           Locale(LanguageCode.ja.value),
         ],
         locale: Locale(languageCode.value),
-        theme: AppTheme.lightTheme(fontFamily),
-        darkTheme: AppTheme.darkTheme(fontFamily),
+        theme: AppTheme.lightTheme(fontType),
+        darkTheme: AppTheme.darkTheme(fontType),
         themeMode: themeMode.materialThemeMode,
         routerConfig: _router,
       ),
