@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppColors {
-  static const ColorScheme lightColorScheme = ColorScheme(
+  static const ColorScheme lightGrayColorScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFF000000),
     onPrimary: Color(0xFFFFFFFF),
@@ -37,7 +37,7 @@ abstract final class AppColors {
     surfaceContainerHighest: Color(0xFFD0D0D0),
   );
 
-  static const ColorScheme darkColorScheme = ColorScheme(
+  static const ColorScheme darkGrayColorScheme = ColorScheme(
     brightness: Brightness.dark,
     primary: Color(0xFFFFFFFF),
     onPrimary: Color(0xFF000000),
@@ -73,9 +73,25 @@ abstract final class AppColors {
     surfaceContainerHighest: Color(0xFF4B4B4B),
   );
 
+  static final ColorScheme lightGreenColorScheme = ColorScheme.fromSeed(
+    seedColor: const Color(0xFF3FB580),
+    brightness: Brightness.light,
+  );
+
+  static final ColorScheme darkGreenColorScheme = ColorScheme.fromSeed(
+    seedColor: const Color(0xFF3FB580),
+    brightness: Brightness.dark,
+  );
+
   static ThemeData get lightTheme =>
-      ThemeData(useMaterial3: true, colorScheme: lightColorScheme);
+      ThemeData(useMaterial3: true, colorScheme: lightGrayColorScheme);
 
   static ThemeData get darkTheme =>
-      ThemeData(useMaterial3: true, colorScheme: darkColorScheme);
+      ThemeData(useMaterial3: true, colorScheme: darkGrayColorScheme);
+
+  static ThemeData get lightGreenTheme =>
+      ThemeData(useMaterial3: true, colorScheme: lightGreenColorScheme);
+
+  static ThemeData get darkGreenTheme =>
+      ThemeData(useMaterial3: true, colorScheme: darkGreenColorScheme);
 }

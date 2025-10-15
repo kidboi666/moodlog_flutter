@@ -21,7 +21,7 @@ abstract final class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
-      colorScheme: AppColors.lightColorScheme,
+      colorScheme: AppColors.lightGrayColorScheme,
     );
   }
 
@@ -42,7 +42,7 @@ abstract final class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: colorScheme.surfaceContainerLowest,
       textTheme: _getTextTheme(fontFamily),
-      colorScheme: AppColors.darkColorScheme,
+      colorScheme: AppColors.darkGrayColorScheme,
     );
   }
 
