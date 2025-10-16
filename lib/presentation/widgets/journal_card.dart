@@ -10,7 +10,7 @@ import 'package:moodlog/presentation/widgets/tag_chip.dart';
 class JournalCard extends StatelessWidget {
   final int id;
   final String content;
-  final MoodType moodType;
+  final MoodType? moodType;
   final String? coverImg;
   final DateTime createdAt;
   final void Function() onTap;
@@ -24,7 +24,7 @@ class JournalCard extends StatelessWidget {
     super.key,
     required this.id,
     required this.content,
-    required this.moodType,
+    this.moodType,
     required this.createdAt,
     required this.onTap,
     this.onLongPress,
@@ -71,15 +71,17 @@ class JournalCard extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Mood color indicator
-                        Container(
-                          width: Spacing.sm,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Roundness.card),
-                            color: Color(moodType.colorValue),
+                        // Mood color indicator (only if moodType is provided)
+                        if (moodType != null) ...[
+                          Container(
+                            width: Spacing.sm,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(Roundness.card),
+                              color: Color(moodType!.colorValue),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: Spacing.lg),
+                          const SizedBox(width: Spacing.lg),
+                        ],
 
                         // Content section
                         Expanded(

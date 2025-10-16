@@ -37,9 +37,8 @@ class DayCell extends StatelessWidget {
         alpha: 0.2,
       );
     } else if (hasJournal) {
-      // 일기가 있는 경우 - 기분에 따른 색상 적용
-      final primaryMood = _getPrimaryMood(journals);
-      backgroundColor = Color(primaryMood.colorValue).withValues(alpha: 0.8);
+      // 일기가 있는 경우 - 단일 색상 표시
+      backgroundColor = colorScheme.primary.withValues(alpha: 0.8);
     } else {
       // 일기가 없는 과거/현재 날짜
       backgroundColor = colorScheme.surfaceContainerHighest.withValues(
@@ -61,23 +60,4 @@ class DayCell extends StatelessWidget {
     );
   }
 
-  // 여러 일기가 있을 때 대표 기분 선택 (가장 좋은 기분 우선)
-  MoodType _getPrimaryMood(List<Journal> journals) {
-    if (journals.isEmpty) return MoodType.neutral;
-
-    // 기분 우선순위: 매우좋음 > 좋음 > 보통 > 안좋음 > 매우안좋음
-    final moodPriority = {
-      MoodType.veryHappy: 5,
-      MoodType.happy: 4,
-      MoodType.neutral: 3,
-      MoodType.sad: 2,
-      MoodType.verySad: 1,
-    };
-
-    return journals
-        .map((j) => j.moodType)
-        .reduce(
-          (a, b) => (moodPriority[a] ?? 0) > (moodPriority[b] ?? 0) ? a : b,
-        );
-  }
 }
