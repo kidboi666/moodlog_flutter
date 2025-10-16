@@ -3,7 +3,6 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
-import 'package:moodlog/presentation/screens/home/widgets/mood_markers.dart';
 
 class DateAndDay extends StatelessWidget {
   final DateTime date;
@@ -84,10 +83,19 @@ class DateAndDay extends StatelessWidget {
             ),
             if (journals != null && journals!.isNotEmpty)
               Positioned(
-                bottom: 0,
+                bottom: 4,
                 left: 0,
                 right: 0,
-                child: MoodMarkers(journals: journals!),
+                child: Center(
+                  child: Container(
+                    width: 4,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
               ),
           ],
         ),

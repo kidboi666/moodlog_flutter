@@ -42,7 +42,7 @@ class GeminiRepositoryImpl implements GeminiRepository {
   @override
   Future<Result<String>> generateResponse({
     required String prompt,
-    required MoodType moodType,
+    MoodType? moodType,
     List<String>? imagePaths,
   }) async {
     if (!isInitialized) {
@@ -50,7 +50,10 @@ class GeminiRepositoryImpl implements GeminiRepository {
     }
 
     final parts = <Part>[];
-    parts.add(TextPart(Prompt.generateAnswerPrompt(prompt, moodType)));
+    final answerPrompt = moodType != null
+        ? Prompt.generateAnswerPrompt(prompt, moodType)
+        : prompt;
+    parts.add(TextPart(answerPrompt));
 
     if (imagePaths != null && imagePaths.isNotEmpty) {
       for (final path in imagePaths) {

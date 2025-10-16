@@ -28,8 +28,6 @@ class _StatisticsScreenContent extends StatelessWidget {
                       const SizedBox(height: Spacing.xl),
                       const RepresentativeMoodCard(),
                       const SizedBox(height: Spacing.xl),
-                      const YearlyJournalTracker(),
-                      const SizedBox(height: Spacing.xl),
                       const TotalRecordsCard(),
                       const SizedBox(height: Spacing.xl),
                       const CurrentStreakCard(),

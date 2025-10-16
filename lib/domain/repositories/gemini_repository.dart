@@ -10,7 +10,7 @@ abstract class GeminiRepository {
 
   Future<Result<String>> generateResponse({
     required String prompt,
-    required MoodType moodType,
+    MoodType? moodType,
     List<String>? imagePaths,
   });
 }

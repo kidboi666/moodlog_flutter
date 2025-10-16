@@ -15,7 +15,6 @@ import 'package:moodlog/presentation/screens/statistics/widgets/mood_trend_card.
 import 'package:moodlog/presentation/screens/statistics/widgets/representative_mood_card.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/total_records_card.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/writing_frequency_card.dart';
-import 'package:moodlog/presentation/screens/statistics/widgets/yearly_journal_tracker.dart';
 import 'package:moodlog/presentation/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
