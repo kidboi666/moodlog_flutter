@@ -1282,6 +1282,30 @@ abstract class AppLocalizations {
   /// **'System Default'**
   String get settings_common_font_family_system;
 
+  /// No description provided for @settings_common_time_format_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Format'**
+  String get settings_common_time_format_title;
+
+  /// No description provided for @settings_common_time_format_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select time display format'**
+  String get settings_common_time_format_subtitle;
+
+  /// No description provided for @settings_time_format_24hour.
+  ///
+  /// In en, this message translates to:
+  /// **'24-hour'**
+  String get settings_time_format_24hour;
+
+  /// No description provided for @settings_time_format_12hour.
+  ///
+  /// In en, this message translates to:
+  /// **'12-hour'**
+  String get settings_time_format_12hour;
+
   /// No description provided for @settings_data_title.
   ///
   /// In en, this message translates to:

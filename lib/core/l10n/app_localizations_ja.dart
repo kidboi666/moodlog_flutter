@@ -642,6 +642,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_common_font_family_system => 'システム既定';
 
   @override
+  String get settings_common_time_format_title => '時刻形式';
+
+  @override
+  String get settings_common_time_format_subtitle => '時刻表示形式を選択';
+
+  @override
+  String get settings_time_format_24hour => '24時間制';
+
+  @override
+  String get settings_time_format_12hour => '12時間制';
+
+  @override
   String get settings_data_title => 'データ';
 
   @override

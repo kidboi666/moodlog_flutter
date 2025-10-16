@@ -641,6 +641,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_common_font_family_system => '시스템 기본';
 
   @override
+  String get settings_common_time_format_title => '시간 형식';
+
+  @override
+  String get settings_common_time_format_subtitle => '시간 표시 형식을 선택하세요';
+
+  @override
+  String get settings_time_format_24hour => '24시간제';
+
+  @override
+  String get settings_time_format_12hour => '12시간제';
+
+  @override
   String get settings_data_title => '데이터';
 
   @override

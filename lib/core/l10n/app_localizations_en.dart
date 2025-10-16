@@ -668,6 +668,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_common_font_family_system => 'System Default';
 
   @override
+  String get settings_common_time_format_title => 'Time Format';
+
+  @override
+  String get settings_common_time_format_subtitle =>
+      'Select time display format';
+
+  @override
+  String get settings_time_format_24hour => '24-hour';
+
+  @override
+  String get settings_time_format_12hour => '12-hour';
+
+  @override
   String get settings_data_title => 'Data';
 
   @override
