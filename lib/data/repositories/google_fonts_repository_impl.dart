@@ -6,13 +6,11 @@ import 'package:moodlog/domain/entities/font/font_type.dart';
 import 'package:moodlog/domain/repositories/google_fonts_repository.dart';
 
 class GoogleFontsRepositoryImpl implements GoogleFontsRepository {
-  final GoogleFontsApiClient? apiClient;
-  final bool useApi;
+  final GoogleFontsApiClient apiClient;
   List<GoogleFontEntity>? _cachedFonts;
 
   GoogleFontsRepositoryImpl({
-    this.apiClient,
-    this.useApi = true,
+    required this.apiClient,
   });
 
   Future<List<GoogleFontEntity>> _loadFontsFromApi() async {
@@ -20,12 +18,8 @@ class GoogleFontsRepositoryImpl implements GoogleFontsRepository {
       return _cachedFonts!;
     }
 
-    if (apiClient == null) {
-      throw Exception('API client is not configured');
-    }
-
     try {
-      final fontModels = await apiClient!.getAllFonts();
+      final fontModels = await apiClient.getAllFonts();
       _cachedFonts = fontModels.map((model) => model.toEntity()).toList();
       return _cachedFonts!;
     } catch (e) {
@@ -52,13 +46,9 @@ class GoogleFontsRepositoryImpl implements GoogleFontsRepository {
   }
 
   Future<List<GoogleFontEntity>> _loadFonts() async {
-    if (useApi && apiClient != null) {
-      try {
-        return await _loadFontsFromApi();
-      } catch (e) {
-        return await _loadFontsFromAsset();
-      }
-    } else {
+    try {
+      return await _loadFontsFromApi();
+    } catch (e) {
       return await _loadFontsFromAsset();
     }
   }

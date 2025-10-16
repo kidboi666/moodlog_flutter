@@ -105,11 +105,11 @@ class _SettingsScreenContent extends StatelessWidget {
 
                 SectionHeader(title: t.settings_data_title),
                 MenuListTile(
-                  title: '백업 내보내기',
-                  subtitle: '데이터를 JSON 파일로 내보내기',
+                  title: t.settings_data_export_title,
+                  subtitle: t.settings_data_export_subtitle,
                   icon: Icons.download,
                   onTap: () async {
-                    _showLoadingDialog(context, '백업 파일 생성 중...');
+                    _showLoadingDialog(context, t.settings_data_export_progress);
                     try {
                       final filePath = await viewModel.exportLocalBackup();
                       if (context.mounted) {
@@ -117,7 +117,9 @@ class _SettingsScreenContent extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              '백업 파일이 저장되었습니다: ${filePath.split('/').last}',
+                              t.settings_data_export_success(
+                                filePath.split('/').last,
+                              ),
                             ),
                           ),
                         );
@@ -127,7 +129,7 @@ class _SettingsScreenContent extends StatelessWidget {
                         context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('백업 실패: ${e.toString()}'),
+                            content: Text(t.settings_data_export_failed(e.toString())),
                             backgroundColor: Theme.of(
                               context,
                             ).colorScheme.error,
@@ -138,8 +140,8 @@ class _SettingsScreenContent extends StatelessWidget {
                   },
                 ),
                 MenuListTile(
-                  title: '백업 가져오기',
-                  subtitle: 'JSON 파일에서 데이터 복원',
+                  title: t.settings_data_import_title,
+                  subtitle: t.settings_data_import_subtitle,
                   icon: Icons.upload,
                   onTap: () async {
                     try {
@@ -152,7 +154,7 @@ class _SettingsScreenContent extends StatelessWidget {
                         final filePath = result.files.single.path!;
 
                         if (context.mounted) {
-                          _showLoadingDialog(context, '복원 중...');
+                          _showLoadingDialog(context, t.settings_data_import_progress);
                         }
 
                         await viewModel.importLocalBackup(filePath);
@@ -160,7 +162,7 @@ class _SettingsScreenContent extends StatelessWidget {
                         if (context.mounted) {
                           context.pop();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('백업 데이터가 복원되었습니다')),
+                            SnackBar(content: Text(t.settings_data_import_success)),
                           );
                         }
                       }
@@ -169,7 +171,7 @@ class _SettingsScreenContent extends StatelessWidget {
                         context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('복원 실패: ${e.toString()}'),
+                            content: Text(t.settings_data_import_failed(e.toString())),
                             backgroundColor: Theme.of(
                               context,
                             ).colorScheme.error,

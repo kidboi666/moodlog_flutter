@@ -53,7 +53,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
     } else if (legacyFontFamilyString != null) {
       fontType = _migrateLegacyFontFamily(legacyFontFamilyString);
     } else {
-      fontType = LocalFont.restart;
+      fontType = LocalFont.pretendard;
     }
 
     return Settings(
@@ -181,21 +181,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   FontType _migrateLegacyFontFamily(String fontFamilyString) {
-    switch (fontFamilyString) {
-      case 'pretendard':
-        return LocalFont.pretendard;
-      case 'leeSeoyun':
-        return LocalFont.leeSeoyun;
-      case 'orbitOfTheMoon':
-        return LocalFont.orbitOfTheMoon;
-      case 'restart':
-        return LocalFont.restart;
-      case 'overcome':
-        return LocalFont.overcome;
-      case 'system':
-        return LocalFont.system;
-      default:
-        return LocalFont.restart;
-    }
+    return LocalFont.pretendard;
   }
 }

@@ -15,7 +15,7 @@ abstract class Settings with _$Settings {
     @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
-    @Default(LocalFont.restart) FontType fontType,
+    @Default(LocalFont.pretendard) FontType fontType,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
     @Default(false) bool isOnboardingComplete,
     @Default(false) bool isAppLockEnabled,

@@ -11,6 +11,7 @@ import 'package:moodlog/core/utils/keyboard_utils.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 
 class MoodLogApp extends StatefulWidget {
   final NavigatorObserver? analyticsObserver;
@@ -56,24 +57,30 @@ class _MoodLogAppState extends State<MoodLogApp> {
     _router ??= router(context.read(), widget.analyticsObserver);
 
     return KeyboardDismissOnTapOutside(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: FlavorService.isDebug,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          Locale(LanguageCode.ko.value),
-          Locale(LanguageCode.en.value),
-          Locale(LanguageCode.ja.value),
-        ],
-        locale: Locale(languageCode.value),
-        theme: AppTheme.lightTheme(fontType),
-        darkTheme: AppTheme.darkTheme(fontType),
-        themeMode: themeMode.materialThemeMode,
-        routerConfig: _router,
+      child: UpgradeAlert(
+        upgrader: Upgrader(
+          debugDisplayAlways: FlavorService.isDebug,
+          debugLogging: FlavorService.isDebug,
+        ),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: FlavorService.isDebug,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale(LanguageCode.ko.value),
+            Locale(LanguageCode.en.value),
+            Locale(LanguageCode.ja.value),
+          ],
+          locale: Locale(languageCode.value),
+          theme: AppTheme.lightTheme(fontType),
+          darkTheme: AppTheme.darkTheme(fontType),
+          themeMode: themeMode.materialThemeMode,
+          routerConfig: _router,
+        ),
       ),
     );
   }

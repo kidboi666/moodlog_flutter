@@ -266,6 +266,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drawer_tags => 'Manage Tags';
 
   @override
+  String get drawer_review => 'Write a Review';
+
+  @override
   String get empty_box_write_options_title =>
       'Which date would you like to write for?';
 
@@ -1287,4 +1290,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get write_ai_content_required => 'Please write something first.';
+
+  @override
+  String get font_settings_title => 'Font Settings';
+
+  @override
+  String get font_settings_search_hint => 'Search fonts';
+
+  @override
+  String get font_settings_section_default => 'Default Font';
+
+  @override
+  String get font_settings_section_selected => 'Selected Font';
+
+  @override
+  String get font_settings_section_all => 'All Fonts';
+
+  @override
+  String get font_settings_error_title => 'Error';
+
+  @override
+  String get font_settings_error_message => 'An error occurred.';
+
+  @override
+  String get font_settings_error_load_failed => 'Failed to load font list';
+
+  @override
+  String get font_settings_error_apply_failed => 'Failed to apply font';
+
+  @override
+  String get settings_data_export_title => 'Export Backup';
+
+  @override
+  String get settings_data_export_subtitle => 'Export data as JSON file';
+
+  @override
+  String get settings_data_import_title => 'Import Backup';
+
+  @override
+  String get settings_data_import_subtitle => 'Restore data from JSON file';
+
+  @override
+  String get settings_data_export_progress => 'Creating backup file...';
+
+  @override
+  String settings_data_export_success(String filename) {
+    return 'Backup file saved: $filename';
+  }
+
+  @override
+  String settings_data_export_failed(String error) {
+    return 'Backup failed: $error';
+  }
+
+  @override
+  String get settings_data_import_progress => 'Restoring...';
+
+  @override
+  String get settings_data_import_success => 'Backup data has been restored';
+
+  @override
+  String settings_data_import_failed(String error) {
+    return 'Restore failed: $error';
+  }
 }

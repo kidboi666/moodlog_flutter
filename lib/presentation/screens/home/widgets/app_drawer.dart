@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/screens/home/widgets/app_info_footer.dart';
@@ -24,26 +25,17 @@ class AppDrawer extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.query_stats_sharp),
           title: Text(t.tab_statistics),
-          onTap: () {
-            context.pop();
-            context.push(Routes.statistics);
-          },
+          onTap: () => context.push(Routes.statistics),
         ),
         ListTile(
           leading: const Icon(Icons.sell_outlined),
           title: Text(t.drawer_tags),
-          onTap: () {
-            context.pop();
-            context.push(Routes.tags);
-          },
+          onTap: () => context.push(Routes.tags),
         ),
         ListTile(
           leading: const Icon(Icons.settings_outlined),
           title: Text(t.tab_settings),
-          onTap: () {
-            context.pop();
-            context.push(Routes.settings);
-          },
+          onTap: () => context.push(Routes.settings),
         ),
         const Divider(),
         ListTile(
@@ -56,6 +48,17 @@ class AppDrawer extends StatelessWidget {
           title: Text(t.settings_information_qna_title),
           onTap: () =>
               showDialog(context: context, builder: (_) => ContactDialog()),
+        ),
+        ListTile(
+          leading: const Icon(Icons.rate_review_outlined),
+          title: Text(t.drawer_review),
+          onTap: () async {
+            try {
+              await InAppReview.instance.requestReview();
+            } catch (e) {
+              // 개발 모드나 에뮬레이터에서는 조용히 무시
+            }
+          },
         ),
       ],
     );

@@ -37,48 +37,8 @@ class LocalFont extends FontType {
     displayName: 'Pretendard',
   );
 
-  static const leeSeoyun = LocalFont(
-    key: 'leeSeoyun',
-    flutterFontFamily: 'LeeSeoyun',
-    displayName: '이서윤체',
-    fixedFontSize: 16.0,
-  );
-
-  static const orbitOfTheMoon = LocalFont(
-    key: 'orbitOfTheMoon',
-    flutterFontFamily: 'OrbitOfTheMoon',
-    displayName: '달의궤적',
-    fixedFontSize: 15.0,
-  );
-
-  static const restart = LocalFont(
-    key: 'restart',
-    flutterFontFamily: 'Restart',
-    displayName: 'Restart',
-    fixedFontSize: 15.0,
-  );
-
-  static const overcome = LocalFont(
-    key: 'overcome',
-    flutterFontFamily: 'Overcome',
-    displayName: 'Overcome',
-    fixedFontSize: 16.0,
-  );
-
-  static const system = LocalFont(
-    key: 'system',
-    flutterFontFamily: 'System',
-    displayName: 'System',
-    fixedFontSize: 16.0,
-  );
-
   static const List<LocalFont> values = [
     pretendard,
-    leeSeoyun,
-    orbitOfTheMoon,
-    restart,
-    overcome,
-    system,
   ];
 
   static LocalFont? fromKey(String? key) {
@@ -113,4 +73,13 @@ class GoogleFontEntity extends FontType {
   bool get supportsKorean => subsets.contains('korean');
   bool get supportsJapanese => subsets.contains('japanese');
   bool get supportsLatin => subsets.contains('latin');
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is GoogleFontEntity && other.family == family;
+  }
+
+  @override
+  int get hashCode => family.hashCode;
 }

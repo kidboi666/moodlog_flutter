@@ -80,6 +80,7 @@
   "entries_calendar_legend_today": "今日",
   "tab_home": "ホーム",
   "drawer_tags": "タグ管理",
+  "drawer_review": "レビューを書く",
   "empty_box_write_options_title": "どの日付で日記を作成しますか？",
   "empty_box_write_for_selected_date": "{date} の日記を作成",
   "@empty_box_write_for_selected_date": {
@@ -564,5 +565,45 @@
   "lock_type_none": "使用しない",
   "lock_type_biometric": "生体認証",
   "lock_type_pin": "PIN（4桁）",
-  "write_ai_content_required": "まず日記を書いてください。"
+  "write_ai_content_required": "まず日記を書いてください。",
+  "font_settings_title": "フォント設定",
+  "font_settings_search_hint": "フォントを検索",
+  "font_settings_section_default": "デフォルトフォント",
+  "font_settings_section_selected": "選択されたフォント",
+  "font_settings_section_all": "すべてのフォント",
+  "font_settings_error_title": "エラー",
+  "font_settings_error_message": "エラーが発生しました。",
+  "font_settings_error_load_failed": "フォントリストの読み込みに失敗しました",
+  "font_settings_error_apply_failed": "フォントの適用に失敗しました",
+  "settings_data_export_title": "バックアップのエクスポート",
+  "settings_data_export_subtitle": "データをJSONファイルとしてエクスポート",
+  "settings_data_import_title": "バックアップのインポート",
+  "settings_data_import_subtitle": "JSONファイルからデータを復元",
+  "settings_data_export_progress": "バックアップファイル作成中...",
+  "settings_data_export_success": "バックアップファイルが保存されました：{filename}",
+  "@settings_data_export_success": {
+    "placeholders": {
+      "filename": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_export_failed": "バックアップ失敗：{error}",
+  "@settings_data_export_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_import_progress": "復元中...",
+  "settings_data_import_success": "バックアップデータが復元されました",
+  "settings_data_import_failed": "復元失敗：{error}",
+  "@settings_data_import_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

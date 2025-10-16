@@ -79,20 +79,6 @@ abstract final class AppTheme {
       }
     }
 
-    if (fontType is LocalFont) {
-      if (fontType == LocalFont.orbitOfTheMoon) {
-        return baseTheme.apply(fontSizeFactor: 1.2);
-      }
-
-      if (fontType == LocalFont.restart) {
-        return baseTheme.apply(fontSizeFactor: 1.2);
-      }
-
-      if (fontType == LocalFont.overcome) {
-        return baseTheme.apply(fontSizeFactor: 1.2);
-      }
-    }
-
     return baseTheme;
   }
 }

@@ -586,6 +586,12 @@ abstract class AppLocalizations {
   /// **'Manage Tags'**
   String get drawer_tags;
 
+  /// No description provided for @drawer_review.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a Review'**
+  String get drawer_review;
+
   /// No description provided for @empty_box_write_options_title.
   ///
   /// In en, this message translates to:
@@ -2427,6 +2433,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please write something first.'**
   String get write_ai_content_required;
+
+  /// No description provided for @font_settings_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Settings'**
+  String get font_settings_title;
+
+  /// No description provided for @font_settings_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search fonts'**
+  String get font_settings_search_hint;
+
+  /// No description provided for @font_settings_section_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Font'**
+  String get font_settings_section_default;
+
+  /// No description provided for @font_settings_section_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Font'**
+  String get font_settings_section_selected;
+
+  /// No description provided for @font_settings_section_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All Fonts'**
+  String get font_settings_section_all;
+
+  /// No description provided for @font_settings_error_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get font_settings_error_title;
+
+  /// No description provided for @font_settings_error_message.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred.'**
+  String get font_settings_error_message;
+
+  /// No description provided for @font_settings_error_load_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load font list'**
+  String get font_settings_error_load_failed;
+
+  /// No description provided for @font_settings_error_apply_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to apply font'**
+  String get font_settings_error_apply_failed;
+
+  /// No description provided for @settings_data_export_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Backup'**
+  String get settings_data_export_title;
+
+  /// No description provided for @settings_data_export_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data as JSON file'**
+  String get settings_data_export_subtitle;
+
+  /// No description provided for @settings_data_import_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Backup'**
+  String get settings_data_import_title;
+
+  /// No description provided for @settings_data_import_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore data from JSON file'**
+  String get settings_data_import_subtitle;
+
+  /// No description provided for @settings_data_export_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating backup file...'**
+  String get settings_data_export_progress;
+
+  /// No description provided for @settings_data_export_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup file saved: {filename}'**
+  String settings_data_export_success(String filename);
+
+  /// No description provided for @settings_data_export_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup failed: {error}'**
+  String settings_data_export_failed(String error);
+
+  /// No description provided for @settings_data_import_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring...'**
+  String get settings_data_import_progress;
+
+  /// No description provided for @settings_data_import_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup data has been restored'**
+  String get settings_data_import_success;
+
+  /// No description provided for @settings_data_import_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed: {error}'**
+  String settings_data_import_failed(String error);
 }
 
 class _AppLocalizationsDelegate

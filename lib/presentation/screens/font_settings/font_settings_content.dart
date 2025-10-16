@@ -1,105 +1,19 @@
 part of 'font_settings_view.dart';
 
-class _FontSettingsContent extends StatelessWidget {
+class _FontSettingsContent extends StatefulWidget {
   final GoogleFontsRepository googleFontsRepository;
 
   const _FontSettingsContent({required this.googleFontsRepository});
 
   @override
-  Widget build(BuildContext context) {
-    final viewModel = context.watch<SettingsViewModel>();
-    final localFonts = LocalFont.values;
-
-    return Scaffold(
-      appBar: AppBar(title: Text('폰트 설정')),
-      body: Column(
-        children: [
-          Expanded(
-            child: RadioGroup<FontType>(
-              groupValue: viewModel.appState.fontType,
-              onChanged: (value) {
-                viewModel.setFontType(value);
-                Navigator.of(context).pop();
-              },
-              child: ListView(
-                children: localFonts.map((localFont) {
-                  return RadioListTile<FontType>(
-                    value: localFont,
-                    title: Text(
-                      localFont.displayName,
-                      style: TextStyle(
-                        fontFamily: localFont.fontName,
-                        fontSize: localFont.fixedFontSize,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  _showGoogleFontsBottomSheet(
-                    context,
-                    viewModel,
-                    googleFontsRepository,
-                  );
-                },
-                icon: Icon(Icons.cloud_download),
-                label: Text('폰트 더보기'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showGoogleFontsBottomSheet(
-    BuildContext context,
-    SettingsViewModel viewModel,
-    GoogleFontsRepository googleFontsRepository,
-  ) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => _GoogleFontsBottomSheet(
-        viewModel: viewModel,
-        googleFontsRepository: googleFontsRepository,
-      ),
-    );
-  }
+  State<_FontSettingsContent> createState() => _FontSettingsContentState();
 }
 
-class _GoogleFontsBottomSheet extends StatefulWidget {
-  final SettingsViewModel viewModel;
-  final GoogleFontsRepository googleFontsRepository;
-
-  const _GoogleFontsBottomSheet({
-    required this.viewModel,
-    required this.googleFontsRepository,
-  });
-
-  @override
-  State<_GoogleFontsBottomSheet> createState() =>
-      _GoogleFontsBottomSheetState();
-}
-
-class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
+class _FontSettingsContentState extends State<_FontSettingsContent> {
   String _searchQuery = '';
-  bool _isLoading = false;
   bool _isInitialLoading = true;
-  GoogleFontEntity? _loadingFont;
+  bool _isLoadingFont = false;
+  FontType? _loadingFont;
   String? _errorMessage;
   List<GoogleFontEntity> _allFonts = [];
 
@@ -120,155 +34,237 @@ class _GoogleFontsBottomSheetState extends State<_GoogleFontsBottomSheet> {
       }
     } catch (e) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         setState(() {
-          _errorMessage = '폰트 목록을 불러오는데 실패했습니다';
+          _errorMessage = l10n.font_settings_error_load_failed;
           _isInitialLoading = false;
         });
-        _showErrorDialog();
       }
     }
   }
 
-  List<GoogleFontEntity> get _filteredFonts {
-    if (_searchQuery.isEmpty) return _allFonts;
-    return _allFonts
-        .where(
-          (font) => font.family.toLowerCase().contains(
-                _searchQuery.toLowerCase(),
-              ),
-        )
+  List<_FontSection> get _fontSections {
+    final viewModel = context.watch<SettingsViewModel>();
+    final currentFont = viewModel.appState.fontType;
+
+    final sections = <_FontSection>[];
+
+    final l10n = AppLocalizations.of(context)!;
+
+    // 기본 폰트 섹션 (Pretendard)
+    final defaultFont = LocalFont.pretendard;
+    sections.add(
+      _FontSection(
+        title: l10n.font_settings_section_default,
+        fonts: [defaultFont],
+      ),
+    );
+
+    // 선택된 폰트 섹션 (기본 폰트가 아닌 경우)
+    if (currentFont != defaultFont) {
+      sections.add(
+        _FontSection(
+          title: l10n.font_settings_section_selected,
+          fonts: [currentFont],
+        ),
+      );
+    }
+
+    // 나머지 폰트 섹션
+    final allGoogleFonts = _searchQuery.isEmpty
+        ? _allFonts.cast<FontType>()
+        : _allFonts
+              .where(
+                (font) => font.family.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ),
+              )
+              .cast<FontType>();
+
+    final remainingFonts = allGoogleFonts
+        .where((font) => font != currentFont && font != defaultFont)
         .toList();
+
+    if (remainingFonts.isNotEmpty) {
+      sections.add(
+        _FontSection(
+          title: l10n.font_settings_section_all,
+          fonts: remainingFonts,
+        ),
+      );
+    }
+
+    return sections;
   }
 
-  Future<void> _selectFont(GoogleFontEntity font) async {
-    setState(() {
-      _isLoading = true;
-      _loadingFont = font;
-      _errorMessage = null;
-    });
+  Future<void> _selectFont(FontType font) async {
+    if (font is GoogleFontEntity) {
+      setState(() {
+        _isLoadingFont = true;
+        _loadingFont = font;
+        _errorMessage = null;
+      });
 
-    try {
-      await Future.delayed(Duration(milliseconds: 500));
-      widget.viewModel.setFontType(font);
-      if (mounted) {
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
+      try {
+        await Future.delayed(Duration(milliseconds: 500));
+        if (mounted) {
+          context.read<SettingsViewModel>().setFontType(font);
+          Navigator.of(context).pop();
+        }
+      } catch (e) {
+        if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
+          setState(() {
+            _isLoadingFont = false;
+            _loadingFont = null;
+            _errorMessage = l10n.font_settings_error_apply_failed;
+          });
+          _showErrorDialog();
+        }
       }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _errorMessage = '폰트 적용에 실패했습니다';
-        });
-        _showErrorDialog();
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _loadingFont = null;
-        });
+    } else {
+      try {
+        context.read<SettingsViewModel>().setFontType(font);
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
+      } catch (e) {
+        if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
+          setState(() {
+            _errorMessage = l10n.font_settings_error_apply_failed;
+          });
+          _showErrorDialog();
+        }
       }
     }
   }
 
   void _showErrorDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('오류'),
-        content: Text(_errorMessage ?? '오류가 발생했습니다.'),
+        title: Text(l10n.font_settings_error_title),
+        content: Text(_errorMessage ?? l10n.font_settings_error_message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('확인'),
+            child: Text(l10n.common_confirm_ok),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey[600],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFontItem(FontType font, SettingsViewModel viewModel) {
+    final isLoading = _isLoadingFont && _loadingFont == font;
+
+    if (font is LocalFont) {
+      return RadioListTile<FontType>(
+        value: font,
+        title: Text(font.displayName),
+      );
+    } else if (font is GoogleFontEntity) {
+      return ListTile(
+        title: Text(font.family, style: TextStyle(fontSize: 16)),
+        leading: Radio<FontType>(
+          value: font,
+          groupValue: viewModel.appState.fontType,
+          onChanged: isLoading
+              ? null
+              : (value) {
+                  if (value != null) {
+                    _selectFont(value);
+                  }
+                },
+        ),
+        trailing: isLoading
+            ? SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : null,
+        onTap: isLoading ? null : () => _selectFont(font),
+      );
+    }
+    return SizedBox.shrink();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.9,
-      minChildSize: 0.5,
-      maxChildSize: 0.95,
-      expand: false,
-      builder: (context, scrollController) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Google Fonts',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  SizedBox(height: 16),
-                  TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        _searchQuery = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: '폰트 검색',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      filled: true,
-                    ),
-                  ),
-                ],
+    final viewModel = context.watch<SettingsViewModel>();
+    final l10n = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.font_settings_title)),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: l10n.font_settings_search_hint,
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
-            Expanded(
-              child: _isInitialLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      controller: scrollController,
-                      itemCount: _filteredFonts.length,
+          ),
+          Expanded(
+            child: _isInitialLoading
+                ? Center(child: CircularProgressIndicator())
+                : RadioGroup<FontType>(
+                    groupValue: viewModel.appState.fontType,
+                    onChanged: _selectFont,
+                    child: ListView.builder(
+                      itemCount: _fontSections.fold<int>(
+                        0,
+                        (sum, section) => sum + section.fonts.length + 1,
+                      ),
                       itemBuilder: (context, index) {
-                        final font = _filteredFonts[index];
-                        final isLoading = _isLoading && _loadingFont == font;
+                        int currentIndex = 0;
+                        for (final section in _fontSections) {
+                          if (index == currentIndex) {
+                            return _buildSectionHeader(section.title);
+                          }
+                          currentIndex++;
 
-                        return ListTile(
-                          title: Text(
-                            font.family,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          subtitle: Text(
-                            'ABC 가나다 あいう',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          trailing: isLoading
-                              ? SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : Icon(Icons.download),
-                          onTap: isLoading ? null : () => _selectFont(font),
-                        );
+                          if (index < currentIndex + section.fonts.length) {
+                            final fontIndex = index - currentIndex;
+                            final font = section.fonts[fontIndex];
+                            return _buildFontItem(font, viewModel);
+                          }
+                          currentIndex += section.fonts.length;
+                        }
+                        return SizedBox.shrink();
                       },
                     ),
-            ),
-          ],
-        );
-      },
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -321,4 +317,11 @@ class RadioListTile<T> extends StatelessWidget {
       onTap: () => group.onChanged(value),
     );
   }
+}
+
+class _FontSection {
+  final String title;
+  final List<FontType> fonts;
+
+  _FontSection({required this.title, required this.fonts});
 }

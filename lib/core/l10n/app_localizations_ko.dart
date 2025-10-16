@@ -258,6 +258,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get drawer_tags => '태그 관리';
 
   @override
+  String get drawer_review => '앱 리뷰 작성';
+
+  @override
   String get empty_box_write_options_title => '어떤 날짜의 일기를 작성하시겠어요?';
 
   @override
@@ -1243,4 +1246,67 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get write_ai_content_required => '먼저 일기를 작성해주세요.';
+
+  @override
+  String get font_settings_title => '폰트 설정';
+
+  @override
+  String get font_settings_search_hint => '폰트 검색';
+
+  @override
+  String get font_settings_section_default => '기본 폰트';
+
+  @override
+  String get font_settings_section_selected => '선택된 폰트';
+
+  @override
+  String get font_settings_section_all => '모든 폰트';
+
+  @override
+  String get font_settings_error_title => '오류';
+
+  @override
+  String get font_settings_error_message => '오류가 발생했습니다.';
+
+  @override
+  String get font_settings_error_load_failed => '폰트 목록을 불러오는데 실패했습니다';
+
+  @override
+  String get font_settings_error_apply_failed => '폰트 적용에 실패했습니다';
+
+  @override
+  String get settings_data_export_title => '백업 내보내기';
+
+  @override
+  String get settings_data_export_subtitle => '데이터를 JSON 파일로 내보내기';
+
+  @override
+  String get settings_data_import_title => '백업 가져오기';
+
+  @override
+  String get settings_data_import_subtitle => 'JSON 파일에서 데이터 복원';
+
+  @override
+  String get settings_data_export_progress => '백업 파일 생성 중...';
+
+  @override
+  String settings_data_export_success(String filename) {
+    return '백업 파일이 저장되었습니다: $filename';
+  }
+
+  @override
+  String settings_data_export_failed(String error) {
+    return '백업 실패: $error';
+  }
+
+  @override
+  String get settings_data_import_progress => '복원 중...';
+
+  @override
+  String get settings_data_import_success => '백업 데이터가 복원되었습니다';
+
+  @override
+  String settings_data_import_failed(String error) {
+    return '복원 실패: $error';
+  }
 }

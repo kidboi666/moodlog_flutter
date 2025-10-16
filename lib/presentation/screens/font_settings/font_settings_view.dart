@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/data_source/remote/google_fonts_api_client.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
@@ -19,11 +20,9 @@ class FontSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiKey = dotenv.env['GOOGLE_FONTS_API_KEY'];
-    final useApi = apiKey != null && apiKey.isNotEmpty && apiKey != 'YOUR_API_KEY_HERE';
 
     final googleFontsRepository = GoogleFontsRepositoryImpl(
-      apiClient: useApi ? GoogleFontsApiClient(apiKey: apiKey) : null,
-      useApi: useApi,
+      apiClient: GoogleFontsApiClient(apiKey: apiKey),
     );
 
     return ChangeNotifierProvider(

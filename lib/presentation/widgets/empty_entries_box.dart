@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing.dart';
@@ -99,7 +98,7 @@ class EmptyEntriesBox extends StatelessWidget {
                             context.pushToWriteFromSelectedDate(selectedDate),
                         icon: Icons.calendar_today,
                         label: t.empty_box_write_for_selected_date(
-                          DateFormat.yMMMd().format(selectedDate),
+                          selectedDate.formattedLocalizedFullDate(t),
                         ),
                       ),
                       buildButton(

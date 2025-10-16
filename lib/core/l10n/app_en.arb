@@ -80,6 +80,7 @@
   "entries_calendar_legend_today": "Today",
   "tab_home": "Home",
   "drawer_tags": "Manage Tags",
+  "drawer_review": "Write a Review",
   "empty_box_write_options_title": "Which date would you like to write for?",
   "empty_box_write_for_selected_date": "Write for {date}",
   "@empty_box_write_for_selected_date": {
@@ -564,5 +565,45 @@
       }
     }
   },
-  "write_ai_content_required": "Please write something first."
+  "write_ai_content_required": "Please write something first.",
+  "font_settings_title": "Font Settings",
+  "font_settings_search_hint": "Search fonts",
+  "font_settings_section_default": "Default Font",
+  "font_settings_section_selected": "Selected Font",
+  "font_settings_section_all": "All Fonts",
+  "font_settings_error_title": "Error",
+  "font_settings_error_message": "An error occurred.",
+  "font_settings_error_load_failed": "Failed to load font list",
+  "font_settings_error_apply_failed": "Failed to apply font",
+  "settings_data_export_title": "Export Backup",
+  "settings_data_export_subtitle": "Export data as JSON file",
+  "settings_data_import_title": "Import Backup",
+  "settings_data_import_subtitle": "Restore data from JSON file",
+  "settings_data_export_progress": "Creating backup file...",
+  "settings_data_export_success": "Backup file saved: {filename}",
+  "@settings_data_export_success": {
+    "placeholders": {
+      "filename": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_export_failed": "Backup failed: {error}",
+  "@settings_data_export_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_import_progress": "Restoring...",
+  "settings_data_import_success": "Backup data has been restored",
+  "settings_data_import_failed": "Restore failed: {error}",
+  "@settings_data_import_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

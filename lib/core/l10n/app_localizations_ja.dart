@@ -259,6 +259,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get drawer_tags => 'タグ管理';
 
   @override
+  String get drawer_review => 'レビューを書く';
+
+  @override
   String get empty_box_write_options_title => 'どの日付で日記を作成しますか？';
 
   @override
@@ -1244,4 +1247,67 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get write_ai_content_required => 'まず日記を書いてください。';
+
+  @override
+  String get font_settings_title => 'フォント設定';
+
+  @override
+  String get font_settings_search_hint => 'フォントを検索';
+
+  @override
+  String get font_settings_section_default => 'デフォルトフォント';
+
+  @override
+  String get font_settings_section_selected => '選択されたフォント';
+
+  @override
+  String get font_settings_section_all => 'すべてのフォント';
+
+  @override
+  String get font_settings_error_title => 'エラー';
+
+  @override
+  String get font_settings_error_message => 'エラーが発生しました。';
+
+  @override
+  String get font_settings_error_load_failed => 'フォントリストの読み込みに失敗しました';
+
+  @override
+  String get font_settings_error_apply_failed => 'フォントの適用に失敗しました';
+
+  @override
+  String get settings_data_export_title => 'バックアップのエクスポート';
+
+  @override
+  String get settings_data_export_subtitle => 'データをJSONファイルとしてエクスポート';
+
+  @override
+  String get settings_data_import_title => 'バックアップのインポート';
+
+  @override
+  String get settings_data_import_subtitle => 'JSONファイルからデータを復元';
+
+  @override
+  String get settings_data_export_progress => 'バックアップファイル作成中...';
+
+  @override
+  String settings_data_export_success(String filename) {
+    return 'バックアップファイルが保存されました：$filename';
+  }
+
+  @override
+  String settings_data_export_failed(String error) {
+    return 'バックアップ失敗：$error';
+  }
+
+  @override
+  String get settings_data_import_progress => '復元中...';
+
+  @override
+  String get settings_data_import_success => 'バックアップデータが復元されました';
+
+  @override
+  String settings_data_import_failed(String error) {
+    return '復元失敗：$error';
+  }
 }

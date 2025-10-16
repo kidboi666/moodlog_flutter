@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:moodlog/core/constants/enum.dart';

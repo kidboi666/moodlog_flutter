@@ -217,7 +217,7 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 
 
 class _Settings extends Settings {
-  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontType = LocalFont.restart, this.textAlign = SimpleTextAlign.left, this.isOnboardingComplete = false, this.isAppLockEnabled = false, this.lockType = LockType.none, this.isProUser = false}): super._();
+  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontType = LocalFont.pretendard, this.textAlign = SimpleTextAlign.left, this.isOnboardingComplete = false, this.isAppLockEnabled = false, this.lockType = LockType.none, this.isProUser = false}): super._();
   
 
 @override@JsonKey() final  bool hasNotificationEnabled;

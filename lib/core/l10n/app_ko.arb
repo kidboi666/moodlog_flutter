@@ -80,6 +80,7 @@
   "entries_calendar_legend_today": "오늘",
   "tab_home": "홈",
   "drawer_tags": "태그 관리",
+  "drawer_review": "앱 리뷰 작성",
   "empty_box_write_options_title": "어떤 날짜의 일기를 작성하시겠어요?",
   "empty_box_write_for_selected_date": "{date} 일기 쓰기",
   "@empty_box_write_for_selected_date": {
@@ -564,5 +565,45 @@
       }
     }
   },
-  "write_ai_content_required": "먼저 일기를 작성해주세요."
+  "write_ai_content_required": "먼저 일기를 작성해주세요.",
+  "font_settings_title": "폰트 설정",
+  "font_settings_search_hint": "폰트 검색",
+  "font_settings_section_default": "기본 폰트",
+  "font_settings_section_selected": "선택된 폰트",
+  "font_settings_section_all": "모든 폰트",
+  "font_settings_error_title": "오류",
+  "font_settings_error_message": "오류가 발생했습니다.",
+  "font_settings_error_load_failed": "폰트 목록을 불러오는데 실패했습니다",
+  "font_settings_error_apply_failed": "폰트 적용에 실패했습니다",
+  "settings_data_export_title": "백업 내보내기",
+  "settings_data_export_subtitle": "데이터를 JSON 파일로 내보내기",
+  "settings_data_import_title": "백업 가져오기",
+  "settings_data_import_subtitle": "JSON 파일에서 데이터 복원",
+  "settings_data_export_progress": "백업 파일 생성 중...",
+  "settings_data_export_success": "백업 파일이 저장되었습니다: {filename}",
+  "@settings_data_export_success": {
+    "placeholders": {
+      "filename": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_export_failed": "백업 실패: {error}",
+  "@settings_data_export_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_data_import_progress": "복원 중...",
+  "settings_data_import_success": "백업 데이터가 복원되었습니다",
+  "settings_data_import_failed": "복원 실패: {error}",
+  "@settings_data_import_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }
