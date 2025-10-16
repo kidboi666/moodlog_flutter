@@ -1,7 +1,6 @@
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
-import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 import 'package:moodlog/domain/models/update_journal_request.dart';
 
 abstract class JournalRepository {
@@ -13,19 +12,11 @@ abstract class JournalRepository {
 
   Future<Result<List<Journal>>> getJournalsByDate(DateTime date);
 
-  Future<Result<bool>> hasTodayCheckIn();
+  Future<Result<Journal?>> getJournalById(int id);
 
-  Future<Result<List<Journal>>> getJournalsByTagId(int tagId);
+  Future<Result<int>> createJournal(CreateJournalRequest request);
 
-  Future<Result<Journal>> getJournalById(int id);
-
-  Future<Result<Map<String, dynamic>>> createJournal(CreateJournalRequest dto);
-
-  Future<Result<int>> updateJournal(UpdateJournalRequest dto);
-
-  Future<Result<int>> updateJournalAiResponse(
-    UpdateJournalAiResponseRequest dto,
-  );
+  Future<Result<int>> updateJournal(UpdateJournalRequest request);
 
   Future<Result<void>> deleteJournalById(int id);
 

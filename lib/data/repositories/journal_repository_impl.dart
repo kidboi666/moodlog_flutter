@@ -3,23 +3,18 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
-import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
-import 'package:moodlog/domain/models/update_journal_ai_response_request.dart';
 import 'package:moodlog/domain/models/update_journal_request.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
   final JournalLocalDataSource _journalLocalDataSource;
-  final TagLocalDataSource _tagLocalDataSource;
   final Logger _log = Logger('JournalRepositoryImpl');
 
   JournalRepositoryImpl({
     required JournalLocalDataSource localDataSource,
-    required TagLocalDataSource tagLocalDataSource,
-  }) : _journalLocalDataSource = localDataSource,
-       _tagLocalDataSource = tagLocalDataSource;
+  }) : _journalLocalDataSource = localDataSource;
 
   final _journalStreamController = StreamController<List<Journal>>.broadcast();
 
@@ -30,14 +25,9 @@ class JournalRepositoryImpl implements JournalRepository {
   Future<Result<List<Journal>>> getJournals() async {
     try {
       final journals = await _journalLocalDataSource.getJournals();
-      // Fetch tags for each journal
-      final journalsWithTags = <Journal>[];
-      for (final journal in journals) {
-        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
-        journalsWithTags.add(journal.attachTags(tags));
-      }
-      return Result.ok(journalsWithTags);
-    } catch (e) {
+      return Result.ok(journals);
+    } catch (e, s) {
+      _log.severe('Failed to get journals', e, s);
       return Result.error(Exception('Failed to get journals: $e'));
     }
   }
@@ -51,13 +41,9 @@ class JournalRepositoryImpl implements JournalRepository {
         startOfMonth,
         endOfMonth,
       );
-      final journalsWithTags = <Journal>[];
-      for (final journal in journals) {
-        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
-        journalsWithTags.add(journal.attachTags(tags));
-      }
-      return Result.ok(journalsWithTags);
-    } catch (e) {
+      return Result.ok(journals);
+    } catch (e, s) {
+      _log.severe('Failed to get journals by month', e, s);
       return Result.error(Exception('Failed to get journals: $e'));
     }
   }
@@ -71,55 +57,18 @@ class JournalRepositoryImpl implements JournalRepository {
         startOfDay,
         endOfDay,
       );
-
-      // Fetch tags for each journal
-      final journalsWithTags = <Journal>[];
-      for (final journal in journals) {
-        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
-        journalsWithTags.add(journal.attachTags(tags));
-      }
-
-      return Result.ok(journalsWithTags);
-    } catch (e) {
+      return Result.ok(journals);
+    } catch (e, s) {
+      _log.severe('Failed to get journals by date', e, s);
       return Result.error(Exception('Failed to get journals: $e'));
     }
   }
 
   @override
-  Future<Result<bool>> hasTodayCheckIn() async {
-    try {
-      final hasCheckIn = await _journalLocalDataSource.hasTodayCheckIn();
-      return Result.ok(hasCheckIn);
-    } catch (e) {
-      return Result.error(Exception('Failed to check today\'s check-in: $e'));
-    }
-  }
-
-  @override
-  Future<Result<List<Journal>>> getJournalsByTagId(int tagId) async {
-    try {
-      final journals = await _journalLocalDataSource.getJournalsByTagId(tagId);
-      final journalsWithTags = <Journal>[];
-      for (final journal in journals) {
-        final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
-        journalsWithTags.add(journal.attachTags(tags));
-      }
-      return Result.ok(journalsWithTags);
-    } catch (e) {
-      return Result.error(Exception('Failed to get journals by tag: $e'));
-    }
-  }
-
-  @override
-  Future<Result<Journal>> getJournalById(int id) async {
+  Future<Result<Journal?>> getJournalById(int id) async {
     try {
       final journal = await _journalLocalDataSource.getJournalById(id);
-      if (journal == null) {
-        return Result.error(Exception('Journal not found'));
-      }
-      final tags = await _tagLocalDataSource.getTagsByJournalId(journal.id);
-      final journalWithTags = journal.attachTags(tags);
-      return Result.ok(journalWithTags);
+      return Result.ok(journal);
     } catch (e, s) {
       _log.severe('Failed to get journal by id', e, s);
       return Result.error(Exception('Failed to get journal: $e'));
@@ -127,68 +76,28 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Result<Map<String, dynamic>>> createJournal(
-    CreateJournalRequest dto,
-  ) async {
-    final request = CreateJournalRequest(
-      content: dto.content,
-      moodType: dto.moodType,
-      entryType: dto.entryType,
-      note: dto.note,
-      imageUri: dto.imageUri,
-      aiResponseEnabled: dto.aiResponseEnabled,
-      aiResponse: dto.aiResponse,
-      createdAt: dto.createdAt,
-      latitude: dto.latitude,
-      longitude: dto.longitude,
-      address: dto.address,
-      temperature: dto.temperature,
-      tagNames: dto.tagNames,
-      weatherIcon: dto.weatherIcon,
-      weatherDescription: dto.weatherDescription,
-      sleepQuality: dto.sleepQuality,
-    );
+  Future<Result<int>> createJournal(CreateJournalRequest request) async {
     try {
       final journal = await _journalLocalDataSource.addJournal(request);
-      final response = {
-        'id': journal?.id,
-        'aiResponseEnabled': journal?.aiResponseEnabled,
-      };
       notifyJournalUpdate();
-      return Result.ok(response);
-    } catch (e) {
+      return Result.ok(journal?.id ?? 0);
+    } catch (e, s) {
+      _log.severe('Failed to create journal', e, s);
       return Result.error(Exception('Failed to add journal: $e'));
     }
   }
 
   @override
-  Future<Result<int>> updateJournal(UpdateJournalRequest dto) async {
+  Future<Result<int>> updateJournal(UpdateJournalRequest request) async {
     try {
-      final updatedRows = await _journalLocalDataSource.updateJournal(dto);
+      final updatedRows = await _journalLocalDataSource.updateJournal(request);
       if (updatedRows == 0) {
         return Result.error(Exception('Failed to update journal'));
       }
       notifyJournalUpdate();
       return Result.ok(updatedRows);
-    } catch (e) {
-      return Result.error(Exception('Failed to update journal: $e'));
-    }
-  }
-
-  @override
-  Future<Result<int>> updateJournalAiResponse(
-    UpdateJournalAiResponseRequest dto,
-  ) async {
-    try {
-      final updatedRows = await _journalLocalDataSource.updateJournalAiResponse(
-        dto,
-      );
-      if (updatedRows == 0) {
-        return Result.error(Exception('Failed to update journal'));
-      }
-      notifyJournalUpdate();
-      return Result.ok(updatedRows);
-    } catch (e) {
+    } catch (e, s) {
+      _log.severe('Failed to update journal', e, s);
       return Result.error(Exception('Failed to update journal: $e'));
     }
   }
@@ -202,7 +111,8 @@ class JournalRepositoryImpl implements JournalRepository {
       }
       notifyJournalUpdate();
       return Result.ok(null);
-    } catch (e) {
+    } catch (e, s) {
+      _log.severe('Failed to delete journal', e, s);
       return Result.error(Exception('Failed to delete journal: $e'));
     }
   }
