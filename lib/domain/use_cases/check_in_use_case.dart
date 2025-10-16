@@ -1,8 +1,8 @@
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/entities/emotion/emotion.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
-import 'package:moodlog/domain/entities/tag/tag.dart';
+import 'package:moodlog/domain/entities/journal/emotion.dart';
+import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';

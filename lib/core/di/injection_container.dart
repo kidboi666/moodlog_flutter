@@ -71,7 +71,7 @@ List<SingleChildWidget> _createDataSources() {
       update: (_, db, previous) => previous ?? JournalLocalDataSource(db: db),
     ),
     ProxyProvider<MoodLogDatabase, CheckInLocalDataSource>(
-      update: (_, db, previous) => previous ?? CheckInLocalDataSource(db: db),
+      update: (_, db, previous) => previous ?? CheckInLocalDataSource(db),
     ),
     ProxyProvider<MoodLogDatabase, TagLocalDataSource>(
       update: (_, db, previous) => previous ?? TagLocalDataSource(db: db),
