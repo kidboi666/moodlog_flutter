@@ -86,6 +86,16 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
+  Future<Result<bool>> hasTodayCheckIn() async {
+    try {
+      final hasCheckIn = await _journalLocalDataSource.hasTodayCheckIn();
+      return Result.ok(hasCheckIn);
+    } catch (e) {
+      return Result.error(Exception('Failed to check today\'s check-in: $e'));
+    }
+  }
+
+  @override
   Future<Result<List<Journal>>> getJournalsByTagId(int tagId) async {
     try {
       final journals = await _journalLocalDataSource.getJournalsByTagId(tagId);

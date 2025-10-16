@@ -13,6 +13,8 @@ abstract class JournalRepository {
 
   Future<Result<List<Journal>>> getJournalsByDate(DateTime date);
 
+  Future<Result<bool>> hasTodayCheckIn();
+
   Future<Result<List<Journal>>> getJournalsByTagId(int tagId);
 
   Future<Result<Journal>> getJournalById(int id);

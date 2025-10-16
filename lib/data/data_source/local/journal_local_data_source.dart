@@ -85,6 +85,26 @@ class JournalLocalDataSource {
     }
   }
 
+  Future<bool> hasTodayCheckIn() async {
+    try {
+      final now = DateTime.now();
+      final startOfDay = DateTime(now.year, now.month, now.day);
+      final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59, 999);
+
+      final checkIns = await (_db.select(_db.journals)
+            ..where((t) =>
+                t.createdAt.isBetween(Variable(startOfDay), Variable(endOfDay)) &
+                t.entryType.equals(0))) // 0 = EntryType.quickCheckIn
+          .get();
+
+      return checkIns.isNotEmpty;
+    } on SqliteException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<List<Journal>> getJournalsByTagId(int tagId) async {
     try {
       final query =
