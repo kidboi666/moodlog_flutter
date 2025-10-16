@@ -16,7 +16,7 @@ class CheckInLocalDataSource {
     return await _db.into(_db.checkIns).insert(
           CheckInsCompanion.insert(
             moodType: request.moodType,
-            createdAt: request.createdAt,
+            createdAt: Value(request.createdAt),
             sleepQuality: Value(request.sleepQuality),
             emotionNames: Value(request.emotionNames),
             tagNames: Value(request.tagNames),
@@ -95,7 +95,8 @@ class CheckInLocalDataSource {
           ..where(_db.checkIns.createdAt.isBetweenValues(startOfDay, endOfDay)))
         .getSingle();
 
-    return count.read(_db.checkIns.id.count()) ?? 0 > 0;
+    final countValue = count.read(_db.checkIns.id.count()) ?? 0;
+    return countValue > 0;
   }
 
   Future<Map<MoodType, int>> getMoodCountsByDateRange(

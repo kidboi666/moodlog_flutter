@@ -42,6 +42,26 @@ class EmotionLocalDataSource {
     return result;
   }
 
+  Future<List<int>> getOrCreateEmotions(List<String> emotionNames) async {
+    final emotionIds = <int>[];
+
+    for (final emotionName in emotionNames) {
+      final trimmedName = emotionName.trim();
+      if (trimmedName.isEmpty) continue;
+
+      final existing = await getEmotionByName(trimmedName);
+
+      if (existing != null) {
+        emotionIds.add(existing.id);
+      } else {
+        final newEmotion = await createEmotion(trimmedName);
+        emotionIds.add(newEmotion.id);
+      }
+    }
+
+    return emotionIds;
+  }
+
   Future<void> createJournalEmotion(int journalId, int emotionId) async {
     await _database.into(_database.journalEmotions).insert(
           JournalEmotionsCompanion.insert(

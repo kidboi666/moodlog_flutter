@@ -93,6 +93,34 @@ class TagLocalDataSource {
     }
   }
 
+  Future<List<int>> getOrCreateTags(List<String> tagNames) async {
+    try {
+      final tagIds = <int>[];
+
+      for (final tagName in tagNames) {
+        final trimmedName = tagName.trim();
+        if (trimmedName.isEmpty) continue;
+
+        final existingTag = await (_db.select(_db.tags)
+              ..where((t) => t.name.equals(trimmedName)))
+            .getSingleOrNull();
+
+        if (existingTag != null) {
+          tagIds.add(existingTag.id);
+        } else {
+          final newTag = await addTag(trimmedName, null);
+          tagIds.add(newTag.id);
+        }
+      }
+
+      return tagIds;
+    } on SqliteException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<int> updateTag(int id, String name, String? color) async {
     try {
       return await (_db.update(_db.tags)..where((t) => t.id.equals(id))).write(
