@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Settings {
 
- bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; ThemeMode get themeMode; ColorTheme get colorTheme; LanguageCode get languageCode; AiPersonality get aiPersonality; FontType get fontType; SimpleTextAlign get textAlign; bool get isOnboardingComplete; bool get isAppLockEnabled; LockType get lockType; bool get isProUser;
+ bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; ThemeMode get themeMode; ColorTheme get colorTheme; LanguageCode get languageCode; AiPersonality get aiPersonality; FontType get fontType; SimpleTextAlign get textAlign; TimeFormat get timeFormat; bool get isOnboardingComplete; bool get isAppLockEnabled; LockType get lockType; bool get isProUser;
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SettingsCopyWith<Settings> get copyWith => _$SettingsCopyWithImpl<Settings>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete)&&(identical(other.isAppLockEnabled, isAppLockEnabled) || other.isAppLockEnabled == isAppLockEnabled)&&(identical(other.lockType, lockType) || other.lockType == lockType)&&(identical(other.isProUser, isProUser) || other.isProUser == isProUser));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete)&&(identical(other.isAppLockEnabled, isAppLockEnabled) || other.isAppLockEnabled == isAppLockEnabled)&&(identical(other.lockType, lockType) || other.lockType == lockType)&&(identical(other.isProUser, isProUser) || other.isProUser == isProUser));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,isOnboardingComplete,isAppLockEnabled,lockType,isProUser);
+int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,timeFormat,isOnboardingComplete,isAppLockEnabled,lockType,isProUser);
 
 @override
 String toString() {
-  return 'Settings(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete, isAppLockEnabled: $isAppLockEnabled, lockType: $lockType, isProUser: $isProUser)';
+  return 'Settings(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, timeFormat: $timeFormat, isOnboardingComplete: $isOnboardingComplete, isAppLockEnabled: $isAppLockEnabled, lockType: $lockType, isProUser: $isProUser)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SettingsCopyWith<$Res>  {
   factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) = _$SettingsCopyWithImpl;
 @useResult
 $Res call({
- bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, AiPersonality aiPersonality, FontType fontType, SimpleTextAlign textAlign, bool isOnboardingComplete, bool isAppLockEnabled, LockType lockType, bool isProUser
+ bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, AiPersonality aiPersonality, FontType fontType, SimpleTextAlign textAlign, TimeFormat timeFormat, bool isOnboardingComplete, bool isAppLockEnabled, LockType lockType, bool isProUser
 });
 
 
@@ -62,7 +62,7 @@ class _$SettingsCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,Object? isAppLockEnabled = null,Object? lockType = null,Object? isProUser = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? timeFormat = null,Object? isOnboardingComplete = null,Object? isAppLockEnabled = null,Object? lockType = null,Object? isProUser = null,}) {
   return _then(_self.copyWith(
 hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hasAutoSyncEnabled: null == hasAutoSyncEnabled ? _self.hasAutoSyncEnabled : hasAutoSyncEnabled // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,8 @@ as ColorTheme,languageCode: null == languageCode ? _self.languageCode : language
 as LanguageCode,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as AiPersonality,fontType: null == fontType ? _self.fontType : fontType // ignore: cast_nullable_to_non_nullable
 as FontType,textAlign: null == textAlign ? _self.textAlign : textAlign // ignore: cast_nullable_to_non_nullable
-as SimpleTextAlign,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable
+as SimpleTextAlign,timeFormat: null == timeFormat ? _self.timeFormat : timeFormat // ignore: cast_nullable_to_non_nullable
+as TimeFormat,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable
 as bool,isAppLockEnabled: null == isAppLockEnabled ? _self.isAppLockEnabled : isAppLockEnabled // ignore: cast_nullable_to_non_nullable
 as bool,lockType: null == lockType ? _self.lockType : lockType // ignore: cast_nullable_to_non_nullable
 as LockType,isProUser: null == isProUser ? _self.isProUser : isProUser // ignore: cast_nullable_to_non_nullable
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  TimeFormat timeFormat,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Settings() when $default != null:
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.timeFormat,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  TimeFormat timeFormat,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)  $default,) {final _that = this;
 switch (_that) {
 case _Settings():
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.timeFormat,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  ThemeMode themeMode,  ColorTheme colorTheme,  LanguageCode languageCode,  AiPersonality aiPersonality,  FontType fontType,  SimpleTextAlign textAlign,  TimeFormat timeFormat,  bool isOnboardingComplete,  bool isAppLockEnabled,  LockType lockType,  bool isProUser)?  $default,) {final _that = this;
 switch (_that) {
 case _Settings() when $default != null:
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.timeFormat,_that.isOnboardingComplete,_that.isAppLockEnabled,_that.lockType,_that.isProUser);case _:
   return null;
 
 }
@@ -217,7 +218,7 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 
 
 class _Settings extends Settings {
-  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontType = LocalFont.pretendard, this.textAlign = SimpleTextAlign.left, this.isOnboardingComplete = false, this.isAppLockEnabled = false, this.lockType = LockType.none, this.isProUser = false}): super._();
+  const _Settings({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = ThemeMode.system, this.colorTheme = ColorTheme.blue, this.languageCode = LanguageCode.ko, this.aiPersonality = AiPersonality.balanced, this.fontType = LocalFont.pretendard, this.textAlign = SimpleTextAlign.left, this.timeFormat = TimeFormat.hour24, this.isOnboardingComplete = false, this.isAppLockEnabled = false, this.lockType = LockType.none, this.isProUser = false}): super._();
   
 
 @override@JsonKey() final  bool hasNotificationEnabled;
@@ -228,6 +229,7 @@ class _Settings extends Settings {
 @override@JsonKey() final  AiPersonality aiPersonality;
 @override@JsonKey() final  FontType fontType;
 @override@JsonKey() final  SimpleTextAlign textAlign;
+@override@JsonKey() final  TimeFormat timeFormat;
 @override@JsonKey() final  bool isOnboardingComplete;
 @override@JsonKey() final  bool isAppLockEnabled;
 @override@JsonKey() final  LockType lockType;
@@ -243,16 +245,16 @@ _$SettingsCopyWith<_Settings> get copyWith => __$SettingsCopyWithImpl<_Settings>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete)&&(identical(other.isAppLockEnabled, isAppLockEnabled) || other.isAppLockEnabled == isAppLockEnabled)&&(identical(other.lockType, lockType) || other.lockType == lockType)&&(identical(other.isProUser, isProUser) || other.isProUser == isProUser));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete)&&(identical(other.isAppLockEnabled, isAppLockEnabled) || other.isAppLockEnabled == isAppLockEnabled)&&(identical(other.lockType, lockType) || other.lockType == lockType)&&(identical(other.isProUser, isProUser) || other.isProUser == isProUser));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,isOnboardingComplete,isAppLockEnabled,lockType,isProUser);
+int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,timeFormat,isOnboardingComplete,isAppLockEnabled,lockType,isProUser);
 
 @override
 String toString() {
-  return 'Settings(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete, isAppLockEnabled: $isAppLockEnabled, lockType: $lockType, isProUser: $isProUser)';
+  return 'Settings(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, timeFormat: $timeFormat, isOnboardingComplete: $isOnboardingComplete, isAppLockEnabled: $isAppLockEnabled, lockType: $lockType, isProUser: $isProUser)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$SettingsCopyWith<$Res> implements $SettingsCopyWith<$Res>
   factory _$SettingsCopyWith(_Settings value, $Res Function(_Settings) _then) = __$SettingsCopyWithImpl;
 @override @useResult
 $Res call({
- bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, AiPersonality aiPersonality, FontType fontType, SimpleTextAlign textAlign, bool isOnboardingComplete, bool isAppLockEnabled, LockType lockType, bool isProUser
+ bool hasNotificationEnabled, bool hasAutoSyncEnabled, ThemeMode themeMode, ColorTheme colorTheme, LanguageCode languageCode, AiPersonality aiPersonality, FontType fontType, SimpleTextAlign textAlign, TimeFormat timeFormat, bool isOnboardingComplete, bool isAppLockEnabled, LockType lockType, bool isProUser
 });
 
 
@@ -280,7 +282,7 @@ class __$SettingsCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,Object? isAppLockEnabled = null,Object? lockType = null,Object? isProUser = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? timeFormat = null,Object? isOnboardingComplete = null,Object? isAppLockEnabled = null,Object? lockType = null,Object? isProUser = null,}) {
   return _then(_Settings(
 hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hasAutoSyncEnabled: null == hasAutoSyncEnabled ? _self.hasAutoSyncEnabled : hasAutoSyncEnabled // ignore: cast_nullable_to_non_nullable
@@ -290,7 +292,8 @@ as ColorTheme,languageCode: null == languageCode ? _self.languageCode : language
 as LanguageCode,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as AiPersonality,fontType: null == fontType ? _self.fontType : fontType // ignore: cast_nullable_to_non_nullable
 as FontType,textAlign: null == textAlign ? _self.textAlign : textAlign // ignore: cast_nullable_to_non_nullable
-as SimpleTextAlign,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable
+as SimpleTextAlign,timeFormat: null == timeFormat ? _self.timeFormat : timeFormat // ignore: cast_nullable_to_non_nullable
+as TimeFormat,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable
 as bool,isAppLockEnabled: null == isAppLockEnabled ? _self.isAppLockEnabled : isAppLockEnabled // ignore: cast_nullable_to_non_nullable
 as bool,lockType: null == lockType ? _self.lockType : lockType // ignore: cast_nullable_to_non_nullable
 as LockType,isProUser: null == isProUser ? _self.isProUser : isProUser // ignore: cast_nullable_to_non_nullable

@@ -17,6 +17,7 @@ abstract class Settings with _$Settings {
     @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default(LocalFont.pretendard) FontType fontType,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
+    @Default(TimeFormat.hour24) TimeFormat timeFormat,
     @Default(false) bool isOnboardingComplete,
     @Default(false) bool isAppLockEnabled,
     @Default(LockType.none) LockType lockType,

@@ -393,6 +393,31 @@ enum ThemeMode {
   }
 }
 
+enum TimeFormat {
+  hour24,
+  hour12;
+
+  static TimeFormat fromString(String? value) {
+    switch (value) {
+      case 'hour24':
+        return TimeFormat.hour24;
+      case 'hour12':
+        return TimeFormat.hour12;
+      default:
+        return TimeFormat.hour24;
+    }
+  }
+
+  String get value {
+    switch (this) {
+      case TimeFormat.hour24:
+        return 'hour24';
+      case TimeFormat.hour12:
+        return 'hour12';
+    }
+  }
+}
+
 enum FontFamily {
   pretendard(isLocal: true),
   leeSeoyun(isLocal: true),

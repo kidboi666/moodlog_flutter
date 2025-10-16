@@ -3,9 +3,10 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:provider/provider.dart';
 
 class CheckInCard extends StatelessWidget {
   final int id;
@@ -54,9 +55,11 @@ class CheckInCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final timeFormat = context.select(
+      (AppStateProvider asp) => asp.appState.timeFormat,
+    );
 
     return InkWell(
       onTap: onTap,
@@ -103,7 +106,7 @@ class CheckInCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              createdAt.formatted(t),
+                              createdAt.formattedTime(timeFormat),
                               style: textTheme.labelLarge?.copyWith(
                                 color: colorScheme.outline,
                               ),

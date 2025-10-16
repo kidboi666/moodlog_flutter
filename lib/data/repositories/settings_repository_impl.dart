@@ -41,6 +41,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       'fontFamily',
     );
     final textAlignString = await _localDataSource.getString('textAlign');
+    final timeFormatString = await _localDataSource.getString('timeFormat');
     final isOnboardingComplete = await _localDataSource.getBool(
       'isOnboardingComplete',
     );
@@ -65,6 +66,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       aiPersonality: AiPersonality.fromString(aiPersonalityString),
       fontType: fontType,
       textAlign: SimpleTextAlign.fromString(textAlignString),
+      timeFormat: TimeFormat.fromString(timeFormatString),
       isOnboardingComplete: isOnboardingComplete,
       isAppLockEnabled: isAppLockEnabled,
       lockType: LockType.fromString(lockTypeString),
@@ -96,6 +98,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       FontTypeSerializer.serialize(newSettings.fontType),
     );
     await _localDataSource.setString('textAlign', newSettings.textAlign.name);
+    await _localDataSource.setString('timeFormat', newSettings.timeFormat.value);
     await _localDataSource.setBool(
       'isOnboardingComplete',
       newSettings.isOnboardingComplete,
