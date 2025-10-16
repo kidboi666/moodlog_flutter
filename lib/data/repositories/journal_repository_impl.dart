@@ -123,6 +123,8 @@ class JournalRepositoryImpl implements JournalRepository {
     final request = CreateJournalRequest(
       content: dto.content,
       moodType: dto.moodType,
+      entryType: dto.entryType,
+      note: dto.note,
       imageUri: dto.imageUri,
       aiResponseEnabled: dto.aiResponseEnabled,
       aiResponse: dto.aiResponse,
