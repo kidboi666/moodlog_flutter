@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 
 class DayCell extends StatelessWidget {

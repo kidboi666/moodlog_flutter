@@ -14,7 +14,6 @@ import 'package:moodlog/presentation/screens/purchase/purchase_view.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
-import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
 import 'package:moodlog/presentation/screens/tags/tags_view.dart';
 import 'package:moodlog/presentation/screens/write/write_view.dart';
 import 'package:provider/provider.dart';
@@ -107,13 +106,13 @@ GoRouter router(
         return const TagsScreen();
       },
     ),
-    GoRoute(
-      path: Routes.tagDetail,
-      builder: (context, state) {
-        final id = int.parse(state.pathParameters['id']!);
-        return TagDetailScreen(tagId: id);
-      },
-    ),
+    // GoRoute(
+    //   path: Routes.tagDetail,
+    //   builder: (context, state) {
+    //     final id = int.parse(state.pathParameters['id']!);
+    //     return TagDetailScreen(tagId: id);
+    //   },
+    // ),
     GoRoute(
       path: Routes.purchase,
       builder: (_, _) {

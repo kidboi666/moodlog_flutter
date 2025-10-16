@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:logging/logging.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/domain/entities/backup/backup_data.dart';
