@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/presentation/providers/app_state_provider.dart';
-import 'package:provider/provider.dart';
 
 class CheckInCard extends StatelessWidget {
   final int id;
@@ -57,9 +54,6 @@ class CheckInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final timeFormat = context.select(
-      (AppStateProvider asp) => asp.appState.timeFormat,
-    );
 
     return InkWell(
       onTap: onTap,
@@ -103,23 +97,19 @@ class CheckInCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              createdAt.formattedTime(timeFormat),
-                              style: textTheme.labelLarge?.copyWith(
-                                color: colorScheme.outline,
-                              ),
+                        // Sleep quality indicator
+                        if (sleepQuality != null)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: Spacing.xs),
+                            child: Row(
+                              children: [
+                                Text(
+                                  _getSleepEmoji(sleepQuality!),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
-                            if (sleepQuality != null) ...[
-                              const SizedBox(width: Spacing.sm),
-                              Text(
-                                _getSleepEmoji(sleepQuality!),
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ],
-                        ),
+                          ),
 
                         // Activities
                         if (tags != null && tags!.isNotEmpty) ...[

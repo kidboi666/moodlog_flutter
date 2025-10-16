@@ -3,12 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/widgets/tag_chip.dart';
-import 'package:provider/provider.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;
@@ -40,15 +37,9 @@ class JournalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeFormat = context.select(
-      (AppStateProvider asp) => asp.appState.timeFormat,
-    );
     final double horizontalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double verticalPadding = isCompact ? Spacing.lg : Spacing.xl;
     final double imageHeight = isCompact ? 80 : 120;
-    final TextStyle? titleStyle = isCompact
-        ? TextTheme.of(context).bodySmall
-        : TextTheme.of(context).bodyMedium;
     final TextStyle? contentStyle = isCompact
         ? TextTheme.of(context).bodySmall
         : TextTheme.of(context).bodyMedium;
@@ -95,13 +86,6 @@ class JournalCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                createdAt.formattedTime(timeFormat),
-                                style: titleStyle?.copyWith(
-                                  color: ColorScheme.of(context).outline,
-                                ),
-                              ),
-                              const SizedBox(height: Spacing.xs),
                               _buildContentPreview(
                                 content.trim(),
                                 contentStyle,

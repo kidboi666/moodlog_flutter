@@ -7,6 +7,7 @@ import 'package:moodlog/presentation/widgets/check_in_card.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
 import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:moodlog/presentation/widgets/journal_card.dart';
+import 'package:moodlog/presentation/widgets/timeline_item.dart';
 import 'package:provider/provider.dart';
 
 class JournalSliverList extends StatelessWidget {
@@ -48,14 +49,19 @@ class JournalSliverList extends StatelessWidget {
       key: ValueKey(selectedDate),
       delegate: SliverChildBuilderDelegate((context, index) {
         final e = journal[index];
+        final isFirst = index == 0;
+        final isLast = index == journal.length - 1;
+
         return FadeIn(
           delay: isFirstRender ? DelayMS.medium * (5 + index) : DelayMS.medium,
-          child: Dismissible(
-            key: ValueKey(e.id),
-            direction: DismissDirection.endToStart,
-            background: Padding(
-              padding: const EdgeInsets.only(bottom: Spacing.xl),
-              child: Container(
+          child: TimelineItem(
+            time: e.createdAt,
+            isFirst: isFirst,
+            isLast: isLast,
+            child: Dismissible(
+              key: ValueKey(e.id),
+              direction: DismissDirection.endToStart,
+              background: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.error,
                   borderRadius: BorderRadius.circular(Roundness.card),
@@ -64,35 +70,32 @@ class JournalSliverList extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
                 child: const Icon(Icons.delete, color: Colors.white),
               ),
-            ),
-            confirmDismiss: (direction) async {
-              return await showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("Confirm Deletion"),
-                    content: const Text(
-                      "Are you sure you want to delete this journal entry?",
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text("Cancel"),
+              confirmDismiss: (direction) async {
+                return await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Confirm Deletion"),
+                      content: const Text(
+                        "Are you sure you want to delete this journal entry?",
                       ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text("Delete"),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            onDismissed: (direction) {
-              context.read<HomeViewModel>().deleteJournal(e.id);
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: Spacing.xl),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: const Text("Delete"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              onDismissed: (direction) {
+                context.read<HomeViewModel>().deleteJournal(e.id);
+              },
               child: e.entryType == EntryType.quickCheckIn
                   ? CheckInCard(
                       id: e.id,
