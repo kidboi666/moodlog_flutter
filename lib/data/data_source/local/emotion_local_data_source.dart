@@ -62,31 +62,6 @@ class EmotionLocalDataSource {
     return emotionIds;
   }
 
-  Future<void> createJournalEmotion(int journalId, int emotionId) async {
-    await _database.into(_database.journalEmotions).insert(
-          JournalEmotionsCompanion.insert(
-            journalId: journalId,
-            emotionId: emotionId,
-          ),
-        );
-  }
-
-  Future<List<Emotion>> getEmotionsByJournalId(int journalId) async {
-    final query = _database.select(_database.emotions).join([
-      innerJoin(
-        _database.journalEmotions,
-        _database.journalEmotions.emotionId.equalsExp(_database.emotions.id),
-      ),
-    ])
-      ..where(_database.journalEmotions.journalId.equals(journalId));
-
-    final results = await query.get();
-    return results.map((row) => row.readTable(_database.emotions)).toList();
-  }
-
-  Future<void> deleteJournalEmotions(int journalId) async {
-    await (_database.delete(_database.journalEmotions)
-          ..where((t) => t.journalId.equals(journalId)))
-        .go();
-  }
+  // Journal과 Emotion의 연결은 더 이상 사용하지 않음
+  // CheckIn과 Emotion의 연결은 CheckInLocalDataSource에서 관리
 }

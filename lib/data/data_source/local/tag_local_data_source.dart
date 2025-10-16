@@ -14,8 +14,8 @@ class TagLocalDataSource {
 
   Future<List<TagWithCount>> getTagsWithCount() async {
     final query = _db.customSelect(
-      'SELECT t.*, COUNT(jt.tag_id) AS journal_count FROM tags AS t LEFT JOIN journal_tags AS jt ON t.id = jt.tag_id GROUP BY t.id ORDER BY t.created_at ASC',
-      readsFrom: {_db.tags, _db.journalTags},
+      'SELECT t.*, COUNT(ct.tag_id) AS check_in_count FROM tags AS t LEFT JOIN check_in_tags AS ct ON t.id = ct.tag_id GROUP BY t.id ORDER BY t.created_at ASC',
+      readsFrom: {_db.tags, _db.checkInTags},
     );
 
     return query.map((row) {
@@ -25,7 +25,7 @@ class TagLocalDataSource {
         color: row.read<String?>('color'),
         createdAt: row.read<DateTime>('created_at'),
       );
-      final count = row.read<int>('journal_count');
+      final count = row.read<int>('check_in_count');
       return TagWithCount(tag: tag, count: count);
     }).get();
   }
@@ -54,26 +54,8 @@ class TagLocalDataSource {
     }
   }
 
-  Future<List<Tag>> getTagsByJournalId(int journalId) async {
-    try {
-      return await (_db.select(_db.tags).join([
-              innerJoin(
-                _db.journalTags,
-                _db.journalTags.tagId.equalsExp(_db.tags.id),
-              ),
-            ])
-            ..where(_db.journalTags.journalId.equals(journalId))
-            ..orderBy([OrderingTerm.asc(_db.tags.name)]))
-          .map((row) => row.readTable(_db.tags))
-          .get();
-    } on SqliteException catch (e, s) {
-      _log.severe('Error in getTagsByJournalId', e, s);
-      throw Exception(e);
-    } catch (e, s) {
-      _log.severe('Error in getTagsByJournalId', e, s);
-      throw Exception(e);
-    }
-  }
+  // Journal과 Tag 연결은 더 이상 사용하지 않음
+  // CheckIn과 Tag 연결은 CheckInLocalDataSource에서 관리
 
   Future<Tag> addTag(String name, String? color) async {
     try {
@@ -143,60 +125,6 @@ class TagLocalDataSource {
     }
   }
 
-  Future<JournalTag?> addTagToJournal(int journalId, int tagId) async {
-    try {
-      return await (_db
-          .into(_db.journalTags)
-          .insertReturningOrNull(
-            JournalTagsCompanion(
-              journalId: Value(journalId),
-              tagId: Value(tagId),
-              createdAt: Value(DateTime.now()),
-            ),
-          ));
-    } on SqliteException catch (e) {
-      throw Exception(e);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<int> removeTagFromJournal(int journalId, int tagId) async {
-    try {
-      return await (_db.delete(_db.journalTags)..where(
-            (t) => t.journalId.equals(journalId) & t.tagId.equals(tagId),
-          ))
-          .go();
-    } on SqliteException catch (e) {
-      throw Exception(e);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> updateJournalTags(int journalId, List<int> tagIds) async {
-    try {
-      await _db.transaction(() async {
-        await (_db.delete(
-          _db.journalTags,
-        )..where((v) => v.journalId.equals(journalId))).go();
-
-        for (final tagId in tagIds) {
-          await _db
-              .into(_db.journalTags)
-              .insert(
-                JournalTagsCompanion(
-                  journalId: Value(journalId),
-                  tagId: Value(tagId),
-                  createdAt: Value(DateTime.now()),
-                ),
-              );
-        }
-      });
-    } on SqliteException catch (e) {
-      throw Exception(e);
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  // Journal-Tag 연결 메서드들은 제거됨
+  // 필요시 CheckInLocalDataSource 사용
 }
