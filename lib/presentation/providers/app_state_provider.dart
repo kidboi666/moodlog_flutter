@@ -11,8 +11,8 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   AppStateProvider({
     required SettingsRepository settingsRepository,
     required GeminiUseCase geminiUseCase,
-  })  : _settingsRepository = settingsRepository,
-        _geminiUseCase = geminiUseCase;
+  }) : _settingsRepository = settingsRepository,
+       _geminiUseCase = geminiUseCase;
 
   Settings _appState = const Settings();
   bool _isAuthenticated = false;
