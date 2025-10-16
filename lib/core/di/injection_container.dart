@@ -28,7 +28,6 @@ import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/repositories/tag_repository.dart';
 import 'package:moodlog/domain/repositories/weather_repository.dart';
 import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
-import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/emotion_use_case.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
@@ -186,14 +185,6 @@ List<SingleChildWidget> _createUseCases() {
     ),
     Provider<EmotionUseCase>(
       create: (context) => EmotionUseCase(context.read()),
-    ),
-    Provider<CreateQuickCheckInUseCase>(
-      create: (context) => CreateQuickCheckInUseCase(
-        journalRepository: context.read(),
-        tagUseCase: context.read(),
-        emotionUseCase: context.read(),
-        emotionDataSource: context.read(),
-      ),
     ),
   ];
 }
