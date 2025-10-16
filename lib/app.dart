@@ -57,30 +57,33 @@ class _MoodLogAppState extends State<MoodLogApp> {
     _router ??= router(context.read(), widget.analyticsObserver);
 
     return KeyboardDismissOnTapOutside(
-      child: UpgradeAlert(
-        upgrader: Upgrader(
-          debugDisplayAlways: FlavorService.isDebug,
-          debugLogging: FlavorService.isDebug,
-        ),
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: FlavorService.isDebug,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: [
-            Locale(LanguageCode.ko.value),
-            Locale(LanguageCode.en.value),
-            Locale(LanguageCode.ja.value),
-          ],
-          locale: Locale(languageCode.value),
-          theme: AppTheme.lightTheme(fontType),
-          darkTheme: AppTheme.darkTheme(fontType),
-          themeMode: themeMode.materialThemeMode,
-          routerConfig: _router,
-        ),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: FlavorService.isDebug,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale(LanguageCode.ko.value),
+          Locale(LanguageCode.en.value),
+          Locale(LanguageCode.ja.value),
+        ],
+        locale: Locale(languageCode.value),
+        theme: AppTheme.lightTheme(fontType),
+        darkTheme: AppTheme.darkTheme(fontType),
+        themeMode: themeMode.materialThemeMode,
+        routerConfig: _router,
+        builder: (context, child) {
+          return UpgradeAlert(
+            upgrader: Upgrader(
+              debugDisplayAlways: FlavorService.isDebug,
+              debugLogging: FlavorService.isDebug,
+            ),
+            child: child!,
+          );
+        },
       ),
     );
   }
