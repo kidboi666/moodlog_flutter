@@ -2,46 +2,36 @@ import 'package:drift/drift.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/converter.dart';
 import 'package:moodlog/domain/entities/app/stat.dart';
+import 'package:moodlog/domain/entities/journal/check_in.dart';
+import 'package:moodlog/domain/entities/journal/check_in_emotion.dart';
+import 'package:moodlog/domain/entities/journal/check_in_tag.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
-import 'package:moodlog/domain/entities/journal/journal_emotion.dart';
-import 'package:moodlog/domain/entities/journal/journal_tag.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 
-// Drift 어노테이션: 이 테이블에서 생성되는 행 데이터를 Tag 클래스로 매핑
-@UseRowClass(Journal)
-// 테이블 인덱스 생성 어노테이션: [name]: 인덱스 이름, [columns]: 인덱스를 생성할 컬럼 목록
-@TableIndex(name: 'journals_created_at', columns: {#createdAt})
-class Journals extends Table {
+// CheckIns - 분석용 데이터 테이블
+@UseRowClass(CheckIn)
+@TableIndex(name: 'check_ins_created_at', columns: {#createdAt})
+class CheckIns extends Table {
   IntColumn get id => integer().autoIncrement()();
-
-  IntColumn get moodType => intEnum<MoodType>()();
-
-  IntColumn get entryType => intEnum<EntryType>()
-      .withDefault(const Constant(0))();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
-  BoolColumn get aiResponseEnabled => boolean()();
+  IntColumn get moodType => intEnum<MoodType>()();
 
-  TextColumn get imageUri =>
+  IntColumn get sleepQuality => integer().nullable()();
+
+  TextColumn get emotionNames =>
       text().map(const StringListConverter()).nullable()();
-
-  TextColumn get content => text().nullable()();
-
-  TextColumn get note => text().nullable()();
-
-  TextColumn get aiResponse => text().nullable()();
-
-  RealColumn get latitude => real().nullable()();
-
-  RealColumn get longitude => real().nullable()();
 
   TextColumn get tagNames =>
       text().map(const StringListConverter()).nullable()();
 
-  TextColumn get emotionNames =>
-      text().map(const StringListConverter()).nullable()();
+  TextColumn get memo => text().nullable()();
+
+  RealColumn get latitude => real().nullable()();
+
+  RealColumn get longitude => real().nullable()();
 
   TextColumn get address => text().nullable()();
 
@@ -50,8 +40,32 @@ class Journals extends Table {
   TextColumn get weatherIcon => text().nullable()();
 
   TextColumn get weatherDescription => text().nullable()();
+}
 
-  IntColumn get sleepQuality => integer().nullable()();
+// Journals - 기록용 컨텐츠 테이블
+@UseRowClass(Journal)
+@TableIndex(name: 'journals_created_at', columns: {#createdAt})
+class Journals extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  TextColumn get content => text()();
+
+  TextColumn get imageUri =>
+      text().map(const StringListConverter()).nullable()();
+
+  RealColumn get latitude => real().nullable()();
+
+  RealColumn get longitude => real().nullable()();
+
+  TextColumn get address => text().nullable()();
+
+  RealColumn get temperature => real().nullable()();
+
+  TextColumn get weatherIcon => text().nullable()();
+
+  TextColumn get weatherDescription => text().nullable()();
 }
 
 @UseRowClass(Stat)
@@ -77,14 +91,14 @@ class Tags extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
-@UseRowClass(JournalTag)
-@TableIndex(name: 'journal_tags_journal_id', columns: {#journalId})
-@TableIndex(name: 'journal_tags_tag_id', columns: {#tagId})
-class JournalTags extends Table {
+@UseRowClass(CheckInTag)
+@TableIndex(name: 'check_in_tags_check_in_id', columns: {#checkInId})
+@TableIndex(name: 'check_in_tags_tag_id', columns: {#tagId})
+class CheckInTags extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get journalId =>
-      integer().references(Journals, #id, onDelete: KeyAction.cascade)();
+  IntColumn get checkInId =>
+      integer().references(CheckIns, #id, onDelete: KeyAction.cascade)();
 
   IntColumn get tagId =>
       integer().references(Tags, #id, onDelete: KeyAction.cascade)();
@@ -93,7 +107,7 @@ class JournalTags extends Table {
 
   @override
   List<Set<Column>> get uniqueKeys => [
-    {journalId, tagId},
+    {checkInId, tagId},
   ];
 }
 
@@ -107,14 +121,14 @@ class Emotions extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
-@UseRowClass(JournalEmotion)
-@TableIndex(name: 'journal_emotions_journal_id', columns: {#journalId})
-@TableIndex(name: 'journal_emotions_emotion_id', columns: {#emotionId})
-class JournalEmotions extends Table {
+@UseRowClass(CheckInEmotion)
+@TableIndex(name: 'check_in_emotions_check_in_id', columns: {#checkInId})
+@TableIndex(name: 'check_in_emotions_emotion_id', columns: {#emotionId})
+class CheckInEmotions extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get journalId =>
-      integer().references(Journals, #id, onDelete: KeyAction.cascade)();
+  IntColumn get checkInId =>
+      integer().references(CheckIns, #id, onDelete: KeyAction.cascade)();
 
   IntColumn get emotionId =>
       integer().references(Emotions, #id, onDelete: KeyAction.cascade)();
@@ -123,6 +137,6 @@ class JournalEmotions extends Table {
 
   @override
   List<Set<Column>> get uniqueKeys => [
-    {journalId, emotionId},
+    {checkInId, emotionId},
   ];
 }
