@@ -109,6 +109,13 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'color_theme', colorTheme.name);
   }
 
+  void setTimeFormat(TimeFormat? timeFormat) {
+    final updatedState = _appStateProvider.appState.copyWith(
+      timeFormat: timeFormat!,
+    );
+    _updateSettings(updatedState, 'time_format', timeFormat.value);
+  }
+
   void setFontType(FontType fontType) {
     final updatedState = _appStateProvider.appState.copyWith(
       fontType: fontType,

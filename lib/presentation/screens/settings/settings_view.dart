@@ -19,6 +19,7 @@ import 'package:moodlog/presentation/screens/settings/widgets/dialog/init_db_dia
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/init_storage_dialog.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/language_dialog.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog/theme_dialog.dart';
+import 'package:moodlog/presentation/screens/settings/widgets/dialog/time_format_dialog.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/dialog_tile.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/menu_list_tile.dart';
 import 'package:moodlog/presentation/screens/settings/widgets/section_header.dart';

@@ -89,6 +89,15 @@ class _SettingsScreenContent extends StatelessWidget {
                   icon: Icons.text_format,
                   onTap: () => context.push(Routes.fontSettings),
                 ),
+                DialogTile(
+                  title: t.settings_common_time_format_title,
+                  subtitle: t.settings_common_time_format_subtitle,
+                  icon: Icons.access_time,
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => TimeFormatDialog(viewModel: viewModel),
+                  ),
+                ),
                 const SizedBox(height: Spacing.xl),
 
                 SectionHeader(title: t.settings_ai_section_title),
