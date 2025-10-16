@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view_model.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/journal_cover_image.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/location_card.dart';
-import 'package:moodlog/presentation/widgets/tag_section.dart';
 import 'package:provider/provider.dart';
 
 class ContentBox extends StatefulWidget {
@@ -54,21 +52,13 @@ class _ContentBoxState extends State<ContentBox> {
             child: Column(
               spacing: Spacing.sm,
               children: [
-                Row(
-                  mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
-                  children: [
-                    Text(
-                      journal.moodType.getDisplayName(context),
-                      style: textTheme.titleLarge,
-                    ),
-                    const SizedBox(width: Spacing.sm),
-                    Text(journal.moodType.emoji, style: textTheme.titleLarge),
-                    if (_hasWeatherData) ...[
-                      const SizedBox(width: Spacing.md),
+                if (_hasWeatherData)
+                  Row(
+                    mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
+                    children: [
                       _buildWeatherInfo(context, textTheme, journal),
                     ],
-                  ],
-                ),
+                  ),
                 LocationCard(
                   viewModel: widget.viewModel,
                   currentAlign: widget.currentAlign,
@@ -88,13 +78,6 @@ class _ContentBoxState extends State<ContentBox> {
                 crossAxisAlignment: widget.currentAlign.crossAxisAlignment,
                 children: [
                   _buildContentDisplay(journal.content, textTheme),
-                  if (journal.tags != null && journal.tags!.isNotEmpty) ...[
-                    const SizedBox(height: Spacing.lg),
-                    TagSection(
-                      tags: journal.tags!,
-                      textAlign: widget.currentAlign,
-                    ),
-                  ],
                 ],
               ),
             ),

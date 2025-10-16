@@ -27,9 +27,6 @@ class _JournalScreenContent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        surfaceTintColor: Color(
-          journal?.moodType.colorValue ?? MoodType.happy.colorValue,
-        ),
         leading: PopButton(
           onTap: () => _handleBackNavigation(context, viewModel),
         ),
@@ -112,22 +109,9 @@ class _JournalScreenContent extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          IntrinsicHeight(
-            child: FadeIn(
-              delay: DelayMS.quick,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  MoodBar(moodType: journal?.moodType ?? MoodType.happy),
-                  ContentBox(viewModel: viewModel, currentAlign: align),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: Spacing.lg),
           FadeIn(
-            delay: DelayMS.quick * 2,
-            child: AiResponseBox(viewModel: viewModel),
+            delay: DelayMS.quick,
+            child: ContentBox(viewModel: viewModel, currentAlign: align),
           ),
         ],
       ),
