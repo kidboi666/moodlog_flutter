@@ -631,5 +631,10 @@
   "quick_check_in_sleep_quality_2": "설쳤어요",
   "quick_check_in_sleep_quality_3": "그저 그래요",
   "quick_check_in_sleep_quality_4": "잘 잤어요",
-  "quick_check_in_sleep_quality_5": "꿀잠 잤어요"
+  "quick_check_in_sleep_quality_5": "꿀잠 잤어요",
+  "edit_nickname_title": "닉네임 변경",
+  "edit_nickname_label": "닉네임",
+  "edit_nickname_hint": "새 닉네임을 입력하세요",
+  "cancel": "취소",
+  "save": "저장"
 }

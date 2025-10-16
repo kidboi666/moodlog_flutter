@@ -2703,6 +2703,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Slept great'**
   String get quick_check_in_sleep_quality_5;
+
+  /// No description provided for @edit_nickname_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Nickname'**
+  String get edit_nickname_title;
+
+  /// No description provided for @edit_nickname_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get edit_nickname_label;
+
+  /// No description provided for @edit_nickname_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new nickname'**
+  String get edit_nickname_hint;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
 }
 
 class _AppLocalizationsDelegate

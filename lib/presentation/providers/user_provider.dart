@@ -38,4 +38,24 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
       debugPrint('Failed to refresh user: $e');
     }
   }
+
+  Future<void> updateNickname(String newNickname) async {
+    if (_user == null) return;
+
+    try {
+      final updatedUser = LocalUser(
+        userId: _user!.userId,
+        nickname: newNickname,
+        profileImagePath: _user!.profileImagePath,
+        createdAt: _user!.createdAt,
+      );
+
+      await _localUserRepository.updateUser(updatedUser);
+      _user = updatedUser;
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to update nickname: $e');
+      rethrow;
+    }
+  }
 }

@@ -631,5 +631,10 @@
   "quick_check_in_sleep_quality_2": "Restless",
   "quick_check_in_sleep_quality_3": "So-so",
   "quick_check_in_sleep_quality_4": "Slept well",
-  "quick_check_in_sleep_quality_5": "Slept great"
+  "quick_check_in_sleep_quality_5": "Slept great",
+  "edit_nickname_title": "Edit Nickname",
+  "edit_nickname_label": "Nickname",
+  "edit_nickname_hint": "Enter new nickname",
+  "cancel": "Cancel",
+  "save": "Save"
 }

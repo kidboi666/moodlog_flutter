@@ -1388,4 +1388,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get quick_check_in_sleep_quality_5 => 'ぐっすり';
+
+  @override
+  String get edit_nickname_title => 'ニックネーム変更';
+
+  @override
+  String get edit_nickname_label => 'ニックネーム';
+
+  @override
+  String get edit_nickname_hint => '新しいニックネームを入力してください';
+
+  @override
+  String get cancel => 'キャンセル';
+
+  @override
+  String get save => '保存';
 }

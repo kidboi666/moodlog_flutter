@@ -1437,4 +1437,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quick_check_in_sleep_quality_5 => 'Slept great';
+
+  @override
+  String get edit_nickname_title => 'Edit Nickname';
+
+  @override
+  String get edit_nickname_label => 'Nickname';
+
+  @override
+  String get edit_nickname_hint => 'Enter new nickname';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get save => 'Save';
 }

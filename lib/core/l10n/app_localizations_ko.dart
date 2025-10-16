@@ -1388,4 +1388,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get quick_check_in_sleep_quality_5 => '꿀잠 잤어요';
+
+  @override
+  String get edit_nickname_title => '닉네임 변경';
+
+  @override
+  String get edit_nickname_label => '닉네임';
+
+  @override
+  String get edit_nickname_hint => '새 닉네임을 입력하세요';
+
+  @override
+  String get cancel => '취소';
+
+  @override
+  String get save => '저장';
 }
