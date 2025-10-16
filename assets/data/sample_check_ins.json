@@ -1,0 +1,58 @@
+[
+  {
+    "moodType": "veryHappy",
+    "createdAt": "2025-10-12T10:00:00.000Z",
+    "tagNames": ["Daily", "Relationships", "Hobby"],
+    "emotionNames": ["Joy", "Gratitude", "Excitement"],
+    "sleepQuality": 5,
+    "memo": "Perfect weather, great time with friends"
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-10-11T11:30:00.000Z",
+    "tagNames": ["Daily", "Health", "Hobby"],
+    "emotionNames": ["Contentment", "Peace"],
+    "sleepQuality": 4,
+    "memo": "Smooth day, enjoyed reading"
+  },
+  {
+    "moodType": "neutral",
+    "createdAt": "2025-10-10T15:00:00.000Z",
+    "tagNames": ["Daily", "Emotions"],
+    "emotionNames": ["Calm"],
+    "sleepQuality": 3,
+    "memo": "Quiet day, organized thoughts"
+  },
+  {
+    "moodType": "sad",
+    "createdAt": "2025-10-09T18:20:00.000Z",
+    "tagNames": ["Work", "Emotions"],
+    "emotionNames": ["Stress", "Frustration"],
+    "sleepQuality": 2,
+    "memo": "Tough day, unexpected problems"
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-10-08T09:00:00.000Z",
+    "tagNames": ["Daily", "Exercise"],
+    "emotionNames": ["Energy", "Motivation"],
+    "sleepQuality": 4,
+    "memo": "Morning workout felt great"
+  },
+  {
+    "moodType": "neutral",
+    "createdAt": "2025-10-07T14:00:00.000Z",
+    "tagNames": ["Daily"],
+    "emotionNames": ["Calm"],
+    "sleepQuality": 3,
+    "memo": "Regular day"
+  },
+  {
+    "moodType": "veryHappy",
+    "createdAt": "2025-10-06T19:00:00.000Z",
+    "tagNames": ["Relationships", "Food"],
+    "emotionNames": ["Joy", "Love"],
+    "sleepQuality": 5,
+    "memo": "Dinner with loved ones"
+  }
+]

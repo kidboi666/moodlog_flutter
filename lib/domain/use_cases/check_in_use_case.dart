@@ -29,6 +29,10 @@ class CheckInUseCase {
     return await _checkInRepository.getCheckInById(id);
   }
 
+  Future<Result<List<CheckIn>>> getAllCheckIns() async {
+    return await _checkInRepository.getAllCheckIns();
+  }
+
   Stream<List<CheckIn>> watchCheckInsByDate(DateTime date) {
     return _checkInRepository.watchCheckInsByDate(date);
   }

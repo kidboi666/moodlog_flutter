@@ -6,6 +6,7 @@ import 'package:moodlog/core/services/default_data_service.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
 import 'package:moodlog/core/utils/debug_data_seeder.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/tag_use_case.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +32,12 @@ class DataSeedingService {
       await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty();
       _log.info('Default tags seeding completed');
 
-      _log.info('Development mode: Seeding sample journals...');
+      _log.info('Development mode: Seeding sample data...');
+      final checkInUseCase = context.read<CheckInUseCase>();
       final journalUseCase = context.read<JournalUseCase>();
-      final seeder = DebugDataSeeder(journalUseCase);
-      await seeder.seedJournalsIfEmpty();
-      _log.info('Sample journals seeding completed');
+      final seeder = DebugDataSeeder(checkInUseCase, journalUseCase);
+      await seeder.seedDataIfEmpty();
+      _log.info('Sample data seeding completed');
     } else {
       _log.info('Production mode: Skipping all seed data');
     }
