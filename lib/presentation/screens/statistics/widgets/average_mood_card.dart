@@ -13,12 +13,12 @@ class AverageMoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<StatisticsViewModel>();
-    final allJournals = viewModel.allJournals;
+    final allCheckIns = viewModel.allCheckIns;
     final moodCounts = viewModel.moodCounts;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
-    if (allJournals.isEmpty) {
+    if (allCheckIns.isEmpty) {
       return BaseCard(
         title: t.statistics_average_mood_title,
         icon: Icons.mood,
@@ -26,11 +26,11 @@ class AverageMoodCard extends StatelessWidget {
       );
     }
 
-    final totalScore = allJournals.fold<double>(
+    final totalScore = allCheckIns.fold<double>(
       0.0,
-      (sum, journal) => sum + journal.moodType.score,
+      (sum, checkIn) => sum + checkIn.moodType.score,
     );
-    final averageScore = totalScore / allJournals.length;
+    final averageScore = totalScore / allCheckIns.length;
 
     MoodType dominantMood = MoodType.neutral;
     String averageMoodText = '';
@@ -62,8 +62,8 @@ class AverageMoodCard extends StatelessWidget {
         .reduce((a, b) => a.value > b.value ? a : b)
         .key;
 
-    final recentMoods = allJournals
-        .map((j) => j.moodType.score)
+    final recentMoods = allCheckIns
+        .map((c) => c.moodType.score)
         .take(7)
         .toList()
         .reversed
