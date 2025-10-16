@@ -28,17 +28,6 @@ class TagUseCase {
     return await _tagRepository.getTagById(id);
   }
 
-  Future<Result<List<Tag>>> getTagsByJournalId(int journalId) async {
-    return await _tagRepository.getTagsByJournalId(journalId);
-  }
-
-  Future<Result<void>> updateJournalTags(
-    int journalId,
-    List<int> tagIds,
-  ) async {
-    return _tagRepository.updateJournalTags(journalId, tagIds);
-  }
-
   Future<Result<void>> updateTag(int id, String name, String? color) async {
     return _tagRepository.updateTag(id, name, color);
   }

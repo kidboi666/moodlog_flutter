@@ -55,11 +55,11 @@ GoRouter router(
     GoRoute(
       path: Routes.quickCheckIn,
       builder: (_, state) {
-        final journalIdStr = state.uri.queryParameters['journalId'];
-        final journalId = journalIdStr != null
-            ? int.tryParse(journalIdStr)
+        final checkInIdStr = state.uri.queryParameters['checkInId'];
+        final checkInId = checkInIdStr != null
+            ? int.tryParse(checkInIdStr)
             : null;
-        return QuickCheckInScreen(journalId: journalId);
+        return QuickCheckInScreen(checkInId: checkInId);
       },
     ),
     GoRoute(
