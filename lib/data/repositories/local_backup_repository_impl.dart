@@ -227,40 +227,17 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
             .insert(
               JournalsCompanion.insert(
                 id: Value(backupJournal.id),
-                moodType: MoodType.values.byName(backupJournal.moodType),
                 createdAt: Value(backupJournal.createdAt),
-                aiResponseEnabled: backupJournal.aiResponseEnabled,
-                content: Value(backupJournal.content),
+                content: backupJournal.content,
                 imageUri: Value(restoredImagePaths),
-                aiResponse: Value(backupJournal.aiResponse),
                 latitude: Value(backupJournal.latitude),
                 longitude: Value(backupJournal.longitude),
                 address: Value(backupJournal.address),
                 temperature: Value(backupJournal.temperature),
                 weatherIcon: Value(backupJournal.weatherIcon),
                 weatherDescription: Value(backupJournal.weatherDescription),
-                tagNames: Value(backupJournal.tagNames),
               ),
             );
-
-        if (backupJournal.tagNames != null &&
-            backupJournal.tagNames!.isNotEmpty) {
-          for (final tagName in backupJournal.tagNames!) {
-            final tag = backupData.tags.firstWhere(
-              (t) => t.name == tagName,
-              orElse: () => throw Exception('Tag not found: $tagName'),
-            );
-
-            await _database
-                .into(_database.journalTags)
-                .insert(
-                  JournalTagsCompanion.insert(
-                    journalId: backupJournal.id,
-                    tagId: tagMap[tag.id]!,
-                  ),
-                );
-          }
-        }
       }
 
       _log.info('Backup data restored successfully');

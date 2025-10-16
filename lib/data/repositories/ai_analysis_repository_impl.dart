@@ -38,7 +38,7 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
     final prompt = _buildPrompt(journals);
     final aiResult = await _geminiRepository.generateResponse(
       prompt: prompt,
-      moodType: journals.first.moodType,
+      moodType: null,
     );
 
     switch (aiResult) {
@@ -58,8 +58,7 @@ class AiAnalysisRepositoryImpl implements AiAnalysisRepository {
     final journalEntries = journals.map((j) {
       return {
         "date": j.createdAt.toIso8601String().substring(0, 10),
-        "mood": j.moodType.value,
-        "content": j.content ?? "",
+        "content": j.content,
       };
     }).toList();
 

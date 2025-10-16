@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BackupJournal {
 
- int get id; String get moodType; String get entryType; DateTime get createdAt; bool get aiResponseEnabled; String? get content; String? get note; List<String>? get imageUri; String? get aiResponse; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription; List<String>? get tagNames;
+ int get id; DateTime get createdAt; String get content; List<String>? get imageUri; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription;
 /// Create a copy of BackupJournal
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $BackupJournalCopyWith<BackupJournal> get copyWith => _$BackupJournalCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupJournal&&(identical(other.id, id) || other.id == id)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&const DeepCollectionEquality().equals(other.tagNames, tagNames));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupJournal&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,moodType,entryType,createdAt,aiResponseEnabled,content,note,const DeepCollectionEquality().hash(imageUri),aiResponse,latitude,longitude,address,temperature,weatherIcon,weatherDescription,const DeepCollectionEquality().hash(tagNames));
+int get hashCode => Object.hash(runtimeType,id,createdAt,content,const DeepCollectionEquality().hash(imageUri),latitude,longitude,address,temperature,weatherIcon,weatherDescription);
 
 @override
 String toString() {
-  return 'BackupJournal(id: $id, moodType: $moodType, entryType: $entryType, createdAt: $createdAt, aiResponseEnabled: $aiResponseEnabled, content: $content, note: $note, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, tagNames: $tagNames)';
+  return 'BackupJournal(id: $id, createdAt: $createdAt, content: $content, imageUri: $imageUri, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $BackupJournalCopyWith<$Res>  {
   factory $BackupJournalCopyWith(BackupJournal value, $Res Function(BackupJournal) _then) = _$BackupJournalCopyWithImpl;
 @useResult
 $Res call({
- int id, String moodType, String entryType, DateTime createdAt, bool aiResponseEnabled, String? content, String? note, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, List<String>? tagNames
+ int id, DateTime createdAt, String content, List<String>? imageUri, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
 });
 
 
@@ -65,25 +65,19 @@ class _$BackupJournalCopyWithImpl<$Res>
 
 /// Create a copy of BackupJournal
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? moodType = null,Object? entryType = null,Object? createdAt = null,Object? aiResponseEnabled = null,Object? content = freezed,Object? note = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? tagNames = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? content = null,Object? imageUri = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
-as String,entryType: null == entryType ? _self.entryType : entryType // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
-as bool,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String?,imageUri: freezed == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,imageUri: freezed == imageUri ? _self.imageUri : imageUri // ignore: cast_nullable_to_non_nullable
+as List<String>?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,tagNames: freezed == tagNames ? _self.tagNames : tagNames // ignore: cast_nullable_to_non_nullable
-as List<String>?,
+as String?,
   ));
 }
 
@@ -168,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String moodType,  String entryType,  DateTime createdAt,  bool aiResponseEnabled,  String? content,  String? note,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  List<String>? tagNames)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime createdAt,  String content,  List<String>? imageUri,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BackupJournal() when $default != null:
-return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.aiResponseEnabled,_that.content,_that.note,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.tagNames);case _:
+return $default(_that.id,_that.createdAt,_that.content,_that.imageUri,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
   return orElse();
 
 }
@@ -189,10 +183,10 @@ return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.ai
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String moodType,  String entryType,  DateTime createdAt,  bool aiResponseEnabled,  String? content,  String? note,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  List<String>? tagNames)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime createdAt,  String content,  List<String>? imageUri,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)  $default,) {final _that = this;
 switch (_that) {
 case _BackupJournal():
-return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.aiResponseEnabled,_that.content,_that.note,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.tagNames);case _:
+return $default(_that.id,_that.createdAt,_that.content,_that.imageUri,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +203,10 @@ return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.ai
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String moodType,  String entryType,  DateTime createdAt,  bool aiResponseEnabled,  String? content,  String? note,  List<String>? imageUri,  String? aiResponse,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  List<String>? tagNames)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime createdAt,  String content,  List<String>? imageUri,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,) {final _that = this;
 switch (_that) {
 case _BackupJournal() when $default != null:
-return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.aiResponseEnabled,_that.content,_that.note,_that.imageUri,_that.aiResponse,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.tagNames);case _:
+return $default(_that.id,_that.createdAt,_that.content,_that.imageUri,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
   return null;
 
 }
@@ -224,16 +218,12 @@ return $default(_that.id,_that.moodType,_that.entryType,_that.createdAt,_that.ai
 @JsonSerializable()
 
 class _BackupJournal implements BackupJournal {
-  const _BackupJournal({required this.id, required this.moodType, this.entryType = 'fullJournal', required this.createdAt, required this.aiResponseEnabled, this.content, this.note, final  List<String>? imageUri, this.aiResponse, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription, final  List<String>? tagNames}): _imageUri = imageUri,_tagNames = tagNames;
+  const _BackupJournal({required this.id, required this.createdAt, required this.content, final  List<String>? imageUri, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription}): _imageUri = imageUri;
   factory _BackupJournal.fromJson(Map<String, dynamic> json) => _$BackupJournalFromJson(json);
 
 @override final  int id;
-@override final  String moodType;
-@override@JsonKey() final  String entryType;
 @override final  DateTime createdAt;
-@override final  bool aiResponseEnabled;
-@override final  String? content;
-@override final  String? note;
+@override final  String content;
  final  List<String>? _imageUri;
 @override List<String>? get imageUri {
   final value = _imageUri;
@@ -243,22 +233,12 @@ class _BackupJournal implements BackupJournal {
   return EqualUnmodifiableListView(value);
 }
 
-@override final  String? aiResponse;
 @override final  double? latitude;
 @override final  double? longitude;
 @override final  String? address;
 @override final  double? temperature;
 @override final  String? weatherIcon;
 @override final  String? weatherDescription;
- final  List<String>? _tagNames;
-@override List<String>? get tagNames {
-  final value = _tagNames;
-  if (value == null) return null;
-  if (_tagNames is EqualUnmodifiableListView) return _tagNames;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
 
 /// Create a copy of BackupJournal
 /// with the given fields replaced by the non-null parameter values.
@@ -273,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupJournal&&(identical(other.id, id) || other.id == id)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupJournal&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,moodType,entryType,createdAt,aiResponseEnabled,content,note,const DeepCollectionEquality().hash(_imageUri),aiResponse,latitude,longitude,address,temperature,weatherIcon,weatherDescription,const DeepCollectionEquality().hash(_tagNames));
+int get hashCode => Object.hash(runtimeType,id,createdAt,content,const DeepCollectionEquality().hash(_imageUri),latitude,longitude,address,temperature,weatherIcon,weatherDescription);
 
 @override
 String toString() {
-  return 'BackupJournal(id: $id, moodType: $moodType, entryType: $entryType, createdAt: $createdAt, aiResponseEnabled: $aiResponseEnabled, content: $content, note: $note, imageUri: $imageUri, aiResponse: $aiResponse, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, tagNames: $tagNames)';
+  return 'BackupJournal(id: $id, createdAt: $createdAt, content: $content, imageUri: $imageUri, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
 }
 
 
@@ -293,7 +273,7 @@ abstract mixin class _$BackupJournalCopyWith<$Res> implements $BackupJournalCopy
   factory _$BackupJournalCopyWith(_BackupJournal value, $Res Function(_BackupJournal) _then) = __$BackupJournalCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String moodType, String entryType, DateTime createdAt, bool aiResponseEnabled, String? content, String? note, List<String>? imageUri, String? aiResponse, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, List<String>? tagNames
+ int id, DateTime createdAt, String content, List<String>? imageUri, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
 });
 
 
@@ -310,25 +290,19 @@ class __$BackupJournalCopyWithImpl<$Res>
 
 /// Create a copy of BackupJournal
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? moodType = null,Object? entryType = null,Object? createdAt = null,Object? aiResponseEnabled = null,Object? content = freezed,Object? note = freezed,Object? imageUri = freezed,Object? aiResponse = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? tagNames = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? content = null,Object? imageUri = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
   return _then(_BackupJournal(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
-as String,entryType: null == entryType ? _self.entryType : entryType // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,aiResponseEnabled: null == aiResponseEnabled ? _self.aiResponseEnabled : aiResponseEnabled // ignore: cast_nullable_to_non_nullable
-as bool,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String?,imageUri: freezed == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
-as List<String>?,aiResponse: freezed == aiResponse ? _self.aiResponse : aiResponse // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,imageUri: freezed == imageUri ? _self._imageUri : imageUri // ignore: cast_nullable_to_non_nullable
+as List<String>?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,tagNames: freezed == tagNames ? _self._tagNames : tagNames // ignore: cast_nullable_to_non_nullable
-as List<String>?,
+as String?,
   ));
 }
 
