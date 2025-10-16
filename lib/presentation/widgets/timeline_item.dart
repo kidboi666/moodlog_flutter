@@ -83,7 +83,7 @@ class TimelineItem extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: Spacing.md),
+          CommonSizedBox.widthMd,
 
           // Content (right)
           Expanded(

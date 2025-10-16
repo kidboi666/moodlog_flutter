@@ -43,7 +43,7 @@ class WelcomeZone extends StatelessWidget {
                       t.home_welcome(nickname ?? ''),
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    const SizedBox(width: Spacing.xs),
+                    CommonSizedBox.widthXs,
                     Icon(
                       Icons.edit,
                       size: 16,
@@ -53,7 +53,7 @@ class WelcomeZone extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: Spacing.md),
+            CommonSizedBox.widthMd,
           ],
         ),
         Text(

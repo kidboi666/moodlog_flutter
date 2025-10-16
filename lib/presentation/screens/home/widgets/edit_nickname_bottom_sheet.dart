@@ -99,7 +99,7 @@ class _EditNicknameBottomSheetState extends State<EditNicknameBottomSheet> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: Spacing.xl),
+          CommonSizedBox.heightXl,
 
           // Input field
           TextField(
@@ -116,7 +116,7 @@ class _EditNicknameBottomSheetState extends State<EditNicknameBottomSheet> {
             ),
             onSubmitted: (_) => _handleSave(),
           ),
-          const SizedBox(height: Spacing.xl),
+          CommonSizedBox.heightXl,
 
           // Buttons
           Row(
@@ -127,7 +127,7 @@ class _EditNicknameBottomSheetState extends State<EditNicknameBottomSheet> {
                   child: Text(t.cancel),
                 ),
               ),
-              const SizedBox(width: Spacing.md),
+              CommonSizedBox.widthMd,
               Expanded(
                 child: FilledButton(
                   onPressed: _isLoading ? null : _handleSave,
@@ -147,7 +147,7 @@ class _EditNicknameBottomSheetState extends State<EditNicknameBottomSheet> {
               ),
             ],
           ),
-          const SizedBox(height: Spacing.xl),
+          CommonSizedBox.heightXl,
         ],
       ),
     );

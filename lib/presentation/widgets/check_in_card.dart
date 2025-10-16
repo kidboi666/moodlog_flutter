@@ -90,7 +90,7 @@ class CheckInCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: Spacing.md),
+                  CommonSizedBox.widthMd,
 
                   // Content
                   Expanded(
@@ -113,7 +113,7 @@ class CheckInCard extends StatelessWidget {
 
                         // Activities
                         if (tags != null && tags!.isNotEmpty) ...[
-                          const SizedBox(height: Spacing.xs),
+                          CommonSizedBox.heightXs,
                           Wrap(
                             spacing: Spacing.xs,
                             runSpacing: Spacing.xs,
@@ -138,7 +138,7 @@ class CheckInCard extends StatelessWidget {
 
                         // Emotions
                         if (emotions != null && emotions!.isNotEmpty) ...[
-                          const SizedBox(height: Spacing.xs),
+                          CommonSizedBox.heightXs,
                           Text(
                             emotions!.take(3).map((e) => e.name).join(', '),
                             style: textTheme.bodySmall?.copyWith(
@@ -151,7 +151,7 @@ class CheckInCard extends StatelessWidget {
 
                         // Memo preview
                         if (memo != null && memo!.isNotEmpty) ...[
-                          const SizedBox(height: Spacing.xs),
+                          CommonSizedBox.heightXs,
                           Text(
                             memo!,
                             style: textTheme.bodySmall,
