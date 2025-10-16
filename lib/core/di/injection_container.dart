@@ -1,10 +1,12 @@
 import 'package:local_auth/local_auth.dart';
+import 'package:moodlog/data/data_source/local/check_in_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
+import 'package:moodlog/data/repositories/check_in_repository_impl.dart';
 import 'package:moodlog/data/repositories/emotion_repository_impl.dart';
 import 'package:moodlog/data/repositories/gemini_repository_impl.dart';
 import 'package:moodlog/data/repositories/image_repository_impl.dart';
@@ -15,6 +17,7 @@ import 'package:moodlog/data/repositories/settings_repository_impl.dart';
 import 'package:moodlog/data/repositories/tag_repository_impl.dart';
 import 'package:moodlog/data/repositories/weather_repository_impl.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/repositories/check_in_repository.dart';
 import 'package:moodlog/domain/repositories/emotion_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/image_repository.dart';
@@ -24,6 +27,7 @@ import 'package:moodlog/domain/repositories/location_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/repositories/tag_repository.dart';
 import 'package:moodlog/domain/repositories/weather_repository.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/emotion_use_case.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
@@ -66,6 +70,9 @@ List<SingleChildWidget> _createDataSources() {
     ProxyProvider<MoodLogDatabase, JournalLocalDataSource>(
       update: (_, db, previous) => previous ?? JournalLocalDataSource(db: db),
     ),
+    ProxyProvider<MoodLogDatabase, CheckInLocalDataSource>(
+      update: (_, db, previous) => previous ?? CheckInLocalDataSource(db: db),
+    ),
     ProxyProvider<MoodLogDatabase, TagLocalDataSource>(
       update: (_, db, previous) => previous ?? TagLocalDataSource(db: db),
     ),
@@ -99,7 +106,14 @@ List<SingleChildWidget> _createRepositories() {
     Provider<JournalRepository>(
       create: (context) => JournalRepositoryImpl(
         localDataSource: context.read(),
+      ),
+      lazy: false,
+    ),
+    Provider<CheckInRepository>(
+      create: (context) => CheckInRepositoryImpl(
+        checkInLocalDataSource: context.read(),
         tagLocalDataSource: context.read(),
+        emotionLocalDataSource: context.read(),
       ),
       lazy: false,
     ),
@@ -146,6 +160,9 @@ List<SingleChildWidget> _createUseCases() {
     ),
     Provider<JournalUseCase>(
       create: (context) => JournalUseCase(journalRepository: context.read()),
+    ),
+    Provider<CheckInUseCase>(
+      create: (context) => CheckInUseCase(checkInRepository: context.read()),
     ),
     Provider<TagUseCase>(create: (context) => TagUseCase(context.read())),
     Provider<GetCurrentLocationUseCase>(
