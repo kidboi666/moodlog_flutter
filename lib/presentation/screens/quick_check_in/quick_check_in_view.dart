@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/domain/repositories/journal_repository.dart';
 import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -26,6 +27,7 @@ class QuickCheckInScreen extends StatelessWidget {
         createQuickCheckInUseCase: context.read<CreateQuickCheckInUseCase>(),
         getCurrentLocationUseCase: context.read<GetCurrentLocationUseCase>(),
         weatherUseCase: context.read<WeatherUseCase>(),
+        journalRepository: context.read<JournalRepository>(),
       ),
       child: _QuickCheckInContent(),
     );

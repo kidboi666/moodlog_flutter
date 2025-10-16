@@ -4,6 +4,7 @@ import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/mixins/step_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/models/create_quick_check_in_request.dart';
+import 'package:moodlog/domain/repositories/journal_repository.dart';
 import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -13,17 +14,21 @@ class QuickCheckInViewModel extends ChangeNotifier
   final CreateQuickCheckInUseCase _createQuickCheckInUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
+  final JournalRepository _journalRepository;
 
   QuickCheckInViewModel({
     required int totalSteps,
     required CreateQuickCheckInUseCase createQuickCheckInUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
+    required JournalRepository journalRepository,
   })  : _createQuickCheckInUseCase = createQuickCheckInUseCase,
         _getCurrentLocationUseCase = getCurrentLocationUseCase,
-        _weatherUseCase = weatherUseCase {
+        _weatherUseCase = weatherUseCase,
+        _journalRepository = journalRepository {
     initStep(totalSteps);
     _createdAt = DateTime.now();
+    _checkFirstCheckIn();
     _loadWeatherData();
   }
 
@@ -41,6 +46,8 @@ class QuickCheckInViewModel extends ChangeNotifier
   String? _weatherIcon;
   String? _weatherDescription;
   bool _isLoadingWeather = false;
+  bool _isFirstCheckInToday = true;
+  bool _isCheckingFirstCheckIn = true;
 
   MoodType get selectedMood => _selectedMood;
   int? get sleepQuality => _sleepQuality;
@@ -51,6 +58,8 @@ class QuickCheckInViewModel extends ChangeNotifier
   double? get temperature => _temperature;
   String? get weatherDescription => _weatherDescription;
   bool get isLoadingWeather => _isLoadingWeather;
+  bool get isFirstCheckInToday => _isFirstCheckInToday;
+  bool get isCheckingFirstCheckIn => _isCheckingFirstCheckIn;
 
   bool get canProceedFromMoodPage => true;
 
@@ -106,6 +115,29 @@ class QuickCheckInViewModel extends ChangeNotifier
   void updateDateTime(DateTime dateTime) {
     _createdAt = dateTime;
     notifyListeners();
+  }
+
+  Future<void> _checkFirstCheckIn() async {
+    _isCheckingFirstCheckIn = true;
+    notifyListeners();
+
+    try {
+      final result = await _journalRepository.hasTodayCheckIn();
+
+      switch (result) {
+        case Ok<bool>():
+          _isFirstCheckInToday = !result.value;
+        case Error<bool>():
+          debugPrint('Failed to check first check-in: ${result.error}');
+          _isFirstCheckInToday = true; // Default to showing sleep page on error
+      }
+    } catch (e) {
+      debugPrint('Failed to check first check-in: $e');
+      _isFirstCheckInToday = true;
+    } finally {
+      _isCheckingFirstCheckIn = false;
+      notifyListeners();
+    }
   }
 
   Future<void> _loadWeatherData() async {
