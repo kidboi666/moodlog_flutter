@@ -20,6 +20,7 @@ class Journal {
   final String? weatherDescription;
   final int? sleepQuality;
   final List<String>? tagNames;
+  final List<String>? emotionNames;
   final List<Tag>? tags;
   final List<Emotion>? emotions;
 
@@ -38,6 +39,7 @@ class Journal {
     this.address,
     this.temperature,
     this.tagNames,
+    this.emotionNames,
     this.weatherIcon,
     this.weatherDescription,
     this.sleepQuality,
@@ -65,6 +67,7 @@ class Journal {
       weatherDescription: weatherDescription,
       sleepQuality: sleepQuality,
       tagNames: tagNames,
+      emotionNames: emotionNames,
       emotions: emotions,
     );
   }
@@ -89,6 +92,7 @@ class Journal {
       weatherDescription: weatherDescription,
       sleepQuality: sleepQuality,
       tagNames: tagNames,
+      emotionNames: emotionNames,
       emotions: emotions,
     );
   }

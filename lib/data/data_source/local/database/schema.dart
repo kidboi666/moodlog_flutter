@@ -40,6 +40,9 @@ class Journals extends Table {
   TextColumn get tagNames =>
       text().map(const StringListConverter()).nullable()();
 
+  TextColumn get emotionNames =>
+      text().map(const StringListConverter()).nullable()();
+
   TextColumn get address => text().nullable()();
 
   RealColumn get temperature => real().nullable()();

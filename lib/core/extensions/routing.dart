@@ -19,4 +19,8 @@ extension RoutingExtension on BuildContext {
   void pushToWriteFromSelectedDate(DateTime date) {
     push(Routes.write, extra: {'date': date});
   }
+
+  void pushToEditCheckIn(int journalId) {
+    push('${Routes.quickCheckIn}?journalId=$journalId');
+  }
 }

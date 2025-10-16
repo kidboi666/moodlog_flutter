@@ -17,5 +17,10 @@ abstract class UpdateJournalRequest with _$UpdateJournalRequest {
     double? longitude,
     String? address,
     List<String>? tagNames,
+    List<String>? emotionNames,
+    int? sleepQuality,
+    double? temperature,
+    String? weatherIcon,
+    String? weatherDescription,
   }) = _UpdateJournalRequest;
 }

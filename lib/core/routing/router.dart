@@ -54,8 +54,12 @@ GoRouter router(
     ),
     GoRoute(
       path: Routes.quickCheckIn,
-      builder: (_, _) {
-        return const QuickCheckInScreen();
+      builder: (_, state) {
+        final journalIdStr = state.uri.queryParameters['journalId'];
+        final journalId = journalIdStr != null
+            ? int.tryParse(journalIdStr)
+            : null;
+        return QuickCheckInScreen(journalId: journalId);
       },
     ),
     GoRoute(

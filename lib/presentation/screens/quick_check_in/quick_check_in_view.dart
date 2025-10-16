@@ -17,7 +17,9 @@ import 'package:provider/provider.dart';
 part 'quick_check_in_content.dart';
 
 class QuickCheckInScreen extends StatelessWidget {
-  const QuickCheckInScreen({super.key});
+  final int? journalId;
+
+  const QuickCheckInScreen({super.key, this.journalId});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class QuickCheckInScreen extends StatelessWidget {
         getCurrentLocationUseCase: context.read<GetCurrentLocationUseCase>(),
         weatherUseCase: context.read<WeatherUseCase>(),
         journalRepository: context.read<JournalRepository>(),
+        journalId: journalId,
       ),
       child: _QuickCheckInContent(),
     );

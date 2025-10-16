@@ -219,6 +219,19 @@ class JournalLocalDataSource {
               ? const Value.absent()
               : Value(request.address),
           tagNames: Value(request.tagNames),
+          emotionNames: Value(request.emotionNames),
+          sleepQuality: request.sleepQuality == null
+              ? const Value.absent()
+              : Value(request.sleepQuality),
+          temperature: request.temperature == null
+              ? const Value.absent()
+              : Value(request.temperature),
+          weatherIcon: request.weatherIcon == null
+              ? const Value.absent()
+              : Value(request.weatherIcon),
+          weatherDescription: request.weatherDescription == null
+              ? const Value.absent()
+              : Value(request.weatherDescription),
         ),
       );
     } on SqliteException catch (e) {

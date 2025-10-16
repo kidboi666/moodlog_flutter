@@ -137,6 +137,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       ).withConverter<List<String>?>($JournalsTable.$convertertagNames);
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>?, String>
+  emotionNames = GeneratedColumn<String>(
+    'emotion_names',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  ).withConverter<List<String>?>($JournalsTable.$converteremotionNames);
   static const VerificationMeta _addressMeta = const VerificationMeta(
     'address',
   );
@@ -206,6 +215,7 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     latitude,
     longitude,
     tagNames,
+    emotionNames,
     address,
     temperature,
     weatherIcon,
@@ -389,6 +399,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
           data['${effectivePrefix}tag_names'],
         ),
       ),
+      emotionNames: $JournalsTable.$converteremotionNames.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}emotion_names'],
+        ),
+      ),
       weatherIcon: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}weather_icon'],
@@ -417,6 +433,8 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       const StringListConverter();
   static TypeConverter<List<String>?, String?> $convertertagNames =
       const StringListConverter();
+  static TypeConverter<List<String>?, String?> $converteremotionNames =
+      const StringListConverter();
 }
 
 class JournalsCompanion extends UpdateCompanion<Journal> {
@@ -432,6 +450,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<double?> latitude;
   final Value<double?> longitude;
   final Value<List<String>?> tagNames;
+  final Value<List<String>?> emotionNames;
   final Value<String?> address;
   final Value<double?> temperature;
   final Value<String?> weatherIcon;
@@ -450,6 +469,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
     this.tagNames = const Value.absent(),
+    this.emotionNames = const Value.absent(),
     this.address = const Value.absent(),
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
@@ -469,6 +489,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
     this.tagNames = const Value.absent(),
+    this.emotionNames = const Value.absent(),
     this.address = const Value.absent(),
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
@@ -489,6 +510,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Expression<double>? latitude,
     Expression<double>? longitude,
     Expression<String>? tagNames,
+    Expression<String>? emotionNames,
     Expression<String>? address,
     Expression<double>? temperature,
     Expression<String>? weatherIcon,
@@ -508,6 +530,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
       if (tagNames != null) 'tag_names': tagNames,
+      if (emotionNames != null) 'emotion_names': emotionNames,
       if (address != null) 'address': address,
       if (temperature != null) 'temperature': temperature,
       if (weatherIcon != null) 'weather_icon': weatherIcon,
@@ -529,6 +552,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<double?>? latitude,
     Value<double?>? longitude,
     Value<List<String>?>? tagNames,
+    Value<List<String>?>? emotionNames,
     Value<String?>? address,
     Value<double?>? temperature,
     Value<String?>? weatherIcon,
@@ -548,6 +572,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       tagNames: tagNames ?? this.tagNames,
+      emotionNames: emotionNames ?? this.emotionNames,
       address: address ?? this.address,
       temperature: temperature ?? this.temperature,
       weatherIcon: weatherIcon ?? this.weatherIcon,
@@ -603,6 +628,11 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
         $JournalsTable.$convertertagNames.toSql(tagNames.value),
       );
     }
+    if (emotionNames.present) {
+      map['emotion_names'] = Variable<String>(
+        $JournalsTable.$converteremotionNames.toSql(emotionNames.value),
+      );
+    }
     if (address.present) {
       map['address'] = Variable<String>(address.value);
     }
@@ -636,6 +666,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
           ..write('tagNames: $tagNames, ')
+          ..write('emotionNames: $emotionNames, ')
           ..write('address: $address, ')
           ..write('temperature: $temperature, ')
           ..write('weatherIcon: $weatherIcon, ')
@@ -1744,6 +1775,7 @@ typedef $$JournalsTableCreateCompanionBuilder =
       Value<double?> latitude,
       Value<double?> longitude,
       Value<List<String>?> tagNames,
+      Value<List<String>?> emotionNames,
       Value<String?> address,
       Value<double?> temperature,
       Value<String?> weatherIcon,
@@ -1764,6 +1796,7 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<double?> latitude,
       Value<double?> longitude,
       Value<List<String>?> tagNames,
+      Value<List<String>?> emotionNames,
       Value<String?> address,
       Value<double?> temperature,
       Value<String?> weatherIcon,
@@ -1888,6 +1921,12 @@ class $$JournalsTableFilterComposer
   ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
   get tagNames => $composableBuilder(
     column: $table.tagNames,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
+  get emotionNames => $composableBuilder(
+    column: $table.emotionNames,
     builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
@@ -2036,6 +2075,11 @@ class $$JournalsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get emotionNames => $composableBuilder(
+    column: $table.emotionNames,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get address => $composableBuilder(
     column: $table.address,
     builder: (column) => ColumnOrderings(column),
@@ -2110,6 +2154,12 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumnWithTypeConverter<List<String>?, String> get tagNames =>
       $composableBuilder(column: $table.tagNames, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<List<String>?, String> get emotionNames =>
+      $composableBuilder(
+        column: $table.emotionNames,
+        builder: (column) => column,
+      );
 
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
@@ -2228,6 +2278,7 @@ class $$JournalsTableTableManager
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
                 Value<List<String>?> tagNames = const Value.absent(),
+                Value<List<String>?> emotionNames = const Value.absent(),
                 Value<String?> address = const Value.absent(),
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
@@ -2246,6 +2297,7 @@ class $$JournalsTableTableManager
                 latitude: latitude,
                 longitude: longitude,
                 tagNames: tagNames,
+                emotionNames: emotionNames,
                 address: address,
                 temperature: temperature,
                 weatherIcon: weatherIcon,
@@ -2266,6 +2318,7 @@ class $$JournalsTableTableManager
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
                 Value<List<String>?> tagNames = const Value.absent(),
+                Value<List<String>?> emotionNames = const Value.absent(),
                 Value<String?> address = const Value.absent(),
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
@@ -2284,6 +2337,7 @@ class $$JournalsTableTableManager
                 latitude: latitude,
                 longitude: longitude,
                 tagNames: tagNames,
+                emotionNames: emotionNames,
                 address: address,
                 temperature: temperature,
                 weatherIcon: weatherIcon,
