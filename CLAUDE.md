@@ -188,6 +188,55 @@ final isLoading = viewModel.isLoading;
 - Use `context.read<ViewModelType>()` for calling methods (actions)
 - Only use `context.watch<ViewModelType>()` when you need the entire ViewModel instance
 
+### Common Widgets Convention
+
+To improve performance and maintain code consistency, use pre-defined constant widgets from `core/constants/common.dart` instead of creating new instances:
+
+#### CommonSizedBox
+
+Use `CommonSizedBox` for spacing instead of creating new `SizedBox` instances:
+
+```dart
+// ✅ Good - Use pre-defined constants
+CommonSizedBox.heightXs    // SizedBox(height: Spacing.xs)
+CommonSizedBox.heightSm    // SizedBox(height: Spacing.sm)
+CommonSizedBox.heightMd    // SizedBox(height: Spacing.md)
+CommonSizedBox.heightLg    // SizedBox(height: Spacing.lg)
+CommonSizedBox.heightXl    // SizedBox(height: Spacing.xl)
+
+CommonSizedBox.widthXs     // SizedBox(width: Spacing.xs)
+CommonSizedBox.widthSm     // SizedBox(width: Spacing.sm)
+CommonSizedBox.widthMd     // SizedBox(width: Spacing.md)
+CommonSizedBox.widthLg     // SizedBox(width: Spacing.lg)
+CommonSizedBox.widthXl     // SizedBox(width: Spacing.xl)
+
+// ❌ Avoid - Creating new instances
+const SizedBox(height: Spacing.md)
+const SizedBox(width: Spacing.lg)
+```
+
+#### Other Common Widgets
+
+```dart
+// CommonPadding
+CommonPadding.xs           // EdgeInsets.all(Spacing.xs)
+CommonPadding.horizontalMd // EdgeInsets.symmetric(horizontal: Spacing.md)
+CommonPadding.verticalLg   // EdgeInsets.symmetric(vertical: Spacing.lg)
+
+// CommonDivider
+CommonDivider.thin         // Divider(height: 1, thickness: 1)
+CommonDivider.normal       // Divider()
+
+// CommonBorderRadius
+CommonBorderRadius.small   // BorderRadius.circular(Roundness.cardInner)
+CommonBorderRadius.medium  // BorderRadius.circular(Roundness.card)
+```
+
+**Benefits**:
+- Performance: Reuses const instances instead of creating new objects
+- Consistency: Ensures uniform spacing across the app
+- Maintainability: Single source of truth for common UI patterns
+
 ### Logging Conventions
 
 - **`presentation` Layer**: Use `debugPrint()` for UI-related, temporary debugging only. Avoid
