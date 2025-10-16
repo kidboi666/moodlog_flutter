@@ -18,6 +18,7 @@ class Journal {
   final double? temperature;
   final String? weatherIcon;
   final String? weatherDescription;
+  final int? sleepQuality;
   final List<String>? tagNames;
   final List<Tag>? tags;
   final List<Emotion>? emotions;
@@ -39,6 +40,7 @@ class Journal {
     this.tagNames,
     this.weatherIcon,
     this.weatherDescription,
+    this.sleepQuality,
     this.tags,
     this.emotions,
   });
@@ -61,6 +63,7 @@ class Journal {
       tags: tags,
       weatherIcon: weatherIcon,
       weatherDescription: weatherDescription,
+      sleepQuality: sleepQuality,
       tagNames: tagNames,
       emotions: emotions,
     );
@@ -84,6 +87,7 @@ class Journal {
       tags: tags,
       weatherIcon: weatherIcon,
       weatherDescription: weatherDescription,
+      sleepQuality: sleepQuality,
       tagNames: tagNames,
       emotions: emotions,
     );

@@ -47,6 +47,8 @@ class Journals extends Table {
   TextColumn get weatherIcon => text().nullable()();
 
   TextColumn get weatherDescription => text().nullable()();
+
+  IntColumn get sleepQuality => integer().nullable()();
 }
 
 @UseRowClass(Stat)
