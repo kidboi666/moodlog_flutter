@@ -33,35 +33,80 @@ class _JournalScreenContent extends StatelessWidget {
         leading: PopButton(
           onTap: () => _handleBackNavigation(context, viewModel),
         ),
-        title: Text(
-          journal?.createdAt.formattedDotNation() ?? '',
-          style: textTheme.titleLarge,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              journal?.createdAt.formattedDotNation() ?? '',
+              style: textTheme.titleLarge,
+            ),
+            const SizedBox(width: Spacing.sm),
+            Text(
+              DateFormat('HH:mm').format(journal?.createdAt ?? DateTime.now()),
+              style: textTheme.titleMedium?.copyWith(
+                color: textTheme.titleMedium?.color?.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
         ),
+        centerTitle: false,
         actions: [
-          IconButton(
-            onPressed: viewModel.changeAlign,
-            icon: Icon(align.icon),
-          ).scale(),
-          IconButton(
-            onPressed: () {
-              context.push('${Routes.write}?editJournalId=${viewModel.id}');
-            },
-            icon: const Icon(Icons.edit),
-          ).scale(),
-          IconButton(
-            onPressed: () async {
-              final shouldPopPage = await showDialog(
-                context: context,
-                builder: (context) =>
-                    DeleteConfirmDialog(viewModel: viewModel, id: viewModel.id),
-              );
-              if (shouldPopPage) {
-                if (context.mounted) {
-                  _handleBackNavigation(context, viewModel);
-                }
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) async {
+              switch (value) {
+                case 'align':
+                  viewModel.changeAlign();
+                  break;
+                case 'edit':
+                  context.push('${Routes.write}?editJournalId=${viewModel.id}');
+                  break;
+                case 'delete':
+                  final shouldPopPage = await showDialog(
+                    context: context,
+                    builder: (context) =>
+                        DeleteConfirmDialog(viewModel: viewModel, id: viewModel.id),
+                  );
+                  if (shouldPopPage) {
+                    if (context.mounted) {
+                      _handleBackNavigation(context, viewModel);
+                    }
+                  }
+                  break;
               }
             },
-            icon: const Icon(Icons.delete),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'align',
+                child: Row(
+                  children: [
+                    Icon(align.icon),
+                    const SizedBox(width: Spacing.sm),
+                    const Text('정렬 변경'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'edit',
+                child: Row(
+                  children: [
+                    Icon(Icons.edit),
+                    SizedBox(width: Spacing.sm),
+                    Text('수정'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'delete',
+                child: Row(
+                  children: [
+                    Icon(Icons.delete),
+                    SizedBox(width: Spacing.sm),
+                    Text('삭제'),
+                  ],
+                ),
+              ),
+            ],
           ).scale(),
         ],
       ),
