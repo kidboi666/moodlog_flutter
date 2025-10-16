@@ -78,12 +78,14 @@ class JournalViewModel extends ChangeNotifier
     setLoading();
     final journal = await _journalUseCase.getJournalById(id);
     switch (journal) {
-      case Ok<Journal>():
+      case Ok<Journal?>():
         _journal = journal.value;
-        debugPrint('Loaded Journal ${journal.value.id}');
+        if (journal.value != null) {
+          debugPrint('Loaded Journal ${journal.value!.id}');
+        }
         setSuccess();
         return Result.ok(null);
-      case Error<Journal>():
+      case Error<Journal?>():
         debugPrint(
           'Failed to load Journal. Error: ${journal.error}, Type: ${journal.error.runtimeType}',
         );
