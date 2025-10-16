@@ -5,7 +5,6 @@ import 'package:moodlog/core/extensions/routing.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
-import 'package:moodlog/presentation/screens/home/widgets/mood_markers.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
 import 'package:moodlog/presentation/widgets/journal_card.dart';
 import 'package:provider/provider.dart';
@@ -109,9 +108,14 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   if (journalsForDay != null && journalsForDay.isNotEmpty) {
                     return Positioned(
                       bottom: 10,
-                      left: 0,
-                      right: 0,
-                      child: MoodMarkers(journals: journalsForDay),
+                      child: Container(
+                        width: 4,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
                     );
                   }
                   return null;
@@ -146,14 +150,12 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
           padding: const EdgeInsets.only(bottom: Spacing.md),
           child: JournalCard(
             id: journal.id,
-            content: journal.content ?? '',
-            moodType: journal.moodType,
+            content: journal.content,
             coverImg: journal.imageUri?.isNotEmpty == true
                 ? journal.imageUri!.first
                 : null,
             createdAt: journal.createdAt,
             onTap: () => context.pushToJournalFromHome(journal.id),
-            tags: journal.tags,
             isCompact: true,
           ),
         );
