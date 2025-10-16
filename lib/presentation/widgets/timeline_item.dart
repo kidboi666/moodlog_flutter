@@ -49,7 +49,7 @@ class TimelineItem extends StatelessWidget {
                   width: 12,
                   height: 12,
                   decoration: BoxDecoration(
-                    color: colorScheme.primary,
+                    color: colorScheme.primary.withValues(alpha: 0.6),
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: colorScheme.surface,
