@@ -25,18 +25,34 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
     );
   }
 
-  void _requestFocusForPage(int index) {
+  void _requestFocusForPage(int index, bool hasSleedPage) {
     Future.delayed(const Duration(milliseconds: 300), () {
-      switch (index) {
-        case 2:
-          _activityKey.currentState?.requestFocus();
-          break;
-        case 3:
-          _emotionKey.currentState?.requestFocus();
-          break;
-        case 4:
-          _memoKey.currentState?.requestFocus();
-          break;
+      if (hasSleedPage) {
+        // With sleep page: mood(0), sleep(1), activity(2), emotion(3), memo(4)
+        switch (index) {
+          case 2:
+            _activityKey.currentState?.requestFocus();
+            break;
+          case 3:
+            _emotionKey.currentState?.requestFocus();
+            break;
+          case 4:
+            _memoKey.currentState?.requestFocus();
+            break;
+        }
+      } else {
+        // Without sleep page: mood(0), activity(1), emotion(2), memo(3)
+        switch (index) {
+          case 1:
+            _activityKey.currentState?.requestFocus();
+            break;
+          case 2:
+            _emotionKey.currentState?.requestFocus();
+            break;
+          case 3:
+            _memoKey.currentState?.requestFocus();
+            break;
+        }
       }
     });
   }
@@ -57,6 +73,49 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<QuickCheckInViewModel>();
 
+    // Wait for first check-in check to complete
+    if (viewModel.isCheckingFirstCheckIn) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    final isFirstCheckIn = viewModel.isFirstCheckInToday;
+    final totalSteps = isFirstCheckIn ? 5 : 4;
+
+    // Update total steps if needed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (viewModel.totalSteps != totalSteps) {
+        viewModel.initStep(totalSteps);
+      }
+    });
+
+    // Build pages dynamically
+    final pages = <Widget>[
+      MoodSelectionPage(onNext: onNext),
+      if (isFirstCheckIn)
+        SleepQualityPage(
+          onNext: onNext,
+          onBack: onBack,
+        ),
+      ActivityInputPage(
+        key: _activityKey,
+        onNext: onNext,
+        onBack: onBack,
+      ),
+      EmotionKeywordPage(
+        key: _emotionKey,
+        onNext: onNext,
+        onBack: onBack,
+      ),
+      QuickMemoPage(
+        key: _memoKey,
+        onBack: onBack,
+      ),
+    ];
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: _buildAppBar(context),
@@ -68,29 +127,9 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
               onPageChanged: (index) {
                 FocusScope.of(context).unfocus();
                 viewModel.setStep(index);
-                _requestFocusForPage(index);
+                _requestFocusForPage(index, isFirstCheckIn);
               },
-              children: [
-                MoodSelectionPage(onNext: onNext),
-                SleepQualityPage(
-                  onNext: onNext,
-                  onBack: onBack,
-                ),
-                ActivityInputPage(
-                  key: _activityKey,
-                  onNext: onNext,
-                  onBack: onBack,
-                ),
-                EmotionKeywordPage(
-                  key: _emotionKey,
-                  onNext: onNext,
-                  onBack: onBack,
-                ),
-                QuickMemoPage(
-                  key: _memoKey,
-                  onBack: onBack,
-                ),
-              ],
+              children: pages,
             ),
           ),
         ],

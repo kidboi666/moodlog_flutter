@@ -23,7 +23,7 @@ class QuickCheckInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => QuickCheckInViewModel(
-        totalSteps: 5,
+        totalSteps: 5, // Will be updated dynamically based on isFirstCheckInToday
         createQuickCheckInUseCase: context.read<CreateQuickCheckInUseCase>(),
         getCurrentLocationUseCase: context.read<GetCurrentLocationUseCase>(),
         weatherUseCase: context.read<WeatherUseCase>(),
