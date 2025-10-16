@@ -17,30 +17,10 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
     FocusScope.of(context).unfocus();
   }
 
-  Future<void> _showMoodSelectionBottomSheet() async {
-    showModalBottomSheet<MoodType>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => MoodSliderSelectionBottomSheet(
-        viewModel: context.read<WriteViewModel>(),
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
-
     _contentFocusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final viewModel = context.read<WriteViewModel>();
-
-      if (!viewModel.isEditMode) {
-        Future.delayed(DelayMS.oneSecond, _showMoodSelectionBottomSheet);
-      }
-    });
   }
 
   @override
@@ -117,10 +97,6 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                       ],
                     ),
                     const SizedBox(height: Spacing.xxl),
-                    FadeIn(
-                      delay: DelayMS.quick * 3,
-                      child: const AiEnableCard(),
-                    ),
                   ],
                 ),
               ),

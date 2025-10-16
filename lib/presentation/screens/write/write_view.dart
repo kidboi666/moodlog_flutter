@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing.dart';
-import 'package:moodlog/presentation/screens/write/widgets/ai_enable_card.dart';
-import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/write/widgets/content_input.dart';
 import 'package:moodlog/presentation/screens/write/widgets/editor_bottom_panel.dart';
 import 'package:moodlog/presentation/screens/write/widgets/image_preview_section.dart';
@@ -29,8 +26,6 @@ class WriteScreen extends StatelessWidget {
         journalUseCase: context.read(),
         getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
-        tagUseCase: context.read(),
-        aiGenerationProvider: context.read(),
         selectedDate: date,
         editJournalId: editJournalId,
       ),

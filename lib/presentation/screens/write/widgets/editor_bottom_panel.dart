@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/domain/entities/journal/location_info.dart';
 import 'package:moodlog/domain/entities/journal/weather_info.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/location_simple_bottom_sheet.dart';
-import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/mood_slider_selection_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/write/widgets/bottom_sheet/weather_info_bottom_sheet.dart';
 import 'package:moodlog/presentation/screens/write/widgets/image_picker_button.dart';
-import 'package:moodlog/presentation/screens/write/widgets/tag_input_button.dart';
 import 'package:moodlog/presentation/screens/write/widgets/timestamp_button.dart';
 import 'package:moodlog/presentation/screens/write/write_view_model.dart';
 import 'package:provider/provider.dart';
@@ -88,23 +85,9 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
     }
   }
 
-  Future<void> _showMoodSelectionBottomSheet() async {
-    showModalBottomSheet<MoodType>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => MoodSliderSelectionBottomSheet(
-        viewModel: context.read<WriteViewModel>(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final selectedMood = context.select<WriteViewModel, MoodType>(
-      (vm) => vm.selectedMood,
-    );
 
     return SafeArea(
       child: AnimatedContainer(
@@ -129,15 +112,7 @@ class _EditorBottomPanelState extends State<EditorBottomPanel>
                   onPressed: () => _showLocationBottomSheet(),
                   icon: const Icon(Icons.location_on_outlined),
                 ),
-                IconButton(
-                  onPressed: () => _showMoodSelectionBottomSheet(),
-                  icon: Icon(
-                    Icons.mood_outlined,
-                    color: Color(selectedMood.colorValue),
-                  ),
-                ),
                 const ImagePickerButton(),
-                const TagInputButton(),
                 TimestampButton(
                   textEditingController: widget.textEditingController,
                 ),
