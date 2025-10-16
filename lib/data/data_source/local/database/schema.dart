@@ -2,7 +2,9 @@ import 'package:drift/drift.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/converter.dart';
 import 'package:moodlog/domain/entities/app/stat.dart';
+import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/journal_emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal_tag.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 
@@ -15,6 +17,9 @@ class Journals extends Table {
 
   IntColumn get moodType => intEnum<MoodType>()();
 
+  IntColumn get entryType => intEnum<EntryType>()
+      .withDefault(const Constant(0))();
+
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   BoolColumn get aiResponseEnabled => boolean()();
@@ -23,6 +28,8 @@ class Journals extends Table {
       text().map(const StringListConverter()).nullable()();
 
   TextColumn get content => text().nullable()();
+
+  TextColumn get note => text().nullable()();
 
   TextColumn get aiResponse => text().nullable()();
 
@@ -82,5 +89,35 @@ class JournalTags extends Table {
   @override
   List<Set<Column>> get uniqueKeys => [
     {journalId, tagId},
+  ];
+}
+
+@UseRowClass(Emotion)
+@TableIndex(name: 'emotions_name', columns: {#name})
+class Emotions extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  TextColumn get name => text().withLength(max: 50)();
+
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+@UseRowClass(JournalEmotion)
+@TableIndex(name: 'journal_emotions_journal_id', columns: {#journalId})
+@TableIndex(name: 'journal_emotions_emotion_id', columns: {#emotionId})
+class JournalEmotions extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get journalId =>
+      integer().references(Journals, #id, onDelete: KeyAction.cascade)();
+
+  IntColumn get emotionId =>
+      integer().references(Emotions, #id, onDelete: KeyAction.cascade)();
+
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+    {journalId, emotionId},
   ];
 }

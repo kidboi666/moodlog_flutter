@@ -6,7 +6,9 @@ extension JournalExtension on Journal {
     return Journal(
       id: id,
       content: content,
+      note: note,
       moodType: moodType,
+      entryType: entryType,
       imageUri: imageUri,
       aiResponseEnabled: aiResponseEnabled,
       aiResponse: aiResponse,
@@ -19,6 +21,7 @@ extension JournalExtension on Journal {
       weatherIcon: weatherIcon,
       weatherDescription: weatherDescription,
       tagNames: tagNames,
+      emotions: emotions,
     );
   }
 }

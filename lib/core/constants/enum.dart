@@ -549,6 +549,31 @@ enum JournalSource {
   }
 }
 
+enum EntryType {
+  quickCheckIn,
+  fullJournal;
+
+  String get value {
+    switch (this) {
+      case EntryType.quickCheckIn:
+        return 'quickCheckIn';
+      case EntryType.fullJournal:
+        return 'fullJournal';
+    }
+  }
+
+  static EntryType fromString(String? value) {
+    switch (value) {
+      case 'quickCheckIn':
+        return EntryType.quickCheckIn;
+      case 'fullJournal':
+        return EntryType.fullJournal;
+      default:
+        return EntryType.fullJournal;
+    }
+  }
+}
+
 enum SpinnerType { button, center, expanded }
 
 enum LockType {

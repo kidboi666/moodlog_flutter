@@ -9,7 +9,9 @@ abstract class CreateJournalRequest with _$CreateJournalRequest {
 
   const factory CreateJournalRequest({
     String? content,
+    String? note,
     required MoodType moodType,
+    @Default(EntryType.fullJournal) EntryType entryType,
     List<String>? imageUri,
     required bool aiResponseEnabled,
     List<String>? tagNames,

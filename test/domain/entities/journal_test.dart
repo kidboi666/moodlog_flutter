@@ -10,6 +10,7 @@ void main() {
         id: 1,
         content: '오늘의 일기 내용',
         moodType: MoodType.happy,
+        entryType: EntryType.fullJournal,
         imageUri: ['image1.jpg', 'image2.jpg'],
         createdAt: now,
         aiResponseEnabled: true,

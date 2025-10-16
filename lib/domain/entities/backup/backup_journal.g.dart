@@ -10,9 +10,11 @@ _BackupJournal _$BackupJournalFromJson(Map<String, dynamic> json) =>
     _BackupJournal(
       id: (json['id'] as num).toInt(),
       moodType: json['moodType'] as String,
+      entryType: json['entryType'] as String? ?? 'fullJournal',
       createdAt: DateTime.parse(json['createdAt'] as String),
       aiResponseEnabled: json['aiResponseEnabled'] as bool,
       content: json['content'] as String?,
+      note: json['note'] as String?,
       imageUri: (json['imageUri'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -32,9 +34,11 @@ Map<String, dynamic> _$BackupJournalToJson(_BackupJournal instance) =>
     <String, dynamic>{
       'id': instance.id,
       'moodType': instance.moodType,
+      'entryType': instance.entryType,
       'createdAt': instance.createdAt.toIso8601String(),
       'aiResponseEnabled': instance.aiResponseEnabled,
       'content': instance.content,
+      'note': instance.note,
       'imageUri': instance.imageUri,
       'aiResponse': instance.aiResponse,
       'latitude': instance.latitude,

@@ -38,6 +38,7 @@ void main() {
     (index) => Journal(
       id: index,
       moodType: MoodType.happy,
+      entryType: EntryType.fullJournal,
       createdAt: DateTime.now().subtract(Duration(days: index)),
       aiResponseEnabled: false,
       content: 'Test journal content $index',

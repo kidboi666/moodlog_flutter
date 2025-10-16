@@ -30,6 +30,16 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.int,
         requiredDuringInsert: true,
       ).withConverter<MoodType>($JournalsTable.$convertermoodType);
+  @override
+  late final GeneratedColumnWithTypeConverter<EntryType, int> entryType =
+      GeneratedColumn<int>(
+        'entry_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(0),
+      ).withConverter<EntryType>($JournalsTable.$converterentryType);
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -71,6 +81,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
     'content',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -166,10 +185,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   List<GeneratedColumn> get $columns => [
     id,
     moodType,
+    entryType,
     createdAt,
     aiResponseEnabled,
     imageUri,
     content,
+    note,
     aiResponse,
     latitude,
     longitude,
@@ -215,6 +236,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       context.handle(
         _contentMeta,
         content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
       );
     }
     if (data.containsKey('ai_response')) {
@@ -287,6 +314,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
           data['${effectivePrefix}mood_type'],
         )!,
       ),
+      entryType: $JournalsTable.$converterentryType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}entry_type'],
+        )!,
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
@@ -298,6 +331,10 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       content: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}content'],
+      ),
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
       ),
       imageUri: $JournalsTable.$converterimageUri.fromSql(
         attachedDatabase.typeMapping.read(
@@ -349,6 +386,8 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
 
   static JsonTypeConverter2<MoodType, int, int> $convertermoodType =
       const EnumIndexConverter<MoodType>(MoodType.values);
+  static JsonTypeConverter2<EntryType, int, int> $converterentryType =
+      const EnumIndexConverter<EntryType>(EntryType.values);
   static TypeConverter<List<String>?, String?> $converterimageUri =
       const StringListConverter();
   static TypeConverter<List<String>?, String?> $convertertagNames =
@@ -358,10 +397,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
 class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<int> id;
   final Value<MoodType> moodType;
+  final Value<EntryType> entryType;
   final Value<DateTime> createdAt;
   final Value<bool> aiResponseEnabled;
   final Value<List<String>?> imageUri;
   final Value<String?> content;
+  final Value<String?> note;
   final Value<String?> aiResponse;
   final Value<double?> latitude;
   final Value<double?> longitude;
@@ -373,10 +414,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.moodType = const Value.absent(),
+    this.entryType = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.aiResponseEnabled = const Value.absent(),
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
+    this.note = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -389,10 +432,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   JournalsCompanion.insert({
     this.id = const Value.absent(),
     required MoodType moodType,
+    this.entryType = const Value.absent(),
     this.createdAt = const Value.absent(),
     required bool aiResponseEnabled,
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
+    this.note = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -406,10 +451,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   static Insertable<Journal> custom({
     Expression<int>? id,
     Expression<int>? moodType,
+    Expression<int>? entryType,
     Expression<DateTime>? createdAt,
     Expression<bool>? aiResponseEnabled,
     Expression<String>? imageUri,
     Expression<String>? content,
+    Expression<String>? note,
     Expression<String>? aiResponse,
     Expression<double>? latitude,
     Expression<double>? longitude,
@@ -422,10 +469,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (moodType != null) 'mood_type': moodType,
+      if (entryType != null) 'entry_type': entryType,
       if (createdAt != null) 'created_at': createdAt,
       if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
       if (imageUri != null) 'image_uri': imageUri,
       if (content != null) 'content': content,
+      if (note != null) 'note': note,
       if (aiResponse != null) 'ai_response': aiResponse,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
@@ -440,10 +489,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   JournalsCompanion copyWith({
     Value<int>? id,
     Value<MoodType>? moodType,
+    Value<EntryType>? entryType,
     Value<DateTime>? createdAt,
     Value<bool>? aiResponseEnabled,
     Value<List<String>?>? imageUri,
     Value<String?>? content,
+    Value<String?>? note,
     Value<String?>? aiResponse,
     Value<double?>? latitude,
     Value<double?>? longitude,
@@ -456,10 +507,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return JournalsCompanion(
       id: id ?? this.id,
       moodType: moodType ?? this.moodType,
+      entryType: entryType ?? this.entryType,
       createdAt: createdAt ?? this.createdAt,
       aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
       imageUri: imageUri ?? this.imageUri,
       content: content ?? this.content,
+      note: note ?? this.note,
       aiResponse: aiResponse ?? this.aiResponse,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -482,6 +535,11 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
         $JournalsTable.$convertermoodType.toSql(moodType.value),
       );
     }
+    if (entryType.present) {
+      map['entry_type'] = Variable<int>(
+        $JournalsTable.$converterentryType.toSql(entryType.value),
+      );
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -495,6 +553,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     }
     if (content.present) {
       map['content'] = Variable<String>(content.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
     }
     if (aiResponse.present) {
       map['ai_response'] = Variable<String>(aiResponse.value);
@@ -530,10 +591,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return (StringBuffer('JournalsCompanion(')
           ..write('id: $id, ')
           ..write('moodType: $moodType, ')
+          ..write('entryType: $entryType, ')
           ..write('createdAt: $createdAt, ')
           ..write('aiResponseEnabled: $aiResponseEnabled, ')
           ..write('imageUri: $imageUri, ')
           ..write('content: $content, ')
+          ..write('note: $note, ')
           ..write('aiResponse: $aiResponse, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
@@ -1223,10 +1286,12 @@ typedef $$JournalsTableCreateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
       required MoodType moodType,
+      Value<EntryType> entryType,
       Value<DateTime> createdAt,
       required bool aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
+      Value<String?> note,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1240,10 +1305,12 @@ typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
       Value<MoodType> moodType,
+      Value<EntryType> entryType,
       Value<DateTime> createdAt,
       Value<bool> aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
+      Value<String?> note,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1297,6 +1364,12 @@ class $$JournalsTableFilterComposer
         builder: (column) => ColumnWithTypeConverterFilters(column),
       );
 
+  ColumnWithTypeConverterFilters<EntryType, EntryType, int> get entryType =>
+      $composableBuilder(
+        column: $table.entryType,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
@@ -1315,6 +1388,11 @@ class $$JournalsTableFilterComposer
 
   ColumnFilters<String> get content => $composableBuilder(
     column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get note => $composableBuilder(
+    column: $table.note,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1404,6 +1482,11 @@ class $$JournalsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -1421,6 +1504,11 @@ class $$JournalsTableOrderingComposer
 
   ColumnOrderings<String> get content => $composableBuilder(
     column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get note => $composableBuilder(
+    column: $table.note,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -1480,6 +1568,9 @@ class $$JournalsTableAnnotationComposer
   GeneratedColumnWithTypeConverter<MoodType, int> get moodType =>
       $composableBuilder(column: $table.moodType, builder: (column) => column);
 
+  GeneratedColumnWithTypeConverter<EntryType, int> get entryType =>
+      $composableBuilder(column: $table.entryType, builder: (column) => column);
+
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -1493,6 +1584,9 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<String> get content =>
       $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
 
   GeneratedColumn<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
@@ -1582,10 +1676,12 @@ class $$JournalsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<MoodType> moodType = const Value.absent(),
+                Value<EntryType> entryType = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<bool> aiResponseEnabled = const Value.absent(),
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
+                Value<String?> note = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1597,10 +1693,12 @@ class $$JournalsTableTableManager
               }) => JournalsCompanion(
                 id: id,
                 moodType: moodType,
+                entryType: entryType,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
+                note: note,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
@@ -1614,10 +1712,12 @@ class $$JournalsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required MoodType moodType,
+                Value<EntryType> entryType = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 required bool aiResponseEnabled,
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
+                Value<String?> note = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1629,10 +1729,12 @@ class $$JournalsTableTableManager
               }) => JournalsCompanion.insert(
                 id: id,
                 moodType: moodType,
+                entryType: entryType,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
+                note: note,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,

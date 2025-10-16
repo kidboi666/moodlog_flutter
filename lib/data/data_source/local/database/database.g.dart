@@ -30,6 +30,16 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.int,
         requiredDuringInsert: true,
       ).withConverter<MoodType>($JournalsTable.$convertermoodType);
+  @override
+  late final GeneratedColumnWithTypeConverter<EntryType, int> entryType =
+      GeneratedColumn<int>(
+        'entry_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(0),
+      ).withConverter<EntryType>($JournalsTable.$converterentryType);
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -71,6 +81,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
     'content',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -166,10 +185,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
   List<GeneratedColumn> get $columns => [
     id,
     moodType,
+    entryType,
     createdAt,
     aiResponseEnabled,
     imageUri,
     content,
+    note,
     aiResponse,
     latitude,
     longitude,
@@ -215,6 +236,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       context.handle(
         _contentMeta,
         content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
       );
     }
     if (data.containsKey('ai_response')) {
@@ -287,6 +314,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
           data['${effectivePrefix}mood_type'],
         )!,
       ),
+      entryType: $JournalsTable.$converterentryType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}entry_type'],
+        )!,
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
@@ -298,6 +331,10 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
       content: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}content'],
+      ),
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
       ),
       imageUri: $JournalsTable.$converterimageUri.fromSql(
         attachedDatabase.typeMapping.read(
@@ -349,6 +386,8 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
 
   static JsonTypeConverter2<MoodType, int, int> $convertermoodType =
       const EnumIndexConverter<MoodType>(MoodType.values);
+  static JsonTypeConverter2<EntryType, int, int> $converterentryType =
+      const EnumIndexConverter<EntryType>(EntryType.values);
   static TypeConverter<List<String>?, String?> $converterimageUri =
       const StringListConverter();
   static TypeConverter<List<String>?, String?> $convertertagNames =
@@ -358,10 +397,12 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
 class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<int> id;
   final Value<MoodType> moodType;
+  final Value<EntryType> entryType;
   final Value<DateTime> createdAt;
   final Value<bool> aiResponseEnabled;
   final Value<List<String>?> imageUri;
   final Value<String?> content;
+  final Value<String?> note;
   final Value<String?> aiResponse;
   final Value<double?> latitude;
   final Value<double?> longitude;
@@ -373,10 +414,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.moodType = const Value.absent(),
+    this.entryType = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.aiResponseEnabled = const Value.absent(),
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
+    this.note = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -389,10 +432,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   JournalsCompanion.insert({
     this.id = const Value.absent(),
     required MoodType moodType,
+    this.entryType = const Value.absent(),
     this.createdAt = const Value.absent(),
     required bool aiResponseEnabled,
     this.imageUri = const Value.absent(),
     this.content = const Value.absent(),
+    this.note = const Value.absent(),
     this.aiResponse = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -406,10 +451,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   static Insertable<Journal> custom({
     Expression<int>? id,
     Expression<int>? moodType,
+    Expression<int>? entryType,
     Expression<DateTime>? createdAt,
     Expression<bool>? aiResponseEnabled,
     Expression<String>? imageUri,
     Expression<String>? content,
+    Expression<String>? note,
     Expression<String>? aiResponse,
     Expression<double>? latitude,
     Expression<double>? longitude,
@@ -422,10 +469,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (moodType != null) 'mood_type': moodType,
+      if (entryType != null) 'entry_type': entryType,
       if (createdAt != null) 'created_at': createdAt,
       if (aiResponseEnabled != null) 'ai_response_enabled': aiResponseEnabled,
       if (imageUri != null) 'image_uri': imageUri,
       if (content != null) 'content': content,
+      if (note != null) 'note': note,
       if (aiResponse != null) 'ai_response': aiResponse,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
@@ -440,10 +489,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   JournalsCompanion copyWith({
     Value<int>? id,
     Value<MoodType>? moodType,
+    Value<EntryType>? entryType,
     Value<DateTime>? createdAt,
     Value<bool>? aiResponseEnabled,
     Value<List<String>?>? imageUri,
     Value<String?>? content,
+    Value<String?>? note,
     Value<String?>? aiResponse,
     Value<double?>? latitude,
     Value<double?>? longitude,
@@ -456,10 +507,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return JournalsCompanion(
       id: id ?? this.id,
       moodType: moodType ?? this.moodType,
+      entryType: entryType ?? this.entryType,
       createdAt: createdAt ?? this.createdAt,
       aiResponseEnabled: aiResponseEnabled ?? this.aiResponseEnabled,
       imageUri: imageUri ?? this.imageUri,
       content: content ?? this.content,
+      note: note ?? this.note,
       aiResponse: aiResponse ?? this.aiResponse,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -482,6 +535,11 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
         $JournalsTable.$convertermoodType.toSql(moodType.value),
       );
     }
+    if (entryType.present) {
+      map['entry_type'] = Variable<int>(
+        $JournalsTable.$converterentryType.toSql(entryType.value),
+      );
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -495,6 +553,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     }
     if (content.present) {
       map['content'] = Variable<String>(content.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
     }
     if (aiResponse.present) {
       map['ai_response'] = Variable<String>(aiResponse.value);
@@ -530,10 +591,12 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     return (StringBuffer('JournalsCompanion(')
           ..write('id: $id, ')
           ..write('moodType: $moodType, ')
+          ..write('entryType: $entryType, ')
           ..write('createdAt: $createdAt, ')
           ..write('aiResponseEnabled: $aiResponseEnabled, ')
           ..write('imageUri: $imageUri, ')
           ..write('content: $content, ')
+          ..write('note: $note, ')
           ..write('aiResponse: $aiResponse, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
@@ -1163,6 +1226,383 @@ class JournalTagsCompanion extends UpdateCompanion<JournalTag> {
   }
 }
 
+class $EmotionsTable extends Emotions with TableInfo<$EmotionsTable, Emotion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EmotionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 50),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, name, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'emotions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Emotion> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Emotion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Emotion(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $EmotionsTable createAlias(String alias) {
+    return $EmotionsTable(attachedDatabase, alias);
+  }
+}
+
+class EmotionsCompanion extends UpdateCompanion<Emotion> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<DateTime> createdAt;
+  const EmotionsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  EmotionsCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    this.createdAt = const Value.absent(),
+  }) : name = Value(name);
+  static Insertable<Emotion> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  EmotionsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<DateTime>? createdAt,
+  }) {
+    return EmotionsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EmotionsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $JournalEmotionsTable extends JournalEmotions
+    with TableInfo<$JournalEmotionsTable, JournalEmotion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $JournalEmotionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _journalIdMeta = const VerificationMeta(
+    'journalId',
+  );
+  @override
+  late final GeneratedColumn<int> journalId = GeneratedColumn<int>(
+    'journal_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES journals (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _emotionIdMeta = const VerificationMeta(
+    'emotionId',
+  );
+  @override
+  late final GeneratedColumn<int> emotionId = GeneratedColumn<int>(
+    'emotion_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES emotions (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, journalId, emotionId, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'journal_emotions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<JournalEmotion> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('journal_id')) {
+      context.handle(
+        _journalIdMeta,
+        journalId.isAcceptableOrUnknown(data['journal_id']!, _journalIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_journalIdMeta);
+    }
+    if (data.containsKey('emotion_id')) {
+      context.handle(
+        _emotionIdMeta,
+        emotionId.isAcceptableOrUnknown(data['emotion_id']!, _emotionIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_emotionIdMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {journalId, emotionId},
+  ];
+  @override
+  JournalEmotion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return JournalEmotion(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      journalId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}journal_id'],
+      )!,
+      emotionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}emotion_id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $JournalEmotionsTable createAlias(String alias) {
+    return $JournalEmotionsTable(attachedDatabase, alias);
+  }
+}
+
+class JournalEmotionsCompanion extends UpdateCompanion<JournalEmotion> {
+  final Value<int> id;
+  final Value<int> journalId;
+  final Value<int> emotionId;
+  final Value<DateTime> createdAt;
+  const JournalEmotionsCompanion({
+    this.id = const Value.absent(),
+    this.journalId = const Value.absent(),
+    this.emotionId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  JournalEmotionsCompanion.insert({
+    this.id = const Value.absent(),
+    required int journalId,
+    required int emotionId,
+    this.createdAt = const Value.absent(),
+  }) : journalId = Value(journalId),
+       emotionId = Value(emotionId);
+  static Insertable<JournalEmotion> custom({
+    Expression<int>? id,
+    Expression<int>? journalId,
+    Expression<int>? emotionId,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (journalId != null) 'journal_id': journalId,
+      if (emotionId != null) 'emotion_id': emotionId,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  JournalEmotionsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? journalId,
+    Value<int>? emotionId,
+    Value<DateTime>? createdAt,
+  }) {
+    return JournalEmotionsCompanion(
+      id: id ?? this.id,
+      journalId: journalId ?? this.journalId,
+      emotionId: emotionId ?? this.emotionId,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (journalId.present) {
+      map['journal_id'] = Variable<int>(journalId.value);
+    }
+    if (emotionId.present) {
+      map['emotion_id'] = Variable<int>(emotionId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('JournalEmotionsCompanion(')
+          ..write('id: $id, ')
+          ..write('journalId: $journalId, ')
+          ..write('emotionId: $emotionId, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$MoodLogDatabase extends GeneratedDatabase {
   _$MoodLogDatabase(QueryExecutor e) : super(e);
   $MoodLogDatabaseManager get managers => $MoodLogDatabaseManager(this);
@@ -1170,6 +1610,10 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
   late final $StatsTable stats = $StatsTable(this);
   late final $TagsTable tags = $TagsTable(this);
   late final $JournalTagsTable journalTags = $JournalTagsTable(this);
+  late final $EmotionsTable emotions = $EmotionsTable(this);
+  late final $JournalEmotionsTable journalEmotions = $JournalEmotionsTable(
+    this,
+  );
   late final Index journalsCreatedAt = Index(
     'journals_created_at',
     'CREATE INDEX journals_created_at ON journals (created_at)',
@@ -1186,6 +1630,18 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     'journal_tags_tag_id',
     'CREATE INDEX journal_tags_tag_id ON journal_tags (tag_id)',
   );
+  late final Index emotionsName = Index(
+    'emotions_name',
+    'CREATE INDEX emotions_name ON emotions (name)',
+  );
+  late final Index journalEmotionsJournalId = Index(
+    'journal_emotions_journal_id',
+    'CREATE INDEX journal_emotions_journal_id ON journal_emotions (journal_id)',
+  );
+  late final Index journalEmotionsEmotionId = Index(
+    'journal_emotions_emotion_id',
+    'CREATE INDEX journal_emotions_emotion_id ON journal_emotions (emotion_id)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1195,10 +1651,15 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     stats,
     tags,
     journalTags,
+    emotions,
+    journalEmotions,
     journalsCreatedAt,
     tagsName,
     journalTagsJournalId,
     journalTagsTagId,
+    emotionsName,
+    journalEmotionsJournalId,
+    journalEmotionsEmotionId,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -1216,6 +1677,20 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
       ),
       result: [TableUpdate('journal_tags', kind: UpdateKind.delete)],
     ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'journals',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('journal_emotions', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'emotions',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('journal_emotions', kind: UpdateKind.delete)],
+    ),
   ]);
 }
 
@@ -1223,10 +1698,12 @@ typedef $$JournalsTableCreateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
       required MoodType moodType,
+      Value<EntryType> entryType,
       Value<DateTime> createdAt,
       required bool aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
+      Value<String?> note,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1240,10 +1717,12 @@ typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
       Value<MoodType> moodType,
+      Value<EntryType> entryType,
       Value<DateTime> createdAt,
       Value<bool> aiResponseEnabled,
       Value<List<String>?> imageUri,
       Value<String?> content,
+      Value<String?> note,
       Value<String?> aiResponse,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -1275,6 +1754,30 @@ final class $$JournalsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$JournalEmotionsTable, List<JournalEmotion>>
+  _journalEmotionsRefsTable(_$MoodLogDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.journalEmotions,
+        aliasName: $_aliasNameGenerator(
+          db.journals.id,
+          db.journalEmotions.journalId,
+        ),
+      );
+
+  $$JournalEmotionsTableProcessedTableManager get journalEmotionsRefs {
+    final manager = $$JournalEmotionsTableTableManager(
+      $_db,
+      $_db.journalEmotions,
+    ).filter((f) => f.journalId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _journalEmotionsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$JournalsTableFilterComposer
@@ -1297,6 +1800,12 @@ class $$JournalsTableFilterComposer
         builder: (column) => ColumnWithTypeConverterFilters(column),
       );
 
+  ColumnWithTypeConverterFilters<EntryType, EntryType, int> get entryType =>
+      $composableBuilder(
+        column: $table.entryType,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
@@ -1315,6 +1824,11 @@ class $$JournalsTableFilterComposer
 
   ColumnFilters<String> get content => $composableBuilder(
     column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get note => $composableBuilder(
+    column: $table.note,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1383,6 +1897,31 @@ class $$JournalsTableFilterComposer
     );
     return f(composer);
   }
+
+  Expression<bool> journalEmotionsRefs(
+    Expression<bool> Function($$JournalEmotionsTableFilterComposer f) f,
+  ) {
+    final $$JournalEmotionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.journalEmotions,
+      getReferencedColumn: (t) => t.journalId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalEmotionsTableFilterComposer(
+            $db: $db,
+            $table: $db.journalEmotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$JournalsTableOrderingComposer
@@ -1404,6 +1943,11 @@ class $$JournalsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -1421,6 +1965,11 @@ class $$JournalsTableOrderingComposer
 
   ColumnOrderings<String> get content => $composableBuilder(
     column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get note => $composableBuilder(
+    column: $table.note,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -1480,6 +2029,9 @@ class $$JournalsTableAnnotationComposer
   GeneratedColumnWithTypeConverter<MoodType, int> get moodType =>
       $composableBuilder(column: $table.moodType, builder: (column) => column);
 
+  GeneratedColumnWithTypeConverter<EntryType, int> get entryType =>
+      $composableBuilder(column: $table.entryType, builder: (column) => column);
+
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -1493,6 +2045,9 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<String> get content =>
       $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
 
   GeneratedColumn<String> get aiResponse => $composableBuilder(
     column: $table.aiResponse,
@@ -1550,6 +2105,31 @@ class $$JournalsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> journalEmotionsRefs<T extends Object>(
+    Expression<T> Function($$JournalEmotionsTableAnnotationComposer a) f,
+  ) {
+    final $$JournalEmotionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.journalEmotions,
+      getReferencedColumn: (t) => t.journalId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalEmotionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.journalEmotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$JournalsTableTableManager
@@ -1565,7 +2145,10 @@ class $$JournalsTableTableManager
           $$JournalsTableUpdateCompanionBuilder,
           (Journal, $$JournalsTableReferences),
           Journal,
-          PrefetchHooks Function({bool journalTagsRefs})
+          PrefetchHooks Function({
+            bool journalTagsRefs,
+            bool journalEmotionsRefs,
+          })
         > {
   $$JournalsTableTableManager(_$MoodLogDatabase db, $JournalsTable table)
     : super(
@@ -1582,10 +2165,12 @@ class $$JournalsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<MoodType> moodType = const Value.absent(),
+                Value<EntryType> entryType = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<bool> aiResponseEnabled = const Value.absent(),
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
+                Value<String?> note = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1597,10 +2182,12 @@ class $$JournalsTableTableManager
               }) => JournalsCompanion(
                 id: id,
                 moodType: moodType,
+                entryType: entryType,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
+                note: note,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
@@ -1614,10 +2201,12 @@ class $$JournalsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required MoodType moodType,
+                Value<EntryType> entryType = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 required bool aiResponseEnabled,
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<String?> content = const Value.absent(),
+                Value<String?> note = const Value.absent(),
                 Value<String?> aiResponse = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -1629,10 +2218,12 @@ class $$JournalsTableTableManager
               }) => JournalsCompanion.insert(
                 id: id,
                 moodType: moodType,
+                entryType: entryType,
                 createdAt: createdAt,
                 aiResponseEnabled: aiResponseEnabled,
                 imageUri: imageUri,
                 content: content,
+                note: note,
                 aiResponse: aiResponse,
                 latitude: latitude,
                 longitude: longitude,
@@ -1650,35 +2241,63 @@ class $$JournalsTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({journalTagsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (journalTagsRefs) db.journalTags],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (journalTagsRefs)
-                    await $_getPrefetchedData<
-                      Journal,
-                      $JournalsTable,
-                      JournalTag
-                    >(
-                      currentTable: table,
-                      referencedTable: $$JournalsTableReferences
-                          ._journalTagsRefsTable(db),
-                      managerFromTypedResult: (p0) => $$JournalsTableReferences(
-                        db,
-                        table,
-                        p0,
-                      ).journalTagsRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.journalId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({journalTagsRefs = false, journalEmotionsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (journalTagsRefs) db.journalTags,
+                    if (journalEmotionsRefs) db.journalEmotions,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (journalTagsRefs)
+                        await $_getPrefetchedData<
+                          Journal,
+                          $JournalsTable,
+                          JournalTag
+                        >(
+                          currentTable: table,
+                          referencedTable: $$JournalsTableReferences
+                              ._journalTagsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$JournalsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).journalTagsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.journalId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (journalEmotionsRefs)
+                        await $_getPrefetchedData<
+                          Journal,
+                          $JournalsTable,
+                          JournalEmotion
+                        >(
+                          currentTable: table,
+                          referencedTable: $$JournalsTableReferences
+                              ._journalEmotionsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$JournalsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).journalEmotionsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.journalId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -1695,7 +2314,7 @@ typedef $$JournalsTableProcessedTableManager =
       $$JournalsTableUpdateCompanionBuilder,
       (Journal, $$JournalsTableReferences),
       Journal,
-      PrefetchHooks Function({bool journalTagsRefs})
+      PrefetchHooks Function({bool journalTagsRefs, bool journalEmotionsRefs})
     >;
 typedef $$StatsTableCreateCompanionBuilder =
     StatsCompanion Function({
@@ -2517,6 +3136,663 @@ typedef $$JournalTagsTableProcessedTableManager =
       JournalTag,
       PrefetchHooks Function({bool journalId, bool tagId})
     >;
+typedef $$EmotionsTableCreateCompanionBuilder =
+    EmotionsCompanion Function({
+      Value<int> id,
+      required String name,
+      Value<DateTime> createdAt,
+    });
+typedef $$EmotionsTableUpdateCompanionBuilder =
+    EmotionsCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<DateTime> createdAt,
+    });
+
+final class $$EmotionsTableReferences
+    extends BaseReferences<_$MoodLogDatabase, $EmotionsTable, Emotion> {
+  $$EmotionsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$JournalEmotionsTable, List<JournalEmotion>>
+  _journalEmotionsRefsTable(_$MoodLogDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.journalEmotions,
+        aliasName: $_aliasNameGenerator(
+          db.emotions.id,
+          db.journalEmotions.emotionId,
+        ),
+      );
+
+  $$JournalEmotionsTableProcessedTableManager get journalEmotionsRefs {
+    final manager = $$JournalEmotionsTableTableManager(
+      $_db,
+      $_db.journalEmotions,
+    ).filter((f) => f.emotionId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _journalEmotionsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$EmotionsTableFilterComposer
+    extends Composer<_$MoodLogDatabase, $EmotionsTable> {
+  $$EmotionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> journalEmotionsRefs(
+    Expression<bool> Function($$JournalEmotionsTableFilterComposer f) f,
+  ) {
+    final $$JournalEmotionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.journalEmotions,
+      getReferencedColumn: (t) => t.emotionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalEmotionsTableFilterComposer(
+            $db: $db,
+            $table: $db.journalEmotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EmotionsTableOrderingComposer
+    extends Composer<_$MoodLogDatabase, $EmotionsTable> {
+  $$EmotionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$EmotionsTableAnnotationComposer
+    extends Composer<_$MoodLogDatabase, $EmotionsTable> {
+  $$EmotionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> journalEmotionsRefs<T extends Object>(
+    Expression<T> Function($$JournalEmotionsTableAnnotationComposer a) f,
+  ) {
+    final $$JournalEmotionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.journalEmotions,
+      getReferencedColumn: (t) => t.emotionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalEmotionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.journalEmotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$EmotionsTableTableManager
+    extends
+        RootTableManager<
+          _$MoodLogDatabase,
+          $EmotionsTable,
+          Emotion,
+          $$EmotionsTableFilterComposer,
+          $$EmotionsTableOrderingComposer,
+          $$EmotionsTableAnnotationComposer,
+          $$EmotionsTableCreateCompanionBuilder,
+          $$EmotionsTableUpdateCompanionBuilder,
+          (Emotion, $$EmotionsTableReferences),
+          Emotion,
+          PrefetchHooks Function({bool journalEmotionsRefs})
+        > {
+  $$EmotionsTableTableManager(_$MoodLogDatabase db, $EmotionsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EmotionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EmotionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EmotionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EmotionsCompanion(id: id, name: name, createdAt: createdAt),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EmotionsCompanion.insert(
+                id: id,
+                name: name,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$EmotionsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({journalEmotionsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (journalEmotionsRefs) db.journalEmotions,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (journalEmotionsRefs)
+                    await $_getPrefetchedData<
+                      Emotion,
+                      $EmotionsTable,
+                      JournalEmotion
+                    >(
+                      currentTable: table,
+                      referencedTable: $$EmotionsTableReferences
+                          ._journalEmotionsRefsTable(db),
+                      managerFromTypedResult: (p0) => $$EmotionsTableReferences(
+                        db,
+                        table,
+                        p0,
+                      ).journalEmotionsRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.emotionId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$EmotionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$MoodLogDatabase,
+      $EmotionsTable,
+      Emotion,
+      $$EmotionsTableFilterComposer,
+      $$EmotionsTableOrderingComposer,
+      $$EmotionsTableAnnotationComposer,
+      $$EmotionsTableCreateCompanionBuilder,
+      $$EmotionsTableUpdateCompanionBuilder,
+      (Emotion, $$EmotionsTableReferences),
+      Emotion,
+      PrefetchHooks Function({bool journalEmotionsRefs})
+    >;
+typedef $$JournalEmotionsTableCreateCompanionBuilder =
+    JournalEmotionsCompanion Function({
+      Value<int> id,
+      required int journalId,
+      required int emotionId,
+      Value<DateTime> createdAt,
+    });
+typedef $$JournalEmotionsTableUpdateCompanionBuilder =
+    JournalEmotionsCompanion Function({
+      Value<int> id,
+      Value<int> journalId,
+      Value<int> emotionId,
+      Value<DateTime> createdAt,
+    });
+
+final class $$JournalEmotionsTableReferences
+    extends
+        BaseReferences<
+          _$MoodLogDatabase,
+          $JournalEmotionsTable,
+          JournalEmotion
+        > {
+  $$JournalEmotionsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $JournalsTable _journalIdTable(_$MoodLogDatabase db) =>
+      db.journals.createAlias(
+        $_aliasNameGenerator(db.journalEmotions.journalId, db.journals.id),
+      );
+
+  $$JournalsTableProcessedTableManager get journalId {
+    final $_column = $_itemColumn<int>('journal_id')!;
+
+    final manager = $$JournalsTableTableManager(
+      $_db,
+      $_db.journals,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_journalIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $EmotionsTable _emotionIdTable(_$MoodLogDatabase db) =>
+      db.emotions.createAlias(
+        $_aliasNameGenerator(db.journalEmotions.emotionId, db.emotions.id),
+      );
+
+  $$EmotionsTableProcessedTableManager get emotionId {
+    final $_column = $_itemColumn<int>('emotion_id')!;
+
+    final manager = $$EmotionsTableTableManager(
+      $_db,
+      $_db.emotions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_emotionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$JournalEmotionsTableFilterComposer
+    extends Composer<_$MoodLogDatabase, $JournalEmotionsTable> {
+  $$JournalEmotionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$JournalsTableFilterComposer get journalId {
+    final $$JournalsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.journalId,
+      referencedTable: $db.journals,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalsTableFilterComposer(
+            $db: $db,
+            $table: $db.journals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EmotionsTableFilterComposer get emotionId {
+    final $$EmotionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.emotionId,
+      referencedTable: $db.emotions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmotionsTableFilterComposer(
+            $db: $db,
+            $table: $db.emotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$JournalEmotionsTableOrderingComposer
+    extends Composer<_$MoodLogDatabase, $JournalEmotionsTable> {
+  $$JournalEmotionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$JournalsTableOrderingComposer get journalId {
+    final $$JournalsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.journalId,
+      referencedTable: $db.journals,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalsTableOrderingComposer(
+            $db: $db,
+            $table: $db.journals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EmotionsTableOrderingComposer get emotionId {
+    final $$EmotionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.emotionId,
+      referencedTable: $db.emotions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmotionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.emotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$JournalEmotionsTableAnnotationComposer
+    extends Composer<_$MoodLogDatabase, $JournalEmotionsTable> {
+  $$JournalEmotionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$JournalsTableAnnotationComposer get journalId {
+    final $$JournalsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.journalId,
+      referencedTable: $db.journals,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$JournalsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.journals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$EmotionsTableAnnotationComposer get emotionId {
+    final $$EmotionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.emotionId,
+      referencedTable: $db.emotions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmotionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.emotions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$JournalEmotionsTableTableManager
+    extends
+        RootTableManager<
+          _$MoodLogDatabase,
+          $JournalEmotionsTable,
+          JournalEmotion,
+          $$JournalEmotionsTableFilterComposer,
+          $$JournalEmotionsTableOrderingComposer,
+          $$JournalEmotionsTableAnnotationComposer,
+          $$JournalEmotionsTableCreateCompanionBuilder,
+          $$JournalEmotionsTableUpdateCompanionBuilder,
+          (JournalEmotion, $$JournalEmotionsTableReferences),
+          JournalEmotion,
+          PrefetchHooks Function({bool journalId, bool emotionId})
+        > {
+  $$JournalEmotionsTableTableManager(
+    _$MoodLogDatabase db,
+    $JournalEmotionsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$JournalEmotionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$JournalEmotionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$JournalEmotionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> journalId = const Value.absent(),
+                Value<int> emotionId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => JournalEmotionsCompanion(
+                id: id,
+                journalId: journalId,
+                emotionId: emotionId,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int journalId,
+                required int emotionId,
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => JournalEmotionsCompanion.insert(
+                id: id,
+                journalId: journalId,
+                emotionId: emotionId,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$JournalEmotionsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({journalId = false, emotionId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (journalId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.journalId,
+                                referencedTable:
+                                    $$JournalEmotionsTableReferences
+                                        ._journalIdTable(db),
+                                referencedColumn:
+                                    $$JournalEmotionsTableReferences
+                                        ._journalIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+                    if (emotionId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.emotionId,
+                                referencedTable:
+                                    $$JournalEmotionsTableReferences
+                                        ._emotionIdTable(db),
+                                referencedColumn:
+                                    $$JournalEmotionsTableReferences
+                                        ._emotionIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$JournalEmotionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$MoodLogDatabase,
+      $JournalEmotionsTable,
+      JournalEmotion,
+      $$JournalEmotionsTableFilterComposer,
+      $$JournalEmotionsTableOrderingComposer,
+      $$JournalEmotionsTableAnnotationComposer,
+      $$JournalEmotionsTableCreateCompanionBuilder,
+      $$JournalEmotionsTableUpdateCompanionBuilder,
+      (JournalEmotion, $$JournalEmotionsTableReferences),
+      JournalEmotion,
+      PrefetchHooks Function({bool journalId, bool emotionId})
+    >;
 
 class $MoodLogDatabaseManager {
   final _$MoodLogDatabase _db;
@@ -2528,4 +3804,8 @@ class $MoodLogDatabaseManager {
   $$TagsTableTableManager get tags => $$TagsTableTableManager(_db, _db.tags);
   $$JournalTagsTableTableManager get journalTags =>
       $$JournalTagsTableTableManager(_db, _db.journalTags);
+  $$EmotionsTableTableManager get emotions =>
+      $$EmotionsTableTableManager(_db, _db.emotions);
+  $$JournalEmotionsTableTableManager get journalEmotions =>
+      $$JournalEmotionsTableTableManager(_db, _db.journalEmotions);
 }

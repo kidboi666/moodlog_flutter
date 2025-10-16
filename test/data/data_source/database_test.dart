@@ -26,6 +26,7 @@ void main() {
     id: 1,
     content: 'Test journal',
     moodType: MoodType.happy,
+    entryType: EntryType.fullJournal,
     imageUri: ['image1.jpg', 'image2.jpg'],
     createdAt: DateTime.now(),
     aiResponseEnabled: true,
