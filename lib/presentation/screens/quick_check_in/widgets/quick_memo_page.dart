@@ -1,99 +1,120 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
-import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 
 class QuickMemoPage extends StatefulWidget {
-  final void Function() onNext;
   final void Function() onBack;
 
   const QuickMemoPage({
     super.key,
-    required this.onNext,
     required this.onBack,
   });
 
   @override
-  State<QuickMemoPage> createState() => _QuickMemoPageState();
+  State<QuickMemoPage> createState() => QuickMemoPageState();
 }
 
-class _QuickMemoPageState extends State<QuickMemoPage> {
+class QuickMemoPageState extends State<QuickMemoPage>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  bool get wantKeepAlive => true;
+
+  void requestFocus() {
+    if (mounted && _focusNode.canRequestFocus) {
+      _focusNode.requestFocus();
+    }
+  }
 
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  Future<void> _submitCheckIn() async {
+    final viewModel = context.read<QuickCheckInViewModel>();
+    final t = AppLocalizations.of(context)!;
+
+    final success = await viewModel.submitCheckIn();
+
+    if (mounted) {
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(t.quick_check_in_success)),
+        );
+        context.pop();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(t.quick_check_in_error)),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-    final viewModel = context.read<QuickCheckInViewModel>();
+    final viewModel = context.watch<QuickCheckInViewModel>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: Spacing.xl * 2),
-          FadeIn(
-            child: Text(
-              t.quick_check_in_memo_question,
-              style: textTheme.headlineMedium,
-              textAlign: TextAlign.center,
-            ),
+          CommonSizedBox.heightXl,
+          Text(
+            t.quick_check_in_memo_question,
+            style: textTheme.headlineMedium,
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: Spacing.xl * 2),
-          FadeIn(
-            delay: DelayMS.medium,
-            child: TextField(
-              controller: _controller,
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: t.quick_check_in_memo_hint,
-                filled: true,
-                fillColor: colorScheme.secondaryContainer,
-                border: const OutlineInputBorder(),
-              ),
-              onChanged: viewModel.setMemo,
+          CommonSizedBox.heightXl,
+          TextField(
+            controller: _controller,
+            focusNode: _focusNode,
+            maxLines: 5,
+            decoration: InputDecoration(
+              hintText: t.quick_check_in_memo_hint,
+              border: const OutlineInputBorder(),
             ),
+            onChanged: (value) {
+              context.read<QuickCheckInViewModel>().setMemo(value);
+            },
           ),
           const Spacer(),
-          FadeIn(
-            delay: DelayMS.medium * 2,
-            child: Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: widget.onBack,
-                    child: Text(t.quick_check_in_previous),
-                  ).scale(),
-                ),
-                const SizedBox(width: Spacing.md),
-                Expanded(
-                  child: FilledButton(
-                    onPressed: widget.onNext,
-                    child: Text(t.quick_check_in_next),
-                  ).scale(),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: widget.onBack,
+                  child: Text(t.quick_check_in_previous),
+                ).scale(),
+              ),
+              CommonSizedBox.widthMd,
+              Expanded(
+                child: FilledButton(
+                  onPressed: viewModel.isLoading ? null : _submitCheckIn,
+                  child: viewModel.isLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(t.quick_check_in_submit),
+                ).scale(),
+              ),
+            ],
           ),
-          const SizedBox(height: Spacing.md),
-          FadeIn(
-            delay: DelayMS.medium * 3,
-            child: TextButton(
-              onPressed: widget.onNext,
-              child: Text(t.quick_check_in_skip),
-            ),
-          ),
-          const SizedBox(height: Spacing.xl),
+          CommonSizedBox.heightXl,
         ],
       ),
     );

@@ -622,5 +622,10 @@
   "quick_check_in_error": "チェックイン中にエラーが発生しました",
   "quick_check_in_weather_question": "現在の天気と時刻を確認してください",
   "home_button_write_journal": "日記作成",
-  "home_button_quick_check_in": "クイックチェックイン"
+  "home_button_quick_check_in": "クイックチェックイン",
+  "quick_check_in_sleep_quality_1": "寝返りばかり",
+  "quick_check_in_sleep_quality_2": "寝苦しかった",
+  "quick_check_in_sleep_quality_3": "まあまあ",
+  "quick_check_in_sleep_quality_4": "よく眠れた",
+  "quick_check_in_sleep_quality_5": "ぐっすり"
 }

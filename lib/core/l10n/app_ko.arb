@@ -622,5 +622,10 @@
   "quick_check_in_success": "체크인이 완료되었습니다!",
   "quick_check_in_error": "체크인 저장에 실패했습니다",
   "home_button_write_journal": "일기 작성",
-  "home_button_quick_check_in": "퀵 체크인"
+  "home_button_quick_check_in": "퀵 체크인",
+  "quick_check_in_sleep_quality_1": "뒤척였어요",
+  "quick_check_in_sleep_quality_2": "설쳤어요",
+  "quick_check_in_sleep_quality_3": "그저 그래요",
+  "quick_check_in_sleep_quality_4": "잘 잤어요",
+  "quick_check_in_sleep_quality_5": "꿀잠 잤어요"
 }

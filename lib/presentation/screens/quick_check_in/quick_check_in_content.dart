@@ -7,6 +7,9 @@ class _QuickCheckInContent extends StatefulWidget {
 
 class _QuickCheckInContentState extends State<_QuickCheckInContent> {
   late PageController _pageController;
+  final GlobalKey<ActivityInputPageState> _activityKey = GlobalKey();
+  final GlobalKey<EmotionKeywordPageState> _emotionKey = GlobalKey();
+  final GlobalKey<QuickMemoPageState> _memoKey = GlobalKey();
 
   void onNext() {
     _pageController.nextPage(
@@ -20,6 +23,22 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
       duration: DurationMS.medium,
       curve: Curves.easeInOut,
     );
+  }
+
+  void _requestFocusForPage(int index) {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      switch (index) {
+        case 2:
+          _activityKey.currentState?.requestFocus();
+          break;
+        case 3:
+          _emotionKey.currentState?.requestFocus();
+          break;
+        case 4:
+          _memoKey.currentState?.requestFocus();
+          break;
+      }
+    });
   }
 
   @override
@@ -45,15 +64,32 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
         children: [
           Expanded(
             child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
-              onPageChanged: viewModel.setStep,
+              onPageChanged: (index) {
+                FocusScope.of(context).unfocus();
+                viewModel.setStep(index);
+                _requestFocusForPage(index);
+              },
               children: [
                 MoodSelectionPage(onNext: onNext),
-                ActivityInputPage(onNext: onNext, onBack: onBack),
-                EmotionKeywordPage(onNext: onNext, onBack: onBack),
-                QuickMemoPage(onNext: onNext, onBack: onBack),
-                WeatherDateTimePage(onBack: onBack),
+                SleepQualityPage(
+                  onNext: onNext,
+                  onBack: onBack,
+                ),
+                ActivityInputPage(
+                  key: _activityKey,
+                  onNext: onNext,
+                  onBack: onBack,
+                ),
+                EmotionKeywordPage(
+                  key: _emotionKey,
+                  onNext: onNext,
+                  onBack: onBack,
+                ),
+                QuickMemoPage(
+                  key: _memoKey,
+                  onBack: onBack,
+                ),
               ],
             ),
           ),
@@ -69,6 +105,20 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
     final totalSteps = context.select(
       (QuickCheckInViewModel vm) => vm.totalSteps,
     );
+    final createdAt = context.select(
+      (QuickCheckInViewModel vm) => vm.createdAt,
+    );
+    final temperature = context.select(
+      (QuickCheckInViewModel vm) => vm.temperature,
+    );
+    final weatherDescription = context.select(
+      (QuickCheckInViewModel vm) => vm.weatherDescription,
+    );
+    final isLoadingWeather = context.select(
+      (QuickCheckInViewModel vm) => vm.isLoadingWeather,
+    );
+
+    final textTheme = Theme.of(context).textTheme;
 
     return AppBar(
       leading: IconButton(
@@ -78,8 +128,60 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
       ),
       title: PaginationDot(current: currentStep, total: totalSteps),
       centerTitle: true,
-      actions: [const IconButton(onPressed: null, icon: Icon(null))],
-      actionsPadding: EdgeInsets.all(Spacing.lg),
+      actions: [
+        IconButton(
+          icon: isLoadingWeather
+              ? const SizedBox(child: CircularProgressIndicator(strokeWidth: 2))
+              : const Icon(Icons.wb_sunny_outlined),
+          onPressed: temperature != null && weatherDescription != null
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Row(
+                        children: [
+                          const Icon(Icons.calendar_today),
+                          CommonSizedBox.widthSm,
+                          Text(DateFormat.yMMMd().format(createdAt)),
+                        ],
+                      ),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat.Hm().format(createdAt),
+                            style: textTheme.titleMedium,
+                          ),
+                          CommonSizedBox.heightMd,
+                          const Divider(),
+                          CommonSizedBox.heightMd,
+                          Row(
+                            children: [
+                              const Icon(Icons.wb_sunny),
+                              CommonSizedBox.widthSm,
+                              Text(
+                                '${temperature.toStringAsFixed(1)}°C',
+                                style: textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                          CommonSizedBox.heightSm,
+                          Text(weatherDescription, style: textTheme.bodyMedium),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('확인'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              : null,
+        ),
+      ],
     );
   }
 }

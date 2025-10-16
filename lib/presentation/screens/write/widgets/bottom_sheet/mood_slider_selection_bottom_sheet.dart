@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/core/extensions/localization.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/write/write_view_model.dart';
+import 'package:moodlog/presentation/widgets/mood_slider_widget.dart';
 
 class MoodSliderSelectionBottomSheet extends StatelessWidget {
   final WriteViewModel viewModel;
 
   const MoodSliderSelectionBottomSheet({super.key, required this.viewModel});
-
-  double _getCurrentValue(MoodType mood) => mood.sliderValue;
-
-  void _changeMood(BuildContext context, double value) {
-    final nextMood = MoodType.fromSlider(value);
-    viewModel.updateMoodType(nextMood);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +23,12 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLowest,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Handle bar
               Container(
                 width: 40,
                 height: 4,
@@ -45,137 +37,14 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Title
+              CommonSizedBox.heightMd,
               Text(t.write_mood_title, style: textTheme.headlineSmall),
-              const SizedBox(height: 30),
-
-              // 현재 선택된 감정 이모티콘 (크게 표시)
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Color(
-                    viewModel.selectedMood.colorValue,
-                  ).withValues(alpha: 0.2),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Color(
-                      viewModel.selectedMood.colorValue,
-                    ).withValues(alpha: 0.8),
-                    width: 3,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(
-                        viewModel.selectedMood.colorValue,
-                      ).withValues(alpha: 0.4),
-                      blurRadius: 20,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: Text(
-                      viewModel.selectedMood.emoji,
-                      key: ValueKey(viewModel.selectedMood),
-                      style: TextStyle(
-                        fontSize: 64,
-                        shadows: [
-                          Shadow(
-                            color: Color(
-                              viewModel.selectedMood.colorValue,
-                            ).withValues(alpha: 0.5),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              CommonSizedBox.heightXl,
+              MoodSliderWidget(
+                selectedMood: viewModel.selectedMood,
+                onMoodChanged: viewModel.updateMoodType,
               ),
-              const SizedBox(height: 20),
-
-              // 감정 이름
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: Text(
-                  viewModel.selectedMood.getDisplayName(context),
-                  key: ValueKey(viewModel.selectedMood),
-                  style: textTheme.titleLarge?.copyWith(
-                    color: Color(viewModel.selectedMood.colorValue),
-                    fontWeight: FontWeight.w700,
-                    shadows: [
-                      Shadow(
-                        color: Color(
-                          viewModel.selectedMood.colorValue,
-                        ).withValues(alpha: 0.3),
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 30),
-
-              // 슬라이더
-              Column(
-                children: [
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: Color(
-                        viewModel.selectedMood.colorValue,
-                      ),
-                      inactiveTrackColor: colorScheme.outline.withValues(
-                        alpha: 0.3,
-                      ),
-                      thumbColor: Color(viewModel.selectedMood.colorValue),
-                      thumbShape: const RoundSliderThumbShape(
-                        enabledThumbRadius: 16,
-                      ),
-                      overlayColor: Color(
-                        viewModel.selectedMood.colorValue,
-                      ).withValues(alpha: 0.2),
-                      overlayShape: const RoundSliderOverlayShape(
-                        overlayRadius: 28,
-                      ),
-                      trackHeight: 8,
-                    ),
-                    child: Slider(
-                      value: _getCurrentValue(viewModel.selectedMood),
-                      min: 0,
-                      max: 4,
-                      divisions: 4,
-                      onChanged: (value) => _changeMood(context, value),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-
-                  // 감정 라벨들
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildEmotionLabel(context, MoodType.verySad, viewModel),
-                      _buildEmotionLabel(context, MoodType.sad, viewModel),
-                      _buildEmotionLabel(context, MoodType.neutral, viewModel),
-                      _buildEmotionLabel(context, MoodType.happy, viewModel),
-                      _buildEmotionLabel(
-                        context,
-                        MoodType.veryHappy,
-                        viewModel,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-
-              // 확인 버튼
+              CommonSizedBox.heightXl,
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
@@ -189,72 +58,11 @@ class MoodSliderSelectionBottomSheet extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              CommonSizedBox.heightSm,
             ],
           ),
         );
       },
-    );
-  }
-
-  Widget _buildEmotionLabel(
-    BuildContext context,
-    MoodType mood,
-    WriteViewModel viewModel,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final isSelected = viewModel.selectedMood == mood;
-
-    return GestureDetector(
-      onTap: () {
-        viewModel.updateMoodType(mood);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Color(mood.colorValue).withValues(alpha: 0.2)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? Color(mood.colorValue) : Colors.transparent,
-            width: 2,
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              mood.emoji,
-              style: textTheme.titleLarge?.copyWith(
-                letterSpacing: -5,
-                shadows: isSelected
-                    ? [
-                        Shadow(
-                          color: Color(mood.colorValue).withValues(alpha: 0.5),
-                          blurRadius: 8,
-                        ),
-                      ]
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              mood.getDisplayName(context),
-              style: textTheme.bodyMedium?.copyWith(
-                color: isSelected
-                    ? Color(mood.colorValue)
-                    : colorScheme.outline,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
