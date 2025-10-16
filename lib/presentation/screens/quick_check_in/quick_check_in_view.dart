@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/domain/repositories/journal_repository.dart';
-import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
@@ -17,20 +16,19 @@ import 'package:provider/provider.dart';
 part 'quick_check_in_content.dart';
 
 class QuickCheckInScreen extends StatelessWidget {
-  final int? journalId;
+  final int? checkInId;
 
-  const QuickCheckInScreen({super.key, this.journalId});
+  const QuickCheckInScreen({super.key, this.checkInId});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => QuickCheckInViewModel(
-        totalSteps: 5, // Will be updated dynamically based on isFirstCheckInToday
-        createQuickCheckInUseCase: context.read<CreateQuickCheckInUseCase>(),
+        totalSteps: 5,
+        checkInUseCase: context.read<CheckInUseCase>(),
         getCurrentLocationUseCase: context.read<GetCurrentLocationUseCase>(),
         weatherUseCase: context.read<WeatherUseCase>(),
-        journalRepository: context.read<JournalRepository>(),
-        journalId: journalId,
+        checkInId: checkInId,
       ),
       child: _QuickCheckInContent(),
     );

@@ -1,14 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:logging/logging.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
-import 'package:moodlog/domain/entities/journal/journal_tag.dart';
 import 'package:moodlog/domain/entities/journal/tag.dart';
 import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
 
 class TagLocalDataSource {
   final MoodLogDatabase _db;
-  final Logger _log = Logger('TagLocalDataSource');
 
   TagLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
 
