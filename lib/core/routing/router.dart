@@ -11,6 +11,7 @@ import 'package:moodlog/presentation/screens/journal/journal_view.dart';
 import 'package:moodlog/presentation/screens/lock/lock_view.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view.dart';
 import 'package:moodlog/presentation/screens/purchase/purchase_view.dart';
+import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
 import 'package:moodlog/presentation/screens/tag_detail/tag_detail_view.dart';
@@ -49,6 +50,12 @@ GoRouter router(
             ? int.tryParse(editJournalIdStr)
             : null;
         return WriteScreen(date: date, editJournalId: editJournalId);
+      },
+    ),
+    GoRoute(
+      path: Routes.quickCheckIn,
+      builder: (_, _) {
+        return const QuickCheckInScreen();
       },
     ),
     GoRoute(

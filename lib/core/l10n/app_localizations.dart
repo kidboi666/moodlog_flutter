@@ -2547,6 +2547,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restore failed: {error}'**
   String settings_data_import_failed(String error);
+
+  /// No description provided for @quick_check_in_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Check-In'**
+  String get quick_check_in_title;
+
+  /// No description provided for @quick_check_in_mood_question.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling right now?'**
+  String get quick_check_in_mood_question;
+
+  /// No description provided for @quick_check_in_activity_question.
+  ///
+  /// In en, this message translates to:
+  /// **'What are you currently doing?'**
+  String get quick_check_in_activity_question;
+
+  /// No description provided for @quick_check_in_activity_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Exercise, Work, Relaxing, etc.'**
+  String get quick_check_in_activity_hint;
+
+  /// No description provided for @quick_check_in_emotion_question.
+  ///
+  /// In en, this message translates to:
+  /// **'What emotions are you experiencing?'**
+  String get quick_check_in_emotion_question;
+
+  /// No description provided for @quick_check_in_emotion_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Happy, Anxious, Excited, etc.'**
+  String get quick_check_in_emotion_hint;
+
+  /// No description provided for @quick_check_in_memo_question.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave a quick note'**
+  String get quick_check_in_memo_question;
+
+  /// No description provided for @quick_check_in_memo_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Today in one sentence'**
+  String get quick_check_in_memo_hint;
+
+  /// No description provided for @quick_check_in_next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get quick_check_in_next;
+
+  /// No description provided for @quick_check_in_previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get quick_check_in_previous;
+
+  /// No description provided for @quick_check_in_skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get quick_check_in_skip;
+
+  /// No description provided for @quick_check_in_submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get quick_check_in_submit;
+
+  /// No description provided for @quick_check_in_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in completed'**
+  String get quick_check_in_success;
+
+  /// No description provided for @quick_check_in_error.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred during check-in'**
+  String get quick_check_in_error;
+
+  /// No description provided for @quick_check_in_weather_question.
+  ///
+  /// In en, this message translates to:
+  /// **'Check current weather and time'**
+  String get quick_check_in_weather_question;
+
+  /// No description provided for @home_button_write_journal.
+  ///
+  /// In en, this message translates to:
+  /// **'Write Journal'**
+  String get home_button_write_journal;
+
+  /// No description provided for @home_button_quick_check_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Check-In'**
+  String get home_button_quick_check_in;
 }
 
 class _AppLocalizationsDelegate

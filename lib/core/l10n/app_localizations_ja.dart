@@ -1310,4 +1310,55 @@ class AppLocalizationsJa extends AppLocalizations {
   String settings_data_import_failed(String error) {
     return '復元失敗：$error';
   }
+
+  @override
+  String get quick_check_in_title => 'クイックチェックイン';
+
+  @override
+  String get quick_check_in_mood_question => '今の気分はいかがですか？';
+
+  @override
+  String get quick_check_in_activity_question => '現在何をしていますか？';
+
+  @override
+  String get quick_check_in_activity_hint => '例：運動、仕事、休憩など';
+
+  @override
+  String get quick_check_in_emotion_question => 'どんな感情を感じていますか？';
+
+  @override
+  String get quick_check_in_emotion_hint => '例：幸せ、不安、ワクワクなど';
+
+  @override
+  String get quick_check_in_memo_question => '簡単なメモを残しましょう';
+
+  @override
+  String get quick_check_in_memo_hint => '今日の一言';
+
+  @override
+  String get quick_check_in_next => '次へ';
+
+  @override
+  String get quick_check_in_previous => '前へ';
+
+  @override
+  String get quick_check_in_skip => 'スキップ';
+
+  @override
+  String get quick_check_in_submit => '完了';
+
+  @override
+  String get quick_check_in_success => 'チェックインが完了しました';
+
+  @override
+  String get quick_check_in_error => 'チェックイン中にエラーが発生しました';
+
+  @override
+  String get quick_check_in_weather_question => '現在の天気と時刻を確認してください';
+
+  @override
+  String get home_button_write_journal => '日記作成';
+
+  @override
+  String get home_button_quick_check_in => 'クイックチェックイン';
 }

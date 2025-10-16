@@ -1353,4 +1353,60 @@ class AppLocalizationsEn extends AppLocalizations {
   String settings_data_import_failed(String error) {
     return 'Restore failed: $error';
   }
+
+  @override
+  String get quick_check_in_title => 'Quick Check-In';
+
+  @override
+  String get quick_check_in_mood_question => 'How are you feeling right now?';
+
+  @override
+  String get quick_check_in_activity_question =>
+      'What are you currently doing?';
+
+  @override
+  String get quick_check_in_activity_hint =>
+      'e.g., Exercise, Work, Relaxing, etc.';
+
+  @override
+  String get quick_check_in_emotion_question =>
+      'What emotions are you experiencing?';
+
+  @override
+  String get quick_check_in_emotion_hint =>
+      'e.g., Happy, Anxious, Excited, etc.';
+
+  @override
+  String get quick_check_in_memo_question => 'Leave a quick note';
+
+  @override
+  String get quick_check_in_memo_hint => 'Today in one sentence';
+
+  @override
+  String get quick_check_in_next => 'Next';
+
+  @override
+  String get quick_check_in_previous => 'Previous';
+
+  @override
+  String get quick_check_in_skip => 'Skip';
+
+  @override
+  String get quick_check_in_submit => 'Done';
+
+  @override
+  String get quick_check_in_success => 'Check-in completed';
+
+  @override
+  String get quick_check_in_error => 'An error occurred during check-in';
+
+  @override
+  String get quick_check_in_weather_question =>
+      'Check current weather and time';
+
+  @override
+  String get home_button_write_journal => 'Write Journal';
+
+  @override
+  String get home_button_quick_check_in => 'Quick Check-In';
 }

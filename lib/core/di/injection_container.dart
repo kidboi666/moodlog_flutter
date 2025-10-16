@@ -1,9 +1,11 @@
 import 'package:local_auth/local_auth.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
+import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
+import 'package:moodlog/data/repositories/emotion_repository_impl.dart';
 import 'package:moodlog/data/repositories/gemini_repository_impl.dart';
 import 'package:moodlog/data/repositories/image_repository_impl.dart';
 import 'package:moodlog/data/repositories/journal_repository_impl.dart';
@@ -13,6 +15,7 @@ import 'package:moodlog/data/repositories/settings_repository_impl.dart';
 import 'package:moodlog/data/repositories/tag_repository_impl.dart';
 import 'package:moodlog/data/repositories/weather_repository_impl.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/repositories/emotion_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/image_repository.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
@@ -21,6 +24,8 @@ import 'package:moodlog/domain/repositories/location_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/repositories/tag_repository.dart';
 import 'package:moodlog/domain/repositories/weather_repository.dart';
+import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
+import 'package:moodlog/domain/use_cases/emotion_use_case.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
@@ -64,6 +69,9 @@ List<SingleChildWidget> _createDataSources() {
     ProxyProvider<MoodLogDatabase, TagLocalDataSource>(
       update: (_, db, previous) => previous ?? TagLocalDataSource(db: db),
     ),
+    ProxyProvider<MoodLogDatabase, EmotionLocalDataSource>(
+      update: (_, db, previous) => previous ?? EmotionLocalDataSource(db),
+    ),
     Provider<SharedPreferencesLocalDataSource>(
       create: (_) => SharedPreferencesLocalDataSource(),
     ),
@@ -97,6 +105,10 @@ List<SingleChildWidget> _createRepositories() {
     ),
     Provider<TagRepository>(
       create: (context) => TagRepositoryImpl(localDataSource: context.read()),
+      lazy: false,
+    ),
+    Provider<EmotionRepository>(
+      create: (context) => EmotionRepositoryImpl(context.read()),
       lazy: false,
     ),
     Provider<LocationRepository>(create: (_) => LocationRepositoryImpl()),
@@ -153,6 +165,17 @@ List<SingleChildWidget> _createUseCases() {
         settingsRepository: context.read(),
         imageRepository: context.read(),
         analyticsRepository: context.read(),
+      ),
+    ),
+    Provider<EmotionUseCase>(
+      create: (context) => EmotionUseCase(context.read()),
+    ),
+    Provider<CreateQuickCheckInUseCase>(
+      create: (context) => CreateQuickCheckInUseCase(
+        journalRepository: context.read(),
+        tagUseCase: context.read(),
+        emotionUseCase: context.read(),
+        emotionDataSource: context.read(),
       ),
     ),
   ];

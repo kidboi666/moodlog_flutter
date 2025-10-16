@@ -1309,4 +1309,56 @@ class AppLocalizationsKo extends AppLocalizations {
   String settings_data_import_failed(String error) {
     return '복원 실패: $error';
   }
+
+  @override
+  String get quick_check_in_title => '퀵 체크인';
+
+  @override
+  String get quick_check_in_mood_question => '지금 기분이 어떠신가요?';
+
+  @override
+  String get quick_check_in_activity_question => '현재 어떤 활동을 하고계신가요?';
+
+  @override
+  String get quick_check_in_activity_hint => '활동 입력 (예: 운동, 독서, 업무...)';
+
+  @override
+  String get quick_check_in_emotion_question => '현재 느끼고 있는 감정은?';
+
+  @override
+  String get quick_check_in_emotion_hint => '감정 키워드 입력 (예: 기쁨, 설렘, 피곤...)';
+
+  @override
+  String get quick_check_in_memo_question => '간단한 한줄 메모';
+
+  @override
+  String get quick_check_in_memo_hint => '오늘 있었던 일을 간단히 적어보세요';
+
+  @override
+  String get quick_check_in_next => '다음';
+
+  @override
+  String get quick_check_in_previous => '이전';
+
+  @override
+  String get quick_check_in_skip => '건너뛰기';
+
+  @override
+  String get quick_check_in_submit => '완료';
+
+  @override
+  String get quick_check_in_success => '체크인이 완료되었습니다!';
+
+  @override
+  String get quick_check_in_error => '체크인 저장에 실패했습니다';
+
+  @override
+  String get quick_check_in_weather_question =>
+      'Check current weather and time';
+
+  @override
+  String get home_button_write_journal => '일기 작성';
+
+  @override
+  String get home_button_quick_check_in => '퀵 체크인';
 }

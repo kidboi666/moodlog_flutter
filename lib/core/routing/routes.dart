@@ -6,6 +6,7 @@ abstract final class Routes {
   static const String home = '/';
   static const String entries = '/entries';
   static const String write = '/write';
+  static const String quickCheckIn = '/quick-check-in';
   static const String statistics = '/statistics';
   static const String settings = '/settings';
   static const String journalPage = '/journal/:id';
