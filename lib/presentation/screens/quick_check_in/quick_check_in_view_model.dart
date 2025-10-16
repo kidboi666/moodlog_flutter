@@ -162,6 +162,7 @@ class QuickCheckInViewModel extends ChangeNotifier
         temperature: _temperature,
         weatherIcon: _weatherIcon,
         weatherDescription: _weatherDescription,
+        sleepQuality: _sleepQuality,
       );
 
       final result = await _createQuickCheckInUseCase.createQuickCheckIn(
