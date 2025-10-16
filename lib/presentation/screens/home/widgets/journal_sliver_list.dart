@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/routing.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
+import 'package:moodlog/presentation/widgets/check_in_card.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
 import 'package:moodlog/presentation/widgets/fade_in.dart';
 import 'package:moodlog/presentation/widgets/journal_card.dart';
@@ -91,25 +93,44 @@ class JournalSliverList extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: Spacing.xl),
-              child: JournalCard(
-                id: e.id,
-                content: e.content ?? '',
-                moodType: e.moodType,
-                coverImg: e.imageUri?.isNotEmpty == true
-                    ? e.imageUri!.first
-                    : null,
-                createdAt: e.createdAt,
-                isSelectable: isSelectionMode,
-                isSelected: selectedJournalIds.contains(e.id),
-                onTap: isSelectionMode
-                    ? () => context
-                          .read<HomeViewModel>()
-                          .toggleJournalSelection(e.id)
-                    : () => context.pushToJournalFromHome(e.id),
-                onLongPress: () =>
-                    context.read<HomeViewModel>().toggleSelectionMode(),
-                tags: e.tags,
-              ),
+              child: e.entryType == EntryType.quickCheckIn
+                  ? CheckInCard(
+                      id: e.id,
+                      moodType: e.moodType,
+                      createdAt: e.createdAt,
+                      sleepQuality: e.sleepQuality,
+                      memo: e.note,
+                      tags: e.tags,
+                      emotions: e.emotions,
+                      isSelectable: isSelectionMode,
+                      isSelected: selectedJournalIds.contains(e.id),
+                      onTap: isSelectionMode
+                          ? () => context
+                                .read<HomeViewModel>()
+                                .toggleJournalSelection(e.id)
+                          : () => context.pushToJournalFromHome(e.id),
+                      onLongPress: () =>
+                          context.read<HomeViewModel>().toggleSelectionMode(),
+                    )
+                  : JournalCard(
+                      id: e.id,
+                      content: e.content ?? '',
+                      moodType: e.moodType,
+                      coverImg: e.imageUri?.isNotEmpty == true
+                          ? e.imageUri!.first
+                          : null,
+                      createdAt: e.createdAt,
+                      isSelectable: isSelectionMode,
+                      isSelected: selectedJournalIds.contains(e.id),
+                      onTap: isSelectionMode
+                          ? () => context
+                                .read<HomeViewModel>()
+                                .toggleJournalSelection(e.id)
+                          : () => context.pushToJournalFromHome(e.id),
+                      onLongPress: () =>
+                          context.read<HomeViewModel>().toggleSelectionMode(),
+                      tags: e.tags,
+                    ),
             ),
           ),
         );
