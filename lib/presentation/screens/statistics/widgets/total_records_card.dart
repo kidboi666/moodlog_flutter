@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view_model.dart';
 import 'package:moodlog/presentation/widgets/base_card.dart';
 import 'package:moodlog/presentation/widgets/statistic_display.dart';
@@ -16,12 +16,12 @@ class TotalRecordsCard extends StatelessWidget {
     final totalJournals = context.select<StatisticsViewModel, int>(
       (vm) => vm.totalJournals,
     );
-    final allJournals = context.select<StatisticsViewModel, List<Journal>>(
-      (vm) => vm.allJournals,
+    final allCheckIns = context.select<StatisticsViewModel, List<CheckIn>>(
+      (vm) => vm.allCheckIns,
     );
-    final firstRecordDate = allJournals.isNotEmpty
-        ? allJournals
-              .map((j) => j.createdAt)
+    final firstRecordDate = allCheckIns.isNotEmpty
+        ? allCheckIns
+              .map((c) => c.createdAt)
               .reduce((a, b) => a.isBefore(b) ? a : b)
         : null;
     final daysSinceFirstRecord = firstRecordDate != null

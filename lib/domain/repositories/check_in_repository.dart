@@ -17,6 +17,8 @@ abstract class CheckInRepository {
 
   Future<Result<CheckIn?>> getCheckInById(int id);
 
+  Future<Result<List<CheckIn>>> getAllCheckIns();
+
   Stream<List<CheckIn>> watchCheckInsByDate(DateTime date);
 
   Stream<List<CheckIn>> watchAllCheckIns();

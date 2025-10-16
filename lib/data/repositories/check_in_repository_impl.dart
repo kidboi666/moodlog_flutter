@@ -119,6 +119,18 @@ class CheckInRepositoryImpl implements CheckInRepository {
   }
 
   @override
+  Future<Result<List<CheckIn>>> getAllCheckIns() async {
+    try {
+      final stream = _checkInLocalDataSource.watchAllCheckIns();
+      final checkIns = await stream.first;
+      return Result.ok(checkIns);
+    } catch (e, s) {
+      _log.severe('Failed to get all check-ins', e, s);
+      return Result.error(Exception('Failed to get all check-ins: $e'));
+    }
+  }
+
+  @override
   Stream<List<CheckIn>> watchCheckInsByDate(DateTime date) {
     return _checkInLocalDataSource.watchCheckInsByDate(date);
   }

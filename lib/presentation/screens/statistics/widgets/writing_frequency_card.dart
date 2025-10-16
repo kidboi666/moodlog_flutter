@@ -11,10 +11,10 @@ class WritingFrequencyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<StatisticsViewModel>();
-    final allJournals = viewModel.allJournals;
+    final allCheckIns = viewModel.allCheckIns;
     final t = AppLocalizations.of(context)!;
 
-    if (allJournals.isEmpty) {
+    if (allCheckIns.isEmpty) {
       return BaseCard(
         title: t.statistics_writing_frequency_title,
         icon: Icons.schedule,
@@ -26,37 +26,37 @@ class WritingFrequencyCard extends StatelessWidget {
     final oneWeekAgo = now.subtract(const Duration(days: 7));
     final oneMonthAgo = now.subtract(const Duration(days: 30));
 
-    final weeklyEntries = allJournals
-        .where((journal) => journal.createdAt.isAfter(oneWeekAgo))
+    final weeklyEntries = allCheckIns
+        .where((checkIn) => checkIn.createdAt.isAfter(oneWeekAgo))
         .length;
 
-    final monthlyEntries = allJournals
-        .where((journal) => journal.createdAt.isAfter(oneMonthAgo))
+    final monthlyEntries = allCheckIns
+        .where((checkIn) => checkIn.createdAt.isAfter(oneMonthAgo))
         .length;
 
-    final firstEntry = allJournals.isNotEmpty
-        ? allJournals
-              .map((j) => j.createdAt)
+    final firstEntry = allCheckIns.isNotEmpty
+        ? allCheckIns
+              .map((c) => c.createdAt)
               .reduce((a, b) => a.isBefore(b) ? a : b)
         : now;
 
     final totalDays = now.difference(firstEntry).inDays + 1;
     final weeklyAverage = totalDays >= 7
-        ? (allJournals.length / totalDays * 7)
+        ? (allCheckIns.length / totalDays * 7)
         : weeklyEntries.toDouble();
     final monthlyAverage = totalDays >= 30
-        ? (allJournals.length / totalDays * 30)
+        ? (allCheckIns.length / totalDays * 30)
         : monthlyEntries.toDouble();
 
     final Map<int, int> hourlyDistribution = {};
-    for (var journal in allJournals) {
-      final hour = journal.createdAt.hour;
+    for (var checkIn in allCheckIns) {
+      final hour = checkIn.createdAt.hour;
       hourlyDistribution[hour] = (hourlyDistribution[hour] ?? 0) + 1;
     }
 
     final Map<int, int> weekdayDistribution = {};
-    for (var journal in allJournals) {
-      final weekday = journal.createdAt.weekday;
+    for (var checkIn in allCheckIns) {
+      final weekday = checkIn.createdAt.weekday;
       weekdayDistribution[weekday] = (weekdayDistribution[weekday] ?? 0) + 1;
     }
 

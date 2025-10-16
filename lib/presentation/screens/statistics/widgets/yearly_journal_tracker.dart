@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/presentation/screens/home/widgets/yearly_tracker/yearly_grid.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view_model.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/base_card.dart';
@@ -13,21 +13,21 @@ class YearlyJournalTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final now = DateTime.now();
-    final yearlyJournals = context
-        .select<StatisticsViewModel, Map<DateTime, List<Journal>>>(
-          (vm) => vm.yearlyJournals,
+    final yearlyCheckIns = context
+        .select<StatisticsViewModel, Map<DateTime, List<CheckIn>>>(
+          (vm) => vm.yearlyCheckIns,
         );
 
     // 데이터 존재 여부 확인
-    final hasAnyJournals = yearlyJournals.values.any(
-      (journalList) => journalList.isNotEmpty,
+    final hasAnyCheckIns = yearlyCheckIns.values.any(
+      (checkInList) => checkInList.isNotEmpty,
     );
 
     return BaseCard(
       title: t.home_yearly_tracker_title,
       icon: Icons.grid_4x4,
-      child: hasAnyJournals
-          ? YearlyGrid(now: now, yearlyJournals: yearlyJournals)
+      child: hasAnyCheckIns
+          ? YearlyGrid(now: now, yearlyJournals: yearlyCheckIns)
           : _buildEmptyState(context),
     );
   }
