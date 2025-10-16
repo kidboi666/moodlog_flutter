@@ -40,7 +40,8 @@ class JournalViewModel extends ChangeNotifier
   SimpleTextAlign get currentAlign =>
       _pendingAlign ?? _appStateProvider.appState.textAlign;
 
-  Object? get aiGenerationError => _aiGenerationProvider.errorGeneratingAiResponse;
+  Object? get aiGenerationError =>
+      _aiGenerationProvider.errorGeneratingAiResponse;
 
   bool get isGeneratingAiResponse =>
       _aiGenerationProvider.isGeneratingAiResponse;

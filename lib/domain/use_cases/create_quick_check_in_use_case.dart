@@ -37,6 +37,7 @@ class CreateQuickCheckInUseCase {
       temperature: request.temperature,
       weatherIcon: request.weatherIcon,
       weatherDescription: request.weatherDescription,
+      sleepQuality: request.sleepQuality,
     );
 
     final result = await _journalRepository.createJournal(createJournalRequest);

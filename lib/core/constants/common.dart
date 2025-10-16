@@ -91,6 +91,9 @@ abstract final class CommonSizedBox {
   // 특수 케이스
   static const empty = meterial.SizedBox.shrink();
   static const expand = meterial.Expanded(child: meterial.SizedBox());
+  static const homeBottomPadding = meterial.SizedBox(
+    height: meterial.kBottomNavigationBarHeight * 3,
+  );
 }
 
 /// 자주 사용되는 Divider들

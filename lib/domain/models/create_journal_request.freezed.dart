@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CreateJournalRequest {
 
- String? get content; String? get note; MoodType get moodType; EntryType get entryType; List<String>? get imageUri; bool get aiResponseEnabled; List<String>? get tagNames; String? get aiResponse; DateTime get createdAt; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription;
+ String? get content; String? get note; MoodType get moodType; EntryType get entryType; List<String>? get imageUri; bool get aiResponseEnabled; List<String>? get tagNames; String? get aiResponse; DateTime get createdAt; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription; int? get sleepQuality;
 /// Create a copy of CreateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CreateJournalRequestCopyWith<CreateJournalRequest> get copyWith => _$CreateJour
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&const DeepCollectionEquality().equals(other.tagNames, tagNames)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&const DeepCollectionEquality().equals(other.imageUri, imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&const DeepCollectionEquality().equals(other.tagNames, tagNames)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&(identical(other.sleepQuality, sleepQuality) || other.sleepQuality == sleepQuality));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,content,note,moodType,entryType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,const DeepCollectionEquality().hash(tagNames),aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
+int get hashCode => Object.hash(runtimeType,content,note,moodType,entryType,const DeepCollectionEquality().hash(imageUri),aiResponseEnabled,const DeepCollectionEquality().hash(tagNames),aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription,sleepQuality);
 
 @override
 String toString() {
-  return 'CreateJournalRequest(content: $content, note: $note, moodType: $moodType, entryType: $entryType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, tagNames: $tagNames, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
+  return 'CreateJournalRequest(content: $content, note: $note, moodType: $moodType, entryType: $entryType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, tagNames: $tagNames, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, sleepQuality: $sleepQuality)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CreateJournalRequestCopyWith<$Res>  {
   factory $CreateJournalRequestCopyWith(CreateJournalRequest value, $Res Function(CreateJournalRequest) _then) = _$CreateJournalRequestCopyWithImpl;
 @useResult
 $Res call({
- String? content, String? note, MoodType moodType, EntryType entryType, List<String>? imageUri, bool aiResponseEnabled, List<String>? tagNames, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
+ String? content, String? note, MoodType moodType, EntryType entryType, List<String>? imageUri, bool aiResponseEnabled, List<String>? tagNames, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, int? sleepQuality
 });
 
 
@@ -62,7 +62,7 @@ class _$CreateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? note = freezed,Object? moodType = null,Object? entryType = null,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? tagNames = freezed,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? note = freezed,Object? moodType = null,Object? entryType = null,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? tagNames = freezed,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? sleepQuality = freezed,}) {
   return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,8 @@ as double?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,sleepQuality: freezed == sleepQuality ? _self.sleepQuality : sleepQuality // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -164,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CreateJournalRequest() when $default != null:
-return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   return orElse();
 
 }
@@ -185,10 +186,10 @@ return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.im
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)  $default,) {final _that = this;
 switch (_that) {
 case _CreateJournalRequest():
-return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +206,10 @@ return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.im
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? content,  String? note,  MoodType moodType,  EntryType entryType,  List<String>? imageUri,  bool aiResponseEnabled,  List<String>? tagNames,  String? aiResponse,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)?  $default,) {final _that = this;
 switch (_that) {
 case _CreateJournalRequest() when $default != null:
-return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.imageUri,_that.aiResponseEnabled,_that.tagNames,_that.aiResponse,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   return null;
 
 }
@@ -220,7 +221,7 @@ return $default(_that.content,_that.note,_that.moodType,_that.entryType,_that.im
 
 
 class _CreateJournalRequest extends CreateJournalRequest {
-  const _CreateJournalRequest({this.content, this.note, required this.moodType, this.entryType = EntryType.fullJournal, final  List<String>? imageUri, required this.aiResponseEnabled, final  List<String>? tagNames, this.aiResponse, required this.createdAt, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription}): _imageUri = imageUri,_tagNames = tagNames,super._();
+  const _CreateJournalRequest({this.content, this.note, required this.moodType, this.entryType = EntryType.fullJournal, final  List<String>? imageUri, required this.aiResponseEnabled, final  List<String>? tagNames, this.aiResponse, required this.createdAt, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription, this.sleepQuality}): _imageUri = imageUri,_tagNames = tagNames,super._();
   
 
 @override final  String? content;
@@ -254,6 +255,7 @@ class _CreateJournalRequest extends CreateJournalRequest {
 @override final  double? temperature;
 @override final  String? weatherIcon;
 @override final  String? weatherDescription;
+@override final  int? sleepQuality;
 
 /// Create a copy of CreateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -265,16 +267,16 @@ _$CreateJournalRequestCopyWith<_CreateJournalRequest> get copyWith => __$CreateJ
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateJournalRequest&&(identical(other.content, content) || other.content == content)&&(identical(other.note, note) || other.note == note)&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.entryType, entryType) || other.entryType == entryType)&&const DeepCollectionEquality().equals(other._imageUri, _imageUri)&&(identical(other.aiResponseEnabled, aiResponseEnabled) || other.aiResponseEnabled == aiResponseEnabled)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames)&&(identical(other.aiResponse, aiResponse) || other.aiResponse == aiResponse)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&(identical(other.sleepQuality, sleepQuality) || other.sleepQuality == sleepQuality));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,content,note,moodType,entryType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,const DeepCollectionEquality().hash(_tagNames),aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
+int get hashCode => Object.hash(runtimeType,content,note,moodType,entryType,const DeepCollectionEquality().hash(_imageUri),aiResponseEnabled,const DeepCollectionEquality().hash(_tagNames),aiResponse,createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription,sleepQuality);
 
 @override
 String toString() {
-  return 'CreateJournalRequest(content: $content, note: $note, moodType: $moodType, entryType: $entryType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, tagNames: $tagNames, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
+  return 'CreateJournalRequest(content: $content, note: $note, moodType: $moodType, entryType: $entryType, imageUri: $imageUri, aiResponseEnabled: $aiResponseEnabled, tagNames: $tagNames, aiResponse: $aiResponse, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, sleepQuality: $sleepQuality)';
 }
 
 
@@ -285,7 +287,7 @@ abstract mixin class _$CreateJournalRequestCopyWith<$Res> implements $CreateJour
   factory _$CreateJournalRequestCopyWith(_CreateJournalRequest value, $Res Function(_CreateJournalRequest) _then) = __$CreateJournalRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? content, String? note, MoodType moodType, EntryType entryType, List<String>? imageUri, bool aiResponseEnabled, List<String>? tagNames, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
+ String? content, String? note, MoodType moodType, EntryType entryType, List<String>? imageUri, bool aiResponseEnabled, List<String>? tagNames, String? aiResponse, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, int? sleepQuality
 });
 
 
@@ -302,7 +304,7 @@ class __$CreateJournalRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateJournalRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? note = freezed,Object? moodType = null,Object? entryType = null,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? tagNames = freezed,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? note = freezed,Object? moodType = null,Object? entryType = null,Object? imageUri = freezed,Object? aiResponseEnabled = null,Object? tagNames = freezed,Object? aiResponse = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? sleepQuality = freezed,}) {
   return _then(_CreateJournalRequest(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
@@ -319,7 +321,8 @@ as double?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,sleepQuality: freezed == sleepQuality ? _self.sleepQuality : sleepQuality // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

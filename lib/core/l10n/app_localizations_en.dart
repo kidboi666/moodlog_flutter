@@ -1409,4 +1409,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home_button_quick_check_in => 'Quick Check-In';
+
+  @override
+  String get quick_check_in_sleep_quality_1 => 'Tossed & turned';
+
+  @override
+  String get quick_check_in_sleep_quality_2 => 'Restless';
+
+  @override
+  String get quick_check_in_sleep_quality_3 => 'So-so';
+
+  @override
+  String get quick_check_in_sleep_quality_4 => 'Slept well';
+
+  @override
+  String get quick_check_in_sleep_quality_5 => 'Slept great';
 }

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CreateQuickCheckInRequest {
 
- MoodType get moodType; String? get content; List<String>? get tagNames; List<String>? get emotionNames; DateTime get createdAt; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription;
+ MoodType get moodType; String? get content; List<String>? get tagNames; List<String>? get emotionNames; DateTime get createdAt; double? get latitude; double? get longitude; String? get address; double? get temperature; String? get weatherIcon; String? get weatherDescription; int? get sleepQuality;
 /// Create a copy of CreateQuickCheckInRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CreateQuickCheckInRequestCopyWith<CreateQuickCheckInRequest> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateQuickCheckInRequest&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.tagNames, tagNames)&&const DeepCollectionEquality().equals(other.emotionNames, emotionNames)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateQuickCheckInRequest&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.tagNames, tagNames)&&const DeepCollectionEquality().equals(other.emotionNames, emotionNames)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&(identical(other.sleepQuality, sleepQuality) || other.sleepQuality == sleepQuality));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,moodType,content,const DeepCollectionEquality().hash(tagNames),const DeepCollectionEquality().hash(emotionNames),createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
+int get hashCode => Object.hash(runtimeType,moodType,content,const DeepCollectionEquality().hash(tagNames),const DeepCollectionEquality().hash(emotionNames),createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription,sleepQuality);
 
 @override
 String toString() {
-  return 'CreateQuickCheckInRequest(moodType: $moodType, content: $content, tagNames: $tagNames, emotionNames: $emotionNames, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
+  return 'CreateQuickCheckInRequest(moodType: $moodType, content: $content, tagNames: $tagNames, emotionNames: $emotionNames, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, sleepQuality: $sleepQuality)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CreateQuickCheckInRequestCopyWith<$Res>  {
   factory $CreateQuickCheckInRequestCopyWith(CreateQuickCheckInRequest value, $Res Function(CreateQuickCheckInRequest) _then) = _$CreateQuickCheckInRequestCopyWithImpl;
 @useResult
 $Res call({
- MoodType moodType, String? content, List<String>? tagNames, List<String>? emotionNames, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
+ MoodType moodType, String? content, List<String>? tagNames, List<String>? emotionNames, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, int? sleepQuality
 });
 
 
@@ -62,7 +62,7 @@ class _$CreateQuickCheckInRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateQuickCheckInRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? moodType = null,Object? content = freezed,Object? tagNames = freezed,Object? emotionNames = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? moodType = null,Object? content = freezed,Object? tagNames = freezed,Object? emotionNames = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? sleepQuality = freezed,}) {
   return _then(_self.copyWith(
 moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,8 @@ as double?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,sleepQuality: freezed == sleepQuality ? _self.sleepQuality : sleepQuality // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CreateQuickCheckInRequest() when $default != null:
-return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)  $default,) {final _that = this;
 switch (_that) {
 case _CreateQuickCheckInRequest():
-return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MoodType moodType,  String? content,  List<String>? tagNames,  List<String>? emotionNames,  DateTime createdAt,  double? latitude,  double? longitude,  String? address,  double? temperature,  String? weatherIcon,  String? weatherDescription,  int? sleepQuality)?  $default,) {final _that = this;
 switch (_that) {
 case _CreateQuickCheckInRequest() when $default != null:
-return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription);case _:
+return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_that.createdAt,_that.latitude,_that.longitude,_that.address,_that.temperature,_that.weatherIcon,_that.weatherDescription,_that.sleepQuality);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.moodType,_that.content,_that.tagNames,_that.emotionNames,_
 
 
 class _CreateQuickCheckInRequest extends CreateQuickCheckInRequest {
-  const _CreateQuickCheckInRequest({required this.moodType, this.content, final  List<String>? tagNames, final  List<String>? emotionNames, required this.createdAt, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription}): _tagNames = tagNames,_emotionNames = emotionNames,super._();
+  const _CreateQuickCheckInRequest({required this.moodType, this.content, final  List<String>? tagNames, final  List<String>? emotionNames, required this.createdAt, this.latitude, this.longitude, this.address, this.temperature, this.weatherIcon, this.weatherDescription, this.sleepQuality}): _tagNames = tagNames,_emotionNames = emotionNames,super._();
   
 
 @override final  MoodType moodType;
@@ -246,6 +247,7 @@ class _CreateQuickCheckInRequest extends CreateQuickCheckInRequest {
 @override final  double? temperature;
 @override final  String? weatherIcon;
 @override final  String? weatherDescription;
+@override final  int? sleepQuality;
 
 /// Create a copy of CreateQuickCheckInRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -257,16 +259,16 @@ _$CreateQuickCheckInRequestCopyWith<_CreateQuickCheckInRequest> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateQuickCheckInRequest&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames)&&const DeepCollectionEquality().equals(other._emotionNames, _emotionNames)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateQuickCheckInRequest&&(identical(other.moodType, moodType) || other.moodType == moodType)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._tagNames, _tagNames)&&const DeepCollectionEquality().equals(other._emotionNames, _emotionNames)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.address, address) || other.address == address)&&(identical(other.temperature, temperature) || other.temperature == temperature)&&(identical(other.weatherIcon, weatherIcon) || other.weatherIcon == weatherIcon)&&(identical(other.weatherDescription, weatherDescription) || other.weatherDescription == weatherDescription)&&(identical(other.sleepQuality, sleepQuality) || other.sleepQuality == sleepQuality));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,moodType,content,const DeepCollectionEquality().hash(_tagNames),const DeepCollectionEquality().hash(_emotionNames),createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription);
+int get hashCode => Object.hash(runtimeType,moodType,content,const DeepCollectionEquality().hash(_tagNames),const DeepCollectionEquality().hash(_emotionNames),createdAt,latitude,longitude,address,temperature,weatherIcon,weatherDescription,sleepQuality);
 
 @override
 String toString() {
-  return 'CreateQuickCheckInRequest(moodType: $moodType, content: $content, tagNames: $tagNames, emotionNames: $emotionNames, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription)';
+  return 'CreateQuickCheckInRequest(moodType: $moodType, content: $content, tagNames: $tagNames, emotionNames: $emotionNames, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, address: $address, temperature: $temperature, weatherIcon: $weatherIcon, weatherDescription: $weatherDescription, sleepQuality: $sleepQuality)';
 }
 
 
@@ -277,7 +279,7 @@ abstract mixin class _$CreateQuickCheckInRequestCopyWith<$Res> implements $Creat
   factory _$CreateQuickCheckInRequestCopyWith(_CreateQuickCheckInRequest value, $Res Function(_CreateQuickCheckInRequest) _then) = __$CreateQuickCheckInRequestCopyWithImpl;
 @override @useResult
 $Res call({
- MoodType moodType, String? content, List<String>? tagNames, List<String>? emotionNames, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription
+ MoodType moodType, String? content, List<String>? tagNames, List<String>? emotionNames, DateTime createdAt, double? latitude, double? longitude, String? address, double? temperature, String? weatherIcon, String? weatherDescription, int? sleepQuality
 });
 
 
@@ -294,7 +296,7 @@ class __$CreateQuickCheckInRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateQuickCheckInRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? moodType = null,Object? content = freezed,Object? tagNames = freezed,Object? emotionNames = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? moodType = null,Object? content = freezed,Object? tagNames = freezed,Object? emotionNames = freezed,Object? createdAt = null,Object? latitude = freezed,Object? longitude = freezed,Object? address = freezed,Object? temperature = freezed,Object? weatherIcon = freezed,Object? weatherDescription = freezed,Object? sleepQuality = freezed,}) {
   return _then(_CreateQuickCheckInRequest(
 moodType: null == moodType ? _self.moodType : moodType // ignore: cast_nullable_to_non_nullable
 as MoodType,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
@@ -307,7 +309,8 @@ as double?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,temperature: freezed == temperature ? _self.temperature : temperature // ignore: cast_nullable_to_non_nullable
 as double?,weatherIcon: freezed == weatherIcon ? _self.weatherIcon : weatherIcon // ignore: cast_nullable_to_non_nullable
 as String?,weatherDescription: freezed == weatherDescription ? _self.weatherDescription : weatherDescription // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,sleepQuality: freezed == sleepQuality ? _self.sleepQuality : sleepQuality // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

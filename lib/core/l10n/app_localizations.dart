@@ -2649,6 +2649,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick Check-In'**
   String get home_button_quick_check_in;
+
+  /// No description provided for @quick_check_in_sleep_quality_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Tossed & turned'**
+  String get quick_check_in_sleep_quality_1;
+
+  /// No description provided for @quick_check_in_sleep_quality_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Restless'**
+  String get quick_check_in_sleep_quality_2;
+
+  /// No description provided for @quick_check_in_sleep_quality_3.
+  ///
+  /// In en, this message translates to:
+  /// **'So-so'**
+  String get quick_check_in_sleep_quality_3;
+
+  /// No description provided for @quick_check_in_sleep_quality_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Slept well'**
+  String get quick_check_in_sleep_quality_4;
+
+  /// No description provided for @quick_check_in_sleep_quality_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Slept great'**
+  String get quick_check_in_sleep_quality_5;
 }
 
 class _AppLocalizationsDelegate

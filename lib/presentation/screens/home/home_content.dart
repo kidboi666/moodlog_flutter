@@ -10,9 +10,7 @@ class _HomeScreenContent extends StatelessWidget {
     return Scaffold(
       appBar: const HomeAppBar(),
       endDrawer: const AppDrawer(),
-      bottomNavigationBar: const SafeArea(
-        child: BannerAdWidget(),
-      ),
+      bottomNavigationBar: const SafeArea(child: BannerAdWidget()),
       body: RefreshIndicator(
         onRefresh: () => context.read<HomeViewModel>().refresh(),
         child: CustomScrollView(
@@ -26,12 +24,12 @@ class _HomeScreenContent extends StatelessWidget {
                       delay: DelayMS.medium * 2,
                       child: const WelcomeZone(),
                     ),
-                    const SizedBox(height: Spacing.xl),
+                    CommonSizedBox.heightXl,
                     FadeIn(
                       delay: DelayMS.medium * 3,
                       child: const UnifiedCalendarWidget(),
                     ),
-                    const SizedBox(height: Spacing.xl),
+                    CommonSizedBox.heightXl,
                   ],
                 ),
               ),
@@ -40,9 +38,7 @@ class _HomeScreenContent extends StatelessWidget {
               padding: Spacing.containerHorizontalPadding,
               sliver: JournalSliverList(),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: kBottomNavigationBarHeight * 3),
-            ),
+            const SliverToBoxAdapter(child: CommonSizedBox.homeBottomPadding),
           ],
         ),
       ),

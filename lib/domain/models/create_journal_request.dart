@@ -23,5 +23,6 @@ abstract class CreateJournalRequest with _$CreateJournalRequest {
     double? temperature,
     String? weatherIcon,
     String? weatherDescription,
+    int? sleepQuality,
   }) = _CreateJournalRequest;
 }

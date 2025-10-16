@@ -136,6 +136,7 @@ class JournalRepositoryImpl implements JournalRepository {
       tagNames: dto.tagNames,
       weatherIcon: dto.weatherIcon,
       weatherDescription: dto.weatherDescription,
+      sleepQuality: dto.sleepQuality,
     );
     try {
       final journal = await _journalLocalDataSource.addJournal(request);

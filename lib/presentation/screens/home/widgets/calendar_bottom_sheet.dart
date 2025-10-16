@@ -22,7 +22,6 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
-    final theme = Theme.of(context);
     final t = AppLocalizations.of(context)!;
     final selectedDate = viewModel.selectedDate;
     final journalsForSelectedDay =
@@ -35,7 +34,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
-      decoration: BoxDecoration(color: theme.colorScheme.surface),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       child: Padding(
         padding: const EdgeInsets.all(Spacing.md),
         child: Column(
@@ -49,9 +48,9 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            const SizedBox(height: Spacing.md),
+            CommonSizedBox.heightXl,
             const _CalendarHeader(),
-            const SizedBox(height: Spacing.md),
+            CommonSizedBox.heightXl,
             TableCalendar(
               locale: t.localeName,
               focusedDay: viewModel.displayMonth,
@@ -66,42 +65,42 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
               },
               headerVisible: false,
               daysOfWeekStyle: DaysOfWeekStyle(
-                weekdayStyle: theme.textTheme.bodyMedium!.copyWith(
+                weekdayStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
-                weekendStyle: theme.textTheme.bodyMedium!.copyWith(
+                weekendStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               calendarStyle: CalendarStyle(
                 defaultTextStyle: TextStyle(
-                  color: theme.colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 ),
                 weekendTextStyle: TextStyle(
-                  color: theme.colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 ),
                 outsideTextStyle: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(102),
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(102),
                   fontWeight: FontWeight.bold,
                 ),
                 todayDecoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withAlpha(204),
+                  color: Theme.of(context).colorScheme.primary.withAlpha(204),
                   shape: BoxShape.circle,
                 ),
                 todayTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                ).copyWith(color: theme.colorScheme.onPrimary),
+                ).copyWith(color: Theme.of(context).colorScheme.onPrimary),
                 selectedDecoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                ).copyWith(color: theme.colorScheme.surface),
+                ).copyWith(color: Theme.of(context).colorScheme.surface),
               ),
               calendarBuilders: CalendarBuilders(
                 markerBuilder: (context, day, events) {
@@ -119,7 +118,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                 },
               ),
             ),
-            const SizedBox(height: Spacing.lg),
+            CommonSizedBox.heightLg,
             Expanded(child: _buildJournalList(journalsForSelectedDay)),
           ],
         ),
@@ -130,9 +129,11 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
   Widget _buildJournalList(List<Journal> journals) {
     final viewModel = context.read<HomeViewModel>();
     if (journals.isEmpty) {
-      return EmptyEntriesBox(
-        isDisabled: false,
-        selectedDate: viewModel.selectedDate,
+      return SafeArea(
+        child: EmptyEntriesBox(
+          isDisabled: false,
+          selectedDate: viewModel.selectedDate,
+        ),
       );
     }
 
@@ -166,10 +167,8 @@ class _CalendarHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<HomeViewModel>();
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
+    final viewModel = context.read<HomeViewModel>();
     final displayMonth = context.select((HomeViewModel vm) => vm.displayMonth);
     final selectedDate = context.select((HomeViewModel vm) => vm.selectedDate);
 
@@ -179,7 +178,10 @@ class _CalendarHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(Icons.chevron_left, color: colorScheme.onSurface),
+            icon: Icon(
+              Icons.chevron_left,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             onPressed: () {
               final newMonth = DateTime(
                 displayMonth.year,
@@ -194,23 +196,28 @@ class _CalendarHeader extends StatelessWidget {
               children: [
                 Text(
                   '${displayMonth.getLocalizedMonthName(t)} ${displayMonth.year}',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.onSurface,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: Spacing.xs),
                 Text(
                   '${selectedDate.getLocalizedWeekdayName(t)}, ${selectedDate.day}${t.common_unit_day}',
-                  style: textTheme.titleMedium?.copyWith(
-                    color: colorScheme.onSurface.withAlpha(204),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withAlpha(204),
                   ),
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: Icon(Icons.chevron_right, color: colorScheme.onSurface),
+            icon: Icon(
+              Icons.chevron_right,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             onPressed: () {
               final newMonth = DateTime(
                 displayMonth.year,

@@ -1361,4 +1361,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get home_button_quick_check_in => 'クイックチェックイン';
+
+  @override
+  String get quick_check_in_sleep_quality_1 => '寝返りばかり';
+
+  @override
+  String get quick_check_in_sleep_quality_2 => '寝苦しかった';
+
+  @override
+  String get quick_check_in_sleep_quality_3 => 'まあまあ';
+
+  @override
+  String get quick_check_in_sleep_quality_4 => 'よく眠れた';
+
+  @override
+  String get quick_check_in_sleep_quality_5 => 'ぐっすり';
 }

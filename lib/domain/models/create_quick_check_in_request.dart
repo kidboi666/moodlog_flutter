@@ -19,5 +19,6 @@ abstract class CreateQuickCheckInRequest with _$CreateQuickCheckInRequest {
     double? temperature,
     String? weatherIcon,
     String? weatherDescription,
+    int? sleepQuality,
   }) = _CreateQuickCheckInRequest;
 }

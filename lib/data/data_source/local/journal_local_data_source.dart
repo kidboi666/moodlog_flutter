@@ -111,7 +111,9 @@ class JournalLocalDataSource {
         // 1. Insert the journal
         final journalCompanion = JournalsCompanion(
           content: Value(request.content),
+          note: Value(request.note),
           moodType: Value(request.moodType),
+          entryType: Value(request.entryType),
           imageUri: Value(request.imageUri),
           createdAt: Value(request.createdAt),
           aiResponseEnabled: Value(request.aiResponseEnabled),
@@ -122,6 +124,7 @@ class JournalLocalDataSource {
           weatherIcon: Value(request.weatherIcon),
           weatherDescription: Value(request.weatherDescription),
           tagNames: Value(request.tagNames),
+          sleepQuality: Value(request.sleepQuality),
         );
 
         final newJournal = await _db

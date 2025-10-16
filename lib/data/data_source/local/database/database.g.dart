@@ -181,6 +181,17 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _sleepQualityMeta = const VerificationMeta(
+    'sleepQuality',
+  );
+  @override
+  late final GeneratedColumn<int> sleepQuality = GeneratedColumn<int>(
+    'sleep_quality',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -199,6 +210,7 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     temperature,
     weatherIcon,
     weatherDescription,
+    sleepQuality,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -295,6 +307,15 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         ),
       );
     }
+    if (data.containsKey('sleep_quality')) {
+      context.handle(
+        _sleepQualityMeta,
+        sleepQuality.isAcceptableOrUnknown(
+          data['sleep_quality']!,
+          _sleepQualityMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -376,6 +397,10 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         DriftSqlType.string,
         data['${effectivePrefix}weather_description'],
       ),
+      sleepQuality: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sleep_quality'],
+      ),
     );
   }
 
@@ -411,6 +436,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   final Value<double?> temperature;
   final Value<String?> weatherIcon;
   final Value<String?> weatherDescription;
+  final Value<int?> sleepQuality;
   const JournalsCompanion({
     this.id = const Value.absent(),
     this.moodType = const Value.absent(),
@@ -428,6 +454,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
     this.weatherDescription = const Value.absent(),
+    this.sleepQuality = const Value.absent(),
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
@@ -446,6 +473,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
     this.weatherDescription = const Value.absent(),
+    this.sleepQuality = const Value.absent(),
   }) : moodType = Value(moodType),
        aiResponseEnabled = Value(aiResponseEnabled);
   static Insertable<Journal> custom({
@@ -465,6 +493,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Expression<double>? temperature,
     Expression<String>? weatherIcon,
     Expression<String>? weatherDescription,
+    Expression<int>? sleepQuality,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -483,6 +512,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       if (temperature != null) 'temperature': temperature,
       if (weatherIcon != null) 'weather_icon': weatherIcon,
       if (weatherDescription != null) 'weather_description': weatherDescription,
+      if (sleepQuality != null) 'sleep_quality': sleepQuality,
     });
   }
 
@@ -503,6 +533,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     Value<double?>? temperature,
     Value<String?>? weatherIcon,
     Value<String?>? weatherDescription,
+    Value<int?>? sleepQuality,
   }) {
     return JournalsCompanion(
       id: id ?? this.id,
@@ -521,6 +552,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
       temperature: temperature ?? this.temperature,
       weatherIcon: weatherIcon ?? this.weatherIcon,
       weatherDescription: weatherDescription ?? this.weatherDescription,
+      sleepQuality: sleepQuality ?? this.sleepQuality,
     );
   }
 
@@ -583,6 +615,9 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     if (weatherDescription.present) {
       map['weather_description'] = Variable<String>(weatherDescription.value);
     }
+    if (sleepQuality.present) {
+      map['sleep_quality'] = Variable<int>(sleepQuality.value);
+    }
     return map;
   }
 
@@ -604,7 +639,8 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
           ..write('address: $address, ')
           ..write('temperature: $temperature, ')
           ..write('weatherIcon: $weatherIcon, ')
-          ..write('weatherDescription: $weatherDescription')
+          ..write('weatherDescription: $weatherDescription, ')
+          ..write('sleepQuality: $sleepQuality')
           ..write(')'))
         .toString();
   }
@@ -1712,6 +1748,7 @@ typedef $$JournalsTableCreateCompanionBuilder =
       Value<double?> temperature,
       Value<String?> weatherIcon,
       Value<String?> weatherDescription,
+      Value<int?> sleepQuality,
     });
 typedef $$JournalsTableUpdateCompanionBuilder =
     JournalsCompanion Function({
@@ -1731,6 +1768,7 @@ typedef $$JournalsTableUpdateCompanionBuilder =
       Value<double?> temperature,
       Value<String?> weatherIcon,
       Value<String?> weatherDescription,
+      Value<int?> sleepQuality,
     });
 
 final class $$JournalsTableReferences
@@ -1873,6 +1911,11 @@ class $$JournalsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get sleepQuality => $composableBuilder(
+    column: $table.sleepQuality,
+    builder: (column) => ColumnFilters(column),
+  );
+
   Expression<bool> journalTagsRefs(
     Expression<bool> Function($$JournalTagsTableFilterComposer f) f,
   ) {
@@ -2012,6 +2055,11 @@ class $$JournalsTableOrderingComposer
     column: $table.weatherDescription,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<int> get sleepQuality => $composableBuilder(
+    column: $table.sleepQuality,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$JournalsTableAnnotationComposer
@@ -2078,6 +2126,11 @@ class $$JournalsTableAnnotationComposer
 
   GeneratedColumn<String> get weatherDescription => $composableBuilder(
     column: $table.weatherDescription,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get sleepQuality => $composableBuilder(
+    column: $table.sleepQuality,
     builder: (column) => column,
   );
 
@@ -2179,6 +2232,7 @@ class $$JournalsTableTableManager
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
                 Value<String?> weatherDescription = const Value.absent(),
+                Value<int?> sleepQuality = const Value.absent(),
               }) => JournalsCompanion(
                 id: id,
                 moodType: moodType,
@@ -2196,6 +2250,7 @@ class $$JournalsTableTableManager
                 temperature: temperature,
                 weatherIcon: weatherIcon,
                 weatherDescription: weatherDescription,
+                sleepQuality: sleepQuality,
               ),
           createCompanionCallback:
               ({
@@ -2215,6 +2270,7 @@ class $$JournalsTableTableManager
                 Value<double?> temperature = const Value.absent(),
                 Value<String?> weatherIcon = const Value.absent(),
                 Value<String?> weatherDescription = const Value.absent(),
+                Value<int?> sleepQuality = const Value.absent(),
               }) => JournalsCompanion.insert(
                 id: id,
                 moodType: moodType,
@@ -2232,6 +2288,7 @@ class $$JournalsTableTableManager
                 temperature: temperature,
                 weatherIcon: weatherIcon,
                 weatherDescription: weatherDescription,
+                sleepQuality: sleepQuality,
               ),
           withReferenceMapper: (p0) => p0
               .map(

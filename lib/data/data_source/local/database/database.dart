@@ -21,7 +21,7 @@ class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration {
@@ -57,6 +57,9 @@ class MoodLogDatabase extends _$MoodLogDatabase {
           await m.addColumn(journals, journals.note);
           await m.createTable(emotions);
           await m.createTable(journalEmotions);
+        }
+        if (from <= 7) {
+          await m.addColumn(journals, journals.sleepQuality);
         }
       },
     );
