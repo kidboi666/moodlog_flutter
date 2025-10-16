@@ -3,33 +3,29 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/mixins/step_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/models/create_quick_check_in_request.dart';
-import 'package:moodlog/domain/models/update_journal_request.dart';
-import 'package:moodlog/domain/repositories/journal_repository.dart';
-import 'package:moodlog/domain/use_cases/create_quick_check_in_use_case.dart';
+import 'package:moodlog/domain/models/create_check_in_request.dart';
+import 'package:moodlog/domain/models/update_check_in_request.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
 
 class QuickCheckInViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {
-  final CreateQuickCheckInUseCase _createQuickCheckInUseCase;
+  final CheckInUseCase _checkInUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
-  final JournalRepository _journalRepository;
-  final int? _journalId;
+  final int? _checkInId;
 
   QuickCheckInViewModel({
     required int totalSteps,
-    required CreateQuickCheckInUseCase createQuickCheckInUseCase,
+    required CheckInUseCase checkInUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
-    required JournalRepository journalRepository,
-    int? journalId,
-  })  : _createQuickCheckInUseCase = createQuickCheckInUseCase,
+    int? checkInId,
+  })  : _checkInUseCase = checkInUseCase,
         _getCurrentLocationUseCase = getCurrentLocationUseCase,
         _weatherUseCase = weatherUseCase,
-        _journalRepository = journalRepository,
-        _journalId = journalId {
+        _checkInId = checkInId {
     initStep(totalSteps);
     _createdAt = DateTime.now();
 
@@ -69,7 +65,7 @@ class QuickCheckInViewModel extends ChangeNotifier
   bool get isLoadingWeather => _isLoadingWeather;
   bool get isFirstCheckInToday => _isFirstCheckInToday;
   bool get isCheckingFirstCheckIn => _isCheckingFirstCheckIn;
-  bool get isEditMode => _journalId != null;
+  bool get isEditMode => _checkInId != null;
 
   bool get canProceedFromMoodPage => true;
 
@@ -132,14 +128,14 @@ class QuickCheckInViewModel extends ChangeNotifier
     notifyListeners();
 
     try {
-      final result = await _journalRepository.hasTodayCheckIn();
+      final result = await _checkInUseCase.hasTodayCheckIn();
 
       switch (result) {
         case Ok<bool>():
           _isFirstCheckInToday = !result.value;
         case Error<bool>():
           debugPrint('Failed to check first check-in: ${result.error}');
-          _isFirstCheckInToday = true; // Default to showing sleep page on error
+          _isFirstCheckInToday = true;
       }
     } catch (e) {
       debugPrint('Failed to check first check-in: $e');
@@ -151,35 +147,39 @@ class QuickCheckInViewModel extends ChangeNotifier
   }
 
   Future<void> _loadExistingCheckIn() async {
-    if (_journalId == null) return;
+    if (_checkInId == null) return;
 
     _isCheckingFirstCheckIn = true;
     notifyListeners();
 
     try {
-      final result = await _journalRepository.getJournalById(_journalId);
+      final result = await _checkInUseCase.getCheckInById(_checkInId);
 
       switch (result) {
         case Ok():
-          final journal = result.value;
-          _selectedMood = journal.moodType;
-          _sleepQuality = journal.sleepQuality;
+          final checkIn = result.value;
+          if (checkIn == null) {
+            debugPrint('CheckIn not found');
+            break;
+          }
+          _selectedMood = checkIn.moodType;
+          _sleepQuality = checkIn.sleepQuality;
           _selectedTags.clear();
-          if (journal.tagNames != null) {
-            _selectedTags.addAll(journal.tagNames!);
+          if (checkIn.tagNames != null) {
+            _selectedTags.addAll(checkIn.tagNames!);
           }
           _selectedEmotions.clear();
-          if (journal.emotionNames != null) {
-            _selectedEmotions.addAll(journal.emotionNames!);
+          if (checkIn.emotionNames != null) {
+            _selectedEmotions.addAll(checkIn.emotionNames!);
           }
-          _memo = journal.content ?? '';
-          _createdAt = journal.createdAt;
-          _latitude = journal.latitude;
-          _longitude = journal.longitude;
-          _address = journal.address;
-          _temperature = journal.temperature;
-          _weatherIcon = journal.weatherIcon;
-          _weatherDescription = journal.weatherDescription;
+          _memo = checkIn.memo ?? '';
+          _createdAt = checkIn.createdAt;
+          _latitude = checkIn.latitude;
+          _longitude = checkIn.longitude;
+          _address = checkIn.address;
+          _temperature = checkIn.temperature;
+          _weatherIcon = checkIn.weatherIcon;
+          _weatherDescription = checkIn.weatherDescription;
           _isFirstCheckInToday = false;
         case Error():
           debugPrint('Failed to load existing check-in: ${result.error}');
@@ -235,23 +235,22 @@ class QuickCheckInViewModel extends ChangeNotifier
     setLoading();
     try {
       if (isEditMode) {
-        final updateRequest = UpdateJournalRequest(
-          id: _journalId!,
+        final updateRequest = UpdateCheckInRequest(
+          id: _checkInId!,
           moodType: _selectedMood,
-          content: _memo.isEmpty ? null : _memo,
-          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
+          sleepQuality: _sleepQuality,
           emotionNames: _selectedEmotions.isEmpty ? null : _selectedEmotions,
-          aiResponseEnabled: false,
+          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
+          memo: _memo.isEmpty ? null : _memo,
           latitude: _latitude,
           longitude: _longitude,
           address: _address,
           temperature: _temperature,
           weatherIcon: _weatherIcon,
           weatherDescription: _weatherDescription,
-          sleepQuality: _sleepQuality,
         );
 
-        final result = await _journalRepository.updateJournal(updateRequest);
+        final result = await _checkInUseCase.updateCheckIn(updateRequest);
 
         switch (result) {
           case Ok<int>():
@@ -262,24 +261,22 @@ class QuickCheckInViewModel extends ChangeNotifier
             return false;
         }
       } else {
-        final request = CreateQuickCheckInRequest(
+        final request = CreateCheckInRequest(
           moodType: _selectedMood,
-          content: _memo.isEmpty ? null : _memo,
-          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
-          emotionNames: _selectedEmotions.isEmpty ? null : _selectedEmotions,
           createdAt: _createdAt,
+          sleepQuality: _sleepQuality,
+          emotionNames: _selectedEmotions.isEmpty ? null : _selectedEmotions,
+          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
+          memo: _memo.isEmpty ? null : _memo,
           latitude: _latitude,
           longitude: _longitude,
           address: _address,
           temperature: _temperature,
           weatherIcon: _weatherIcon,
           weatherDescription: _weatherDescription,
-          sleepQuality: _sleepQuality,
         );
 
-        final result = await _createQuickCheckInUseCase.createQuickCheckIn(
-          request,
-        );
+        final result = await _checkInUseCase.createCheckIn(request);
 
         switch (result) {
           case Ok<int>():
@@ -291,7 +288,7 @@ class QuickCheckInViewModel extends ChangeNotifier
         }
       }
     } catch (e) {
-      debugPrint('Failed to submit quick check-in: $e');
+      debugPrint('Failed to submit check-in: $e');
       setError(e);
       return false;
     }
