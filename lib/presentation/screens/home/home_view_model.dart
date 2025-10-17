@@ -6,9 +6,12 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/location_info.dart';
 import 'package:moodlog/domain/entities/journal/weather_info.dart';
+import 'package:moodlog/domain/entities/timeline_entry.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
@@ -21,6 +24,7 @@ class HomeViewModel extends ChangeNotifier
   final UserProvider _userProvider;
   @override
   final JournalUseCase journalUseCase;
+  final CheckInUseCase _checkInUseCase;
   final ObserveJournalListUseCase _observeJournalListUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
@@ -28,10 +32,12 @@ class HomeViewModel extends ChangeNotifier
   HomeViewModel({
     required UserProvider userProvider,
     required this.journalUseCase,
+    required CheckInUseCase checkInUseCase,
     required ObserveJournalListUseCase observeJournalListUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
   }) : _userProvider = userProvider,
+       _checkInUseCase = checkInUseCase,
        _observeJournalListUseCase = observeJournalListUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase {
@@ -40,7 +46,10 @@ class HomeViewModel extends ChangeNotifier
   }
 
   StreamSubscription? _journalSubscription;
+  StreamSubscription? _checkInSubscription;
   List<Journal> _journal = [];
+  List<CheckIn> _checkIns = [];
+  List<TimelineEntry> _timelineEntries = [];
   DateTime _selectedDate = DateTime.now();
   DateTime _displayMonth = DateTime.now();
   List<DateTime>? _dateItems;
@@ -64,6 +73,8 @@ class HomeViewModel extends ChangeNotifier
 
   List<Journal> get journal => _journal;
 
+  List<TimelineEntry> get timelineEntries => _timelineEntries;
+
   LocationInfo? get locationInfo => _locationInfo;
 
   WeatherInfo? get weatherInfo => _weatherInfo;
@@ -81,6 +92,7 @@ class HomeViewModel extends ChangeNotifier
     setLoading();
     _calculateDateItems();
     _subscribeToJournalChanges();
+    _subscribeToCheckInChanges();
     await _loadMonthlyJournals();
     await _loadYearlyJournals();
     await getCurrentLocation();
@@ -92,6 +104,7 @@ class HomeViewModel extends ChangeNotifier
   void selectDate(DateTime date) {
     _selectedDate = date;
     journalUseCase.notifyJournalUpdate();
+    _checkInUseCase.notifyCheckInUpdate();
     notifyListeners();
   }
 
@@ -100,6 +113,7 @@ class HomeViewModel extends ChangeNotifier
     _calculateDateItemsForMonth(_displayMonth);
     _selectedDate = DateTime(month.year, month.month, 1);
     journalUseCase.notifyJournalUpdate();
+    _checkInUseCase.notifyCheckInUpdate();
     notifyListeners();
   }
 
@@ -140,10 +154,38 @@ class HomeViewModel extends ChangeNotifier
     journalUseCase.notifyJournalUpdate();
   }
 
+  void _subscribeToCheckInChanges() {
+    _checkInSubscription = _checkInUseCase.watchAllCheckIns().listen((
+      allCheckIns,
+    ) {
+      _filterCheckInsForSelectedDate(allCheckIns);
+    });
+    _checkInUseCase.notifyCheckInUpdate();
+  }
+
   void _filterJournalsForSelectedDate(List<Journal> allJournals) {
     _journal = allJournals.where((journal) {
       return journal.createdAt.isSameDay(_selectedDate);
     }).toList();
+    _combineTimeline();
+  }
+
+  void _filterCheckInsForSelectedDate(List<CheckIn> allCheckIns) {
+    _checkIns = allCheckIns.where((checkIn) {
+      return checkIn.createdAt.isSameDay(_selectedDate);
+    }).toList();
+    _combineTimeline();
+  }
+
+  void _combineTimeline() {
+    final entries = <TimelineEntry>[
+      ..._checkIns.map((checkIn) => TimelineEntry.fromCheckIn(checkIn)),
+      ..._journal.map((journal) => TimelineEntry.fromJournal(journal)),
+    ];
+
+    entries.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
+    _timelineEntries = entries;
     notifyListeners();
   }
 
@@ -256,6 +298,7 @@ class HomeViewModel extends ChangeNotifier
     await getCurrentLocation();
     await getCurrentWeather();
     journalUseCase.notifyJournalUpdate();
+    _checkInUseCase.notifyCheckInUpdate();
   }
 
   void _onUserChanged() {
@@ -266,6 +309,7 @@ class HomeViewModel extends ChangeNotifier
   void dispose() {
     _userProvider.removeListener(_onUserChanged);
     _journalSubscription?.cancel();
+    _checkInSubscription?.cancel();
     super.dispose();
   }
 }

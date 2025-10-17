@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
-import 'package:moodlog/core/extensions/routing.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
-import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
-import 'package:moodlog/presentation/widgets/journal_card.dart';
+import 'package:moodlog/presentation/widgets/timeline_list.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 
 class CalendarBottomSheet extends StatefulWidget {
   const CalendarBottomSheet({super.key});
@@ -23,13 +20,8 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
     final viewModel = context.watch<HomeViewModel>();
     final t = AppLocalizations.of(context)!;
     final selectedDate = viewModel.selectedDate;
-    final journalsForSelectedDay =
-        viewModel.yearlyJournals[DateTime(
-          selectedDate.year,
-          selectedDate.month,
-          selectedDate.day,
-        )] ??
-        [];
+    final timelineEntries = viewModel.timelineEntries;
+    final isSelectedDateInFuture = viewModel.isSelectedDateInFuture;
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
@@ -56,8 +48,11 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
               firstDay: DateTime.utc(2010, 1, 1),
               lastDay: DateTime.utc(2030, 12, 31),
               selectedDayPredicate: (day) => isSameDay(selectedDate, day),
+              enabledDayPredicate: (day) => !day.isAfter(DateTime.now()),
               onDaySelected: (selectedDay, focusedDay) {
-                viewModel.selectDate(selectedDay);
+                if (!selectedDay.isAfter(DateTime.now())) {
+                  viewModel.selectDate(selectedDay);
+                }
               },
               onPageChanged: (focusedDay) {
                 viewModel.selectMonth(focusedDay);
@@ -86,13 +81,20 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   color: Theme.of(context).colorScheme.onSurface.withAlpha(102),
                   fontWeight: FontWeight.bold,
                 ),
+                disabledTextStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(102),
+                  fontWeight: FontWeight.bold,
+                ),
                 todayDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withAlpha(204),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    width: 1,
+                  ),
                   shape: BoxShape.circle,
                 ),
                 todayTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                ).copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                ).copyWith(color: Theme.of(context).colorScheme.onSurface),
                 selectedDecoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onSurface,
                   shape: BoxShape.circle,
@@ -106,13 +108,16 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   final journalsForDay = viewModel
                       .yearlyJournals[DateTime(day.year, day.month, day.day)];
                   if (journalsForDay != null && journalsForDay.isNotEmpty) {
+                    final isSelected = isSameDay(selectedDate, day);
                     return Positioned(
                       bottom: 10,
                       child: Container(
                         width: 4,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.surface
+                              : Theme.of(context).colorScheme.onSurface,
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -123,43 +128,19 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
               ),
             ),
             CommonSizedBox.heightLg,
-            Expanded(child: _buildJournalList(journalsForSelectedDay)),
+            Expanded(
+              child: SafeArea(
+                child: TimelineList(
+                  entries: timelineEntries,
+                  selectedDate: selectedDate,
+                  isSelectedDateInFuture: isSelectedDateInFuture,
+                  isCompact: true,
+                ),
+              ),
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildJournalList(List<Journal> journals) {
-    final viewModel = context.read<HomeViewModel>();
-    if (journals.isEmpty) {
-      return SafeArea(
-        child: EmptyEntriesBox(
-          isDisabled: false,
-          selectedDate: viewModel.selectedDate,
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
-      itemCount: journals.length,
-      itemBuilder: (context, index) {
-        final journal = journals[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: Spacing.md),
-          child: JournalCard(
-            id: journal.id,
-            content: journal.content,
-            coverImg: journal.imageUri?.isNotEmpty == true
-                ? journal.imageUri!.first
-                : null,
-            createdAt: journal.createdAt,
-            onTap: () => context.pushToJournalFromHome(journal.id),
-            isCompact: true,
-          ),
-        );
-      },
     );
   }
 }

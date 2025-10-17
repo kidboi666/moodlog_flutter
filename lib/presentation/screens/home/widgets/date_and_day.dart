@@ -42,9 +42,10 @@ class DateAndDay extends StatelessWidget {
         : colorScheme.surface.withAlpha(153);
     final Color backgroundColor = isSelected
         ? colorScheme.surface
-        : isToday
-        ? colorScheme.primary.withAlpha(204)
         : Colors.transparent;
+    final Color dotColor = isSelected
+        ? colorScheme.onSurface
+        : colorScheme.surface;
 
     return InkWell(
       onTap: isFuture ? null : () => selectDate(date),
@@ -56,6 +57,9 @@ class DateAndDay extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(Roundness.lg),
+          border: isToday && !isSelected
+              ? Border.all(color: colorScheme.surface, width: 1)
+              : null,
         ),
         child: Stack(
           children: [
@@ -91,7 +95,7 @@ class DateAndDay extends StatelessWidget {
                     width: 4,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: colorScheme.primary,
+                      color: dotColor,
                       shape: BoxShape.circle,
                     ),
                   ),

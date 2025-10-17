@@ -43,47 +43,46 @@ class _ContentBoxState extends State<ContentBox> {
 
     final isVisibleImage = journal.imageUri?.isNotEmpty ?? false;
 
-    return Expanded(
-      child: Column(
-        spacing: Spacing.xl,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: Spacing.md),
-            child: Column(
-              spacing: Spacing.sm,
-              children: [
-                if (_hasWeatherData)
-                  Row(
-                    mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
-                    children: [
-                      _buildWeatherInfo(context, textTheme, journal),
-                    ],
-                  ),
-                LocationCard(
-                  viewModel: widget.viewModel,
-                  currentAlign: widget.currentAlign,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+          child: Column(
+            spacing: Spacing.sm,
+            children: [
+              if (_hasWeatherData)
+                Row(
+                  mainAxisAlignment: widget.currentAlign.mainAxisAlignment,
+                  children: [
+                    _buildWeatherInfo(context, textTheme, journal),
+                  ],
                 ),
+              LocationCard(
+                viewModel: widget.viewModel,
+                currentAlign: widget.currentAlign,
+              ),
+            ],
+          ),
+        ),
+        CommonSizedBox.heightXl,
+        JournalCoverImage(
+          viewModel: widget.viewModel,
+          isVisibleImage: isVisibleImage,
+        ),
+        CommonSizedBox.heightXl,
+        SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+            child: Column(
+              crossAxisAlignment: widget.currentAlign.crossAxisAlignment,
+              children: [
+                _buildContentDisplay(journal.content, textTheme),
               ],
             ),
           ),
-          JournalCoverImage(
-            viewModel: widget.viewModel,
-            isVisibleImage: isVisibleImage,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.only(right: Spacing.md),
-              child: Column(
-                crossAxisAlignment: widget.currentAlign.crossAxisAlignment,
-                children: [
-                  _buildContentDisplay(journal.content, textTheme),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

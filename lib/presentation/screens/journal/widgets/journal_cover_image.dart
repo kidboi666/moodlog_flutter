@@ -28,7 +28,7 @@ class JournalCoverImage extends StatelessWidget {
     return Offstage(
       offstage: !isVisibleImage,
       child: SizedBox(
-        height: mediaQuery.size.width - (Spacing.lg * 2),
+        height: mediaQuery.size.width,
         child: ListView(
           controller: _scrollController,
           scrollDirection: Axis.horizontal,

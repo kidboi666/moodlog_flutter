@@ -36,7 +36,7 @@ class _HomeScreenContent extends StatelessWidget {
             ),
             SliverPadding(
               padding: Spacing.containerHorizontalPadding,
-              sliver: JournalSliverList(),
+              sliver: TimelineSliverList(),
             ),
             const SliverToBoxAdapter(child: CommonSizedBox.homeBottomPadding),
           ],
