@@ -1418,4 +1418,94 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get timeline_journal => '日記';
+
+  @override
+  String get suggested_activity_exercise => '運動';
+
+  @override
+  String get suggested_activity_study => '勉強';
+
+  @override
+  String get suggested_activity_work => '仕事';
+
+  @override
+  String get suggested_activity_cooking => '料理';
+
+  @override
+  String get suggested_activity_reading => '読書';
+
+  @override
+  String get suggested_activity_walking => '散歩';
+
+  @override
+  String get suggested_activity_cleaning => '掃除';
+
+  @override
+  String get suggested_activity_shopping => 'ショッピング';
+
+  @override
+  String get suggested_activity_gaming => 'ゲーム';
+
+  @override
+  String get suggested_activity_watching => '映画・ドラマ';
+
+  @override
+  String get suggested_activity_music => '音楽鑑賞';
+
+  @override
+  String get suggested_activity_travel => '旅行';
+
+  @override
+  String get suggested_activity_friends => '友人と会う';
+
+  @override
+  String get suggested_activity_family => '家族の時間';
+
+  @override
+  String get suggested_activity_rest => '休憩';
+
+  @override
+  String get suggested_emotion_joy => '喜び';
+
+  @override
+  String get suggested_emotion_happiness => '幸せ';
+
+  @override
+  String get suggested_emotion_peace => '平和';
+
+  @override
+  String get suggested_emotion_satisfaction => '満足';
+
+  @override
+  String get suggested_emotion_excitement => 'ワクワク';
+
+  @override
+  String get suggested_emotion_gratitude => '感謝';
+
+  @override
+  String get suggested_emotion_love => '愛';
+
+  @override
+  String get suggested_emotion_confidence => '自信';
+
+  @override
+  String get suggested_emotion_anxiety => '不安';
+
+  @override
+  String get suggested_emotion_worry => '心配';
+
+  @override
+  String get suggested_emotion_sadness => '悲しみ';
+
+  @override
+  String get suggested_emotion_anger => '怒り';
+
+  @override
+  String get suggested_emotion_irritation => 'イライラ';
+
+  @override
+  String get suggested_emotion_tired => '疲れ';
+
+  @override
+  String get suggested_emotion_loneliness => '寂しさ';
 }

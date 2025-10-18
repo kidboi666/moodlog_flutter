@@ -1418,4 +1418,94 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get timeline_journal => '일기';
+
+  @override
+  String get suggested_activity_exercise => '운동';
+
+  @override
+  String get suggested_activity_study => '공부';
+
+  @override
+  String get suggested_activity_work => '업무';
+
+  @override
+  String get suggested_activity_cooking => '요리';
+
+  @override
+  String get suggested_activity_reading => '독서';
+
+  @override
+  String get suggested_activity_walking => '산책';
+
+  @override
+  String get suggested_activity_cleaning => '청소';
+
+  @override
+  String get suggested_activity_shopping => '쇼핑';
+
+  @override
+  String get suggested_activity_gaming => '게임';
+
+  @override
+  String get suggested_activity_watching => '영화/드라마';
+
+  @override
+  String get suggested_activity_music => '음악 감상';
+
+  @override
+  String get suggested_activity_travel => '여행';
+
+  @override
+  String get suggested_activity_friends => '친구 만남';
+
+  @override
+  String get suggested_activity_family => '가족 시간';
+
+  @override
+  String get suggested_activity_rest => '휴식';
+
+  @override
+  String get suggested_emotion_joy => '기쁨';
+
+  @override
+  String get suggested_emotion_happiness => '행복';
+
+  @override
+  String get suggested_emotion_peace => '평온';
+
+  @override
+  String get suggested_emotion_satisfaction => '만족';
+
+  @override
+  String get suggested_emotion_excitement => '설렘';
+
+  @override
+  String get suggested_emotion_gratitude => '감사';
+
+  @override
+  String get suggested_emotion_love => '사랑';
+
+  @override
+  String get suggested_emotion_confidence => '자신감';
+
+  @override
+  String get suggested_emotion_anxiety => '불안';
+
+  @override
+  String get suggested_emotion_worry => '걱정';
+
+  @override
+  String get suggested_emotion_sadness => '슬픔';
+
+  @override
+  String get suggested_emotion_anger => '화남';
+
+  @override
+  String get suggested_emotion_irritation => '짜증';
+
+  @override
+  String get suggested_emotion_tired => '피곤';
+
+  @override
+  String get suggested_emotion_loneliness => '외로움';
 }

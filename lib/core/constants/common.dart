@@ -142,3 +142,43 @@ abstract final class CommonBorderRadius {
   static final large = meterial.BorderRadius.circular(20.0);
   static final circular = meterial.BorderRadius.circular(100);
 }
+
+abstract final class SuggestedActivities {
+  static const activities = [
+    'suggested_activity_exercise',
+    'suggested_activity_study',
+    'suggested_activity_work',
+    'suggested_activity_cooking',
+    'suggested_activity_reading',
+    'suggested_activity_walking',
+    'suggested_activity_cleaning',
+    'suggested_activity_shopping',
+    'suggested_activity_gaming',
+    'suggested_activity_watching',
+    'suggested_activity_music',
+    'suggested_activity_travel',
+    'suggested_activity_friends',
+    'suggested_activity_family',
+    'suggested_activity_rest',
+  ];
+}
+
+abstract final class SuggestedEmotions {
+  static const emotions = [
+    'suggested_emotion_joy',
+    'suggested_emotion_happiness',
+    'suggested_emotion_peace',
+    'suggested_emotion_satisfaction',
+    'suggested_emotion_excitement',
+    'suggested_emotion_gratitude',
+    'suggested_emotion_love',
+    'suggested_emotion_confidence',
+    'suggested_emotion_anxiety',
+    'suggested_emotion_worry',
+    'suggested_emotion_sadness',
+    'suggested_emotion_anger',
+    'suggested_emotion_irritation',
+    'suggested_emotion_tired',
+    'suggested_emotion_loneliness',
+  ];
+}

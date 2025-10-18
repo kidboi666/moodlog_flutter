@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/routing.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/timeline_entry.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
@@ -87,22 +88,21 @@ class TimelineSliverList extends StatelessWidget {
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       confirmDismiss: (direction) async {
+        final t = AppLocalizations.of(context)!;
         return await showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Confirm Deletion"),
-              content: const Text(
-                "Are you sure you want to delete this journal entry?",
-              ),
+              title: Text(t.journal_delete_confirm_title),
+              content: Text(t.journal_delete_confirm_description),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text("Cancel"),
+                  child: Text(t.common_confirm_cancel),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text("Delete"),
+                  child: Text(t.common_confirm_delete),
                 ),
               ],
             );

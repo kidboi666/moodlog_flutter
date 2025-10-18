@@ -75,6 +75,8 @@ class ActivityInputPageState extends State<ActivityInputPage>
           ),
           CommonSizedBox.heightMd,
           const _TagList(),
+          CommonSizedBox.heightMd,
+          const _SuggestedActivities(),
           const Spacer(),
           Row(
             children: [
@@ -124,6 +126,77 @@ class _TagList extends StatelessWidget {
               onDeleted: () =>
                   context.read<QuickCheckInViewModel>().removeTag(tag),
               deleteIcon: const Icon(Icons.close, size: 16),
+            ).scale(),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _SuggestedActivities extends StatelessWidget {
+  const _SuggestedActivities();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final selectedTags = context.select(
+      (QuickCheckInViewModel vm) => vm.selectedTags,
+    );
+
+    final suggestions = SuggestedActivities.activities
+        .map((key) {
+          switch (key) {
+            case 'suggested_activity_exercise':
+              return t.suggested_activity_exercise;
+            case 'suggested_activity_study':
+              return t.suggested_activity_study;
+            case 'suggested_activity_work':
+              return t.suggested_activity_work;
+            case 'suggested_activity_cooking':
+              return t.suggested_activity_cooking;
+            case 'suggested_activity_reading':
+              return t.suggested_activity_reading;
+            case 'suggested_activity_walking':
+              return t.suggested_activity_walking;
+            case 'suggested_activity_cleaning':
+              return t.suggested_activity_cleaning;
+            case 'suggested_activity_shopping':
+              return t.suggested_activity_shopping;
+            case 'suggested_activity_gaming':
+              return t.suggested_activity_gaming;
+            case 'suggested_activity_watching':
+              return t.suggested_activity_watching;
+            case 'suggested_activity_music':
+              return t.suggested_activity_music;
+            case 'suggested_activity_travel':
+              return t.suggested_activity_travel;
+            case 'suggested_activity_friends':
+              return t.suggested_activity_friends;
+            case 'suggested_activity_family':
+              return t.suggested_activity_family;
+            case 'suggested_activity_rest':
+              return t.suggested_activity_rest;
+            default:
+              return '';
+          }
+        })
+        .where((text) => text.isNotEmpty && !selectedTags.contains(text))
+        .toList();
+
+    if (suggestions.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Wrap(
+      spacing: Spacing.xs,
+      runSpacing: Spacing.xs,
+      alignment: WrapAlignment.start,
+      children: suggestions
+          .map(
+            (suggestion) => ActionChip(
+              label: Text(suggestion),
+              onPressed: () =>
+                  context.read<QuickCheckInViewModel>().addTag(suggestion),
             ).scale(),
           )
           .toList(),

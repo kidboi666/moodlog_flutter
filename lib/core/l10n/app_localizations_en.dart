@@ -1467,4 +1467,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeline_journal => 'Journal';
+
+  @override
+  String get suggested_activity_exercise => 'Exercise';
+
+  @override
+  String get suggested_activity_study => 'Study';
+
+  @override
+  String get suggested_activity_work => 'Work';
+
+  @override
+  String get suggested_activity_cooking => 'Cooking';
+
+  @override
+  String get suggested_activity_reading => 'Reading';
+
+  @override
+  String get suggested_activity_walking => 'Walking';
+
+  @override
+  String get suggested_activity_cleaning => 'Cleaning';
+
+  @override
+  String get suggested_activity_shopping => 'Shopping';
+
+  @override
+  String get suggested_activity_gaming => 'Gaming';
+
+  @override
+  String get suggested_activity_watching => 'Watching';
+
+  @override
+  String get suggested_activity_music => 'Music';
+
+  @override
+  String get suggested_activity_travel => 'Travel';
+
+  @override
+  String get suggested_activity_friends => 'Friends';
+
+  @override
+  String get suggested_activity_family => 'Family';
+
+  @override
+  String get suggested_activity_rest => 'Rest';
+
+  @override
+  String get suggested_emotion_joy => 'Joy';
+
+  @override
+  String get suggested_emotion_happiness => 'Happiness';
+
+  @override
+  String get suggested_emotion_peace => 'Peace';
+
+  @override
+  String get suggested_emotion_satisfaction => 'Satisfaction';
+
+  @override
+  String get suggested_emotion_excitement => 'Excitement';
+
+  @override
+  String get suggested_emotion_gratitude => 'Gratitude';
+
+  @override
+  String get suggested_emotion_love => 'Love';
+
+  @override
+  String get suggested_emotion_confidence => 'Confidence';
+
+  @override
+  String get suggested_emotion_anxiety => 'Anxiety';
+
+  @override
+  String get suggested_emotion_worry => 'Worry';
+
+  @override
+  String get suggested_emotion_sadness => 'Sadness';
+
+  @override
+  String get suggested_emotion_anger => 'Anger';
+
+  @override
+  String get suggested_emotion_irritation => 'Irritation';
+
+  @override
+  String get suggested_emotion_tired => 'Tired';
+
+  @override
+  String get suggested_emotion_loneliness => 'Loneliness';
 }

@@ -75,6 +75,8 @@ class EmotionKeywordPageState extends State<EmotionKeywordPage>
           ),
           CommonSizedBox.heightMd,
           const _EmotionList(),
+          CommonSizedBox.heightMd,
+          const _SuggestedEmotions(),
           const Spacer(),
           Row(
             children: [
@@ -124,6 +126,77 @@ class _EmotionList extends StatelessWidget {
               onDeleted: () =>
                   context.read<QuickCheckInViewModel>().removeEmotion(emotion),
               deleteIcon: const Icon(Icons.close, size: 16),
+            ).scale(),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _SuggestedEmotions extends StatelessWidget {
+  const _SuggestedEmotions();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final selectedEmotions = context.select(
+      (QuickCheckInViewModel vm) => vm.selectedEmotions,
+    );
+
+    final suggestions = SuggestedEmotions.emotions
+        .map((key) {
+          switch (key) {
+            case 'suggested_emotion_joy':
+              return t.suggested_emotion_joy;
+            case 'suggested_emotion_happiness':
+              return t.suggested_emotion_happiness;
+            case 'suggested_emotion_peace':
+              return t.suggested_emotion_peace;
+            case 'suggested_emotion_satisfaction':
+              return t.suggested_emotion_satisfaction;
+            case 'suggested_emotion_excitement':
+              return t.suggested_emotion_excitement;
+            case 'suggested_emotion_gratitude':
+              return t.suggested_emotion_gratitude;
+            case 'suggested_emotion_love':
+              return t.suggested_emotion_love;
+            case 'suggested_emotion_confidence':
+              return t.suggested_emotion_confidence;
+            case 'suggested_emotion_anxiety':
+              return t.suggested_emotion_anxiety;
+            case 'suggested_emotion_worry':
+              return t.suggested_emotion_worry;
+            case 'suggested_emotion_sadness':
+              return t.suggested_emotion_sadness;
+            case 'suggested_emotion_anger':
+              return t.suggested_emotion_anger;
+            case 'suggested_emotion_irritation':
+              return t.suggested_emotion_irritation;
+            case 'suggested_emotion_tired':
+              return t.suggested_emotion_tired;
+            case 'suggested_emotion_loneliness':
+              return t.suggested_emotion_loneliness;
+            default:
+              return '';
+          }
+        })
+        .where((text) => text.isNotEmpty && !selectedEmotions.contains(text))
+        .toList();
+
+    if (suggestions.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Wrap(
+      spacing: Spacing.xs,
+      runSpacing: Spacing.xs,
+      alignment: WrapAlignment.start,
+      children: suggestions
+          .map(
+            (suggestion) => ActionChip(
+              label: Text(suggestion),
+              onPressed: () =>
+                  context.read<QuickCheckInViewModel>().addEmotion(suggestion),
             ).scale(),
           )
           .toList(),

@@ -2763,6 +2763,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Journal'**
   String get timeline_journal;
+
+  /// No description provided for @suggested_activity_exercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get suggested_activity_exercise;
+
+  /// No description provided for @suggested_activity_study.
+  ///
+  /// In en, this message translates to:
+  /// **'Study'**
+  String get suggested_activity_study;
+
+  /// No description provided for @suggested_activity_work.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get suggested_activity_work;
+
+  /// No description provided for @suggested_activity_cooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking'**
+  String get suggested_activity_cooking;
+
+  /// No description provided for @suggested_activity_reading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get suggested_activity_reading;
+
+  /// No description provided for @suggested_activity_walking.
+  ///
+  /// In en, this message translates to:
+  /// **'Walking'**
+  String get suggested_activity_walking;
+
+  /// No description provided for @suggested_activity_cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleaning'**
+  String get suggested_activity_cleaning;
+
+  /// No description provided for @suggested_activity_shopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get suggested_activity_shopping;
+
+  /// No description provided for @suggested_activity_gaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming'**
+  String get suggested_activity_gaming;
+
+  /// No description provided for @suggested_activity_watching.
+  ///
+  /// In en, this message translates to:
+  /// **'Watching'**
+  String get suggested_activity_watching;
+
+  /// No description provided for @suggested_activity_music.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get suggested_activity_music;
+
+  /// No description provided for @suggested_activity_travel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get suggested_activity_travel;
+
+  /// No description provided for @suggested_activity_friends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get suggested_activity_friends;
+
+  /// No description provided for @suggested_activity_family.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get suggested_activity_family;
+
+  /// No description provided for @suggested_activity_rest.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest'**
+  String get suggested_activity_rest;
+
+  /// No description provided for @suggested_emotion_joy.
+  ///
+  /// In en, this message translates to:
+  /// **'Joy'**
+  String get suggested_emotion_joy;
+
+  /// No description provided for @suggested_emotion_happiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Happiness'**
+  String get suggested_emotion_happiness;
+
+  /// No description provided for @suggested_emotion_peace.
+  ///
+  /// In en, this message translates to:
+  /// **'Peace'**
+  String get suggested_emotion_peace;
+
+  /// No description provided for @suggested_emotion_satisfaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction'**
+  String get suggested_emotion_satisfaction;
+
+  /// No description provided for @suggested_emotion_excitement.
+  ///
+  /// In en, this message translates to:
+  /// **'Excitement'**
+  String get suggested_emotion_excitement;
+
+  /// No description provided for @suggested_emotion_gratitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Gratitude'**
+  String get suggested_emotion_gratitude;
+
+  /// No description provided for @suggested_emotion_love.
+  ///
+  /// In en, this message translates to:
+  /// **'Love'**
+  String get suggested_emotion_love;
+
+  /// No description provided for @suggested_emotion_confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get suggested_emotion_confidence;
+
+  /// No description provided for @suggested_emotion_anxiety.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxiety'**
+  String get suggested_emotion_anxiety;
+
+  /// No description provided for @suggested_emotion_worry.
+  ///
+  /// In en, this message translates to:
+  /// **'Worry'**
+  String get suggested_emotion_worry;
+
+  /// No description provided for @suggested_emotion_sadness.
+  ///
+  /// In en, this message translates to:
+  /// **'Sadness'**
+  String get suggested_emotion_sadness;
+
+  /// No description provided for @suggested_emotion_anger.
+  ///
+  /// In en, this message translates to:
+  /// **'Anger'**
+  String get suggested_emotion_anger;
+
+  /// No description provided for @suggested_emotion_irritation.
+  ///
+  /// In en, this message translates to:
+  /// **'Irritation'**
+  String get suggested_emotion_irritation;
+
+  /// No description provided for @suggested_emotion_tired.
+  ///
+  /// In en, this message translates to:
+  /// **'Tired'**
+  String get suggested_emotion_tired;
+
+  /// No description provided for @suggested_emotion_loneliness.
+  ///
+  /// In en, this message translates to:
+  /// **'Loneliness'**
+  String get suggested_emotion_loneliness;
 }
 
 class _AppLocalizationsDelegate
