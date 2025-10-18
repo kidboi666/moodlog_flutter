@@ -706,5 +706,10 @@
   "suggested_emotion_anger": "Anger",
   "suggested_emotion_irritation": "Irritation",
   "suggested_emotion_tired": "Tired",
-  "suggested_emotion_loneliness": "Loneliness"
+  "suggested_emotion_loneliness": "Loneliness",
+  "common_less": "Less",
+  "common_more": "More",
+  "statistics_emotion_keywords_empty": "No emotion keywords",
+  "statistics_monthly_checkin_count": "Check-ins",
+  "statistics_monthly_week_suffix": "W"
 }

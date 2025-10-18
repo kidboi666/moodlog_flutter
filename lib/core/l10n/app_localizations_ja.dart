@@ -1613,4 +1613,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get suggested_emotion_loneliness => '寂しさ';
+
+  @override
+  String get common_less => '少ない';
+
+  @override
+  String get common_more => '多い';
+
+  @override
+  String get statistics_emotion_keywords_empty => '感情キーワードがありません';
+
+  @override
+  String get statistics_monthly_checkin_count => 'チェックイン数';
+
+  @override
+  String get statistics_monthly_week_suffix => '週目';
 }

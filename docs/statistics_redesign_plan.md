@@ -222,13 +222,112 @@ List<String> get yearlyTopActivities // TOP 20
 7. 다국어 키 추가
 8. 테스트 및 최적화
 
+## 구현 진행 상황
+
+### ✅ 완료된 작업
+
+#### 1. 기본 구조 및 아키텍처
+- ✅ StatisticsViewModel 확장 (224줄 추가)
+  - 기간별 필터링 메서드 (weeklyCheckInsList, monthlyCheckInsList, yearlyCheckInsList)
+  - 주간 통계 계산 메서드 (평균 기분, 최빈 기분, 요일 패턴, TOP 감정)
+  - 월간 통계 계산 메서드 (체크인 일수, 연속 기록, 지난 달 대비, 주차별 그룹, TOP 활동, 감정 분포)
+  - 년간 통계 계산 메서드 (총 체크인, 월별/분기별 평균, 최고/최악의 달, TOP 활동)
+- ✅ TabBar UI 구현
+  - statistics_content.dart에 TabController 추가
+  - 3개 탭 (주간/월간/년간) 구성
+  - 각 탭별 CustomScrollView 레이아웃
+
+#### 2. 주간 통계 위젯 (4/4 완료)
+- ✅ WeeklySummaryCard (lib/presentation/screens/statistics/widgets/weekly/weekly_summary_card.dart)
+  - 3열 레이아웃 (총 체크인 / 평균 기분 / 최빈 기분)
+  - 구분선으로 영역 분리
+- ✅ WeeklyMoodLineChart (lib/presentation/screens/statistics/widgets/weekly/weekly_mood_line_chart.dart)
+  - CustomPainter로 꺾은선 그래프 구현
+  - 각 데이터 포인트에 이모지 표시
+  - 요일 레전드 포함
+- ✅ WeeklyActivityPattern (lib/presentation/screens/statistics/widgets/weekly/weekly_activity_pattern.dart)
+  - 요일별 체크인 횟수 막대 그래프
+  - 최고 빈도 요일 하이라이트
+- ✅ WeeklyEmotionKeywords (lib/presentation/screens/statistics/widgets/weekly/weekly_emotion_keywords.dart)
+  - TOP 5 감정 키워드 순위 표시
+  - 순위별 색상 구분
+
+#### 3. 월간 통계 위젯 (5/5 완료)
+- ✅ MonthlySummaryCard (lib/presentation/screens/statistics/widgets/monthly/monthly_summary_card.dart)
+  - 2x2 그리드 레이아웃
+  - 4개 항목: 체크인 일수 / 평균 기분 / 현재 연속 기록 / 지난 달 대비
+  - 지난 달 대비 증감 색상 표시
+- ✅ MonthlyCalendarHeatmap (lib/presentation/screens/statistics/widgets/monthly/monthly_calendar_heatmap.dart)
+  - 월간 캘린더 그리드 (7x5 최대)
+  - 체크인 빈도에 따른 색상 강도 표시
+  - 요일 헤더 및 범례 포함
+- ✅ MonthlyWeeklyComparison (lib/presentation/screens/statistics/widgets/monthly/monthly_weekly_comparison.dart)
+  - 주차별 (1주~5주) 막대 그래프
+  - 평균 기분에 따른 색상 변화 (초록/파랑/주황/빨강)
+  - 체크인 수 및 평균 기분 표시
+- ✅ MonthlyTopActivities (lib/presentation/screens/statistics/widgets/monthly/monthly_top_activities.dart)
+  - TOP 10 활동 목록
+  - LinearProgressIndicator로 비율 시각화
+  - 횟수 및 백분율 표시
+- ✅ MonthlyEmotionDistribution (lib/presentation/screens/statistics/widgets/monthly/monthly_emotion_distribution.dart)
+  - TOP 8 감정 키워드 목록
+  - 색상 막대 및 진행 바로 시각화
+  - 횟수 및 백분율 표시
+
+#### 4. 다국어 지원
+- ✅ 한국어 (app_ko.arb): 40개 키 추가
+- ✅ 영어 (app_en.arb): 40개 키 추가
+- ✅ 일본어 (app_ja.arb): 40개 키 추가
+- 추가된 주요 키:
+  - 공통: common_less, common_more, common_unit_day
+  - 주간: statistics_weekly_*, calendar_weekday_*
+  - 월간: statistics_monthly_*, statistics_emotion_keywords_empty
+  - 년간: statistics_yearly_*, ai_report_*
+
+#### 5. 통합 및 빌드
+- ✅ 주간 위젯 통합 (statistics_content.dart - _WeeklyStatisticsTab)
+- ✅ 월간 위젯 통합 (statistics_content.dart - _MonthlyStatisticsTab)
+- ✅ 빌드 테스트 완료 (app-development-debug.apk)
+
+### ⏳ 대기 중인 작업
+
+#### 6. 년간 통계 위젯 (0/5)
+- ⏳ YearlyMonthlyTrendChart - 12개월 추세 꺾은선 그래프
+- ⏳ YearlyDashboardCard - 년간 대시보드 카드
+- ⏳ YearlyQuarterComparison - 분기별 비교 막대 그래프
+- ⏳ YearlyGrowthIndicator - 상반기 vs 하반기 성장 지표
+- ⏳ YearlyActivityReport - TOP 20 활동 리포트
+
+#### 7. 성능 최적화 및 마무리
+- ⏳ 년간 위젯 통합
+- ⏳ 성능 최적화
+- ⏳ 최종 테스트
+
 ## 테스트 체크리스트
 
-- [ ] 주간 탭: 7일 데이터 정확성
-- [ ] 월간 탭: 현재 월 데이터 정확성
-- [ ] 년간 탭: 올해 데이터 정확성
-- [ ] 탭 전환 애니메이션
-- [ ] 데이터 없을 때 빈 상태 처리
-- [ ] 다국어 문자열 확인 (ko, en, ja)
-- [ ] 다크 모드 지원
-- [ ] 성능 (대량 데이터)
+### 주간 탭
+- ✅ 7일 데이터 정확성 확인
+- ✅ 빈 상태 처리 (no data)
+- ✅ 다국어 문자열 표시
+- [ ] 다크 모드 지원 확인
+- [ ] 대량 데이터 성능 테스트
+
+### 월간 탭
+- ✅ 현재 월 데이터 정확성 확인
+- ✅ 빈 상태 처리
+- ✅ 다국어 문자열 표시
+- [ ] 다크 모드 지원 확인
+- [ ] 대량 데이터 성능 테스트
+
+### 년간 탭
+- [ ] 올해 데이터 정확성 확인
+- [ ] 빈 상태 처리
+- [ ] 다국어 문자열 표시
+- [ ] 다크 모드 지원 확인
+- [ ] 대량 데이터 성능 테스트
+
+### 공통
+- ✅ 탭 전환 애니메이션
+- ✅ Glower 효과 적용
+- [ ] 스크롤 성능
+- [ ] 메모리 사용량

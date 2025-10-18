@@ -706,5 +706,10 @@
   "suggested_emotion_anger": "怒り",
   "suggested_emotion_irritation": "イライラ",
   "suggested_emotion_tired": "疲れ",
-  "suggested_emotion_loneliness": "寂しさ"
+  "suggested_emotion_loneliness": "寂しさ",
+  "common_less": "少ない",
+  "common_more": "多い",
+  "statistics_emotion_keywords_empty": "感情キーワードがありません",
+  "statistics_monthly_checkin_count": "チェックイン数",
+  "statistics_monthly_week_suffix": "週目"
 }

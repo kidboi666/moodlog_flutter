@@ -1662,4 +1662,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suggested_emotion_loneliness => 'Loneliness';
+
+  @override
+  String get common_less => 'Less';
+
+  @override
+  String get common_more => 'More';
+
+  @override
+  String get statistics_emotion_keywords_empty => 'No emotion keywords';
+
+  @override
+  String get statistics_monthly_checkin_count => 'Check-ins';
+
+  @override
+  String get statistics_monthly_week_suffix => 'W';
 }

@@ -1613,4 +1613,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get suggested_emotion_loneliness => '외로움';
+
+  @override
+  String get common_less => '적음';
+
+  @override
+  String get common_more => '많음';
+
+  @override
+  String get statistics_emotion_keywords_empty => '감정 키워드가 없습니다';
+
+  @override
+  String get statistics_monthly_checkin_count => '체크인 수';
+
+  @override
+  String get statistics_monthly_week_suffix => '주차';
 }

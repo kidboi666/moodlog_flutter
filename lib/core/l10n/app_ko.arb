@@ -706,5 +706,10 @@
   "suggested_emotion_anger": "화남",
   "suggested_emotion_irritation": "짜증",
   "suggested_emotion_tired": "피곤",
-  "suggested_emotion_loneliness": "외로움"
+  "suggested_emotion_loneliness": "외로움",
+  "common_less": "적음",
+  "common_more": "많음",
+  "statistics_emotion_keywords_empty": "감정 키워드가 없습니다",
+  "statistics_monthly_checkin_count": "체크인 수",
+  "statistics_monthly_week_suffix": "주차"
 }

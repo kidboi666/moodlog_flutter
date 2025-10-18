@@ -3153,6 +3153,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loneliness'**
   String get suggested_emotion_loneliness;
+
+  /// No description provided for @common_less.
+  ///
+  /// In en, this message translates to:
+  /// **'Less'**
+  String get common_less;
+
+  /// No description provided for @common_more.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get common_more;
+
+  /// No description provided for @statistics_emotion_keywords_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No emotion keywords'**
+  String get statistics_emotion_keywords_empty;
+
+  /// No description provided for @statistics_monthly_checkin_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-ins'**
+  String get statistics_monthly_checkin_count;
+
+  /// No description provided for @statistics_monthly_week_suffix.
+  ///
+  /// In en, this message translates to:
+  /// **'W'**
+  String get statistics_monthly_week_suffix;
 }
 
 class _AppLocalizationsDelegate
