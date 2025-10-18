@@ -1053,6 +1053,111 @@ class AppLocalizationsEn extends AppLocalizations {
       'Let AI analyze your mood patterns in depth.';
 
   @override
+  String get statistics_weekly => 'Weekly';
+
+  @override
+  String get statistics_monthly => 'Monthly';
+
+  @override
+  String get statistics_yearly => 'Yearly';
+
+  @override
+  String get statistics_weekly_summary => 'Weekly Summary';
+
+  @override
+  String get statistics_weekly_total_checkins => 'Total Check-ins';
+
+  @override
+  String get statistics_weekly_avg_mood => 'Average Mood';
+
+  @override
+  String get statistics_weekly_most_frequent_mood => 'Most Frequent Mood';
+
+  @override
+  String get statistics_weekly_mood_trend => 'Mood Trend';
+
+  @override
+  String get statistics_weekly_activity_pattern => 'Activity Pattern';
+
+  @override
+  String get statistics_weekly_top_emotions => 'Top Emotions';
+
+  @override
+  String get statistics_monthly_calendar => 'Monthly Calendar';
+
+  @override
+  String get statistics_monthly_summary => 'Monthly Summary';
+
+  @override
+  String get statistics_monthly_checkin_days => 'Check-in Days';
+
+  @override
+  String get statistics_monthly_avg_mood => 'Average Mood';
+
+  @override
+  String get statistics_monthly_current_streak => 'Current Streak';
+
+  @override
+  String get statistics_monthly_vs_last_month => 'vs Last Month';
+
+  @override
+  String get statistics_monthly_weekly_comparison => 'Weekly Comparison';
+
+  @override
+  String get statistics_monthly_top_activities => 'Top Activities';
+
+  @override
+  String get statistics_monthly_emotion_distribution => 'Emotion Distribution';
+
+  @override
+  String get statistics_monthly_positive => 'Positive';
+
+  @override
+  String get statistics_monthly_neutral => 'Neutral';
+
+  @override
+  String get statistics_monthly_negative => 'Negative';
+
+  @override
+  String get statistics_yearly_trend => 'Yearly Trend';
+
+  @override
+  String get statistics_yearly_dashboard => 'Yearly Dashboard';
+
+  @override
+  String get statistics_yearly_total_checkins => 'Total Check-ins';
+
+  @override
+  String get statistics_yearly_avg_mood => 'Average Mood';
+
+  @override
+  String get statistics_yearly_best_month => 'Best Month';
+
+  @override
+  String get statistics_yearly_worst_month => 'Worst Month';
+
+  @override
+  String get statistics_yearly_quarter_comparison => 'Quarterly Comparison';
+
+  @override
+  String get statistics_yearly_growth => 'Growth Indicator';
+
+  @override
+  String get statistics_yearly_activity_report => 'Activity Report';
+
+  @override
+  String get statistics_yearly_q1 => 'Q1';
+
+  @override
+  String get statistics_yearly_q2 => 'Q2';
+
+  @override
+  String get statistics_yearly_q3 => 'Q3';
+
+  @override
+  String get statistics_yearly_q4 => 'Q4';
+
+  @override
   String get ai_report_positive_keywords => 'Positive Keywords';
 
   @override

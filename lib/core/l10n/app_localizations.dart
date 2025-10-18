@@ -2002,6 +2002,216 @@ abstract class AppLocalizations {
   /// **'Let AI analyze your mood patterns in depth.'**
   String get statistics_ai_report_subtitle;
 
+  /// No description provided for @statistics_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get statistics_weekly;
+
+  /// No description provided for @statistics_monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get statistics_monthly;
+
+  /// No description provided for @statistics_yearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get statistics_yearly;
+
+  /// No description provided for @statistics_weekly_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Summary'**
+  String get statistics_weekly_summary;
+
+  /// No description provided for @statistics_weekly_total_checkins.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Check-ins'**
+  String get statistics_weekly_total_checkins;
+
+  /// No description provided for @statistics_weekly_avg_mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Mood'**
+  String get statistics_weekly_avg_mood;
+
+  /// No description provided for @statistics_weekly_most_frequent_mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Frequent Mood'**
+  String get statistics_weekly_most_frequent_mood;
+
+  /// No description provided for @statistics_weekly_mood_trend.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood Trend'**
+  String get statistics_weekly_mood_trend;
+
+  /// No description provided for @statistics_weekly_activity_pattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Pattern'**
+  String get statistics_weekly_activity_pattern;
+
+  /// No description provided for @statistics_weekly_top_emotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Emotions'**
+  String get statistics_weekly_top_emotions;
+
+  /// No description provided for @statistics_monthly_calendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Calendar'**
+  String get statistics_monthly_calendar;
+
+  /// No description provided for @statistics_monthly_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Summary'**
+  String get statistics_monthly_summary;
+
+  /// No description provided for @statistics_monthly_checkin_days.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in Days'**
+  String get statistics_monthly_checkin_days;
+
+  /// No description provided for @statistics_monthly_avg_mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Mood'**
+  String get statistics_monthly_avg_mood;
+
+  /// No description provided for @statistics_monthly_current_streak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get statistics_monthly_current_streak;
+
+  /// No description provided for @statistics_monthly_vs_last_month.
+  ///
+  /// In en, this message translates to:
+  /// **'vs Last Month'**
+  String get statistics_monthly_vs_last_month;
+
+  /// No description provided for @statistics_monthly_weekly_comparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Comparison'**
+  String get statistics_monthly_weekly_comparison;
+
+  /// No description provided for @statistics_monthly_top_activities.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Activities'**
+  String get statistics_monthly_top_activities;
+
+  /// No description provided for @statistics_monthly_emotion_distribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotion Distribution'**
+  String get statistics_monthly_emotion_distribution;
+
+  /// No description provided for @statistics_monthly_positive.
+  ///
+  /// In en, this message translates to:
+  /// **'Positive'**
+  String get statistics_monthly_positive;
+
+  /// No description provided for @statistics_monthly_neutral.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get statistics_monthly_neutral;
+
+  /// No description provided for @statistics_monthly_negative.
+  ///
+  /// In en, this message translates to:
+  /// **'Negative'**
+  String get statistics_monthly_negative;
+
+  /// No description provided for @statistics_yearly_trend.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Trend'**
+  String get statistics_yearly_trend;
+
+  /// No description provided for @statistics_yearly_dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Dashboard'**
+  String get statistics_yearly_dashboard;
+
+  /// No description provided for @statistics_yearly_total_checkins.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Check-ins'**
+  String get statistics_yearly_total_checkins;
+
+  /// No description provided for @statistics_yearly_avg_mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Mood'**
+  String get statistics_yearly_avg_mood;
+
+  /// No description provided for @statistics_yearly_best_month.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Month'**
+  String get statistics_yearly_best_month;
+
+  /// No description provided for @statistics_yearly_worst_month.
+  ///
+  /// In en, this message translates to:
+  /// **'Worst Month'**
+  String get statistics_yearly_worst_month;
+
+  /// No description provided for @statistics_yearly_quarter_comparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Quarterly Comparison'**
+  String get statistics_yearly_quarter_comparison;
+
+  /// No description provided for @statistics_yearly_growth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth Indicator'**
+  String get statistics_yearly_growth;
+
+  /// No description provided for @statistics_yearly_activity_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Report'**
+  String get statistics_yearly_activity_report;
+
+  /// No description provided for @statistics_yearly_q1.
+  ///
+  /// In en, this message translates to:
+  /// **'Q1'**
+  String get statistics_yearly_q1;
+
+  /// No description provided for @statistics_yearly_q2.
+  ///
+  /// In en, this message translates to:
+  /// **'Q2'**
+  String get statistics_yearly_q2;
+
+  /// No description provided for @statistics_yearly_q3.
+  ///
+  /// In en, this message translates to:
+  /// **'Q3'**
+  String get statistics_yearly_q3;
+
+  /// No description provided for @statistics_yearly_q4.
+  ///
+  /// In en, this message translates to:
+  /// **'Q4'**
+  String get statistics_yearly_q4;
+
   /// No description provided for @ai_report_positive_keywords.
   ///
   /// In en, this message translates to:

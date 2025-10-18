@@ -53,6 +53,230 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Map<DateTime, double> get moodTrendData => _moodTrendData;
 
+  List<CheckIn> get weeklyCheckInsList {
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 6));
+    final startOfDay = DateTime(sevenDaysAgo.year, sevenDaysAgo.month, sevenDaysAgo.day);
+    return _allCheckIns.where((checkIn) => checkIn.createdAt.isAfter(startOfDay) || checkIn.createdAt.isAtSameMomentAs(startOfDay)).toList();
+  }
+
+  List<CheckIn> get monthlyCheckInsList {
+    final now = DateTime.now();
+    final firstDayOfMonth = DateTime(now.year, now.month, 1);
+    return _allCheckIns.where((checkIn) => checkIn.createdAt.isAfter(firstDayOfMonth) || checkIn.createdAt.isAtSameMomentAs(firstDayOfMonth)).toList();
+  }
+
+  List<CheckIn> get yearlyCheckInsList {
+    final now = DateTime.now();
+    return _allCheckIns.where((checkIn) => checkIn.createdAt.year == now.year).toList();
+  }
+
+  double get weeklyAverageMood {
+    final checkIns = weeklyCheckInsList;
+    if (checkIns.isEmpty) return 0;
+    return checkIns.map((c) => c.moodType.score).average;
+  }
+
+  MoodType? get weeklyMostFrequentMood {
+    final checkIns = weeklyCheckInsList;
+    if (checkIns.isEmpty) return null;
+    final moodCounts = <MoodType, int>{};
+    for (var checkIn in checkIns) {
+      moodCounts[checkIn.moodType] = (moodCounts[checkIn.moodType] ?? 0) + 1;
+    }
+    return moodCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+  }
+
+  Map<int, int> get weeklyDayPattern {
+    final checkIns = weeklyCheckInsList;
+    final pattern = <int, int>{};
+    for (var i = 1; i <= 7; i++) {
+      pattern[i] = 0;
+    }
+    for (var checkIn in checkIns) {
+      final dayOfWeek = checkIn.createdAt.weekday;
+      pattern[dayOfWeek] = (pattern[dayOfWeek] ?? 0) + 1;
+    }
+    return pattern;
+  }
+
+  List<String> get weeklyTopEmotions {
+    final checkIns = weeklyCheckInsList;
+    final emotionCounts = <String, int>{};
+    for (var checkIn in checkIns) {
+      final emotions = checkIn.emotionNames ?? [];
+      for (var emotion in emotions) {
+        emotionCounts[emotion] = (emotionCounts[emotion] ?? 0) + 1;
+      }
+    }
+    final sorted = emotionCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    return sorted.take(5).map((e) => e.key).toList();
+  }
+
+  int get monthlyCheckInDays {
+    final checkIns = monthlyCheckInsList;
+    final uniqueDays = <DateTime>{};
+    for (var checkIn in checkIns) {
+      final date = DateTime(checkIn.createdAt.year, checkIn.createdAt.month, checkIn.createdAt.day);
+      uniqueDays.add(date);
+    }
+    return uniqueDays.length;
+  }
+
+  double get monthlyAverageMood {
+    final checkIns = monthlyCheckInsList;
+    if (checkIns.isEmpty) return 0;
+    return checkIns.map((c) => c.moodType.score).average;
+  }
+
+  int get monthlyCurrentStreak {
+    final checkIns = monthlyCheckInsList.sorted((a, b) => a.createdAt.compareTo(b.createdAt));
+    if (checkIns.isEmpty) return 0;
+
+    int streak = 0;
+    DateTime? lastDate;
+
+    for (var checkIn in checkIns) {
+      final checkInDate = DateTime(checkIn.createdAt.year, checkIn.createdAt.month, checkIn.createdAt.day);
+      if (lastDate == null) {
+        streak = 1;
+      } else {
+        final difference = checkInDate.difference(lastDate).inDays;
+        if (difference == 1) {
+          streak++;
+        } else if (difference > 1) {
+          streak = 1;
+        }
+      }
+      lastDate = checkInDate;
+    }
+    return streak;
+  }
+
+  double get monthlyVsLastMonth {
+    final thisMonth = monthlyAverageMood;
+    final now = DateTime.now();
+    final lastMonth = DateTime(now.year, now.month - 1, 1);
+    final lastMonthCheckIns = _allCheckIns.where((checkIn) {
+      return checkIn.createdAt.year == lastMonth.year && checkIn.createdAt.month == lastMonth.month;
+    }).toList();
+
+    if (lastMonthCheckIns.isEmpty) return 0;
+    final lastMonthAvg = lastMonthCheckIns.map((c) => c.moodType.score).average;
+    return thisMonth - lastMonthAvg;
+  }
+
+  Map<int, List<CheckIn>> get monthlyWeeklyGroups {
+    final checkIns = monthlyCheckInsList;
+    final groups = <int, List<CheckIn>>{};
+
+    for (var checkIn in checkIns) {
+      final weekOfMonth = ((checkIn.createdAt.day - 1) ~/ 7) + 1;
+      groups.putIfAbsent(weekOfMonth, () => []).add(checkIn);
+    }
+    return groups;
+  }
+
+  List<String> get monthlyTopActivities {
+    final checkIns = monthlyCheckInsList;
+    final activityCounts = <String, int>{};
+    for (var checkIn in checkIns) {
+      final tags = checkIn.tagNames ?? [];
+      for (var activity in tags) {
+        activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
+      }
+    }
+    final sorted = activityCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    return sorted.take(10).map((e) => e.key).toList();
+  }
+
+  Map<String, int> get monthlyEmotionDistribution {
+    final checkIns = monthlyCheckInsList;
+    int positive = 0;
+    int neutral = 0;
+    int negative = 0;
+
+    for (var checkIn in checkIns) {
+      if (checkIn.moodType.score >= 4) {
+        positive++;
+      } else if (checkIn.moodType.score >= 3) {
+        neutral++;
+      } else {
+        negative++;
+      }
+    }
+
+    return {'positive': positive, 'neutral': neutral, 'negative': negative};
+  }
+
+  int get yearlyTotalCheckIns => yearlyCheckInsList.length;
+
+  double get yearlyAverageMood {
+    final checkIns = yearlyCheckInsList;
+    if (checkIns.isEmpty) return 0;
+    return checkIns.map((c) => c.moodType.score).average;
+  }
+
+  String get yearlyBestMonth {
+    final monthlyAverages = yearlyMonthlyAverages;
+    if (monthlyAverages.isEmpty) return '';
+    final bestMonth = monthlyAverages.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    return '$bestMonth';
+  }
+
+  String get yearlyWorstMonth {
+    final monthlyAverages = yearlyMonthlyAverages;
+    if (monthlyAverages.isEmpty) return '';
+    final worstMonth = monthlyAverages.entries.reduce((a, b) => a.value < b.value ? a : b).key;
+    return '$worstMonth';
+  }
+
+  Map<int, double> get yearlyMonthlyAverages {
+    final checkIns = yearlyCheckInsList;
+    final monthlyGroups = <int, List<CheckIn>>{};
+
+    for (var checkIn in checkIns) {
+      monthlyGroups.putIfAbsent(checkIn.createdAt.month, () => []).add(checkIn);
+    }
+
+    final averages = <int, double>{};
+    monthlyGroups.forEach((month, checkIns) {
+      averages[month] = checkIns.map((c) => c.moodType.score).average;
+    });
+
+    return averages;
+  }
+
+  Map<int, double> get yearlyQuarterAverages {
+    final checkIns = yearlyCheckInsList;
+    final quarterGroups = <int, List<CheckIn>>{};
+
+    for (var checkIn in checkIns) {
+      final quarter = ((checkIn.createdAt.month - 1) ~/ 3) + 1;
+      quarterGroups.putIfAbsent(quarter, () => []).add(checkIn);
+    }
+
+    final averages = <int, double>{};
+    quarterGroups.forEach((quarter, checkIns) {
+      averages[quarter] = checkIns.map((c) => c.moodType.score).average;
+    });
+
+    return averages;
+  }
+
+  List<String> get yearlyTopActivities {
+    final checkIns = yearlyCheckInsList;
+    final activityCounts = <String, int>{};
+    for (var checkIn in checkIns) {
+      final tags = checkIn.tagNames ?? [];
+      for (var activity in tags) {
+        activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
+      }
+    }
+    final sorted = activityCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    return sorted.take(20).map((e) => e.key).toList();
+  }
+
   Future<void> _loadStatistics() async {
     setLoading();
 

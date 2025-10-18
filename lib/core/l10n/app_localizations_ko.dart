@@ -1013,6 +1013,111 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_ai_report_subtitle => 'AI가 당신의 감정 패턴을 심도있게 분석해드려요.';
 
   @override
+  String get statistics_weekly => '주간';
+
+  @override
+  String get statistics_monthly => '월간';
+
+  @override
+  String get statistics_yearly => '년간';
+
+  @override
+  String get statistics_weekly_summary => '주간 요약';
+
+  @override
+  String get statistics_weekly_total_checkins => '총 체크인';
+
+  @override
+  String get statistics_weekly_avg_mood => '평균 기분';
+
+  @override
+  String get statistics_weekly_most_frequent_mood => '최빈 기분';
+
+  @override
+  String get statistics_weekly_mood_trend => '기분 추세';
+
+  @override
+  String get statistics_weekly_activity_pattern => '활동 패턴';
+
+  @override
+  String get statistics_weekly_top_emotions => '상위 감정';
+
+  @override
+  String get statistics_monthly_calendar => '월간 캘린더';
+
+  @override
+  String get statistics_monthly_summary => '월간 요약';
+
+  @override
+  String get statistics_monthly_checkin_days => '체크인 일수';
+
+  @override
+  String get statistics_monthly_avg_mood => '평균 기분';
+
+  @override
+  String get statistics_monthly_current_streak => '현재 연속 기록';
+
+  @override
+  String get statistics_monthly_vs_last_month => '지난 달 대비';
+
+  @override
+  String get statistics_monthly_weekly_comparison => '주차별 비교';
+
+  @override
+  String get statistics_monthly_top_activities => '상위 활동';
+
+  @override
+  String get statistics_monthly_emotion_distribution => '감정 분포';
+
+  @override
+  String get statistics_monthly_positive => '긍정';
+
+  @override
+  String get statistics_monthly_neutral => '중립';
+
+  @override
+  String get statistics_monthly_negative => '부정';
+
+  @override
+  String get statistics_yearly_trend => '년간 추세';
+
+  @override
+  String get statistics_yearly_dashboard => '년간 대시보드';
+
+  @override
+  String get statistics_yearly_total_checkins => '총 체크인';
+
+  @override
+  String get statistics_yearly_avg_mood => '평균 기분';
+
+  @override
+  String get statistics_yearly_best_month => '최고의 달';
+
+  @override
+  String get statistics_yearly_worst_month => '최악의 달';
+
+  @override
+  String get statistics_yearly_quarter_comparison => '분기별 비교';
+
+  @override
+  String get statistics_yearly_growth => '성장 지표';
+
+  @override
+  String get statistics_yearly_activity_report => '활동 리포트';
+
+  @override
+  String get statistics_yearly_q1 => '1분기';
+
+  @override
+  String get statistics_yearly_q2 => '2분기';
+
+  @override
+  String get statistics_yearly_q3 => '3분기';
+
+  @override
+  String get statistics_yearly_q4 => '4분기';
+
+  @override
   String get ai_report_positive_keywords => '긍정 키워드';
 
   @override

@@ -1014,6 +1014,111 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_ai_report_subtitle => 'AIがあなたの感情パターンを深く分析します。';
 
   @override
+  String get statistics_weekly => '週間';
+
+  @override
+  String get statistics_monthly => '月間';
+
+  @override
+  String get statistics_yearly => '年間';
+
+  @override
+  String get statistics_weekly_summary => '週間サマリー';
+
+  @override
+  String get statistics_weekly_total_checkins => '総チェックイン';
+
+  @override
+  String get statistics_weekly_avg_mood => '平均気分';
+
+  @override
+  String get statistics_weekly_most_frequent_mood => '最頻出気分';
+
+  @override
+  String get statistics_weekly_mood_trend => '気分トレンド';
+
+  @override
+  String get statistics_weekly_activity_pattern => '活動パターン';
+
+  @override
+  String get statistics_weekly_top_emotions => 'トップ感情';
+
+  @override
+  String get statistics_monthly_calendar => '月間カレンダー';
+
+  @override
+  String get statistics_monthly_summary => '月間サマリー';
+
+  @override
+  String get statistics_monthly_checkin_days => 'チェックイン日数';
+
+  @override
+  String get statistics_monthly_avg_mood => '平均気分';
+
+  @override
+  String get statistics_monthly_current_streak => '現在の連続記録';
+
+  @override
+  String get statistics_monthly_vs_last_month => '先月比';
+
+  @override
+  String get statistics_monthly_weekly_comparison => '週間比較';
+
+  @override
+  String get statistics_monthly_top_activities => 'トップ活動';
+
+  @override
+  String get statistics_monthly_emotion_distribution => '感情分布';
+
+  @override
+  String get statistics_monthly_positive => 'ポジティブ';
+
+  @override
+  String get statistics_monthly_neutral => '中立';
+
+  @override
+  String get statistics_monthly_negative => 'ネガティブ';
+
+  @override
+  String get statistics_yearly_trend => '年間トレンド';
+
+  @override
+  String get statistics_yearly_dashboard => '年間ダッシュボード';
+
+  @override
+  String get statistics_yearly_total_checkins => '総チェックイン';
+
+  @override
+  String get statistics_yearly_avg_mood => '平均気分';
+
+  @override
+  String get statistics_yearly_best_month => '最高の月';
+
+  @override
+  String get statistics_yearly_worst_month => '最悪の月';
+
+  @override
+  String get statistics_yearly_quarter_comparison => '四半期比較';
+
+  @override
+  String get statistics_yearly_growth => '成長指標';
+
+  @override
+  String get statistics_yearly_activity_report => '活動レポート';
+
+  @override
+  String get statistics_yearly_q1 => 'Q1';
+
+  @override
+  String get statistics_yearly_q2 => 'Q2';
+
+  @override
+  String get statistics_yearly_q3 => 'Q3';
+
+  @override
+  String get statistics_yearly_q4 => 'Q4';
+
+  @override
   String get ai_report_positive_keywords => 'ポジティブキーワード';
 
   @override
