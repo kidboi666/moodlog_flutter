@@ -68,13 +68,13 @@ class _WeeklyStatisticsTab extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 const SizedBox(height: Spacing.xl),
-                const Placeholder(fallbackHeight: 120),
+                const WeeklySummaryCard(),
                 const SizedBox(height: Spacing.xl),
-                const Placeholder(fallbackHeight: 200),
+                const WeeklyMoodLineChart(),
                 const SizedBox(height: Spacing.xl),
-                const Placeholder(fallbackHeight: 150),
+                const WeeklyActivityPattern(),
                 const SizedBox(height: Spacing.xl),
-                const Placeholder(fallbackHeight: 100),
+                const WeeklyEmotionKeywords(),
                 const SizedBox(height: kBottomNavigationBarHeight * 3),
               ]),
             ),
