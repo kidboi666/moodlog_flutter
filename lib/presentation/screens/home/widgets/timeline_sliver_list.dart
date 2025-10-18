@@ -57,6 +57,7 @@ class TimelineSliverList extends StatelessWidget {
             time: entry.createdAt,
             isFirst: isFirst,
             isLast: isLast,
+            moodType: entry.type.isCheckIn ? entry.checkIn?.moodType : null,
             child: entry.type.isJournal
                 ? _buildJournalEntry(context, entry, isSelectionMode, selectedJournalIds)
                 : _buildCheckInEntry(context, entry),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/timeline_entry.dart';
@@ -62,11 +61,77 @@ class TimelineCard extends StatelessWidget {
     ).scale();
   }
 
+  String _getSleepQualityText(BuildContext context, int quality) {
+    final t = AppLocalizations.of(context)!;
+    switch (quality) {
+      case 1:
+        return t.quick_check_in_sleep_quality_1;
+      case 2:
+        return t.quick_check_in_sleep_quality_2;
+      case 3:
+        return t.quick_check_in_sleep_quality_3;
+      case 4:
+        return t.quick_check_in_sleep_quality_4;
+      case 5:
+        return t.quick_check_in_sleep_quality_5;
+      default:
+        return '';
+    }
+  }
+
   Widget _buildCheckInContent(BuildContext context) {
     final checkIn = entry.checkIn!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
+
+    final items = <Widget>[];
+
+    if (checkIn.tagNames != null && checkIn.tagNames!.isNotEmpty) {
+      items.add(
+        Text(
+          '${t.check_in_activities}: ${checkIn.tagNames!.join(', ')}',
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+      );
+    }
+
+    if (checkIn.emotionNames != null && checkIn.emotionNames!.isNotEmpty) {
+      items.add(
+        Text(
+          '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+      );
+    }
+
+    if (checkIn.sleepQuality != null) {
+      items.add(
+        Text(
+          '${t.check_in_sleep_quality}: ${_getSleepQualityText(context, checkIn.sleepQuality!)}',
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+      );
+    }
+
+    if (checkIn.memo != null && checkIn.memo!.isNotEmpty) {
+      items.add(
+        Text(
+          checkIn.memo!,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,52 +153,12 @@ class TimelineCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: Spacing.sm),
-        Row(
-          children: [
-            Text(checkIn.moodType.emoji, style: const TextStyle(fontSize: 20)),
-            const SizedBox(width: Spacing.sm),
-            Text(
-              checkIn.moodType.getDisplayName(context),
-              style: textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Color(checkIn.moodType.colorValue),
-              ),
-            ),
+        if (items.isNotEmpty) ...[
+          const SizedBox(height: Spacing.sm),
+          for (int i = 0; i < items.length; i++) ...[
+            items[i],
+            if (i < items.length - 1) const SizedBox(height: Spacing.xs),
           ],
-        ),
-        if (checkIn.tagNames != null && checkIn.tagNames!.isNotEmpty) ...[
-          const SizedBox(height: Spacing.sm),
-          Text(
-            '${t.check_in_activities}: ${checkIn.tagNames!.join(', ')}',
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
-          ),
-        ],
-        if (checkIn.emotionNames != null &&
-            checkIn.emotionNames!.isNotEmpty) ...[
-          const SizedBox(height: Spacing.xs),
-          Text(
-            '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
-          ),
-        ],
-        if (checkIn.sleepQuality != null) ...[
-          const SizedBox(height: Spacing.xs),
-          Text(
-            '${t.check_in_sleep_quality}: ${'⭐' * checkIn.sleepQuality!}',
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
-          ),
-        ],
-        if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
-          const SizedBox(height: Spacing.sm),
-          Text(
-            checkIn.memo!,
-            style: textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
         ],
       ],
     );
