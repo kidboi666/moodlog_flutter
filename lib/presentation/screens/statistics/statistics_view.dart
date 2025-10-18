@@ -11,6 +11,11 @@ import 'package:moodlog/presentation/screens/statistics/widgets/weekly/weekly_ac
 import 'package:moodlog/presentation/screens/statistics/widgets/weekly/weekly_emotion_keywords.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/weekly/weekly_mood_line_chart.dart';
 import 'package:moodlog/presentation/screens/statistics/widgets/weekly/weekly_summary_card.dart';
+import 'package:moodlog/presentation/screens/statistics/widgets/yearly/yearly_activity_report.dart';
+import 'package:moodlog/presentation/screens/statistics/widgets/yearly/yearly_dashboard_card.dart';
+import 'package:moodlog/presentation/screens/statistics/widgets/yearly/yearly_growth_indicator.dart';
+import 'package:moodlog/presentation/screens/statistics/widgets/yearly/yearly_monthly_trend_chart.dart';
+import 'package:moodlog/presentation/screens/statistics/widgets/yearly/yearly_quarter_comparison.dart';
 import 'package:moodlog/presentation/widgets/glower.dart';
 import 'package:provider/provider.dart';
 
