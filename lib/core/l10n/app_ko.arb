@@ -636,5 +636,10 @@
   "edit_nickname_label": "닉네임",
   "edit_nickname_hint": "새 닉네임을 입력하세요",
   "cancel": "취소",
-  "save": "저장"
+  "save": "저장",
+  "check_in_activities": "활동",
+  "check_in_emotions": "감정",
+  "check_in_sleep_quality": "수면 품질",
+  "timeline_check_in": "체크인",
+  "timeline_journal": "일기"
 }

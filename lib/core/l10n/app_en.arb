@@ -636,5 +636,10 @@
   "edit_nickname_label": "Nickname",
   "edit_nickname_hint": "Enter new nickname",
   "cancel": "Cancel",
-  "save": "Save"
+  "save": "Save",
+  "check_in_activities": "Activities",
+  "check_in_emotions": "Emotions",
+  "check_in_sleep_quality": "Sleep Quality",
+  "timeline_check_in": "Check In",
+  "timeline_journal": "Journal"
 }

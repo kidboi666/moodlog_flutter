@@ -636,5 +636,10 @@
   "edit_nickname_label": "ニックネーム",
   "edit_nickname_hint": "新しいニックネームを入力してください",
   "cancel": "キャンセル",
-  "save": "保存"
+  "save": "保存",
+  "check_in_activities": "活動",
+  "check_in_emotions": "感情",
+  "check_in_sleep_quality": "睡眠の質",
+  "timeline_check_in": "チェックイン",
+  "timeline_journal": "日記"
 }

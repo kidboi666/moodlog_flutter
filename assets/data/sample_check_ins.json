@@ -1,6 +1,22 @@
 [
   {
     "moodType": "veryHappy",
+    "createdAt": "2025-10-18T10:00:00.000Z",
+    "tagNames": ["Daily", "Health"],
+    "emotionNames": ["Joy", "Energy", "Gratitude"],
+    "sleepQuality": 5,
+    "memo": "오늘도 기분 좋은 하루! 잘 잤더니 개운해요."
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-10-18T07:30:00.000Z",
+    "tagNames": ["Exercise", "Health"],
+    "emotionNames": ["Energy", "Motivation"],
+    "sleepQuality": 4,
+    "memo": "아침 운동 완료! 상쾌한 하루의 시작이에요."
+  },
+  {
+    "moodType": "veryHappy",
     "createdAt": "2025-10-17T09:30:00.000Z",
     "tagNames": ["Daily", "Relationships", "Health"],
     "emotionNames": ["Joy", "Gratitude", "Love"],
@@ -118,5 +134,124 @@
     "emotionNames": ["Love", "Joy", "Gratitude"],
     "sleepQuality": 5,
     "memo": "소중한 사람과 의미 있는 대화를 나눴어요. 감사한 하루예요."
+  },
+  {
+    "moodType": "verySad",
+    "createdAt": "2025-10-02T23:30:00.000Z",
+    "tagNames": ["Work", "Emotions", "Health"],
+    "emotionNames": ["Anxiety", "Stress", "Frustration"],
+    "sleepQuality": 1,
+    "memo": "마감 압박에 밤을 새웠어요. 몸도 마음도 너무 힘들어요."
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-10-01T07:00:00.000Z",
+    "tagNames": ["Exercise", "Health", "Daily"],
+    "emotionNames": ["Energy", "Motivation"],
+    "sleepQuality": 5,
+    "memo": "새벽 요가 클래스 다녀왔어요. 하루를 활기차게 시작!"
+  },
+  {
+    "moodType": "veryHappy",
+    "createdAt": "2025-09-30T20:00:00.000Z",
+    "tagNames": ["Relationships", "Hobby", "Food"],
+    "emotionNames": ["Joy", "Excitement", "Love"],
+    "sleepQuality": 4,
+    "memo": "연인과 홈파티 했어요. 함께 요리하고 영화 보며 즐거운 시간!"
+  },
+  {
+    "moodType": "neutral",
+    "createdAt": "2025-09-29T12:30:00.000Z",
+    "tagNames": ["Daily", "Work"],
+    "emotionNames": ["Calm"],
+    "sleepQuality": 3
+  },
+  {
+    "moodType": "sad",
+    "createdAt": "2025-09-28T22:00:00.000Z",
+    "tagNames": ["Relationships", "Emotions"],
+    "emotionNames": ["Sadness", "Disappointment"],
+    "sleepQuality": 2,
+    "memo": "기대했던 약속이 취소됐어요. 실망스럽지만 괜찮아질 거예요."
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-09-27T15:30:00.000Z",
+    "tagNames": ["Hobby", "Daily"],
+    "emotionNames": ["Contentment", "Peace", "Joy"],
+    "sleepQuality": 4,
+    "memo": "카페에서 좋아하는 책을 읽었어요. 힐링되는 오후!"
+  },
+  {
+    "moodType": "veryHappy",
+    "createdAt": "2025-09-26T18:45:00.000Z",
+    "tagNames": ["Work", "Daily"],
+    "emotionNames": ["Pride", "Joy", "Gratitude"],
+    "sleepQuality": 5,
+    "memo": "프로젝트가 성공적으로 마무리됐어요! 팀원들에게 감사해요."
+  },
+  {
+    "moodType": "neutral",
+    "createdAt": "2025-09-25T10:00:00.000Z",
+    "tagNames": ["Daily"],
+    "emotionNames": ["Calm"],
+    "sleepQuality": 3,
+    "memo": "조용한 아침. 커피 마시며 창밖을 바라봤어요."
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-09-24T19:00:00.000Z",
+    "tagNames": ["Exercise", "Health", "Hobby"],
+    "emotionNames": ["Energy", "Pride", "Motivation"],
+    "sleepQuality": 4,
+    "memo": "드디어 10km 달리기 완주! 목표를 이뤄서 뿌듯해요."
+  },
+  {
+    "moodType": "sad",
+    "createdAt": "2025-09-23T21:00:00.000Z",
+    "tagNames": ["Health", "Emotions"],
+    "emotionNames": ["Fatigue", "Stress"],
+    "sleepQuality": 2,
+    "memo": "몸살 기운이 있어요. 푹 쉬어야겠어요."
+  },
+  {
+    "moodType": "veryHappy",
+    "createdAt": "2025-09-22T14:00:00.000Z",
+    "tagNames": ["Relationships", "Food", "Daily"],
+    "emotionNames": ["Joy", "Love", "Gratitude"],
+    "sleepQuality": 5,
+    "memo": "부모님이 만들어주신 음식을 먹었어요. 엄마 손맛 최고!"
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-09-21T11:30:00.000Z",
+    "tagNames": ["Hobby", "Daily"],
+    "emotionNames": ["Contentment", "Joy"],
+    "sleepQuality": 4,
+    "memo": "주말 아침 브런치 카페 투어! 맛있는 빵과 커피로 행복해요."
+  },
+  {
+    "moodType": "neutral",
+    "createdAt": "2025-09-20T16:00:00.000Z",
+    "tagNames": ["Work", "Daily"],
+    "emotionNames": ["Calm", "Contentment"],
+    "sleepQuality": 3,
+    "memo": "재택근무 중. 집중도 잘 되고 편안한 하루예요."
+  },
+  {
+    "moodType": "verySad",
+    "createdAt": "2025-09-19T23:00:00.000Z",
+    "tagNames": ["Emotions", "Daily"],
+    "emotionNames": ["Sadness", "Loneliness", "Anxiety"],
+    "sleepQuality": 1,
+    "memo": "외로운 밤. 누군가와 이야기 나누고 싶어요."
+  },
+  {
+    "moodType": "happy",
+    "createdAt": "2025-09-18T08:00:00.000Z",
+    "tagNames": ["Daily", "Health"],
+    "emotionNames": ["Energy", "Peace"],
+    "sleepQuality": 5,
+    "memo": "숙면 후 개운한 아침! 오늘 하루도 좋을 것 같아요."
   }
 ]

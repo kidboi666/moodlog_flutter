@@ -2733,6 +2733,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @check_in_activities.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get check_in_activities;
+
+  /// No description provided for @check_in_emotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotions'**
+  String get check_in_emotions;
+
+  /// No description provided for @check_in_sleep_quality.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Quality'**
+  String get check_in_sleep_quality;
+
+  /// No description provided for @timeline_check_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Check In'**
+  String get timeline_check_in;
+
+  /// No description provided for @timeline_journal.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get timeline_journal;
 }
 
 class _AppLocalizationsDelegate

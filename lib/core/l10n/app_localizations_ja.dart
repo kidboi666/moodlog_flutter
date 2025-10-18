@@ -1403,4 +1403,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get save => '保存';
+
+  @override
+  String get check_in_activities => '活動';
+
+  @override
+  String get check_in_emotions => '感情';
+
+  @override
+  String get check_in_sleep_quality => '睡眠の質';
+
+  @override
+  String get timeline_check_in => 'チェックイン';
+
+  @override
+  String get timeline_journal => '日記';
 }

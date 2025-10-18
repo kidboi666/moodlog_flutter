@@ -1403,4 +1403,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get save => '저장';
+
+  @override
+  String get check_in_activities => '활동';
+
+  @override
+  String get check_in_emotions => '감정';
+
+  @override
+  String get check_in_sleep_quality => '수면 품질';
+
+  @override
+  String get timeline_check_in => '체크인';
+
+  @override
+  String get timeline_journal => '일기';
 }

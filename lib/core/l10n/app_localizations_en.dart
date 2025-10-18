@@ -1452,4 +1452,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get save => 'Save';
+
+  @override
+  String get check_in_activities => 'Activities';
+
+  @override
+  String get check_in_emotions => 'Emotions';
+
+  @override
+  String get check_in_sleep_quality => 'Sleep Quality';
+
+  @override
+  String get timeline_check_in => 'Check In';
+
+  @override
+  String get timeline_journal => 'Journal';
 }

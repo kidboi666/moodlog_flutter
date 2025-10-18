@@ -171,9 +171,11 @@ class HomeViewModel extends ChangeNotifier
   }
 
   void _filterCheckInsForSelectedDate(List<CheckIn> allCheckIns) {
+    debugPrint('All CheckIns: ${allCheckIns.length}');
     _checkIns = allCheckIns.where((checkIn) {
       return checkIn.createdAt.isSameDay(_selectedDate);
     }).toList();
+    debugPrint('Filtered CheckIns for $_selectedDate: ${_checkIns.length}');
     _combineTimeline();
   }
 
@@ -186,6 +188,7 @@ class HomeViewModel extends ChangeNotifier
     entries.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     _timelineEntries = entries;
+    debugPrint('Combined timeline: ${_timelineEntries.length} entries (CheckIns: ${_checkIns.length}, Journals: ${_journal.length})');
     notifyListeners();
   }
 

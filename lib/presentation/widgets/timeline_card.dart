@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/localization.dart';
 import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/timeline_entry.dart';
 
 class TimelineCard extends StatelessWidget {
@@ -65,22 +66,24 @@ class TimelineCard extends StatelessWidget {
     final checkIn = entry.checkIn!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text(
-              checkIn.moodType.emoji,
-              style: const TextStyle(fontSize: 20),
+            Icon(
+              Icons.check_circle_outline,
+              color: colorScheme.onSurfaceVariant,
+              size: 20,
             ),
             const SizedBox(width: Spacing.sm),
             Text(
-              'Check In',
+              t.timeline_check_in,
               style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Color(checkIn.moodType.colorValue),
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -88,6 +91,8 @@ class TimelineCard extends StatelessWidget {
         const SizedBox(height: Spacing.sm),
         Row(
           children: [
+            Text(checkIn.moodType.emoji, style: const TextStyle(fontSize: 20)),
+            const SizedBox(width: Spacing.sm),
             Text(
               checkIn.moodType.getDisplayName(context),
               style: textTheme.bodyLarge?.copyWith(
@@ -97,40 +102,37 @@ class TimelineCard extends StatelessWidget {
             ),
           ],
         ),
-        if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
+        if (checkIn.tagNames != null && checkIn.tagNames!.isNotEmpty) ...[
           const SizedBox(height: Spacing.sm),
           Text(
-            checkIn.memo!,
-            style: textTheme.bodyMedium,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            '${t.check_in_activities}: ${checkIn.tagNames!.join(', ')}',
+            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
           ),
         ],
         if (checkIn.emotionNames != null &&
             checkIn.emotionNames!.isNotEmpty) ...[
+          const SizedBox(height: Spacing.xs),
+          Text(
+            '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
+            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+          ),
+        ],
+        if (checkIn.sleepQuality != null) ...[
+          const SizedBox(height: Spacing.xs),
+          Text(
+            '${t.check_in_sleep_quality}: ${'⭐' * checkIn.sleepQuality!}',
+            style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+          ),
+        ],
+        if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
           const SizedBox(height: Spacing.sm),
-          Wrap(
-            spacing: Spacing.xs,
-            runSpacing: Spacing.xs,
-            children: checkIn.emotionNames!
-                .take(3)
-                .map(
-                  (emotion) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Spacing.sm,
-                      vertical: Spacing.xs,
-                    ),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(Roundness.xs),
-                    ),
-                    child: Text(
-                      emotion,
-                      style: textTheme.bodySmall,
-                    ),
-                  ),
-                )
-                .toList(),
+          Text(
+            checkIn.memo!,
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ],
@@ -141,6 +143,7 @@ class TimelineCard extends StatelessWidget {
     final journal = entry.journal!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,14 +151,10 @@ class TimelineCard extends StatelessWidget {
         // Journal icon
         Row(
           children: [
-            Icon(
-              Icons.edit_note,
-              color: colorScheme.primary,
-              size: 20,
-            ),
+            Icon(Icons.edit_note, color: colorScheme.primary, size: 20),
             const SizedBox(width: Spacing.sm),
             Text(
-              'Journal',
+              t.timeline_journal,
               style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: colorScheme.primary,
