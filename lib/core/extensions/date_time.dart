@@ -127,20 +127,7 @@ extension DateTimeExtension on DateTime {
   }
 
   String formattedTime(TimeFormat timeFormat) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final dateOnly = DateTime(year, month, day);
-
     final timePattern = timeFormat == TimeFormat.hour24 ? 'HH:mm' : 'hh:mm a';
-
-    if (dateOnly == today) {
-      return DateFormat(timePattern).format(this);
-    } else if (dateOnly == today.subtract(Duration(days: 1))) {
-      return DateFormat(timePattern).format(this);
-    } else if (now.year == year) {
-      return DateFormat('MM.dd $timePattern').format(this);
-    } else {
-      return DateFormat('yyyy.MM.dd $timePattern').format(this);
-    }
+    return DateFormat(timePattern).format(this);
   }
 }

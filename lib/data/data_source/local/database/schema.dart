@@ -15,7 +15,7 @@ import 'package:moodlog/domain/entities/journal/tag.dart';
 class CheckIns extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime()();
 
   IntColumn get moodType => intEnum<MoodType>()();
 
@@ -48,7 +48,7 @@ class CheckIns extends Table {
 class Journals extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime()();
 
   TextColumn get content => text()();
 

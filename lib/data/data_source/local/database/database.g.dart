@@ -30,8 +30,7 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
     aliasedName,
     false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
+    requiredDuringInsert: true,
   );
   @override
   late final GeneratedColumnWithTypeConverter<MoodType, int> moodType =
@@ -182,6 +181,8 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
         _createdAtMeta,
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     if (data.containsKey('sleep_quality')) {
       context.handle(
@@ -357,7 +358,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
   });
   CheckInsCompanion.insert({
     this.id = const Value.absent(),
-    this.createdAt = const Value.absent(),
+    required DateTime createdAt,
     required MoodType moodType,
     this.sleepQuality = const Value.absent(),
     this.emotionNames = const Value.absent(),
@@ -369,7 +370,8 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
     this.weatherDescription = const Value.absent(),
-  }) : moodType = Value(moodType);
+  }) : createdAt = Value(createdAt),
+       moodType = Value(moodType);
   static Insertable<CheckIn> custom({
     Expression<int>? id,
     Expression<DateTime>? createdAt,
@@ -533,8 +535,7 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
     aliasedName,
     false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _contentMeta = const VerificationMeta(
     'content',
@@ -655,6 +656,8 @@ class $JournalsTable extends Journals with TableInfo<$JournalsTable, Journal> {
         _createdAtMeta,
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     if (data.containsKey('content')) {
       context.handle(
@@ -797,7 +800,7 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
   });
   JournalsCompanion.insert({
     this.id = const Value.absent(),
-    this.createdAt = const Value.absent(),
+    required DateTime createdAt,
     required String content,
     this.imageUri = const Value.absent(),
     this.latitude = const Value.absent(),
@@ -806,7 +809,8 @@ class JournalsCompanion extends UpdateCompanion<Journal> {
     this.temperature = const Value.absent(),
     this.weatherIcon = const Value.absent(),
     this.weatherDescription = const Value.absent(),
-  }) : content = Value(content);
+  }) : createdAt = Value(createdAt),
+       content = Value(content);
   static Insertable<Journal> custom({
     Expression<int>? id,
     Expression<DateTime>? createdAt,
@@ -2009,7 +2013,7 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
 typedef $$CheckInsTableCreateCompanionBuilder =
     CheckInsCompanion Function({
       Value<int> id,
-      Value<DateTime> createdAt,
+      required DateTime createdAt,
       required MoodType moodType,
       Value<int?> sleepQuality,
       Value<List<String>?> emotionNames,
@@ -2461,7 +2465,7 @@ class $$CheckInsTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<DateTime> createdAt = const Value.absent(),
+                required DateTime createdAt,
                 required MoodType moodType,
                 Value<int?> sleepQuality = const Value.absent(),
                 Value<List<String>?> emotionNames = const Value.absent(),
@@ -2574,7 +2578,7 @@ typedef $$CheckInsTableProcessedTableManager =
 typedef $$JournalsTableCreateCompanionBuilder =
     JournalsCompanion Function({
       Value<int> id,
-      Value<DateTime> createdAt,
+      required DateTime createdAt,
       required String content,
       Value<List<String>?> imageUri,
       Value<double?> latitude,
@@ -2818,7 +2822,7 @@ class $$JournalsTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<DateTime> createdAt = const Value.absent(),
+                required DateTime createdAt,
                 required String content,
                 Value<List<String>?> imageUri = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),

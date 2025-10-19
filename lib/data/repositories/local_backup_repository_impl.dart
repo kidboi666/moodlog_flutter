@@ -226,7 +226,7 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
             .insert(
               JournalsCompanion.insert(
                 id: Value(backupJournal.id),
-                createdAt: Value(backupJournal.createdAt),
+                createdAt: backupJournal.createdAt,
                 content: backupJournal.content,
                 imageUri: Value(restoredImagePaths),
                 latitude: Value(backupJournal.latitude),

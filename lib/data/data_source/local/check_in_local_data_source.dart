@@ -16,7 +16,7 @@ class CheckInLocalDataSource {
     return await _db.into(_db.checkIns).insert(
           CheckInsCompanion.insert(
             moodType: request.moodType,
-            createdAt: Value(request.createdAt),
+            createdAt: request.createdAt,
             sleepQuality: Value(request.sleepQuality),
             emotionNames: Value(request.emotionNames),
             tagNames: Value(request.tagNames),
@@ -77,6 +77,12 @@ class CheckInLocalDataSource {
           ..where((t) => t.createdAt.isBetweenValues(startOfDay, endOfDay))
           ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
         .watch();
+  }
+
+  Future<List<CheckIn>> getAllCheckIns() async {
+    return await (_db.select(_db.checkIns)
+          ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .get();
   }
 
   Stream<List<CheckIn>> watchAllCheckIns() {

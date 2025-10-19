@@ -23,9 +23,9 @@ class CheckInRepositoryImpl implements CheckInRepository {
     required CheckInLocalDataSource checkInLocalDataSource,
     required TagLocalDataSource tagLocalDataSource,
     required EmotionLocalDataSource emotionLocalDataSource,
-  })  : _checkInLocalDataSource = checkInLocalDataSource,
-        _tagLocalDataSource = tagLocalDataSource,
-        _emotionLocalDataSource = emotionLocalDataSource;
+  }) : _checkInLocalDataSource = checkInLocalDataSource,
+       _tagLocalDataSource = tagLocalDataSource,
+       _emotionLocalDataSource = emotionLocalDataSource;
 
   final _checkInStreamController = StreamController<List<CheckIn>>.broadcast();
 
@@ -121,8 +121,7 @@ class CheckInRepositoryImpl implements CheckInRepository {
   @override
   Future<Result<List<CheckIn>>> getAllCheckIns() async {
     try {
-      final stream = _checkInLocalDataSource.watchAllCheckIns();
-      final checkIns = await stream.first;
+      final checkIns = await _checkInLocalDataSource.getAllCheckIns();
       return Result.ok(checkIns);
     } catch (e, s) {
       _log.severe('Failed to get all check-ins', e, s);
@@ -193,7 +192,10 @@ class CheckInRepositoryImpl implements CheckInRepository {
   }
 
   @override
-  Future<Result<void>> updateCheckInTags(int checkInId, List<int> tagIds) async {
+  Future<Result<void>> updateCheckInTags(
+    int checkInId,
+    List<int> tagIds,
+  ) async {
     try {
       await _checkInLocalDataSource.updateCheckInTags(checkInId, tagIds);
       notifyCheckInUpdate();
