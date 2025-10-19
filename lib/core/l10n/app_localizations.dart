@@ -2212,6 +2212,30 @@ abstract class AppLocalizations {
   /// **'Q4'**
   String get statistics_yearly_q4;
 
+  /// No description provided for @statistics_yearly_first_half.
+  ///
+  /// In en, this message translates to:
+  /// **'1st Half'**
+  String get statistics_yearly_first_half;
+
+  /// No description provided for @statistics_yearly_second_half.
+  ///
+  /// In en, this message translates to:
+  /// **'2nd Half'**
+  String get statistics_yearly_second_half;
+
+  /// No description provided for @statistics_yearly_growth_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth'**
+  String get statistics_yearly_growth_label;
+
+  /// No description provided for @statistics_yearly_change_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get statistics_yearly_change_label;
+
   /// No description provided for @ai_report_positive_keywords.
   ///
   /// In en, this message translates to:

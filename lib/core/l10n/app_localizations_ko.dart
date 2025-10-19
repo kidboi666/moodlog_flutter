@@ -1118,6 +1118,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get statistics_yearly_q4 => '4분기';
 
   @override
+  String get statistics_yearly_first_half => '상반기';
+
+  @override
+  String get statistics_yearly_second_half => '하반기';
+
+  @override
+  String get statistics_yearly_growth_label => '성장';
+
+  @override
+  String get statistics_yearly_change_label => '변화';
+
+  @override
   String get ai_report_positive_keywords => '긍정 키워드';
 
   @override

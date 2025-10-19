@@ -84,7 +84,6 @@ flutter:
     - assets/svg/
     - assets/data/sample_check_ins.json
     - assets/data/sample_journals.json
-    - assets/data/google_fonts.json
     - .env
 
   fonts:

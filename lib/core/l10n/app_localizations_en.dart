@@ -1158,6 +1158,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics_yearly_q4 => 'Q4';
 
   @override
+  String get statistics_yearly_first_half => '1st Half';
+
+  @override
+  String get statistics_yearly_second_half => '2nd Half';
+
+  @override
+  String get statistics_yearly_growth_label => 'Growth';
+
+  @override
+  String get statistics_yearly_change_label => 'Change';
+
+  @override
   String get ai_report_positive_keywords => 'Positive Keywords';
 
   @override

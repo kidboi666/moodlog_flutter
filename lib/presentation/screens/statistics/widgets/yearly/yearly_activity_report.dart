@@ -89,9 +89,9 @@ class _ActivityItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     Color getRankColor() {
-      if (rank == 1) return Colors.amber;
-      if (rank == 2) return Colors.grey.shade400;
-      if (rank == 3) return Colors.brown.shade400;
+      if (rank == 1) return colorScheme.tertiary;
+      if (rank == 2) return colorScheme.secondary;
+      if (rank == 3) return colorScheme.primaryContainer;
       return colorScheme.primary;
     }
 

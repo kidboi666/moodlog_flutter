@@ -14,9 +14,10 @@ class YearlyGrowthIndicator extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    final monthlyAverages = context.select<StatisticsViewModel, Map<int, double>>(
-      (vm) => vm.yearlyMonthlyAverages,
-    );
+    final monthlyAverages = context
+        .select<StatisticsViewModel, Map<int, double>>(
+          (vm) => vm.yearlyMonthlyAverages,
+        );
 
     final firstHalfMonths = [1, 2, 3, 4, 5, 6];
     final secondHalfMonths = [7, 8, 9, 10, 11, 12];
@@ -63,7 +64,7 @@ class YearlyGrowthIndicator extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _HalfYearCard(
-                        label: '상반기',
+                        label: t.statistics_yearly_first_half,
                         average: firstHalfAvg,
                         color: colorScheme.primary,
                       ),
@@ -71,7 +72,7 @@ class YearlyGrowthIndicator extends StatelessWidget {
                     CommonSizedBox.widthMd,
                     Expanded(
                       child: _HalfYearCard(
-                        label: '하반기',
+                        label: t.statistics_yearly_second_half,
                         average: secondHalfAvg,
                         color: colorScheme.secondary,
                       ),
@@ -90,7 +91,9 @@ class YearlyGrowthIndicator extends StatelessWidget {
                     children: [
                       Icon(
                         growth > 0 ? Icons.trending_up : Icons.trending_down,
-                        color: growth > 0 ? Colors.green : Colors.orange,
+                        color: growth > 0
+                            ? colorScheme.tertiary
+                            : colorScheme.secondary,
                         size: 20,
                       ),
                       CommonSizedBox.widthSm,
@@ -100,12 +103,16 @@ class YearlyGrowthIndicator extends StatelessWidget {
                             : '${growth.toStringAsFixed(1)}%',
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: growth > 0 ? Colors.green : Colors.orange,
+                          color: growth > 0
+                              ? colorScheme.tertiary
+                              : colorScheme.secondary,
                         ),
                       ),
                       CommonSizedBox.widthSm,
                       Text(
-                        growth > 0 ? '성장' : '변화',
+                        growth > 0
+                            ? t.statistics_yearly_growth_label
+                            : t.statistics_yearly_change_label,
                         style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -132,6 +139,7 @@ class _HalfYearCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -139,10 +147,7 @@ class _HalfYearCard extends StatelessWidget {
       padding: const EdgeInsets.all(Spacing.md),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 2,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -163,7 +168,7 @@ class _HalfYearCard extends StatelessWidget {
             ),
           ),
           Text(
-            '평균 기분',
+            t.statistics_yearly_avg_mood,
             style: textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),

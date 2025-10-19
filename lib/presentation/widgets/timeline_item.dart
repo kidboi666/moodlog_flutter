@@ -57,10 +57,7 @@ class TimelineItem extends StatelessWidget {
                         ? Color(moodType!.colorValue)
                         : colorScheme.primary.withValues(alpha: 0.6),
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: colorScheme.surface,
-                      width: 2,
-                    ),
+                    border: Border.all(color: colorScheme.surface, width: 2),
                   ),
                 ),
 
@@ -112,9 +109,7 @@ class TimelineItem extends StatelessWidget {
           // Content (right)
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(
-                bottom: isLast ? 0 : Spacing.xl,
-              ),
+              padding: EdgeInsets.only(bottom: isLast ? 0 : Spacing.xl),
               child: child,
             ),
           ),

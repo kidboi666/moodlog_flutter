@@ -100,7 +100,7 @@ class _EmotionChip extends StatelessWidget {
               child: Text(
                 '$rank',
                 style: textTheme.labelSmall?.copyWith(
-                  color: Colors.white,
+                  color: colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                 ),
               ),

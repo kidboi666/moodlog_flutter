@@ -11,7 +11,6 @@ class YearlyDashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     final totalCheckIns = context.select<StatisticsViewModel, int>(
@@ -71,7 +70,7 @@ class YearlyDashboardCard extends StatelessWidget {
                   label: t.statistics_yearly_best_month,
                   value: bestMonth.isNotEmpty ? bestMonth : '-',
                   icon: Icons.trending_up,
-                  color: Colors.green,
+                  color: colorScheme.tertiary,
                 ),
               ),
               Container(
@@ -84,7 +83,7 @@ class YearlyDashboardCard extends StatelessWidget {
                   label: t.statistics_yearly_worst_month,
                   value: worstMonth.isNotEmpty ? worstMonth : '-',
                   icon: Icons.trending_down,
-                  color: Colors.orange,
+                  color: colorScheme.secondary,
                 ),
               ),
             ],

@@ -74,6 +74,7 @@ class _MoodLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 6));
     final startDate = DateTime(sevenDaysAgo.year, sevenDaysAgo.month, sevenDaysAgo.day);
@@ -89,7 +90,10 @@ class _MoodLineChart extends StatelessWidget {
         SizedBox(
           height: 150,
           child: CustomPaint(
-            painter: _LineChartPainter(dataPoints: dataPoints),
+            painter: _LineChartPainter(
+              dataPoints: dataPoints,
+              colorScheme: colorScheme,
+            ),
             child: Container(),
           ),
         ),
@@ -144,18 +148,22 @@ class _MoodLineChart extends StatelessWidget {
 
 class _LineChartPainter extends CustomPainter {
   final List<double?> dataPoints;
+  final ColorScheme colorScheme;
 
-  _LineChartPainter({required this.dataPoints});
+  _LineChartPainter({
+    required this.dataPoints,
+    required this.colorScheme,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.blue
+      ..color = colorScheme.primary
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
     final gridPaint = Paint()
-      ..color = Colors.grey.withValues(alpha: 0.2)
+      ..color = colorScheme.outlineVariant.withValues(alpha: 0.3)
       ..strokeWidth = 1.0;
 
     final availablePoints = dataPoints.where((p) => p != null).toList();
@@ -221,6 +229,7 @@ class _LineChartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_LineChartPainter oldDelegate) {
-    return oldDelegate.dataPoints != dataPoints;
+    return oldDelegate.dataPoints != dataPoints ||
+        oldDelegate.colorScheme != colorScheme;
   }
 }

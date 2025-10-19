@@ -108,19 +108,11 @@ class _QuarterBar extends StatelessWidget {
     final heightRatio = maxAverage > 0 ? (average / maxAverage).clamp(0.0, 1.0) : 0.0;
     final barHeight = average > 0 ? (140 * heightRatio).clamp(20.0, 140.0) : 8.0;
 
-    Color getBarColor() {
-      if (average == 0) return colorScheme.surfaceContainerHighest;
-      if (average >= 4.0) return Colors.green;
-      if (average >= 3.0) return colorScheme.primary;
-      if (average >= 2.0) return Colors.orange;
-      return Colors.red;
-    }
-
     final quarterColors = [
       colorScheme.primary,
       colorScheme.secondary,
       colorScheme.tertiary,
-      Colors.purple,
+      colorScheme.primaryContainer,
     ];
 
     return Expanded(

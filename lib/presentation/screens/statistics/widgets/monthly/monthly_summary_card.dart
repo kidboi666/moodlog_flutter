@@ -11,7 +11,6 @@ class MonthlySummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     final checkInDays = context.select<StatisticsViewModel, int>(
@@ -88,9 +87,9 @@ class MonthlySummaryCard extends StatelessWidget {
                       : '${vsLastMonth > 0 ? '+' : ''}${vsLastMonth.toStringAsFixed(1)}',
                   icon: vsLastMonth > 0 ? Icons.trending_up : Icons.trending_down,
                   color: vsLastMonth > 0
-                      ? Colors.green
+                      ? colorScheme.tertiary
                       : vsLastMonth < 0
-                          ? Colors.red
+                          ? colorScheme.error
                           : colorScheme.onSurfaceVariant,
                 ),
               ),

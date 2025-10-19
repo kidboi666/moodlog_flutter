@@ -83,11 +83,11 @@ class _EmotionItem extends StatelessWidget {
       colorScheme.primary,
       colorScheme.secondary,
       colorScheme.tertiary,
-      Colors.purple,
-      Colors.orange,
-      Colors.teal,
-      Colors.pink,
-      Colors.indigo,
+      colorScheme.primaryContainer,
+      colorScheme.secondaryContainer,
+      colorScheme.tertiaryContainer,
+      colorScheme.surfaceContainerHighest,
+      colorScheme.inversePrimary,
     ];
 
     final colorIndex = emotion.hashCode.abs() % emotionColors.length;

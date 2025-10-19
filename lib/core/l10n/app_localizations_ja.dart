@@ -1119,6 +1119,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get statistics_yearly_q4 => 'Q4';
 
   @override
+  String get statistics_yearly_first_half => '上半期';
+
+  @override
+  String get statistics_yearly_second_half => '下半期';
+
+  @override
+  String get statistics_yearly_growth_label => '成長';
+
+  @override
+  String get statistics_yearly_change_label => '変化';
+
+  @override
   String get ai_report_positive_keywords => 'ポジティブキーワード';
 
   @override

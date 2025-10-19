@@ -18,10 +18,13 @@ import 'package:moodlog/presentation/screens/tags/tags_view.dart';
 import 'package:moodlog/presentation/screens/write/write_view.dart';
 import 'package:provider/provider.dart';
 
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+
 GoRouter router(
   AppStateProvider appStateProvider,
   NavigatorObserver? analyticsObserver,
 ) => GoRouter(
+  navigatorKey: rootNavigatorKey,
   initialLocation: Routes.home,
   redirect: _redirect,
   refreshListenable: appStateProvider,

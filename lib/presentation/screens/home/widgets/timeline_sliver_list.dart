@@ -60,7 +60,12 @@ class TimelineSliverList extends StatelessWidget {
             isLast: isLast,
             moodType: entry.type.isCheckIn ? entry.checkIn?.moodType : null,
             child: entry.type.isJournal
-                ? _buildJournalEntry(context, entry, isSelectionMode, selectedJournalIds)
+                ? _buildJournalEntry(
+                    context,
+                    entry,
+                    isSelectionMode,
+                    selectedJournalIds,
+                  )
                 : _buildCheckInEntry(context, entry),
           ),
         );
@@ -74,7 +79,6 @@ class TimelineSliverList extends StatelessWidget {
     bool isSelectionMode,
     Set<int> selectedJournalIds,
   ) {
-
     return Dismissible(
       key: ValueKey('journal_${entry.id}'),
       direction: DismissDirection.endToStart,
@@ -117,12 +121,10 @@ class TimelineSliverList extends StatelessWidget {
         isSelectable: isSelectionMode,
         isSelected: selectedJournalIds.contains(entry.id),
         onTap: isSelectionMode
-            ? () => context
-                  .read<HomeViewModel>()
-                  .toggleJournalSelection(entry.id)
+            ? () =>
+                  context.read<HomeViewModel>().toggleJournalSelection(entry.id)
             : () => context.pushToJournalFromHome(entry.id),
-        onLongPress: () =>
-            context.read<HomeViewModel>().toggleSelectionMode(),
+        onLongPress: () => context.read<HomeViewModel>().toggleSelectionMode(),
       ),
     );
   }

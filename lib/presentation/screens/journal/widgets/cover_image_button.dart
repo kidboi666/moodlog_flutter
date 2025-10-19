@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
 
 class CoverImageButton extends StatelessWidget {
   final String image;

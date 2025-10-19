@@ -3,7 +3,6 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view_model.dart';
 import 'package:moodlog/presentation/widgets/base_card.dart';
-import 'package:moodlog/presentation/widgets/statistic_display.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyTopActivities extends StatelessWidget {

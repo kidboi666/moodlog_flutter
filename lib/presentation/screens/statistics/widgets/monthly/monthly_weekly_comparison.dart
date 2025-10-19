@@ -84,7 +84,6 @@ class MonthlyWeeklyComparison extends StatelessWidget {
 
   Widget _buildLegend(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
@@ -128,10 +127,10 @@ class _WeekBar extends StatelessWidget {
 
     Color getBarColor() {
       if (count == 0) return colorScheme.surfaceContainerHighest;
-      if (avgMood >= 4.0) return Colors.green;
+      if (avgMood >= 4.0) return colorScheme.tertiary;
       if (avgMood >= 3.0) return colorScheme.primary;
-      if (avgMood >= 2.0) return Colors.orange;
-      return Colors.red;
+      if (avgMood >= 2.0) return colorScheme.secondary;
+      return colorScheme.error;
     }
 
     return Expanded(
@@ -162,7 +161,7 @@ class _WeekBar extends StatelessWidget {
                     child: Text(
                       count.toString(),
                       style: textTheme.labelSmall?.copyWith(
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -171,7 +170,7 @@ class _WeekBar extends StatelessWidget {
           ),
           CommonSizedBox.heightSm,
           Text(
-            '${weekNumber}${t.statistics_monthly_week_suffix}',
+            '$weekNumber${t.statistics_monthly_week_suffix}',
             style: textTheme.labelSmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),

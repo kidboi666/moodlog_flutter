@@ -77,6 +77,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
         routerConfig: _router,
         builder: (context, child) {
           return UpgradeAlert(
+            navigatorKey: rootNavigatorKey,
             upgrader: Upgrader(
               debugDisplayAlways: FlavorService.isDebug,
               debugLogging: FlavorService.isDebug,
