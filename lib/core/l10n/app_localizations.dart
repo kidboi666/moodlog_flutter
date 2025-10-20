@@ -562,6 +562,12 @@ abstract class AppLocalizations {
   /// **'Go write a diary entry'**
   String get entries_empty_box_button;
 
+  /// No description provided for @entries_empty_box_check_in_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Check in'**
+  String get entries_empty_box_check_in_button;
+
   /// No description provided for @entries_calendar_legend_has_journal.
   ///
   /// In en, this message translates to:

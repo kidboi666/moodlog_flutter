@@ -76,6 +76,7 @@
   "entries_empty_box_title": "作成された日記がありません。",
   "entries_empty_box_description": "作成した日記がここに表示されます。",
   "entries_empty_box_button": "日記を書きに行く",
+  "entries_empty_box_check_in_button": "チェックイン",
   "entries_calendar_legend_has_journal": "日記あり",
   "entries_calendar_legend_today": "今日",
   "tab_home": "ホーム",

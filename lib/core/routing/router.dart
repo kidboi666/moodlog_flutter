@@ -61,7 +61,9 @@ GoRouter router(
         final checkInId = checkInIdStr != null
             ? int.tryParse(checkInIdStr)
             : null;
-        return QuickCheckInScreen(checkInId: checkInId);
+        final extra = state.extra as Map<String, DateTime>?;
+        final date = extra?['date'];
+        return QuickCheckInScreen(checkInId: checkInId, selectedDate: date);
       },
     ),
     GoRoute(

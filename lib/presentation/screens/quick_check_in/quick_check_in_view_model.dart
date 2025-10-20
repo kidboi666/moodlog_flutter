@@ -22,12 +22,13 @@ class QuickCheckInViewModel extends ChangeNotifier
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
     int? checkInId,
+    DateTime? selectedDate,
   })  : _checkInUseCase = checkInUseCase,
         _getCurrentLocationUseCase = getCurrentLocationUseCase,
         _weatherUseCase = weatherUseCase,
         _checkInId = checkInId {
     initStep(totalSteps);
-    _createdAt = DateTime.now();
+    _createdAt = selectedDate ?? DateTime.now();
 
     if (isEditMode) {
       _loadExistingCheckIn();

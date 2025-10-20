@@ -103,8 +103,8 @@ class HomeViewModel extends ChangeNotifier
 
   void selectDate(DateTime date) {
     _selectedDate = date;
-    journalUseCase.notifyJournalUpdate();
-    _checkInUseCase.notifyCheckInUpdate();
+    _filterJournalsForSelectedDate(_allJournals);
+    _filterCheckInsForSelectedDate(_allCheckIns);
     notifyListeners();
   }
 
@@ -145,10 +145,14 @@ class HomeViewModel extends ChangeNotifier
     setIsFirstRender(false);
   }
 
+  List<Journal> _allJournals = [];
+  List<CheckIn> _allCheckIns = [];
+
   void _subscribeToJournalChanges() {
     _journalSubscription = _observeJournalListUseCase.call().listen((
       allJournals,
     ) {
+      _allJournals = allJournals;
       _filterJournalsForSelectedDate(allJournals);
     });
     journalUseCase.notifyJournalUpdate();
@@ -158,6 +162,7 @@ class HomeViewModel extends ChangeNotifier
     _checkInSubscription = _checkInUseCase.watchAllCheckIns().listen((
       allCheckIns,
     ) {
+      _allCheckIns = allCheckIns;
       _filterCheckInsForSelectedDate(allCheckIns);
     });
     _checkInUseCase.notifyCheckInUpdate();

@@ -76,6 +76,7 @@
   "entries_empty_box_title": "아직 일기가 없습니다.",
   "entries_empty_box_description": "작성한 일기가 여기에 표시됩니다.",
   "entries_empty_box_button": "일기 쓰러 가기",
+  "entries_empty_box_check_in_button": "체크인하기",
   "entries_calendar_legend_has_journal": "일기 있음",
   "entries_calendar_legend_today": "오늘",
   "tab_home": "홈",

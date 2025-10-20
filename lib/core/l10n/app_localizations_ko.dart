@@ -246,6 +246,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get entries_empty_box_button => '일기 쓰러 가기';
 
   @override
+  String get entries_empty_box_check_in_button => '체크인하기';
+
+  @override
   String get entries_calendar_legend_has_journal => '일기 있음';
 
   @override

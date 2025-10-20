@@ -254,6 +254,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get entries_empty_box_button => 'Go write a diary entry';
 
   @override
+  String get entries_empty_box_check_in_button => 'Check in';
+
+  @override
   String get entries_calendar_legend_has_journal => 'Has entry';
 
   @override

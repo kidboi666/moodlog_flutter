@@ -17,8 +17,13 @@ part 'quick_check_in_content.dart';
 
 class QuickCheckInScreen extends StatelessWidget {
   final int? checkInId;
+  final DateTime? selectedDate;
 
-  const QuickCheckInScreen({super.key, this.checkInId});
+  const QuickCheckInScreen({
+    super.key,
+    this.checkInId,
+    this.selectedDate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class QuickCheckInScreen extends StatelessWidget {
         getCurrentLocationUseCase: context.read<GetCurrentLocationUseCase>(),
         weatherUseCase: context.read<WeatherUseCase>(),
         checkInId: checkInId,
+        selectedDate: selectedDate,
       ),
       child: _QuickCheckInContent(),
     );

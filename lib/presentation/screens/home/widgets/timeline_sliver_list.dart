@@ -46,7 +46,7 @@ class TimelineSliverList extends StatelessWidget {
     }
 
     return SliverList(
-      key: ValueKey(selectedDate),
+      key: ValueKey('${selectedDate.toIso8601String()}_${timelineEntries.length}'),
       delegate: SliverChildBuilderDelegate((context, index) {
         final entry = timelineEntries[index];
         final isFirst = index == 0;

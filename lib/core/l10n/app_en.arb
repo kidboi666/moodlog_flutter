@@ -76,6 +76,7 @@
   "entries_empty_box_title": "No diary entries yet.",
   "entries_empty_box_description": "Your written entries will appear here.",
   "entries_empty_box_button": "Go write a diary entry",
+  "entries_empty_box_check_in_button": "Check in",
   "entries_calendar_legend_has_journal": "Has entry",
   "entries_calendar_legend_today": "Today",
   "tab_home": "Home",

@@ -16,11 +16,15 @@ extension RoutingExtension on BuildContext {
     go(Routes.journal(id), extra: {'source': JournalSource.write});
   }
 
-  void pushToWriteFromSelectedDate(DateTime date) {
-    push(Routes.write, extra: {'date': date});
+  void pushToWrite({DateTime? date}) {
+    push(Routes.write, extra: date != null ? {'date': date} : null);
   }
 
-  void pushToEditCheckIn(int journalId) {
-    push('${Routes.quickCheckIn}?journalId=$journalId');
+  void pushToCheckIn({DateTime? date}) {
+    push(Routes.quickCheckIn, extra: date != null ? {'date': date} : null);
+  }
+
+  void pushToEditCheckIn(int checkInId) {
+    push('${Routes.quickCheckIn}?checkInId=$checkInId');
   }
 }

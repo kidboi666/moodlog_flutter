@@ -247,6 +247,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get entries_empty_box_button => '日記を書きに行く';
 
   @override
+  String get entries_empty_box_check_in_button => 'チェックイン';
+
+  @override
   String get entries_calendar_legend_has_journal => '日記あり';
 
   @override

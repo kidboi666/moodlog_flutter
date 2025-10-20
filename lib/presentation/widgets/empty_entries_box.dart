@@ -83,29 +83,42 @@ class EmptyEntriesBox extends StatelessWidget {
                   ],
                 ),
                 if (isToday)
-                  buildButton(
-                    onPressed: () =>
-                        context.pushToWriteFromSelectedDate(DateTime.now()),
-                    icon: Icons.add,
-                    label: t.entries_empty_box_button,
+                  Row(
+                    spacing: Spacing.sm,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(
+                        onPressed: () => context.pushToWrite(),
+                        icon: Icons.add,
+                        label: t.entries_empty_box_button,
+                      ),
+                      buildButton(
+                        onPressed: () => context.pushToCheckIn(),
+                        icon: Icons.mood,
+                        label: t.entries_empty_box_check_in_button,
+                      ),
+                    ],
                   )
                 else
                   Column(
                     spacing: Spacing.sm,
                     children: [
                       buildButton(
-                        onPressed: () =>
-                            context.pushToWriteFromSelectedDate(selectedDate),
+                        onPressed: () => context.pushToWrite(date: selectedDate),
                         icon: Icons.calendar_today,
                         label: t.empty_box_write_for_selected_date(
                           selectedDate.formattedLocalizedFullDate(t),
                         ),
                       ),
                       buildButton(
-                        onPressed: () =>
-                            context.pushToWriteFromSelectedDate(DateTime.now()),
+                        onPressed: () => context.pushToWrite(),
                         icon: Icons.today,
                         label: t.empty_box_write_for_today,
+                      ),
+                      buildButton(
+                        onPressed: () => context.pushToCheckIn(date: selectedDate),
+                        icon: Icons.mood,
+                        label: t.entries_empty_box_check_in_button,
                       ),
                     ],
                   ),
