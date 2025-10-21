@@ -1534,6 +1534,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get check_in_sleep_quality => '수면 품질';
 
   @override
+  String get check_in_emotions_empty => '선택한 감정이 없습니다';
+
+  @override
+  String get check_in_activities_empty => '선택한 활동이 없습니다';
+
+  @override
+  String get check_in_memo => '메모';
+
+  @override
+  String get check_in_delete_confirm_title => '삭제 확인';
+
+  @override
+  String get check_in_delete_confirm_description => '이 체크인을 삭제하시겠습니까?';
+
+  @override
+  String get check_in_edit => '수정';
+
+  @override
   String get timeline_check_in => '체크인';
 
   @override

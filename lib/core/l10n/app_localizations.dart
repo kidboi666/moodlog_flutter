@@ -2992,6 +2992,42 @@ abstract class AppLocalizations {
   /// **'Sleep Quality'**
   String get check_in_sleep_quality;
 
+  /// No description provided for @check_in_emotions_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No emotions selected'**
+  String get check_in_emotions_empty;
+
+  /// No description provided for @check_in_activities_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No activities selected'**
+  String get check_in_activities_empty;
+
+  /// No description provided for @check_in_memo.
+  ///
+  /// In en, this message translates to:
+  /// **'Memo'**
+  String get check_in_memo;
+
+  /// No description provided for @check_in_delete_confirm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get check_in_delete_confirm_title;
+
+  /// No description provided for @check_in_delete_confirm_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this check-in?'**
+  String get check_in_delete_confirm_description;
+
+  /// No description provided for @check_in_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get check_in_edit;
+
   /// No description provided for @timeline_check_in.
   ///
   /// In en, this message translates to:

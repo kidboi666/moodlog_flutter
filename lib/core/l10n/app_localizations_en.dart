@@ -1583,6 +1583,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get check_in_sleep_quality => 'Sleep Quality';
 
   @override
+  String get check_in_emotions_empty => 'No emotions selected';
+
+  @override
+  String get check_in_activities_empty => 'No activities selected';
+
+  @override
+  String get check_in_memo => 'Memo';
+
+  @override
+  String get check_in_delete_confirm_title => 'Confirm Deletion';
+
+  @override
+  String get check_in_delete_confirm_description =>
+      'Do you want to delete this check-in?';
+
+  @override
+  String get check_in_edit => 'Edit';
+
+  @override
   String get timeline_check_in => 'Check In';
 
   @override

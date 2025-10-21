@@ -1534,6 +1534,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get check_in_sleep_quality => '睡眠の質';
 
   @override
+  String get check_in_emotions_empty => '選択された感情はありません';
+
+  @override
+  String get check_in_activities_empty => '選択された活動はありません';
+
+  @override
+  String get check_in_memo => 'メモ';
+
+  @override
+  String get check_in_delete_confirm_title => '削除の確認';
+
+  @override
+  String get check_in_delete_confirm_description => 'このチェックインを削除しますか？';
+
+  @override
+  String get check_in_edit => '編集';
+
+  @override
   String get timeline_check_in => 'チェックイン';
 
   @override
