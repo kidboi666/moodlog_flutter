@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/presentation/screens/check_in/check_in_view_model.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/mood_bar.dart';
@@ -51,46 +52,61 @@ class _CheckInScreenContent extends StatelessWidget {
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
             onSelected: (value) async {
-              if (value == 'delete') {
-                final shouldDelete = await showDialog<bool>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(l10n.check_in_delete_confirm_title),
-                    content: Text(l10n.check_in_delete_confirm_description),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: Text(l10n.cancel),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: Text(l10n.common_confirm_delete),
-                      ),
-                    ],
-                  ),
-                );
+              switch (value) {
+                case 'edit':
+                  context.push('${Routes.quickCheckIn}?checkInId=${viewModel.id}');
+                  break;
+                case 'delete':
+                  final shouldDelete = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(l10n.check_in_delete_confirm_title),
+                      content: Text(l10n.check_in_delete_confirm_description),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text(l10n.cancel),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text(l10n.common_confirm_delete),
+                        ),
+                      ],
+                    ),
+                  );
 
-                if (shouldDelete == true) {
-                  final result = await viewModel.delete();
-                  if (context.mounted) {
-                    switch (result) {
-                      case Ok():
-                        context.pop();
-                      case Error():
-                        break;
+                  if (shouldDelete == true) {
+                    final result = await viewModel.delete();
+                    if (context.mounted) {
+                      switch (result) {
+                        case Ok():
+                          context.pop();
+                        case Error():
+                          break;
+                      }
                     }
                   }
-                }
+                  break;
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
+                value: 'edit',
+                child: Row(
+                  children: [
+                    const Icon(Icons.edit),
+                    const SizedBox(width: Spacing.sm),
+                    Text(l10n.check_in_edit),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
                 value: 'delete',
                 child: Row(
                   children: [
-                    Icon(Icons.delete),
-                    SizedBox(width: Spacing.sm),
-                    Text('삭제'),
+                    const Icon(Icons.delete),
+                    const SizedBox(width: Spacing.sm),
+                    Text(l10n.common_confirm_delete),
                   ],
                 ),
               ),

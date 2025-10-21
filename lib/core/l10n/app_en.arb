@@ -685,6 +685,7 @@
   "check_in_memo": "Memo",
   "check_in_delete_confirm_title": "Confirm Deletion",
   "check_in_delete_confirm_description": "Do you want to delete this check-in?",
+  "check_in_edit": "Edit",
   "timeline_check_in": "Check In",
   "timeline_journal": "Journal",
   "suggested_activity_exercise": "Exercise",
