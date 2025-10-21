@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/routing.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
+import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/domain/entities/timeline_entry.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
@@ -133,8 +135,7 @@ class TimelineSliverList extends StatelessWidget {
     return TimelineCard(
       entry: entry,
       onTap: () {
-        // TODO: Navigate to CheckIn detail screen
-        debugPrint('CheckIn tapped: ${entry.id}');
+        context.push(Routes.checkIn(entry.id));
       },
     );
   }

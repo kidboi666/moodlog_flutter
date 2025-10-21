@@ -4,6 +4,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
+import 'package:moodlog/presentation/screens/check_in/check_in_view.dart';
 import 'package:moodlog/presentation/screens/font_settings/font_settings_view.dart';
 import 'package:moodlog/presentation/screens/home/home_view.dart';
 import 'package:moodlog/presentation/screens/journal/image_detail_screen.dart';
@@ -86,6 +87,13 @@ GoRouter router(
           },
         ),
       ],
+    ),
+    GoRoute(
+      path: Routes.checkInPage,
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        return CheckInScreen(id: id);
+      },
     ),
     GoRoute(
       path: Routes.home,
