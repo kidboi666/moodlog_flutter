@@ -22,6 +22,7 @@ class QuickMemoPageState extends State<QuickMemoPage>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  bool _isInitialized = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -29,6 +30,16 @@ class QuickMemoPageState extends State<QuickMemoPage>
   void requestFocus() {
     if (mounted && _focusNode.canRequestFocus) {
       _focusNode.requestFocus();
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      final viewModel = context.read<QuickCheckInViewModel>();
+      _controller.text = viewModel.memo;
+      _isInitialized = true;
     }
   }
 
