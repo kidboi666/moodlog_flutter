@@ -172,7 +172,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-
   void clearLocation() {
     _locationInfo = null;
     notifyListeners();
@@ -276,7 +275,6 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
         return Result.error(result.error);
     }
   }
-
 
   Future<void> _loadCurrentLocationOnInit() async {
     _isLoadingLocation = true;

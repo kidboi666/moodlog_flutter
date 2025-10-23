@@ -9,10 +9,6 @@ class MonthLabels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    // 각 주의 첫 번째 날을 기준으로 월 라벨 생성
     final monthLabels = <Widget>[];
     String? currentMonth;
 
@@ -28,8 +24,8 @@ class MonthLabels extends StatelessWidget {
             width: 14, // 각 주 열의 너비와 동일
             child: Text(
               monthName,
-              style: textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 10,
               ),
               textAlign: TextAlign.center,
@@ -37,14 +33,14 @@ class MonthLabels extends StatelessWidget {
           ),
         );
       } else {
-        monthLabels.add(const SizedBox(width: 14));
+        monthLabels.add(CommonSizedBox.widthMd);
       }
     }
 
     return Row(
       children: [
-        const SizedBox(width: 24), // 요일 라벨 공간
-        const SizedBox(width: Spacing.xs),
+        CommonSizedBox.widthXxl,
+        CommonSizedBox.widthXs,
         ...monthLabels,
       ],
     );

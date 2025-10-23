@@ -74,7 +74,7 @@ class _FloatingActionOverlay extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).pop(),
+      onTap: () => context.pop(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         floatingActionButton: Column(
@@ -84,23 +84,17 @@ class _FloatingActionOverlay extends StatelessWidget {
             _buildActionButton(
               icon: Icons.bolt,
               label: t.home_button_quick_check_in,
-              onPressed: () {
-                Navigator.of(context).pop();
-                context.push(Routes.quickCheckIn);
-              },
+              onPressed: () => context.push(Routes.quickCheckIn),
             ),
             CommonSizedBox.heightSm,
             _buildActionButton(
               icon: Icons.create,
               label: t.home_button_write_journal,
-              onPressed: () {
-                Navigator.of(context).pop();
-                context.push(Routes.write);
-              },
+              onPressed: () => context.push(Routes.write),
             ),
             CommonSizedBox.heightSm,
             FloatingActionButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
               child: const Icon(Icons.close),
             ),
           ],
@@ -114,23 +108,29 @@ class _FloatingActionOverlay extends StatelessWidget {
     required String label,
     required VoidCallback onPressed,
   }) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+    return InkWell(
+      onTap: onPressed,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(width: Spacing.sm),
-        FloatingActionButton.small(
-          onPressed: onPressed,
-          heroTag: label,
-          child: Icon(icon),
-        ),
-      ],
+          CommonSizedBox.widthSm,
+          Ink(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(Roundness.md),
+            ),
+            child: Padding(padding: CommonPadding.sm, child: Icon(icon)),
+          ),
+        ],
+      ),
     );
   }
 }

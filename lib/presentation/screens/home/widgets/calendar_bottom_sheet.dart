@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/date_time.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/widgets/timeline_list.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:moodlog/core/l10n/app_localizations.dart';
 
 class CalendarBottomSheet extends StatefulWidget {
   const CalendarBottomSheet({super.key});
@@ -17,20 +17,24 @@ class CalendarBottomSheet extends StatefulWidget {
 class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomeViewModel>();
     final t = AppLocalizations.of(context)!;
-    final selectedDate = viewModel.selectedDate;
-    final timelineEntries = viewModel.timelineEntries;
-    final isSelectedDateInFuture = viewModel.isSelectedDateInFuture;
+    final viewModel = context.watch<HomeViewModel>();
+    final (:selectedDate, :timelineEntries, :isSelectedDateInFuture) = context
+        .select(
+          (HomeViewModel vm) => (
+            selectedDate: vm.selectedDate,
+            timelineEntries: vm.timelineEntries,
+            isSelectedDateInFuture: vm.isSelectedDateInFuture,
+          ),
+        );
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       child: Padding(
-        padding: const EdgeInsets.all(Spacing.md),
+        padding: CommonPadding.md,
         child: Column(
           children: [
-            // Drag Handle
             Container(
               width: 40,
               height: 5,
@@ -134,7 +138,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   entries: timelineEntries,
                   selectedDate: selectedDate,
                   isSelectedDateInFuture: isSelectedDateInFuture,
-                  isCompact: true,
+                  isCompact: false,
                 ),
               ),
             ),
@@ -152,11 +156,13 @@ class _CalendarHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final viewModel = context.read<HomeViewModel>();
-    final displayMonth = context.select((HomeViewModel vm) => vm.displayMonth);
-    final selectedDate = context.select((HomeViewModel vm) => vm.selectedDate);
+    final (:displayMonth, :selectedDate) = context.select(
+      (HomeViewModel vm) =>
+          (displayMonth: vm.displayMonth, selectedDate: vm.selectedDate),
+    );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+      padding: CommonPadding.horizontalMd,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -184,7 +190,7 @@ class _CalendarHeader extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                const SizedBox(height: Spacing.xs),
+                CommonSizedBox.heightXs,
                 Text(
                   '${selectedDate.getLocalizedWeekdayName(t)}, ${selectedDate.day}${t.common_unit_day}',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(

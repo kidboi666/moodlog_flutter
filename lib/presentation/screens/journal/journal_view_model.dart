@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/mixins/debounce_mixin.dart';
@@ -50,7 +51,7 @@ class JournalViewModel extends ChangeNotifier
     _pendingAlign = currentAlign.next;
     notifyListeners();
 
-    debounce('text_align', Duration(milliseconds: 300), () {
+    debounce('text_align', DurationMS.quick, () {
       final settings = _appStateProvider.appState.copyWith(
         textAlign: _pendingAlign!,
       );

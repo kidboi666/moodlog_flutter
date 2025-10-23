@@ -16,8 +16,6 @@ class UnifiedCalendarWidget extends StatelessWidget {
   }
 }
 
-// 가로 스크롤 뷰
-
 class _HorizontalView extends StatefulWidget {
   const _HorizontalView();
 
@@ -111,7 +109,7 @@ class _HorizontalViewState extends State<_HorizontalView>
           onGoToPreviousMonth: goToPreviousMonth,
           onGoToNextMonth: goToNextMonth,
         ),
-        const SizedBox(height: Spacing.md),
+        CommonSizedBox.heightMd,
         SizedBox(
           height: Spacing.horCalendarDateHeight,
           child: SlideTransition(
@@ -151,8 +149,6 @@ class _CalendarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<HomeViewModel>();
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
     final displayMonth = context.select((HomeViewModel vm) => vm.displayMonth);
     final selectedDate = context.select((HomeViewModel vm) => vm.selectedDate);
@@ -163,7 +159,10 @@ class _CalendarHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(Icons.chevron_left, color: colorScheme.surface),
+            icon: Icon(
+              Icons.chevron_left,
+              color: Theme.of(context).colorScheme.surface,
+            ),
             onPressed: () {
               final newMonth = DateTime(
                 displayMonth.year,
@@ -179,23 +178,26 @@ class _CalendarHeader extends StatelessWidget {
               children: [
                 Text(
                   '${displayMonth.getLocalizedMonthName(t)} ${displayMonth.year}',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.surface,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                const SizedBox(height: Spacing.xs),
+                CommonSizedBox.heightXs,
                 Text(
                   '${selectedDate.getLocalizedWeekdayName(t)}, ${selectedDate.day}${t.common_unit_day}',
-                  style: textTheme.titleMedium?.copyWith(
-                    color: colorScheme.surface.withAlpha(204),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.surface.withAlpha(204),
                   ),
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: Icon(Icons.chevron_right, color: colorScheme.surface),
+            icon: Icon(
+              Icons.chevron_right,
+              color: Theme.of(context).colorScheme.surface,
+            ),
             onPressed: () {
               final newMonth = DateTime(
                 displayMonth.year,

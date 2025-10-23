@@ -17,16 +17,15 @@ class WeekColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 16.8, // 14 * 1.2
+      width: 16.8,
       margin: const EdgeInsets.only(right: 2),
       child: Column(
         children: week.map((date) {
           if (date == null) {
-            // 다른 년도 날짜는 투명한 빈 셀로 표시
             return Container(
-              width: 14.4, // 12 * 1.2
-              height: 14.4, // 12 * 1.2
-              margin: const EdgeInsets.only(bottom: 2.4), // 2 * 1.2
+              width: 14.4,
+              height: 14.4,
+              margin: const EdgeInsets.only(bottom: 2.4),
             );
           }
 

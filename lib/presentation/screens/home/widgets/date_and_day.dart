@@ -29,7 +29,6 @@ class DateAndDay extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Define colors based on selection state
     final Color textColor = isSelected
         ? colorScheme.onSurface
         : isFuture
@@ -53,7 +52,7 @@ class DateAndDay extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         width: Spacing.calendarScrollSize,
-        padding: const EdgeInsets.symmetric(vertical: Spacing.sm),
+        padding: CommonPadding.verticalSm,
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(Roundness.lg),

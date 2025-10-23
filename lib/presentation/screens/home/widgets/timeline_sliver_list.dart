@@ -105,11 +105,11 @@ class TimelineSliverList extends StatelessWidget {
               content: Text(t.journal_delete_confirm_description),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
+                  onPressed: () => context.pop(false),
                   child: Text(t.common_confirm_cancel),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
+                  onPressed: () => context.pop(true),
                   child: Text(t.common_confirm_delete),
                 ),
               ],

@@ -772,6 +772,24 @@ abstract class AppLocalizations {
   /// **'Failed to generate AI response.'**
   String get journal_ai_generating_response_error;
 
+  /// No description provided for @journal_menu_change_align.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Alignment'**
+  String get journal_menu_change_align;
+
+  /// No description provided for @journal_menu_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get journal_menu_edit;
+
+  /// No description provided for @journal_menu_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get journal_menu_delete;
+
   /// No description provided for @statistics_total_title.
   ///
   /// In en, this message translates to:

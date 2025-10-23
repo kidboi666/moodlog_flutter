@@ -31,7 +31,6 @@ class _ImageDetailScreenState extends State<ImageDetailScreen>
       vsync: this,
     );
 
-    // 전체 화면 모드로 설정
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 

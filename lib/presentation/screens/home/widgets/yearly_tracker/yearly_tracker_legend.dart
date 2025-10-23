@@ -8,8 +8,6 @@ class YearlyTrackerLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
 
     return Row(
@@ -17,35 +15,35 @@ class YearlyTrackerLegend extends StatelessWidget {
       children: [
         Text(
           t.home_monthly_tracker_legend_less,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(width: Spacing.xs),
-
-        // 범례 색상 박스들
+        CommonSizedBox.widthXs,
         Row(
           children: [
             _LegendBox(
-              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
             ),
-            const SizedBox(width: 2),
+            CommonSizedBox.widthXs,
             _LegendBox(
               color: Color(MoodType.verySad.colorValue).withValues(alpha: 0.8),
             ),
-            const SizedBox(width: 2),
+            CommonSizedBox.widthXs,
             _LegendBox(
               color: Color(MoodType.sad.colorValue).withValues(alpha: 0.8),
             ),
-            const SizedBox(width: 2),
+            CommonSizedBox.widthXs,
             _LegendBox(
               color: Color(MoodType.neutral.colorValue).withValues(alpha: 0.8),
             ),
-            const SizedBox(width: 2),
+            CommonSizedBox.widthXs,
             _LegendBox(
               color: Color(MoodType.happy.colorValue).withValues(alpha: 0.8),
             ),
-            const SizedBox(width: 2),
+            CommonSizedBox.widthXs,
             _LegendBox(
               color: Color(
                 MoodType.veryHappy.colorValue,
@@ -53,12 +51,11 @@ class YearlyTrackerLegend extends StatelessWidget {
             ),
           ],
         ),
-
-        const SizedBox(width: Spacing.xs),
+        CommonSizedBox.widthXs,
         Text(
           t.home_monthly_tracker_legend_more,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],

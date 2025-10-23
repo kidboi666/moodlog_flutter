@@ -50,9 +50,24 @@ class _CheckInScreenContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: PopButton(onTap: () => context.pop()),
-        title: Text('''
-          ${checkIn.createdAt.year}.${checkIn.createdAt.month.toString().padLeft(2, '0')}.${checkIn.createdAt.day.toString().padLeft(2, '0')} ${DateFormat('HH:mm').format(checkIn.createdAt)}
-          ''', style: Theme.of(context).textTheme.titleLarge),
+        title: Row(
+          spacing: Spacing.md,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              checkIn.createdAt.formattedDotNation(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Text(
+              DateFormat('HH:mm').format(checkIn.createdAt),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
+        ),
         centerTitle: false,
         actions: [
           PopupMenuButton<String>(

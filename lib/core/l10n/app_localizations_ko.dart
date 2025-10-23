@@ -357,6 +357,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_ai_generating_response_error => 'AI 응답 생성에 실패했습니다.';
 
   @override
+  String get journal_menu_change_align => '정렬 변경';
+
+  @override
+  String get journal_menu_edit => '수정';
+
+  @override
+  String get journal_menu_delete => '삭제';
+
+  @override
   String get statistics_total_title => '전체 통계';
 
   @override

@@ -58,7 +58,7 @@ class EmptyEntriesBox extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Spacing.xl * 2),
+          padding: CommonPadding.verticalLg,
           child: Center(
             child: Column(
               spacing: Spacing.sm,

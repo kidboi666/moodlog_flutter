@@ -9,8 +9,10 @@ class WeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.select((HomeViewModel vm) => vm.isLoading);
-    final weatherInfo = context.select((HomeViewModel vm) => vm.weatherInfo);
+    final (:isLoading, :weatherInfo) = context.select(
+      (HomeViewModel vm) =>
+          (isLoading: vm.isLoading, weatherInfo: vm.weatherInfo),
+    );
 
     return Row(
       children: [
@@ -38,14 +40,14 @@ class WeatherWidget extends StatelessWidget {
   ) {
     return [
       Text(conditionIcon, style: const TextStyle(fontSize: 24)),
-      const SizedBox(width: Spacing.sm),
+      CommonSizedBox.widthSm,
       Text(
         '${temperature.round()}°C',
         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
           color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
-      const SizedBox(width: Spacing.md),
+      CommonSizedBox.widthMd,
       IconButton(
         onPressed: () => clearWeather(),
         icon: Icon(

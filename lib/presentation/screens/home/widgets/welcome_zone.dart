@@ -12,9 +12,8 @@ class WelcomeZone extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => EditNicknameBottomSheet(
-        currentNickname: currentNickname,
-      ),
+      builder: (context) =>
+          EditNicknameBottomSheet(currentNickname: currentNickname),
     );
   }
 
@@ -32,10 +31,7 @@ class WelcomeZone extends StatelessWidget {
               onTap: () => _showEditNicknameSheet(context, nickname ?? ''),
               borderRadius: BorderRadius.circular(Roundness.sm),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.xs,
-                  vertical: Spacing.xs,
-                ),
+                padding: CommonPadding.sm,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

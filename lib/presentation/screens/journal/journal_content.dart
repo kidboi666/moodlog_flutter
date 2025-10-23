@@ -11,7 +11,7 @@ class _JournalScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final t = AppLocalizations.of(context)!;
     final viewModel = context.read<JournalViewModel>();
     final (:isLoading, :journal, :align) = context.select(
       (JournalViewModel vm) => (
@@ -31,17 +31,19 @@ class _JournalScreenContent extends StatelessWidget {
           onTap: () => _handleBackNavigation(context, viewModel),
         ),
         title: Row(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          spacing: Spacing.sm,
           children: [
             Text(
               journal?.createdAt.formattedDotNation() ?? '',
-              style: textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(width: Spacing.sm),
             Text(
               DateFormat('HH:mm').format(journal?.createdAt ?? DateTime.now()),
-              style: textTheme.titleMedium?.copyWith(
-                color: textTheme.titleMedium?.color?.withValues(alpha: 0.6),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.color?.withValues(alpha: 0.6),
               ),
             ),
           ],
@@ -61,8 +63,10 @@ class _JournalScreenContent extends StatelessWidget {
                 case 'delete':
                   final shouldPopPage = await showDialog(
                     context: context,
-                    builder: (context) =>
-                        DeleteConfirmDialog(viewModel: viewModel, id: viewModel.id),
+                    builder: (context) => DeleteConfirmDialog(
+                      viewModel: viewModel,
+                      id: viewModel.id,
+                    ),
                   );
                   if (shouldPopPage) {
                     if (context.mounted) {
@@ -78,28 +82,28 @@ class _JournalScreenContent extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(align.icon),
-                    const SizedBox(width: Spacing.sm),
-                    const Text('정렬 변경'),
+                    CommonSizedBox.widthSm,
+                    Text(t.journal_menu_change_align),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'edit',
                 child: Row(
                   children: [
-                    Icon(Icons.edit),
-                    SizedBox(width: Spacing.sm),
-                    Text('수정'),
+                    const Icon(Icons.edit),
+                    CommonSizedBox.widthSm,
+                    Text(t.journal_menu_edit),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'delete',
                 child: Row(
                   children: [
-                    Icon(Icons.delete),
-                    SizedBox(width: Spacing.sm),
-                    Text('삭제'),
+                    const Icon(Icons.delete),
+                    CommonSizedBox.widthSm,
+                    Text(t.journal_menu_delete),
                   ],
                 ),
               ),

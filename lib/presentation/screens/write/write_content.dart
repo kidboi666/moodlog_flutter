@@ -26,7 +26,6 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // QuillController content is now handled in WriteViewModel
   }
 
   @override
@@ -79,7 +78,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: Spacing.md),
+                        CommonSizedBox.heightMd,
                         FadeIn(
                           delay: DelayMS.quick * 2,
                           child: Builder(
@@ -96,7 +95,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: Spacing.xxl),
+                    CommonSizedBox.heightXxl,
                   ],
                 ),
               ),
@@ -123,8 +122,6 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final (:isEditMode, :isFormValid, :selectedDate) = context.select(
       (WriteViewModel vm) => (
         isEditMode: vm.isEditMode,
@@ -170,8 +167,8 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
           children: [
             Text(
               selectedDate.formattedDotNation(),
-              style: textTheme.titleLarge?.copyWith(
-                color: colorScheme.onSurface,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             Icon(Icons.keyboard_arrow_down),

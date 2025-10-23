@@ -6,9 +6,6 @@ class WeekdayLabels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     final t = AppLocalizations.of(context)!;
     final weekdays = [
       t.calendar_weekday_sun,
@@ -30,8 +27,8 @@ class WeekdayLabels extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   weekday,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 12, // 10 * 1.2
                   ),
                 ),

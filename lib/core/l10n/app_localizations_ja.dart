@@ -358,6 +358,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get journal_ai_generating_response_error => 'AI応答の生成に失敗しました。';
 
   @override
+  String get journal_menu_change_align => '配置変更';
+
+  @override
+  String get journal_menu_edit => '編集';
+
+  @override
+  String get journal_menu_delete => '削除';
+
+  @override
   String get statistics_total_title => '全体統計';
 
   @override

@@ -376,6 +376,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Failed to generate AI response.';
 
   @override
+  String get journal_menu_change_align => 'Change Alignment';
+
+  @override
+  String get journal_menu_edit => 'Edit';
+
+  @override
+  String get journal_menu_delete => 'Delete';
+
+  @override
   String get statistics_total_title => 'Overall Statistics';
 
   @override
