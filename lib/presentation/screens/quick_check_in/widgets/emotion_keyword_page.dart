@@ -3,6 +3,7 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
+import 'package:moodlog/presentation/widgets/selectable_chip.dart';
 import 'package:provider/provider.dart';
 
 class EmotionKeywordPage extends StatefulWidget {
@@ -43,7 +44,6 @@ class EmotionKeywordPageState extends State<EmotionKeywordPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
     final viewModel = context.read<QuickCheckInViewModel>();
 
@@ -55,7 +55,7 @@ class EmotionKeywordPageState extends State<EmotionKeywordPage>
           CommonSizedBox.heightXl,
           Text(
             t.quick_check_in_emotion_question,
-            style: textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
           CommonSizedBox.heightXl,
@@ -106,7 +106,6 @@ class _SuggestedEmotions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
     final selectedEmotions = context.select(
       (QuickCheckInViewModel vm) => vm.selectedEmotions,
     );
@@ -161,34 +160,28 @@ class _SuggestedEmotions extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Wrap(
-      spacing: Spacing.xs,
-      runSpacing: Spacing.xs,
-      alignment: WrapAlignment.start,
-      children: allEmotions
-          .map(
-            (emotion) {
-              final isSelected = selectedEmotions.contains(emotion);
-              return FilterChip(
-                label: Text(emotion),
-                selected: isSelected,
-                onSelected: (selected) {
-                  final viewModel = context.read<QuickCheckInViewModel>();
-                  if (selected) {
-                    viewModel.addEmotion(emotion);
-                  } else {
-                    viewModel.removeEmotion(emotion);
-                  }
-                },
-                selectedColor: colorScheme.primaryContainer,
-                checkmarkColor: colorScheme.onPrimaryContainer,
-                side: isSelected
-                    ? BorderSide(color: colorScheme.primary, width: 2)
-                    : null,
-              ).scale();
-            },
-          )
-          .toList(),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        spacing: Spacing.xs,
+        runSpacing: Spacing.xs,
+        alignment: WrapAlignment.start,
+        children: allEmotions.map((emotion) {
+        final isSelected = selectedEmotions.contains(emotion);
+        return SelectableChip(
+          label: emotion,
+          isSelected: isSelected,
+          onSelected: (selected) {
+            final viewModel = context.read<QuickCheckInViewModel>();
+            if (selected) {
+              viewModel.addEmotion(emotion);
+            } else {
+              viewModel.removeEmotion(emotion);
+            }
+          },
+        );
+      }).toList(),
+      ),
     );
   }
 }

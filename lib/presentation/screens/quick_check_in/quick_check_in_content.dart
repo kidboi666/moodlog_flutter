@@ -26,9 +26,8 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
   }
 
   void _requestFocusForPage(int index, bool hasSleedPage) {
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(DurationMS.quick, () {
       if (hasSleedPage) {
-        // With sleep page: mood(0), sleep(1), activity(2), emotion(3), memo(4)
         switch (index) {
           case 2:
             _activityKey.currentState?.requestFocus();
@@ -41,7 +40,6 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
             break;
         }
       } else {
-        // Without sleep page: mood(0), activity(1), emotion(2), memo(3)
         switch (index) {
           case 1:
             _activityKey.currentState?.requestFocus();
@@ -71,25 +69,30 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<QuickCheckInViewModel>();
+    final (:isCheckingFirstCheckIn, :isFirstCheckInToday, :totalSteps) = context
+        .select(
+          (QuickCheckInViewModel vm) => (
+            isCheckingFirstCheckIn: vm.isCheckingFirstCheckIn,
+            isFirstCheckInToday: vm.isFirstCheckInToday,
+            totalSteps: vm.totalSteps,
+          ),
+        );
 
-    if (viewModel.isCheckingFirstCheckIn) {
+    if (isCheckingFirstCheckIn) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    final isFirstCheckIn = viewModel.isFirstCheckInToday;
-    final totalSteps = isFirstCheckIn ? 5 : 4;
+    final localTotalSteps = isFirstCheckInToday ? 5 : 4;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (viewModel.totalSteps != totalSteps) {
-        viewModel.initStep(totalSteps);
+      if (totalSteps != localTotalSteps) {
+        context.read<QuickCheckInViewModel>().initStep(totalSteps);
       }
     });
 
-    // Build pages dynamically
     final pages = <Widget>[
       MoodSelectionPage(onNext: onNext),
-      if (isFirstCheckIn) SleepQualityPage(onNext: onNext, onBack: onBack),
+      if (isFirstCheckInToday) SleepQualityPage(onNext: onNext, onBack: onBack),
       ActivityInputPage(key: _activityKey, onNext: onNext, onBack: onBack),
       EmotionKeywordPage(key: _emotionKey, onNext: onNext, onBack: onBack),
       QuickMemoPage(key: _memoKey, onBack: onBack),
@@ -105,8 +108,8 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
               controller: _pageController,
               onPageChanged: (index) {
                 FocusScope.of(context).unfocus();
-                viewModel.setStep(index);
-                _requestFocusForPage(index, isFirstCheckIn);
+                context.read<QuickCheckInViewModel>().setStep(index);
+                _requestFocusForPage(index, isFirstCheckInToday);
               },
               children: pages,
             ),
@@ -117,27 +120,24 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final currentStep = context.select(
-      (QuickCheckInViewModel vm) => vm.currentStep,
+    final (
+      :currentStep,
+      :totalSteps,
+      :createdAt,
+      :temperature,
+      :weatherDescription,
+      :isLoadingWeather,
+    ) = context.select(
+      (QuickCheckInViewModel vm) => (
+        currentStep: vm.currentStep,
+        totalSteps: vm.totalSteps,
+        createdAt: vm.createdAt,
+        temperature: vm.temperature,
+        weatherDescription: vm.weatherDescription,
+        isLoadingWeather: vm.isLoadingWeather,
+      ),
     );
-    final totalSteps = context.select(
-      (QuickCheckInViewModel vm) => vm.totalSteps,
-    );
-    final createdAt = context.select(
-      (QuickCheckInViewModel vm) => vm.createdAt,
-    );
-    final temperature = context.select(
-      (QuickCheckInViewModel vm) => vm.temperature,
-    );
-    final weatherDescription = context.select(
-      (QuickCheckInViewModel vm) => vm.weatherDescription,
-    );
-    final isLoadingWeather = context.select(
-      (QuickCheckInViewModel vm) => vm.isLoadingWeather,
-    );
-
-    final textTheme = Theme.of(context).textTheme;
-    final l10n = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return AppBar(
       leading: IconButton(
@@ -170,7 +170,7 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
                         children: [
                           Text(
                             DateFormat.Hm().format(createdAt),
-                            style: textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           CommonSizedBox.heightMd,
                           const Divider(),
@@ -181,18 +181,21 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
                               CommonSizedBox.widthSm,
                               Text(
                                 '${temperature.toStringAsFixed(1)}°C',
-                                style: textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ],
                           ),
                           CommonSizedBox.heightSm,
-                          Text(weatherDescription, style: textTheme.bodyMedium),
+                          Text(
+                            weatherDescription,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ],
                       ),
                       actions: [
                         TextButton(
                           onPressed: () => context.pop(),
-                          child: Text(l10n.common_confirm_ok),
+                          child: Text(t.common_confirm_ok),
                         ),
                       ],
                     ),

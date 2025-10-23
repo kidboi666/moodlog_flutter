@@ -79,22 +79,18 @@ class SleepQualityPageState extends State<SleepQualityPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
     final viewModel = context.watch<QuickCheckInViewModel>();
     final selectedQuality = viewModel.sleepQuality ?? 3;
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: CommonPadding.xl,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CommonSizedBox.heightXl,
-          Text(
-            '편히 주무셨나요?',
-            style: textTheme.headlineSmall,
-          ),
+          Text(t.quick_check_in_sleep_quality_title, style: Theme.of(context).textTheme.headlineSmall),
           Expanded(
             child: Center(
               child: Column(
@@ -108,8 +104,10 @@ class SleepQualityPageState extends State<SleepQualityPage>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: _getSleepColor(context, selectedQuality)
-                              .withValues(alpha: 0.1),
+                          color: _getSleepColor(
+                            context,
+                            selectedQuality,
+                          ).withValues(alpha: 0.1),
                           blurRadius: 20,
                           spreadRadius: 2,
                         ),
@@ -133,7 +131,7 @@ class SleepQualityPageState extends State<SleepQualityPage>
                     child: Text(
                       _getSleepLabel(selectedQuality),
                       key: ValueKey(selectedQuality),
-                      style: textTheme.titleLarge?.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: _getSleepColor(context, selectedQuality),
                         fontWeight: FontWeight.w700,
                       ),
@@ -149,15 +147,19 @@ class SleepQualityPageState extends State<SleepQualityPage>
             children: List.generate(5, (index) {
               final quality = index + 1;
               final isSelected = selectedQuality == quality;
+
               return GestureDetector(
                 onTap: () => viewModel.setSleepQuality(quality),
                 child: AnimatedContainer(
                   duration: DurationMS.quick,
-                  padding: const EdgeInsets.all(8),
+                  padding: CommonPadding.sm,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: isSelected
-                        ? _getSleepColor(context, quality).withValues(alpha: 0.2)
+                        ? _getSleepColor(
+                            context,
+                            quality,
+                          ).withValues(alpha: 0.2)
                         : Colors.transparent,
                     border: Border.all(
                       color: isSelected
@@ -168,9 +170,7 @@ class SleepQualityPageState extends State<SleepQualityPage>
                   ),
                   child: Text(
                     _getSleepEmoji(quality),
-                    style: TextStyle(
-                      fontSize: isSelected ? 40 : 32,
-                    ),
+                    style: TextStyle(fontSize: isSelected ? 40 : 32),
                   ),
                 ),
               );
@@ -183,7 +183,7 @@ class SleepQualityPageState extends State<SleepQualityPage>
               onPressed: widget.onNext,
               child: Text(
                 t.quick_check_in_next,
-                style: textTheme.titleMedium?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w600,
                 ),

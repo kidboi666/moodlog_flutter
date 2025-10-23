@@ -1495,6 +1495,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get home_button_quick_check_in => '퀵 체크인';
 
   @override
+  String get quick_check_in_sleep_quality_title => '편히 주무셨나요?';
+
+  @override
   String get quick_check_in_sleep_quality_1 => '뒤척였어요';
 
   @override

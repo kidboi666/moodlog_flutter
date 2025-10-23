@@ -2914,6 +2914,12 @@ abstract class AppLocalizations {
   /// **'Quick Check-In'**
   String get home_button_quick_check_in;
 
+  /// No description provided for @quick_check_in_sleep_quality_title.
+  ///
+  /// In en, this message translates to:
+  /// **'How was your sleep?'**
+  String get quick_check_in_sleep_quality_title;
+
   /// No description provided for @quick_check_in_sleep_quality_1.
   ///
   /// In en, this message translates to:

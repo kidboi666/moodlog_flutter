@@ -75,18 +75,18 @@ const kBreakPoint = 768.0;
 /// 자주 사용되는 SizedBox들을 미리 정의하여 성능 최적화
 abstract final class CommonSizedBox {
   // 높이 관련
-  static const heightXs = meterial.SizedBox(height: Spacing.xs);
-  static const heightSm = meterial.SizedBox(height: Spacing.sm);
-  static const heightMd = meterial.SizedBox(height: Spacing.md);
-  static const heightLg = meterial.SizedBox(height: Spacing.lg);
-  static const heightXl = meterial.SizedBox(height: Spacing.xl);
+  static const heightXs = meterial.SizedBox(height: 4);
+  static const heightSm = meterial.SizedBox(height: 8);
+  static const heightMd = meterial.SizedBox(height: 12);
+  static const heightLg = meterial.SizedBox(height: 16);
+  static const heightXl = meterial.SizedBox(height: 20);
 
   // 너비 관련
-  static const widthXs = meterial.SizedBox(width: Spacing.xs);
-  static const widthSm = meterial.SizedBox(width: Spacing.sm);
-  static const widthMd = meterial.SizedBox(width: Spacing.md);
-  static const widthLg = meterial.SizedBox(width: Spacing.lg);
-  static const widthXl = meterial.SizedBox(width: Spacing.xl);
+  static const widthXs = meterial.SizedBox(width: 4);
+  static const widthSm = meterial.SizedBox(width: 8);
+  static const widthMd = meterial.SizedBox(width: 12);
+  static const widthLg = meterial.SizedBox(width: 16);
+  static const widthXl = meterial.SizedBox(width: 20);
 
   // 특수 케이스
   static const empty = meterial.SizedBox.shrink();
@@ -106,33 +106,23 @@ abstract final class CommonDivider {
 
 /// 자주 사용되는 EdgeInsets들
 abstract final class CommonPadding {
-  static const xs = meterial.EdgeInsets.all(Spacing.xs);
-  static const sm = meterial.EdgeInsets.all(Spacing.sm);
-  static const md = meterial.EdgeInsets.all(Spacing.md);
-  static const lg = meterial.EdgeInsets.all(Spacing.lg);
-  static const xl = meterial.EdgeInsets.all(Spacing.xl);
+  static const xs = meterial.EdgeInsets.all(4);
+  static const sm = meterial.EdgeInsets.all(8);
+  static const md = meterial.EdgeInsets.all(12);
+  static const lg = meterial.EdgeInsets.all(16);
+  static const xl = meterial.EdgeInsets.all(20);
 
-  static const horizontalXs = meterial.EdgeInsets.symmetric(
-    horizontal: Spacing.xs,
-  );
-  static const horizontalSm = meterial.EdgeInsets.symmetric(
-    horizontal: Spacing.sm,
-  );
-  static const horizontalMd = meterial.EdgeInsets.symmetric(
-    horizontal: Spacing.md,
-  );
-  static const horizontalLg = meterial.EdgeInsets.symmetric(
-    horizontal: Spacing.lg,
-  );
-  static const horizontalXl = meterial.EdgeInsets.symmetric(
-    horizontal: Spacing.xl,
-  );
+  static const horizontalXs = meterial.EdgeInsets.symmetric(horizontal: 4);
+  static const horizontalSm = meterial.EdgeInsets.symmetric(horizontal: 8);
+  static const horizontalMd = meterial.EdgeInsets.symmetric(horizontal: 12);
+  static const horizontalLg = meterial.EdgeInsets.symmetric(horizontal: 16);
+  static const horizontalXl = meterial.EdgeInsets.symmetric(horizontal: 20);
 
-  static const verticalXs = meterial.EdgeInsets.symmetric(vertical: Spacing.xs);
-  static const verticalSm = meterial.EdgeInsets.symmetric(vertical: Spacing.sm);
-  static const verticalMd = meterial.EdgeInsets.symmetric(vertical: Spacing.md);
-  static const verticalLg = meterial.EdgeInsets.symmetric(vertical: Spacing.lg);
-  static const verticalXl = meterial.EdgeInsets.symmetric(vertical: Spacing.xl);
+  static const verticalXs = meterial.EdgeInsets.symmetric(vertical: 4);
+  static const verticalSm = meterial.EdgeInsets.symmetric(vertical: 8);
+  static const verticalMd = meterial.EdgeInsets.symmetric(vertical: 12);
+  static const verticalLg = meterial.EdgeInsets.symmetric(vertical: 16);
+  static const verticalXl = meterial.EdgeInsets.symmetric(vertical: 20);
 }
 
 /// 자주 사용되는 BorderRadius들

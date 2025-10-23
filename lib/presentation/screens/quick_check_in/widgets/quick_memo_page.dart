@@ -9,10 +9,7 @@ import 'package:provider/provider.dart';
 class QuickMemoPage extends StatefulWidget {
   final void Function() onBack;
 
-  const QuickMemoPage({
-    super.key,
-    required this.onBack,
-  });
+  const QuickMemoPage({super.key, required this.onBack});
 
   @override
   State<QuickMemoPage> createState() => QuickMemoPageState();
@@ -58,14 +55,14 @@ class QuickMemoPageState extends State<QuickMemoPage>
 
     if (mounted) {
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.quick_check_in_success)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.quick_check_in_success)));
         context.pop();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.quick_check_in_error)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.quick_check_in_error)));
       }
     }
   }
@@ -73,7 +70,6 @@ class QuickMemoPageState extends State<QuickMemoPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final textTheme = Theme.of(context).textTheme;
     final t = AppLocalizations.of(context)!;
     final viewModel = context.watch<QuickCheckInViewModel>();
 
@@ -85,7 +81,7 @@ class QuickMemoPageState extends State<QuickMemoPage>
           CommonSizedBox.heightXl,
           Text(
             t.quick_check_in_memo_question,
-            style: textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
           CommonSizedBox.heightXl,

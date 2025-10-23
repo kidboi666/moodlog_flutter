@@ -7,8 +7,9 @@ import 'package:moodlog/domain/use_cases/activity_use_case.dart';
 class ActivitiesViewModel extends ChangeNotifier with AsyncStateMixin {
   final ActivityUseCase _activityUseCase;
 
-  ActivitiesViewModel(this._activityUseCase) {
-    _loadActivities();
+  ActivitiesViewModel({required ActivityUseCase activityUseCase})
+    : _activityUseCase = activityUseCase {
+    _load();
   }
 
   List<ActivityWithCount> _activities = [];
@@ -18,7 +19,7 @@ class ActivitiesViewModel extends ChangeNotifier with AsyncStateMixin {
   List<ActivityWithCount> _filteredActivities = [];
   String _searchQuery = '';
 
-  Future<void> _loadActivities() async {
+  Future<void> _load() async {
     setLoading();
     final result = await _activityUseCase.getActivitiesWithCount();
     switch (result) {
@@ -38,9 +39,9 @@ class ActivitiesViewModel extends ChangeNotifier with AsyncStateMixin {
     } else {
       _filteredActivities = _activities
           .where(
-            (activityWithCount) => activityWithCount.activity.name.toLowerCase().contains(
-              _searchQuery.toLowerCase(),
-            ),
+            (activityWithCount) => activityWithCount.activity.name
+                .toLowerCase()
+                .contains(_searchQuery.toLowerCase()),
           )
           .toList();
     }
@@ -50,21 +51,21 @@ class ActivitiesViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> addActivity(String name) async {
     final result = await _activityUseCase.addActivity(name, null);
     if (result is Ok) {
-      await _loadActivities();
+      await _load();
     }
   }
 
   Future<void> deleteActivity(int id) async {
     final result = await _activityUseCase.deleteActivity(id);
     if (result is Ok) {
-      await _loadActivities();
+      await _load();
     }
   }
 
   Future<void> updateActivity(int id, String newName) async {
     final result = await _activityUseCase.updateActivity(id, newName, null);
     if (result is Ok) {
-      await _loadActivities();
+      await _load();
     }
   }
 }

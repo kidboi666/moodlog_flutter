@@ -15,7 +15,8 @@ class TagsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ActivitiesViewModel(context.read<ActivityUseCase>()),
+      create: (context) =>
+          ActivitiesViewModel(activityUseCase: context.read<ActivityUseCase>()),
       child: const _TagsScreenContent(),
     );
   }

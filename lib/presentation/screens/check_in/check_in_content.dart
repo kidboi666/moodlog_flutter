@@ -3,8 +3,7 @@ part of 'check_in_view.dart';
 class _CheckInScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final l10n = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
     final viewModel = context.read<CheckInViewModel>();
     final (:isLoading, :hasError, :checkIn) = context.select(
       (CheckInViewModel vm) =>
@@ -28,11 +27,14 @@ class _CheckInScreenContent extends StatelessWidget {
                 color: Theme.of(context).colorScheme.error,
               ),
               CommonSizedBox.heightLg,
-              Text(l10n.check_in_not_found, style: textTheme.titleLarge),
+              Text(
+                t.check_in_not_found,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               CommonSizedBox.heightMd,
               Text(
-                l10n.check_in_not_found_description,
-                style: textTheme.bodyMedium?.copyWith(
+                t.check_in_not_found_description,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(
                     context,
                   ).colorScheme.onSurface.withValues(alpha: 0.6),
@@ -48,10 +50,9 @@ class _CheckInScreenContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: PopButton(onTap: () => context.pop()),
-        title: Text(
-          '${checkIn.createdAt.year}.${checkIn.createdAt.month.toString().padLeft(2, '0')}.${checkIn.createdAt.day.toString().padLeft(2, '0')} ${DateFormat('HH:mm').format(checkIn.createdAt)}',
-          style: textTheme.titleLarge,
-        ),
+        title: Text('''
+          ${checkIn.createdAt.year}.${checkIn.createdAt.month.toString().padLeft(2, '0')}.${checkIn.createdAt.day.toString().padLeft(2, '0')} ${DateFormat('HH:mm').format(checkIn.createdAt)}
+          ''', style: Theme.of(context).textTheme.titleLarge),
         centerTitle: false,
         actions: [
           PopupMenuButton<String>(
@@ -70,16 +71,16 @@ class _CheckInScreenContent extends StatelessWidget {
                   final shouldDelete = await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text(l10n.check_in_delete_confirm_title),
-                      content: Text(l10n.check_in_delete_confirm_description),
+                      title: Text(t.check_in_delete_confirm_title),
+                      content: Text(t.check_in_delete_confirm_description),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(l10n.cancel),
+                          child: Text(t.cancel),
                         ),
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(l10n.common_confirm_delete),
+                          child: Text(t.common_confirm_delete),
                         ),
                       ],
                     ),
@@ -106,7 +107,7 @@ class _CheckInScreenContent extends StatelessWidget {
                   children: [
                     const Icon(Icons.edit),
                     const SizedBox(width: Spacing.sm),
-                    Text(l10n.check_in_edit),
+                    Text(t.check_in_edit),
                   ],
                 ),
               ),
@@ -116,7 +117,7 @@ class _CheckInScreenContent extends StatelessWidget {
                   children: [
                     const Icon(Icons.delete),
                     const SizedBox(width: Spacing.sm),
-                    Text(l10n.common_confirm_delete),
+                    Text(t.common_confirm_delete),
                   ],
                 ),
               ),
@@ -132,18 +133,18 @@ class _CheckInScreenContent extends StatelessWidget {
             child: ListView(
               padding: CommonPadding.lg,
               children: [
-                _buildMoodSection(context, checkIn, textTheme),
+                _buildMoodSection(context, checkIn),
                 CommonSizedBox.heightLg,
-                _buildEmotionsSection(context, checkIn, l10n, textTheme),
+                _buildEmotionsSection(context, checkIn),
                 CommonSizedBox.heightLg,
-                _buildActivitiesSection(context, checkIn, l10n, textTheme),
+                _buildActivitiesSection(context, checkIn),
                 if (checkIn.sleepQuality != null) ...[
                   CommonSizedBox.heightLg,
-                  _buildSleepQualitySection(context, checkIn, l10n, textTheme),
+                  _buildSleepQualitySection(context, checkIn),
                 ],
                 if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
                   CommonSizedBox.heightLg,
-                  _buildMemoSection(context, checkIn, l10n, textTheme),
+                  _buildMemoSection(context, checkIn),
                 ],
               ],
             ),
@@ -153,7 +154,7 @@ class _CheckInScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildMoodSection(BuildContext context, checkIn, TextTheme textTheme) {
+  Widget _buildMoodSection(BuildContext context, CheckIn checkIn) {
     return Container(
       padding: CommonPadding.xl,
       decoration: BoxDecoration(
@@ -169,19 +170,14 @@ class _CheckInScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildEmotionsSection(
-    BuildContext context,
-    checkIn,
-    AppLocalizations l10n,
-    TextTheme textTheme,
-  ) {
+  Widget _buildEmotionsSection(BuildContext context, checkIn) {
+    final t = AppLocalizations.of(context)!;
     final hasEmotions =
         checkIn.emotions != null && checkIn.emotions!.isNotEmpty;
 
     return _buildSection(
       context,
-      title: l10n.check_in_emotions,
-      textTheme: textTheme,
+      title: t.check_in_emotions,
       child: hasEmotions
           ? Wrap(
               spacing: Spacing.sm,
@@ -199,8 +195,8 @@ class _CheckInScreenContent extends StatelessWidget {
                   .toList(),
             )
           : Text(
-              l10n.check_in_emotions_empty,
-              style: textTheme.bodyMedium?.copyWith(
+              t.check_in_emotions_empty,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(
                   context,
                 ).colorScheme.onSurface.withValues(alpha: 0.6),
@@ -209,19 +205,14 @@ class _CheckInScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildActivitiesSection(
-    BuildContext context,
-    checkIn,
-    AppLocalizations l10n,
-    TextTheme textTheme,
-  ) {
+  Widget _buildActivitiesSection(BuildContext context, checkIn) {
+    final t = AppLocalizations.of(context)!;
     final hasActivities =
         checkIn.activities != null && checkIn.activities!.isNotEmpty;
 
     return _buildSection(
       context,
-      title: l10n.check_in_activities,
-      textTheme: textTheme,
+      title: t.check_in_activities,
       child: hasActivities
           ? Wrap(
               spacing: Spacing.sm,
@@ -239,8 +230,8 @@ class _CheckInScreenContent extends StatelessWidget {
                   .toList(),
             )
           : Text(
-              l10n.check_in_activities_empty,
-              style: textTheme.bodyMedium?.copyWith(
+              t.check_in_activities_empty,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(
                   context,
                 ).colorScheme.onSurface.withValues(alpha: 0.6),
@@ -249,16 +240,12 @@ class _CheckInScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _buildSleepQualitySection(
-    BuildContext context,
-    checkIn,
-    AppLocalizations l10n,
-    TextTheme textTheme,
-  ) {
+  Widget _buildSleepQualitySection(BuildContext context, checkIn) {
+    final t = AppLocalizations.of(context)!;
+
     return _buildSection(
       context,
-      title: l10n.check_in_sleep_quality,
-      textTheme: textTheme,
+      title: t.check_in_sleep_quality,
       child: Row(
         children: [
           ...List.generate(
@@ -269,30 +256,28 @@ class _CheckInScreenContent extends StatelessWidget {
             ),
           ),
           CommonSizedBox.widthSm,
-          Text('${checkIn.sleepQuality}/5', style: textTheme.titleMedium),
+          Text(
+            '${checkIn.sleepQuality}/5',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMemoSection(
-    BuildContext context,
-    checkIn,
-    AppLocalizations l10n,
-    TextTheme textTheme,
-  ) {
+  Widget _buildMemoSection(BuildContext context, CheckIn checkIn) {
+    final t = AppLocalizations.of(context)!;
+
     return _buildSection(
       context,
-      title: l10n.check_in_memo,
-      textTheme: textTheme,
-      child: Text(checkIn.memo!, style: textTheme.bodyLarge),
+      title: t.check_in_memo,
+      child: Text(checkIn.memo!, style: Theme.of(context).textTheme.bodyLarge),
     );
   }
 
   Widget _buildSection(
     BuildContext context, {
     required String title,
-    required TextTheme textTheme,
     required Widget child,
   }) {
     return Container(
@@ -309,7 +294,9 @@ class _CheckInScreenContent extends StatelessWidget {
         children: [
           Text(
             title,
-            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           CommonSizedBox.heightMd,
           child,

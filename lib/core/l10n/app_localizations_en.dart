@@ -1544,6 +1544,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_button_quick_check_in => 'Quick Check-In';
 
   @override
+  String get quick_check_in_sleep_quality_title => 'How was your sleep?';
+
+  @override
   String get quick_check_in_sleep_quality_1 => 'Tossed & turned';
 
   @override

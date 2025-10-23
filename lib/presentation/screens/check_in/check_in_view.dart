@@ -6,6 +6,7 @@ import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/presentation/screens/check_in/check_in_view_model.dart';
 import 'package:moodlog/presentation/screens/journal/widgets/mood_bar.dart';
 import 'package:moodlog/presentation/widgets/pop_button.dart';

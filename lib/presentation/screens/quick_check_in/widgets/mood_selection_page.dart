@@ -61,7 +61,6 @@ class MoodSelectionPage extends StatelessWidget {
               ),
             ),
           ),
-          CommonSizedBox.heightMd,
         ],
       ),
     );

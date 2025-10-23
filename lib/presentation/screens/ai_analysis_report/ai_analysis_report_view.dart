@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view_model.dart';
 import 'package:provider/provider.dart';
@@ -11,9 +12,8 @@ class AiAnalysisReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AiAnalysisReportViewModel(
-        getAiAnalysisReportUseCase: context.read(),
-      ),
+      create: (context) =>
+          AiAnalysisReportViewModel(getAiAnalysisReportUseCase: context.read()),
       child: const _AiAnalysisReportContent(),
     );
   }

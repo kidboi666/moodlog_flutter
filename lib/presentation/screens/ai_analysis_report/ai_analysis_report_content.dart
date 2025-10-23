@@ -83,12 +83,12 @@ class _AiAnalysisReportContent extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: CommonPadding.xl,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.info_outline, size: 80),
-            const SizedBox(height: 20),
+            CommonSizedBox.heightXl,
             Text(
               t.ai_report_not_enough_data,
               style: Theme.of(context).textTheme.titleMedium,
@@ -110,14 +110,14 @@ class _AiAnalysisReportContent extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: CommonPadding.lg,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Icon(icon, color: Theme.of(context).colorScheme.primary),
-                const SizedBox(width: 8),
+                CommonSizedBox.widthSm,
                 Text(title, style: Theme.of(context).textTheme.titleLarge),
               ],
             ),

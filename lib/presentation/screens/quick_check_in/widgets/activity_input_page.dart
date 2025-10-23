@@ -3,6 +3,7 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
+import 'package:moodlog/presentation/widgets/selectable_chip.dart';
 import 'package:provider/provider.dart';
 
 class ActivityInputPage extends StatefulWidget {
@@ -106,7 +107,6 @@ class _SuggestedActivities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
     final selectedTags = context.select(
       (QuickCheckInViewModel vm) => vm.selectedTags,
     );
@@ -158,37 +158,37 @@ class _SuggestedActivities extends StatelessWidget {
     final allTags = [...customTags, ...suggestions];
 
     if (allTags.isEmpty) {
-      return const SizedBox.shrink();
+      return CommonSizedBox.empty;
     }
 
-    return Wrap(
-      spacing: Spacing.xs,
-      runSpacing: Spacing.xs,
-      alignment: WrapAlignment.start,
-      children: allTags
-          .map(
-            (tag) {
-              final isSelected = selectedTags.contains(tag);
-              return FilterChip(
-                label: Text(tag),
-                selected: isSelected,
-                onSelected: (selected) {
-                  final viewModel = context.read<QuickCheckInViewModel>();
-                  if (selected) {
-                    viewModel.addActivity(tag);
-                  } else {
-                    viewModel.removeTag(tag);
-                  }
-                },
-                selectedColor: colorScheme.primaryContainer,
-                checkmarkColor: colorScheme.onPrimaryContainer,
-                side: isSelected
-                    ? BorderSide(color: colorScheme.primary, width: 2)
-                    : null,
-              ).scale();
-            },
-          )
-          .toList(),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        spacing: Spacing.xs,
+        runSpacing: Spacing.xs,
+        alignment: WrapAlignment.start,
+        children: allTags.map((tag) {
+        final isSelected = selectedTags.contains(tag);
+
+        return SelectableChip(
+          label: tag,
+          isSelected: isSelected,
+          labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: isSelected
+                ? Theme.of(context).colorScheme.onPrimaryContainer
+                : Theme.of(context).colorScheme.onSurfaceVariant,
+            fontWeight: FontWeight.bold,
+          ),
+          onSelected: (selected) {
+            if (selected) {
+              context.read<QuickCheckInViewModel>().addActivity(tag);
+            } else {
+              context.read<QuickCheckInViewModel>().removeTag(tag);
+            }
+          },
+        );
+      }).toList(),
+      ),
     );
   }
 }

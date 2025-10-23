@@ -62,7 +62,7 @@ class _TagsScreenContent extends StatelessWidget {
             autofocus: true,
             decoration: InputDecoration(hintText: t.activities_input_hint),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               child: Text(t.common_confirm_cancel),
               onPressed: () {
@@ -133,6 +133,7 @@ class _TagsScreenContent extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final tagWithCount = viewModel.activities[index];
                     final activity = tagWithCount.activity;
+
                     return ListTile(
                       title: Text(activity.name),
                       subtitle: Text(
@@ -143,13 +144,19 @@ class _TagsScreenContent extends StatelessWidget {
                       trailing: PopupMenuButton<String>(
                         onSelected: (value) async {
                           if (value == 'edit') {
-                            _showEditActivityDialog(context, viewModel, activity);
+                            _showEditActivityDialog(
+                              context,
+                              viewModel,
+                              activity,
+                            );
                           } else if (value == 'delete') {
                             final confirm = await showDialog<bool>(
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: Text(t.activities_delete_title),
-                                content: Text(t.activities_delete_message(activity.name)),
+                                content: Text(
+                                  t.activities_delete_message(activity.name),
+                                ),
                                 actions: [
                                   TextButton(
                                     onPressed: () => context.pop(false),
