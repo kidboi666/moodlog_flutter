@@ -55,8 +55,8 @@ class _AiAnalysisReportContent extends StatelessWidget {
         const SizedBox(height: 16),
         _buildAnalysisCard(
           context,
-          title: t.ai_report_tag_correlation,
-          content: report.tagCorrelation,
+          title: t.ai_report_activity_correlation,
+          content: report.activityCorrelation,
           icon: Icons.link,
         ),
         const SizedBox(height: 16),

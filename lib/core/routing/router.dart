@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
+import 'package:moodlog/presentation/screens/activities/activities_view.dart';
 import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
 import 'package:moodlog/presentation/screens/check_in/check_in_view.dart';
 import 'package:moodlog/presentation/screens/font_settings/font_settings_view.dart';
@@ -15,7 +16,6 @@ import 'package:moodlog/presentation/screens/purchase/purchase_view.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view.dart';
 import 'package:moodlog/presentation/screens/statistics/statistics_view.dart';
-import 'package:moodlog/presentation/screens/tags/tags_view.dart';
 import 'package:moodlog/presentation/screens/write/write_view.dart';
 import 'package:provider/provider.dart';
 
@@ -114,13 +114,13 @@ GoRouter router(
       },
     ),
     GoRoute(
-      path: Routes.tags,
+      path: Routes.activities,
       builder: (_, _) {
         return const TagsScreen();
       },
     ),
     // GoRoute(
-    //   path: Routes.tagDetail,
+    //   path: Routes.activityDetail,
     //   builder: (context, state) {
     //     final id = int.parse(state.pathParameters['id']!);
     //     return TagDetailScreen(tagId: id);

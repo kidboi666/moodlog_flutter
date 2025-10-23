@@ -2,7 +2,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';
@@ -52,7 +52,7 @@ class CheckInUseCase {
     return await _checkInRepository.getMoodCountsByDateRange(start, end);
   }
 
-  Future<Result<List<Tag>>> getTagsForCheckIn(int checkInId) async {
+  Future<Result<List<Activity>>> getTagsForCheckIn(int checkInId) async {
     return await _checkInRepository.getTagsForCheckIn(checkInId);
   }
 
@@ -60,8 +60,8 @@ class CheckInUseCase {
     return await _checkInRepository.getEmotionsForCheckIn(checkInId);
   }
 
-  Future<Result<void>> updateCheckInTags(int checkInId, List<int> tagIds) async {
-    return await _checkInRepository.updateCheckInTags(checkInId, tagIds);
+  Future<Result<void>> updateCheckInActivities(int checkInId, List<int> tagIds) async {
+    return await _checkInRepository.updateCheckInActivities(checkInId, tagIds);
   }
 
   Future<Result<void>> updateCheckInEmotions(

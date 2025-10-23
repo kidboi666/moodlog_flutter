@@ -44,7 +44,7 @@ class DebugDataSeeder {
           final request = CreateCheckInRequest(
             moodType: MoodType.values.byName(json['moodType'] as String),
             createdAt: DateTime.parse(json['createdAt']),
-            tagNames: (json['tagNames'] as List?)?.cast<String>(),
+            activityNames: (json['tagNames'] as List?)?.cast<String>(),
             emotionNames: (json['emotionNames'] as List?)?.cast<String>(),
             sleepQuality: json['sleepQuality'] as int?,
             memo: json['memo'] as String?,

@@ -181,7 +181,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     final checkIns = monthlyCheckInsList;
     final activityCounts = <String, int>{};
     for (var checkIn in checkIns) {
-      final tags = checkIn.tagNames ?? [];
+      final tags = checkIn.activityNames ?? [];
       for (var activity in tags) {
         activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
       }
@@ -268,7 +268,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     final checkIns = yearlyCheckInsList;
     final activityCounts = <String, int>{};
     for (var checkIn in checkIns) {
-      final tags = checkIn.tagNames ?? [];
+      final tags = checkIn.activityNames ?? [];
       for (var activity in tags) {
         activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
       }

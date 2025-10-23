@@ -87,10 +87,10 @@ class TimelineCard extends StatelessWidget {
 
     final items = <Widget>[];
 
-    if (checkIn.tagNames != null && checkIn.tagNames!.isNotEmpty) {
+    if (checkIn.activityNames != null && checkIn.activityNames!.isNotEmpty) {
       items.add(
         Text(
-          '${t.check_in_activities}: ${checkIn.tagNames!.join(', ')}',
+          '${t.check_in_activities}: ${checkIn.activityNames!.join(', ')}',
           style: textTheme.bodySmall?.copyWith(
             color: colorScheme.onSurface,
           ),

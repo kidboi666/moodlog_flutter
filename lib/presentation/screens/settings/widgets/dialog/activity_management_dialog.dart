@@ -11,26 +11,26 @@ class TagManagementDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text(t.tags_dialog_title),
+      title: Text(t.activities_dialog_title),
       content: SizedBox(
         width: double.maxFinite,
         height: 400,
         child: viewModel.isLoading
             ? const Center(child: CircularProgressIndicator())
-            : viewModel.tags.isEmpty
-            ? Center(child: Text(t.tags_dialog_empty))
+            : viewModel.activities.isEmpty
+            ? Center(child: Text(t.activities_dialog_empty))
             : ListView.builder(
-                itemCount: viewModel.tags.length,
+                itemCount: viewModel.activities.length,
                 itemBuilder: (context, index) {
-                  final tag = viewModel.tags[index];
+                  final tag = viewModel.activities[index];
                   return Dismissible(
                     key: Key(tag.id.toString()),
-                    onDismissed: (direction) => viewModel.deleteTag(tag.id),
+                    onDismissed: (direction) => viewModel.deleteActivity(tag.id),
                     child: ListTile(
                       onTap: () {},
                       title: Text(tag.name),
                       subtitle: Text(
-                        t.tags_dialog_created(
+                        t.activities_dialog_created(
                           '${tag.createdAt.day}/${tag.createdAt.month}/${tag.createdAt.year}',
                         ),
                       ),
@@ -42,7 +42,7 @@ class TagManagementDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(t.tags_dialog_close),
+          child: Text(t.activities_dialog_close),
         ),
       ],
     );

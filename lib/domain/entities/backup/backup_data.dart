@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:moodlog/domain/entities/backup/backup_journal.dart';
 import 'package:moodlog/domain/entities/backup/backup_settings.dart';
 import 'package:moodlog/domain/entities/backup/backup_stat.dart';
-import 'package:moodlog/domain/entities/backup/backup_tag.dart';
+import 'package:moodlog/domain/entities/backup/backup_activity.dart';
 import 'package:moodlog/domain/entities/backup/backup_user.dart';
 
 part 'backup_data.freezed.dart';
@@ -17,7 +17,7 @@ abstract class BackupData with _$BackupData {
     required BackupSettings settings,
     BackupStat? stat,
     required List<BackupJournal> journals,
-    required List<BackupTag> tags,
+    required List<BackupActivity> activities,
     required Map<String, String> images,
   }) = _BackupData;
 

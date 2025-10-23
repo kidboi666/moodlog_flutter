@@ -1,10 +1,10 @@
-class Tag {
+class Activity {
   final int id;
   final String name;
   final String? color;
   final DateTime createdAt;
 
-  Tag({
+  Activity({
     required this.id,
     required this.name,
     this.color,

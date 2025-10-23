@@ -26,7 +26,7 @@ class YearlyActivityReport extends StatelessWidget {
     if (topActivities.isNotEmpty) {
       final allCheckIns = context.read<StatisticsViewModel>().yearlyCheckInsList;
       for (var checkIn in allCheckIns) {
-        final tags = checkIn.tagNames ?? [];
+        final tags = checkIn.activityNames ?? [];
         for (var tag in tags) {
           activityCounts[tag] = (activityCounts[tag] ?? 0) + 1;
         }

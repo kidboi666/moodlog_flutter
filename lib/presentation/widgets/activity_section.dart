@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/presentation/widgets/tag_chip.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/presentation/widgets/activity_chip.dart';
 
-class TagSection extends StatelessWidget {
-  final List<Tag> tags;
+class ActivitySection extends StatelessWidget {
+  final List<Activity> activities;
   final String? title;
   final SimpleTextAlign? textAlign;
-  final int? maxTags;
+  final int? maxActivities;
   final double? spacing;
   final double? runSpacing;
   final bool isCompact;
 
-  const TagSection({
+  const ActivitySection({
     super.key,
-    required this.tags,
+    required this.activities,
     this.title,
     this.textAlign,
-    this.maxTags,
+    this.maxActivities,
     this.spacing,
     this.runSpacing,
     this.isCompact = false,
@@ -26,9 +26,9 @@ class TagSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (tags.isEmpty) return const SizedBox.shrink();
+    if (activities.isEmpty) return const SizedBox.shrink();
 
-    final displayTags = maxTags != null ? tags.take(maxTags!).toList() : tags;
+    final displayActivities = maxActivities != null ? activities.take(maxActivities!).toList() : activities;
 
     return Column(
       crossAxisAlignment:
@@ -40,8 +40,8 @@ class TagSection extends StatelessWidget {
           ),
           spacing: spacing ?? Spacing.sm,
           runSpacing: runSpacing ?? Spacing.sm,
-          children: displayTags.map((tag) {
-            return TagChip(tag: tag, isCompact: isCompact);
+          children: displayActivities.map((activity) {
+            return ActivityChip(activity: activity, isCompact: isCompact);
           }).toList(),
         ),
       ],

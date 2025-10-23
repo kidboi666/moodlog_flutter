@@ -12,7 +12,7 @@ abstract class CreateCheckInRequest with _$CreateCheckInRequest {
     required DateTime createdAt,
     int? sleepQuality,
     List<String>? emotionNames,
-    List<String>? tagNames,
+    List<String>? activityNames,
     String? memo,
     double? latitude,
     double? longitude,

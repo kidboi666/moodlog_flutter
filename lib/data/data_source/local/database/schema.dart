@@ -2,12 +2,12 @@ import 'package:drift/drift.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/converter.dart';
 import 'package:moodlog/domain/entities/app/stat.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
+import 'package:moodlog/domain/entities/journal/check_in_activity.dart';
 import 'package:moodlog/domain/entities/journal/check_in_emotion.dart';
-import 'package:moodlog/domain/entities/journal/check_in_tag.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
 
 // CheckIns - 분석용 데이터 테이블
 @UseRowClass(CheckIn)
@@ -24,7 +24,7 @@ class CheckIns extends Table {
   TextColumn get emotionNames =>
       text().map(const StringListConverter()).nullable()();
 
-  TextColumn get tagNames =>
+  TextColumn get activityNames =>
       text().map(const StringListConverter()).nullable()();
 
   TextColumn get memo => text().nullable()();
@@ -79,9 +79,9 @@ class Stats extends Table {
   DateTimeColumn get lastActiveDate => dateTime()();
 }
 
-@UseRowClass(Tag)
-@TableIndex(name: 'tags_name', columns: {#name})
-class Tags extends Table {
+@UseRowClass(Activity)
+@TableIndex(name: 'activities_name', columns: {#name})
+class Activities extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   TextColumn get name => text().withLength(max: 50)();
@@ -91,23 +91,23 @@ class Tags extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
-@UseRowClass(CheckInTag)
-@TableIndex(name: 'check_in_tags_check_in_id', columns: {#checkInId})
-@TableIndex(name: 'check_in_tags_tag_id', columns: {#tagId})
-class CheckInTags extends Table {
+@UseRowClass(CheckInActivity)
+@TableIndex(name: 'check_in_activities_check_in_id', columns: {#checkInId})
+@TableIndex(name: 'check_in_activities_activity_id', columns: {#activityId})
+class CheckInActivities extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   IntColumn get checkInId =>
       integer().references(CheckIns, #id, onDelete: KeyAction.cascade)();
 
-  IntColumn get tagId =>
-      integer().references(Tags, #id, onDelete: KeyAction.cascade)();
+  IntColumn get activityId =>
+      integer().references(Activities, #id, onDelete: KeyAction.cascade)();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   @override
   List<Set<Column>> get uniqueKeys => [
-    {checkInId, tagId},
+    {checkInId, activityId},
   ];
 }
 

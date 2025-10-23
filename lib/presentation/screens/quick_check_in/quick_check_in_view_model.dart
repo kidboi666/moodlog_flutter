@@ -80,7 +80,7 @@ class QuickCheckInViewModel extends ChangeNotifier
     notifyListeners();
   }
 
-  void addTag(String tag) {
+  void addActivity(String tag) {
     if (!_selectedTags.contains(tag)) {
       _selectedTags.add(tag);
       notifyListeners();
@@ -166,8 +166,8 @@ class QuickCheckInViewModel extends ChangeNotifier
           _selectedMood = checkIn.moodType;
           _sleepQuality = checkIn.sleepQuality;
           _selectedTags.clear();
-          if (checkIn.tagNames != null) {
-            _selectedTags.addAll(checkIn.tagNames!);
+          if (checkIn.activityNames != null) {
+            _selectedTags.addAll(checkIn.activityNames!);
           }
           _selectedEmotions.clear();
           if (checkIn.emotionNames != null) {
@@ -241,7 +241,7 @@ class QuickCheckInViewModel extends ChangeNotifier
           moodType: _selectedMood,
           sleepQuality: _sleepQuality,
           emotionNames: _selectedEmotions.isEmpty ? null : _selectedEmotions,
-          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
+          activityNames: _selectedTags.isEmpty ? null : _selectedTags,
           memo: _memo.isEmpty ? null : _memo,
           latitude: _latitude,
           longitude: _longitude,
@@ -267,7 +267,7 @@ class QuickCheckInViewModel extends ChangeNotifier
           createdAt: _createdAt,
           sleepQuality: _sleepQuality,
           emotionNames: _selectedEmotions.isEmpty ? null : _selectedEmotions,
-          tagNames: _selectedTags.isEmpty ? null : _selectedTags,
+          activityNames: _selectedTags.isEmpty ? null : _selectedTags,
           memo: _memo.isEmpty ? null : _memo,
           latitude: _latitude,
           longitude: _longitude,

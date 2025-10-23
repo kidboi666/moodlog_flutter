@@ -80,7 +80,7 @@
   "entries_calendar_legend_has_journal": "Has entry",
   "entries_calendar_legend_today": "Today",
   "tab_home": "Home",
-  "drawer_tags": "Manage Tags",
+  "drawer_activities": "Manage Activities",
   "drawer_review": "Write a Review",
   "empty_box_write_options_title": "Which date would you like to write for?",
   "empty_box_write_for_selected_date": "Write for {date}",
@@ -92,29 +92,29 @@
     }
   },
   "empty_box_write_for_today": "Write for today",
-  "tags_empty": "No tags found.",
-  "tags_error": "Error: {error}",
-  "@tags_error": {
+  "activities_empty": "No activities found.",
+  "activities_error": "Error: {error}",
+  "@activities_error": {
     "placeholders": {
       "error": {
         "type": "String"
       }
     }
   },
-  "tags_journal_count": "{count,plural, =1{1 journal}other{{count} journals}}",
-  "@tags_journal_count": {
+  "activities_journal_count": "{count,plural, =1{1 journal}other{{count} journals}}",
+  "@activities_journal_count": {
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "default_tag_daily": "Daily",
-  "default_tag_work": "Work",
-  "default_tag_health": "Health",
-  "default_tag_relationships": "Relationships",
-  "default_tag_hobby": "Hobby",
-  "default_tag_emotions": "Emotions",
+  "default_activity_daily": "Daily",
+  "default_activity_work": "Work",
+  "default_activity_health": "Health",
+  "default_activity_relationships": "Relationships",
+  "default_activity_hobby": "Hobby",
+  "default_activity_emotions": "Emotions",
   "tab_entries": "Entries",
   "tab_settings": "Settings",
   "tab_write": "Write",
@@ -423,36 +423,36 @@
   },
   "location_current": "Current Location",
   "location_add_location": "Add Location",
-  "tags_manage_title": "Manage Tags",
-  "tags_manage_subtitle": "View and manage your tags",
-  "tags_filter_all": "All",
-  "tags_filter_title": "Filter by Tags",
-  "tags_suggested_title": "Suggested Tags",
-  "tags_selected_title": "Selected Tags",
-  "tags_add_new": "Add New Tag",
-  "tags_input_hint": "Tag name",
-  "tags_delete_title": "Delete Tag",
-  "tags_delete_message": "Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.",
-  "@tags_delete_message": {
+  "activities_manage_title": "Manage Activities",
+  "activities_manage_subtitle": "View and manage your activities",
+  "activities_filter_all": "All",
+  "activities_filter_title": "Filter by Activities",
+  "activities_suggested_title": "Suggested Activities",
+  "activities_selected_title": "Selected Activities",
+  "activities_add_new": "Add New Activity",
+  "activities_input_hint": "Activity name",
+  "activities_delete_title": "Delete Activity",
+  "activities_delete_message": "Do you want to delete \"{activityName}\"? This activity will be removed from all diary entries.",
+  "@activities_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_delete_success": "Tag \"{tagName}\" has been deleted",
-  "@tags_delete_success": {
+  "activities_delete_success": "Activity \"{activityName}\" has been deleted",
+  "@activities_delete_success": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_no_tags": "No tags",
-  "tags_load_failed": "Failed to load tags",
-  "tags_delete_failed": "Failed to delete tag",
-  "tags_menu_edit": "Edit",
-  "tags_menu_delete": "Delete",
+  "activities_no_activities": "No activities",
+  "activities_load_failed": "Failed to load activities",
+  "activities_delete_failed": "Failed to delete activity",
+  "activities_menu_edit": "Edit",
+  "activities_menu_delete": "Delete",
   "home_monthly_tracker_title": "Monthly Journaling",
   "home_yearly_tracker_title": "This Year's Diary Writing",
   "home_monthly_tracker_legend_less": "Less",
@@ -509,7 +509,7 @@
   "ai_report_positive_keywords": "Positive Keywords",
   "ai_report_negative_keywords": "Negative Keywords",
   "ai_report_emotional_pattern": "Emotional Pattern Analysis",
-  "ai_report_tag_correlation": "Tag-Emotion Correlation",
+  "ai_report_activity_correlation": "Activity-Emotion Correlation",
   "ai_report_no_keywords": "No keywords found.",
   "ai_report_not_enough_data": "Not enough data to analyze. Please write more than 10 journals in 30 days.",
   "home_representative_mood_title": "My Current Emotion",
@@ -535,20 +535,20 @@
   "calendar_weekday_thu": "Thu",
   "calendar_weekday_fri": "Fri",
   "calendar_weekday_sat": "Sat",
-  "tags_dialog_title": "Manage Tags",
-  "tags_dialog_empty": "No tags",
-  "tags_dialog_close": "Close",
-  "tags_dialog_delete_title": "Delete Tag",
-  "tags_dialog_delete_message": "Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.",
-  "@tags_dialog_delete_message": {
+  "activities_dialog_title": "Manage Activities",
+  "activities_dialog_empty": "No activities",
+  "activities_dialog_close": "Close",
+  "activities_dialog_delete_title": "Delete Activity",
+  "activities_dialog_delete_message": "Do you want to delete \"{activityName}\"? This activity will be removed from all diary entries.",
+  "@activities_dialog_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_dialog_created": "Created: {date}",
-  "@tags_dialog_created": {
+  "activities_dialog_created": "Created: {date}",
+  "@activities_dialog_created": {
     "placeholders": {
       "date": {
         "type": "String"

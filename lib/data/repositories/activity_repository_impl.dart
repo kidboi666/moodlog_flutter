@@ -1,20 +1,20 @@
 import 'package:drift/native.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
-import 'package:moodlog/domain/repositories/tag_repository.dart';
+import 'package:moodlog/data/data_source/local/activity_local_data_source.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/domain/entities/journal/activity_with_count.dart';
+import 'package:moodlog/domain/repositories/activity_repository.dart';
 
-class TagRepositoryImpl implements TagRepository {
-  final TagLocalDataSource _localDataSource;
+class ActivityRepositoryImpl implements ActivityRepository {
+  final ActivityLocalDataSource _localDataSource;
 
-  TagRepositoryImpl({required TagLocalDataSource localDataSource})
+  ActivityRepositoryImpl({required ActivityLocalDataSource localDataSource})
     : _localDataSource = localDataSource;
 
   @override
-  Future<Result<List<TagWithCount>>> getTagsWithCount() async {
+  Future<Result<List<ActivityWithCount>>> getActivitiesWithCount() async {
     try {
-      final tagsWithCount = await _localDataSource.getTagsWithCount();
+      final tagsWithCount = await _localDataSource.getActivitiesWithCount();
       return Result.ok(tagsWithCount);
     } catch (e) {
       return Result.error(Exception('태그 목록을 가져오는데 실패했습니다: $e'));
@@ -22,9 +22,9 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Result<List<Tag>>> getAllTags() async {
+  Future<Result<List<Activity>>> getAllActivities() async {
     try {
-      final tags = await _localDataSource.getAllTags();
+      final tags = await _localDataSource.getAllActivities();
       return Result.ok(tags);
     } catch (e) {
       return Result.error(Exception('태그 목록을 가져오는데 실패했습니다: $e'));
@@ -32,9 +32,9 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Result<Tag?>> getTagById(int id) async {
+  Future<Result<Activity?>> getActivityById(int id) async {
     try {
-      final tag = await _localDataSource.getTagById(id);
+      final tag = await _localDataSource.getActivityById(id);
       return Result.ok(tag);
     } catch (e) {
       return Result.error(Exception('태그를 찾는데 실패했습니다: $e'));
@@ -42,9 +42,9 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Result<Tag>> addTag(String name, String? color) async {
+  Future<Result<Activity>> addActivity(String name, String? color) async {
     try {
-      final tag = await _localDataSource.addTag(name, color);
+      final tag = await _localDataSource.addActivity(name, color);
       return Result.ok(tag);
     } on SqliteException catch (e) {
       if (e.extendedResultCode == 2067) {
@@ -58,9 +58,9 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Result<void>> updateTag(int id, String name, String? color) async {
+  Future<Result<void>> updateActivity(int id, String name, String? color) async {
     try {
-      final affectedRows = await _localDataSource.updateTag(id, name, color);
+      final affectedRows = await _localDataSource.updateActivity(id, name, color);
 
       if (affectedRows == 0) {
         return Result.error(Exception('존재하지 않는 태그입니다'));
@@ -80,9 +80,9 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Result<void>> deleteTag(int id) async {
+  Future<Result<void>> deleteActivity(int id) async {
     try {
-      final affectedRows = await _localDataSource.deleteTag(id);
+      final affectedRows = await _localDataSource.deleteActivity(id);
 
       if (affectedRows == 0) {
         return Result.error(Exception('존재하지 않는 태그입니다'));

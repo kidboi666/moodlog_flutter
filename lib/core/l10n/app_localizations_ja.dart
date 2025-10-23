@@ -259,7 +259,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tab_home => 'ホーム';
 
   @override
-  String get drawer_tags => 'タグ管理';
+  String get drawer_activities => '活動管理';
 
   @override
   String get drawer_review => 'レビューを書く';
@@ -276,35 +276,35 @@ class AppLocalizationsJa extends AppLocalizations {
   String get empty_box_write_for_today => '今日の日記を作成';
 
   @override
-  String get tags_empty => 'タグがありません。';
+  String get activities_empty => '活動がありません。';
 
   @override
-  String tags_error(String error) {
+  String activities_error(String error) {
     return 'エラー: $error';
   }
 
   @override
-  String tags_journal_count(int count) {
+  String activities_journal_count(int count) {
     return '$count個の日記';
   }
 
   @override
-  String get default_tag_daily => '日常';
+  String get default_activity_daily => '日常';
 
   @override
-  String get default_tag_work => '仕事';
+  String get default_activity_work => '仕事';
 
   @override
-  String get default_tag_health => '健康';
+  String get default_activity_health => '健康';
 
   @override
-  String get default_tag_relationships => '関係';
+  String get default_activity_relationships => '関係';
 
   @override
-  String get default_tag_hobby => '趣味';
+  String get default_activity_hobby => '趣味';
 
   @override
-  String get default_tag_emotions => '感情';
+  String get default_activity_emotions => '感情';
 
   @override
   String get tab_entries => '記録';
@@ -923,56 +923,56 @@ class AppLocalizationsJa extends AppLocalizations {
   String get location_add_location => '位置を追加';
 
   @override
-  String get tags_manage_title => 'タグ管理';
+  String get activities_manage_title => '活動管理';
 
   @override
-  String get tags_manage_subtitle => 'タグを表示・管理します';
+  String get activities_manage_subtitle => '活動を表示・管理します';
 
   @override
-  String get tags_filter_all => '全て';
+  String get activities_filter_all => '全て';
 
   @override
-  String get tags_filter_title => 'タグでフィルタ';
+  String get activities_filter_title => '活動でフィルタ';
 
   @override
-  String get tags_suggested_title => '推奨タグ';
+  String get activities_suggested_title => '推奨活動';
 
   @override
-  String get tags_selected_title => '選択されたタグ';
+  String get activities_selected_title => '選択された活動';
 
   @override
-  String get tags_add_new => '新しいタグを追加';
+  String get activities_add_new => '新しい活動を追加';
 
   @override
-  String get tags_input_hint => 'タグ名';
+  String get activities_input_hint => '活動名';
 
   @override
-  String get tags_delete_title => 'タグ削除';
+  String get activities_delete_title => '活動削除';
 
   @override
-  String tags_delete_message(String tagName) {
-    return '「$tagName」を削除しますか？すべての日記からこのタグが削除されます。';
+  String activities_delete_message(String activityName) {
+    return '「$activityName」を削除しますか？すべての日記からこの活動が削除されます。';
   }
 
   @override
-  String tags_delete_success(String tagName) {
-    return 'タグ「$tagName」が削除されました';
+  String activities_delete_success(String activityName) {
+    return '活動「$activityName」が削除されました';
   }
 
   @override
-  String get tags_no_tags => 'タグがありません';
+  String get activities_no_activities => '活動がありません';
 
   @override
-  String get tags_load_failed => 'タグの読み込みに失敗しました';
+  String get activities_load_failed => '活動の読み込みに失敗しました';
 
   @override
-  String get tags_delete_failed => 'タグの削除に失敗しました';
+  String get activities_delete_failed => '活動の削除に失敗しました';
 
   @override
-  String get tags_menu_edit => '編集';
+  String get activities_menu_edit => '編集';
 
   @override
-  String get tags_menu_delete => '削除';
+  String get activities_menu_delete => '削除';
 
   @override
   String get home_monthly_tracker_title => '今月の日記作成';
@@ -1143,7 +1143,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get ai_report_emotional_pattern => '感情パターン分析';
 
   @override
-  String get ai_report_tag_correlation => 'タグと感情の相関関係';
+  String get ai_report_activity_correlation => '活動と感情の相関関係';
 
   @override
   String get ai_report_no_keywords => 'キーワードが見つかりませんでした。';
@@ -1223,24 +1223,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get calendar_weekday_sat => '土';
 
   @override
-  String get tags_dialog_title => 'タグ管理';
+  String get activities_dialog_title => '活動管理';
 
   @override
-  String get tags_dialog_empty => 'タグがありません';
+  String get activities_dialog_empty => '活動がありません';
 
   @override
-  String get tags_dialog_close => '閉じる';
+  String get activities_dialog_close => '閉じる';
 
   @override
-  String get tags_dialog_delete_title => 'タグ削除';
+  String get activities_dialog_delete_title => '活動削除';
 
   @override
-  String tags_dialog_delete_message(String tagName) {
-    return '「$tagName」を削除しますか？すべての日記からこのタグが削除されます。';
+  String activities_dialog_delete_message(String activityName) {
+    return '「$activityName」を削除しますか？すべての日記からこの活動が削除されます。';
   }
 
   @override
-  String tags_dialog_created(String date) {
+  String activities_dialog_created(String date) {
     return '作成日：$date';
   }
 

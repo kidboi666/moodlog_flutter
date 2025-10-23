@@ -266,7 +266,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tab_home => 'Home';
 
   @override
-  String get drawer_tags => 'Manage Tags';
+  String get drawer_activities => 'Manage Activities';
 
   @override
   String get drawer_review => 'Write a Review';
@@ -284,15 +284,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get empty_box_write_for_today => 'Write for today';
 
   @override
-  String get tags_empty => 'No tags found.';
+  String get activities_empty => 'No activities found.';
 
   @override
-  String tags_error(String error) {
+  String activities_error(String error) {
     return 'Error: $error';
   }
 
   @override
-  String tags_journal_count(int count) {
+  String activities_journal_count(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -303,22 +303,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get default_tag_daily => 'Daily';
+  String get default_activity_daily => 'Daily';
 
   @override
-  String get default_tag_work => 'Work';
+  String get default_activity_work => 'Work';
 
   @override
-  String get default_tag_health => 'Health';
+  String get default_activity_health => 'Health';
 
   @override
-  String get default_tag_relationships => 'Relationships';
+  String get default_activity_relationships => 'Relationships';
 
   @override
-  String get default_tag_hobby => 'Hobby';
+  String get default_activity_hobby => 'Hobby';
 
   @override
-  String get default_tag_emotions => 'Emotions';
+  String get default_activity_emotions => 'Emotions';
 
   @override
   String get tab_entries => 'Entries';
@@ -959,56 +959,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String get location_add_location => 'Add Location';
 
   @override
-  String get tags_manage_title => 'Manage Tags';
+  String get activities_manage_title => 'Manage Activities';
 
   @override
-  String get tags_manage_subtitle => 'View and manage your tags';
+  String get activities_manage_subtitle => 'View and manage your activities';
 
   @override
-  String get tags_filter_all => 'All';
+  String get activities_filter_all => 'All';
 
   @override
-  String get tags_filter_title => 'Filter by Tags';
+  String get activities_filter_title => 'Filter by Activities';
 
   @override
-  String get tags_suggested_title => 'Suggested Tags';
+  String get activities_suggested_title => 'Suggested Activities';
 
   @override
-  String get tags_selected_title => 'Selected Tags';
+  String get activities_selected_title => 'Selected Activities';
 
   @override
-  String get tags_add_new => 'Add New Tag';
+  String get activities_add_new => 'Add New Activity';
 
   @override
-  String get tags_input_hint => 'Tag name';
+  String get activities_input_hint => 'Activity name';
 
   @override
-  String get tags_delete_title => 'Delete Tag';
+  String get activities_delete_title => 'Delete Activity';
 
   @override
-  String tags_delete_message(String tagName) {
-    return 'Do you want to delete \"$tagName\"? This tag will be removed from all diary entries.';
+  String activities_delete_message(String activityName) {
+    return 'Do you want to delete \"$activityName\"? This activity will be removed from all diary entries.';
   }
 
   @override
-  String tags_delete_success(String tagName) {
-    return 'Tag \"$tagName\" has been deleted';
+  String activities_delete_success(String activityName) {
+    return 'Activity \"$activityName\" has been deleted';
   }
 
   @override
-  String get tags_no_tags => 'No tags';
+  String get activities_no_activities => 'No activities';
 
   @override
-  String get tags_load_failed => 'Failed to load tags';
+  String get activities_load_failed => 'Failed to load activities';
 
   @override
-  String get tags_delete_failed => 'Failed to delete tag';
+  String get activities_delete_failed => 'Failed to delete activity';
 
   @override
-  String get tags_menu_edit => 'Edit';
+  String get activities_menu_edit => 'Edit';
 
   @override
-  String get tags_menu_delete => 'Delete';
+  String get activities_menu_delete => 'Delete';
 
   @override
   String get home_monthly_tracker_title => 'Monthly Journaling';
@@ -1182,7 +1182,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ai_report_emotional_pattern => 'Emotional Pattern Analysis';
 
   @override
-  String get ai_report_tag_correlation => 'Tag-Emotion Correlation';
+  String get ai_report_activity_correlation => 'Activity-Emotion Correlation';
 
   @override
   String get ai_report_no_keywords => 'No keywords found.';
@@ -1263,24 +1263,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendar_weekday_sat => 'Sat';
 
   @override
-  String get tags_dialog_title => 'Manage Tags';
+  String get activities_dialog_title => 'Manage Activities';
 
   @override
-  String get tags_dialog_empty => 'No tags';
+  String get activities_dialog_empty => 'No activities';
 
   @override
-  String get tags_dialog_close => 'Close';
+  String get activities_dialog_close => 'Close';
 
   @override
-  String get tags_dialog_delete_title => 'Delete Tag';
+  String get activities_dialog_delete_title => 'Delete Activity';
 
   @override
-  String tags_dialog_delete_message(String tagName) {
-    return 'Do you want to delete \"$tagName\"? This tag will be removed from all diary entries.';
+  String activities_dialog_delete_message(String activityName) {
+    return 'Do you want to delete \"$activityName\"? This activity will be removed from all diary entries.';
   }
 
   @override
-  String tags_dialog_created(String date) {
+  String activities_dialog_created(String date) {
     return 'Created: $date';
   }
 

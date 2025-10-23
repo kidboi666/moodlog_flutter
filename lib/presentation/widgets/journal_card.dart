@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/widget.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/presentation/widgets/tag_chip.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/presentation/widgets/activity_chip.dart';
 
 class JournalCard extends StatelessWidget {
   final int id;
@@ -17,7 +17,7 @@ class JournalCard extends StatelessWidget {
   final void Function()? onLongPress;
   final bool isSelectable;
   final bool isSelected;
-  final List<Tag>? tags;
+  final List<Activity>? activities;
   final bool isCompact;
 
   const JournalCard({
@@ -31,7 +31,7 @@ class JournalCard extends StatelessWidget {
     this.coverImg,
     this.isSelectable = false,
     this.isSelected = false,
-    this.tags,
+    this.activities,
     this.isCompact = false,
   });
 
@@ -99,14 +99,14 @@ class JournalCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (tags != null && tags!.isNotEmpty) ...[
+                if (activities != null && activities!.isNotEmpty) ...[
                   Padding(
                     padding: EdgeInsets.only(
                       left: horizontalPadding,
                       right: horizontalPadding,
                       bottom: Spacing.lg,
                     ),
-                    child: _buildTags(context, tags!),
+                    child: _buildTags(context, activities!),
                   ),
                 ],
                 if (coverImg != null && coverImg!.isNotEmpty) ...[
@@ -128,12 +128,12 @@ class JournalCard extends StatelessWidget {
     ).scale();
   }
 
-  Widget _buildTags(BuildContext context, List<Tag> tags) {
+  Widget _buildTags(BuildContext context, List<Activity> tags) {
     return Wrap(
       spacing: Spacing.sm,
       runSpacing: Spacing.sm,
       children: tags
-          .map((tag) => TagChip(tag: tag, isCompact: isCompact))
+          .map((activity) => ActivityChip(activity: activity, isCompact: isCompact))
           .toList(),
     );
   }

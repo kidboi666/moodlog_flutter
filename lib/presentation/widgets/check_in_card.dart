@@ -3,7 +3,7 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 
 class CheckInCard extends StatelessWidget {
   final int id;
@@ -11,7 +11,7 @@ class CheckInCard extends StatelessWidget {
   final DateTime createdAt;
   final int? sleepQuality;
   final String? memo;
-  final List<Tag>? tags;
+  final List<Activity>? activities;
   final List<Emotion>? emotions;
   final void Function() onTap;
   final void Function()? onLongPress;
@@ -25,7 +25,7 @@ class CheckInCard extends StatelessWidget {
     required this.createdAt,
     this.sleepQuality,
     this.memo,
-    this.tags,
+    this.activities,
     this.emotions,
     required this.onTap,
     this.onLongPress,
@@ -112,12 +112,12 @@ class CheckInCard extends StatelessWidget {
                           ),
 
                         // Activities
-                        if (tags != null && tags!.isNotEmpty) ...[
+                        if (activities != null && activities!.isNotEmpty) ...[
                           CommonSizedBox.heightXs,
                           Wrap(
                             spacing: Spacing.xs,
                             runSpacing: Spacing.xs,
-                            children: tags!.take(3).map((tag) {
+                            children: activities!.take(3).map((tag) {
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: Spacing.sm,

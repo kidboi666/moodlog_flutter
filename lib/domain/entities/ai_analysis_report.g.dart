@@ -16,7 +16,7 @@ _AiAnalysisReport _$AiAnalysisReportFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       emotionalPattern: json['emotionalPattern'] as String,
-      tagCorrelation: json['tagCorrelation'] as String,
+      activityCorrelation: json['activityCorrelation'] as String,
     );
 
 Map<String, dynamic> _$AiAnalysisReportToJson(_AiAnalysisReport instance) =>
@@ -25,5 +25,5 @@ Map<String, dynamic> _$AiAnalysisReportToJson(_AiAnalysisReport instance) =>
       'positiveKeywords': instance.positiveKeywords,
       'negativeKeywords': instance.negativeKeywords,
       'emotionalPattern': instance.emotionalPattern,
-      'tagCorrelation': instance.tagCorrelation,
+      'activityCorrelation': instance.activityCorrelation,
     };

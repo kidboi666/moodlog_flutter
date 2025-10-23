@@ -10,7 +10,7 @@ abstract class CreateQuickCheckInRequest with _$CreateQuickCheckInRequest {
   const factory CreateQuickCheckInRequest({
     required MoodType moodType,
     String? content,
-    List<String>? tagNames,
+    List<String>? activityNames,
     List<String>? emotionNames,
     required DateTime createdAt,
     double? latitude,

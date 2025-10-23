@@ -1,13 +1,13 @@
-class CheckInTag {
+class CheckInActivity {
   final int id;
   final int checkInId;
-  final int tagId;
+  final int activityId;
   final DateTime createdAt;
 
-  CheckInTag({
+  CheckInActivity({
     required this.id,
     required this.checkInId,
-    required this.tagId,
+    required this.activityId,
     required this.createdAt,
   });
 }

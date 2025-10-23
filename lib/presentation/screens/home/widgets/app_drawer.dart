@@ -29,8 +29,8 @@ class AppDrawer extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.sell_outlined),
-          title: Text(t.drawer_tags),
-          onTap: () => context.push(Routes.tags),
+          title: Text(t.drawer_activities),
+          onTap: () => context.push(Routes.activities),
         ),
         ListTile(
           leading: const Icon(Icons.settings_outlined),

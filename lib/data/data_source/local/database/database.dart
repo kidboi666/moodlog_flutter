@@ -8,16 +8,16 @@ import 'package:moodlog/data/data_source/local/database/schema.dart';
 import 'package:moodlog/domain/entities/app/stat.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/check_in_emotion.dart';
-import 'package:moodlog/domain/entities/journal/check_in_tag.dart';
+import 'package:moodlog/domain/entities/journal/check_in_activity.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [CheckIns, Journals, Stats, Tags, CheckInTags, Emotions, CheckInEmotions])
+@DriftDatabase(tables: [CheckIns, Journals, Stats, Activities, CheckInActivities, Emotions, CheckInEmotions])
 class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 

@@ -26,7 +26,7 @@ class MonthlyTopActivities extends StatelessWidget {
     if (topActivities.isNotEmpty) {
       final allCheckIns = context.read<StatisticsViewModel>().monthlyCheckInsList;
       for (var checkIn in allCheckIns) {
-        final tags = checkIn.tagNames ?? [];
+        final tags = checkIn.activityNames ?? [];
         for (var tag in tags) {
           activityCounts[tag] = (activityCounts[tag] ?? 0) + 1;
         }

@@ -10,18 +10,18 @@ import 'package:moodlog/domain/entities/backup/backup_data.dart';
 import 'package:moodlog/domain/entities/backup/backup_journal.dart';
 import 'package:moodlog/domain/entities/backup/backup_settings.dart';
 import 'package:moodlog/domain/entities/backup/backup_stat.dart';
-import 'package:moodlog/domain/entities/backup/backup_tag.dart';
+import 'package:moodlog/domain/entities/backup/backup_activity.dart';
 import 'package:moodlog/domain/entities/backup/backup_user.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
 import 'package:moodlog/domain/repositories/local_backup_repository.dart';
 import 'package:moodlog/domain/repositories/local_user_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
-import 'package:moodlog/domain/repositories/tag_repository.dart';
+import 'package:moodlog/domain/repositories/activity_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LocalBackupRepositoryImpl implements LocalBackupRepository {
   final JournalRepository _journalRepository;
-  final TagRepository _tagRepository;
+  final ActivityRepository _tagRepository;
   final LocalUserRepository _localUserRepository;
   final SettingsRepository _settingsRepository;
   final MoodLogDatabase _database;
@@ -29,7 +29,7 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
 
   LocalBackupRepositoryImpl({
     required JournalRepository journalRepository,
-    required TagRepository tagRepository,
+    required ActivityRepository tagRepository,
     required LocalUserRepository localUserRepository,
     required SettingsRepository settingsRepository,
     required MoodLogDatabase database,
@@ -109,10 +109,10 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
         ),
       };
 
-      final tagsResult = await _tagRepository.getAllTags();
+      final tagsResult = await _tagRepository.getAllActivities();
       final tags = switch (tagsResult) {
         Ok() => tagsResult.value,
-        Error() => throw Exception('Failed to get tags: ${tagsResult.error}'),
+        Error() => throw Exception('Failed to get activities: ${tagsResult.error}'),
       };
 
       final statsList = await _database.select(_database.stats).get();
@@ -143,7 +143,7 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
         settings: BackupSettings.fromSettings(settings),
         stat: stat != null ? BackupStat.fromStat(stat) : null,
         journals: journals.map((j) => BackupJournal.fromJournal(j)).toList(),
-        tags: tags.map((t) => BackupTag.fromTag(t)).toList(),
+        activities: tags.map((t) => BackupActivity.fromActivity(t)).toList(),
         images: images,
       );
     } catch (e, s) {
@@ -177,11 +177,11 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
       }
 
       final tagMap = <int, int>{};
-      for (final backupTag in backupData.tags) {
+      for (final backupTag in backupData.activities) {
         final tagId = await _database
-            .into(_database.tags)
+            .into(_database.activities)
             .insert(
-              TagsCompanion.insert(
+              ActivitiesCompanion.insert(
                 id: Value(backupTag.id),
                 name: backupTag.name,
                 color: Value(backupTag.color),

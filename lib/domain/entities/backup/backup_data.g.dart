@@ -17,8 +17,8 @@ _BackupData _$BackupDataFromJson(Map<String, dynamic> json) => _BackupData(
   journals: (json['journals'] as List<dynamic>)
       .map((e) => BackupJournal.fromJson(e as Map<String, dynamic>))
       .toList(),
-  tags: (json['tags'] as List<dynamic>)
-      .map((e) => BackupTag.fromJson(e as Map<String, dynamic>))
+  activities: (json['activities'] as List<dynamic>)
+      .map((e) => BackupActivity.fromJson(e as Map<String, dynamic>))
       .toList(),
   images: Map<String, String>.from(json['images'] as Map),
 );
@@ -31,6 +31,6 @@ Map<String, dynamic> _$BackupDataToJson(_BackupData instance) =>
       'settings': instance.settings,
       'stat': instance.stat,
       'journals': instance.journals,
-      'tags': instance.tags,
+      'activities': instance.activities,
       'images': instance.images,
     };

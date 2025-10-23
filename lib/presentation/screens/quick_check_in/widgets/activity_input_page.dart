@@ -68,7 +68,7 @@ class ActivityInputPageState extends State<ActivityInputPage>
             ),
             onSubmitted: (value) {
               if (value.isNotEmpty) {
-                viewModel.addTag(value);
+                viewModel.addActivity(value);
                 _controller.clear();
               }
             },
@@ -196,7 +196,7 @@ class _SuggestedActivities extends StatelessWidget {
             (suggestion) => ActionChip(
               label: Text(suggestion),
               onPressed: () =>
-                  context.read<QuickCheckInViewModel>().addTag(suggestion),
+                  context.read<QuickCheckInViewModel>().addActivity(suggestion),
             ).scale(),
           )
           .toList(),

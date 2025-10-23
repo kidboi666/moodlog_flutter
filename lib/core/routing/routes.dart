@@ -12,8 +12,8 @@ abstract final class Routes {
   static const String journalPage = '/journal/:id';
   static const String checkInPage = '/check-in/:id';
   static const String profile = '/profile';
-  static const String tags = '/tags';
-  static const String tagDetail = '/tags/:id';
+  static const String activities = '/activities';
+  static const String activityDetail = '/activities/:id';
   static const String purchase = '/purchase';
   static const String aiAnalysisReport = '/ai-analysis-report';
   static const String fontSettings = '/font-settings';
@@ -24,5 +24,5 @@ abstract final class Routes {
 
   static String checkIn(int id) => '/check-in/$id';
 
-  static String tag(int id) => '/tags/$id';
+  static String activity(int id) => '/activities/$id';
 }

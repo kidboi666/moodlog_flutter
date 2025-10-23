@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'backup_tag.dart';
+part of 'backup_activity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'backup_tag.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$BackupTag {
+mixin _$BackupActivity {
 
  int get id; String get name; String? get color; DateTime get createdAt;
-/// Create a copy of BackupTag
+/// Create a copy of BackupActivity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$BackupTagCopyWith<BackupTag> get copyWith => _$BackupTagCopyWithImpl<BackupTag>(this as BackupTag, _$identity);
+$BackupActivityCopyWith<BackupActivity> get copyWith => _$BackupActivityCopyWithImpl<BackupActivity>(this as BackupActivity, _$identity);
 
-  /// Serializes this BackupTag to a JSON map.
+  /// Serializes this BackupActivity to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupTag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupActivity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,id,name,color,createdAt);
 
 @override
 String toString() {
-  return 'BackupTag(id: $id, name: $name, color: $color, createdAt: $createdAt)';
+  return 'BackupActivity(id: $id, name: $name, color: $color, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $BackupTagCopyWith<$Res>  {
-  factory $BackupTagCopyWith(BackupTag value, $Res Function(BackupTag) _then) = _$BackupTagCopyWithImpl;
+abstract mixin class $BackupActivityCopyWith<$Res>  {
+  factory $BackupActivityCopyWith(BackupActivity value, $Res Function(BackupActivity) _then) = _$BackupActivityCopyWithImpl;
 @useResult
 $Res call({
  int id, String name, String? color, DateTime createdAt
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$BackupTagCopyWithImpl<$Res>
-    implements $BackupTagCopyWith<$Res> {
-  _$BackupTagCopyWithImpl(this._self, this._then);
+class _$BackupActivityCopyWithImpl<$Res>
+    implements $BackupActivityCopyWith<$Res> {
+  _$BackupActivityCopyWithImpl(this._self, this._then);
 
-  final BackupTag _self;
-  final $Res Function(BackupTag) _then;
+  final BackupActivity _self;
+  final $Res Function(BackupActivity) _then;
 
-/// Create a copy of BackupTag
+/// Create a copy of BackupActivity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? color = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
@@ -78,8 +78,8 @@ as DateTime,
 }
 
 
-/// Adds pattern-matching-related methods to [BackupTag].
-extension BackupTagPatterns on BackupTag {
+/// Adds pattern-matching-related methods to [BackupActivity].
+extension BackupActivityPatterns on BackupActivity {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -92,10 +92,10 @@ extension BackupTagPatterns on BackupTag {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BackupTag value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BackupActivity value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _BackupTag() when $default != null:
+case _BackupActivity() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -114,10 +114,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BackupTag value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BackupActivity value)  $default,){
 final _that = this;
 switch (_that) {
-case _BackupTag():
+case _BackupActivity():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -135,10 +135,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BackupTag value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BackupActivity value)?  $default,){
 final _that = this;
 switch (_that) {
-case _BackupTag() when $default != null:
+case _BackupActivity() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? color,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _BackupTag() when $default != null:
+case _BackupActivity() when $default != null:
 return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
   return orElse();
 
@@ -179,7 +179,7 @@ return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? color,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
-case _BackupTag():
+case _BackupActivity():
 return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
@@ -199,7 +199,7 @@ return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? color,  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
-case _BackupTag() when $default != null:
+case _BackupActivity() when $default != null:
 return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
   return null;
 
@@ -211,29 +211,29 @@ return $default(_that.id,_that.name,_that.color,_that.createdAt);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _BackupTag implements BackupTag {
-  const _BackupTag({required this.id, required this.name, this.color, required this.createdAt});
-  factory _BackupTag.fromJson(Map<String, dynamic> json) => _$BackupTagFromJson(json);
+class _BackupActivity implements BackupActivity {
+  const _BackupActivity({required this.id, required this.name, this.color, required this.createdAt});
+  factory _BackupActivity.fromJson(Map<String, dynamic> json) => _$BackupActivityFromJson(json);
 
 @override final  int id;
 @override final  String name;
 @override final  String? color;
 @override final  DateTime createdAt;
 
-/// Create a copy of BackupTag
+/// Create a copy of BackupActivity
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$BackupTagCopyWith<_BackupTag> get copyWith => __$BackupTagCopyWithImpl<_BackupTag>(this, _$identity);
+_$BackupActivityCopyWith<_BackupActivity> get copyWith => __$BackupActivityCopyWithImpl<_BackupActivity>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$BackupTagToJson(this, );
+  return _$BackupActivityToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupTag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupActivity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -242,15 +242,15 @@ int get hashCode => Object.hash(runtimeType,id,name,color,createdAt);
 
 @override
 String toString() {
-  return 'BackupTag(id: $id, name: $name, color: $color, createdAt: $createdAt)';
+  return 'BackupActivity(id: $id, name: $name, color: $color, createdAt: $createdAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$BackupTagCopyWith<$Res> implements $BackupTagCopyWith<$Res> {
-  factory _$BackupTagCopyWith(_BackupTag value, $Res Function(_BackupTag) _then) = __$BackupTagCopyWithImpl;
+abstract mixin class _$BackupActivityCopyWith<$Res> implements $BackupActivityCopyWith<$Res> {
+  factory _$BackupActivityCopyWith(_BackupActivity value, $Res Function(_BackupActivity) _then) = __$BackupActivityCopyWithImpl;
 @override @useResult
 $Res call({
  int id, String name, String? color, DateTime createdAt
@@ -261,17 +261,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$BackupTagCopyWithImpl<$Res>
-    implements _$BackupTagCopyWith<$Res> {
-  __$BackupTagCopyWithImpl(this._self, this._then);
+class __$BackupActivityCopyWithImpl<$Res>
+    implements _$BackupActivityCopyWith<$Res> {
+  __$BackupActivityCopyWithImpl(this._self, this._then);
 
-  final _BackupTag _self;
-  final $Res Function(_BackupTag) _then;
+  final _BackupActivity _self;
+  final $Res Function(_BackupActivity) _then;
 
-/// Create a copy of BackupTag
+/// Create a copy of BackupActivity
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? color = freezed,Object? createdAt = null,}) {
-  return _then(_BackupTag(
+  return _then(_BackupActivity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable

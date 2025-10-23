@@ -258,7 +258,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tab_home => '홈';
 
   @override
-  String get drawer_tags => '태그 관리';
+  String get drawer_activities => '활동 관리';
 
   @override
   String get drawer_review => '앱 리뷰 작성';
@@ -275,35 +275,35 @@ class AppLocalizationsKo extends AppLocalizations {
   String get empty_box_write_for_today => '오늘 일기 쓰기';
 
   @override
-  String get tags_empty => '태그가 없습니다.';
+  String get activities_empty => '활동이 없습니다.';
 
   @override
-  String tags_error(String error) {
+  String activities_error(String error) {
     return '오류 발생: $error';
   }
 
   @override
-  String tags_journal_count(int count) {
+  String activities_journal_count(int count) {
     return '$count개의 일기';
   }
 
   @override
-  String get default_tag_daily => '일상';
+  String get default_activity_daily => '일상';
 
   @override
-  String get default_tag_work => '업무';
+  String get default_activity_work => '업무';
 
   @override
-  String get default_tag_health => '건강';
+  String get default_activity_health => '건강';
 
   @override
-  String get default_tag_relationships => '관계';
+  String get default_activity_relationships => '관계';
 
   @override
-  String get default_tag_hobby => '취미';
+  String get default_activity_hobby => '취미';
 
   @override
-  String get default_tag_emotions => '감정';
+  String get default_activity_emotions => '감정';
 
   @override
   String get tab_entries => '일기 목록';
@@ -922,56 +922,56 @@ class AppLocalizationsKo extends AppLocalizations {
   String get location_add_location => '위치 추가';
 
   @override
-  String get tags_manage_title => '태그 관리';
+  String get activities_manage_title => '활동 관리';
 
   @override
-  String get tags_manage_subtitle => '태그를 보고 관리하세요';
+  String get activities_manage_subtitle => '활동을 보고 관리하세요';
 
   @override
-  String get tags_filter_all => '전체';
+  String get activities_filter_all => '전체';
 
   @override
-  String get tags_filter_title => '태그로 필터링';
+  String get activities_filter_title => '활동으로 필터링';
 
   @override
-  String get tags_suggested_title => '추천 태그';
+  String get activities_suggested_title => '추천 활동';
 
   @override
-  String get tags_selected_title => '선택된 태그';
+  String get activities_selected_title => '선택된 활동';
 
   @override
-  String get tags_add_new => '새 태그 추가';
+  String get activities_add_new => '새 활동 추가';
 
   @override
-  String get tags_input_hint => '태그 이름';
+  String get activities_input_hint => '활동 이름';
 
   @override
-  String get tags_delete_title => '태그 삭제';
+  String get activities_delete_title => '활동 삭제';
 
   @override
-  String tags_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.';
+  String activities_delete_message(String activityName) {
+    return '\"$activityName\"을(를) 삭제하시겠습니까? 이 활동은 모든 일기에서 제거됩니다.';
   }
 
   @override
-  String tags_delete_success(String tagName) {
-    return '\"$tagName\" 태그가 삭제되었습니다';
+  String activities_delete_success(String activityName) {
+    return '\"$activityName\" 활동이 삭제되었습니다';
   }
 
   @override
-  String get tags_no_tags => '태그 없음';
+  String get activities_no_activities => '활동 없음';
 
   @override
-  String get tags_load_failed => '태그를 불러오지 못했습니다';
+  String get activities_load_failed => '활동을 불러오지 못했습니다';
 
   @override
-  String get tags_delete_failed => '태그 삭제에 실패했습니다';
+  String get activities_delete_failed => '활동 삭제에 실패했습니다';
 
   @override
-  String get tags_menu_edit => '수정';
+  String get activities_menu_edit => '수정';
 
   @override
-  String get tags_menu_delete => '삭제';
+  String get activities_menu_delete => '삭제';
 
   @override
   String get home_monthly_tracker_title => '이번 달 일기 작성';
@@ -1142,7 +1142,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get ai_report_emotional_pattern => '감정 패턴 분석';
 
   @override
-  String get ai_report_tag_correlation => '태그-감정 연관성';
+  String get ai_report_activity_correlation => '활동-감정 연관성';
 
   @override
   String get ai_report_no_keywords => '발견된 키워드가 없습니다.';
@@ -1222,24 +1222,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get calendar_weekday_sat => '토';
 
   @override
-  String get tags_dialog_title => '태그 관리';
+  String get activities_dialog_title => '활동 관리';
 
   @override
-  String get tags_dialog_empty => '태그 없음';
+  String get activities_dialog_empty => '활동 없음';
 
   @override
-  String get tags_dialog_close => '닫기';
+  String get activities_dialog_close => '닫기';
 
   @override
-  String get tags_dialog_delete_title => '태그 삭제';
+  String get activities_dialog_delete_title => '활동 삭제';
 
   @override
-  String tags_dialog_delete_message(String tagName) {
-    return '\"$tagName\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.';
+  String activities_dialog_delete_message(String activityName) {
+    return '\"$activityName\"을(를) 삭제하시겠습니까? 이 활동은 모든 일기에서 제거됩니다.';
   }
 
   @override
-  String tags_dialog_created(String date) {
+  String activities_dialog_created(String date) {
     return '생성일: $date';
   }
 

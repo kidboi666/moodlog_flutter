@@ -1,11 +1,11 @@
-part of 'tags_view.dart';
+part of 'activities_view.dart';
 
 class _TagsScreenContent extends StatelessWidget {
   const _TagsScreenContent();
 
   Future<void> _showAddTagDialog(
     BuildContext context,
-    TagsViewModel viewModel,
+    ActivitiesViewModel viewModel,
   ) async {
     final TextEditingController controller = TextEditingController();
     final t = AppLocalizations.of(context)!;
@@ -14,25 +14,25 @@ class _TagsScreenContent extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(t.tags_add_new),
+          title: Text(t.activities_add_new),
           content: TextField(
             controller: controller,
             autofocus: true,
-            decoration: InputDecoration(hintText: t.tags_input_hint),
+            decoration: InputDecoration(hintText: t.activities_input_hint),
           ),
           actions: <Widget>[
             TextButton(
               child: Text(t.common_confirm_cancel),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             TextButton(
               child: Text(t.common_confirm_ok),
               onPressed: () {
                 if (controller.text.isNotEmpty) {
-                  viewModel.addTag(controller.text);
-                  Navigator.of(context).pop();
+                  viewModel.addActivity(controller.text);
+                  context.pop();
                 }
               },
             ),
@@ -42,13 +42,13 @@ class _TagsScreenContent extends StatelessWidget {
     );
   }
 
-  Future<void> _showEditTagDialog(
+  Future<void> _showEditActivityDialog(
     BuildContext context,
-    TagsViewModel viewModel,
-    Tag tag,
+    ActivitiesViewModel viewModel,
+    Activity activity,
   ) async {
     final TextEditingController controller = TextEditingController(
-      text: tag.name,
+      text: activity.name,
     );
     final t = AppLocalizations.of(context)!;
 
@@ -56,25 +56,25 @@ class _TagsScreenContent extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(t.tags_menu_edit),
+          title: Text(t.activities_menu_edit),
           content: TextField(
             controller: controller,
             autofocus: true,
-            decoration: InputDecoration(hintText: t.tags_input_hint),
+            decoration: InputDecoration(hintText: t.activities_input_hint),
           ),
           actions: <Widget>[
             TextButton(
               child: Text(t.common_confirm_cancel),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             TextButton(
               child: Text(t.common_confirm_save),
               onPressed: () {
                 if (controller.text.isNotEmpty) {
-                  viewModel.updateTag(tag.id, controller.text);
-                  Navigator.of(context).pop();
+                  viewModel.updateActivity(activity.id, controller.text);
+                  context.pop();
                 }
               },
             ),
@@ -86,12 +86,12 @@ class _TagsScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<TagsViewModel>();
+    final viewModel = context.watch<ActivitiesViewModel>();
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.drawer_tags),
+        title: Text(t.drawer_activities),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -104,9 +104,9 @@ class _TagsScreenContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-              onChanged: (value) => viewModel.searchTags(value),
+              onChanged: (value) => viewModel.searchActivities(value),
               decoration: InputDecoration(
-                labelText: t.tags_filter_title,
+                labelText: t.activities_filter_title,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -122,50 +122,48 @@ class _TagsScreenContent extends StatelessWidget {
                 }
                 if (viewModel.hasError) {
                   return Center(
-                    child: Text(t.tags_error(viewModel.error.toString())),
+                    child: Text(t.activities_error(viewModel.error.toString())),
                   );
                 }
-                if (viewModel.tags.isEmpty) {
-                  return Center(child: Text(t.tags_empty));
+                if (viewModel.activities.isEmpty) {
+                  return Center(child: Text(t.activities_empty));
                 }
                 return ListView.builder(
-                  itemCount: viewModel.tags.length,
+                  itemCount: viewModel.activities.length,
                   itemBuilder: (context, index) {
-                    final tagWithCount = viewModel.tags[index];
-                    final tag = tagWithCount.tag;
+                    final tagWithCount = viewModel.activities[index];
+                    final activity = tagWithCount.activity;
                     return ListTile(
-                      title: Text(tag.name),
+                      title: Text(activity.name),
                       subtitle: Text(
-                        t.tags_journal_count(tagWithCount.count),
+                        t.activities_journal_count(tagWithCount.count),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
-                      onTap: () => context.push(Routes.tag(tag.id)),
+                      onTap: () => context.push(Routes.activity(activity.id)),
                       trailing: PopupMenuButton<String>(
                         onSelected: (value) async {
                           if (value == 'edit') {
-                            _showEditTagDialog(context, viewModel, tag);
+                            _showEditActivityDialog(context, viewModel, activity);
                           } else if (value == 'delete') {
                             final confirm = await showDialog<bool>(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text(t.tags_delete_title),
-                                content: Text(t.tags_delete_message(tag.name)),
+                                title: Text(t.activities_delete_title),
+                                content: Text(t.activities_delete_message(activity.name)),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(false),
+                                    onPressed: () => context.pop(false),
                                     child: Text(t.common_confirm_cancel),
                                   ),
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(true),
+                                    onPressed: () => context.pop(true),
                                     child: Text(t.common_confirm_delete),
                                   ),
                                 ],
                               ),
                             );
                             if (confirm == true) {
-                              viewModel.deleteTag(tag.id);
+                              viewModel.deleteActivity(activity.id);
                             }
                           }
                         },
@@ -173,11 +171,11 @@ class _TagsScreenContent extends StatelessWidget {
                             <PopupMenuEntry<String>>[
                               PopupMenuItem<String>(
                                 value: 'edit',
-                                child: Text(t.tags_menu_edit),
+                                child: Text(t.activities_menu_edit),
                               ),
                               PopupMenuItem<String>(
                                 value: 'delete',
-                                child: Text(t.tags_menu_delete),
+                                child: Text(t.activities_menu_delete),
                               ),
                             ],
                       ),

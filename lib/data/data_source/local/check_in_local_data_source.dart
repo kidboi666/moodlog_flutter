@@ -3,7 +3,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 
@@ -19,7 +19,7 @@ class CheckInLocalDataSource {
             createdAt: request.createdAt,
             sleepQuality: Value(request.sleepQuality),
             emotionNames: Value(request.emotionNames),
-            tagNames: Value(request.tagNames),
+            activityNames: Value(request.activityNames),
             memo: Value(request.memo),
             latitude: Value(request.latitude),
             longitude: Value(request.longitude),
@@ -40,7 +40,7 @@ class CheckInLocalDataSource {
             ? const Value.absent()
             : Value(request.sleepQuality),
         emotionNames: Value(request.emotionNames),
-        tagNames: Value(request.tagNames),
+        activityNames: Value(request.activityNames),
         memo: Value(request.memo),
         latitude: Value(request.latitude),
         longitude: Value(request.longitude),
@@ -66,7 +66,7 @@ class CheckInLocalDataSource {
     final tags = await getTagsForCheckIn(id);
     final emotions = await getEmotionsForCheckIn(id);
 
-    return checkIn.attachTags(tags).attachEmotions(emotions);
+    return checkIn.attachActivities(tags).attachEmotions(emotions);
   }
 
   Stream<List<CheckIn>> watchCheckInsByDate(DateTime date) {
@@ -125,17 +125,17 @@ class CheckInLocalDataSource {
     return counts;
   }
 
-  Future<List<Tag>> getTagsForCheckIn(int checkInId) async {
-    final query = _db.select(_db.tags).join([
+  Future<List<Activity>> getTagsForCheckIn(int checkInId) async {
+    final query = _db.select(_db.activities).join([
       innerJoin(
-        _db.checkInTags,
-        _db.checkInTags.tagId.equalsExp(_db.tags.id),
+        _db.checkInActivities,
+        _db.checkInActivities.activityId.equalsExp(_db.activities.id),
       ),
     ])
-      ..where(_db.checkInTags.checkInId.equals(checkInId));
+      ..where(_db.checkInActivities.checkInId.equals(checkInId));
 
     final results = await query.get();
-    return results.map((row) => row.readTable(_db.tags)).toList();
+    return results.map((row) => row.readTable(_db.activities)).toList();
   }
 
   Future<List<Emotion>> getEmotionsForCheckIn(int checkInId) async {
@@ -151,17 +151,17 @@ class CheckInLocalDataSource {
     return results.map((row) => row.readTable(_db.emotions)).toList();
   }
 
-  Future<void> updateCheckInTags(int checkInId, List<int> tagIds) async {
+  Future<void> updateCheckInActivities(int checkInId, List<int> activityIds) async {
     await _db.transaction(() async {
-      await (_db.delete(_db.checkInTags)
+      await (_db.delete(_db.checkInActivities)
             ..where((t) => t.checkInId.equals(checkInId)))
           .go();
 
-      for (final tagId in tagIds) {
-        await _db.into(_db.checkInTags).insert(
-              CheckInTagsCompanion.insert(
+      for (final activityId in activityIds) {
+        await _db.into(_db.checkInActivities).insert(
+              CheckInActivitiesCompanion.insert(
                 checkInId: checkInId,
-                tagId: tagId,
+                activityId: activityId,
               ),
             );
       }

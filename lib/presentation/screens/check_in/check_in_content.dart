@@ -181,7 +181,7 @@ class _CheckInScreenContent extends StatelessWidget {
     AppLocalizations l10n,
     TextTheme textTheme,
   ) {
-    final hasActivities = checkIn.tags != null && checkIn.tags!.isNotEmpty;
+    final hasActivities = checkIn.activities != null && checkIn.activities!.isNotEmpty;
 
     return _buildSection(
       context,
@@ -191,7 +191,7 @@ class _CheckInScreenContent extends StatelessWidget {
           ? Wrap(
               spacing: Spacing.sm,
               runSpacing: Spacing.sm,
-              children: checkIn.tags!
+              children: checkIn.activities!
                   .map<Widget>(
                     (tag) => Chip(
                       label: Text(tag.name),

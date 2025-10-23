@@ -1,6 +1,6 @@
 import 'package:moodlog/core/constants/enum.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
 
 class CheckIn {
   final int id;
@@ -8,7 +8,7 @@ class CheckIn {
   final MoodType moodType;
   final int? sleepQuality;
   final List<String>? emotionNames;
-  final List<String>? tagNames;
+  final List<String>? activityNames;
   final String? memo;
   final double? latitude;
   final double? longitude;
@@ -16,7 +16,7 @@ class CheckIn {
   final double? temperature;
   final String? weatherIcon;
   final String? weatherDescription;
-  final List<Tag>? tags;
+  final List<Activity>? activities;
   final List<Emotion>? emotions;
 
   CheckIn({
@@ -25,7 +25,7 @@ class CheckIn {
     required this.moodType,
     this.sleepQuality,
     this.emotionNames,
-    this.tagNames,
+    this.activityNames,
     this.memo,
     this.latitude,
     this.longitude,
@@ -33,18 +33,18 @@ class CheckIn {
     this.temperature,
     this.weatherIcon,
     this.weatherDescription,
-    this.tags,
+    this.activities,
     this.emotions,
   });
 
-  CheckIn attachTags(List<Tag> tags) {
+  CheckIn attachActivities(List<Activity> activities) {
     return CheckIn(
       id: id,
       createdAt: createdAt,
       moodType: moodType,
       sleepQuality: sleepQuality,
       emotionNames: emotionNames,
-      tagNames: tagNames,
+      activityNames: activityNames,
       memo: memo,
       latitude: latitude,
       longitude: longitude,
@@ -52,7 +52,7 @@ class CheckIn {
       temperature: temperature,
       weatherIcon: weatherIcon,
       weatherDescription: weatherDescription,
-      tags: tags,
+      activities: activities,
       emotions: emotions,
     );
   }
@@ -64,7 +64,7 @@ class CheckIn {
       moodType: moodType,
       sleepQuality: sleepQuality,
       emotionNames: emotionNames,
-      tagNames: tagNames,
+      activityNames: activityNames,
       memo: memo,
       latitude: latitude,
       longitude: longitude,
@@ -72,7 +72,7 @@ class CheckIn {
       temperature: temperature,
       weatherIcon: weatherIcon,
       weatherDescription: weatherDescription,
-      tags: tags,
+      activities: activities,
       emotions: emotions,
     );
   }

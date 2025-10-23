@@ -80,7 +80,7 @@
   "entries_calendar_legend_has_journal": "일기 있음",
   "entries_calendar_legend_today": "오늘",
   "tab_home": "홈",
-  "drawer_tags": "태그 관리",
+  "drawer_activities": "활동 관리",
   "drawer_review": "앱 리뷰 작성",
   "empty_box_write_options_title": "어떤 날짜의 일기를 작성하시겠어요?",
   "empty_box_write_for_selected_date": "{date} 일기 쓰기",
@@ -92,29 +92,29 @@
     }
   },
   "empty_box_write_for_today": "오늘 일기 쓰기",
-  "tags_empty": "태그가 없습니다.",
-  "tags_error": "오류 발생: {error}",
-  "@tags_error": {
+  "activities_empty": "활동이 없습니다.",
+  "activities_error": "오류 발생: {error}",
+  "@activities_error": {
     "placeholders": {
       "error": {
         "type": "String"
       }
     }
   },
-  "tags_journal_count": "{count}개의 일기",
-  "@tags_journal_count": {
+  "activities_journal_count": "{count}개의 일기",
+  "@activities_journal_count": {
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "default_tag_daily": "일상",
-  "default_tag_work": "업무",
-  "default_tag_health": "건강",
-  "default_tag_relationships": "관계",
-  "default_tag_hobby": "취미",
-  "default_tag_emotions": "감정",
+  "default_activity_daily": "일상",
+  "default_activity_work": "업무",
+  "default_activity_health": "건강",
+  "default_activity_relationships": "관계",
+  "default_activity_hobby": "취미",
+  "default_activity_emotions": "감정",
   "tab_entries": "일기 목록",
   "tab_settings": "설정",
   "tab_write": "쓰기",
@@ -423,36 +423,36 @@
   },
   "location_current": "현재 위치",
   "location_add_location": "위치 추가",
-  "tags_manage_title": "태그 관리",
-  "tags_manage_subtitle": "태그를 보고 관리하세요",
-  "tags_filter_all": "전체",
-  "tags_filter_title": "태그로 필터링",
-  "tags_suggested_title": "추천 태그",
-  "tags_selected_title": "선택된 태그",
-  "tags_add_new": "새 태그 추가",
-  "tags_input_hint": "태그 이름",
-  "tags_delete_title": "태그 삭제",
-  "tags_delete_message": "\"{tagName}\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.",
-  "@tags_delete_message": {
+  "activities_manage_title": "활동 관리",
+  "activities_manage_subtitle": "활동을 보고 관리하세요",
+  "activities_filter_all": "전체",
+  "activities_filter_title": "활동으로 필터링",
+  "activities_suggested_title": "추천 활동",
+  "activities_selected_title": "선택된 활동",
+  "activities_add_new": "새 활동 추가",
+  "activities_input_hint": "활동 이름",
+  "activities_delete_title": "활동 삭제",
+  "activities_delete_message": "\"{activityName}\"을(를) 삭제하시겠습니까? 이 활동은 모든 일기에서 제거됩니다.",
+  "@activities_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_delete_success": "\"{tagName}\" 태그가 삭제되었습니다",
-  "@tags_delete_success": {
+  "activities_delete_success": "\"{activityName}\" 활동이 삭제되었습니다",
+  "@activities_delete_success": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_no_tags": "태그 없음",
-  "tags_load_failed": "태그를 불러오지 못했습니다",
-  "tags_delete_failed": "태그 삭제에 실패했습니다",
-  "tags_menu_edit": "수정",
-  "tags_menu_delete": "삭제",
+  "activities_no_activities": "활동 없음",
+  "activities_load_failed": "활동을 불러오지 못했습니다",
+  "activities_delete_failed": "활동 삭제에 실패했습니다",
+  "activities_menu_edit": "수정",
+  "activities_menu_delete": "삭제",
   "home_monthly_tracker_title": "이번 달 일기 작성",
   "home_yearly_tracker_title": "올해 일기 작성",
   "home_monthly_tracker_legend_less": "적음",
@@ -509,7 +509,7 @@
   "ai_report_positive_keywords": "긍정 키워드",
   "ai_report_negative_keywords": "부정 키워드",
   "ai_report_emotional_pattern": "감정 패턴 분석",
-  "ai_report_tag_correlation": "태그-감정 연관성",
+  "ai_report_activity_correlation": "활동-감정 연관성",
   "ai_report_no_keywords": "발견된 키워드가 없습니다.",
   "ai_report_not_enough_data": "분석할 데이터가 충분하지 않습니다. 30일 동안 10개 이상의 일기를 작성해주세요.",
   "home_representative_mood_title": "나의 현재 감정",
@@ -535,20 +535,20 @@
   "calendar_weekday_thu": "목",
   "calendar_weekday_fri": "금",
   "calendar_weekday_sat": "토",
-  "tags_dialog_title": "태그 관리",
-  "tags_dialog_empty": "태그 없음",
-  "tags_dialog_close": "닫기",
-  "tags_dialog_delete_title": "태그 삭제",
-  "tags_dialog_delete_message": "\"{tagName}\"을(를) 삭제하시겠습니까? 이 태그는 모든 일기에서 제거됩니다.",
-  "@tags_dialog_delete_message": {
+  "activities_dialog_title": "활동 관리",
+  "activities_dialog_empty": "활동 없음",
+  "activities_dialog_close": "닫기",
+  "activities_dialog_delete_title": "활동 삭제",
+  "activities_dialog_delete_message": "\"{activityName}\"을(를) 삭제하시겠습니까? 이 활동은 모든 일기에서 제거됩니다.",
+  "@activities_dialog_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_dialog_created": "생성일: {date}",
-  "@tags_dialog_created": {
+  "activities_dialog_created": "생성일: {date}",
+  "@activities_dialog_created": {
     "placeholders": {
       "date": {
         "type": "String"

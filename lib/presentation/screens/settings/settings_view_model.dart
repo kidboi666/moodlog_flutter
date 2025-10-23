@@ -4,12 +4,12 @@ import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
 import 'package:moodlog/domain/entities/font/font_type.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
-import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/domain/use_cases/activity_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
 
@@ -17,7 +17,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   final AppStateProvider _appStateProvider;
   final SettingsRepository _settingsRepository;
   final UserProvider _userProvider;
-  final TagUseCase _tagUseCase;
+  final ActivityUseCase _tagUseCase;
   final AnalyticsRepository _analyticsRepository;
   final LocalBackupUseCase _localBackupUseCase;
 
@@ -25,7 +25,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     required AppStateProvider appStateProvider,
     required SettingsRepository settingsRepository,
     required UserProvider userProvider,
-    required TagUseCase tagUseCase,
+    required ActivityUseCase tagUseCase,
     required AnalyticsRepository analyticsRepository,
     required LocalBackupUseCase localBackupUseCase,
   }) : _appStateProvider = appStateProvider,
@@ -34,12 +34,12 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
        _tagUseCase = tagUseCase,
        _analyticsRepository = analyticsRepository,
        _localBackupUseCase = localBackupUseCase {
-    getAllTags();
+    getAllActivities();
   }
 
-  List<Tag> _tags = [];
+  List<Activity> _activities = [];
 
-  List<Tag> get tags => _tags;
+  List<Activity> get activities => _activities;
 
   String? get profileImage => _userProvider.user?.profileImagePath;
 
@@ -47,33 +47,33 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   LocalUser? get currentUser => _userProvider.user;
 
-  void getAllTags() async {
+  void getAllActivities() async {
     final result = await executeAsync(() async {
-      final result = await _tagUseCase.getAllTags();
+      final result = await _tagUseCase.getAllActivities();
       switch (result) {
-        case Ok<List<Tag>>():
+        case Ok<List<Activity>>():
           return result.value;
-        case Error<List<Tag>>():
+        case Error<List<Activity>>():
           throw result.error;
       }
-    }, context: 'getAllTags');
+    }, context: 'getAllActivities');
 
     if (result != null) {
-      _tags = result;
+      _activities = result;
     }
   }
 
-  Future<void> deleteTag(int id) async {
+  Future<void> deleteActivity(int id) async {
     await executeAsync(() async {
-      final result = await _tagUseCase.deleteTag(id);
+      final result = await _tagUseCase.deleteActivity(id);
       switch (result) {
         case Ok<void>():
-          getAllTags(); // 태그 목록 새로고침
+          getAllActivities(); // 태그 목록 새로고침
           return;
         case Error<void>():
           throw result.error;
       }
-    }, context: 'deleteTag');
+    }, context: 'deleteActivity');
   }
 
   void setLanguage(LanguageCode? language) {

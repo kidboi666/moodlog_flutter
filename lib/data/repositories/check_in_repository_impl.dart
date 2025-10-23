@@ -5,23 +5,23 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/data_source/local/check_in_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
-import 'package:moodlog/data/data_source/local/tag_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/activity_local_data_source.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';
 
 class CheckInRepositoryImpl implements CheckInRepository {
   final CheckInLocalDataSource _checkInLocalDataSource;
-  final TagLocalDataSource _tagLocalDataSource;
+  final ActivityLocalDataSource _tagLocalDataSource;
   final EmotionLocalDataSource _emotionLocalDataSource;
   final Logger _log = Logger('CheckInRepositoryImpl');
 
   CheckInRepositoryImpl({
     required CheckInLocalDataSource checkInLocalDataSource,
-    required TagLocalDataSource tagLocalDataSource,
+    required ActivityLocalDataSource tagLocalDataSource,
     required EmotionLocalDataSource emotionLocalDataSource,
   }) : _checkInLocalDataSource = checkInLocalDataSource,
        _tagLocalDataSource = tagLocalDataSource,
@@ -37,11 +37,11 @@ class CheckInRepositoryImpl implements CheckInRepository {
     try {
       final checkInId = await _checkInLocalDataSource.createCheckIn(request);
 
-      if (request.tagNames != null && request.tagNames!.isNotEmpty) {
-        final tagIds = await _tagLocalDataSource.getOrCreateTags(
-          request.tagNames!,
+      if (request.activityNames != null && request.activityNames!.isNotEmpty) {
+        final tagIds = await _tagLocalDataSource.getOrCreateActivities(
+          request.activityNames!,
         );
-        await _checkInLocalDataSource.updateCheckInTags(checkInId, tagIds);
+        await _checkInLocalDataSource.updateCheckInActivities(checkInId, tagIds);
       }
 
       if (request.emotionNames != null && request.emotionNames!.isNotEmpty) {
@@ -70,11 +70,11 @@ class CheckInRepositoryImpl implements CheckInRepository {
         return Result.error(Exception('Failed to update check-in'));
       }
 
-      if (request.tagNames != null) {
-        final tagIds = await _tagLocalDataSource.getOrCreateTags(
-          request.tagNames!,
+      if (request.activityNames != null) {
+        final tagIds = await _tagLocalDataSource.getOrCreateActivities(
+          request.activityNames!,
         );
-        await _checkInLocalDataSource.updateCheckInTags(request.id, tagIds);
+        await _checkInLocalDataSource.updateCheckInActivities(request.id, tagIds);
       }
 
       if (request.emotionNames != null) {
@@ -168,7 +168,7 @@ class CheckInRepositoryImpl implements CheckInRepository {
   }
 
   @override
-  Future<Result<List<Tag>>> getTagsForCheckIn(int checkInId) async {
+  Future<Result<List<Activity>>> getTagsForCheckIn(int checkInId) async {
     try {
       final tags = await _checkInLocalDataSource.getTagsForCheckIn(checkInId);
       return Result.ok(tags);
@@ -192,12 +192,12 @@ class CheckInRepositoryImpl implements CheckInRepository {
   }
 
   @override
-  Future<Result<void>> updateCheckInTags(
+  Future<Result<void>> updateCheckInActivities(
     int checkInId,
     List<int> tagIds,
   ) async {
     try {
-      await _checkInLocalDataSource.updateCheckInTags(checkInId, tagIds);
+      await _checkInLocalDataSource.updateCheckInActivities(checkInId, tagIds);
       notifyCheckInUpdate();
       return Result.ok(null);
     } catch (e, s) {

@@ -2,7 +2,7 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 
@@ -30,11 +30,11 @@ abstract class CheckInRepository {
     DateTime end,
   );
 
-  Future<Result<List<Tag>>> getTagsForCheckIn(int checkInId);
+  Future<Result<List<Activity>>> getTagsForCheckIn(int checkInId);
 
   Future<Result<List<Emotion>>> getEmotionsForCheckIn(int checkInId);
 
-  Future<Result<void>> updateCheckInTags(int checkInId, List<int> tagIds);
+  Future<Result<void>> updateCheckInActivities(int checkInId, List<int> tagIds);
 
   Future<Result<void>> updateCheckInEmotions(int checkInId, List<int> emotionIds);
 

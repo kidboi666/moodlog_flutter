@@ -12,7 +12,7 @@ abstract class UpdateCheckInRequest with _$UpdateCheckInRequest {
     required MoodType moodType,
     int? sleepQuality,
     List<String>? emotionNames,
-    List<String>? tagNames,
+    List<String>? activityNames,
     String? memo,
     double? latitude,
     double? longitude,

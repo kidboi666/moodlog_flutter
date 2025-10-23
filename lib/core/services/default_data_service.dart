@@ -1,9 +1,9 @@
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/domain/use_cases/activity_use_case.dart';
 
 class DefaultDataService {
-  final TagUseCase _tagUseCase;
+  final ActivityUseCase _tagUseCase;
   final Logger _log = Logger('DefaultDataService');
 
   DefaultDataService(this._tagUseCase);
@@ -18,7 +18,7 @@ class DefaultDataService {
       'Emotions',
     ];
 
-    final tagsResult = await _tagUseCase.getAllTags();
+    final tagsResult = await _tagUseCase.getAllActivities();
     bool isEmpty = false;
     switch (tagsResult) {
       case Ok(value: final tags):
@@ -34,7 +34,7 @@ class DefaultDataService {
       _log.info('No tags found. Seeding default tags...');
       try {
         for (final tagName in defaultTags) {
-          await _tagUseCase.addTag(tagName, null);
+          await _tagUseCase.addActivity(tagName, null);
         }
         _log.info('Successfully seeded ${defaultTags.length} default tags.');
       } catch (e, stackTrace) {

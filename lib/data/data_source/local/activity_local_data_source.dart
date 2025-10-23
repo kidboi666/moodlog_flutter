@@ -1,36 +1,36 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
-import 'package:moodlog/domain/entities/journal/tag_with_count.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/domain/entities/journal/activity_with_count.dart';
 
-class TagLocalDataSource {
+class ActivityLocalDataSource {
   final MoodLogDatabase _db;
 
-  TagLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
+  ActivityLocalDataSource({MoodLogDatabase? db}) : _db = db ?? MoodLogDatabase();
 
-  Future<List<TagWithCount>> getTagsWithCount() async {
+  Future<List<ActivityWithCount>> getActivitiesWithCount() async {
     final query = _db.customSelect(
-      'SELECT t.*, COUNT(ct.tag_id) AS check_in_count FROM tags AS t LEFT JOIN check_in_tags AS ct ON t.id = ct.tag_id GROUP BY t.id ORDER BY t.created_at ASC',
-      readsFrom: {_db.tags, _db.checkInTags},
+      'SELECT t.*, COUNT(ct.activity_id) AS check_in_count FROM activities AS t LEFT JOIN check_in_activities AS ct ON t.id = ct.activity_id GROUP BY t.id ORDER BY t.created_at ASC',
+      readsFrom: {_db.activities, _db.checkInActivities},
     );
 
     return query.map((row) {
-      final tag = Tag(
+      final activity = Activity(
         id: row.read<int>('id'),
         name: row.read<String>('name'),
         color: row.read<String?>('color'),
         createdAt: row.read<DateTime>('created_at'),
       );
       final count = row.read<int>('check_in_count');
-      return TagWithCount(tag: tag, count: count);
+      return ActivityWithCount(activity: activity, count: count);
     }).get();
   }
 
-  Future<List<Tag>> getAllTags() async {
+  Future<List<Activity>> getAllActivities() async {
     try {
       return await (_db.select(
-        _db.tags,
+        _db.activities,
       )..orderBy([(t) => OrderingTerm.asc(t.createdAt)])).get();
     } on SqliteException catch (e) {
       throw Exception(e);
@@ -39,10 +39,10 @@ class TagLocalDataSource {
     }
   }
 
-  Future<Tag?> getTagById(int id) async {
+  Future<Activity?> getActivityById(int id) async {
     try {
       return await (_db.select(
-        _db.tags,
+        _db.activities,
       )..where((t) => t.id.equals(id))).getSingleOrNull();
     } on SqliteException catch (e) {
       throw Exception(e);
@@ -51,15 +51,12 @@ class TagLocalDataSource {
     }
   }
 
-  // Journal과 Tag 연결은 더 이상 사용하지 않음
-  // CheckIn과 Tag 연결은 CheckInLocalDataSource에서 관리
-
-  Future<Tag> addTag(String name, String? color) async {
+  Future<Activity> addActivity(String name, String? color) async {
     try {
       return await (_db
-          .into(_db.tags)
+          .into(_db.activities)
           .insertReturning(
-            TagsCompanion(
+            ActivitiesCompanion(
               name: Value(name),
               color: Value(color),
               createdAt: Value(DateTime.now()),
@@ -72,27 +69,27 @@ class TagLocalDataSource {
     }
   }
 
-  Future<List<int>> getOrCreateTags(List<String> tagNames) async {
+  Future<List<int>> getOrCreateActivities(List<String> activityNames) async {
     try {
-      final tagIds = <int>[];
+      final activityIds = <int>[];
 
-      for (final tagName in tagNames) {
-        final trimmedName = tagName.trim();
+      for (final activityName in activityNames) {
+        final trimmedName = activityName.trim();
         if (trimmedName.isEmpty) continue;
 
-        final existingTag = await (_db.select(_db.tags)
+        final existingActivity = await (_db.select(_db.activities)
               ..where((t) => t.name.equals(trimmedName)))
             .getSingleOrNull();
 
-        if (existingTag != null) {
-          tagIds.add(existingTag.id);
+        if (existingActivity != null) {
+          activityIds.add(existingActivity.id);
         } else {
-          final newTag = await addTag(trimmedName, null);
-          tagIds.add(newTag.id);
+          final newActivity = await addActivity(trimmedName, null);
+          activityIds.add(newActivity.id);
         }
       }
 
-      return tagIds;
+      return activityIds;
     } on SqliteException catch (e) {
       throw Exception(e);
     } catch (e) {
@@ -100,10 +97,10 @@ class TagLocalDataSource {
     }
   }
 
-  Future<int> updateTag(int id, String name, String? color) async {
+  Future<int> updateActivity(int id, String name, String? color) async {
     try {
-      return await (_db.update(_db.tags)..where((t) => t.id.equals(id))).write(
-        TagsCompanion(name: Value(name), color: Value(color)),
+      return await (_db.update(_db.activities)..where((t) => t.id.equals(id))).write(
+        ActivitiesCompanion(name: Value(name), color: Value(color)),
       );
     } on SqliteException catch (e) {
       throw Exception(e);
@@ -112,16 +109,13 @@ class TagLocalDataSource {
     }
   }
 
-  Future<int> deleteTag(int id) async {
+  Future<int> deleteActivity(int id) async {
     try {
-      return await (_db.delete(_db.tags)..where((t) => t.id.equals(id))).go();
+      return await (_db.delete(_db.activities)..where((t) => t.id.equals(id))).go();
     } on SqliteException catch (e) {
       throw Exception(e);
     } catch (e) {
       throw Exception(e);
     }
   }
-
-  // Journal-Tag 연결 메서드들은 제거됨
-  // 필요시 CheckInLocalDataSource 사용
 }

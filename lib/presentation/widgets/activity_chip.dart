@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/domain/entities/journal/tag.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 
-class TagChip extends StatelessWidget {
-  final Tag tag;
+class ActivityChip extends StatelessWidget {
+  final Activity activity;
   final bool isCompact;
 
-  const TagChip({super.key, required this.tag, this.isCompact = false});
+  const ActivityChip({super.key, required this.activity, this.isCompact = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TagChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(Roundness.chip),
       ),
       child: Text(
-        '#${tag.name}',
+        '#${activity.name}',
         style: (isCompact ? textTheme.labelSmall : textTheme.labelMedium)
             ?.copyWith(color: colorScheme.outline),
       ),

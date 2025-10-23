@@ -80,7 +80,7 @@
   "entries_calendar_legend_has_journal": "日記あり",
   "entries_calendar_legend_today": "今日",
   "tab_home": "ホーム",
-  "drawer_tags": "タグ管理",
+  "drawer_activities": "活動管理",
   "drawer_review": "レビューを書く",
   "empty_box_write_options_title": "どの日付で日記を作成しますか？",
   "empty_box_write_for_selected_date": "{date} の日記を作成",
@@ -92,29 +92,29 @@
     }
   },
   "empty_box_write_for_today": "今日の日記を作成",
-  "tags_empty": "タグがありません。",
-  "tags_error": "エラー: {error}",
-  "@tags_error": {
+  "activities_empty": "活動がありません。",
+  "activities_error": "エラー: {error}",
+  "@activities_error": {
     "placeholders": {
       "error": {
         "type": "String"
       }
     }
   },
-  "tags_journal_count": "{count}個の日記",
-  "@tags_journal_count": {
+  "activities_journal_count": "{count}個の日記",
+  "@activities_journal_count": {
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "default_tag_daily": "日常",
-  "default_tag_work": "仕事",
-  "default_tag_health": "健康",
-  "default_tag_relationships": "関係",
-  "default_tag_hobby": "趣味",
-  "default_tag_emotions": "感情",
+  "default_activity_daily": "日常",
+  "default_activity_work": "仕事",
+  "default_activity_health": "健康",
+  "default_activity_relationships": "関係",
+  "default_activity_hobby": "趣味",
+  "default_activity_emotions": "感情",
   "tab_entries": "記録",
   "tab_settings": "設定",
   "tab_write": "書く",
@@ -423,36 +423,36 @@
   },
   "location_current": "現在地",
   "location_add_location": "位置を追加",
-  "tags_manage_title": "タグ管理",
-  "tags_manage_subtitle": "タグを表示・管理します",
-  "tags_filter_all": "全て",
-  "tags_filter_title": "タグでフィルタ",
-  "tags_suggested_title": "推奨タグ",
-  "tags_selected_title": "選択されたタグ",
-  "tags_add_new": "新しいタグを追加",
-  "tags_input_hint": "タグ名",
-  "tags_delete_title": "タグ削除",
-  "tags_delete_message": "「{tagName}」を削除しますか？すべての日記からこのタグが削除されます。",
-  "@tags_delete_message": {
+  "activities_manage_title": "活動管理",
+  "activities_manage_subtitle": "活動を表示・管理します",
+  "activities_filter_all": "全て",
+  "activities_filter_title": "活動でフィルタ",
+  "activities_suggested_title": "推奨活動",
+  "activities_selected_title": "選択された活動",
+  "activities_add_new": "新しい活動を追加",
+  "activities_input_hint": "活動名",
+  "activities_delete_title": "活動削除",
+  "activities_delete_message": "「{activityName}」を削除しますか？すべての日記からこの活動が削除されます。",
+  "@activities_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_delete_success": "タグ「{tagName}」が削除されました",
-  "@tags_delete_success": {
+  "activities_delete_success": "活動「{activityName}」が削除されました",
+  "@activities_delete_success": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_no_tags": "タグがありません",
-  "tags_load_failed": "タグの読み込みに失敗しました",
-  "tags_delete_failed": "タグの削除に失敗しました",
-  "tags_menu_edit": "編集",
-  "tags_menu_delete": "削除",
+  "activities_no_activities": "活動がありません",
+  "activities_load_failed": "活動の読み込みに失敗しました",
+  "activities_delete_failed": "活動の削除に失敗しました",
+  "activities_menu_edit": "編集",
+  "activities_menu_delete": "削除",
   "home_monthly_tracker_title": "今月の日記作成",
   "home_yearly_tracker_title": "今年の日記作成",
   "home_monthly_tracker_legend_less": "少ない",
@@ -509,7 +509,7 @@
   "ai_report_positive_keywords": "ポジティブキーワード",
   "ai_report_negative_keywords": "ネガティブキーワード",
   "ai_report_emotional_pattern": "感情パターン分析",
-  "ai_report_tag_correlation": "タグと感情の相関関係",
+  "ai_report_activity_correlation": "活動と感情の相関関係",
   "ai_report_no_keywords": "キーワードが見つかりませんでした。",
   "ai_report_not_enough_data": "分析するのに十分なデータがありません。30日間に10件以上の日記を書いてください。",
   "home_representative_mood_title": "私の現在の感情",
@@ -535,20 +535,20 @@
   "calendar_weekday_thu": "木",
   "calendar_weekday_fri": "金",
   "calendar_weekday_sat": "土",
-  "tags_dialog_title": "タグ管理",
-  "tags_dialog_empty": "タグがありません",
-  "tags_dialog_close": "閉じる",
-  "tags_dialog_delete_title": "タグ削除",
-  "tags_dialog_delete_message": "「{tagName}」を削除しますか？すべての日記からこのタグが削除されます。",
-  "@tags_dialog_delete_message": {
+  "activities_dialog_title": "活動管理",
+  "activities_dialog_empty": "活動がありません",
+  "activities_dialog_close": "閉じる",
+  "activities_dialog_delete_title": "活動削除",
+  "activities_dialog_delete_message": "「{activityName}」を削除しますか？すべての日記からこの活動が削除されます。",
+  "@activities_dialog_delete_message": {
     "placeholders": {
-      "tagName": {
+      "activityName": {
         "type": "String"
       }
     }
   },
-  "tags_dialog_created": "作成日：{date}",
-  "@tags_dialog_created": {
+  "activities_dialog_created": "作成日：{date}",
+  "@activities_dialog_created": {
     "placeholders": {
       "date": {
         "type": "String"

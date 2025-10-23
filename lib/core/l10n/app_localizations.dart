@@ -586,11 +586,11 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get tab_home;
 
-  /// No description provided for @drawer_tags.
+  /// No description provided for @drawer_activities.
   ///
   /// In en, this message translates to:
-  /// **'Manage Tags'**
-  String get drawer_tags;
+  /// **'Manage Activities'**
+  String get drawer_activities;
 
   /// No description provided for @drawer_review.
   ///
@@ -616,59 +616,59 @@ abstract class AppLocalizations {
   /// **'Write for today'**
   String get empty_box_write_for_today;
 
-  /// No description provided for @tags_empty.
+  /// No description provided for @activities_empty.
   ///
   /// In en, this message translates to:
-  /// **'No tags found.'**
-  String get tags_empty;
+  /// **'No activities found.'**
+  String get activities_empty;
 
-  /// No description provided for @tags_error.
+  /// No description provided for @activities_error.
   ///
   /// In en, this message translates to:
   /// **'Error: {error}'**
-  String tags_error(String error);
+  String activities_error(String error);
 
-  /// No description provided for @tags_journal_count.
+  /// No description provided for @activities_journal_count.
   ///
   /// In en, this message translates to:
   /// **'{count,plural, =1{1 journal}other{{count} journals}}'**
-  String tags_journal_count(int count);
+  String activities_journal_count(int count);
 
-  /// No description provided for @default_tag_daily.
+  /// No description provided for @default_activity_daily.
   ///
   /// In en, this message translates to:
   /// **'Daily'**
-  String get default_tag_daily;
+  String get default_activity_daily;
 
-  /// No description provided for @default_tag_work.
+  /// No description provided for @default_activity_work.
   ///
   /// In en, this message translates to:
   /// **'Work'**
-  String get default_tag_work;
+  String get default_activity_work;
 
-  /// No description provided for @default_tag_health.
+  /// No description provided for @default_activity_health.
   ///
   /// In en, this message translates to:
   /// **'Health'**
-  String get default_tag_health;
+  String get default_activity_health;
 
-  /// No description provided for @default_tag_relationships.
+  /// No description provided for @default_activity_relationships.
   ///
   /// In en, this message translates to:
   /// **'Relationships'**
-  String get default_tag_relationships;
+  String get default_activity_relationships;
 
-  /// No description provided for @default_tag_hobby.
+  /// No description provided for @default_activity_hobby.
   ///
   /// In en, this message translates to:
   /// **'Hobby'**
-  String get default_tag_hobby;
+  String get default_activity_hobby;
 
-  /// No description provided for @default_tag_emotions.
+  /// No description provided for @default_activity_emotions.
   ///
   /// In en, this message translates to:
   /// **'Emotions'**
-  String get default_tag_emotions;
+  String get default_activity_emotions;
 
   /// No description provided for @tab_entries.
   ///
@@ -1828,101 +1828,101 @@ abstract class AppLocalizations {
   /// **'Add Location'**
   String get location_add_location;
 
-  /// No description provided for @tags_manage_title.
+  /// No description provided for @activities_manage_title.
   ///
   /// In en, this message translates to:
-  /// **'Manage Tags'**
-  String get tags_manage_title;
+  /// **'Manage Activities'**
+  String get activities_manage_title;
 
-  /// No description provided for @tags_manage_subtitle.
+  /// No description provided for @activities_manage_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'View and manage your tags'**
-  String get tags_manage_subtitle;
+  /// **'View and manage your activities'**
+  String get activities_manage_subtitle;
 
-  /// No description provided for @tags_filter_all.
+  /// No description provided for @activities_filter_all.
   ///
   /// In en, this message translates to:
   /// **'All'**
-  String get tags_filter_all;
+  String get activities_filter_all;
 
-  /// No description provided for @tags_filter_title.
+  /// No description provided for @activities_filter_title.
   ///
   /// In en, this message translates to:
-  /// **'Filter by Tags'**
-  String get tags_filter_title;
+  /// **'Filter by Activities'**
+  String get activities_filter_title;
 
-  /// No description provided for @tags_suggested_title.
+  /// No description provided for @activities_suggested_title.
   ///
   /// In en, this message translates to:
-  /// **'Suggested Tags'**
-  String get tags_suggested_title;
+  /// **'Suggested Activities'**
+  String get activities_suggested_title;
 
-  /// No description provided for @tags_selected_title.
+  /// No description provided for @activities_selected_title.
   ///
   /// In en, this message translates to:
-  /// **'Selected Tags'**
-  String get tags_selected_title;
+  /// **'Selected Activities'**
+  String get activities_selected_title;
 
-  /// No description provided for @tags_add_new.
+  /// No description provided for @activities_add_new.
   ///
   /// In en, this message translates to:
-  /// **'Add New Tag'**
-  String get tags_add_new;
+  /// **'Add New Activity'**
+  String get activities_add_new;
 
-  /// No description provided for @tags_input_hint.
+  /// No description provided for @activities_input_hint.
   ///
   /// In en, this message translates to:
-  /// **'Tag name'**
-  String get tags_input_hint;
+  /// **'Activity name'**
+  String get activities_input_hint;
 
-  /// No description provided for @tags_delete_title.
+  /// No description provided for @activities_delete_title.
   ///
   /// In en, this message translates to:
-  /// **'Delete Tag'**
-  String get tags_delete_title;
+  /// **'Delete Activity'**
+  String get activities_delete_title;
 
-  /// No description provided for @tags_delete_message.
+  /// No description provided for @activities_delete_message.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.'**
-  String tags_delete_message(String tagName);
+  /// **'Do you want to delete \"{activityName}\"? This activity will be removed from all diary entries.'**
+  String activities_delete_message(String activityName);
 
-  /// No description provided for @tags_delete_success.
+  /// No description provided for @activities_delete_success.
   ///
   /// In en, this message translates to:
-  /// **'Tag \"{tagName}\" has been deleted'**
-  String tags_delete_success(String tagName);
+  /// **'Activity \"{activityName}\" has been deleted'**
+  String activities_delete_success(String activityName);
 
-  /// No description provided for @tags_no_tags.
+  /// No description provided for @activities_no_activities.
   ///
   /// In en, this message translates to:
-  /// **'No tags'**
-  String get tags_no_tags;
+  /// **'No activities'**
+  String get activities_no_activities;
 
-  /// No description provided for @tags_load_failed.
+  /// No description provided for @activities_load_failed.
   ///
   /// In en, this message translates to:
-  /// **'Failed to load tags'**
-  String get tags_load_failed;
+  /// **'Failed to load activities'**
+  String get activities_load_failed;
 
-  /// No description provided for @tags_delete_failed.
+  /// No description provided for @activities_delete_failed.
   ///
   /// In en, this message translates to:
-  /// **'Failed to delete tag'**
-  String get tags_delete_failed;
+  /// **'Failed to delete activity'**
+  String get activities_delete_failed;
 
-  /// No description provided for @tags_menu_edit.
+  /// No description provided for @activities_menu_edit.
   ///
   /// In en, this message translates to:
   /// **'Edit'**
-  String get tags_menu_edit;
+  String get activities_menu_edit;
 
-  /// No description provided for @tags_menu_delete.
+  /// No description provided for @activities_menu_delete.
   ///
   /// In en, this message translates to:
   /// **'Delete'**
-  String get tags_menu_delete;
+  String get activities_menu_delete;
 
   /// No description provided for @home_monthly_tracker_title.
   ///
@@ -2260,11 +2260,11 @@ abstract class AppLocalizations {
   /// **'Emotional Pattern Analysis'**
   String get ai_report_emotional_pattern;
 
-  /// No description provided for @ai_report_tag_correlation.
+  /// No description provided for @ai_report_activity_correlation.
   ///
   /// In en, this message translates to:
-  /// **'Tag-Emotion Correlation'**
-  String get ai_report_tag_correlation;
+  /// **'Activity-Emotion Correlation'**
+  String get ai_report_activity_correlation;
 
   /// No description provided for @ai_report_no_keywords.
   ///
@@ -2416,41 +2416,41 @@ abstract class AppLocalizations {
   /// **'Sat'**
   String get calendar_weekday_sat;
 
-  /// No description provided for @tags_dialog_title.
+  /// No description provided for @activities_dialog_title.
   ///
   /// In en, this message translates to:
-  /// **'Manage Tags'**
-  String get tags_dialog_title;
+  /// **'Manage Activities'**
+  String get activities_dialog_title;
 
-  /// No description provided for @tags_dialog_empty.
+  /// No description provided for @activities_dialog_empty.
   ///
   /// In en, this message translates to:
-  /// **'No tags'**
-  String get tags_dialog_empty;
+  /// **'No activities'**
+  String get activities_dialog_empty;
 
-  /// No description provided for @tags_dialog_close.
+  /// No description provided for @activities_dialog_close.
   ///
   /// In en, this message translates to:
   /// **'Close'**
-  String get tags_dialog_close;
+  String get activities_dialog_close;
 
-  /// No description provided for @tags_dialog_delete_title.
+  /// No description provided for @activities_dialog_delete_title.
   ///
   /// In en, this message translates to:
-  /// **'Delete Tag'**
-  String get tags_dialog_delete_title;
+  /// **'Delete Activity'**
+  String get activities_dialog_delete_title;
 
-  /// No description provided for @tags_dialog_delete_message.
+  /// No description provided for @activities_dialog_delete_message.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to delete \"{tagName}\"? This tag will be removed from all diary entries.'**
-  String tags_dialog_delete_message(String tagName);
+  /// **'Do you want to delete \"{activityName}\"? This activity will be removed from all diary entries.'**
+  String activities_dialog_delete_message(String activityName);
 
-  /// No description provided for @tags_dialog_created.
+  /// No description provided for @activities_dialog_created.
   ///
   /// In en, this message translates to:
   /// **'Created: {date}'**
-  String tags_dialog_created(String date);
+  String activities_dialog_created(String date);
 
   /// No description provided for @journal_image_detail_gesture_hint.
   ///

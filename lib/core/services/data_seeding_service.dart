@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/services/default_data_service.dart';
 import 'package:moodlog/core/services/flavor_service.dart';
-import 'package:moodlog/domain/use_cases/tag_use_case.dart';
+import 'package:moodlog/domain/use_cases/activity_use_case.dart';
 import 'package:provider/provider.dart';
 
 class DataSeedingService {
@@ -15,7 +15,7 @@ class DataSeedingService {
     if (!FlavorService.isDevelopment) return;
 
     _log.info('Seeding default tags...');
-    final tagUseCase = context.read<TagUseCase>();
+    final tagUseCase = context.read<ActivityUseCase>();
     await DefaultDataService(tagUseCase).seedDefaultTagsIfEmpty();
     _log.info('Default tags seeding completed');
   }

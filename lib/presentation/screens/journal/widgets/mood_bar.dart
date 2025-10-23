@@ -10,8 +10,7 @@ class MoodBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Spacing.sm,
-      margin: const EdgeInsets.only(right: Spacing.sm),
+      width: Spacing.md,
       decoration: BoxDecoration(
         color: Color(moodType.colorValue),
         borderRadius: BorderRadius.only(

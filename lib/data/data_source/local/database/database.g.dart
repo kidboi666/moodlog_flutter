@@ -62,14 +62,14 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
     requiredDuringInsert: false,
   ).withConverter<List<String>?>($CheckInsTable.$converteremotionNames);
   @override
-  late final GeneratedColumnWithTypeConverter<List<String>?, String> tagNames =
-      GeneratedColumn<String>(
-        'tag_names',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      ).withConverter<List<String>?>($CheckInsTable.$convertertagNames);
+  late final GeneratedColumnWithTypeConverter<List<String>?, String>
+  activityNames = GeneratedColumn<String>(
+    'activity_names',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  ).withConverter<List<String>?>($CheckInsTable.$converteractivityNames);
   static const VerificationMeta _memoMeta = const VerificationMeta('memo');
   @override
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
@@ -152,7 +152,7 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
     moodType,
     sleepQuality,
     emotionNames,
-    tagNames,
+    activityNames,
     memo,
     latitude,
     longitude,
@@ -277,10 +277,10 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
           data['${effectivePrefix}emotion_names'],
         ),
       ),
-      tagNames: $CheckInsTable.$convertertagNames.fromSql(
+      activityNames: $CheckInsTable.$converteractivityNames.fromSql(
         attachedDatabase.typeMapping.read(
           DriftSqlType.string,
-          data['${effectivePrefix}tag_names'],
+          data['${effectivePrefix}activity_names'],
         ),
       ),
       memo: attachedDatabase.typeMapping.read(
@@ -323,7 +323,7 @@ class $CheckInsTable extends CheckIns with TableInfo<$CheckInsTable, CheckIn> {
       const EnumIndexConverter<MoodType>(MoodType.values);
   static TypeConverter<List<String>?, String?> $converteremotionNames =
       const StringListConverter();
-  static TypeConverter<List<String>?, String?> $convertertagNames =
+  static TypeConverter<List<String>?, String?> $converteractivityNames =
       const StringListConverter();
 }
 
@@ -333,7 +333,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
   final Value<MoodType> moodType;
   final Value<int?> sleepQuality;
   final Value<List<String>?> emotionNames;
-  final Value<List<String>?> tagNames;
+  final Value<List<String>?> activityNames;
   final Value<String?> memo;
   final Value<double?> latitude;
   final Value<double?> longitude;
@@ -347,7 +347,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
     this.moodType = const Value.absent(),
     this.sleepQuality = const Value.absent(),
     this.emotionNames = const Value.absent(),
-    this.tagNames = const Value.absent(),
+    this.activityNames = const Value.absent(),
     this.memo = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -362,7 +362,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
     required MoodType moodType,
     this.sleepQuality = const Value.absent(),
     this.emotionNames = const Value.absent(),
-    this.tagNames = const Value.absent(),
+    this.activityNames = const Value.absent(),
     this.memo = const Value.absent(),
     this.latitude = const Value.absent(),
     this.longitude = const Value.absent(),
@@ -378,7 +378,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
     Expression<int>? moodType,
     Expression<int>? sleepQuality,
     Expression<String>? emotionNames,
-    Expression<String>? tagNames,
+    Expression<String>? activityNames,
     Expression<String>? memo,
     Expression<double>? latitude,
     Expression<double>? longitude,
@@ -393,7 +393,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
       if (moodType != null) 'mood_type': moodType,
       if (sleepQuality != null) 'sleep_quality': sleepQuality,
       if (emotionNames != null) 'emotion_names': emotionNames,
-      if (tagNames != null) 'tag_names': tagNames,
+      if (activityNames != null) 'activity_names': activityNames,
       if (memo != null) 'memo': memo,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
@@ -410,7 +410,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
     Value<MoodType>? moodType,
     Value<int?>? sleepQuality,
     Value<List<String>?>? emotionNames,
-    Value<List<String>?>? tagNames,
+    Value<List<String>?>? activityNames,
     Value<String?>? memo,
     Value<double?>? latitude,
     Value<double?>? longitude,
@@ -425,7 +425,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
       moodType: moodType ?? this.moodType,
       sleepQuality: sleepQuality ?? this.sleepQuality,
       emotionNames: emotionNames ?? this.emotionNames,
-      tagNames: tagNames ?? this.tagNames,
+      activityNames: activityNames ?? this.activityNames,
       memo: memo ?? this.memo,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -458,9 +458,9 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
         $CheckInsTable.$converteremotionNames.toSql(emotionNames.value),
       );
     }
-    if (tagNames.present) {
-      map['tag_names'] = Variable<String>(
-        $CheckInsTable.$convertertagNames.toSql(tagNames.value),
+    if (activityNames.present) {
+      map['activity_names'] = Variable<String>(
+        $CheckInsTable.$converteractivityNames.toSql(activityNames.value),
       );
     }
     if (memo.present) {
@@ -495,7 +495,7 @@ class CheckInsCompanion extends UpdateCompanion<CheckIn> {
           ..write('moodType: $moodType, ')
           ..write('sleepQuality: $sleepQuality, ')
           ..write('emotionNames: $emotionNames, ')
-          ..write('tagNames: $tagNames, ')
+          ..write('activityNames: $activityNames, ')
           ..write('memo: $memo, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude, ')
@@ -1130,11 +1130,12 @@ class StatsCompanion extends UpdateCompanion<Stat> {
   }
 }
 
-class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
+class $ActivitiesTable extends Activities
+    with TableInfo<$ActivitiesTable, Activity> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TagsTable(this.attachedDatabase, [this._alias]);
+  $ActivitiesTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1185,10 +1186,10 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'tags';
+  static const String $name = 'activities';
   @override
   VerificationContext validateIntegrity(
-    Insertable<Tag> instance, {
+    Insertable<Activity> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -1222,9 +1223,9 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Tag map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Activity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Tag(
+    return Activity(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -1245,29 +1246,29 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
   }
 
   @override
-  $TagsTable createAlias(String alias) {
-    return $TagsTable(attachedDatabase, alias);
+  $ActivitiesTable createAlias(String alias) {
+    return $ActivitiesTable(attachedDatabase, alias);
   }
 }
 
-class TagsCompanion extends UpdateCompanion<Tag> {
+class ActivitiesCompanion extends UpdateCompanion<Activity> {
   final Value<int> id;
   final Value<String> name;
   final Value<String?> color;
   final Value<DateTime> createdAt;
-  const TagsCompanion({
+  const ActivitiesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.color = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
-  TagsCompanion.insert({
+  ActivitiesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     this.color = const Value.absent(),
     this.createdAt = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<Tag> custom({
+  static Insertable<Activity> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? color,
@@ -1281,13 +1282,13 @@ class TagsCompanion extends UpdateCompanion<Tag> {
     });
   }
 
-  TagsCompanion copyWith({
+  ActivitiesCompanion copyWith({
     Value<int>? id,
     Value<String>? name,
     Value<String?>? color,
     Value<DateTime>? createdAt,
   }) {
-    return TagsCompanion(
+    return ActivitiesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       color: color ?? this.color,
@@ -1315,7 +1316,7 @@ class TagsCompanion extends UpdateCompanion<Tag> {
 
   @override
   String toString() {
-    return (StringBuffer('TagsCompanion(')
+    return (StringBuffer('ActivitiesCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('color: $color, ')
@@ -1325,12 +1326,12 @@ class TagsCompanion extends UpdateCompanion<Tag> {
   }
 }
 
-class $CheckInTagsTable extends CheckInTags
-    with TableInfo<$CheckInTagsTable, CheckInTag> {
+class $CheckInActivitiesTable extends CheckInActivities
+    with TableInfo<$CheckInActivitiesTable, CheckInActivity> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CheckInTagsTable(this.attachedDatabase, [this._alias]);
+  $CheckInActivitiesTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1358,16 +1359,18 @@ class $CheckInTagsTable extends CheckInTags
       'REFERENCES check_ins (id) ON DELETE CASCADE',
     ),
   );
-  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  static const VerificationMeta _activityIdMeta = const VerificationMeta(
+    'activityId',
+  );
   @override
-  late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
-    'tag_id',
+  late final GeneratedColumn<int> activityId = GeneratedColumn<int>(
+    'activity_id',
     aliasedName,
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES tags (id) ON DELETE CASCADE',
+      'REFERENCES activities (id) ON DELETE CASCADE',
     ),
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
@@ -1383,15 +1386,15 @@ class $CheckInTagsTable extends CheckInTags
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, checkInId, tagId, createdAt];
+  List<GeneratedColumn> get $columns => [id, checkInId, activityId, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'check_in_tags';
+  static const String $name = 'check_in_activities';
   @override
   VerificationContext validateIntegrity(
-    Insertable<CheckInTag> instance, {
+    Insertable<CheckInActivity> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -1407,13 +1410,13 @@ class $CheckInTagsTable extends CheckInTags
     } else if (isInserting) {
       context.missing(_checkInIdMeta);
     }
-    if (data.containsKey('tag_id')) {
+    if (data.containsKey('activity_id')) {
       context.handle(
-        _tagIdMeta,
-        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+        _activityIdMeta,
+        activityId.isAcceptableOrUnknown(data['activity_id']!, _activityIdMeta),
       );
     } else if (isInserting) {
-      context.missing(_tagIdMeta);
+      context.missing(_activityIdMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(
@@ -1428,12 +1431,12 @@ class $CheckInTagsTable extends CheckInTags
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   List<Set<GeneratedColumn>> get uniqueKeys => [
-    {checkInId, tagId},
+    {checkInId, activityId},
   ];
   @override
-  CheckInTag map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CheckInActivity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CheckInTag(
+    return CheckInActivity(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -1442,9 +1445,9 @@ class $CheckInTagsTable extends CheckInTags
         DriftSqlType.int,
         data['${effectivePrefix}check_in_id'],
       )!,
-      tagId: attachedDatabase.typeMapping.read(
+      activityId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
-        data['${effectivePrefix}tag_id'],
+        data['${effectivePrefix}activity_id'],
       )!,
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -1454,53 +1457,53 @@ class $CheckInTagsTable extends CheckInTags
   }
 
   @override
-  $CheckInTagsTable createAlias(String alias) {
-    return $CheckInTagsTable(attachedDatabase, alias);
+  $CheckInActivitiesTable createAlias(String alias) {
+    return $CheckInActivitiesTable(attachedDatabase, alias);
   }
 }
 
-class CheckInTagsCompanion extends UpdateCompanion<CheckInTag> {
+class CheckInActivitiesCompanion extends UpdateCompanion<CheckInActivity> {
   final Value<int> id;
   final Value<int> checkInId;
-  final Value<int> tagId;
+  final Value<int> activityId;
   final Value<DateTime> createdAt;
-  const CheckInTagsCompanion({
+  const CheckInActivitiesCompanion({
     this.id = const Value.absent(),
     this.checkInId = const Value.absent(),
-    this.tagId = const Value.absent(),
+    this.activityId = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
-  CheckInTagsCompanion.insert({
+  CheckInActivitiesCompanion.insert({
     this.id = const Value.absent(),
     required int checkInId,
-    required int tagId,
+    required int activityId,
     this.createdAt = const Value.absent(),
   }) : checkInId = Value(checkInId),
-       tagId = Value(tagId);
-  static Insertable<CheckInTag> custom({
+       activityId = Value(activityId);
+  static Insertable<CheckInActivity> custom({
     Expression<int>? id,
     Expression<int>? checkInId,
-    Expression<int>? tagId,
+    Expression<int>? activityId,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (checkInId != null) 'check_in_id': checkInId,
-      if (tagId != null) 'tag_id': tagId,
+      if (activityId != null) 'activity_id': activityId,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
 
-  CheckInTagsCompanion copyWith({
+  CheckInActivitiesCompanion copyWith({
     Value<int>? id,
     Value<int>? checkInId,
-    Value<int>? tagId,
+    Value<int>? activityId,
     Value<DateTime>? createdAt,
   }) {
-    return CheckInTagsCompanion(
+    return CheckInActivitiesCompanion(
       id: id ?? this.id,
       checkInId: checkInId ?? this.checkInId,
-      tagId: tagId ?? this.tagId,
+      activityId: activityId ?? this.activityId,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -1514,8 +1517,8 @@ class CheckInTagsCompanion extends UpdateCompanion<CheckInTag> {
     if (checkInId.present) {
       map['check_in_id'] = Variable<int>(checkInId.value);
     }
-    if (tagId.present) {
-      map['tag_id'] = Variable<int>(tagId.value);
+    if (activityId.present) {
+      map['activity_id'] = Variable<int>(activityId.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -1525,10 +1528,10 @@ class CheckInTagsCompanion extends UpdateCompanion<CheckInTag> {
 
   @override
   String toString() {
-    return (StringBuffer('CheckInTagsCompanion(')
+    return (StringBuffer('CheckInActivitiesCompanion(')
           ..write('id: $id, ')
           ..write('checkInId: $checkInId, ')
-          ..write('tagId: $tagId, ')
+          ..write('activityId: $activityId, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -1918,8 +1921,9 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
   late final $CheckInsTable checkIns = $CheckInsTable(this);
   late final $JournalsTable journals = $JournalsTable(this);
   late final $StatsTable stats = $StatsTable(this);
-  late final $TagsTable tags = $TagsTable(this);
-  late final $CheckInTagsTable checkInTags = $CheckInTagsTable(this);
+  late final $ActivitiesTable activities = $ActivitiesTable(this);
+  late final $CheckInActivitiesTable checkInActivities =
+      $CheckInActivitiesTable(this);
   late final $EmotionsTable emotions = $EmotionsTable(this);
   late final $CheckInEmotionsTable checkInEmotions = $CheckInEmotionsTable(
     this,
@@ -1932,17 +1936,17 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     'journals_created_at',
     'CREATE INDEX journals_created_at ON journals (created_at)',
   );
-  late final Index tagsName = Index(
-    'tags_name',
-    'CREATE INDEX tags_name ON tags (name)',
+  late final Index activitiesName = Index(
+    'activities_name',
+    'CREATE INDEX activities_name ON activities (name)',
   );
-  late final Index checkInTagsCheckInId = Index(
-    'check_in_tags_check_in_id',
-    'CREATE INDEX check_in_tags_check_in_id ON check_in_tags (check_in_id)',
+  late final Index checkInActivitiesCheckInId = Index(
+    'check_in_activities_check_in_id',
+    'CREATE INDEX check_in_activities_check_in_id ON check_in_activities (check_in_id)',
   );
-  late final Index checkInTagsTagId = Index(
-    'check_in_tags_tag_id',
-    'CREATE INDEX check_in_tags_tag_id ON check_in_tags (tag_id)',
+  late final Index checkInActivitiesActivityId = Index(
+    'check_in_activities_activity_id',
+    'CREATE INDEX check_in_activities_activity_id ON check_in_activities (activity_id)',
   );
   late final Index emotionsName = Index(
     'emotions_name',
@@ -1964,15 +1968,15 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
     checkIns,
     journals,
     stats,
-    tags,
-    checkInTags,
+    activities,
+    checkInActivities,
     emotions,
     checkInEmotions,
     checkInsCreatedAt,
     journalsCreatedAt,
-    tagsName,
-    checkInTagsCheckInId,
-    checkInTagsTagId,
+    activitiesName,
+    checkInActivitiesCheckInId,
+    checkInActivitiesActivityId,
     emotionsName,
     checkInEmotionsCheckInId,
     checkInEmotionsEmotionId,
@@ -1984,14 +1988,14 @@ abstract class _$MoodLogDatabase extends GeneratedDatabase {
         'check_ins',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [TableUpdate('check_in_tags', kind: UpdateKind.delete)],
+      result: [TableUpdate('check_in_activities', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
-        'tags',
+        'activities',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [TableUpdate('check_in_tags', kind: UpdateKind.delete)],
+      result: [TableUpdate('check_in_activities', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -2017,7 +2021,7 @@ typedef $$CheckInsTableCreateCompanionBuilder =
       required MoodType moodType,
       Value<int?> sleepQuality,
       Value<List<String>?> emotionNames,
-      Value<List<String>?> tagNames,
+      Value<List<String>?> activityNames,
       Value<String?> memo,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -2033,7 +2037,7 @@ typedef $$CheckInsTableUpdateCompanionBuilder =
       Value<MoodType> moodType,
       Value<int?> sleepQuality,
       Value<List<String>?> emotionNames,
-      Value<List<String>?> tagNames,
+      Value<List<String>?> activityNames,
       Value<String?> memo,
       Value<double?> latitude,
       Value<double?> longitude,
@@ -2047,19 +2051,25 @@ final class $$CheckInsTableReferences
     extends BaseReferences<_$MoodLogDatabase, $CheckInsTable, CheckIn> {
   $$CheckInsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$CheckInTagsTable, List<CheckInTag>>
-  _checkInTagsRefsTable(_$MoodLogDatabase db) => MultiTypedResultKey.fromTable(
-    db.checkInTags,
-    aliasName: $_aliasNameGenerator(db.checkIns.id, db.checkInTags.checkInId),
-  );
+  static MultiTypedResultKey<$CheckInActivitiesTable, List<CheckInActivity>>
+  _checkInActivitiesRefsTable(_$MoodLogDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.checkInActivities,
+        aliasName: $_aliasNameGenerator(
+          db.checkIns.id,
+          db.checkInActivities.checkInId,
+        ),
+      );
 
-  $$CheckInTagsTableProcessedTableManager get checkInTagsRefs {
-    final manager = $$CheckInTagsTableTableManager(
+  $$CheckInActivitiesTableProcessedTableManager get checkInActivitiesRefs {
+    final manager = $$CheckInActivitiesTableTableManager(
       $_db,
-      $_db.checkInTags,
+      $_db.checkInActivities,
     ).filter((f) => f.checkInId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_checkInTagsRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(
+      _checkInActivitiesRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -2127,8 +2137,8 @@ class $$CheckInsTableFilterComposer
   );
 
   ColumnWithTypeConverterFilters<List<String>?, List<String>, String>
-  get tagNames => $composableBuilder(
-    column: $table.tagNames,
+  get activityNames => $composableBuilder(
+    column: $table.activityNames,
     builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
@@ -2167,22 +2177,22 @@ class $$CheckInsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  Expression<bool> checkInTagsRefs(
-    Expression<bool> Function($$CheckInTagsTableFilterComposer f) f,
+  Expression<bool> checkInActivitiesRefs(
+    Expression<bool> Function($$CheckInActivitiesTableFilterComposer f) f,
   ) {
-    final $$CheckInTagsTableFilterComposer composer = $composerBuilder(
+    final $$CheckInActivitiesTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.checkInTags,
+      referencedTable: $db.checkInActivities,
       getReferencedColumn: (t) => t.checkInId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$CheckInTagsTableFilterComposer(
+          }) => $$CheckInActivitiesTableFilterComposer(
             $db: $db,
-            $table: $db.checkInTags,
+            $table: $db.checkInActivities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -2252,8 +2262,8 @@ class $$CheckInsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get tagNames => $composableBuilder(
-    column: $table.tagNames,
+  ColumnOrderings<String> get activityNames => $composableBuilder(
+    column: $table.activityNames,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -2322,8 +2332,11 @@ class $$CheckInsTableAnnotationComposer
         builder: (column) => column,
       );
 
-  GeneratedColumnWithTypeConverter<List<String>?, String> get tagNames =>
-      $composableBuilder(column: $table.tagNames, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<List<String>?, String> get activityNames =>
+      $composableBuilder(
+        column: $table.activityNames,
+        builder: (column) => column,
+      );
 
   GeneratedColumn<String> get memo =>
       $composableBuilder(column: $table.memo, builder: (column) => column);
@@ -2352,28 +2365,29 @@ class $$CheckInsTableAnnotationComposer
     builder: (column) => column,
   );
 
-  Expression<T> checkInTagsRefs<T extends Object>(
-    Expression<T> Function($$CheckInTagsTableAnnotationComposer a) f,
+  Expression<T> checkInActivitiesRefs<T extends Object>(
+    Expression<T> Function($$CheckInActivitiesTableAnnotationComposer a) f,
   ) {
-    final $$CheckInTagsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.checkInTags,
-      getReferencedColumn: (t) => t.checkInId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CheckInTagsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.checkInTags,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+    final $$CheckInActivitiesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.checkInActivities,
+          getReferencedColumn: (t) => t.checkInId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CheckInActivitiesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.checkInActivities,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
@@ -2417,7 +2431,7 @@ class $$CheckInsTableTableManager
           (CheckIn, $$CheckInsTableReferences),
           CheckIn,
           PrefetchHooks Function({
-            bool checkInTagsRefs,
+            bool checkInActivitiesRefs,
             bool checkInEmotionsRefs,
           })
         > {
@@ -2439,7 +2453,7 @@ class $$CheckInsTableTableManager
                 Value<MoodType> moodType = const Value.absent(),
                 Value<int?> sleepQuality = const Value.absent(),
                 Value<List<String>?> emotionNames = const Value.absent(),
-                Value<List<String>?> tagNames = const Value.absent(),
+                Value<List<String>?> activityNames = const Value.absent(),
                 Value<String?> memo = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -2453,7 +2467,7 @@ class $$CheckInsTableTableManager
                 moodType: moodType,
                 sleepQuality: sleepQuality,
                 emotionNames: emotionNames,
-                tagNames: tagNames,
+                activityNames: activityNames,
                 memo: memo,
                 latitude: latitude,
                 longitude: longitude,
@@ -2469,7 +2483,7 @@ class $$CheckInsTableTableManager
                 required MoodType moodType,
                 Value<int?> sleepQuality = const Value.absent(),
                 Value<List<String>?> emotionNames = const Value.absent(),
-                Value<List<String>?> tagNames = const Value.absent(),
+                Value<List<String>?> activityNames = const Value.absent(),
                 Value<String?> memo = const Value.absent(),
                 Value<double?> latitude = const Value.absent(),
                 Value<double?> longitude = const Value.absent(),
@@ -2483,7 +2497,7 @@ class $$CheckInsTableTableManager
                 moodType: moodType,
                 sleepQuality: sleepQuality,
                 emotionNames: emotionNames,
-                tagNames: tagNames,
+                activityNames: activityNames,
                 memo: memo,
                 latitude: latitude,
                 longitude: longitude,
@@ -2501,31 +2515,31 @@ class $$CheckInsTableTableManager
               )
               .toList(),
           prefetchHooksCallback:
-              ({checkInTagsRefs = false, checkInEmotionsRefs = false}) {
+              ({checkInActivitiesRefs = false, checkInEmotionsRefs = false}) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
-                    if (checkInTagsRefs) db.checkInTags,
+                    if (checkInActivitiesRefs) db.checkInActivities,
                     if (checkInEmotionsRefs) db.checkInEmotions,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
                     return [
-                      if (checkInTagsRefs)
+                      if (checkInActivitiesRefs)
                         await $_getPrefetchedData<
                           CheckIn,
                           $CheckInsTable,
-                          CheckInTag
+                          CheckInActivity
                         >(
                           currentTable: table,
                           referencedTable: $$CheckInsTableReferences
-                              ._checkInTagsRefsTable(db),
+                              ._checkInActivitiesRefsTable(db),
                           managerFromTypedResult: (p0) =>
                               $$CheckInsTableReferences(
                                 db,
                                 table,
                                 p0,
-                              ).checkInTagsRefs,
+                              ).checkInActivitiesRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.checkInId == item.id,
@@ -2573,7 +2587,10 @@ typedef $$CheckInsTableProcessedTableManager =
       $$CheckInsTableUpdateCompanionBuilder,
       (CheckIn, $$CheckInsTableReferences),
       CheckIn,
-      PrefetchHooks Function({bool checkInTagsRefs, bool checkInEmotionsRefs})
+      PrefetchHooks Function({
+        bool checkInActivitiesRefs,
+        bool checkInEmotionsRefs,
+      })
     >;
 typedef $$JournalsTableCreateCompanionBuilder =
     JournalsCompanion Function({
@@ -3038,47 +3055,53 @@ typedef $$StatsTableProcessedTableManager =
       Stat,
       PrefetchHooks Function()
     >;
-typedef $$TagsTableCreateCompanionBuilder =
-    TagsCompanion Function({
+typedef $$ActivitiesTableCreateCompanionBuilder =
+    ActivitiesCompanion Function({
       Value<int> id,
       required String name,
       Value<String?> color,
       Value<DateTime> createdAt,
     });
-typedef $$TagsTableUpdateCompanionBuilder =
-    TagsCompanion Function({
+typedef $$ActivitiesTableUpdateCompanionBuilder =
+    ActivitiesCompanion Function({
       Value<int> id,
       Value<String> name,
       Value<String?> color,
       Value<DateTime> createdAt,
     });
 
-final class $$TagsTableReferences
-    extends BaseReferences<_$MoodLogDatabase, $TagsTable, Tag> {
-  $$TagsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $$ActivitiesTableReferences
+    extends BaseReferences<_$MoodLogDatabase, $ActivitiesTable, Activity> {
+  $$ActivitiesTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$CheckInTagsTable, List<CheckInTag>>
-  _checkInTagsRefsTable(_$MoodLogDatabase db) => MultiTypedResultKey.fromTable(
-    db.checkInTags,
-    aliasName: $_aliasNameGenerator(db.tags.id, db.checkInTags.tagId),
-  );
+  static MultiTypedResultKey<$CheckInActivitiesTable, List<CheckInActivity>>
+  _checkInActivitiesRefsTable(_$MoodLogDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.checkInActivities,
+        aliasName: $_aliasNameGenerator(
+          db.activities.id,
+          db.checkInActivities.activityId,
+        ),
+      );
 
-  $$CheckInTagsTableProcessedTableManager get checkInTagsRefs {
-    final manager = $$CheckInTagsTableTableManager(
+  $$CheckInActivitiesTableProcessedTableManager get checkInActivitiesRefs {
+    final manager = $$CheckInActivitiesTableTableManager(
       $_db,
-      $_db.checkInTags,
-    ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<int>('id')!));
+      $_db.checkInActivities,
+    ).filter((f) => f.activityId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_checkInTagsRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(
+      _checkInActivitiesRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
 }
 
-class $$TagsTableFilterComposer
-    extends Composer<_$MoodLogDatabase, $TagsTable> {
-  $$TagsTableFilterComposer({
+class $$ActivitiesTableFilterComposer
+    extends Composer<_$MoodLogDatabase, $ActivitiesTable> {
+  $$ActivitiesTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3105,22 +3128,22 @@ class $$TagsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  Expression<bool> checkInTagsRefs(
-    Expression<bool> Function($$CheckInTagsTableFilterComposer f) f,
+  Expression<bool> checkInActivitiesRefs(
+    Expression<bool> Function($$CheckInActivitiesTableFilterComposer f) f,
   ) {
-    final $$CheckInTagsTableFilterComposer composer = $composerBuilder(
+    final $$CheckInActivitiesTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.checkInTags,
-      getReferencedColumn: (t) => t.tagId,
+      referencedTable: $db.checkInActivities,
+      getReferencedColumn: (t) => t.activityId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$CheckInTagsTableFilterComposer(
+          }) => $$CheckInActivitiesTableFilterComposer(
             $db: $db,
-            $table: $db.checkInTags,
+            $table: $db.checkInActivities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -3131,9 +3154,9 @@ class $$TagsTableFilterComposer
   }
 }
 
-class $$TagsTableOrderingComposer
-    extends Composer<_$MoodLogDatabase, $TagsTable> {
-  $$TagsTableOrderingComposer({
+class $$ActivitiesTableOrderingComposer
+    extends Composer<_$MoodLogDatabase, $ActivitiesTable> {
+  $$ActivitiesTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3161,9 +3184,9 @@ class $$TagsTableOrderingComposer
   );
 }
 
-class $$TagsTableAnnotationComposer
-    extends Composer<_$MoodLogDatabase, $TagsTable> {
-  $$TagsTableAnnotationComposer({
+class $$ActivitiesTableAnnotationComposer
+    extends Composer<_$MoodLogDatabase, $ActivitiesTable> {
+  $$ActivitiesTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3182,65 +3205,66 @@ class $$TagsTableAnnotationComposer
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  Expression<T> checkInTagsRefs<T extends Object>(
-    Expression<T> Function($$CheckInTagsTableAnnotationComposer a) f,
+  Expression<T> checkInActivitiesRefs<T extends Object>(
+    Expression<T> Function($$CheckInActivitiesTableAnnotationComposer a) f,
   ) {
-    final $$CheckInTagsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.checkInTags,
-      getReferencedColumn: (t) => t.tagId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CheckInTagsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.checkInTags,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+    final $$CheckInActivitiesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.checkInActivities,
+          getReferencedColumn: (t) => t.activityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CheckInActivitiesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.checkInActivities,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
 
-class $$TagsTableTableManager
+class $$ActivitiesTableTableManager
     extends
         RootTableManager<
           _$MoodLogDatabase,
-          $TagsTable,
-          Tag,
-          $$TagsTableFilterComposer,
-          $$TagsTableOrderingComposer,
-          $$TagsTableAnnotationComposer,
-          $$TagsTableCreateCompanionBuilder,
-          $$TagsTableUpdateCompanionBuilder,
-          (Tag, $$TagsTableReferences),
-          Tag,
-          PrefetchHooks Function({bool checkInTagsRefs})
+          $ActivitiesTable,
+          Activity,
+          $$ActivitiesTableFilterComposer,
+          $$ActivitiesTableOrderingComposer,
+          $$ActivitiesTableAnnotationComposer,
+          $$ActivitiesTableCreateCompanionBuilder,
+          $$ActivitiesTableUpdateCompanionBuilder,
+          (Activity, $$ActivitiesTableReferences),
+          Activity,
+          PrefetchHooks Function({bool checkInActivitiesRefs})
         > {
-  $$TagsTableTableManager(_$MoodLogDatabase db, $TagsTable table)
+  $$ActivitiesTableTableManager(_$MoodLogDatabase db, $ActivitiesTable table)
     : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$TagsTableFilterComposer($db: db, $table: table),
+              $$ActivitiesTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$TagsTableOrderingComposer($db: db, $table: table),
+              $$ActivitiesTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$TagsTableAnnotationComposer($db: db, $table: table),
+              $$ActivitiesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String?> color = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
-              }) => TagsCompanion(
+              }) => ActivitiesCompanion(
                 id: id,
                 name: name,
                 color: color,
@@ -3252,7 +3276,7 @@ class $$TagsTableTableManager
                 required String name,
                 Value<String?> color = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
-              }) => TagsCompanion.insert(
+              }) => ActivitiesCompanion.insert(
                 id: id,
                 name: name,
                 color: color,
@@ -3260,26 +3284,38 @@ class $$TagsTableTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) =>
-                    (e.readTable(table), $$TagsTableReferences(db, table, e)),
+                (e) => (
+                  e.readTable(table),
+                  $$ActivitiesTableReferences(db, table, e),
+                ),
               )
               .toList(),
-          prefetchHooksCallback: ({checkInTagsRefs = false}) {
+          prefetchHooksCallback: ({checkInActivitiesRefs = false}) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [if (checkInTagsRefs) db.checkInTags],
+              explicitlyWatchedTables: [
+                if (checkInActivitiesRefs) db.checkInActivities,
+              ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (checkInTagsRefs)
-                    await $_getPrefetchedData<Tag, $TagsTable, CheckInTag>(
+                  if (checkInActivitiesRefs)
+                    await $_getPrefetchedData<
+                      Activity,
+                      $ActivitiesTable,
+                      CheckInActivity
+                    >(
                       currentTable: table,
-                      referencedTable: $$TagsTableReferences
-                          ._checkInTagsRefsTable(db),
+                      referencedTable: $$ActivitiesTableReferences
+                          ._checkInActivitiesRefsTable(db),
                       managerFromTypedResult: (p0) =>
-                          $$TagsTableReferences(db, table, p0).checkInTagsRefs,
+                          $$ActivitiesTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).checkInActivitiesRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.tagId == item.id),
+                          referencedItems.where((e) => e.activityId == item.id),
                       typedResults: items,
                     ),
                 ];
@@ -3290,42 +3326,51 @@ class $$TagsTableTableManager
       );
 }
 
-typedef $$TagsTableProcessedTableManager =
+typedef $$ActivitiesTableProcessedTableManager =
     ProcessedTableManager<
       _$MoodLogDatabase,
-      $TagsTable,
-      Tag,
-      $$TagsTableFilterComposer,
-      $$TagsTableOrderingComposer,
-      $$TagsTableAnnotationComposer,
-      $$TagsTableCreateCompanionBuilder,
-      $$TagsTableUpdateCompanionBuilder,
-      (Tag, $$TagsTableReferences),
-      Tag,
-      PrefetchHooks Function({bool checkInTagsRefs})
+      $ActivitiesTable,
+      Activity,
+      $$ActivitiesTableFilterComposer,
+      $$ActivitiesTableOrderingComposer,
+      $$ActivitiesTableAnnotationComposer,
+      $$ActivitiesTableCreateCompanionBuilder,
+      $$ActivitiesTableUpdateCompanionBuilder,
+      (Activity, $$ActivitiesTableReferences),
+      Activity,
+      PrefetchHooks Function({bool checkInActivitiesRefs})
     >;
-typedef $$CheckInTagsTableCreateCompanionBuilder =
-    CheckInTagsCompanion Function({
+typedef $$CheckInActivitiesTableCreateCompanionBuilder =
+    CheckInActivitiesCompanion Function({
       Value<int> id,
       required int checkInId,
-      required int tagId,
+      required int activityId,
       Value<DateTime> createdAt,
     });
-typedef $$CheckInTagsTableUpdateCompanionBuilder =
-    CheckInTagsCompanion Function({
+typedef $$CheckInActivitiesTableUpdateCompanionBuilder =
+    CheckInActivitiesCompanion Function({
       Value<int> id,
       Value<int> checkInId,
-      Value<int> tagId,
+      Value<int> activityId,
       Value<DateTime> createdAt,
     });
 
-final class $$CheckInTagsTableReferences
-    extends BaseReferences<_$MoodLogDatabase, $CheckInTagsTable, CheckInTag> {
-  $$CheckInTagsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $$CheckInActivitiesTableReferences
+    extends
+        BaseReferences<
+          _$MoodLogDatabase,
+          $CheckInActivitiesTable,
+          CheckInActivity
+        > {
+  $$CheckInActivitiesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
   static $CheckInsTable _checkInIdTable(_$MoodLogDatabase db) =>
       db.checkIns.createAlias(
-        $_aliasNameGenerator(db.checkInTags.checkInId, db.checkIns.id),
+        $_aliasNameGenerator(db.checkInActivities.checkInId, db.checkIns.id),
       );
 
   $$CheckInsTableProcessedTableManager get checkInId {
@@ -3342,18 +3387,19 @@ final class $$CheckInTagsTableReferences
     );
   }
 
-  static $TagsTable _tagIdTable(_$MoodLogDatabase db) => db.tags.createAlias(
-    $_aliasNameGenerator(db.checkInTags.tagId, db.tags.id),
-  );
+  static $ActivitiesTable _activityIdTable(_$MoodLogDatabase db) =>
+      db.activities.createAlias(
+        $_aliasNameGenerator(db.checkInActivities.activityId, db.activities.id),
+      );
 
-  $$TagsTableProcessedTableManager get tagId {
-    final $_column = $_itemColumn<int>('tag_id')!;
+  $$ActivitiesTableProcessedTableManager get activityId {
+    final $_column = $_itemColumn<int>('activity_id')!;
 
-    final manager = $$TagsTableTableManager(
+    final manager = $$ActivitiesTableTableManager(
       $_db,
-      $_db.tags,
+      $_db.activities,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
+    final item = $_typedResult.readTableOrNull(_activityIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
@@ -3361,9 +3407,9 @@ final class $$CheckInTagsTableReferences
   }
 }
 
-class $$CheckInTagsTableFilterComposer
-    extends Composer<_$MoodLogDatabase, $CheckInTagsTable> {
-  $$CheckInTagsTableFilterComposer({
+class $$CheckInActivitiesTableFilterComposer
+    extends Composer<_$MoodLogDatabase, $CheckInActivitiesTable> {
+  $$CheckInActivitiesTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3403,20 +3449,20 @@ class $$CheckInTagsTableFilterComposer
     return composer;
   }
 
-  $$TagsTableFilterComposer get tagId {
-    final $$TagsTableFilterComposer composer = $composerBuilder(
+  $$ActivitiesTableFilterComposer get activityId {
+    final $$ActivitiesTableFilterComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.tagId,
-      referencedTable: $db.tags,
+      getCurrentColumn: (t) => t.activityId,
+      referencedTable: $db.activities,
       getReferencedColumn: (t) => t.id,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$TagsTableFilterComposer(
+          }) => $$ActivitiesTableFilterComposer(
             $db: $db,
-            $table: $db.tags,
+            $table: $db.activities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -3427,9 +3473,9 @@ class $$CheckInTagsTableFilterComposer
   }
 }
 
-class $$CheckInTagsTableOrderingComposer
-    extends Composer<_$MoodLogDatabase, $CheckInTagsTable> {
-  $$CheckInTagsTableOrderingComposer({
+class $$CheckInActivitiesTableOrderingComposer
+    extends Composer<_$MoodLogDatabase, $CheckInActivitiesTable> {
+  $$CheckInActivitiesTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3469,20 +3515,20 @@ class $$CheckInTagsTableOrderingComposer
     return composer;
   }
 
-  $$TagsTableOrderingComposer get tagId {
-    final $$TagsTableOrderingComposer composer = $composerBuilder(
+  $$ActivitiesTableOrderingComposer get activityId {
+    final $$ActivitiesTableOrderingComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.tagId,
-      referencedTable: $db.tags,
+      getCurrentColumn: (t) => t.activityId,
+      referencedTable: $db.activities,
       getReferencedColumn: (t) => t.id,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$TagsTableOrderingComposer(
+          }) => $$ActivitiesTableOrderingComposer(
             $db: $db,
-            $table: $db.tags,
+            $table: $db.activities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -3493,9 +3539,9 @@ class $$CheckInTagsTableOrderingComposer
   }
 }
 
-class $$CheckInTagsTableAnnotationComposer
-    extends Composer<_$MoodLogDatabase, $CheckInTagsTable> {
-  $$CheckInTagsTableAnnotationComposer({
+class $$CheckInActivitiesTableAnnotationComposer
+    extends Composer<_$MoodLogDatabase, $CheckInActivitiesTable> {
+  $$CheckInActivitiesTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3531,20 +3577,20 @@ class $$CheckInTagsTableAnnotationComposer
     return composer;
   }
 
-  $$TagsTableAnnotationComposer get tagId {
-    final $$TagsTableAnnotationComposer composer = $composerBuilder(
+  $$ActivitiesTableAnnotationComposer get activityId {
+    final $$ActivitiesTableAnnotationComposer composer = $composerBuilder(
       composer: this,
-      getCurrentColumn: (t) => t.tagId,
-      referencedTable: $db.tags,
+      getCurrentColumn: (t) => t.activityId,
+      referencedTable: $db.activities,
       getReferencedColumn: (t) => t.id,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$TagsTableAnnotationComposer(
+          }) => $$ActivitiesTableAnnotationComposer(
             $db: $db,
-            $table: $db.tags,
+            $table: $db.activities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -3555,65 +3601,70 @@ class $$CheckInTagsTableAnnotationComposer
   }
 }
 
-class $$CheckInTagsTableTableManager
+class $$CheckInActivitiesTableTableManager
     extends
         RootTableManager<
           _$MoodLogDatabase,
-          $CheckInTagsTable,
-          CheckInTag,
-          $$CheckInTagsTableFilterComposer,
-          $$CheckInTagsTableOrderingComposer,
-          $$CheckInTagsTableAnnotationComposer,
-          $$CheckInTagsTableCreateCompanionBuilder,
-          $$CheckInTagsTableUpdateCompanionBuilder,
-          (CheckInTag, $$CheckInTagsTableReferences),
-          CheckInTag,
-          PrefetchHooks Function({bool checkInId, bool tagId})
+          $CheckInActivitiesTable,
+          CheckInActivity,
+          $$CheckInActivitiesTableFilterComposer,
+          $$CheckInActivitiesTableOrderingComposer,
+          $$CheckInActivitiesTableAnnotationComposer,
+          $$CheckInActivitiesTableCreateCompanionBuilder,
+          $$CheckInActivitiesTableUpdateCompanionBuilder,
+          (CheckInActivity, $$CheckInActivitiesTableReferences),
+          CheckInActivity,
+          PrefetchHooks Function({bool checkInId, bool activityId})
         > {
-  $$CheckInTagsTableTableManager(_$MoodLogDatabase db, $CheckInTagsTable table)
-    : super(
+  $$CheckInActivitiesTableTableManager(
+    _$MoodLogDatabase db,
+    $CheckInActivitiesTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$CheckInTagsTableFilterComposer($db: db, $table: table),
+              $$CheckInActivitiesTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$CheckInTagsTableOrderingComposer($db: db, $table: table),
+              $$CheckInActivitiesTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$CheckInTagsTableAnnotationComposer($db: db, $table: table),
+              $$CheckInActivitiesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<int> checkInId = const Value.absent(),
-                Value<int> tagId = const Value.absent(),
+                Value<int> activityId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
-              }) => CheckInTagsCompanion(
+              }) => CheckInActivitiesCompanion(
                 id: id,
                 checkInId: checkInId,
-                tagId: tagId,
+                activityId: activityId,
                 createdAt: createdAt,
               ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required int checkInId,
-                required int tagId,
+                required int activityId,
                 Value<DateTime> createdAt = const Value.absent(),
-              }) => CheckInTagsCompanion.insert(
+              }) => CheckInActivitiesCompanion.insert(
                 id: id,
                 checkInId: checkInId,
-                tagId: tagId,
+                activityId: activityId,
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
                   e.readTable(table),
-                  $$CheckInTagsTableReferences(db, table, e),
+                  $$CheckInActivitiesTableReferences(db, table, e),
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({checkInId = false, tagId = false}) {
+          prefetchHooksCallback: ({checkInId = false, activityId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -3638,24 +3689,28 @@ class $$CheckInTagsTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.checkInId,
-                                referencedTable: $$CheckInTagsTableReferences
-                                    ._checkInIdTable(db),
-                                referencedColumn: $$CheckInTagsTableReferences
-                                    ._checkInIdTable(db)
-                                    .id,
+                                referencedTable:
+                                    $$CheckInActivitiesTableReferences
+                                        ._checkInIdTable(db),
+                                referencedColumn:
+                                    $$CheckInActivitiesTableReferences
+                                        ._checkInIdTable(db)
+                                        .id,
                               )
                               as T;
                     }
-                    if (tagId) {
+                    if (activityId) {
                       state =
                           state.withJoin(
                                 currentTable: table,
-                                currentColumn: table.tagId,
-                                referencedTable: $$CheckInTagsTableReferences
-                                    ._tagIdTable(db),
-                                referencedColumn: $$CheckInTagsTableReferences
-                                    ._tagIdTable(db)
-                                    .id,
+                                currentColumn: table.activityId,
+                                referencedTable:
+                                    $$CheckInActivitiesTableReferences
+                                        ._activityIdTable(db),
+                                referencedColumn:
+                                    $$CheckInActivitiesTableReferences
+                                        ._activityIdTable(db)
+                                        .id,
                               )
                               as T;
                     }
@@ -3671,19 +3726,19 @@ class $$CheckInTagsTableTableManager
       );
 }
 
-typedef $$CheckInTagsTableProcessedTableManager =
+typedef $$CheckInActivitiesTableProcessedTableManager =
     ProcessedTableManager<
       _$MoodLogDatabase,
-      $CheckInTagsTable,
-      CheckInTag,
-      $$CheckInTagsTableFilterComposer,
-      $$CheckInTagsTableOrderingComposer,
-      $$CheckInTagsTableAnnotationComposer,
-      $$CheckInTagsTableCreateCompanionBuilder,
-      $$CheckInTagsTableUpdateCompanionBuilder,
-      (CheckInTag, $$CheckInTagsTableReferences),
-      CheckInTag,
-      PrefetchHooks Function({bool checkInId, bool tagId})
+      $CheckInActivitiesTable,
+      CheckInActivity,
+      $$CheckInActivitiesTableFilterComposer,
+      $$CheckInActivitiesTableOrderingComposer,
+      $$CheckInActivitiesTableAnnotationComposer,
+      $$CheckInActivitiesTableCreateCompanionBuilder,
+      $$CheckInActivitiesTableUpdateCompanionBuilder,
+      (CheckInActivity, $$CheckInActivitiesTableReferences),
+      CheckInActivity,
+      PrefetchHooks Function({bool checkInId, bool activityId})
     >;
 typedef $$EmotionsTableCreateCompanionBuilder =
     EmotionsCompanion Function({
@@ -4352,9 +4407,10 @@ class $MoodLogDatabaseManager {
       $$JournalsTableTableManager(_db, _db.journals);
   $$StatsTableTableManager get stats =>
       $$StatsTableTableManager(_db, _db.stats);
-  $$TagsTableTableManager get tags => $$TagsTableTableManager(_db, _db.tags);
-  $$CheckInTagsTableTableManager get checkInTags =>
-      $$CheckInTagsTableTableManager(_db, _db.checkInTags);
+  $$ActivitiesTableTableManager get activities =>
+      $$ActivitiesTableTableManager(_db, _db.activities);
+  $$CheckInActivitiesTableTableManager get checkInActivities =>
+      $$CheckInActivitiesTableTableManager(_db, _db.checkInActivities);
   $$EmotionsTableTableManager get emotions =>
       $$EmotionsTableTableManager(_db, _db.emotions);
   $$CheckInEmotionsTableTableManager get checkInEmotions =>
