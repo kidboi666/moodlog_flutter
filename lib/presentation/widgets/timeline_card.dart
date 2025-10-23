@@ -33,16 +33,19 @@ class TimelineCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isCheckIn
               ? Colors.transparent
-              : ColorScheme.of(context).surfaceContainer,
+              : Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
           border: isSelected
-              ? Border.all(color: ColorScheme.of(context).primary, width: 2)
+              ? Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                )
               : null,
         ),
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(Spacing.xl),
+              padding: CommonPadding.xl,
               child: entry.type.isCheckIn
                   ? _buildCheckInContent(context)
                   : _buildJournalContent(context),
@@ -81,17 +84,16 @@ class TimelineCard extends StatelessWidget {
 
   Widget _buildCheckInContent(BuildContext context) {
     final checkIn = entry.checkIn!;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-
     final items = <Widget>[];
 
     if (checkIn.activityNames != null && checkIn.activityNames!.isNotEmpty) {
       items.add(
         Text(
           '${t.check_in_activities}: ${checkIn.activityNames!.join(', ')}',
-          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
       );
     }
@@ -100,7 +102,9 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
-          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
       );
     }
@@ -109,7 +113,9 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           '${t.check_in_sleep_quality}: ${_getSleepQualityText(context, checkIn.sleepQuality!)}',
-          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
       );
     }
@@ -118,8 +124,8 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           checkIn.memo!,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
@@ -134,15 +140,15 @@ class TimelineCard extends StatelessWidget {
           children: [
             Icon(
               Icons.check_circle_outline,
-              color: colorScheme.onSurfaceVariant,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
               size: 20,
             ),
             CommonSizedBox.widthSm,
             Text(
               t.timeline_check_in,
-              style: textTheme.titleSmall?.copyWith(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onSurfaceVariant,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -160,8 +166,6 @@ class TimelineCard extends StatelessWidget {
 
   Widget _buildJournalContent(BuildContext context) {
     final journal = entry.journal!;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
     return Column(
@@ -169,13 +173,17 @@ class TimelineCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.edit_note, color: colorScheme.primary, size: 20),
+            Icon(
+              Icons.edit_note,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
             CommonSizedBox.widthSm,
             Text(
               t.timeline_journal,
-              style: textTheme.titleSmall?.copyWith(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: colorScheme.primary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],
@@ -183,7 +191,7 @@ class TimelineCard extends StatelessWidget {
         CommonSizedBox.heightSm,
         Text(
           journal.content,
-          style: textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
         ),
@@ -195,7 +203,7 @@ class TimelineCard extends StatelessWidget {
               vertical: Spacing.xs,
             ),
             decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(Roundness.xs),
             ),
             child: Row(
@@ -204,13 +212,13 @@ class TimelineCard extends StatelessWidget {
                 Icon(
                   Icons.image,
                   size: 14,
-                  color: colorScheme.onSurfaceVariant,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 CommonSizedBox.widthXs,
                 Text(
                   '${journal.imageUri!.length}',
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],

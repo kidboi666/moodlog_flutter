@@ -17,7 +17,7 @@ class PaginationDot extends StatelessWidget {
         (index) => AnimatedContainer(
           width: 8,
           height: 8,
-          duration: const Duration(milliseconds: 400),
+          duration: DurationMS.quick,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: index == current

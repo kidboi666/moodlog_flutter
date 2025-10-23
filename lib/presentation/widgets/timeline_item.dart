@@ -24,8 +24,6 @@ class TimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final timeFormat = context.select(
       (AppStateProvider asp) => asp.appState.timeFormat,
     );
@@ -34,7 +32,6 @@ class TimelineItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Timeline (left)
           SizedBox(
             width: 60,
             child: Column(
@@ -44,7 +41,7 @@ class TimelineItem extends StatelessWidget {
                   Container(
                     width: 2,
                     height: 24,
-                    color: colorScheme.outlineVariant,
+                    color: Theme.of(context).colorScheme.outlineVariant,
                   ),
                 if (isFirst) const SizedBox(height: 24),
 
@@ -55,9 +52,14 @@ class TimelineItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: moodType != null
                         ? Color(moodType!.colorValue)
-                        : colorScheme.primary.withValues(alpha: 0.6),
+                        : Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.6),
                     shape: BoxShape.circle,
-                    border: Border.all(color: colorScheme.surface, width: 2),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.surface,
+                      width: 2,
+                    ),
                   ),
                 ),
 
@@ -67,10 +69,8 @@ class TimelineItem extends StatelessWidget {
                     padding: const EdgeInsets.only(top: Spacing.xs),
                     child: Text(
                       moodType!.getDisplayName(context),
-                      style: textTheme.labelSmall?.copyWith(
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Color(moodType!.colorValue),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 10,
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 1,
@@ -83,10 +83,8 @@ class TimelineItem extends StatelessWidget {
                   padding: const EdgeInsets.only(top: Spacing.xs),
                   child: Text(
                     time.formattedTime(timeFormat),
-                    style: textTheme.labelSmall?.copyWith(
-                      color: colorScheme.outline,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 10,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -97,7 +95,7 @@ class TimelineItem extends StatelessWidget {
                   Expanded(
                     child: Container(
                       width: 2,
-                      color: colorScheme.outlineVariant,
+                      color: Theme.of(context).colorScheme.outlineVariant,
                       margin: const EdgeInsets.only(top: Spacing.xs),
                     ),
                   ),

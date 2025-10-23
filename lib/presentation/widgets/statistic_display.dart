@@ -22,26 +22,24 @@ class StatisticDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Column(
       children: [
         Text(
           value,
           style:
               valueStyle ??
-              textTheme.displayMedium?.copyWith(
+              Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: valueColor ?? colorScheme.primary,
+                color: valueColor ?? Theme.of(context).colorScheme.primary,
               ),
         ),
         Text(
           unit,
           style:
               unitStyle ??
-              textTheme.bodyLarge?.copyWith(
-                color: unitColor ?? colorScheme.onSurfaceVariant,
+              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color:
+                    unitColor ?? Theme.of(context).colorScheme.onSurfaceVariant,
               ),
         ),
       ],
@@ -64,8 +62,6 @@ class StatusIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.sm,
@@ -80,11 +76,11 @@ class StatusIndicator extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Icon(icon, color: color, size: 16),
-            const SizedBox(width: Spacing.xs),
+            CommonSizedBox.widthXs,
           ],
           Text(
             status,
-            style: textTheme.bodySmall?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: color,
               fontWeight: FontWeight.w500,
             ),
@@ -114,21 +110,18 @@ class InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: textTheme.bodyMedium?.copyWith(
-            color: labelColor ?? colorScheme.onSurfaceVariant,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: labelColor ?? Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
         Text(
           value,
-          style: textTheme.bodyMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: valueFontWeight ?? FontWeight.w500,
             color: valueColor,
           ),
@@ -153,14 +146,14 @@ class InfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Container(
-      padding: padding ?? const EdgeInsets.all(Spacing.lg),
+      padding: padding ?? CommonPadding.lg,
       decoration: BoxDecoration(
         color:
             backgroundColor ??
-            colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+            Theme.of(
+              context,
+            ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(Roundness.cardInner),
       ),
       child: child,

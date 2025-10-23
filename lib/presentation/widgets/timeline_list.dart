@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/routing.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/timeline_entry.dart';
 import 'package:moodlog/presentation/screens/home/home_view_model.dart';
 import 'package:moodlog/presentation/widgets/empty_entries_box.dart';
@@ -86,6 +88,7 @@ class TimelineList extends StatelessWidget {
   }
 
   Widget _buildJournalEntry(BuildContext context, TimelineEntry entry) {
+    final t = AppLocalizations.of(context)!;
     return Dismissible(
       key: ValueKey('journal_${entry.id}'),
       direction: DismissDirection.endToStart,
@@ -103,18 +106,16 @@ class TimelineList extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Confirm Deletion"),
-              content: const Text(
-                "Are you sure you want to delete this journal entry?",
-              ),
-              actions: <Widget>[
+              title: Text(t.journal_delete_confirm_title),
+              content: Text(t.journal_delete_confirm_description),
+              actions: [
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text("Cancel"),
+                  onPressed: () => context.pop(false),
+                  child: Text(t.common_confirm_cancel),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text("Delete"),
+                  onPressed: () => context.pop(true),
+                  child: Text(t.common_confirm_delete),
                 ),
               ],
             );

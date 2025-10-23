@@ -24,9 +24,6 @@ class MoodSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     final emotionDisplay = AnimatedContainer(
       duration: DurationMS.quick,
       width: 200,
@@ -47,7 +44,7 @@ class MoodSliderWidget extends StatelessWidget {
           child: Text(
             selectedMood.getDisplayName(context),
             key: ValueKey(selectedMood),
-            style: textTheme.displaySmall?.copyWith(
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: Color(selectedMood.colorValue),
               fontWeight: FontWeight.w700,
               shadows: [
@@ -74,7 +71,9 @@ class MoodSliderWidget extends StatelessWidget {
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             activeTrackColor: Color(selectedMood.colorValue),
-            inactiveTrackColor: colorScheme.outline.withValues(alpha: 0.3),
+            inactiveTrackColor: Theme.of(
+              context,
+            ).colorScheme.outline.withValues(alpha: 0.3),
             thumbColor: Color(selectedMood.colorValue),
             thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 16),
             overlayColor: Color(selectedMood.colorValue).withValues(alpha: 0.2),
