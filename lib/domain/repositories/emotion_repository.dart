@@ -1,8 +1,9 @@
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 
 abstract class EmotionRepository {
-  Future<List<Emotion>> getAllEmotions();
-  Future<Emotion> createEmotion(String name);
-  Future<void> deleteEmotion(int id);
-  Future<Emotion?> getEmotionByName(String name);
+  Future<Result<List<Emotion>>> getAllEmotions();
+  Future<Result<Emotion>> createEmotion(String name);
+  Future<Result<void>> deleteEmotion(int id);
+  Future<Result<Emotion?>> getEmotionByName(String name);
 }

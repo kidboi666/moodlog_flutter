@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 
 class Avatar extends StatelessWidget {
@@ -7,24 +6,17 @@ class Avatar extends StatelessWidget {
   final double size;
   final VoidCallback? onTap;
 
-  const Avatar({
-    super.key,
-    this.photoUrl,
-    this.size = Spacing.lg * 2,
-    this.onTap,
-  });
+  const Avatar({super.key, this.photoUrl, this.size = 32, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return InkResponse(
       onTap: onTap,
       containedInkWell: true,
       borderRadius: BorderRadius.circular(size / 2),
       child: CircleAvatar(
         radius: size / 2,
-        backgroundColor: colorScheme.primaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         child: photoUrl != null && photoUrl!.isNotEmpty
             ? ClipOval(
                 child: Image.network(

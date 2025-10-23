@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
-import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
+import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 
 class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
-  final SettingsRepository _settingsRepository;
+  final SettingsUseCase _settingsUseCase;
   final GeminiUseCase _geminiUseCase;
 
   AppStateProvider({
-    required SettingsRepository settingsRepository,
+    required SettingsUseCase settingsUseCase,
     required GeminiUseCase geminiUseCase,
-  }) : _settingsRepository = settingsRepository,
+  }) : _settingsUseCase = settingsUseCase,
        _geminiUseCase = geminiUseCase;
 
   Settings _appState = const Settings();
@@ -23,7 +23,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
   Future<void> loadSettings() async {
     setLoading();
     try {
-      _appState = await _settingsRepository.loadSettings();
+      _appState = await _settingsUseCase.loadSettings();
       await _geminiUseCase.initialize(_appState.aiPersonality);
       setSuccess();
     } catch (e) {
@@ -35,7 +35,7 @@ class AppStateProvider extends ChangeNotifier with AsyncStateMixin {
     setLoading();
     try {
       final oldPersonality = _appState.aiPersonality;
-      _appState = await _settingsRepository.updateSettings(settings);
+      _appState = await _settingsUseCase.updateSettings(settings);
       if (oldPersonality != _appState.aiPersonality) {
         await _geminiUseCase.initialize(_appState.aiPersonality);
       }

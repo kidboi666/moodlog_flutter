@@ -39,9 +39,7 @@ class TimelineList extends StatelessWidget {
     }
 
     return ListView.builder(
-      padding: isCompact
-          ? const EdgeInsets.symmetric(horizontal: Spacing.md)
-          : EdgeInsets.zero,
+      padding: isCompact ? CommonPadding.horizontalMd : EdgeInsets.zero,
       itemCount: entries.length,
       itemBuilder: (context, index) {
         final entry = entries[index];
@@ -97,7 +95,7 @@ class TimelineList extends StatelessWidget {
           borderRadius: BorderRadius.circular(Roundness.card),
         ),
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+        padding: CommonPadding.horizontalXl,
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       confirmDismiss: (direction) async {
@@ -131,12 +129,10 @@ class TimelineList extends StatelessWidget {
         isSelectable: isSelectionMode,
         isSelected: selectedJournalIds.contains(entry.id),
         onTap: isSelectionMode
-            ? () => context
-                  .read<HomeViewModel>()
-                  .toggleJournalSelection(entry.id)
+            ? () =>
+                  context.read<HomeViewModel>().toggleJournalSelection(entry.id)
             : () => context.pushToJournalFromHome(entry.id),
-        onLongPress: () =>
-            context.read<HomeViewModel>().toggleSelectionMode(),
+        onLongPress: () => context.read<HomeViewModel>().toggleSelectionMode(),
       ),
     );
   }

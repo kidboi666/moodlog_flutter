@@ -19,16 +19,16 @@ class EmptyEntriesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final isToday = selectedDate.isSameDay(DateTime.now());
 
     final buttonStyle = ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return colorScheme.surfaceContainer.withValues(alpha: 0.5);
+          return Theme.of(
+            context,
+          ).colorScheme.surfaceContainer.withValues(alpha: 0.5);
         }
-        return colorScheme.surfaceContainer;
+        return Theme.of(context).colorScheme.surfaceContainer;
       }),
     );
 
@@ -53,7 +53,7 @@ class EmptyEntriesBox extends StatelessWidget {
         radius: const Radius.circular(24),
         dashPattern: const [5, 5],
         strokeWidth: 1,
-        color: colorScheme.outlineVariant,
+        color: Theme.of(context).colorScheme.outlineVariant,
       ),
       child: SizedBox(
         width: double.infinity,
@@ -71,12 +71,14 @@ class EmptyEntriesBox extends StatelessWidget {
                     Icon(
                       Icons.book_outlined,
                       size: 64,
-                      color: colorScheme.outlineVariant.withValues(alpha: 0.6),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outlineVariant.withValues(alpha: 0.6),
                     ),
                     Text(
                       t.entries_empty_box_title,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.outlineVariant,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -104,7 +106,8 @@ class EmptyEntriesBox extends StatelessWidget {
                     spacing: Spacing.sm,
                     children: [
                       buildButton(
-                        onPressed: () => context.pushToWrite(date: selectedDate),
+                        onPressed: () =>
+                            context.pushToWrite(date: selectedDate),
                         icon: Icons.calendar_today,
                         label: t.empty_box_write_for_selected_date(
                           selectedDate.formattedLocalizedFullDate(t),
@@ -116,7 +119,8 @@ class EmptyEntriesBox extends StatelessWidget {
                         label: t.empty_box_write_for_today,
                       ),
                       buildButton(
-                        onPressed: () => context.pushToCheckIn(date: selectedDate),
+                        onPressed: () =>
+                            context.pushToCheckIn(date: selectedDate),
                         icon: Icons.mood,
                         label: t.entries_empty_box_check_in_button,
                       ),

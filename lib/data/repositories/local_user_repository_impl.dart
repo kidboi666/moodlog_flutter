@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/local_user_repository.dart';
@@ -16,11 +17,11 @@ class LocalUserRepositoryImpl implements LocalUserRepository {
   final Logger _log = Logger('LocalUserRepositoryImpl');
 
   @override
-  Future<LocalUser?> getUser() async {
+  Future<Result<LocalUser?>> getUser() async {
     try {
       final userId = await _prefs.getString(PreferenceKeys.localUserId);
       if (userId == null) {
-        return null;
+        return Result.ok(null);
       }
 
       final nickname = await _prefs.getString(PreferenceKeys.localUserNickname);
@@ -32,25 +33,27 @@ class LocalUserRepositoryImpl implements LocalUserRepository {
       );
 
       if (nickname == null || createdAtStr == null) {
-        return null;
+        return Result.ok(null);
       }
 
       final createdAt = DateTime.parse(createdAtStr);
 
-      return LocalUser(
-        userId: userId,
-        nickname: nickname,
-        profileImagePath: profileImage,
-        createdAt: createdAt,
+      return Result.ok(
+        LocalUser(
+          userId: userId,
+          nickname: nickname,
+          profileImagePath: profileImage,
+          createdAt: createdAt,
+        ),
       );
-    } catch (e) {
-      _log.severe('Failed to get user: $e');
-      return null;
+    } catch (e, s) {
+      _log.severe('Failed to get user', e, s);
+      return Result.error(Exception('Failed to get user: $e'));
     }
   }
 
   @override
-  Future<LocalUser> createUser({required String nickname}) async {
+  Future<Result<LocalUser>> createUser({required String nickname}) async {
     try {
       final userId = _generateUserId();
       final createdAt = DateTime.now();
@@ -64,19 +67,21 @@ class LocalUserRepositoryImpl implements LocalUserRepository {
 
       _log.info('Created local user with ID: $userId');
 
-      return LocalUser(
-        userId: userId,
-        nickname: nickname,
-        createdAt: createdAt,
+      return Result.ok(
+        LocalUser(
+          userId: userId,
+          nickname: nickname,
+          createdAt: createdAt,
+        ),
       );
-    } catch (e) {
-      _log.severe('Failed to create user: $e');
-      rethrow;
+    } catch (e, s) {
+      _log.severe('Failed to create user', e, s);
+      return Result.error(Exception('Failed to create user: $e'));
     }
   }
 
   @override
-  Future<void> updateUser(LocalUser user) async {
+  Future<Result<void>> updateUser(LocalUser user) async {
     try {
       await _prefs.setString(PreferenceKeys.localUserId, user.userId);
       await _prefs.setString(PreferenceKeys.localUserNickname, user.nickname);
@@ -95,14 +100,15 @@ class LocalUserRepositoryImpl implements LocalUserRepository {
       }
 
       _log.info('Updated user: ${user.userId}');
-    } catch (e) {
-      _log.severe('Failed to update user: $e');
-      rethrow;
+      return Result.ok(null);
+    } catch (e, s) {
+      _log.severe('Failed to update user', e, s);
+      return Result.error(Exception('Failed to update user: $e'));
     }
   }
 
   @override
-  Future<void> deleteAllData() async {
+  Future<Result<void>> deleteAllData() async {
     try {
       await _prefs.remove(PreferenceKeys.localUserId);
       await _prefs.remove(PreferenceKeys.localUserNickname);
@@ -110,9 +116,10 @@ class LocalUserRepositoryImpl implements LocalUserRepository {
       await _prefs.remove(PreferenceKeys.localUserCreatedAt);
 
       _log.info('Deleted all local user data');
-    } catch (e) {
-      _log.severe('Failed to delete user data: $e');
-      rethrow;
+      return Result.ok(null);
+    } catch (e, s) {
+      _log.severe('Failed to delete user data', e, s);
+      return Result.error(Exception('Failed to delete user data: $e'));
     }
   }
 

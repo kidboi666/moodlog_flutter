@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/utils/result.dart';
+import 'package:moodlog/data/data_source/local/activity_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/check_in_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
-import 'package:moodlog/data/data_source/local/activity_local_data_source.dart';
+import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
-import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/models/create_check_in_request.dart';
 import 'package:moodlog/domain/models/update_check_in_request.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';
@@ -41,7 +41,10 @@ class CheckInRepositoryImpl implements CheckInRepository {
         final tagIds = await _tagLocalDataSource.getOrCreateActivities(
           request.activityNames!,
         );
-        await _checkInLocalDataSource.updateCheckInActivities(checkInId, tagIds);
+        await _checkInLocalDataSource.updateCheckInActivities(
+          checkInId,
+          tagIds,
+        );
       }
 
       if (request.emotionNames != null && request.emotionNames!.isNotEmpty) {
@@ -77,7 +80,10 @@ class CheckInRepositoryImpl implements CheckInRepository {
           final tagIds = await _tagLocalDataSource.getOrCreateActivities(
             request.activityNames!,
           );
-          await _checkInLocalDataSource.updateCheckInActivities(request.id, tagIds);
+          await _checkInLocalDataSource.updateCheckInActivities(
+            request.id,
+            tagIds,
+          );
         }
       }
 

@@ -6,23 +6,27 @@ import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/data/repositories/activity_repository_impl.dart';
+import 'package:moodlog/data/repositories/ai_analysis_repository_impl.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/data/repositories/check_in_repository_impl.dart';
 import 'package:moodlog/data/repositories/emotion_repository_impl.dart';
 import 'package:moodlog/data/repositories/gemini_repository_impl.dart';
 import 'package:moodlog/data/repositories/image_repository_impl.dart';
 import 'package:moodlog/data/repositories/journal_repository_impl.dart';
+import 'package:moodlog/data/repositories/local_backup_repository_impl.dart';
 import 'package:moodlog/data/repositories/local_user_repository_impl.dart';
 import 'package:moodlog/data/repositories/location_repository_impl.dart';
 import 'package:moodlog/data/repositories/settings_repository_impl.dart';
 import 'package:moodlog/data/repositories/weather_repository_impl.dart';
 import 'package:moodlog/domain/repositories/activity_repository.dart';
+import 'package:moodlog/domain/repositories/ai_analysis_repository.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';
 import 'package:moodlog/domain/repositories/emotion_repository.dart';
 import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/image_repository.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
+import 'package:moodlog/domain/repositories/local_backup_repository.dart';
 import 'package:moodlog/domain/repositories/local_user_repository.dart';
 import 'package:moodlog/domain/repositories/location_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
@@ -31,8 +35,11 @@ import 'package:moodlog/domain/use_cases/activity_use_case.dart';
 import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/emotion_use_case.dart';
 import 'package:moodlog/domain/use_cases/gemini_use_case.dart';
+import 'package:moodlog/domain/use_cases/get_ai_analysis_report_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
+import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
+import 'package:moodlog/domain/use_cases/local_user_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
 import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -128,6 +135,21 @@ List<SingleChildWidget> _createRepositories() {
     Provider<WeatherRepository>(create: (_) => WeatherRepositoryImpl()),
     Provider<ImageRepository>(create: (_) => ImageRepositoryImpl()),
     Provider<AnalyticsRepository>(create: (_) => AnalyticsRepositoryImpl()),
+    Provider<LocalBackupRepository>(
+      create: (context) => LocalBackupRepositoryImpl(
+        journalRepository: context.read(),
+        tagRepository: context.read(),
+        localUserRepository: context.read(),
+        settingsRepository: context.read(),
+        database: context.read(),
+      ),
+    ),
+    Provider<AiAnalysisRepository>(
+      create: (context) => AiAnalysisRepositoryImpl(
+        journalRepository: context.read(),
+        geminiRepository: context.read(),
+      ),
+    ),
   ];
 }
 
@@ -135,13 +157,13 @@ List<SingleChildWidget> _createStateProviders() {
   return [
     ChangeNotifierProvider<AppStateProvider>(
       create: (context) => AppStateProvider(
-        settingsRepository: context.read(),
+        settingsUseCase: context.read(),
         geminiUseCase: context.read(),
       ),
       lazy: false,
     ),
     ChangeNotifierProvider<UserProvider>(
-      create: (context) => UserProvider(localUserRepository: context.read()),
+      create: (context) => UserProvider(localUserUseCase: context.read()),
     ),
     ChangeNotifierProvider<AiGenerationProvider>(
       create: (context) => AiGenerationProvider(),
@@ -187,6 +209,18 @@ List<SingleChildWidget> _createUseCases() {
     ),
     Provider<EmotionUseCase>(
       create: (context) => EmotionUseCase(context.read()),
+    ),
+    Provider<LocalBackupUseCase>(
+      create: (context) =>
+          LocalBackupUseCase(localBackupRepository: context.read()),
+    ),
+    Provider<GetAiAnalysisReportUseCase>(
+      create: (context) =>
+          GetAiAnalysisReportUseCase(context.read<AiAnalysisRepository>()),
+    ),
+    Provider<LocalUserUseCase>(
+      create: (context) =>
+          LocalUserUseCase(localUserRepository: context.read()),
     ),
   ];
 }

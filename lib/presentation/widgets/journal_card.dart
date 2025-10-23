@@ -51,10 +51,13 @@ class JournalCard extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: ColorScheme.of(context).surfaceContainer,
+          color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
           border: isSelected
-              ? Border.all(color: ColorScheme.of(context).primary, width: 2)
+              ? Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                )
               : null,
         ),
         child: Stack(
@@ -76,11 +79,13 @@ class JournalCard extends StatelessWidget {
                           Container(
                             width: Spacing.sm,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(Roundness.card),
+                              borderRadius: BorderRadius.circular(
+                                Roundness.card,
+                              ),
                               color: Color(moodType!.colorValue),
                             ),
                           ),
-                          const SizedBox(width: Spacing.lg),
+                          CommonSizedBox.widthLg,
                         ],
 
                         // Content section
@@ -133,14 +138,15 @@ class JournalCard extends StatelessWidget {
       spacing: Spacing.sm,
       runSpacing: Spacing.sm,
       children: tags
-          .map((activity) => ActivityChip(activity: activity, isCompact: isCompact))
+          .map(
+            (activity) =>
+                ActivityChip(activity: activity, isCompact: isCompact),
+          )
           .toList(),
     );
   }
 
   Widget _buildCoverImage(BuildContext context, double height) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Image.file(
       File(coverImg!),
       height: height,
@@ -151,7 +157,7 @@ class JournalCard extends StatelessWidget {
           height: height,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(Roundness.xs),
           ),
           child: Column(
@@ -159,14 +165,14 @@ class JournalCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.image_not_supported_outlined,
-                color: colorScheme.outline,
+                color: Theme.of(context).colorScheme.outline,
                 size: isCompact ? 24 : 32,
               ),
-              const SizedBox(height: 4),
+              CommonSizedBox.heightXs,
               Text(
                 'Image not found',
                 style: TextStyle(
-                  color: colorScheme.outline,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: isCompact ? 10 : 12,
                 ),
               ),

@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/mixins/step_mixin.dart';
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/app/settings.dart';
-import 'package:moodlog/domain/repositories/local_user_repository.dart';
+import 'package:moodlog/domain/use_cases/local_user_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class OnboardingViewModel extends ChangeNotifier
     with StepMixin, AsyncStateMixin {
   final AppStateProvider _appStateProvider;
-  final LocalUserRepository _localUserRepository;
+  final LocalUserUseCase _localUserUseCase;
   final UserProvider _userProvider;
 
   OnboardingViewModel({
     required int totalSteps,
     required AppStateProvider appStateProvider,
-    required LocalUserRepository localUserRepository,
+    required LocalUserUseCase localUserUseCase,
     required UserProvider userProvider,
   }) : _appStateProvider = appStateProvider,
-       _localUserRepository = localUserRepository,
+       _localUserUseCase = localUserUseCase,
        _userProvider = userProvider,
        _selectedPersonality = AiPersonality.balanced {
     initStep(totalSteps);
@@ -52,24 +53,22 @@ class OnboardingViewModel extends ChangeNotifier
 
   Future<void> completeOnboarding() async {
     setLoading();
-    try {
-      // 로컬 사용자 생성
-      await _localUserRepository.createUser(nickname: _nickname);
 
-      // UserProvider 갱신
-      await _userProvider.refresh();
+    final result = await _localUserUseCase.createUser(nickname: _nickname);
+    switch (result) {
+      case Ok():
+        await _userProvider.refresh();
 
-      // 온보딩 완료 플래그 저장
-      final updatedSettings = appState.copyWith(
-        isOnboardingComplete: true,
-        aiPersonality: selectedPersonality,
-      );
+        final updatedSettings = appState.copyWith(
+          isOnboardingComplete: true,
+          aiPersonality: selectedPersonality,
+        );
 
-      await _appStateProvider.update(updatedSettings);
-      setSuccess();
-    } catch (e) {
-      debugPrint('Failed to complete onboarding $e');
-      setError(e);
+        await _appStateProvider.update(updatedSettings);
+        setSuccess();
+      case Error():
+        debugPrint('Failed to complete onboarding: ${result.error}');
+        setError(result.error);
     }
   }
 }

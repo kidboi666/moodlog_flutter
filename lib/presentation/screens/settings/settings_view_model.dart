@@ -7,15 +7,15 @@ import 'package:moodlog/domain/entities/font/font_type.dart';
 import 'package:moodlog/domain/entities/journal/activity.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
-import 'package:moodlog/domain/repositories/settings_repository.dart';
-import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
 import 'package:moodlog/domain/use_cases/activity_use_case.dart';
+import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
+import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   final AppStateProvider _appStateProvider;
-  final SettingsRepository _settingsRepository;
+  final SettingsUseCase _settingsUseCase;
   final UserProvider _userProvider;
   final ActivityUseCase _tagUseCase;
   final AnalyticsRepository _analyticsRepository;
@@ -23,13 +23,13 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
 
   SettingsViewModel({
     required AppStateProvider appStateProvider,
-    required SettingsRepository settingsRepository,
+    required SettingsUseCase settingsUseCase,
     required UserProvider userProvider,
     required ActivityUseCase tagUseCase,
     required AnalyticsRepository analyticsRepository,
     required LocalBackupUseCase localBackupUseCase,
   }) : _appStateProvider = appStateProvider,
-       _settingsRepository = settingsRepository,
+       _settingsUseCase = settingsUseCase,
        _userProvider = userProvider,
        _tagUseCase = tagUseCase,
        _analyticsRepository = analyticsRepository,
@@ -156,15 +156,15 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> deletePin() async {
-    await _settingsRepository.deletePin();
+    await _settingsUseCase.deletePin();
   }
 
   Future<bool> verifyPin(String pin) async {
-    return await _settingsRepository.verifyPin(pin);
+    return await _settingsUseCase.verifyPin(pin);
   }
 
   Future<void> savePin(String pin) async {
-    await _settingsRepository.savePin(pin);
+    await _settingsUseCase.savePin(pin);
   }
 
   Future<void> _updateSettings(
@@ -183,7 +183,7 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   void clearSharedPreferences() {
-    _settingsRepository.clearSharedPreferences();
+    _settingsUseCase.clearSharedPreferences();
     notifyListeners();
   }
 

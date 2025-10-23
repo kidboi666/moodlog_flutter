@@ -3,8 +3,8 @@ import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
-import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/domain/entities/journal/emotion.dart';
 
 class CheckInCard extends StatelessWidget {
   final int id;
@@ -53,9 +53,7 @@ class CheckInCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final l10n = AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: onTap,
@@ -64,10 +62,13 @@ class CheckInCard extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainer,
+          color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(Roundness.card),
           border: isSelected
-              ? Border.all(color: colorScheme.primary, width: 2)
+              ? Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                )
               : null,
         ),
         child: Stack(
@@ -126,22 +127,30 @@ class CheckInCard extends StatelessWidget {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: colorScheme.surfaceContainerHighest,
-                                  borderRadius: BorderRadius.circular(Roundness.xs),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainerHighest,
+                                  borderRadius: BorderRadius.circular(
+                                    Roundness.xs,
+                                  ),
                                 ),
                                 child: Text(
                                   tag.name,
-                                  style: textTheme.labelSmall,
+                                  style: Theme.of(context).textTheme.labelSmall,
                                 ),
                               );
                             }).toList(),
                           )
                         else
                           Text(
-                            l10n.check_in_activities_empty,
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
-                            ),
+                            t.check_in_activities_empty,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant
+                                      .withValues(alpha: 0.5),
+                                ),
                           ),
 
                         // Emotions
@@ -149,18 +158,25 @@ class CheckInCard extends StatelessWidget {
                         if (emotions != null && emotions!.isNotEmpty)
                           Text(
                             emotions!.take(3).map((e) => e.name).join(', '),
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           )
                         else
                           Text(
-                            l10n.check_in_emotions_empty,
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
-                            ),
+                            t.check_in_emotions_empty,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant
+                                      .withValues(alpha: 0.5),
+                                ),
                           ),
 
                         // Memo preview
@@ -168,7 +184,7 @@ class CheckInCard extends StatelessWidget {
                           CommonSizedBox.heightXs,
                           Text(
                             memo!,
-                            style: textTheme.bodySmall,
+                            style: Theme.of(context).textTheme.bodySmall,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),

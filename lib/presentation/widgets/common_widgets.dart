@@ -10,9 +10,6 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -22,15 +19,15 @@ class LoadingWidget extends StatelessWidget {
             height: size ?? 32,
             child: CircularProgressIndicator(
               strokeWidth: 3,
-              color: colorScheme.primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           if (message != null) ...[
             CommonSizedBox.heightMd,
             Text(
               message!,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),
@@ -58,9 +55,6 @@ class EmptyStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Center(
       child: Padding(
         padding: CommonPadding.xl,
@@ -70,13 +64,15 @@ class EmptyStateWidget extends StatelessWidget {
             Icon(
               icon,
               size: 64,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
             ),
             CommonSizedBox.heightLg,
             Text(
               title,
-              style: textTheme.titleMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),
@@ -84,8 +80,8 @@ class EmptyStateWidget extends StatelessWidget {
               CommonSizedBox.heightSm,
               Text(
                 subtitle!,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 textAlign: TextAlign.center,
               ),

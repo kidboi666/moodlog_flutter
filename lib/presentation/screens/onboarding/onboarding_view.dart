@@ -18,7 +18,7 @@ class OnboardingScreen extends StatelessWidget {
       create: (context) => OnboardingViewModel(
         totalSteps: 3,
         appStateProvider: context.read(),
-        localUserRepository: context.read(),
+        localUserUseCase: context.read(),
         userProvider: context.read(),
       ),
       child: _OnboardingScreenContent(),

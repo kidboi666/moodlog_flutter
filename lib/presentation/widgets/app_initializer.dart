@@ -6,7 +6,6 @@ import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:provider/provider.dart';
 
-/// A widget that handles asynchronous initialization before building the main app.
 class AppInitializer extends StatefulWidget {
   const AppInitializer({
     super.key,
@@ -27,8 +26,6 @@ class _AppInitializerState extends State<AppInitializer> {
   @override
   void initState() {
     super.initState();
-    // Use addPostFrameCallback to ensure the first build is complete
-    // before starting any async work that might update the state.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeApp();
     });
@@ -55,14 +52,9 @@ class _AppInitializerState extends State<AppInitializer> {
   @override
   Widget build(BuildContext context) {
     if (!_isInitialized) {
-      // While initializing, the native splash screen is visible.
-      // We return a container with the splash screen's background color
-      // to prevent a flicker when the native splash screen disappears.
       return Container(color: const Color(0xFFFFFFFF));
     }
 
-    // Once initialized, remove splash and build the main app.
-    // Use addPostFrameCallback to ensure the new screen is ready before removing splash
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
     });

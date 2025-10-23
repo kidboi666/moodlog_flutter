@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
-import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/domain/entities/journal/check_in.dart';
-import 'package:moodlog/domain/repositories/check_in_repository.dart';
+import 'package:moodlog/domain/repositories/analytics_repository.dart';
+import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/presentation/providers/user_provider.dart';
 
 class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
-  final CheckInRepository _checkInRepository;
+  final CheckInUseCase _checkInUseCase;
   final UserProvider _userProvider;
+  final AnalyticsRepository _analyticsRepository;
 
   StatisticsViewModel({
-    required CheckInRepository checkInRepository,
+    required CheckInUseCase checkInUseCase,
     required UserProvider userProvider,
-  })  : _checkInRepository = checkInRepository,
-        _userProvider = userProvider {
+    required AnalyticsRepository analyticsRepository,
+  }) : _checkInUseCase = checkInUseCase,
+       _userProvider = userProvider,
+       _analyticsRepository = analyticsRepository {
     _loadStatistics();
   }
 
@@ -56,19 +59,37 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   List<CheckIn> get weeklyCheckInsList {
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 6));
-    final startOfDay = DateTime(sevenDaysAgo.year, sevenDaysAgo.month, sevenDaysAgo.day);
-    return _allCheckIns.where((checkIn) => checkIn.createdAt.isAfter(startOfDay) || checkIn.createdAt.isAtSameMomentAs(startOfDay)).toList();
+    final startOfDay = DateTime(
+      sevenDaysAgo.year,
+      sevenDaysAgo.month,
+      sevenDaysAgo.day,
+    );
+    return _allCheckIns
+        .where(
+          (checkIn) =>
+              checkIn.createdAt.isAfter(startOfDay) ||
+              checkIn.createdAt.isAtSameMomentAs(startOfDay),
+        )
+        .toList();
   }
 
   List<CheckIn> get monthlyCheckInsList {
     final now = DateTime.now();
     final firstDayOfMonth = DateTime(now.year, now.month, 1);
-    return _allCheckIns.where((checkIn) => checkIn.createdAt.isAfter(firstDayOfMonth) || checkIn.createdAt.isAtSameMomentAs(firstDayOfMonth)).toList();
+    return _allCheckIns
+        .where(
+          (checkIn) =>
+              checkIn.createdAt.isAfter(firstDayOfMonth) ||
+              checkIn.createdAt.isAtSameMomentAs(firstDayOfMonth),
+        )
+        .toList();
   }
 
   List<CheckIn> get yearlyCheckInsList {
     final now = DateTime.now();
-    return _allCheckIns.where((checkIn) => checkIn.createdAt.year == now.year).toList();
+    return _allCheckIns
+        .where((checkIn) => checkIn.createdAt.year == now.year)
+        .toList();
   }
 
   double get weeklyAverageMood {
@@ -109,7 +130,8 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         emotionCounts[emotion] = (emotionCounts[emotion] ?? 0) + 1;
       }
     }
-    final sorted = emotionCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    final sorted = emotionCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
     return sorted.take(5).map((e) => e.key).toList();
   }
 
@@ -117,7 +139,11 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     final checkIns = monthlyCheckInsList;
     final uniqueDays = <DateTime>{};
     for (var checkIn in checkIns) {
-      final date = DateTime(checkIn.createdAt.year, checkIn.createdAt.month, checkIn.createdAt.day);
+      final date = DateTime(
+        checkIn.createdAt.year,
+        checkIn.createdAt.month,
+        checkIn.createdAt.day,
+      );
       uniqueDays.add(date);
     }
     return uniqueDays.length;
@@ -130,14 +156,20 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   int get monthlyCurrentStreak {
-    final checkIns = monthlyCheckInsList.sorted((a, b) => a.createdAt.compareTo(b.createdAt));
+    final checkIns = monthlyCheckInsList.sorted(
+      (a, b) => a.createdAt.compareTo(b.createdAt),
+    );
     if (checkIns.isEmpty) return 0;
 
     int streak = 0;
     DateTime? lastDate;
 
     for (var checkIn in checkIns) {
-      final checkInDate = DateTime(checkIn.createdAt.year, checkIn.createdAt.month, checkIn.createdAt.day);
+      final checkInDate = DateTime(
+        checkIn.createdAt.year,
+        checkIn.createdAt.month,
+        checkIn.createdAt.day,
+      );
       if (lastDate == null) {
         streak = 1;
       } else {
@@ -158,7 +190,8 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     final now = DateTime.now();
     final lastMonth = DateTime(now.year, now.month - 1, 1);
     final lastMonthCheckIns = _allCheckIns.where((checkIn) {
-      return checkIn.createdAt.year == lastMonth.year && checkIn.createdAt.month == lastMonth.month;
+      return checkIn.createdAt.year == lastMonth.year &&
+          checkIn.createdAt.month == lastMonth.month;
     }).toList();
 
     if (lastMonthCheckIns.isEmpty) return 0;
@@ -186,7 +219,8 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
       }
     }
-    final sorted = activityCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    final sorted = activityCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
     return sorted.take(10).map((e) => e.key).toList();
   }
 
@@ -220,14 +254,18 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   String get yearlyBestMonth {
     final monthlyAverages = yearlyMonthlyAverages;
     if (monthlyAverages.isEmpty) return '';
-    final bestMonth = monthlyAverages.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    final bestMonth = monthlyAverages.entries
+        .reduce((a, b) => a.value > b.value ? a : b)
+        .key;
     return '$bestMonth';
   }
 
   String get yearlyWorstMonth {
     final monthlyAverages = yearlyMonthlyAverages;
     if (monthlyAverages.isEmpty) return '';
-    final worstMonth = monthlyAverages.entries.reduce((a, b) => a.value < b.value ? a : b).key;
+    final worstMonth = monthlyAverages.entries
+        .reduce((a, b) => a.value < b.value ? a : b)
+        .key;
     return '$worstMonth';
   }
 
@@ -273,14 +311,15 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
         activityCounts[activity] = (activityCounts[activity] ?? 0) + 1;
       }
     }
-    final sorted = activityCounts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    final sorted = activityCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
     return sorted.take(20).map((e) => e.key).toList();
   }
 
   Future<void> _loadStatistics() async {
     setLoading();
 
-    final result = await _checkInRepository.getAllCheckIns();
+    final result = await _checkInUseCase.getAllCheckIns();
     switch (result) {
       case Ok<List<CheckIn>>():
         _allCheckIns = result.value;
@@ -296,7 +335,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
             .take(5)
             .toList();
 
-        AnalyticsRepositoryImpl().logMoodView(
+        _analyticsRepository.logMoodView(
           viewType: 'statistics',
           period: 'all_time',
         );
@@ -411,7 +450,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
   }
 
   Future<void> _loadRecentCheckInsAndRepresentativeMood() async {
-    final result = await _checkInRepository.getAllCheckIns();
+    final result = await _checkInUseCase.getAllCheckIns();
 
     switch (result) {
       case Ok<List<CheckIn>>():
@@ -492,7 +531,7 @@ class StatisticsViewModel extends ChangeNotifier with AsyncStateMixin {
     final now = DateTime.now();
     _yearlyCheckIns.clear();
 
-    final result = await _checkInRepository.getAllCheckIns();
+    final result = await _checkInUseCase.getAllCheckIns();
     switch (result) {
       case Ok<List<CheckIn>>():
         for (final checkIn in result.value) {

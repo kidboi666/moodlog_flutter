@@ -58,9 +58,17 @@ class ActivityRepositoryImpl implements ActivityRepository {
   }
 
   @override
-  Future<Result<void>> updateActivity(int id, String name, String? color) async {
+  Future<Result<void>> updateActivity(
+    int id,
+    String name,
+    String? color,
+  ) async {
     try {
-      final affectedRows = await _localDataSource.updateActivity(id, name, color);
+      final affectedRows = await _localDataSource.updateActivity(
+        id,
+        name,
+        color,
+      );
 
       if (affectedRows == 0) {
         return Result.error(Exception('존재하지 않는 태그입니다'));
@@ -91,7 +99,6 @@ class ActivityRepositoryImpl implements ActivityRepository {
       return Result.ok(null);
     } on SqliteException catch (e) {
       if (e.extendedResultCode == 787) {
-        // FOREIGN KEY constraint failed
         return Result.error(Exception('사용 중인 태그는 삭제할 수 없습니다'));
       }
 

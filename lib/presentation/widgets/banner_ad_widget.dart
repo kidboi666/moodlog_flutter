@@ -12,8 +12,8 @@ class BannerAdWidget extends StatefulWidget {
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   BannerAd? _bannerAd;
-
   bool _isBannerAdReady = false;
+  final double _bannerHeight = 50.0;
 
   void _loadBannerAd() {
     _bannerAd ??= BannerAd(
@@ -44,8 +44,11 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   @override
   Widget build(BuildContext context) {
     return _isBannerAdReady
-        ? SizedBox(height: 50, child: AdWidget(ad: _bannerAd!))
-        : const Skeleton(height: 50);
+        ? SizedBox(
+            height: _bannerHeight,
+            child: AdWidget(ad: _bannerAd!),
+          )
+        : Skeleton(height: _bannerHeight);
   }
 
   @override

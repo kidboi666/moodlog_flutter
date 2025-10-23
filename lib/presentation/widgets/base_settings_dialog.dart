@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/presentation/screens/settings/settings_view_model.dart';
 
 class BaseSettingsDialog extends StatelessWidget {
@@ -27,7 +28,7 @@ class BaseSettingsDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const CircularProgressIndicator(),
-                const SizedBox(height: 16),
+                CommonSizedBox.heightLg,
                 content,
               ],
             );
@@ -42,13 +43,13 @@ class BaseSettingsDialog extends StatelessWidget {
                   color: Theme.of(context).colorScheme.error,
                   size: 48,
                 ),
-                const SizedBox(height: 8),
+                CommonSizedBox.heightSm,
                 Text(
                   'Error: ${viewModel.error}',
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 16),
+                CommonSizedBox.heightLg,
                 content,
               ],
             );

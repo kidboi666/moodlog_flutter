@@ -28,8 +28,9 @@ class StatisticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => StatisticsViewModel(
-        checkInRepository: context.read(),
+        checkInUseCase: context.read(),
         userProvider: context.read(),
+        analyticsRepository: context.read(),
       ),
       child: _StatisticsScreenContent(),
     );

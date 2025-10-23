@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
+import 'package:moodlog/core/utils/result.dart';
 import 'package:moodlog/domain/entities/user/local_user.dart';
-import 'package:moodlog/domain/repositories/local_user_repository.dart';
+import 'package:moodlog/domain/use_cases/local_user_use_case.dart';
 
 class UserProvider extends ChangeNotifier with AsyncStateMixin {
-  final LocalUserRepository _localUserRepository;
+  final LocalUserUseCase _localUserUseCase;
 
-  UserProvider({required LocalUserRepository localUserRepository})
-    : _localUserRepository = localUserRepository {
+  UserProvider({required LocalUserUseCase localUserUseCase})
+    : _localUserUseCase = localUserUseCase {
     initialize();
   }
 
@@ -20,42 +21,47 @@ class UserProvider extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> initialize() async {
     setLoading();
-    try {
-      _user = await _localUserRepository.getUser();
-      setSuccess();
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Failed to initialize user: $e');
-      setError(e);
+    final result = await _localUserUseCase.getUser();
+    switch (result) {
+      case Ok<LocalUser?>():
+        _user = result.value;
+        setSuccess();
+        notifyListeners();
+      case Error<LocalUser?>():
+        debugPrint('Failed to initialize user: ${result.error}');
+        setError(result.error);
     }
   }
 
   Future<void> refresh() async {
-    try {
-      _user = await _localUserRepository.getUser();
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Failed to refresh user: $e');
+    final result = await _localUserUseCase.getUser();
+    switch (result) {
+      case Ok<LocalUser?>():
+        _user = result.value;
+        notifyListeners();
+      case Error<LocalUser?>():
+        debugPrint('Failed to refresh user: ${result.error}');
     }
   }
 
   Future<void> updateNickname(String newNickname) async {
     if (_user == null) return;
 
-    try {
-      final updatedUser = LocalUser(
-        userId: _user!.userId,
-        nickname: newNickname,
-        profileImagePath: _user!.profileImagePath,
-        createdAt: _user!.createdAt,
-      );
+    final updatedUser = LocalUser(
+      userId: _user!.userId,
+      nickname: newNickname,
+      profileImagePath: _user!.profileImagePath,
+      createdAt: _user!.createdAt,
+    );
 
-      await _localUserRepository.updateUser(updatedUser);
-      _user = updatedUser;
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Failed to update nickname: $e');
-      rethrow;
+    final result = await _localUserUseCase.updateUser(updatedUser);
+    switch (result) {
+      case Ok<void>():
+        _user = updatedUser;
+        notifyListeners();
+      case Error<void>():
+        debugPrint('Failed to update nickname: ${result.error}');
+        throw result.error;
     }
   }
 }

@@ -94,7 +94,12 @@ class LocalBackupRepositoryImpl implements LocalBackupRepository {
   @override
   Future<BackupData> createBackupData() async {
     try {
-      final user = await _localUserRepository.getUser();
+      final userResult = await _localUserRepository.getUser();
+      final user = switch (userResult) {
+        Ok() => userResult.value,
+        Error() => throw Exception('Failed to get user: ${userResult.error}'),
+      };
+
       if (user == null) {
         throw Exception('User not found');
       }

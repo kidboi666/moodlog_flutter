@@ -25,13 +25,13 @@ class BaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final effectiveTitleColor = titleColor ?? colorScheme.primary;
-    final effectiveIconColor = iconColor ?? colorScheme.primary;
+    final effectiveTitleColor =
+        titleColor ?? Theme.of(context).colorScheme.primary;
+    final effectiveIconColor =
+        iconColor ?? Theme.of(context).colorScheme.primary;
     final effectiveBackgroundColor =
-        backgroundColor ?? colorScheme.surfaceContainer;
-    final effectivePadding = padding ?? const EdgeInsets.all(Spacing.lg);
+        backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer;
+    final effectivePadding = padding ?? CommonPadding.lg;
 
     return Container(
       decoration: BoxDecoration(
@@ -46,18 +46,18 @@ class BaseCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(icon, color: effectiveIconColor, size: 20),
-                  const SizedBox(width: Spacing.sm),
+                  CommonSizedBox.widthSm,
                   Expanded(
                     child: Text(
                       title,
-                      style: textTheme.titleMedium?.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: effectiveTitleColor,
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: Spacing.lg),
+              CommonSizedBox.heightLg,
             ],
             child,
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 
 /// 에러를 표시하는 공통 다이얼로그
@@ -24,27 +25,31 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     return AlertDialog(
-      icon: Icon(Icons.error_outline, color: colorScheme.error, size: 32),
+      icon: Icon(
+        Icons.error_outline,
+        color: Theme.of(context).colorScheme.error,
+        size: 32,
+      ),
       title: Text(
         title,
-        style: textTheme.titleLarge?.copyWith(color: colorScheme.error),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          color: Theme.of(context).colorScheme.error,
+        ),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(message, style: textTheme.bodyMedium),
+          Text(message, style: Theme.of(context).textTheme.bodyMedium),
           if (showDetails && errorDetails != null) ...[
-            const SizedBox(height: 16),
+            CommonSizedBox.heightLg,
             ExpansionTile(
               title: Text(
                 '기술적 세부사항',
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               children: [
@@ -52,14 +57,16 @@ class ErrorDialog extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     errorDetails!,
-                    style: textTheme.bodySmall?.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontFamily: 'monospace',
-                      color: colorScheme.onSurfaceVariant,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),
