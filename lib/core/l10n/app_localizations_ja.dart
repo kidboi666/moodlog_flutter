@@ -1552,6 +1552,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get check_in_edit => '編集';
 
   @override
+  String get check_in_not_found => 'チェックインが見つかりません';
+
+  @override
+  String get check_in_not_found_description => 'このチェックインは削除されたか、存在しません';
+
+  @override
   String get timeline_check_in => 'チェックイン';
 
   @override

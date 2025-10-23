@@ -71,20 +71,28 @@ class CheckInRepositoryImpl implements CheckInRepository {
       }
 
       if (request.activityNames != null) {
-        final tagIds = await _tagLocalDataSource.getOrCreateActivities(
-          request.activityNames!,
-        );
-        await _checkInLocalDataSource.updateCheckInActivities(request.id, tagIds);
+        if (request.activityNames!.isEmpty) {
+          await _checkInLocalDataSource.updateCheckInActivities(request.id, []);
+        } else {
+          final tagIds = await _tagLocalDataSource.getOrCreateActivities(
+            request.activityNames!,
+          );
+          await _checkInLocalDataSource.updateCheckInActivities(request.id, tagIds);
+        }
       }
 
       if (request.emotionNames != null) {
-        final emotionIds = await _emotionLocalDataSource.getOrCreateEmotions(
-          request.emotionNames!,
-        );
-        await _checkInLocalDataSource.updateCheckInEmotions(
-          request.id,
-          emotionIds,
-        );
+        if (request.emotionNames!.isEmpty) {
+          await _checkInLocalDataSource.updateCheckInEmotions(request.id, []);
+        } else {
+          final emotionIds = await _emotionLocalDataSource.getOrCreateEmotions(
+            request.emotionNames!,
+          );
+          await _checkInLocalDataSource.updateCheckInEmotions(
+            request.id,
+            emotionIds,
+          );
+        }
       }
 
       notifyCheckInUpdate();

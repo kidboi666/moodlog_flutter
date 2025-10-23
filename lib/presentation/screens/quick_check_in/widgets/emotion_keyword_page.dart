@@ -74,8 +74,6 @@ class EmotionKeywordPageState extends State<EmotionKeywordPage>
             },
           ),
           CommonSizedBox.heightMd,
-          const _EmotionList(),
-          CommonSizedBox.heightMd,
           const _SuggestedEmotions(),
           const Spacer(),
           Row(
@@ -102,43 +100,13 @@ class EmotionKeywordPageState extends State<EmotionKeywordPage>
   }
 }
 
-class _EmotionList extends StatelessWidget {
-  const _EmotionList();
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedEmotions = context.select(
-      (QuickCheckInViewModel vm) => vm.selectedEmotions,
-    );
-
-    if (selectedEmotions.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Wrap(
-      spacing: Spacing.xs,
-      runSpacing: Spacing.xs,
-      alignment: WrapAlignment.start,
-      children: selectedEmotions
-          .map(
-            (emotion) => Chip(
-              label: Text(emotion),
-              onDeleted: () =>
-                  context.read<QuickCheckInViewModel>().removeEmotion(emotion),
-              deleteIcon: const Icon(Icons.close, size: 16),
-            ).scale(),
-          )
-          .toList(),
-    );
-  }
-}
-
 class _SuggestedEmotions extends StatelessWidget {
   const _SuggestedEmotions();
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final selectedEmotions = context.select(
       (QuickCheckInViewModel vm) => vm.selectedEmotions,
     );
@@ -180,10 +148,16 @@ class _SuggestedEmotions extends StatelessWidget {
               return '';
           }
         })
-        .where((text) => text.isNotEmpty && !selectedEmotions.contains(text))
+        .where((text) => text.isNotEmpty)
         .toList();
 
-    if (suggestions.isEmpty) {
+    final customEmotions = selectedEmotions
+        .where((emotion) => !suggestions.contains(emotion))
+        .toList();
+
+    final allEmotions = [...customEmotions, ...suggestions];
+
+    if (allEmotions.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -191,13 +165,28 @@ class _SuggestedEmotions extends StatelessWidget {
       spacing: Spacing.xs,
       runSpacing: Spacing.xs,
       alignment: WrapAlignment.start,
-      children: suggestions
+      children: allEmotions
           .map(
-            (suggestion) => ActionChip(
-              label: Text(suggestion),
-              onPressed: () =>
-                  context.read<QuickCheckInViewModel>().addEmotion(suggestion),
-            ).scale(),
+            (emotion) {
+              final isSelected = selectedEmotions.contains(emotion);
+              return FilterChip(
+                label: Text(emotion),
+                selected: isSelected,
+                onSelected: (selected) {
+                  final viewModel = context.read<QuickCheckInViewModel>();
+                  if (selected) {
+                    viewModel.addEmotion(emotion);
+                  } else {
+                    viewModel.removeEmotion(emotion);
+                  }
+                },
+                selectedColor: colorScheme.primaryContainer,
+                checkmarkColor: colorScheme.onPrimaryContainer,
+                side: isSelected
+                    ? BorderSide(color: colorScheme.primary, width: 2)
+                    : null,
+              ).scale();
+            },
           )
           .toList(),
     );

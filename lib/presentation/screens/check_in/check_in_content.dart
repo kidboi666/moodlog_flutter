@@ -6,12 +6,43 @@ class _CheckInScreenContent extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context)!;
     final viewModel = context.read<CheckInViewModel>();
-    final (:isLoading, :checkIn) = context.select(
-      (CheckInViewModel vm) => (isLoading: vm.isLoading, checkIn: vm.checkIn),
+    final (:isLoading, :hasError, :checkIn) = context.select(
+      (CheckInViewModel vm) =>
+          (isLoading: vm.isLoading, hasError: vm.hasError, checkIn: vm.checkIn),
     );
 
-    if (isLoading || checkIn == null) {
+    if (isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (hasError || checkIn == null) {
+      return Scaffold(
+        appBar: AppBar(leading: PopButton(onTap: () => context.pop())),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 64,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              CommonSizedBox.heightLg,
+              Text(l10n.check_in_not_found, style: textTheme.titleLarge),
+              CommonSizedBox.heightMd,
+              Text(
+                l10n.check_in_not_found_description,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -28,9 +59,12 @@ class _CheckInScreenContent extends StatelessWidget {
             onSelected: (value) async {
               switch (value) {
                 case 'edit':
-                  context.push(
+                  await context.push(
                     '${Routes.quickCheckIn}?checkInId=${viewModel.id}',
                   );
+                  if (context.mounted) {
+                    await viewModel.reload();
+                  }
                   break;
                 case 'delete':
                   final shouldDelete = await showDialog<bool>(
@@ -181,7 +215,8 @@ class _CheckInScreenContent extends StatelessWidget {
     AppLocalizations l10n,
     TextTheme textTheme,
   ) {
-    final hasActivities = checkIn.activities != null && checkIn.activities!.isNotEmpty;
+    final hasActivities =
+        checkIn.activities != null && checkIn.activities!.isNotEmpty;
 
     return _buildSection(
       context,

@@ -686,6 +686,8 @@
   "check_in_delete_confirm_title": "Confirm Deletion",
   "check_in_delete_confirm_description": "Do you want to delete this check-in?",
   "check_in_edit": "Edit",
+  "check_in_not_found": "Check-in not found",
+  "check_in_not_found_description": "This check-in has been deleted or does not exist",
   "timeline_check_in": "Check In",
   "timeline_journal": "Journal",
   "suggested_activity_exercise": "Exercise",

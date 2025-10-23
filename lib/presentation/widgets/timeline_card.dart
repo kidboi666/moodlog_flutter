@@ -91,9 +91,7 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           '${t.check_in_activities}: ${checkIn.activityNames!.join(', ')}',
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface,
-          ),
+          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
         ),
       );
     }
@@ -102,9 +100,7 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface,
-          ),
+          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
         ),
       );
     }
@@ -113,9 +109,7 @@ class TimelineCard extends StatelessWidget {
       items.add(
         Text(
           '${t.check_in_sleep_quality}: ${_getSleepQualityText(context, checkIn.sleepQuality!)}',
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface,
-          ),
+          style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurface),
         ),
       );
     }
@@ -143,7 +137,7 @@ class TimelineCard extends StatelessWidget {
               color: colorScheme.onSurfaceVariant,
               size: 20,
             ),
-            const SizedBox(width: Spacing.sm),
+            CommonSizedBox.widthSm,
             Text(
               t.timeline_check_in,
               style: textTheme.titleSmall?.copyWith(
@@ -154,10 +148,10 @@ class TimelineCard extends StatelessWidget {
           ],
         ),
         if (items.isNotEmpty) ...[
-          const SizedBox(height: Spacing.sm),
+          CommonSizedBox.heightSm,
           for (int i = 0; i < items.length; i++) ...[
             items[i],
-            if (i < items.length - 1) const SizedBox(height: Spacing.xs),
+            if (i < items.length - 1) CommonSizedBox.heightXs,
           ],
         ],
       ],
@@ -173,11 +167,10 @@ class TimelineCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Journal icon
         Row(
           children: [
             Icon(Icons.edit_note, color: colorScheme.primary, size: 20),
-            const SizedBox(width: Spacing.sm),
+            CommonSizedBox.widthSm,
             Text(
               t.timeline_journal,
               style: textTheme.titleSmall?.copyWith(
@@ -187,8 +180,7 @@ class TimelineCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: Spacing.sm),
-        // Content preview
+        CommonSizedBox.heightSm,
         Text(
           journal.content,
           style: textTheme.bodyMedium,
@@ -196,7 +188,7 @@ class TimelineCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         if (journal.imageUri != null && journal.imageUri!.isNotEmpty) ...[
-          const SizedBox(height: Spacing.sm),
+          CommonSizedBox.heightSm,
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: Spacing.sm,
@@ -214,7 +206,7 @@ class TimelineCard extends StatelessWidget {
                   size: 14,
                   color: colorScheme.onSurfaceVariant,
                 ),
-                const SizedBox(width: Spacing.xs),
+                CommonSizedBox.widthXs,
                 Text(
                   '${journal.imageUri!.length}',
                   style: textTheme.bodySmall?.copyWith(

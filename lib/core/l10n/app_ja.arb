@@ -686,6 +686,8 @@
   "check_in_delete_confirm_title": "削除の確認",
   "check_in_delete_confirm_description": "このチェックインを削除しますか？",
   "check_in_edit": "編集",
+  "check_in_not_found": "チェックインが見つかりません",
+  "check_in_not_found_description": "このチェックインは削除されたか、存在しません",
   "timeline_check_in": "チェックイン",
   "timeline_journal": "日記",
   "suggested_activity_exercise": "運動",

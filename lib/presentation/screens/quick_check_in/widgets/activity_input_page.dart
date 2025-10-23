@@ -74,8 +74,6 @@ class ActivityInputPageState extends State<ActivityInputPage>
             },
           ),
           CommonSizedBox.heightMd,
-          const _TagList(),
-          CommonSizedBox.heightMd,
           const _SuggestedActivities(),
           const Spacer(),
           Row(
@@ -102,43 +100,13 @@ class ActivityInputPageState extends State<ActivityInputPage>
   }
 }
 
-class _TagList extends StatelessWidget {
-  const _TagList();
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedTags = context.select(
-      (QuickCheckInViewModel vm) => vm.selectedTags,
-    );
-
-    if (selectedTags.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Wrap(
-      spacing: Spacing.xs,
-      runSpacing: Spacing.xs,
-      alignment: WrapAlignment.start,
-      children: selectedTags
-          .map(
-            (tag) => Chip(
-              label: Text(tag),
-              onDeleted: () =>
-                  context.read<QuickCheckInViewModel>().removeTag(tag),
-              deleteIcon: const Icon(Icons.close, size: 16),
-            ).scale(),
-          )
-          .toList(),
-    );
-  }
-}
-
 class _SuggestedActivities extends StatelessWidget {
   const _SuggestedActivities();
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final selectedTags = context.select(
       (QuickCheckInViewModel vm) => vm.selectedTags,
     );
@@ -180,10 +148,16 @@ class _SuggestedActivities extends StatelessWidget {
               return '';
           }
         })
-        .where((text) => text.isNotEmpty && !selectedTags.contains(text))
+        .where((text) => text.isNotEmpty)
         .toList();
 
-    if (suggestions.isEmpty) {
+    final customTags = selectedTags
+        .where((tag) => !suggestions.contains(tag))
+        .toList();
+
+    final allTags = [...customTags, ...suggestions];
+
+    if (allTags.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -191,13 +165,28 @@ class _SuggestedActivities extends StatelessWidget {
       spacing: Spacing.xs,
       runSpacing: Spacing.xs,
       alignment: WrapAlignment.start,
-      children: suggestions
+      children: allTags
           .map(
-            (suggestion) => ActionChip(
-              label: Text(suggestion),
-              onPressed: () =>
-                  context.read<QuickCheckInViewModel>().addActivity(suggestion),
-            ).scale(),
+            (tag) {
+              final isSelected = selectedTags.contains(tag);
+              return FilterChip(
+                label: Text(tag),
+                selected: isSelected,
+                onSelected: (selected) {
+                  final viewModel = context.read<QuickCheckInViewModel>();
+                  if (selected) {
+                    viewModel.addActivity(tag);
+                  } else {
+                    viewModel.removeTag(tag);
+                  }
+                },
+                selectedColor: colorScheme.primaryContainer,
+                checkmarkColor: colorScheme.onPrimaryContainer,
+                side: isSelected
+                    ? BorderSide(color: colorScheme.primary, width: 2)
+                    : null,
+              ).scale();
+            },
           )
           .toList(),
     );

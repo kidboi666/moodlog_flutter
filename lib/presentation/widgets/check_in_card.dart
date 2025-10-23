@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/extensions/widget.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/activity.dart';
 
@@ -54,6 +55,7 @@ class CheckInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: onTap,
@@ -112,8 +114,8 @@ class CheckInCard extends StatelessWidget {
                           ),
 
                         // Activities
-                        if (activities != null && activities!.isNotEmpty) ...[
-                          CommonSizedBox.heightXs,
+                        CommonSizedBox.heightXs,
+                        if (activities != null && activities!.isNotEmpty)
                           Wrap(
                             spacing: Spacing.xs,
                             runSpacing: Spacing.xs,
@@ -133,12 +135,18 @@ class CheckInCard extends StatelessWidget {
                                 ),
                               );
                             }).toList(),
+                          )
+                        else
+                          Text(
+                            l10n.check_in_activities_empty,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                            ),
                           ),
-                        ],
 
                         // Emotions
-                        if (emotions != null && emotions!.isNotEmpty) ...[
-                          CommonSizedBox.heightXs,
+                        CommonSizedBox.heightXs,
+                        if (emotions != null && emotions!.isNotEmpty)
                           Text(
                             emotions!.take(3).map((e) => e.name).join(', '),
                             style: textTheme.bodySmall?.copyWith(
@@ -146,8 +154,14 @@ class CheckInCard extends StatelessWidget {
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
+                          )
+                        else
+                          Text(
+                            l10n.check_in_emotions_empty,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                            ),
                           ),
-                        ],
 
                         // Memo preview
                         if (memo != null && memo!.isNotEmpty) ...[

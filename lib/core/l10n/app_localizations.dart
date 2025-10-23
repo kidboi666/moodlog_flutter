@@ -3028,6 +3028,18 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get check_in_edit;
 
+  /// No description provided for @check_in_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in not found'**
+  String get check_in_not_found;
+
+  /// No description provided for @check_in_not_found_description.
+  ///
+  /// In en, this message translates to:
+  /// **'This check-in has been deleted or does not exist'**
+  String get check_in_not_found_description;
+
   /// No description provided for @timeline_check_in.
   ///
   /// In en, this message translates to:

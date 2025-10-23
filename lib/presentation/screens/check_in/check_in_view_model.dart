@@ -19,6 +19,10 @@ class CheckInViewModel extends ChangeNotifier with AsyncStateMixin {
 
   CheckIn? get checkIn => _checkIn;
 
+  Future<void> reload() async {
+    await _load();
+  }
+
   Future<Result<void>> delete() async {
     setLoading();
     final result = await _checkInUseCase.deleteCheckIn(id);
@@ -39,10 +43,14 @@ class CheckInViewModel extends ChangeNotifier with AsyncStateMixin {
     final result = await _checkInUseCase.getCheckInById(id);
     switch (result) {
       case Ok<CheckIn?>():
-        _checkIn = result.value;
-        if (result.value != null) {
-          debugPrint('Loaded CheckIn ${result.value!.id}');
+        if (result.value == null) {
+          final error = Exception('CheckIn not found');
+          debugPrint('CheckIn with id $id not found');
+          setError(error);
+          return Result.error(error);
         }
+        _checkIn = result.value;
+        debugPrint('Loaded CheckIn ${result.value!.id}');
         setSuccess();
         return Result.ok(null);
       case Error<CheckIn?>():

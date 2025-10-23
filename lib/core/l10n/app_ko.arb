@@ -686,6 +686,8 @@
   "check_in_delete_confirm_title": "삭제 확인",
   "check_in_delete_confirm_description": "이 체크인을 삭제하시겠습니까?",
   "check_in_edit": "수정",
+  "check_in_not_found": "체크인을 찾을 수 없습니다",
+  "check_in_not_found_description": "해당 체크인이 삭제되었거나 존재하지 않습니다",
   "timeline_check_in": "체크인",
   "timeline_journal": "일기",
   "suggested_activity_exercise": "운동",

@@ -73,19 +73,13 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<QuickCheckInViewModel>();
 
-    // Wait for first check-in check to complete
     if (viewModel.isCheckingFirstCheckIn) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     final isFirstCheckIn = viewModel.isFirstCheckInToday;
     final totalSteps = isFirstCheckIn ? 5 : 4;
 
-    // Update total steps if needed
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (viewModel.totalSteps != totalSteps) {
         viewModel.initStep(totalSteps);
@@ -95,25 +89,10 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
     // Build pages dynamically
     final pages = <Widget>[
       MoodSelectionPage(onNext: onNext),
-      if (isFirstCheckIn)
-        SleepQualityPage(
-          onNext: onNext,
-          onBack: onBack,
-        ),
-      ActivityInputPage(
-        key: _activityKey,
-        onNext: onNext,
-        onBack: onBack,
-      ),
-      EmotionKeywordPage(
-        key: _emotionKey,
-        onNext: onNext,
-        onBack: onBack,
-      ),
-      QuickMemoPage(
-        key: _memoKey,
-        onBack: onBack,
-      ),
+      if (isFirstCheckIn) SleepQualityPage(onNext: onNext, onBack: onBack),
+      ActivityInputPage(key: _activityKey, onNext: onNext, onBack: onBack),
+      EmotionKeywordPage(key: _emotionKey, onNext: onNext, onBack: onBack),
+      QuickMemoPage(key: _memoKey, onBack: onBack),
     ];
 
     return Scaffold(
@@ -158,12 +137,13 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
     );
 
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.close),
         padding: EdgeInsets.zero,
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => context.pop(),
       ),
       title: PaginationDot(current: currentStep, total: totalSteps),
       centerTitle: true,
@@ -211,8 +191,8 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
                       ),
                       actions: [
                         TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('확인'),
+                          onPressed: () => context.pop(),
+                          child: Text(l10n.common_confirm_ok),
                         ),
                       ],
                     ),

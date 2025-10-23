@@ -1552,6 +1552,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get check_in_edit => '수정';
 
   @override
+  String get check_in_not_found => '체크인을 찾을 수 없습니다';
+
+  @override
+  String get check_in_not_found_description => '해당 체크인이 삭제되었거나 존재하지 않습니다';
+
+  @override
   String get timeline_check_in => '체크인';
 
   @override

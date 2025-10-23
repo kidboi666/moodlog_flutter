@@ -79,7 +79,7 @@ class _MoodLogAppState extends State<MoodLogApp> {
           return UpgradeAlert(
             navigatorKey: rootNavigatorKey,
             upgrader: Upgrader(
-              debugDisplayAlways: FlavorService.isDebug,
+              debugDisplayAlways: false,
               debugLogging: FlavorService.isDebug,
             ),
             child: child!,

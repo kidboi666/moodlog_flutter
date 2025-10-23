@@ -1602,6 +1602,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get check_in_edit => 'Edit';
 
   @override
+  String get check_in_not_found => 'Check-in not found';
+
+  @override
+  String get check_in_not_found_description =>
+      'This check-in has been deleted or does not exist';
+
+  @override
   String get timeline_check_in => 'Check In';
 
   @override

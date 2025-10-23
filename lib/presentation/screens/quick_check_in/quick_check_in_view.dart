@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -19,11 +21,7 @@ class QuickCheckInScreen extends StatelessWidget {
   final int? checkInId;
   final DateTime? selectedDate;
 
-  const QuickCheckInScreen({
-    super.key,
-    this.checkInId,
-    this.selectedDate,
-  });
+  const QuickCheckInScreen({super.key, this.checkInId, this.selectedDate});
 
   @override
   Widget build(BuildContext context) {

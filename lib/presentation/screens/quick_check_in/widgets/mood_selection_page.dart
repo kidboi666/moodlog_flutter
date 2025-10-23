@@ -14,8 +14,6 @@ class MoodSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     final selectedMood = context.select(
       (QuickCheckInViewModel vm) => vm.selectedMood,
     );
@@ -31,7 +29,7 @@ class MoodSelectionPage extends StatelessWidget {
             delay: DelayMS.medium,
             child: Text(
               t.quick_check_in_mood_question,
-              style: textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           Expanded(
@@ -48,15 +46,15 @@ class MoodSelectionPage extends StatelessWidget {
           ),
           CommonSizedBox.heightXl,
           FadeIn(
-            delay: DelayMS.medium * 5,
+            delay: DelayMS.medium * 3,
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: onNext,
                 child: Text(
                   t.quick_check_in_next,
-                  style: textTheme.titleMedium?.copyWith(
-                    color: colorScheme.onPrimary,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
