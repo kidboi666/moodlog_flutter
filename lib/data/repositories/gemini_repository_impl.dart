@@ -10,7 +10,7 @@ class GeminiRepositoryImpl implements GeminiRepository {
   late final GenerativeModel _model;
 
   GeminiRepositoryImpl() {
-    _model = FirebaseAI.instance.generativeModel(
+    _model = FirebaseAI.googleAI().generativeModel(
       model: 'gemini-1.5-flash',
     );
   }

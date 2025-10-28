@@ -12,6 +12,7 @@ import 'package:moodlog/domain/entities/journal/check_in_activity.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
 import 'package:moodlog/domain/entities/journal/activity.dart';
+import 'package:moodlog/domain/entities/mood_summary/mood_summary.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
