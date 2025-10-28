@@ -231,7 +231,7 @@ class _SummaryContent extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -247,12 +247,24 @@ class _SummaryContent extends StatelessWidget {
                 '${_formatDate(summary.startDate)} ~ ${_formatDate(summary.endDate)}',
             icon: Icons.calendar_today,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
+          Divider(
+            height: 1,
+            thickness: 1.5,
+            color: theme.colorScheme.outlineVariant,
+          ),
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_emotional_flow,
             content: summary.emotionalFlow,
             icon: Icons.timeline,
             color: theme.colorScheme.primary,
+          ),
+          const SizedBox(height: 24),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
           ),
           const SizedBox(height: 24),
           _SectionCard(
@@ -262,6 +274,12 @@ class _SummaryContent extends StatelessWidget {
             color: theme.colorScheme.secondary,
           ),
           const SizedBox(height: 24),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_activity_patterns,
             content: summary.activityPatterns,
@@ -269,11 +287,23 @@ class _SummaryContent extends StatelessWidget {
             color: theme.colorScheme.tertiary,
           ),
           const SizedBox(height: 24),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_personal_advice,
             content: summary.personalAdvice,
             icon: Icons.lightbulb,
             color: theme.colorScheme.primary,
+          ),
+          const SizedBox(height: 24),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
           ),
           const SizedBox(height: 24),
           _SectionCard(
@@ -312,52 +342,36 @@ class _InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: theme.colorScheme.primary.withValues(alpha: 0.1),
-              ),
-              child: Icon(
-                icon,
-                color: theme.colorScheme.primary,
-                size: 24,
-              ),
-            ),
-            CommonSizedBox.widthLg,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    content,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          size: 20,
         ),
-      ),
+        CommonSizedBox.widthMd,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                content,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -379,57 +393,36 @@ class _SectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: color.withValues(alpha: 0.15),
-                  ),
-                  child: Icon(icon, color: color, size: 28),
+            Icon(icon, color: color, size: 24),
+            CommonSizedBox.widthMd,
+            Expanded(
+              child: Text(
+                title,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                  letterSpacing: -0.3,
                 ),
-                CommonSizedBox.widthLg,
-                Expanded(
-                  child: Text(
-                    title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Divider(
-              height: 1,
-              thickness: 1,
-              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              content,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                height: 1.7,
-                letterSpacing: 0.2,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.9),
               ),
             ),
           ],
         ),
-      ),
+        const SizedBox(height: 16),
+        Text(
+          content,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            height: 1.7,
+            letterSpacing: 0.1,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.85),
+          ),
+        ),
+      ],
     );
   }
 }
