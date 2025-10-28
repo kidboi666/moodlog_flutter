@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
+import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
 import 'package:provider/provider.dart';
@@ -98,21 +99,25 @@ class QuickMemoPageState extends State<QuickMemoPage>
           ),
           const Spacer(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FloatingActionButton(
-                onPressed: widget.onBack,
-                child: const Icon(Icons.arrow_back),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: widget.onBack,
+                  child: Text(t.quick_check_in_previous),
+                ).scale(),
               ),
-              FloatingActionButton(
-                onPressed: viewModel.isLoading ? null : _submitCheckIn,
-                child: viewModel.isLoading
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.check),
+              CommonSizedBox.widthMd,
+              Expanded(
+                child: FilledButton(
+                  onPressed: viewModel.isLoading ? null : _submitCheckIn,
+                  child: viewModel.isLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(t.quick_check_in_submit),
+                ).scale(),
               ),
             ],
           ),

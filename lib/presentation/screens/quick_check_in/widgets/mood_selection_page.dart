@@ -47,14 +47,18 @@ class MoodSelectionPage extends StatelessWidget {
           CommonSizedBox.heightXl,
           FadeIn(
             delay: DelayMS.medium * 3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  onPressed: onNext,
-                  child: const Icon(Icons.arrow_forward),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: onNext,
+                child: Text(
+                  t.quick_check_in_next,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ],
+              ),
             ),
           ),
         ],
