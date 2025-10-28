@@ -185,7 +185,7 @@ class JournalCard extends StatelessWidget {
 
   Widget _buildContentPreview(String content, TextStyle? style) {
     if (content.isEmpty) {
-      return const SizedBox.shrink();
+      return CommonSizedBox.empty;
     }
 
     return ConstrainedBox(

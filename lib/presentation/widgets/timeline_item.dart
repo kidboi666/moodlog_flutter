@@ -43,7 +43,7 @@ class TimelineItem extends StatelessWidget {
                     height: 24,
                     color: Theme.of(context).colorScheme.outlineVariant,
                   ),
-                if (isFirst) const SizedBox(height: 24),
+                if (isFirst) CommonSizedBox.heightXxl,
 
                 // Dot
                 Container(
