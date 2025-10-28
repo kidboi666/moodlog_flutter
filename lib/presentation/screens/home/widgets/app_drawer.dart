@@ -47,9 +47,7 @@ OS: $platform
           );
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('log.mind.365@gmail.com 복사되었습니다'),
-              ),
+              const SnackBar(content: Text('log.mind.365@gmail.com 복사되었습니다')),
             );
           }
         }
