@@ -748,5 +748,14 @@
   "mood_summary_card_ready": "오늘의 감정 결산이 준비되었어요",
   "mood_summary_card_cta": "당신의 하루에 숨겨진 의미를 확인하세요",
   "mood_summary_badge_new": "NEW",
-  "mood_summary_generated_label": "생성"
+  "mood_summary_generated_label": "생성",
+  "mood_summary_min_checkins_required": "일간 결산은 최소 3개의 체크인이 필요합니다",
+  "mood_summary_current_checkins": "현재 {count}개의 체크인",
+  "@mood_summary_current_checkins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

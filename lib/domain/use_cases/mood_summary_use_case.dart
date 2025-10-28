@@ -87,6 +87,12 @@ class MoodSummaryUseCase {
       );
     }
 
+    if (period == MoodSummaryPeriod.daily && filteredCheckIns.length < 3) {
+      return Result.error(
+        Exception('Daily summary requires at least 3 check-ins'),
+      );
+    }
+
     final summaryResult = await _geminiRepository.generateMoodSummary(
       checkIns: filteredCheckIns,
       period: period,
@@ -168,8 +174,34 @@ class MoodSummaryUseCase {
     );
 
     return switch (existingResult) {
-      Ok<MoodSummary?>() => Result.ok(existingResult.value == null),
-      Error<MoodSummary?>() => Result.error(existingResult.error),
+      Error<MoodSummary?>(:final error) => Result.error(error),
+      Ok<MoodSummary?>(value: final summary) => await _checkDailyCheckIns(
+        today: today,
+        tomorrow: tomorrow,
+        hasExistingSummary: summary != null,
+      ),
+    };
+  }
+
+  Future<Result<bool>> _checkDailyCheckIns({
+    required DateTime today,
+    required DateTime tomorrow,
+    required bool hasExistingSummary,
+  }) async {
+    if (hasExistingSummary) {
+      return Result.ok(false);
+    }
+
+    final checkInsResult = await _checkInRepository.getAllCheckIns();
+
+    return switch (checkInsResult) {
+      Error<List<CheckIn>>(:final error) => Result.error(error),
+      Ok<List<CheckIn>>(value: final checkIns) => Result.ok(
+        checkIns.where((checkIn) {
+          return checkIn.createdAt.isAfter(today) &&
+              checkIn.createdAt.isBefore(tomorrow);
+        }).length >= 3,
+      ),
     };
   }
 

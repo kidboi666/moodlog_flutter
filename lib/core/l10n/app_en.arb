@@ -748,5 +748,14 @@
   "mood_summary_card_ready": "Your daily summary is ready",
   "mood_summary_card_cta": "Discover the hidden meaning in your day",
   "mood_summary_badge_new": "NEW",
-  "mood_summary_generated_label": "Generated"
+  "mood_summary_generated_label": "Generated",
+  "mood_summary_min_checkins_required": "Daily summary requires at least 3 check-ins",
+  "mood_summary_current_checkins": "Current check-ins: {count}",
+  "@mood_summary_current_checkins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

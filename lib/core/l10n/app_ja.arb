@@ -748,5 +748,14 @@
   "mood_summary_card_ready": "今日の感情まとめが完成しました",
   "mood_summary_card_cta": "あなたの一日に隠された意味を確認しましょう",
   "mood_summary_badge_new": "NEW",
-  "mood_summary_generated_label": "生成"
+  "mood_summary_generated_label": "生成",
+  "mood_summary_min_checkins_required": "日次まとめには最低3つのチェックインが必要です",
+  "mood_summary_current_checkins": "現在のチェックイン: {count}個",
+  "@mood_summary_current_checkins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

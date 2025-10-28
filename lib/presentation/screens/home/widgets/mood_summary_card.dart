@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -20,11 +22,25 @@ class MoodSummaryCard extends StatefulWidget {
 class _MoodSummaryCardState extends State<MoodSummaryCard> {
   MoodSummary? _dailySummary;
   bool _isLoading = true;
+  Timer? _refreshTimer;
 
   @override
   void initState() {
     super.initState();
     _loadDailySummary();
+    _startAutoRefresh();
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startAutoRefresh() {
+    _refreshTimer = Timer.periodic(const Duration(seconds: 10), (_) {
+      _loadDailySummary();
+    });
   }
 
   Future<void> _loadDailySummary() async {
