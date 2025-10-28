@@ -8,6 +8,7 @@ import 'package:moodlog/domain/entities/journal/check_in_activity.dart';
 import 'package:moodlog/domain/entities/journal/check_in_emotion.dart';
 import 'package:moodlog/domain/entities/journal/emotion.dart';
 import 'package:moodlog/domain/entities/journal/journal.dart';
+import 'package:moodlog/domain/entities/mood_summary/mood_summary.dart';
 
 // CheckIns - 분석용 데이터 테이블
 @UseRowClass(CheckIn)
@@ -139,4 +140,31 @@ class CheckInEmotions extends Table {
   List<Set<Column>> get uniqueKeys => [
     {checkInId, emotionId},
   ];
+}
+
+@UseRowClass(MoodSummary)
+@TableIndex(name: 'mood_summaries_period', columns: {#period})
+@TableIndex(name: 'mood_summaries_start_date', columns: {#startDate})
+class MoodSummaries extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get period => intEnum<MoodSummaryPeriod>()();
+
+  DateTimeColumn get startDate => dateTime()();
+
+  DateTimeColumn get endDate => dateTime()();
+
+  DateTimeColumn get generatedAt => dateTime()();
+
+  TextColumn get emotionalFlow => text()();
+
+  TextColumn get dominantMoods => text()();
+
+  TextColumn get activityPatterns => text()();
+
+  TextColumn get personalAdvice => text()();
+
+  TextColumn get keyPoints => text()();
+
+  TextColumn get metadata => text().map(const JsonMapConverter())();
 }

@@ -17,18 +17,23 @@ import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [CheckIns, Journals, Stats, Activities, CheckInActivities, Emotions, CheckInEmotions])
+@DriftDatabase(tables: [CheckIns, Journals, Stats, Activities, CheckInActivities, Emotions, CheckInEmotions, MoodSummaries])
 class MoodLogDatabase extends _$MoodLogDatabase {
   MoodLogDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
       onCreate: (m) async {
         await m.createAll();
+      },
+      onUpgrade: (m, from, to) async {
+        if (from < 2) {
+          await m.createTable(moodSummaries);
+        }
       },
     );
   }

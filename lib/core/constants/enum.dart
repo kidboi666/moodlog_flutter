@@ -607,3 +607,26 @@ enum Emoji {
     }
   }
 }
+
+enum MoodSummaryPeriod {
+  daily,
+  weekly,
+  monthly;
+
+  String get value {
+    return switch (this) {
+      MoodSummaryPeriod.daily => 'daily',
+      MoodSummaryPeriod.weekly => 'weekly',
+      MoodSummaryPeriod.monthly => 'monthly',
+    };
+  }
+
+  static MoodSummaryPeriod fromString(String value) {
+    return switch (value) {
+      'daily' => MoodSummaryPeriod.daily,
+      'weekly' => MoodSummaryPeriod.weekly,
+      'monthly' => MoodSummaryPeriod.monthly,
+      _ => MoodSummaryPeriod.daily,
+    };
+  }
+}
