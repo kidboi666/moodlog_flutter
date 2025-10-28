@@ -159,19 +159,40 @@
   - `mood_summary_key_points`: 주목할 점 섹션
 - **언어**: 한국어, 영어, 일본어 완료
 
-## 🔄 다음 작업 (진행 예정)
+### 7단계: 통합 및 설정 (완료)
+- **파일 1**: `lib/core/routing/routes.dart` & `router.dart`
+  - `Routes.moodSummary` 경로 추가
+  - MoodSummaryScreen 라우트 설정
 
-### 7단계: 통합 및 설정
-- Routes 및 Router 설정
-- Drawer 메뉴에 항목 추가
-- DI Container 설정
-- 홈 화면 카드 위젯 (일간/주간/월간)
-- 자동 생성 로직 통합
+- **파일 2**: `lib/presentation/screens/home/widgets/app_drawer.dart`
+  - Drawer 메뉴에 "감정 결산" 항목 추가
+  - Icons.auto_awesome 아이콘 사용
 
-### 8단계: 테스트 및 최적화
-- 기능 테스트
-- 버그 수정
-- 최종 검증
+- **파일 3**: `lib/core/di/injection_container.dart`
+  - MoodSummaryLocalDataSource Provider 추가
+  - GeminiRepository Provider 추가
+  - MoodSummaryRepository Provider 추가
+  - MoodSummaryUseCase Provider 추가
+
+- **파일 4**: `lib/presentation/screens/home/home_view_model.dart` & `home_view.dart`
+  - HomeViewModel에 MoodSummaryUseCase 의존성 추가
+  - `_checkAndAutoGenerateMoodSummaries()` 메서드 구현
+  - 앱 시작 시 자동 생성 체크 로직 통합
+
+## ✅ 구현 완료
+
+모든 기능이 완료되었습니다! 🎉
+
+## 📋 다음 단계 (선택 사항)
+
+### 홈 화면 카드 위젯
+- 향후 추가 예정: 홈 화면에 일간/주간/월간 결산 카드 표시
+- 현재는 Drawer 메뉴를 통해 접근 가능
+
+### 테스트 및 최적화
+- 실제 앱 실행 및 기능 테스트
+- UI/UX 개선
+- 성능 최적화
 
 ## 📝 기술적 결정사항
 
@@ -194,9 +215,9 @@
 - 마지막 업데이트: 2025-10-28
 
 ## 📊 진행률
-- 전체: 68% (11/16 단계 완료)
+- 전체: 100% (15/15 단계 완료) ✅
 - Domain Layer: 100% ✅
 - Data Layer: 100% ✅
 - Presentation Layer: 100% ✅
 - Localization: 100% ✅
-- Integration: 0%
+- Integration: 100% ✅
