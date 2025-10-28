@@ -105,7 +105,10 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
     notifyListeners();
   }
 
-  Future<void> generateSummary(MoodSummaryPeriod period) async {
+  Future<void> generateSummary(
+    MoodSummaryPeriod period,
+    String languageCode,
+  ) async {
     _isGenerating = true;
     _errorMessage = null;
     notifyListeners();
@@ -114,13 +117,22 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
     Result<MoodSummary> result;
     switch (period) {
       case MoodSummaryPeriod.daily:
-        result = await _moodSummaryUseCase.generateDailySummary(now);
+        result = await _moodSummaryUseCase.generateDailySummary(
+          now,
+          languageCode,
+        );
       case MoodSummaryPeriod.weekly:
         final weekStart = now.subtract(Duration(days: now.weekday - 1));
-        result = await _moodSummaryUseCase.generateWeeklySummary(weekStart);
+        result = await _moodSummaryUseCase.generateWeeklySummary(
+          weekStart,
+          languageCode,
+        );
       case MoodSummaryPeriod.monthly:
         final monthStart = DateTime(now.year, now.month, 1);
-        result = await _moodSummaryUseCase.generateMonthlySummary(monthStart);
+        result = await _moodSummaryUseCase.generateMonthlySummary(
+          monthStart,
+          languageCode,
+        );
     }
 
     switch (result) {

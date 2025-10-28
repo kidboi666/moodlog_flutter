@@ -150,30 +150,41 @@ class _EmptyState extends StatelessWidget {
       :todayCheckInCount,
       :currentWeekDailySummaryCount,
       :currentMonthWeeklySummaryCount,
-    ) = context.select<MoodSummaryViewModel, ({
-      int? todayCheckInCount,
-      int? currentWeekDailySummaryCount,
-      int? currentMonthWeeklySummaryCount,
-    })>(
-      (vm) => (
-        todayCheckInCount: vm.todayCheckInCount,
-        currentWeekDailySummaryCount: vm.currentWeekDailySummaryCount,
-        currentMonthWeeklySummaryCount: vm.currentMonthWeeklySummaryCount,
-      ),
-    );
+    ) = context
+        .select<
+          MoodSummaryViewModel,
+          ({
+            int? todayCheckInCount,
+            int? currentWeekDailySummaryCount,
+            int? currentMonthWeeklySummaryCount,
+          })
+        >(
+          (vm) => (
+            todayCheckInCount: vm.todayCheckInCount,
+            currentWeekDailySummaryCount: vm.currentWeekDailySummaryCount,
+            currentMonthWeeklySummaryCount: vm.currentMonthWeeklySummaryCount,
+          ),
+        );
 
     final isDailyPeriod = period == MoodSummaryPeriod.daily;
     final isWeeklyPeriod = period == MoodSummaryPeriod.weekly;
     final isMonthlyPeriod = period == MoodSummaryPeriod.monthly;
 
-    final hasEnoughForDaily = todayCheckInCount != null && todayCheckInCount >= 3;
-    final hasEnoughForWeekly = currentWeekDailySummaryCount != null && currentWeekDailySummaryCount >= 3;
-    final hasEnoughForMonthly = currentMonthWeeklySummaryCount != null && currentMonthWeeklySummaryCount >= 3;
+    final hasEnoughForDaily =
+        todayCheckInCount != null && todayCheckInCount >= 3;
+    final hasEnoughForWeekly =
+        currentWeekDailySummaryCount != null &&
+        currentWeekDailySummaryCount >= 3;
+    final hasEnoughForMonthly =
+        currentMonthWeeklySummaryCount != null &&
+        currentMonthWeeklySummaryCount >= 3;
 
     final canGenerate = switch (period) {
       MoodSummaryPeriod.daily => hasEnoughForDaily,
-      MoodSummaryPeriod.weekly => hasEnoughForWeekly && viewModel.shouldShowGenerateButton(period),
-      MoodSummaryPeriod.monthly => hasEnoughForMonthly && viewModel.shouldShowGenerateButton(period),
+      MoodSummaryPeriod.weekly =>
+        hasEnoughForWeekly && viewModel.shouldShowGenerateButton(period),
+      MoodSummaryPeriod.monthly =>
+        hasEnoughForMonthly && viewModel.shouldShowGenerateButton(period),
     };
 
     return Center(
@@ -225,7 +236,8 @@ class _EmptyState extends StatelessWidget {
                 minRequiredKey: 'mood_summary_min_checkins_required',
               ),
               const SizedBox(height: 24),
-            ] else if (isWeeklyPeriod && currentWeekDailySummaryCount != null) ...[
+            ] else if (isWeeklyPeriod &&
+                currentWeekDailySummaryCount != null) ...[
               _buildRequirementCard(
                 context: context,
                 theme: theme,
@@ -236,7 +248,8 @@ class _EmptyState extends StatelessWidget {
                 minRequiredKey: 'mood_summary_min_daily_summaries_required',
               ),
               const SizedBox(height: 24),
-            ] else if (isMonthlyPeriod && currentMonthWeeklySummaryCount != null) ...[
+            ] else if (isMonthlyPeriod &&
+                currentMonthWeeklySummaryCount != null) ...[
               _buildRequirementCard(
                 context: context,
                 theme: theme,
@@ -253,7 +266,9 @@ class _EmptyState extends StatelessWidget {
             else if (canGenerate)
               FilledButton.icon(
                 onPressed: () async {
-                  await viewModel.generateSummary(period);
+                  final locale = Localizations.localeOf(context);
+                  final languageCode = locale.languageCode;
+                  await viewModel.generateSummary(period, languageCode);
                   if (context.mounted && viewModel.errorMessage != null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(viewModel.errorMessage!)),
@@ -314,10 +329,7 @@ class _EmptyState extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: hasEnough
             ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)

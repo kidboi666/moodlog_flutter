@@ -8,5 +8,6 @@ abstract class GeminiRepository {
     required MoodSummaryPeriod period,
     required DateTime startDate,
     required DateTime endDate,
+    required String languageCode,
   });
 }

@@ -19,7 +19,10 @@ class MoodSummaryUseCase {
        _geminiRepository = geminiRepository,
        _checkInRepository = checkInRepository;
 
-  Future<Result<MoodSummary>> generateDailySummary(DateTime date) async {
+  Future<Result<MoodSummary>> generateDailySummary(
+    DateTime date,
+    String languageCode,
+  ) async {
     final startDate = DateTime(date.year, date.month, date.day);
     final endDate = startDate.add(const Duration(days: 1));
 
@@ -27,10 +30,14 @@ class MoodSummaryUseCase {
       period: MoodSummaryPeriod.daily,
       startDate: startDate,
       endDate: endDate,
+      languageCode: languageCode,
     );
   }
 
-  Future<Result<MoodSummary>> generateWeeklySummary(DateTime weekStart) async {
+  Future<Result<MoodSummary>> generateWeeklySummary(
+    DateTime weekStart,
+    String languageCode,
+  ) async {
     final startDate = DateTime(weekStart.year, weekStart.month, weekStart.day);
     final endDate = startDate.add(const Duration(days: 7));
 
@@ -38,10 +45,14 @@ class MoodSummaryUseCase {
       period: MoodSummaryPeriod.weekly,
       startDate: startDate,
       endDate: endDate,
+      languageCode: languageCode,
     );
   }
 
-  Future<Result<MoodSummary>> generateMonthlySummary(DateTime month) async {
+  Future<Result<MoodSummary>> generateMonthlySummary(
+    DateTime month,
+    String languageCode,
+  ) async {
     final startDate = DateTime(month.year, month.month, 1);
     final endDate = DateTime(month.year, month.month + 1, 1);
 
@@ -49,6 +60,7 @@ class MoodSummaryUseCase {
       period: MoodSummaryPeriod.monthly,
       startDate: startDate,
       endDate: endDate,
+      languageCode: languageCode,
     );
   }
 
@@ -56,6 +68,7 @@ class MoodSummaryUseCase {
     required MoodSummaryPeriod period,
     required DateTime startDate,
     required DateTime endDate,
+    required String languageCode,
   }) async {
     final checkInsResult = await _checkInRepository.getAllCheckIns();
 
@@ -65,6 +78,7 @@ class MoodSummaryUseCase {
         period: period,
         startDate: startDate,
         endDate: endDate,
+        languageCode: languageCode,
       ),
       Error<List<CheckIn>>() => Result.error(checkInsResult.error),
     };
@@ -75,6 +89,7 @@ class MoodSummaryUseCase {
     required MoodSummaryPeriod period,
     required DateTime startDate,
     required DateTime endDate,
+    required String languageCode,
   }) async {
     final filteredCheckIns = checkIns.where((checkIn) {
       return checkIn.createdAt.isAfter(startDate) &&
@@ -98,6 +113,7 @@ class MoodSummaryUseCase {
       period: period,
       startDate: startDate,
       endDate: endDate,
+      languageCode: languageCode,
     );
 
     return switch (summaryResult) {
@@ -251,23 +267,23 @@ class MoodSummaryUseCase {
     };
   }
 
-  Future<Result<void>> checkAndAutoGenerate() async {
+  Future<Result<void>> checkAndAutoGenerate([String languageCode = 'ko']) async {
     final now = DateTime.now();
 
     final dailyCheck = await shouldGenerateSummary(MoodSummaryPeriod.daily);
     if (dailyCheck is Ok<bool> && dailyCheck.value) {
-      await generateDailySummary(now);
+      await generateDailySummary(now, languageCode);
     }
 
     final weeklyCheck = await shouldGenerateSummary(MoodSummaryPeriod.weekly);
     if (weeklyCheck is Ok<bool> && weeklyCheck.value) {
       final weekStart = now.subtract(Duration(days: now.weekday % 7));
-      await generateWeeklySummary(weekStart);
+      await generateWeeklySummary(weekStart, languageCode);
     }
 
     final monthlyCheck = await shouldGenerateSummary(MoodSummaryPeriod.monthly);
     if (monthlyCheck is Ok<bool> && monthlyCheck.value) {
-      await generateMonthlySummary(now);
+      await generateMonthlySummary(now, languageCode);
     }
 
     return Result.ok(null);
