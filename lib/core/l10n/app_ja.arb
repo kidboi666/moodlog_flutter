@@ -747,5 +747,6 @@
   "mood_summary_key_points": "注目ポイント",
   "mood_summary_card_ready": "今日の感情まとめが完成しました",
   "mood_summary_card_cta": "あなたの一日に隠された意味を確認しましょう",
-  "mood_summary_badge_new": "NEW"
+  "mood_summary_badge_new": "NEW",
+  "mood_summary_generated_label": "生成"
 }

@@ -114,18 +114,6 @@ extension DateTimeExtension on DateTime {
     return DateFormat(t.common_date_full).format(this);
   }
 
-  String formattedDotNation() {
-    return DateFormat('yyyy.MM.dd').format(this);
-  }
-
-  String formattedDotNationWithTime() {
-    return DateFormat('yyyy.MM.dd HH:mm').format(this);
-  }
-
-  String formattedDotNationWithMonth() {
-    return DateFormat('yyyy.MM').format(this);
-  }
-
   String formattedTime(TimeFormat timeFormat) {
     final timePattern = timeFormat == TimeFormat.hour24 ? 'HH:mm' : 'hh:mm a';
     return DateFormat(timePattern).format(this);

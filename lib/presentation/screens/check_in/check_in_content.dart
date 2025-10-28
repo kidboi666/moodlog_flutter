@@ -55,7 +55,7 @@ class _CheckInScreenContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              checkIn.createdAt.formattedDotNation(),
+              DateFormat('yyyy.MM.dd').format(checkIn.createdAt),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(

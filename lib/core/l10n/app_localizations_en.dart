@@ -1782,4 +1782,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mood_summary_badge_new => 'NEW';
+
+  @override
+  String get mood_summary_generated_label => 'Generated';
 }

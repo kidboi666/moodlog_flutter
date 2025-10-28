@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/extensions/date_time.dart';
 import 'package:moodlog/core/extensions/routing.dart';
 import 'package:moodlog/presentation/screens/write/widgets/content_input.dart';
 import 'package:moodlog/presentation/screens/write/widgets/editor_bottom_panel.dart';

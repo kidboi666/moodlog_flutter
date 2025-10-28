@@ -3387,6 +3387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'NEW'**
   String get mood_summary_badge_new;
+
+  /// No description provided for @mood_summary_generated_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated'**
+  String get mood_summary_generated_label;
 }
 
 class _AppLocalizationsDelegate

@@ -166,7 +166,7 @@ class _WriteScreenContentState extends State<_WriteScreenContent> {
           spacing: Spacing.sm,
           children: [
             Text(
-              selectedDate.formattedDotNation(),
+              DateFormat('yyyy.MM.dd').format(selectedDate),
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),

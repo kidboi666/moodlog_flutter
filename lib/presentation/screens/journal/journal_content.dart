@@ -35,7 +35,9 @@ class _JournalScreenContent extends StatelessWidget {
           spacing: Spacing.sm,
           children: [
             Text(
-              journal?.createdAt.formattedDotNation() ?? '',
+              DateFormat(
+                'yyyy.MM.dd',
+              ).format(journal?.createdAt ?? DateTime.now()),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
