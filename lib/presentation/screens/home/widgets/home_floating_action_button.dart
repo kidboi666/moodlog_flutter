@@ -84,13 +84,19 @@ class _FloatingActionOverlay extends StatelessWidget {
             _buildActionButton(
               icon: Icons.bolt,
               label: t.home_button_quick_check_in,
-              onPressed: () => context.push(Routes.quickCheckIn),
+              onPressed: () {
+                context.pop();
+                context.push(Routes.quickCheckIn);
+              },
             ),
             CommonSizedBox.heightSm,
             _buildActionButton(
               icon: Icons.create,
               label: t.home_button_write_journal,
-              onPressed: () => context.push(Routes.write),
+              onPressed: () {
+                context.pop();
+                context.push(Routes.write);
+              },
             ),
             CommonSizedBox.heightSm,
             FloatingActionButton(

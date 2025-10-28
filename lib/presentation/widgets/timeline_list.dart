@@ -54,6 +54,7 @@ class TimelineList extends StatelessWidget {
                 time: entry.createdAt,
                 isFirst: isFirst,
                 isLast: isLast,
+                moodType: entry.type.isCheckIn ? entry.checkIn?.moodType : null,
                 child: entry.type.isJournal
                     ? _buildJournalEntry(context, entry)
                     : _buildCheckInEntry(context, entry),
