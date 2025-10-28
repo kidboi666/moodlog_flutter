@@ -14,6 +14,7 @@ import 'package:moodlog/domain/entities/timeline_entry.dart';
 import 'package:moodlog/domain/use_cases/check_in_use_case.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
+import 'package:moodlog/domain/use_cases/mood_summary_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
 import 'package:moodlog/presentation/mixins/journal_selection_mixin.dart';
@@ -28,6 +29,7 @@ class HomeViewModel extends ChangeNotifier
   final ObserveJournalListUseCase _observeJournalListUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
+  final MoodSummaryUseCase _moodSummaryUseCase;
 
   HomeViewModel({
     required UserProvider userProvider,
@@ -36,11 +38,13 @@ class HomeViewModel extends ChangeNotifier
     required ObserveJournalListUseCase observeJournalListUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
+    required MoodSummaryUseCase moodSummaryUseCase,
   }) : _userProvider = userProvider,
        _checkInUseCase = checkInUseCase,
        _observeJournalListUseCase = observeJournalListUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
-       _weatherUseCase = weatherUseCase {
+       _weatherUseCase = weatherUseCase,
+       _moodSummaryUseCase = moodSummaryUseCase {
     _load();
     _userProvider.addListener(_onUserChanged);
   }
@@ -97,8 +101,19 @@ class HomeViewModel extends ChangeNotifier
     await _loadYearlyJournals();
     await getCurrentLocation();
     await getCurrentWeather();
+    await _checkAndAutoGenerateMoodSummaries();
     _initializeDelayedRender();
     setSuccess();
+  }
+
+  Future<void> _checkAndAutoGenerateMoodSummaries() async {
+    final result = await _moodSummaryUseCase.checkAndAutoGenerate();
+    switch (result) {
+      case Ok():
+        debugPrint('Mood summaries auto-generation check completed');
+      case Error(error: final e):
+        debugPrint('Mood summaries auto-generation failed: $e');
+    }
   }
 
   void selectDate(DateTime date) {

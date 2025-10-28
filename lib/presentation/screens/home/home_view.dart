@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
         observeJournalListUseCase: context.read(),
         getCurrentLocationUseCase: context.read(),
         weatherUseCase: context.read(),
+        moodSummaryUseCase: context.read(),
       ),
       child: _HomeScreenContent(),
     );
