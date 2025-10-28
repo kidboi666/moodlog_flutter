@@ -165,6 +165,17 @@ class CheckInRepositoryImpl implements CheckInRepository {
   }
 
   @override
+  Future<Result<bool>> hasCheckInOnDate(DateTime date) async {
+    try {
+      final hasCheckIn = await _checkInLocalDataSource.hasCheckInOnDate(date);
+      return Result.ok(hasCheckIn);
+    } catch (e, s) {
+      _log.severe('Failed to check check-in on date', e, s);
+      return Result.error(Exception('Failed to check check-in on date: $e'));
+    }
+  }
+
+  @override
   Future<Result<Map<MoodType, int>>> getMoodCountsByDateRange(
     DateTime start,
     DateTime end,

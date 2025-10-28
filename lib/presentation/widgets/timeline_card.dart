@@ -87,27 +87,35 @@ class TimelineCard extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final items = <Widget>[];
 
-    if (checkIn.activityNames != null && checkIn.activityNames!.isNotEmpty) {
-      items.add(
-        Text(
-          '${t.check_in_activities}: ${checkIn.activityNames!.join(', ')}',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
+    final hasActivities =
+        checkIn.activityNames != null && checkIn.activityNames!.isNotEmpty;
+    items.add(
+      Text(
+        hasActivities
+            ? '${t.check_in_activities}: ${checkIn.activityNames!.join(', ')}'
+            : '${t.check_in_activities}: ${t.check_in_activities_empty}',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: hasActivities
+              ? Theme.of(context).colorScheme.onSurface
+              : Theme.of(context).colorScheme.onSurfaceVariant,
         ),
-      );
-    }
+      ),
+    );
 
-    if (checkIn.emotionNames != null && checkIn.emotionNames!.isNotEmpty) {
-      items.add(
-        Text(
-          '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
+    final hasEmotions =
+        checkIn.emotionNames != null && checkIn.emotionNames!.isNotEmpty;
+    items.add(
+      Text(
+        hasEmotions
+            ? '${t.check_in_emotions}: ${checkIn.emotionNames!.join(', ')}'
+            : '${t.check_in_emotions}: ${t.check_in_emotions_empty}',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: hasEmotions
+              ? Theme.of(context).colorScheme.onSurface
+              : Theme.of(context).colorScheme.onSurfaceVariant,
         ),
-      );
-    }
+      ),
+    );
 
     if (checkIn.sleepQuality != null) {
       items.add(

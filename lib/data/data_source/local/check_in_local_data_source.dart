@@ -105,6 +105,19 @@ class CheckInLocalDataSource {
     return countValue > 0;
   }
 
+  Future<bool> hasCheckInOnDate(DateTime date) async {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+    final endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59);
+
+    final count = await (_db.selectOnly(_db.checkIns)
+          ..addColumns([_db.checkIns.id.count()])
+          ..where(_db.checkIns.createdAt.isBetweenValues(startOfDay, endOfDay)))
+        .getSingle();
+
+    final countValue = count.read(_db.checkIns.id.count()) ?? 0;
+    return countValue > 0;
+  }
+
   Future<Map<MoodType, int>> getMoodCountsByDateRange(
     DateTime startDate,
     DateTime endDate,

@@ -25,6 +25,8 @@ abstract class CheckInRepository {
 
   Future<Result<bool>> hasTodayCheckIn();
 
+  Future<Result<bool>> hasCheckInOnDate(DateTime date);
+
   Future<Result<Map<MoodType, int>>> getMoodCountsByDateRange(
     DateTime start,
     DateTime end,

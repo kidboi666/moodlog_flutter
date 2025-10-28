@@ -131,7 +131,7 @@ class _CheckInScreenContent extends StatelessWidget {
                 child: Row(
                   children: [
                     const Icon(Icons.delete),
-                    const SizedBox(width: Spacing.sm),
+                    CommonSizedBox.widthSm,
                     Text(t.common_confirm_delete),
                   ],
                 ),
@@ -146,41 +146,43 @@ class _CheckInScreenContent extends StatelessWidget {
           MoodBar(moodType: checkIn.moodType),
           Expanded(
             child: ListView(
-              padding: CommonPadding.lg,
               children: [
-                _buildMoodSection(context, checkIn),
-                CommonSizedBox.heightLg,
-                _buildEmotionsSection(context, checkIn),
-                CommonSizedBox.heightLg,
-                _buildActivitiesSection(context, checkIn),
-                if (checkIn.sleepQuality != null) ...[
-                  CommonSizedBox.heightLg,
-                  _buildSleepQualitySection(context, checkIn),
-                ],
-                if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
-                  CommonSizedBox.heightLg,
-                  _buildMemoSection(context, checkIn),
-                ],
+                HeroMoodBanner(checkIn: checkIn),
+                Padding(
+                  padding: CommonPadding.xl,
+                  child: Column(
+                    children: [
+                      FadeIn(
+                        delay: DelayMS.medium,
+                        child: _buildEmotionsSection(context, checkIn),
+                      ),
+                      CommonSizedBox.heightMd,
+                      FadeIn(
+                        delay: DelayMS.medium * 2,
+                        child: _buildActivitiesSection(context, checkIn),
+                      ),
+                      if (checkIn.sleepQuality != null) ...[
+                        CommonSizedBox.heightMd,
+                        FadeIn(
+                          delay: DelayMS.medium * 3,
+                          child: _buildSleepQualitySection(context, checkIn),
+                        ),
+                      ],
+                      if (checkIn.memo != null && checkIn.memo!.isNotEmpty) ...[
+                        CommonSizedBox.heightMd,
+                        FadeIn(
+                          delay: DelayMS.medium * 4,
+                          child: _buildMemoSection(context, checkIn),
+                        ),
+                      ],
+                      CommonSizedBox.heightMd,
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildMoodSection(BuildContext context, CheckIn checkIn) {
-    return Container(
-      padding: CommonPadding.xl,
-      decoration: BoxDecoration(
-        color: checkIn.moodType.color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(Roundness.card),
-      ),
-      child: Center(
-        child: Text(
-          checkIn.moodType.emoji,
-          style: const TextStyle(fontSize: 56),
-        ),
       ),
     );
   }
@@ -193,6 +195,7 @@ class _CheckInScreenContent extends StatelessWidget {
     return _buildSection(
       context,
       title: t.check_in_emotions,
+      icon: Icons.sentiment_satisfied_alt,
       child: hasEmotions
           ? Wrap(
               spacing: Spacing.sm,
@@ -228,6 +231,7 @@ class _CheckInScreenContent extends StatelessWidget {
     return _buildSection(
       context,
       title: t.check_in_activities,
+      icon: Icons.local_activity,
       child: hasActivities
           ? Wrap(
               spacing: Spacing.sm,
@@ -261,21 +265,9 @@ class _CheckInScreenContent extends StatelessWidget {
     return _buildSection(
       context,
       title: t.check_in_sleep_quality,
-      child: Row(
-        children: [
-          ...List.generate(
-            5,
-            (index) => Icon(
-              index < checkIn.sleepQuality! ? Icons.star : Icons.star_border,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          CommonSizedBox.widthSm,
-          Text(
-            '${checkIn.sleepQuality}/5',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ],
+      icon: Icons.bedtime,
+      child: Center(
+        child: SleepQualityIndicator(quality: checkIn.sleepQuality!),
       ),
     );
   }
@@ -286,6 +278,7 @@ class _CheckInScreenContent extends StatelessWidget {
     return _buildSection(
       context,
       title: t.check_in_memo,
+      icon: Icons.note_alt,
       child: Text(checkIn.memo!, style: Theme.of(context).textTheme.bodyLarge),
     );
   }
@@ -294,24 +287,32 @@ class _CheckInScreenContent extends StatelessWidget {
     BuildContext context, {
     required String title,
     required Widget child,
+    required IconData icon,
   }) {
     return Container(
       padding: CommonPadding.xl,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(Roundness.card),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Icon(
+                icon,
+                color: Theme.of(context).colorScheme.primary,
+                size: 24,
+              ),
+              CommonSizedBox.widthSm,
+              Text(
+                title,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           CommonSizedBox.heightMd,
           child,

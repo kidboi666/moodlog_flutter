@@ -122,6 +122,7 @@ class QuickCheckInViewModel extends ChangeNotifier
   void updateDateTime(DateTime dateTime) {
     _createdAt = dateTime;
     notifyListeners();
+    _checkFirstCheckIn();
   }
 
   Future<void> _checkFirstCheckIn() async {
@@ -129,7 +130,7 @@ class QuickCheckInViewModel extends ChangeNotifier
     notifyListeners();
 
     try {
-      final result = await _checkInUseCase.hasTodayCheckIn();
+      final result = await _checkInUseCase.hasCheckInOnDate(_createdAt);
 
       switch (result) {
         case Ok<bool>():

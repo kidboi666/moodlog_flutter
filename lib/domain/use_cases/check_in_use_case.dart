@@ -45,6 +45,10 @@ class CheckInUseCase {
     return await _checkInRepository.hasTodayCheckIn();
   }
 
+  Future<Result<bool>> hasCheckInOnDate(DateTime date) async {
+    return await _checkInRepository.hasCheckInOnDate(date);
+  }
+
   Future<Result<Map<MoodType, int>>> getMoodCountsByDateRange(
     DateTime start,
     DateTime end,
