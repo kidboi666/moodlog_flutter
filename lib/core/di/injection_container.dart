@@ -4,27 +4,32 @@ import 'package:moodlog/data/data_source/local/check_in_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/database/database.dart';
 import 'package:moodlog/data/data_source/local/emotion_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/journal_local_data_source.dart';
+import 'package:moodlog/data/data_source/local/mood_summary_local_data_source.dart';
 import 'package:moodlog/data/data_source/local/shared_preferences_local_data_source.dart';
 import 'package:moodlog/data/repositories/activity_repository_impl.dart';
 import 'package:moodlog/data/repositories/analytics_repository_impl.dart';
 import 'package:moodlog/data/repositories/check_in_repository_impl.dart';
 import 'package:moodlog/data/repositories/emotion_repository_impl.dart';
+import 'package:moodlog/data/repositories/gemini_repository_impl.dart';
 import 'package:moodlog/data/repositories/image_repository_impl.dart';
 import 'package:moodlog/data/repositories/journal_repository_impl.dart';
 import 'package:moodlog/data/repositories/local_backup_repository_impl.dart';
 import 'package:moodlog/data/repositories/local_user_repository_impl.dart';
 import 'package:moodlog/data/repositories/location_repository_impl.dart';
+import 'package:moodlog/data/repositories/mood_summary_repository_impl.dart';
 import 'package:moodlog/data/repositories/settings_repository_impl.dart';
 import 'package:moodlog/data/repositories/weather_repository_impl.dart';
 import 'package:moodlog/domain/repositories/activity_repository.dart';
 import 'package:moodlog/domain/repositories/analytics_repository.dart';
 import 'package:moodlog/domain/repositories/check_in_repository.dart';
 import 'package:moodlog/domain/repositories/emotion_repository.dart';
+import 'package:moodlog/domain/repositories/gemini_repository.dart';
 import 'package:moodlog/domain/repositories/image_repository.dart';
 import 'package:moodlog/domain/repositories/journal_repository.dart';
 import 'package:moodlog/domain/repositories/local_backup_repository.dart';
 import 'package:moodlog/domain/repositories/local_user_repository.dart';
 import 'package:moodlog/domain/repositories/location_repository.dart';
+import 'package:moodlog/domain/repositories/mood_summary_repository.dart';
 import 'package:moodlog/domain/repositories/settings_repository.dart';
 import 'package:moodlog/domain/repositories/weather_repository.dart';
 import 'package:moodlog/domain/use_cases/activity_use_case.dart';
@@ -34,6 +39,7 @@ import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/local_backup_use_case.dart';
 import 'package:moodlog/domain/use_cases/local_user_use_case.dart';
+import 'package:moodlog/domain/use_cases/mood_summary_use_case.dart';
 import 'package:moodlog/domain/use_cases/observe_journal_list_use_case.dart';
 import 'package:moodlog/domain/use_cases/settings_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
@@ -76,6 +82,9 @@ List<SingleChildWidget> _createDataSources() {
     ),
     ProxyProvider<MoodLogDatabase, EmotionLocalDataSource>(
       update: (_, db, previous) => previous ?? EmotionLocalDataSource(db),
+    ),
+    ProxyProvider<MoodLogDatabase, MoodSummaryLocalDataSource>(
+      update: (_, db, previous) => previous ?? MoodSummaryLocalDataSource(db: db),
     ),
     Provider<SharedPreferencesLocalDataSource>(
       create: (_) => SharedPreferencesLocalDataSource(),
@@ -132,6 +141,14 @@ List<SingleChildWidget> _createRepositories() {
         database: context.read(),
       ),
     ),
+    Provider<GeminiRepository>(
+      create: (_) => GeminiRepositoryImpl(),
+    ),
+    Provider<MoodSummaryRepository>(
+      create: (context) => MoodSummaryRepositoryImpl(
+        localDataSource: context.read(),
+      ),
+    ),
   ];
 }
 
@@ -182,6 +199,13 @@ List<SingleChildWidget> _createUseCases() {
     Provider<LocalUserUseCase>(
       create: (context) =>
           LocalUserUseCase(localUserRepository: context.read()),
+    ),
+    Provider<MoodSummaryUseCase>(
+      create: (context) => MoodSummaryUseCase(
+        moodSummaryRepository: context.read(),
+        geminiRepository: context.read(),
+        checkInRepository: context.read(),
+      ),
     ),
   ];
 }

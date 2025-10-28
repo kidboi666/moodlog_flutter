@@ -16,6 +16,7 @@ abstract final class Routes {
   static const String activityDetail = '/activities/:id';
   static const String purchase = '/purchase';
   static const String fontSettings = '/font-settings';
+  static const String moodSummary = '/mood-summary';
 
   static String journalImageDetail(int id) => '/journal/$id/image';
 

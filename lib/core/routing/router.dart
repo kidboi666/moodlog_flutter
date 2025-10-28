@@ -10,6 +10,7 @@ import 'package:moodlog/presentation/screens/home/home_view.dart';
 import 'package:moodlog/presentation/screens/journal/image_detail_screen.dart';
 import 'package:moodlog/presentation/screens/journal/journal_view.dart';
 import 'package:moodlog/presentation/screens/lock/lock_view.dart';
+import 'package:moodlog/presentation/screens/mood_summary/mood_summary_view.dart';
 import 'package:moodlog/presentation/screens/onboarding/onboarding_view.dart';
 import 'package:moodlog/presentation/screens/purchase/purchase_view.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view.dart';
@@ -135,6 +136,12 @@ GoRouter router(
       path: Routes.fontSettings,
       builder: (_, _) {
         return const FontSettingsScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.moodSummary,
+      builder: (_, _) {
+        return const MoodSummaryScreen();
       },
     ),
   ],
