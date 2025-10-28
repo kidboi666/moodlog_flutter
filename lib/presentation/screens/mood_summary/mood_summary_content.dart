@@ -137,10 +137,7 @@ class _EmptyState extends StatelessWidget {
   final MoodSummaryPeriod period;
   final bool isGenerating;
 
-  const _EmptyState({
-    required this.period,
-    required this.isGenerating,
-  });
+  const _EmptyState({required this.period, required this.isGenerating});
 
   @override
   Widget build(BuildContext context) {
@@ -157,21 +154,23 @@ class _EmptyState extends StatelessWidget {
             Icon(
               Icons.insights_outlined,
               size: 64,
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.5),
             ),
-            const SizedBox(height: 24),
+            CommonSizedBox.heightXxl,
             Text(
               t.mood_summary_empty_title,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 12),
+            CommonSizedBox.heightMd,
             Text(
               t.mood_summary_empty_subtitle,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            CommonSizedBox.heightXxl,
             if (isGenerating)
               const CircularProgressIndicator()
             else if (viewModel.shouldShowGenerateButton(period))
@@ -188,10 +187,7 @@ class _EmptyState extends StatelessWidget {
                 label: Text(t.mood_summary_generate),
               )
             else
-              Text(
-                timeRemaining,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text(timeRemaining, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),
@@ -219,41 +215,42 @@ class _SummaryContent extends StatelessWidget {
             content: _formatDateTime(summary.generatedAt),
             icon: Icons.access_time,
           ),
-          const SizedBox(height: 16),
+          CommonSizedBox.heightLg,
           _InfoCard(
             title: t.mood_summary_period,
-            content: '${_formatDate(summary.startDate)} ~ ${_formatDate(summary.endDate)}',
+            content:
+                '${_formatDate(summary.startDate)} ~ ${_formatDate(summary.endDate)}',
             icon: Icons.calendar_today,
           ),
-          const SizedBox(height: 24),
+          CommonSizedBox.heightXxl,
           _SectionCard(
             title: t.mood_summary_emotional_flow,
             content: summary.emotionalFlow,
             icon: Icons.timeline,
             color: theme.colorScheme.primary,
           ),
-          const SizedBox(height: 16),
+          CommonSizedBox.heightLg,
           _SectionCard(
             title: t.mood_summary_dominant_moods,
             content: summary.dominantMoods,
             icon: Icons.favorite,
             color: theme.colorScheme.secondary,
           ),
-          const SizedBox(height: 16),
+          CommonSizedBox.heightLg,
           _SectionCard(
             title: t.mood_summary_activity_patterns,
             content: summary.activityPatterns,
             icon: Icons.local_activity,
             color: theme.colorScheme.tertiary,
           ),
-          const SizedBox(height: 16),
+          CommonSizedBox.heightLg,
           _SectionCard(
             title: t.mood_summary_personal_advice,
             content: summary.personalAdvice,
             icon: Icons.lightbulb,
             color: theme.colorScheme.primary,
           ),
-          const SizedBox(height: 16),
+          CommonSizedBox.heightLg,
           _SectionCard(
             title: t.mood_summary_key_points,
             content: summary.keyPoints,
@@ -292,7 +289,7 @@ class _InfoCard extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: CommonPadding.lg,
         child: Row(
           children: [
             Icon(
@@ -300,7 +297,7 @@ class _InfoCard extends StatelessWidget {
               color: theme.colorScheme.primary.withValues(alpha: 0.7),
               size: 20,
             ),
-            const SizedBox(width: 12),
+            CommonSizedBox.widthMd,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,11 +308,8 @@ class _InfoCard extends StatelessWidget {
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    content,
-                    style: theme.textTheme.bodyMedium,
-                  ),
+                  CommonSizedBox.heightXs,
+                  Text(content, style: theme.textTheme.bodyMedium),
                 ],
               ),
             ),
@@ -345,18 +339,14 @@ class _SectionCard extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: CommonPadding.xl,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(
-                  icon,
-                  color: color,
-                  size: 24,
-                ),
-                const SizedBox(width: 12),
+                Icon(icon, color: color, size: 24),
+                CommonSizedBox.widthMd,
                 Expanded(
                   child: Text(
                     title,
@@ -368,12 +358,10 @@ class _SectionCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            CommonSizedBox.heightLg,
             Text(
               content,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                height: 1.6,
-              ),
+              style: theme.textTheme.bodyLarge?.copyWith(height: 1.6),
             ),
           ],
         ),

@@ -84,7 +84,8 @@ List<SingleChildWidget> _createDataSources() {
       update: (_, db, previous) => previous ?? EmotionLocalDataSource(db),
     ),
     ProxyProvider<MoodLogDatabase, MoodSummaryLocalDataSource>(
-      update: (_, db, previous) => previous ?? MoodSummaryLocalDataSource(db: db),
+      update: (_, db, previous) =>
+          previous ?? MoodSummaryLocalDataSource(db: db),
     ),
     Provider<SharedPreferencesLocalDataSource>(
       create: (_) => SharedPreferencesLocalDataSource(),
@@ -141,13 +142,10 @@ List<SingleChildWidget> _createRepositories() {
         database: context.read(),
       ),
     ),
-    Provider<GeminiRepository>(
-      create: (_) => GeminiRepositoryImpl(),
-    ),
+    Provider<GeminiRepository>(create: (_) => GeminiRepositoryImpl()),
     Provider<MoodSummaryRepository>(
-      create: (context) => MoodSummaryRepositoryImpl(
-        localDataSource: context.read(),
-      ),
+      create: (context) =>
+          MoodSummaryRepositoryImpl(localDataSource: context.read()),
     ),
   ];
 }

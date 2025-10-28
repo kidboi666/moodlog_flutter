@@ -10,9 +10,7 @@ class GeminiRepositoryImpl implements GeminiRepository {
   late final GenerativeModel _model;
 
   GeminiRepositoryImpl() {
-    _model = FirebaseAI.googleAI().generativeModel(
-      model: 'gemini-1.5-flash',
-    );
+    _model = FirebaseAI.googleAI().generativeModel(model: 'gemini-2.0-flash');
   }
 
   @override
@@ -34,17 +32,13 @@ class GeminiRepositoryImpl implements GeminiRepository {
       final text = response.text;
 
       if (text == null || text.isEmpty) {
-        return Result.error(
-          Exception('Generated content is empty'),
-        );
+        return Result.error(Exception('Generated content is empty'));
       }
 
       final parsedResult = _parseResponse(text);
       return Result.ok(parsedResult);
     } catch (e) {
-      return Result.error(
-        Exception('Failed to generate mood summary: $e'),
-      );
+      return Result.error(Exception('Failed to generate mood summary: $e'));
     }
   }
 
@@ -109,7 +103,9 @@ $checkInSummary
     for (var i = 0; i < checkIns.length; i++) {
       final checkIn = checkIns[i];
       buffer.writeln('${i + 1}. ${_formatDate(checkIn.createdAt)}');
-      buffer.writeln('   - 기분: ${_getMoodText(checkIn.moodType)} (${checkIn.moodType.score}/5)');
+      buffer.writeln(
+        '   - 기분: ${_getMoodText(checkIn.moodType)} (${checkIn.moodType.score}/5)',
+      );
 
       if (checkIn.emotionNames != null && checkIn.emotionNames!.isNotEmpty) {
         buffer.writeln('   - 감정: ${checkIn.emotionNames!.join(', ')}');

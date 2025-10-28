@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodlog/core/constants/common.dart';
 import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/mood_summary/mood_summary_view_model.dart';
@@ -12,9 +13,8 @@ class MoodSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MoodSummaryViewModel(
-        moodSummaryUseCase: context.read(),
-      ),
+      create: (context) =>
+          MoodSummaryViewModel(moodSummaryUseCase: context.read()),
       child: const _MoodSummaryContent(),
     );
   }

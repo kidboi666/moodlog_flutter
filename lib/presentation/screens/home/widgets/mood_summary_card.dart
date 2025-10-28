@@ -62,10 +62,7 @@ class _MoodSummaryCardState extends State<MoodSummaryCard> {
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
                   CommonSizedBox.heightSm,
-                  Text(
-                    t.mood_summary_title,
-                    style: theme.textTheme.bodySmall,
-                  ),
+                  Text(t.mood_summary_title, style: theme.textTheme.bodySmall),
                 ],
               ),
             ),
@@ -217,11 +214,7 @@ class _SummaryPreview extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          size: 16,
-          color: color.withValues(alpha: 0.8),
-        ),
+        Icon(icon, size: 16, color: color.withValues(alpha: 0.8)),
         CommonSizedBox.widthXs,
         Expanded(
           child: Column(
