@@ -126,24 +126,52 @@
   - 톤: 공감적이고 따뜻한 한국어
 - **응답 파싱**: JSON 추출 및 각 필드별 파싱
 
+### 5단계: Presentation Layer (완료)
+- **파일 1**: `lib/presentation/screens/mood_summary/mood_summary_view_model.dart`
+  - `MoodSummaryViewModel` 클래스 구현
+  - 일간/주간/월간 결산 데이터 로드 및 관리
+  - 결산 생성 기능 (수동/자동)
+  - 생성 가능 여부 판단 로직
+  - 남은 시간 표시 텍스트 생성
+
+- **파일 2**: `lib/presentation/screens/mood_summary/mood_summary_view.dart`
+  - `MoodSummaryScreen` 위젯 (ViewModel Provider 설정)
+  - `part` 파일로 content 분리
+
+- **파일 3**: `lib/presentation/screens/mood_summary/mood_summary_content.dart`
+  - 탭 기반 UI (일간/주간/월간)
+  - 빈 상태 UI 및 생성 버튼
+  - 결산 내용 표시 (5가지 섹션)
+  - 새로고침 기능
+
+### 6단계: Localization (완료)
+- **파일들**: `lib/core/l10n/app_{ko,en,ja}.arb`
+- **추가 키**:
+  - `mood_summary_title`: 화면 제목
+  - `mood_summary_daily/weekly/monthly`: 탭 제목
+  - `mood_summary_empty_title/subtitle`: 빈 상태 메시지
+  - `mood_summary_generate`: 생성 버튼 텍스트
+  - `mood_summary_generated_at/period`: 정보 카드 제목
+  - `mood_summary_emotional_flow`: 감정 흐름 섹션
+  - `mood_summary_dominant_moods`: 주요 감정 섹션
+  - `mood_summary_activity_patterns`: 활동 패턴 섹션
+  - `mood_summary_personal_advice`: 조언 섹션
+  - `mood_summary_key_points`: 주목할 점 섹션
+- **언어**: 한국어, 영어, 일본어 완료
+
 ## 🔄 다음 작업 (진행 예정)
 
-### 5단계: Presentation Layer
-- `MoodSummaryViewModel` 생성
-- 전용 화면 (view, content) 생성
-- 홈 화면 카드 위젯 (일간/주간/월간)
-
-### 6단계: 통합 및 설정
+### 7단계: 통합 및 설정
 - Routes 및 Router 설정
 - Drawer 메뉴에 항목 추가
 - DI Container 설정
+- 홈 화면 카드 위젯 (일간/주간/월간)
 - 자동 생성 로직 통합
-- 다국어 지원 추가
 
-### 7단계: 테스트 및 최적화
-- build_runner 실행
+### 8단계: 테스트 및 최적화
 - 기능 테스트
 - 버그 수정
+- 최종 검증
 
 ## 📝 기술적 결정사항
 
@@ -166,8 +194,9 @@
 - 마지막 업데이트: 2025-10-28
 
 ## 📊 진행률
-- 전체: 50% (7/14 단계 완료)
+- 전체: 68% (11/16 단계 완료)
 - Domain Layer: 100% ✅
 - Data Layer: 100% ✅
-- Presentation Layer: 0%
+- Presentation Layer: 100% ✅
+- Localization: 100% ✅
 - Integration: 0%
