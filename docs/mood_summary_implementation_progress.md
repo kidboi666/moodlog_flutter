@@ -98,17 +98,35 @@
     }
     ```
 
+### 3단계: Data Source (완료)
+- **파일**: `lib/data/data_source/local/mood_summary_local_data_source.dart`
+- **주요 메서드**:
+  - `getLatestSummaryByPeriod()`: 주기별 최신 결산 조회
+  - `getSummariesByPeriod()`: 주기별 결산 목록 조회
+  - `insertSummary()`: 결산 저장
+  - `deleteSummary()`: 결산 삭제
+  - `getSummaryByDateRange()`: 날짜 범위로 조회
+  - `getAllSummaries()`: 전체 결산 조회
+
+### 4단계: Repository Implementation (완료)
+
+#### 4.1 MoodSummaryRepository
+- **파일**: `lib/data/repositories/mood_summary_repository_impl.dart`
+- **기능**: Local Data Source를 사용한 Repository 구현
+- **에러 처리**: try-catch로 모든 작업 감싸고 Result 패턴 반환
+
+#### 4.2 GeminiRepository
+- **파일**: `lib/data/repositories/gemini_repository_impl.dart`
+- **모델**: Firebase AI의 Gemini 1.5 Flash 사용
+- **프롬프트 구조**:
+  - 역할 정의: "감정 분석 전문가"
+  - 데이터 요약: 체크인 정보 정리 (날짜, 기분, 감정, 활동, 메모)
+  - 분석 요청: 5가지 항목 (감정 흐름, 주요 감정, 활동 패턴, 조언, 주목할 점)
+  - 응답 형식: JSON
+  - 톤: 공감적이고 따뜻한 한국어
+- **응답 파싱**: JSON 추출 및 각 필드별 파싱
+
 ## 🔄 다음 작업 (진행 예정)
-
-### 3단계: Data Source 및 Repository Implementation
-- `MoodSummaryLocalDataSource` 생성
-- `MoodSummaryRepositoryImpl` 구현
-- `GeminiRepositoryImpl` 구현
-
-### 4단계: Gemini Prompt 설계
-- 감정 흐름 분석 프롬프트
-- 활동 패턴 분석 프롬프트
-- 개인화된 조언 생성 프롬프트
 
 ### 5단계: Presentation Layer
 - `MoodSummaryViewModel` 생성
@@ -148,8 +166,8 @@
 - 마지막 업데이트: 2025-10-28
 
 ## 📊 진행률
-- 전체: 25% (4/16 단계 완료)
-- Domain Layer: 100%
-- Data Layer: 50%
+- 전체: 50% (7/14 단계 완료)
+- Domain Layer: 100% ✅
+- Data Layer: 100% ✅
 - Presentation Layer: 0%
 - Integration: 0%
