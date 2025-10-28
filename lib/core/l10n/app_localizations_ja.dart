@@ -352,6 +352,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get journal_delete_confirm_description => 'この項目を削除しますか？';
 
   @override
+  String get check_in_delete_confirm_title => '削除の確認';
+
+  @override
+  String get check_in_delete_confirm_description => 'このチェックインを削除しますか？';
+
+  @override
   String get journal_ai_generating_response_title => 'AIがあなたの日記を分析しています...';
 
   @override
@@ -1553,12 +1559,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get check_in_memo => 'メモ';
-
-  @override
-  String get check_in_delete_confirm_title => '削除の確認';
-
-  @override
-  String get check_in_delete_confirm_description => 'このチェックインを削除しますか？';
 
   @override
   String get check_in_edit => '編集';

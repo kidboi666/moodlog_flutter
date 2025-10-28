@@ -351,6 +351,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get journal_delete_confirm_description => '이 일기를 삭제하시겠습니까?';
 
   @override
+  String get check_in_delete_confirm_title => '삭제 확인';
+
+  @override
+  String get check_in_delete_confirm_description => '이 체크인을 삭제하시겠습니까?';
+
+  @override
   String get journal_ai_generating_response_title => 'AI가 일기를 분석하고 있어요...';
 
   @override
@@ -1553,12 +1559,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get check_in_memo => '메모';
-
-  @override
-  String get check_in_delete_confirm_title => '삭제 확인';
-
-  @override
-  String get check_in_delete_confirm_description => '이 체크인을 삭제하시겠습니까?';
 
   @override
   String get check_in_edit => '수정';

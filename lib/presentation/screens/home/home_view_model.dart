@@ -143,6 +143,12 @@ class HomeViewModel extends ChangeNotifier
     setSuccess();
   }
 
+  Future<void> deleteCheckIn(int id) async {
+    setLoading();
+    await _checkInUseCase.deleteCheckIn(id);
+    setSuccess();
+  }
+
   void _calculateDateItems() {
     _calculateDateItemsForMonth(_displayMonth);
   }

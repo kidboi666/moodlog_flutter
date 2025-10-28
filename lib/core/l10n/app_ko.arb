@@ -130,6 +130,8 @@
   "write_location_remove": "제거",
   "journal_delete_confirm_title": "삭제 확인",
   "journal_delete_confirm_description": "이 일기를 삭제하시겠습니까?",
+  "check_in_delete_confirm_title": "삭제 확인",
+  "check_in_delete_confirm_description": "이 체크인을 삭제하시겠습니까?",
   "journal_ai_generating_response_title": "AI가 일기를 분석하고 있어요...",
   "journal_ai_generating_response_error": "AI 응답 생성에 실패했습니다.",
   "journal_menu_change_align": "정렬 변경",

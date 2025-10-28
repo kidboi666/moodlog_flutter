@@ -130,6 +130,8 @@
   "write_location_remove": "削除",
   "journal_delete_confirm_title": "削除確認",
   "journal_delete_confirm_description": "この項目を削除しますか？",
+  "check_in_delete_confirm_title": "削除確認",
+  "check_in_delete_confirm_description": "このチェックインを削除しますか？",
   "journal_ai_generating_response_title": "AIがあなたの日記を分析しています...",
   "journal_ai_generating_response_error": "AI応答の生成に失敗しました。",
   "journal_menu_change_align": "配置変更",

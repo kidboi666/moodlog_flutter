@@ -760,6 +760,18 @@ abstract class AppLocalizations {
   /// **'Do you want to delete this entry?'**
   String get journal_delete_confirm_description;
 
+  /// No description provided for @check_in_delete_confirm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get check_in_delete_confirm_title;
+
+  /// No description provided for @check_in_delete_confirm_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this check-in?'**
+  String get check_in_delete_confirm_description;
+
   /// No description provided for @journal_ai_generating_response_title.
   ///
   /// In en, this message translates to:
@@ -3033,18 +3045,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Memo'**
   String get check_in_memo;
-
-  /// No description provided for @check_in_delete_confirm_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm Deletion'**
-  String get check_in_delete_confirm_title;
-
-  /// No description provided for @check_in_delete_confirm_description.
-  ///
-  /// In en, this message translates to:
-  /// **'Do you want to delete this check-in?'**
-  String get check_in_delete_confirm_description;
 
   /// No description provided for @check_in_edit.
   ///

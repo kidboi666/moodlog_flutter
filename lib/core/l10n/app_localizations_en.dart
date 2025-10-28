@@ -368,6 +368,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Do you want to delete this entry?';
 
   @override
+  String get check_in_delete_confirm_title => 'Confirm Deletion';
+
+  @override
+  String get check_in_delete_confirm_description =>
+      'Do you want to delete this check-in?';
+
+  @override
   String get journal_ai_generating_response_title =>
       'AI is analyzing your journal...';
 
@@ -1602,13 +1609,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get check_in_memo => 'Memo';
-
-  @override
-  String get check_in_delete_confirm_title => 'Confirm Deletion';
-
-  @override
-  String get check_in_delete_confirm_description =>
-      'Do you want to delete this check-in?';
 
   @override
   String get check_in_edit => 'Edit';

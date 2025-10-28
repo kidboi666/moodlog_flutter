@@ -70,7 +70,12 @@ class TimelineSliverList extends StatelessWidget {
                     isSelectionMode,
                     selectedJournalIds,
                   )
-                : _buildCheckInEntry(context, entry),
+                : _buildCheckInEntry(
+                    context,
+                    entry,
+                    isSelectionMode,
+                    selectedJournalIds,
+                  ),
           ),
         );
       }, childCount: timelineEntries.length),
@@ -133,12 +138,59 @@ class TimelineSliverList extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckInEntry(BuildContext context, TimelineEntry entry) {
-    return TimelineCard(
-      entry: entry,
-      onTap: () {
-        context.push(Routes.checkIn(entry.id));
+  Widget _buildCheckInEntry(
+    BuildContext context,
+    TimelineEntry entry,
+    bool isSelectionMode,
+    Set<int> selectedJournalIds,
+  ) {
+    return Dismissible(
+      key: ValueKey('check_in_${entry.id}'),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.error,
+          borderRadius: BorderRadius.circular(Roundness.card),
+        ),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
+      confirmDismiss: (direction) async {
+        final t = AppLocalizations.of(context)!;
+        return await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(t.check_in_delete_confirm_title),
+              content: Text(t.check_in_delete_confirm_description),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => context.pop(false),
+                  child: Text(t.common_confirm_cancel),
+                ),
+                TextButton(
+                  onPressed: () => context.pop(true),
+                  child: Text(t.common_confirm_delete),
+                ),
+              ],
+            );
+          },
+        );
       },
+      onDismissed: (direction) {
+        context.read<HomeViewModel>().deleteCheckIn(entry.id);
+      },
+      child: TimelineCard(
+        entry: entry,
+        isSelectable: isSelectionMode,
+        isSelected: selectedJournalIds.contains(entry.id),
+        onTap: isSelectionMode
+            ? () =>
+                  context.read<HomeViewModel>().toggleJournalSelection(entry.id)
+            : () => context.push(Routes.checkIn(entry.id)),
+        onLongPress: () => context.read<HomeViewModel>().toggleSelectionMode(),
+      ),
     );
   }
 }
