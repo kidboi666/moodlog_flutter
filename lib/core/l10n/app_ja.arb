@@ -744,5 +744,8 @@
   "mood_summary_dominant_moods": "主な感情",
   "mood_summary_activity_patterns": "活動パターン",
   "mood_summary_personal_advice": "あなたへのアドバイス",
-  "mood_summary_key_points": "注目ポイント"
+  "mood_summary_key_points": "注目ポイント",
+  "mood_summary_card_ready": "今日の感情まとめが完成しました",
+  "mood_summary_card_cta": "あなたの一日に隠された意味を確認しましょう",
+  "mood_summary_badge_new": "NEW"
 }

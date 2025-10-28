@@ -1721,4 +1721,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mood_summary_key_points => '주목할 점';
+
+  @override
+  String get mood_summary_card_ready => '오늘의 감정 결산이 준비되었어요';
+
+  @override
+  String get mood_summary_card_cta => '당신의 하루에 숨겨진 의미를 확인하세요';
+
+  @override
+  String get mood_summary_badge_new => 'NEW';
 }

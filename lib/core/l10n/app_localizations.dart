@@ -3369,6 +3369,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Key Points'**
   String get mood_summary_key_points;
+
+  /// No description provided for @mood_summary_card_ready.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily summary is ready'**
+  String get mood_summary_card_ready;
+
+  /// No description provided for @mood_summary_card_cta.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover the hidden meaning in your day'**
+  String get mood_summary_card_cta;
+
+  /// No description provided for @mood_summary_badge_new.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW'**
+  String get mood_summary_badge_new;
 }
 
 class _AppLocalizationsDelegate

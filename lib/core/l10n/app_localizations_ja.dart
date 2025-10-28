@@ -1721,4 +1721,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mood_summary_key_points => '注目ポイント';
+
+  @override
+  String get mood_summary_card_ready => '今日の感情まとめが完成しました';
+
+  @override
+  String get mood_summary_card_cta => 'あなたの一日に隠された意味を確認しましょう';
+
+  @override
+  String get mood_summary_badge_new => 'NEW';
 }

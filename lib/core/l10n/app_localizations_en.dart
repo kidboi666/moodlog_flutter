@@ -1773,4 +1773,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mood_summary_key_points => 'Key Points';
+
+  @override
+  String get mood_summary_card_ready => 'Your daily summary is ready';
+
+  @override
+  String get mood_summary_card_cta => 'Discover the hidden meaning in your day';
+
+  @override
+  String get mood_summary_badge_new => 'NEW';
 }

@@ -744,5 +744,8 @@
   "mood_summary_dominant_moods": "Dominant Moods",
   "mood_summary_activity_patterns": "Activity Patterns",
   "mood_summary_personal_advice": "Advice for You",
-  "mood_summary_key_points": "Key Points"
+  "mood_summary_key_points": "Key Points",
+  "mood_summary_card_ready": "Your daily summary is ready",
+  "mood_summary_card_cta": "Discover the hidden meaning in your day",
+  "mood_summary_badge_new": "NEW"
 }
