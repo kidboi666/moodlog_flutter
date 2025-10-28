@@ -30,6 +30,11 @@ class _HomeScreenContent extends StatelessWidget {
                       child: const UnifiedCalendarWidget(),
                     ),
                     CommonSizedBox.heightXl,
+                    FadeIn(
+                      delay: DelayMS.medium * 4,
+                      child: const MoodSummaryCard(),
+                    ),
+                    CommonSizedBox.heightXl,
                   ],
                 ),
               ),
