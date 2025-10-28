@@ -177,18 +177,18 @@ class SleepQualityPageState extends State<SleepQualityPage>
             }),
           ),
           CommonSizedBox.heightXl,
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: widget.onNext,
-              child: Text(
-                t.quick_check_in_next,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FloatingActionButton(
+                onPressed: widget.onBack,
+                child: const Icon(Icons.arrow_back),
               ),
-            ),
+              FloatingActionButton(
+                onPressed: widget.onNext,
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
           ),
           CommonSizedBox.heightMd,
         ],

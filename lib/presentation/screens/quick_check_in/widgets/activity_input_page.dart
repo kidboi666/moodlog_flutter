@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
 import 'package:moodlog/presentation/widgets/selectable_chip.dart';
@@ -78,19 +77,15 @@ class ActivityInputPageState extends State<ActivityInputPage>
           const _SuggestedActivities(),
           const Spacer(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: widget.onBack,
-                  child: Text(t.quick_check_in_previous),
-                ).scale(),
+              FloatingActionButton(
+                onPressed: widget.onBack,
+                child: const Icon(Icons.arrow_back),
               ),
-              CommonSizedBox.widthMd,
-              Expanded(
-                child: FilledButton(
-                  onPressed: widget.onNext,
-                  child: Text(t.quick_check_in_next),
-                ).scale(),
+              FloatingActionButton(
+                onPressed: widget.onNext,
+                child: const Icon(Icons.arrow_forward),
               ),
             ],
           ),
