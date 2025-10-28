@@ -41,14 +41,6 @@ class _MoodSummaryContentState extends State<_MoodSummaryContent>
             Tab(text: t.mood_summary_monthly),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              context.read<MoodSummaryViewModel>().refresh();
-            },
-          ),
-        ],
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
