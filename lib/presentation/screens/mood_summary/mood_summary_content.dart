@@ -142,35 +142,48 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final viewModel = context.read<MoodSummaryViewModel>();
     final timeRemaining = viewModel.getTimeRemainingText(period);
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.insights_outlined,
-              size: 64,
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.5),
+            Container(
+              width: 160,
+              height: 160,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.colorScheme.primary.withValues(alpha: 0.08),
+              ),
+              child: Icon(
+                Icons.insights_outlined,
+                size: 80,
+                color: theme.colorScheme.primary.withValues(alpha: 0.5),
+              ),
             ),
-            CommonSizedBox.heightXxl,
+            const SizedBox(height: 32),
             Text(
               t.mood_summary_empty_title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.5,
+              ),
               textAlign: TextAlign.center,
             ),
-            CommonSizedBox.heightMd,
+            CommonSizedBox.heightLg,
             Text(
               t.mood_summary_empty_subtitle,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                height: 1.6,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
               textAlign: TextAlign.center,
             ),
-            CommonSizedBox.heightXxl,
+            const SizedBox(height: 40),
             if (isGenerating)
               const CircularProgressIndicator()
             else if (viewModel.shouldShowGenerateButton(period))
@@ -185,9 +198,21 @@ class _EmptyState extends StatelessWidget {
                 },
                 icon: const Icon(Icons.auto_awesome),
                 label: Text(t.mood_summary_generate),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                ),
               )
             else
-              Text(timeRemaining, style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                timeRemaining,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
           ],
         ),
       ),
@@ -206,7 +231,7 @@ class _SummaryContent extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -215,42 +240,42 @@ class _SummaryContent extends StatelessWidget {
             content: _formatDateTime(summary.generatedAt),
             icon: Icons.access_time,
           ),
-          CommonSizedBox.heightLg,
+          CommonSizedBox.heightMd,
           _InfoCard(
             title: t.mood_summary_period,
             content:
                 '${_formatDate(summary.startDate)} ~ ${_formatDate(summary.endDate)}',
             icon: Icons.calendar_today,
           ),
-          CommonSizedBox.heightXxl,
+          const SizedBox(height: 32),
           _SectionCard(
             title: t.mood_summary_emotional_flow,
             content: summary.emotionalFlow,
             icon: Icons.timeline,
             color: theme.colorScheme.primary,
           ),
-          CommonSizedBox.heightLg,
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_dominant_moods,
             content: summary.dominantMoods,
             icon: Icons.favorite,
             color: theme.colorScheme.secondary,
           ),
-          CommonSizedBox.heightLg,
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_activity_patterns,
             content: summary.activityPatterns,
             icon: Icons.local_activity,
             color: theme.colorScheme.tertiary,
           ),
-          CommonSizedBox.heightLg,
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_personal_advice,
             content: summary.personalAdvice,
             icon: Icons.lightbulb,
             color: theme.colorScheme.primary,
           ),
-          CommonSizedBox.heightLg,
+          const SizedBox(height: 24),
           _SectionCard(
             title: t.mood_summary_key_points,
             content: summary.keyPoints,
@@ -288,28 +313,45 @@ class _InfoCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Padding(
-        padding: CommonPadding.lg,
+        padding: const EdgeInsets.all(20),
         child: Row(
           children: [
-            Icon(
-              icon,
-              color: theme.colorScheme.primary.withValues(alpha: 0.7),
-              size: 20,
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
+              ),
+              child: Icon(
+                icon,
+                color: theme.colorScheme.primary,
+                size: 24,
+              ),
             ),
-            CommonSizedBox.widthMd,
+            CommonSizedBox.widthLg,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: theme.textTheme.labelMedium?.copyWith(
+                    style: theme.textTheme.labelLarge?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  CommonSizedBox.heightXs,
-                  Text(content, style: theme.textTheme.bodyMedium),
+                  const SizedBox(height: 6),
+                  Text(
+                    content,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -338,30 +380,52 @@ class _SectionCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Padding(
-        padding: CommonPadding.xl,
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(icon, color: color, size: 24),
-                CommonSizedBox.widthMd,
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color.withValues(alpha: 0.15),
+                  ),
+                  child: Icon(icon, color: color, size: 28),
+                ),
+                CommonSizedBox.widthLg,
                 Expanded(
                   child: Text(
                     title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
                       color: color,
+                      letterSpacing: -0.5,
                     ),
                   ),
                 ),
               ],
             ),
-            CommonSizedBox.heightLg,
+            const SizedBox(height: 16),
+            Divider(
+              height: 1,
+              thickness: 1,
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+            ),
+            const SizedBox(height: 20),
             Text(
               content,
-              style: theme.textTheme.bodyLarge?.copyWith(height: 1.6),
+              style: theme.textTheme.bodyLarge?.copyWith(
+                height: 1.7,
+                letterSpacing: 0.2,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.9),
+              ),
             ),
           ],
         ),

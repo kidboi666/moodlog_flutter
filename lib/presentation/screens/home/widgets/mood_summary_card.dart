@@ -48,8 +48,11 @@ class _MoodSummaryCardState extends State<MoodSummaryCard> {
 
     if (_isLoading) {
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Padding(
-          padding: CommonPadding.lg,
+          padding: const EdgeInsets.all(20),
           child: Center(
             child: SizedBox(
               height: 120,
@@ -62,7 +65,12 @@ class _MoodSummaryCardState extends State<MoodSummaryCard> {
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
                   CommonSizedBox.heightSm,
-                  Text(t.mood_summary_title, style: theme.textTheme.bodySmall),
+                  Text(
+                    t.mood_summary_title,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -73,45 +81,58 @@ class _MoodSummaryCardState extends State<MoodSummaryCard> {
 
     if (_dailySummary == null) {
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: InkWell(
           onTap: () => context.push(Routes.moodSummary),
-          borderRadius: CommonBorderRadius.medium,
+          borderRadius: BorderRadius.circular(20),
           child: Padding(
-            padding: CommonPadding.lg,
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.auto_awesome,
-                      color: theme.colorScheme.primary,
-                      size: 20,
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: theme.colorScheme.primary.withValues(alpha: 0.12),
+                      ),
+                      child: Icon(
+                        Icons.auto_awesome,
+                        color: theme.colorScheme.primary,
+                        size: 22,
+                      ),
                     ),
-                    CommonSizedBox.widthSm,
+                    CommonSizedBox.widthMd,
                     Expanded(
                       child: Text(
                         t.mood_summary_title,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.3,
                         ),
                       ),
                     ),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
                     ),
                   ],
                 ),
-                CommonSizedBox.heightMd,
+                CommonSizedBox.heightLg,
                 Text(
                   t.mood_summary_empty_subtitle,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    height: 1.5,
                   ),
                 ),
-                CommonSizedBox.heightSm,
+                CommonSizedBox.heightMd,
                 Text(
                   t.mood_summary_generate,
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -127,56 +148,69 @@ class _MoodSummaryCardState extends State<MoodSummaryCard> {
     }
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: InkWell(
         onTap: () => context.push(Routes.moodSummary),
-        borderRadius: CommonBorderRadius.medium,
+        borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: CommonPadding.lg,
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.auto_awesome,
-                    color: theme.colorScheme.primary,
-                    size: 20,
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.colorScheme.primary.withValues(alpha: 0.12),
+                    ),
+                    child: Icon(
+                      Icons.auto_awesome,
+                      color: theme.colorScheme.primary,
+                      size: 22,
+                    ),
                   ),
-                  CommonSizedBox.widthSm,
+                  CommonSizedBox.widthMd,
                   Expanded(
                     child: Text(
                       '${t.mood_summary_title} · ${t.mood_summary_daily}',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.3,
                       ),
                     ),
                   ),
                   Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
                   ),
                 ],
               ),
-              CommonSizedBox.heightMd,
+              CommonSizedBox.heightLg,
               _SummaryPreview(
                 icon: Icons.favorite,
                 label: t.mood_summary_dominant_moods,
                 content: _dailySummary!.dominantMoods,
                 color: theme.colorScheme.secondary,
               ),
-              CommonSizedBox.heightSm,
+              CommonSizedBox.heightMd,
               _SummaryPreview(
                 icon: Icons.lightbulb,
                 label: t.mood_summary_personal_advice,
                 content: _dailySummary!.personalAdvice,
                 color: theme.colorScheme.primary,
               ),
-              CommonSizedBox.heightSm,
+              CommonSizedBox.heightMd,
               Text(
                 _formatDateTime(_dailySummary!.generatedAt),
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -214,23 +248,35 @@ class _SummaryPreview extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 16, color: color.withValues(alpha: 0.8)),
-        CommonSizedBox.widthXs,
+        Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color.withValues(alpha: 0.12),
+          ),
+          child: Icon(icon, size: 18, color: color),
+        ),
+        CommonSizedBox.widthSm,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 label,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: color.withValues(alpha: 0.8),
-                  fontWeight: FontWeight.w600,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.2,
                 ),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 previewText,
-                style: theme.textTheme.bodySmall,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  height: 1.5,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
