@@ -179,20 +179,38 @@
   - `_checkAndAutoGenerateMoodSummaries()` 메서드 구현
   - 앱 시작 시 자동 생성 체크 로직 통합
 
+### 8단계: 홈 화면 카드 위젯 (완료)
+- **파일**: `lib/presentation/screens/home/widgets/mood_summary_card.dart`
+  - 일간 결산 미리보기 카드 위젯
+  - 3가지 상태 처리:
+    - 로딩 중: CircularProgressIndicator 표시
+    - 빈 상태: 생성 안내 메시지 및 버튼
+    - 결산 있음: 주요 감정 & 조언 미리보기
+  - 탭하여 상세 화면 이동
+  - FadeIn 애니메이션 적용
+
+- **통합**: `home_view.dart` & `home_content.dart`
+  - UnifiedCalendarWidget 아래에 배치
+  - FadeIn delay: DelayMS.medium * 4
+
 ## ✅ 구현 완료
 
 모든 기능이 완료되었습니다! 🎉
 
-## 📋 다음 단계 (선택 사항)
+### 주요 완성 기능
+1. ✅ 감정 결산 자동 생성 (일간/주간/월간)
+2. ✅ Firebase Gemini AI 분석
+3. ✅ 로컬 데이터베이스 저장 (Drift)
+4. ✅ 전용 결산 화면 (탭 기반 UI)
+5. ✅ Drawer 메뉴 접근
+6. ✅ 홈 화면 카드 위젯
+7. ✅ 3개 언어 지원 (한/영/일)
+8. ✅ Clean Architecture + MVVM
 
-### 홈 화면 카드 위젯
-- 향후 추가 예정: 홈 화면에 일간/주간/월간 결산 카드 표시
-- 현재는 Drawer 메뉴를 통해 접근 가능
-
-### 테스트 및 최적화
-- 실제 앱 실행 및 기능 테스트
-- UI/UX 개선
-- 성능 최적화
+## 🚀 접근 방법
+1. **홈 화면 카드**: 일간 결산 미리보기 → 탭하여 상세 보기
+2. **Drawer 메뉴**: 통계 아래 "감정 결산" 메뉴
+3. **자동 생성**: 앱 시작 시 필요한 결산 자동 생성
 
 ## 📝 기술적 결정사항
 
