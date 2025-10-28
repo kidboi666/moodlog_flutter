@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/mixins/async_state_mixin.dart';
 import 'package:moodlog/core/mixins/step_mixin.dart';
 import 'package:moodlog/core/utils/result.dart';
@@ -22,12 +21,9 @@ class OnboardingViewModel extends ChangeNotifier
     required UserProvider userProvider,
   }) : _appStateProvider = appStateProvider,
        _localUserUseCase = localUserUseCase,
-       _userProvider = userProvider,
-       _selectedPersonality = AiPersonality.balanced {
+       _userProvider = userProvider {
     initStep(totalSteps);
   }
-
-  AiPersonality? _selectedPersonality;
 
   String _nickname = '';
 
@@ -35,16 +31,8 @@ class OnboardingViewModel extends ChangeNotifier
 
   Settings get appState => _appStateProvider.appState;
 
-  AiPersonality get selectedPersonality =>
-      _selectedPersonality ?? AiPersonality.balanced;
-
   bool validateNickname(String? value) =>
       value != null && value.isNotEmpty && value.length <= 10;
-
-  void setPersonality(AiPersonality? personality) {
-    _selectedPersonality = personality ?? AiPersonality.balanced;
-    notifyListeners();
-  }
 
   void setNickname(String value) {
     _nickname = value;
@@ -61,7 +49,6 @@ class OnboardingViewModel extends ChangeNotifier
 
         final updatedSettings = appState.copyWith(
           isOnboardingComplete: true,
-          aiPersonality: selectedPersonality,
         );
 
         await _appStateProvider.update(updatedSettings);

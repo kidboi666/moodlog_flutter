@@ -43,47 +43,6 @@ enum LanguageCode {
   }
 }
 
-enum AiPersonality {
-  rational,
-  balanced,
-  compassionate;
-
-  static AiPersonality fromString(String? value) {
-    switch (value) {
-      case 'balanced':
-        return AiPersonality.balanced;
-      case 'rational':
-        return AiPersonality.rational;
-      case 'compassionate':
-        return AiPersonality.compassionate;
-      default:
-        return AiPersonality.balanced;
-    }
-  }
-
-  String get emoji {
-    switch (this) {
-      case AiPersonality.rational:
-        return Emoji.rational.displayEmoji;
-      case AiPersonality.balanced:
-        return Emoji.balanced.displayEmoji;
-      case AiPersonality.compassionate:
-        return Emoji.compassionate.displayEmoji;
-    }
-  }
-
-  String get value {
-    switch (this) {
-      case AiPersonality.rational:
-        return 'rational';
-      case AiPersonality.balanced:
-        return 'balanced';
-      case AiPersonality.compassionate:
-        return 'compassionate';
-    }
-  }
-}
-
 enum SimpleTextAlign {
   left(
     material.TextAlign.left,

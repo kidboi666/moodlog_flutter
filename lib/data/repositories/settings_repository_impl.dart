@@ -33,9 +33,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
     final themeModeString = await _localDataSource.getString('themeMode');
     final colorThemeString = await _localDataSource.getString('colorTheme');
     final languageCodeString = await _localDataSource.getString('languageCode');
-    final aiPersonalityString = await _localDataSource.getString(
-      'aiPersonality',
-    );
     final fontTypeString = await _localDataSource.getString('fontType');
     final legacyFontFamilyString = await _localDataSource.getString(
       'fontFamily',
@@ -63,7 +60,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
       themeMode: ThemeMode.fromString(themeModeString),
       colorTheme: ColorTheme.fromString(colorThemeString),
       languageCode: LanguageCode.fromString(languageCodeString),
-      aiPersonality: AiPersonality.fromString(aiPersonalityString),
       fontType: fontType,
       textAlign: SimpleTextAlign.fromString(textAlignString),
       timeFormat: TimeFormat.fromString(timeFormatString),
@@ -88,10 +84,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
     await _localDataSource.setString(
       'languageCode',
       newSettings.languageCode.name,
-    );
-    await _localDataSource.setString(
-      'aiPersonality',
-      newSettings.aiPersonality.name,
     );
     await _localDataSource.setString(
       'fontType',

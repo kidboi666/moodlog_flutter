@@ -6,25 +6,25 @@ import 'package:moodlog/domain/entities/journal/location_info.dart';
 import 'package:moodlog/domain/entities/journal/weather_info.dart';
 import 'package:moodlog/domain/models/create_journal_request.dart';
 import 'package:moodlog/domain/models/update_journal_request.dart';
+import 'package:moodlog/domain/repositories/image_repository.dart';
 import 'package:moodlog/domain/use_cases/get_current_location_use_case.dart';
 import 'package:moodlog/domain/use_cases/journal_use_case.dart';
 import 'package:moodlog/domain/use_cases/weather_use_case.dart';
-import 'package:moodlog/domain/use_cases/write_journal_use_case.dart';
 
 class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
-  final WriteJournalUseCase _writeJournalUseCase;
+  final ImageRepository _imageRepository;
   final JournalUseCase _journalUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
 
   WriteViewModel({
-    required WriteJournalUseCase writeJournalUseCase,
+    required ImageRepository imageRepository,
     required JournalUseCase journalUseCase,
     required GetCurrentLocationUseCase getCurrentLocationUseCase,
     required WeatherUseCase weatherUseCase,
     DateTime? selectedDate,
     int? editJournalId,
-  }) : _writeJournalUseCase = writeJournalUseCase,
+  }) : _imageRepository = imageRepository,
        _journalUseCase = journalUseCase,
        _getCurrentLocationUseCase = getCurrentLocationUseCase,
        _weatherUseCase = weatherUseCase,
@@ -118,7 +118,7 @@ class WriteViewModel extends ChangeNotifier with AsyncStateMixin {
 
   Future<void> pickImage() async {
     setLoading();
-    final result = await _writeJournalUseCase.pickAndSaveImage();
+    final result = await _imageRepository.pickImageFromGallery();
     switch (result) {
       case Ok<String?>():
         if (result.value != null) {

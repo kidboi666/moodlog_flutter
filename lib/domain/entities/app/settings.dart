@@ -14,7 +14,6 @@ abstract class Settings with _$Settings {
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(ColorTheme.blue) ColorTheme colorTheme,
     @Default(LanguageCode.ko) LanguageCode languageCode,
-    @Default(AiPersonality.balanced) AiPersonality aiPersonality,
     @Default(LocalFont.pretendard) FontType fontType,
     @Default(SimpleTextAlign.left) SimpleTextAlign textAlign,
     @Default(TimeFormat.hour24) TimeFormat timeFormat,

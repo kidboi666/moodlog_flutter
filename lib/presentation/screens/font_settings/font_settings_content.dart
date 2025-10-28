@@ -43,10 +43,7 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
     }
   }
 
-  List<_FontSection> get _fontSections {
-    final viewModel = context.watch<SettingsViewModel>();
-    final currentFont = viewModel.appState.fontType;
-
+  List<_FontSection> _getFontSections(FontType currentFont) {
     final sections = <_FontSection>[];
 
     final l10n = AppLocalizations.of(context)!;
@@ -171,7 +168,7 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
     );
   }
 
-  Widget _buildFontItem(FontType font, SettingsViewModel viewModel) {
+  Widget _buildFontItem(FontType font, FontType currentFont) {
     final isLoading = _isLoadingFont && _loadingFont == font;
 
     if (font is LocalFont) {
@@ -184,7 +181,7 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
         title: Text(font.family, style: TextStyle(fontSize: 16)),
         leading: Radio<FontType>(
           value: font,
-          groupValue: viewModel.appState.fontType,
+          groupValue: currentFont,
           onChanged: isLoading
               ? null
               : (value) {
@@ -208,8 +205,11 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<SettingsViewModel>();
+    final currentFont = context.select(
+      (SettingsViewModel vm) => vm.appState.fontType,
+    );
     final l10n = AppLocalizations.of(context)!;
+    final fontSections = _getFontSections(currentFont);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.font_settings_title)),
@@ -236,16 +236,16 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
             child: _isInitialLoading
                 ? Center(child: CircularProgressIndicator())
                 : RadioGroup<FontType>(
-                    groupValue: viewModel.appState.fontType,
+                    groupValue: currentFont,
                     onChanged: _selectFont,
                     child: ListView.builder(
-                      itemCount: _fontSections.fold<int>(
+                      itemCount: fontSections.fold<int>(
                         0,
                         (sum, section) => sum + section.fonts.length + 1,
                       ),
                       itemBuilder: (context, index) {
                         int currentIndex = 0;
-                        for (final section in _fontSections) {
+                        for (final section in fontSections) {
                           if (index == currentIndex) {
                             return _buildSectionHeader(section.title);
                           }
@@ -254,7 +254,7 @@ class _FontSettingsContentState extends State<_FontSettingsContent> {
                           if (index < currentIndex + section.fonts.length) {
                             final fontIndex = index - currentIndex;
                             final font = section.fonts[fontIndex];
-                            return _buildFontItem(font, viewModel);
+                            return _buildFontItem(font, currentFont);
                           }
                           currentIndex += section.fonts.length;
                         }

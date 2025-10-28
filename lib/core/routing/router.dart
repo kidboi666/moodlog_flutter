@@ -4,7 +4,6 @@ import 'package:moodlog/core/constants/enum.dart';
 import 'package:moodlog/core/routing/routes.dart';
 import 'package:moodlog/presentation/providers/app_state_provider.dart';
 import 'package:moodlog/presentation/screens/activities/activities_view.dart';
-import 'package:moodlog/presentation/screens/ai_analysis_report/ai_analysis_report_view.dart';
 import 'package:moodlog/presentation/screens/check_in/check_in_view.dart';
 import 'package:moodlog/presentation/screens/font_settings/font_settings_view.dart';
 import 'package:moodlog/presentation/screens/home/home_view.dart';
@@ -130,12 +129,6 @@ GoRouter router(
       path: Routes.purchase,
       builder: (_, _) {
         return const PurchaseScreen();
-      },
-    ),
-    GoRoute(
-      path: Routes.aiAnalysisReport,
-      builder: (_, _) {
-        return const AiAnalysisReportScreen();
       },
     ),
     GoRoute(

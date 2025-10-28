@@ -126,13 +126,6 @@ class SettingsViewModel extends ChangeNotifier with AsyncStateMixin {
     _updateSettings(updatedState, 'font_type', fontName);
   }
 
-  void setAiPersonality(AiPersonality personality) {
-    final updatedState = _appStateProvider.appState.copyWith(
-      aiPersonality: personality,
-    );
-    _updateSettings(updatedState, 'ai_personality', personality.name);
-  }
-
   void setAppLockEnabled(bool enabled) {
     final updatedState = _appStateProvider.appState.copyWith(
       isAppLockEnabled: enabled,

@@ -20,32 +20,6 @@ extension MoodTypeExtension on MoodType {
   }
 }
 
-extension AiPersonalityExtension on AiPersonality {
-  String getTitle(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    switch (this) {
-      case AiPersonality.rational:
-        return t.onboarding_personality_rational_title;
-      case AiPersonality.balanced:
-        return t.onboarding_personality_balanced_title;
-      case AiPersonality.compassionate:
-        return t.onboarding_personality_compassionate_title;
-    }
-  }
-
-  String getDescription(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    switch (this) {
-      case AiPersonality.rational:
-        return t.onboarding_personality_rational_description;
-      case AiPersonality.balanced:
-        return t.onboarding_personality_balanced_description;
-      case AiPersonality.compassionate:
-        return t.onboarding_personality_compassionate_description;
-    }
-  }
-}
-
 extension FontFamilyExtension on FontFamily {
   String getDisplayName(BuildContext context) {
     final t = AppLocalizations.of(context)!;

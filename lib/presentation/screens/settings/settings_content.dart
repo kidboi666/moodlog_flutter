@@ -100,18 +100,6 @@ class _SettingsScreenContent extends StatelessWidget {
                 ),
                 const SizedBox(height: Spacing.xl),
 
-                SectionHeader(title: t.settings_ai_section_title),
-                DialogTile(
-                  title: t.settings_ai_personality_title,
-                  subtitle: viewModel.appState.aiPersonality.getTitle(context),
-                  icon: Icons.psychology,
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => AiPersonalityDialog(viewModel: viewModel),
-                  ),
-                ),
-                const SizedBox(height: Spacing.xl),
-
                 SectionHeader(title: t.settings_data_title),
                 MenuListTile(
                   title: t.settings_data_export_title,

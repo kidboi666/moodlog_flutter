@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppStateSharedPreferencesModel {
 
- bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; String get themeMode; String get colorTheme; String get languageCode; String get aiPersonality; String get fontType; String get textAlign; bool get isOnboardingComplete;
+ bool get hasNotificationEnabled; bool get hasAutoSyncEnabled; String get themeMode; String get colorTheme; String get languageCode; String get fontType; String get textAlign; bool get isOnboardingComplete;
 /// Create a copy of AppStateSharedPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AppStateSharedPreferencesModelCopyWith<AppStateSharedPreferencesModel> get copy
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppStateSharedPreferencesModel&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppStateSharedPreferencesModel&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,isOnboardingComplete);
+int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,fontType,textAlign,isOnboardingComplete);
 
 @override
 String toString() {
-  return 'AppStateSharedPreferencesModel(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete)';
+  return 'AppStateSharedPreferencesModel(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AppStateSharedPreferencesModelCopyWith<$Res>  {
   factory $AppStateSharedPreferencesModelCopyWith(AppStateSharedPreferencesModel value, $Res Function(AppStateSharedPreferencesModel) _then) = _$AppStateSharedPreferencesModelCopyWithImpl;
 @useResult
 $Res call({
- bool hasNotificationEnabled, bool hasAutoSyncEnabled, String themeMode, String colorTheme, String languageCode, String aiPersonality, String fontType, String textAlign, bool isOnboardingComplete
+ bool hasNotificationEnabled, bool hasAutoSyncEnabled, String themeMode, String colorTheme, String languageCode, String fontType, String textAlign, bool isOnboardingComplete
 });
 
 
@@ -65,14 +65,13 @@ class _$AppStateSharedPreferencesModelCopyWithImpl<$Res>
 
 /// Create a copy of AppStateSharedPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,}) {
   return _then(_self.copyWith(
 hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hasAutoSyncEnabled: null == hasAutoSyncEnabled ? _self.hasAutoSyncEnabled : hasAutoSyncEnabled // ignore: cast_nullable_to_non_nullable
 as bool,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as String,colorTheme: null == colorTheme ? _self.colorTheme : colorTheme // ignore: cast_nullable_to_non_nullable
 as String,languageCode: null == languageCode ? _self.languageCode : languageCode // ignore: cast_nullable_to_non_nullable
-as String,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as String,fontType: null == fontType ? _self.fontType : fontType // ignore: cast_nullable_to_non_nullable
 as String,textAlign: null == textAlign ? _self.textAlign : textAlign // ignore: cast_nullable_to_non_nullable
 as String,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable
@@ -161,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String aiPersonality,  String fontType,  String textAlign,  bool isOnboardingComplete)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String fontType,  String textAlign,  bool isOnboardingComplete)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppStateSharedPreferencesModel() when $default != null:
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
   return orElse();
 
 }
@@ -182,10 +181,10 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String aiPersonality,  String fontType,  String textAlign,  bool isOnboardingComplete)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String fontType,  String textAlign,  bool isOnboardingComplete)  $default,) {final _that = this;
 switch (_that) {
 case _AppStateSharedPreferencesModel():
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +201,10 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String aiPersonality,  String fontType,  String textAlign,  bool isOnboardingComplete)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasNotificationEnabled,  bool hasAutoSyncEnabled,  String themeMode,  String colorTheme,  String languageCode,  String fontType,  String textAlign,  bool isOnboardingComplete)?  $default,) {final _that = this;
 switch (_that) {
 case _AppStateSharedPreferencesModel() when $default != null:
-return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.aiPersonality,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
+return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.themeMode,_that.colorTheme,_that.languageCode,_that.fontType,_that.textAlign,_that.isOnboardingComplete);case _:
   return null;
 
 }
@@ -217,7 +216,7 @@ return $default(_that.hasNotificationEnabled,_that.hasAutoSyncEnabled,_that.them
 @JsonSerializable()
 
 class _AppStateSharedPreferencesModel extends AppStateSharedPreferencesModel {
-  const _AppStateSharedPreferencesModel({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = 'ThemeMode.system', this.colorTheme = 'ColorTheme.blue', this.languageCode = 'LanguageCode.ko', this.aiPersonality = 'AiPersonality.balanced', this.fontType = 'local:restart', this.textAlign = 'SimpleTextAlign.left', this.isOnboardingComplete = false}): super._();
+  const _AppStateSharedPreferencesModel({this.hasNotificationEnabled = false, this.hasAutoSyncEnabled = false, this.themeMode = 'ThemeMode.system', this.colorTheme = 'ColorTheme.blue', this.languageCode = 'LanguageCode.ko', this.fontType = 'local:pretendard', this.textAlign = 'SimpleTextAlign.left', this.isOnboardingComplete = false}): super._();
   factory _AppStateSharedPreferencesModel.fromJson(Map<String, dynamic> json) => _$AppStateSharedPreferencesModelFromJson(json);
 
 @override@JsonKey() final  bool hasNotificationEnabled;
@@ -225,7 +224,6 @@ class _AppStateSharedPreferencesModel extends AppStateSharedPreferencesModel {
 @override@JsonKey() final  String themeMode;
 @override@JsonKey() final  String colorTheme;
 @override@JsonKey() final  String languageCode;
-@override@JsonKey() final  String aiPersonality;
 @override@JsonKey() final  String fontType;
 @override@JsonKey() final  String textAlign;
 @override@JsonKey() final  bool isOnboardingComplete;
@@ -243,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppStateSharedPreferencesModel&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.aiPersonality, aiPersonality) || other.aiPersonality == aiPersonality)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppStateSharedPreferencesModel&&(identical(other.hasNotificationEnabled, hasNotificationEnabled) || other.hasNotificationEnabled == hasNotificationEnabled)&&(identical(other.hasAutoSyncEnabled, hasAutoSyncEnabled) || other.hasAutoSyncEnabled == hasAutoSyncEnabled)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorTheme, colorTheme) || other.colorTheme == colorTheme)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.fontType, fontType) || other.fontType == fontType)&&(identical(other.textAlign, textAlign) || other.textAlign == textAlign)&&(identical(other.isOnboardingComplete, isOnboardingComplete) || other.isOnboardingComplete == isOnboardingComplete));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,aiPersonality,fontType,textAlign,isOnboardingComplete);
+int get hashCode => Object.hash(runtimeType,hasNotificationEnabled,hasAutoSyncEnabled,themeMode,colorTheme,languageCode,fontType,textAlign,isOnboardingComplete);
 
 @override
 String toString() {
-  return 'AppStateSharedPreferencesModel(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, aiPersonality: $aiPersonality, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete)';
+  return 'AppStateSharedPreferencesModel(hasNotificationEnabled: $hasNotificationEnabled, hasAutoSyncEnabled: $hasAutoSyncEnabled, themeMode: $themeMode, colorTheme: $colorTheme, languageCode: $languageCode, fontType: $fontType, textAlign: $textAlign, isOnboardingComplete: $isOnboardingComplete)';
 }
 
 
@@ -263,7 +261,7 @@ abstract mixin class _$AppStateSharedPreferencesModelCopyWith<$Res> implements $
   factory _$AppStateSharedPreferencesModelCopyWith(_AppStateSharedPreferencesModel value, $Res Function(_AppStateSharedPreferencesModel) _then) = __$AppStateSharedPreferencesModelCopyWithImpl;
 @override @useResult
 $Res call({
- bool hasNotificationEnabled, bool hasAutoSyncEnabled, String themeMode, String colorTheme, String languageCode, String aiPersonality, String fontType, String textAlign, bool isOnboardingComplete
+ bool hasNotificationEnabled, bool hasAutoSyncEnabled, String themeMode, String colorTheme, String languageCode, String fontType, String textAlign, bool isOnboardingComplete
 });
 
 
@@ -280,14 +278,13 @@ class __$AppStateSharedPreferencesModelCopyWithImpl<$Res>
 
 /// Create a copy of AppStateSharedPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? aiPersonality = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hasNotificationEnabled = null,Object? hasAutoSyncEnabled = null,Object? themeMode = null,Object? colorTheme = null,Object? languageCode = null,Object? fontType = null,Object? textAlign = null,Object? isOnboardingComplete = null,}) {
   return _then(_AppStateSharedPreferencesModel(
 hasNotificationEnabled: null == hasNotificationEnabled ? _self.hasNotificationEnabled : hasNotificationEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hasAutoSyncEnabled: null == hasAutoSyncEnabled ? _self.hasAutoSyncEnabled : hasAutoSyncEnabled // ignore: cast_nullable_to_non_nullable
 as bool,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as String,colorTheme: null == colorTheme ? _self.colorTheme : colorTheme // ignore: cast_nullable_to_non_nullable
 as String,languageCode: null == languageCode ? _self.languageCode : languageCode // ignore: cast_nullable_to_non_nullable
-as String,aiPersonality: null == aiPersonality ? _self.aiPersonality : aiPersonality // ignore: cast_nullable_to_non_nullable
 as String,fontType: null == fontType ? _self.fontType : fontType // ignore: cast_nullable_to_non_nullable
 as String,textAlign: null == textAlign ? _self.textAlign : textAlign // ignore: cast_nullable_to_non_nullable
 as String,isOnboardingComplete: null == isOnboardingComplete ? _self.isOnboardingComplete : isOnboardingComplete // ignore: cast_nullable_to_non_nullable

@@ -17,8 +17,7 @@ abstract class AppStateSharedPreferencesModel
     @Default('ThemeMode.system') String themeMode,
     @Default('ColorTheme.blue') String colorTheme,
     @Default('LanguageCode.ko') String languageCode,
-    @Default('AiPersonality.balanced') String aiPersonality,
-    @Default('local:restart') String fontType,
+    @Default('local:pretendard') String fontType,
     @Default('SimpleTextAlign.left') String textAlign,
     @Default(false) bool isOnboardingComplete,
   }) = _AppStateSharedPreferencesModel;
@@ -33,7 +32,6 @@ abstract class AppStateSharedPreferencesModel
       themeMode: entity.themeMode.toString(),
       colorTheme: entity.colorTheme.toString(),
       languageCode: entity.languageCode.toString(),
-      aiPersonality: entity.aiPersonality.toString(),
       fontType: FontTypeSerializer.serialize(entity.fontType),
       textAlign: entity.textAlign.toString(),
       isOnboardingComplete: entity.isOnboardingComplete,
@@ -55,10 +53,6 @@ abstract class AppStateSharedPreferencesModel
       languageCode: LanguageCode.values.firstWhere(
         (element) => element.toString() == languageCode,
         orElse: () => LanguageCode.ko,
-      ),
-      aiPersonality: AiPersonality.values.firstWhere(
-        (element) => element.toString() == aiPersonality,
-        orElse: () => AiPersonality.balanced,
       ),
       fontType: FontTypeSerializer.deserialize(fontType),
       textAlign: SimpleTextAlign.values.firstWhere(
