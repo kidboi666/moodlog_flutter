@@ -25,36 +25,6 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
     );
   }
 
-  void _requestFocusForPage(int index, bool hasSleedPage) {
-    Future.delayed(DurationMS.quick, () {
-      if (hasSleedPage) {
-        switch (index) {
-          case 2:
-            _activityKey.currentState?.requestFocus();
-            break;
-          case 3:
-            _emotionKey.currentState?.requestFocus();
-            break;
-          case 4:
-            _memoKey.currentState?.requestFocus();
-            break;
-        }
-      } else {
-        switch (index) {
-          case 1:
-            _activityKey.currentState?.requestFocus();
-            break;
-          case 2:
-            _emotionKey.currentState?.requestFocus();
-            break;
-          case 3:
-            _memoKey.currentState?.requestFocus();
-            break;
-        }
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -109,7 +79,6 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
               onPageChanged: (index) {
                 FocusScope.of(context).unfocus();
                 context.read<QuickCheckInViewModel>().setStep(index);
-                _requestFocusForPage(index, isFirstCheckInToday);
               },
               children: pages,
             ),
