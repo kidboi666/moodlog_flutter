@@ -110,9 +110,9 @@ class _QuickCheckInContentState extends State<_QuickCheckInContent> {
 
     return AppBar(
       leading: IconButton(
-        icon: const Icon(Icons.close),
+        icon: Icon(currentStep == 0 ? Icons.close : Icons.arrow_back),
         padding: EdgeInsets.zero,
-        onPressed: () => context.pop(),
+        onPressed: currentStep == 0 ? () => context.pop() : onBack,
       ),
       title: PaginationDot(current: currentStep, total: totalSteps),
       centerTitle: true,

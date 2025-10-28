@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moodlog/core/constants/common.dart';
-import 'package:moodlog/core/extensions/widget.dart';
 import 'package:moodlog/core/l10n/app_localizations.dart';
 import 'package:moodlog/presentation/screens/quick_check_in/quick_check_in_view_model.dart';
 import 'package:provider/provider.dart';
@@ -98,28 +97,24 @@ class QuickMemoPageState extends State<QuickMemoPage>
             },
           ),
           const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: widget.onBack,
-                  child: Text(t.quick_check_in_previous),
-                ).scale(),
-              ),
-              CommonSizedBox.widthMd,
-              Expanded(
-                child: FilledButton(
-                  onPressed: viewModel.isLoading ? null : _submitCheckIn,
-                  child: viewModel.isLoading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(t.quick_check_in_submit),
-                ).scale(),
-              ),
-            ],
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: viewModel.isLoading ? null : _submitCheckIn,
+              child: viewModel.isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Text(
+                      t.quick_check_in_submit,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+            ),
           ),
           CommonSizedBox.heightXl,
         ],
