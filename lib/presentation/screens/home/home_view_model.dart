@@ -26,6 +26,9 @@ class HomeViewModel extends ChangeNotifier
   @override
   final JournalUseCase journalUseCase;
   final CheckInUseCase _checkInUseCase;
+
+  @override
+  CheckInUseCase get checkInUseCase => _checkInUseCase;
   final ObserveJournalListUseCase _observeJournalListUseCase;
   final GetCurrentLocationUseCase _getCurrentLocationUseCase;
   final WeatherUseCase _weatherUseCase;
@@ -77,6 +80,7 @@ class HomeViewModel extends ChangeNotifier
 
   List<Journal> get journal => _journal;
 
+  @override
   List<TimelineEntry> get timelineEntries => _timelineEntries;
 
   LocationInfo? get locationInfo => _locationInfo;
