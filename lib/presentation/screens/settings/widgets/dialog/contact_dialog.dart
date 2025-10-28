@@ -48,24 +48,6 @@ OS: $platform
     }
   }
 
-  Future<void> _launchPhone(BuildContext context) async {
-    try {
-      final uri = Uri.parse('tel:010-9383-4485');
-
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        if (context.mounted) {
-          await _copyToClipboard(context, '010-9383-4485');
-        }
-      }
-    } catch (e) {
-      if (context.mounted) {
-        await _copyToClipboard(context, '010-9383-4485');
-      }
-    }
-  }
-
   Future<void> _copyToClipboard(BuildContext context, String text) async {
     await Clipboard.setData(ClipboardData(text: text));
     if (context.mounted) {
@@ -91,14 +73,6 @@ OS: $platform
             title: const Text('log.mind.365@gmail.com'),
             subtitle: Text(t.common_email),
             onTap: () => _launchEmail(context),
-          ),
-          const Divider(),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.phone_outlined),
-            title: const Text('010-9383-4485'),
-            subtitle: Text(t.common_phone),
-            onTap: () => _launchPhone(context),
           ),
         ],
       ),
