@@ -1679,4 +1679,46 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get statistics_monthly_week_suffix => '週目';
+
+  @override
+  String get mood_summary_title => '感情まとめ';
+
+  @override
+  String get mood_summary_daily => '日間';
+
+  @override
+  String get mood_summary_weekly => '週間';
+
+  @override
+  String get mood_summary_monthly => '月間';
+
+  @override
+  String get mood_summary_empty_title => 'まだまとめがありません';
+
+  @override
+  String get mood_summary_empty_subtitle => 'チェックインデータが蓄積されるとAIが感情を分析します';
+
+  @override
+  String get mood_summary_generate => 'まとめを生成';
+
+  @override
+  String get mood_summary_generated_at => '生成時刻';
+
+  @override
+  String get mood_summary_period => '分析期間';
+
+  @override
+  String get mood_summary_emotional_flow => '感情の流れ';
+
+  @override
+  String get mood_summary_dominant_moods => '主な感情';
+
+  @override
+  String get mood_summary_activity_patterns => '活動パターン';
+
+  @override
+  String get mood_summary_personal_advice => 'あなたへのアドバイス';
+
+  @override
+  String get mood_summary_key_points => '注目ポイント';
 }

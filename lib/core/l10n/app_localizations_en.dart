@@ -1730,4 +1730,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statistics_monthly_week_suffix => 'W';
+
+  @override
+  String get mood_summary_title => 'Mood Summary';
+
+  @override
+  String get mood_summary_daily => 'Daily';
+
+  @override
+  String get mood_summary_weekly => 'Weekly';
+
+  @override
+  String get mood_summary_monthly => 'Monthly';
+
+  @override
+  String get mood_summary_empty_title => 'No summary yet';
+
+  @override
+  String get mood_summary_empty_subtitle =>
+      'AI will analyze your emotions as check-in data accumulates';
+
+  @override
+  String get mood_summary_generate => 'Generate Summary';
+
+  @override
+  String get mood_summary_generated_at => 'Generated At';
+
+  @override
+  String get mood_summary_period => 'Analysis Period';
+
+  @override
+  String get mood_summary_emotional_flow => 'Emotional Flow';
+
+  @override
+  String get mood_summary_dominant_moods => 'Dominant Moods';
+
+  @override
+  String get mood_summary_activity_patterns => 'Activity Patterns';
+
+  @override
+  String get mood_summary_personal_advice => 'Advice for You';
+
+  @override
+  String get mood_summary_key_points => 'Key Points';
 }

@@ -3285,6 +3285,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'W'**
   String get statistics_monthly_week_suffix;
+
+  /// No description provided for @mood_summary_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood Summary'**
+  String get mood_summary_title;
+
+  /// No description provided for @mood_summary_daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get mood_summary_daily;
+
+  /// No description provided for @mood_summary_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get mood_summary_weekly;
+
+  /// No description provided for @mood_summary_monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get mood_summary_monthly;
+
+  /// No description provided for @mood_summary_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No summary yet'**
+  String get mood_summary_empty_title;
+
+  /// No description provided for @mood_summary_empty_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI will analyze your emotions as check-in data accumulates'**
+  String get mood_summary_empty_subtitle;
+
+  /// No description provided for @mood_summary_generate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Summary'**
+  String get mood_summary_generate;
+
+  /// No description provided for @mood_summary_generated_at.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated At'**
+  String get mood_summary_generated_at;
+
+  /// No description provided for @mood_summary_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis Period'**
+  String get mood_summary_period;
+
+  /// No description provided for @mood_summary_emotional_flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Flow'**
+  String get mood_summary_emotional_flow;
+
+  /// No description provided for @mood_summary_dominant_moods.
+  ///
+  /// In en, this message translates to:
+  /// **'Dominant Moods'**
+  String get mood_summary_dominant_moods;
+
+  /// No description provided for @mood_summary_activity_patterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Patterns'**
+  String get mood_summary_activity_patterns;
+
+  /// No description provided for @mood_summary_personal_advice.
+  ///
+  /// In en, this message translates to:
+  /// **'Advice for You'**
+  String get mood_summary_personal_advice;
+
+  /// No description provided for @mood_summary_key_points.
+  ///
+  /// In en, this message translates to:
+  /// **'Key Points'**
+  String get mood_summary_key_points;
 }
 
 class _AppLocalizationsDelegate

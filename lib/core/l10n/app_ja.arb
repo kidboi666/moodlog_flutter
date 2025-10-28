@@ -728,5 +728,19 @@
   "common_more": "多い",
   "statistics_emotion_keywords_empty": "感情キーワードがありません",
   "statistics_monthly_checkin_count": "チェックイン数",
-  "statistics_monthly_week_suffix": "週目"
+  "statistics_monthly_week_suffix": "週目",
+  "mood_summary_title": "感情まとめ",
+  "mood_summary_daily": "日間",
+  "mood_summary_weekly": "週間",
+  "mood_summary_monthly": "月間",
+  "mood_summary_empty_title": "まだまとめがありません",
+  "mood_summary_empty_subtitle": "チェックインデータが蓄積されるとAIが感情を分析します",
+  "mood_summary_generate": "まとめを生成",
+  "mood_summary_generated_at": "生成時刻",
+  "mood_summary_period": "分析期間",
+  "mood_summary_emotional_flow": "感情の流れ",
+  "mood_summary_dominant_moods": "主な感情",
+  "mood_summary_activity_patterns": "活動パターン",
+  "mood_summary_personal_advice": "あなたへのアドバイス",
+  "mood_summary_key_points": "注目ポイント"
 }

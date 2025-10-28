@@ -1679,4 +1679,46 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get statistics_monthly_week_suffix => '주차';
+
+  @override
+  String get mood_summary_title => '감정 결산';
+
+  @override
+  String get mood_summary_daily => '일간';
+
+  @override
+  String get mood_summary_weekly => '주간';
+
+  @override
+  String get mood_summary_monthly => '월간';
+
+  @override
+  String get mood_summary_empty_title => '아직 결산이 없습니다';
+
+  @override
+  String get mood_summary_empty_subtitle => '체크인 데이터가 쌓이면 AI가 감정을 분석해드려요';
+
+  @override
+  String get mood_summary_generate => '결산 생성하기';
+
+  @override
+  String get mood_summary_generated_at => '생성 시각';
+
+  @override
+  String get mood_summary_period => '분석 기간';
+
+  @override
+  String get mood_summary_emotional_flow => '감정 흐름';
+
+  @override
+  String get mood_summary_dominant_moods => '주요 감정';
+
+  @override
+  String get mood_summary_activity_patterns => '활동 패턴';
+
+  @override
+  String get mood_summary_personal_advice => '당신을 위한 조언';
+
+  @override
+  String get mood_summary_key_points => '주목할 점';
 }

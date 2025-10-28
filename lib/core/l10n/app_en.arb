@@ -728,5 +728,19 @@
   "common_more": "More",
   "statistics_emotion_keywords_empty": "No emotion keywords",
   "statistics_monthly_checkin_count": "Check-ins",
-  "statistics_monthly_week_suffix": "W"
+  "statistics_monthly_week_suffix": "W",
+  "mood_summary_title": "Mood Summary",
+  "mood_summary_daily": "Daily",
+  "mood_summary_weekly": "Weekly",
+  "mood_summary_monthly": "Monthly",
+  "mood_summary_empty_title": "No summary yet",
+  "mood_summary_empty_subtitle": "AI will analyze your emotions as check-in data accumulates",
+  "mood_summary_generate": "Generate Summary",
+  "mood_summary_generated_at": "Generated At",
+  "mood_summary_period": "Analysis Period",
+  "mood_summary_emotional_flow": "Emotional Flow",
+  "mood_summary_dominant_moods": "Dominant Moods",
+  "mood_summary_activity_patterns": "Activity Patterns",
+  "mood_summary_personal_advice": "Advice for You",
+  "mood_summary_key_points": "Key Points"
 }
