@@ -272,4 +272,22 @@ class MoodSummaryUseCase {
 
     return Result.ok(null);
   }
+
+  Future<Result<int>> getTodayCheckInCount() async {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tomorrow = today.add(const Duration(days: 1));
+
+    final checkInsResult = await _checkInRepository.getAllCheckIns();
+
+    return switch (checkInsResult) {
+      Error<List<CheckIn>>(:final error) => Result.error(error),
+      Ok<List<CheckIn>>(value: final checkIns) => Result.ok(
+        checkIns.where((checkIn) {
+          return checkIn.createdAt.isAfter(today) &&
+              checkIn.createdAt.isBefore(tomorrow);
+        }).length,
+      ),
+    };
+  }
 }

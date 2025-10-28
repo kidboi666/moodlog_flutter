@@ -145,6 +145,13 @@ class _EmptyState extends StatelessWidget {
     final theme = Theme.of(context);
     final viewModel = context.read<MoodSummaryViewModel>();
     final timeRemaining = viewModel.getTimeRemainingText(period);
+    final todayCheckInCount = context.select<MoodSummaryViewModel, int?>(
+      (vm) => vm.todayCheckInCount,
+    );
+
+    final isDailyPeriod = period == MoodSummaryPeriod.daily;
+    final hasEnoughCheckIns = todayCheckInCount != null && todayCheckInCount >= 3;
+    final canGenerate = isDailyPeriod ? hasEnoughCheckIns : viewModel.shouldShowGenerateButton(period);
 
     return Center(
       child: Padding(
@@ -184,9 +191,66 @@ class _EmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
+            if (isDailyPeriod && todayCheckInCount != null) ...[
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: hasEnoughCheckIns
+                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
+                      : theme.colorScheme.errorContainer.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: hasEnoughCheckIns
+                        ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                        : theme.colorScheme.error.withValues(alpha: 0.3),
+                    width: 1.5,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          hasEnoughCheckIns ? Icons.check_circle : Icons.info,
+                          color: hasEnoughCheckIns
+                              ? theme.colorScheme.primary
+                              : theme.colorScheme.error,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          t.mood_summary_current_checkins(todayCheckInCount),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: hasEnoughCheckIns
+                                ? theme.colorScheme.primary
+                                : theme.colorScheme.error,
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (!hasEnoughCheckIns) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        t.mood_summary_min_checkins_required,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
             if (isGenerating)
               const CircularProgressIndicator()
-            else if (viewModel.shouldShowGenerateButton(period))
+            else if (canGenerate)
               FilledButton.icon(
                 onPressed: () async {
                   await viewModel.generateSummary(period);
@@ -205,7 +269,7 @@ class _EmptyState extends StatelessWidget {
                   ),
                 ),
               )
-            else
+            else if (!isDailyPeriod)
               Text(
                 timeRemaining,
                 style: theme.textTheme.bodyMedium?.copyWith(
