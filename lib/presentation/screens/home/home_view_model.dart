@@ -138,15 +138,11 @@ class HomeViewModel extends ChangeNotifier
   }
 
   Future<void> deleteJournal(int id) async {
-    setLoading();
     await journalUseCase.deleteJournalById(id);
-    setSuccess();
   }
 
   Future<void> deleteCheckIn(int id) async {
-    setLoading();
     await _checkInUseCase.deleteCheckIn(id);
-    setSuccess();
   }
 
   void _calculateDateItems() {
