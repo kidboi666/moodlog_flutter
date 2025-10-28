@@ -290,4 +290,49 @@ class MoodSummaryUseCase {
       ),
     };
   }
+
+  Future<Result<int>> getCurrentWeekDailySummaryCount() async {
+    final now = DateTime.now();
+    final weekStart = now.subtract(Duration(days: now.weekday % 7));
+    final weekStartDate = DateTime(
+      weekStart.year,
+      weekStart.month,
+      weekStart.day,
+    );
+    final weekEnd = weekStartDate.add(const Duration(days: 7));
+
+    final summariesResult = await _moodSummaryRepository.getSummariesByPeriod(
+      MoodSummaryPeriod.daily,
+    );
+
+    return switch (summariesResult) {
+      Error<List<MoodSummary>>(:final error) => Result.error(error),
+      Ok<List<MoodSummary>>(value: final summaries) => Result.ok(
+        summaries.where((summary) {
+          return summary.startDate.isAfter(weekStartDate) &&
+              summary.startDate.isBefore(weekEnd);
+        }).length,
+      ),
+    };
+  }
+
+  Future<Result<int>> getCurrentMonthWeeklySummaryCount() async {
+    final now = DateTime.now();
+    final monthStart = DateTime(now.year, now.month, 1);
+    final monthEnd = DateTime(now.year, now.month + 1, 1);
+
+    final summariesResult = await _moodSummaryRepository.getSummariesByPeriod(
+      MoodSummaryPeriod.weekly,
+    );
+
+    return switch (summariesResult) {
+      Error<List<MoodSummary>>(:final error) => Result.error(error),
+      Ok<List<MoodSummary>>(value: final summaries) => Result.ok(
+        summaries.where((summary) {
+          return summary.startDate.isAfter(monthStart) &&
+              summary.startDate.isBefore(monthEnd);
+        }).length,
+      ),
+    };
+  }
 }

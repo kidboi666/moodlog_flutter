@@ -145,13 +145,36 @@ class _EmptyState extends StatelessWidget {
     final theme = Theme.of(context);
     final viewModel = context.read<MoodSummaryViewModel>();
     final timeRemaining = viewModel.getTimeRemainingText(period);
-    final todayCheckInCount = context.select<MoodSummaryViewModel, int?>(
-      (vm) => vm.todayCheckInCount,
+
+    final (
+      :todayCheckInCount,
+      :currentWeekDailySummaryCount,
+      :currentMonthWeeklySummaryCount,
+    ) = context.select<MoodSummaryViewModel, ({
+      int? todayCheckInCount,
+      int? currentWeekDailySummaryCount,
+      int? currentMonthWeeklySummaryCount,
+    })>(
+      (vm) => (
+        todayCheckInCount: vm.todayCheckInCount,
+        currentWeekDailySummaryCount: vm.currentWeekDailySummaryCount,
+        currentMonthWeeklySummaryCount: vm.currentMonthWeeklySummaryCount,
+      ),
     );
 
     final isDailyPeriod = period == MoodSummaryPeriod.daily;
-    final hasEnoughCheckIns = todayCheckInCount != null && todayCheckInCount >= 3;
-    final canGenerate = isDailyPeriod ? hasEnoughCheckIns : viewModel.shouldShowGenerateButton(period);
+    final isWeeklyPeriod = period == MoodSummaryPeriod.weekly;
+    final isMonthlyPeriod = period == MoodSummaryPeriod.monthly;
+
+    final hasEnoughForDaily = todayCheckInCount != null && todayCheckInCount >= 3;
+    final hasEnoughForWeekly = currentWeekDailySummaryCount != null && currentWeekDailySummaryCount >= 3;
+    final hasEnoughForMonthly = currentMonthWeeklySummaryCount != null && currentMonthWeeklySummaryCount >= 3;
+
+    final canGenerate = switch (period) {
+      MoodSummaryPeriod.daily => hasEnoughForDaily,
+      MoodSummaryPeriod.weekly => hasEnoughForWeekly && viewModel.shouldShowGenerateButton(period),
+      MoodSummaryPeriod.monthly => hasEnoughForMonthly && viewModel.shouldShowGenerateButton(period),
+    };
 
     return Center(
       child: Padding(
@@ -192,59 +215,36 @@ class _EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             if (isDailyPeriod && todayCheckInCount != null) ...[
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
-                ),
-                decoration: BoxDecoration(
-                  color: hasEnoughCheckIns
-                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
-                      : theme.colorScheme.errorContainer.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: hasEnoughCheckIns
-                        ? theme.colorScheme.primary.withValues(alpha: 0.3)
-                        : theme.colorScheme.error.withValues(alpha: 0.3),
-                    width: 1.5,
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          hasEnoughCheckIns ? Icons.check_circle : Icons.info,
-                          color: hasEnoughCheckIns
-                              ? theme.colorScheme.primary
-                              : theme.colorScheme.error,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          t.mood_summary_current_checkins(todayCheckInCount),
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: hasEnoughCheckIns
-                                ? theme.colorScheme.primary
-                                : theme.colorScheme.error,
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (!hasEnoughCheckIns) ...[
-                      const SizedBox(height: 8),
-                      Text(
-                        t.mood_summary_min_checkins_required,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ],
-                ),
+              _buildRequirementCard(
+                context: context,
+                theme: theme,
+                t: t,
+                hasEnough: hasEnoughForDaily,
+                currentCount: todayCheckInCount,
+                requirementKey: 'mood_summary_current_checkins',
+                minRequiredKey: 'mood_summary_min_checkins_required',
+              ),
+              const SizedBox(height: 24),
+            ] else if (isWeeklyPeriod && currentWeekDailySummaryCount != null) ...[
+              _buildRequirementCard(
+                context: context,
+                theme: theme,
+                t: t,
+                hasEnough: hasEnoughForWeekly,
+                currentCount: currentWeekDailySummaryCount,
+                requirementKey: 'mood_summary_current_daily_summaries',
+                minRequiredKey: 'mood_summary_min_daily_summaries_required',
+              ),
+              const SizedBox(height: 24),
+            ] else if (isMonthlyPeriod && currentMonthWeeklySummaryCount != null) ...[
+              _buildRequirementCard(
+                context: context,
+                theme: theme,
+                t: t,
+                hasEnough: hasEnoughForMonthly,
+                currentCount: currentMonthWeeklySummaryCount,
+                requirementKey: 'mood_summary_current_weekly_summaries',
+                minRequiredKey: 'mood_summary_min_weekly_summaries_required',
               ),
               const SizedBox(height: 24),
             ],
@@ -269,7 +269,7 @@ class _EmptyState extends StatelessWidget {
                   ),
                 ),
               )
-            else if (!isDailyPeriod)
+            else if (!isDailyPeriod && !isWeeklyPeriod && !isMonthlyPeriod)
               Text(
                 timeRemaining,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -279,6 +279,92 @@ class _EmptyState extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildRequirementCard({
+    required BuildContext context,
+    required ThemeData theme,
+    required AppLocalizations t,
+    required bool hasEnough,
+    required int currentCount,
+    required String requirementKey,
+    required String minRequiredKey,
+  }) {
+    String currentText;
+    String minRequiredText;
+
+    switch (requirementKey) {
+      case 'mood_summary_current_checkins':
+        currentText = t.mood_summary_current_checkins(currentCount);
+        minRequiredText = t.mood_summary_min_checkins_required;
+        break;
+      case 'mood_summary_current_daily_summaries':
+        currentText = t.mood_summary_current_daily_summaries(currentCount);
+        minRequiredText = t.mood_summary_min_daily_summaries_required;
+        break;
+      case 'mood_summary_current_weekly_summaries':
+        currentText = t.mood_summary_current_weekly_summaries(currentCount);
+        minRequiredText = t.mood_summary_min_weekly_summaries_required;
+        break;
+      default:
+        currentText = '$currentCount';
+        minRequiredText = '';
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 16,
+      ),
+      decoration: BoxDecoration(
+        color: hasEnough
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
+            : theme.colorScheme.errorContainer.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: hasEnough
+              ? theme.colorScheme.primary.withValues(alpha: 0.3)
+              : theme.colorScheme.error.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                hasEnough ? Icons.check_circle : Icons.info,
+                color: hasEnough
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.error,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                currentText,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: hasEnough
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.error,
+                ),
+              ),
+            ],
+          ),
+          if (!hasEnough) ...[
+            const SizedBox(height: 8),
+            Text(
+              minRequiredText,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ],
       ),
     );
   }

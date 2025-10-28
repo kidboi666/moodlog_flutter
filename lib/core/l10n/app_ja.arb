@@ -757,5 +757,23 @@
         "type": "int"
       }
     }
+  },
+  "mood_summary_min_daily_summaries_required": "週次まとめには最低3つの日次まとめが必要です",
+  "mood_summary_current_daily_summaries": "現在の日次まとめ: {count}個",
+  "@mood_summary_current_daily_summaries": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "mood_summary_min_weekly_summaries_required": "月次まとめには最低3つの週次まとめが必要です",
+  "mood_summary_current_weekly_summaries": "現在の週次まとめ: {count}個",
+  "@mood_summary_current_weekly_summaries": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

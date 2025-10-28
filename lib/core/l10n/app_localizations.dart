@@ -3405,6 +3405,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Current check-ins: {count}'**
   String mood_summary_current_checkins(int count);
+
+  /// No description provided for @mood_summary_min_daily_summaries_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly summary requires at least 3 daily summaries'**
+  String get mood_summary_min_daily_summaries_required;
+
+  /// No description provided for @mood_summary_current_daily_summaries.
+  ///
+  /// In en, this message translates to:
+  /// **'Current daily summaries: {count}'**
+  String mood_summary_current_daily_summaries(int count);
+
+  /// No description provided for @mood_summary_min_weekly_summaries_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly summary requires at least 3 weekly summaries'**
+  String get mood_summary_min_weekly_summaries_required;
+
+  /// No description provided for @mood_summary_current_weekly_summaries.
+  ///
+  /// In en, this message translates to:
+  /// **'Current weekly summaries: {count}'**
+  String mood_summary_current_weekly_summaries(int count);
 }
 
 class _AppLocalizationsDelegate

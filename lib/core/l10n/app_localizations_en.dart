@@ -1794,4 +1794,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String mood_summary_current_checkins(int count) {
     return 'Current check-ins: $count';
   }
+
+  @override
+  String get mood_summary_min_daily_summaries_required =>
+      'Weekly summary requires at least 3 daily summaries';
+
+  @override
+  String mood_summary_current_daily_summaries(int count) {
+    return 'Current daily summaries: $count';
+  }
+
+  @override
+  String get mood_summary_min_weekly_summaries_required =>
+      'Monthly summary requires at least 3 weekly summaries';
+
+  @override
+  String mood_summary_current_weekly_summaries(int count) {
+    return 'Current weekly summaries: $count';
+  }
 }

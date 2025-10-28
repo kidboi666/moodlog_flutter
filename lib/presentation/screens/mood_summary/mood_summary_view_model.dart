@@ -20,6 +20,8 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
   bool _isGenerating = false;
   String? _errorMessage;
   int? _todayCheckInCount;
+  int? _currentWeekDailySummaryCount;
+  int? _currentMonthWeeklySummaryCount;
 
   MoodSummary? get dailySummary => _dailySummary;
   MoodSummary? get weeklySummary => _weeklySummary;
@@ -27,11 +29,15 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
   bool get isGenerating => _isGenerating;
   String? get errorMessage => _errorMessage;
   int? get todayCheckInCount => _todayCheckInCount;
+  int? get currentWeekDailySummaryCount => _currentWeekDailySummaryCount;
+  int? get currentMonthWeeklySummaryCount => _currentMonthWeeklySummaryCount;
 
   void _load() async {
     setLoading();
     await _loadAllSummaries();
     await _loadTodayCheckInCount();
+    await _loadCurrentWeekDailySummaryCount();
+    await _loadCurrentMonthWeeklySummaryCount();
     setSuccess();
   }
 
@@ -51,6 +57,29 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
         notifyListeners();
       case Error(error: final e):
         debugPrint('Failed to load today check-in count: $e');
+    }
+  }
+
+  Future<void> _loadCurrentWeekDailySummaryCount() async {
+    final result = await _moodSummaryUseCase.getCurrentWeekDailySummaryCount();
+    switch (result) {
+      case Ok(value: final count):
+        _currentWeekDailySummaryCount = count;
+        notifyListeners();
+      case Error(error: final e):
+        debugPrint('Failed to load current week daily summary count: $e');
+    }
+  }
+
+  Future<void> _loadCurrentMonthWeeklySummaryCount() async {
+    final result =
+        await _moodSummaryUseCase.getCurrentMonthWeeklySummaryCount();
+    switch (result) {
+      case Ok(value: final count):
+        _currentMonthWeeklySummaryCount = count;
+        notifyListeners();
+      case Error(error: final e):
+        debugPrint('Failed to load current month weekly summary count: $e');
     }
   }
 
@@ -110,6 +139,8 @@ class MoodSummaryViewModel extends ChangeNotifier with AsyncStateMixin {
   Future<void> refresh() async {
     await _loadAllSummaries();
     await _loadTodayCheckInCount();
+    await _loadCurrentWeekDailySummaryCount();
+    await _loadCurrentMonthWeeklySummaryCount();
   }
 
   Future<void> checkAndAutoGenerate() async {

@@ -1741,4 +1741,22 @@ class AppLocalizationsKo extends AppLocalizations {
   String mood_summary_current_checkins(int count) {
     return '현재 $count개의 체크인';
   }
+
+  @override
+  String get mood_summary_min_daily_summaries_required =>
+      '주간 결산은 최소 3개의 일간 결산이 필요합니다';
+
+  @override
+  String mood_summary_current_daily_summaries(int count) {
+    return '현재 $count개의 일간 결산';
+  }
+
+  @override
+  String get mood_summary_min_weekly_summaries_required =>
+      '월간 결산은 최소 3개의 주간 결산이 필요합니다';
+
+  @override
+  String mood_summary_current_weekly_summaries(int count) {
+    return '현재 $count개의 주간 결산';
+  }
 }

@@ -1741,4 +1741,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String mood_summary_current_checkins(int count) {
     return '現在のチェックイン: $count個';
   }
+
+  @override
+  String get mood_summary_min_daily_summaries_required =>
+      '週次まとめには最低3つの日次まとめが必要です';
+
+  @override
+  String mood_summary_current_daily_summaries(int count) {
+    return '現在の日次まとめ: $count個';
+  }
+
+  @override
+  String get mood_summary_min_weekly_summaries_required =>
+      '月次まとめには最低3つの週次まとめが必要です';
+
+  @override
+  String mood_summary_current_weekly_summaries(int count) {
+    return '現在の週次まとめ: $count個';
+  }
 }
