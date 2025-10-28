@@ -1785,4 +1785,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mood_summary_generated_label => 'Generated';
+
+  @override
+  String get mood_summary_min_checkins_required =>
+      'Daily summary requires at least 3 check-ins';
+
+  @override
+  String mood_summary_current_checkins(int count) {
+    return 'Current check-ins: $count';
+  }
 }

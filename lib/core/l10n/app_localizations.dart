@@ -3393,6 +3393,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Generated'**
   String get mood_summary_generated_label;
+
+  /// No description provided for @mood_summary_min_checkins_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily summary requires at least 3 check-ins'**
+  String get mood_summary_min_checkins_required;
+
+  /// No description provided for @mood_summary_current_checkins.
+  ///
+  /// In en, this message translates to:
+  /// **'Current check-ins: {count}'**
+  String mood_summary_current_checkins(int count);
 }
 
 class _AppLocalizationsDelegate

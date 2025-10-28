@@ -1733,4 +1733,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mood_summary_generated_label => '생성';
+
+  @override
+  String get mood_summary_min_checkins_required => '일간 결산은 최소 3개의 체크인이 필요합니다';
+
+  @override
+  String mood_summary_current_checkins(int count) {
+    return '현재 $count개의 체크인';
+  }
 }

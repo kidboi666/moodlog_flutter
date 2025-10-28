@@ -1733,4 +1733,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mood_summary_generated_label => '生成';
+
+  @override
+  String get mood_summary_min_checkins_required => '日次まとめには最低3つのチェックインが必要です';
+
+  @override
+  String mood_summary_current_checkins(int count) {
+    return '現在のチェックイン: $count個';
+  }
 }
